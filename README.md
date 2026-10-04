@@ -20,6 +20,23 @@ Based on / derived from [Open in Google](https://github.com/SwatiK425/open-in-go
 
 A evolução pertence ao fork e não depende de PRs aceitos. Correções genéricas poderão voltar ao upstream em branches independentes.
 
+## Licença, termos e privacidade
+
+ZagoSheetsWin é distribuído sob MIT, preservando o copyright e a licença de
+Open in Google / Swati K e identificando separadamente as modificações do
+Zagotools. Consulte [LICENSE](LICENSE), [ATTRIBUTION.md](ATTRIBUTION.md),
+[NOTICE.md](NOTICE.md) e [third-party/NOTICE.md](third-party/NOTICE.md).
+
+Na conexão Google, o aplicativo solicita somente
+`https://www.googleapis.com/auth/drive.file`. Tokens ficam localmente,
+protegidos por Windows DPAPI, e as planilhas são enviadas diretamente às APIs
+do Google para executar a função solicitada; elas não passam por servidor do
+Zagotools.
+
+- Política de Privacidade: https://zagotools.top/legal.html#privacidade
+- Termos de Uso: https://zagotools.top/legal.html#termos
+- Licenciamento Zagotools: https://zagotools.top/legal.html#licencas
+
 ## Documentação
 
 - [Auditoria](docs/AUDIT.md)
