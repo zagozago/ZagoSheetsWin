@@ -68,6 +68,7 @@ internal sealed class SetupForm : Form
         status.TextChanged += (_, _) => advancedStatus.Text = status.Text;
         layout.Controls.Add(Ui.Separator()); layout.Controls.Add(Ui.Text("1. Conta Google", true));
         layout.Controls.Add(Info("Entre com sua própria conta. As planilhas ficam no seu Google Drive."));
+        layout.Controls.Add(Info("Privacidade: usamos somente drive.file para os arquivos usados com o app. Tokens ficam protegidos neste computador; as planilhas vão diretamente ao Google, sem passar por servidor do Zagotools."));
         var connectionState = Ui.Text(FirstUseState.NeedsAuthorization(storage) ? "○ Google ainda não autorizado" : "◉ Autorização salva · verificando conexão…", true);
         connectionState.AccessibleName = "Estado da autorização Google";
         layout.Controls.Add(connectionState);
