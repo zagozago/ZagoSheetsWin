@@ -23,15 +23,16 @@ internal sealed class RecoveryForm : Form
         var storage = LocalStorage.ForCurrentUser();
         var manager = new BackupManagement(storage);
         var service = new BackupRecovery(storage);
-        var policyPanel = new FlowLayoutPanel { Dock = DockStyle.Top, Height = 110, Padding = new Padding(8) };
+        var policyPanel = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, Padding = new Padding(8) };
         var days = new NumericUpDown { Minimum = 1, Maximum = 365, Value = 30, Width = 70, AccessibleName = "Retenção em dias" };
         var quota = new NumericUpDown { Minimum = 1, Maximum = 1000, Value = 200, Width = 80, AccessibleName = "Teto em MB" };
         var automatic = new CheckBox { Text = "Limpar automaticamente backups concluídos", AutoSize = true };
         var save = new Button { Text = "Salvar regras", AutoSize = true };
         var usage = new Label { AutoSize = true, Text = "Teto: 200 MB · máximo: 1 GB. Operações pendentes são protegidas." };
+        policyPanel.SizeChanged += (_, _) => usage.MaximumSize = new Size(Math.Max(120, policyPanel.ClientSize.Width - policyPanel.Padding.Horizontal - usage.Margin.Horizontal), 0);
         policyPanel.Controls.AddRange([new Label { Text = "Prazo (dias):", AutoSize = true }, days, new Label { Text = "Espaço (MB):", AutoSize = true }, quota, automatic, save, usage]);
         var restore = new Button { Text = "Restaurar em…", Dock = DockStyle.Bottom, Height = 44 };
-        var actions = new FlowLayoutPanel { Dock = DockStyle.Bottom, Height = 48, Padding = new Padding(8) };
+        var actions = new FlowLayoutPanel { Dock = DockStyle.Bottom, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, Padding = new Padding(8) };
         var copy = new MenuActionButton { Text = "Retomar como cópia", AutoSize = true };
         var resume = new MenuActionButton { Text = "Concluir substituição", AutoSize = true };
         var export = new MenuActionButton { Text = "Exportar diagnóstico…", AutoSize = true };

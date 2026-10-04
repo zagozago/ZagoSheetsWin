@@ -32,7 +32,13 @@ internal static class InterfaceVerification
             Require(!Descendants(recovery).OfType<CheckBox>().Single().Checked, "Automatic cleanup requires informed opt-in.");
             Require(list.Columns.Count == 4 && list.Items.Cast<ListViewItem>().All(i => i.Tag is RecoveryEntry), "Backup table must preserve recovery identity and expose four readable columns.");
             Require(list.Items.Count == 3, "Backup preview must cover completed, protected and cleaned history.");
-            foreach (var button in Descendants(recovery).OfType<Button>().Where(b => b.Visible)) Require(button.Bottom <= button.Parent!.ClientSize.Height && button.Right <= button.Parent.ClientSize.Width, "Backup actions must fit their container.");
+            foreach (var size in new[] { new Size(700, 650), new Size(560, 540) })
+            {
+                recovery.Size = size; recovery.PerformLayout(); Application.DoEvents();
+                foreach (var button in Descendants(recovery).OfType<Button>().Where(b => b.Visible))
+                    Require(button.Bottom <= button.Parent!.ClientSize.Height && button.Right <= button.Parent.ClientSize.Width,
+                        $"Backup action '{button.Text}' must fit its container: {button.Bounds}, container {button.Parent.ClientSize}, window {recovery.Size}.");
+            }
             recovery.Hide();
         }
         using (var setup = new SetupForm())
