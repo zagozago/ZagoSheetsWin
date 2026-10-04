@@ -569,7 +569,13 @@ public sealed class GoogleTests
         Assert.Equal("new-access", saved.AccessToken); Assert.Equal(id + ":user", saved.AccountId);
         server.Revoked = true;
         await Assert.ThrowsAsync<AuthorizationRequiredException>(() => launcher.CheckConnectionAsync());
-        Assert.Equal(saved, vault.Load()); Assert.Empty(browser.Opened);
+        var afterRevocation = vault.Load()!;
+        Assert.Equal(saved.ClientId, afterRevocation.ClientId);
+        Assert.Equal(saved.AccountId, afterRevocation.AccountId);
+        Assert.Equal(saved.AccessToken, afterRevocation.AccessToken);
+        Assert.Equal(saved.RefreshToken, afterRevocation.RefreshToken);
+        Assert.Equal(saved.ExpiresAt, afterRevocation.ExpiresAt);
+        Assert.Empty(browser.Opened);
     }
     [Fact]
     public async Task RefreshPreservesOldRefreshTokenAndChecksAccount()
