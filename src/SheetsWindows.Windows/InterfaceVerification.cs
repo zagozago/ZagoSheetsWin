@@ -19,6 +19,13 @@ internal static class InterfaceVerification
         using var home = new LauncherForm(new(LauncherAction.Home));
         using var preview = new ProcessingForm(new(LauncherAction.Open, "preview.xlsx"), preview: true);
         home.Show(); preview.Show(); Application.DoEvents();
+        Require(Descendants(home).OfType<Button>().Any(b => b.Text == "&Ajuda"), "Home help must use the short Portuguese label.");
+        Require(Descendants(home).OfType<EmphasisLabel>().Any(l => l.HasEmphasis), "Home instructions must emphasize key phrases.");
+        using (var information = new AboutForm())
+        {
+            Require(Descendants(information).OfType<LinkLabel>().Any(l => l.Text == "Site do Zagotools"), "About must expose the Zagotools homepage.");
+            Require(Descendants(information).OfType<LinkLabel>().Any(l => l.Text == "Licenças do Zagotools"), "About must expose public license information.");
+        }
         var about = Descendants(home).OfType<LinkLabel>().Single(l => l.Text == "Sobre / Licenças");
         Require(about.Width >= TextRenderer.MeasureText(about.Text, about.Font, Size.Empty, TextFormatFlags.NoPadding).Width, "MIT credit link must not be clipped.");
         using (var recovery = new RecoveryForm(preview: true, previewBusy: true))
@@ -88,7 +95,12 @@ internal static class InterfaceVerification
             tutorial.Show(); Application.DoEvents();
             Require(!Descendants(tutorial).OfType<CheckBox>().Single().Checked, "Tutorial dismissal must require explicit opt-in.");
             var next = Descendants(tutorial).OfType<Button>().Single(b => b.Text == "Próximo");
-            for (var i = 0; i < 3; i++) next.PerformClick();
+            for (var i = 0; i < 2; i++) next.PerformClick();
+            Application.DoEvents();
+            var standard = Descendants(tutorial).OfType<Label>().Single(l => l.Text == "Defina o ZagoSheetsWin como aplicativo padrão de planilhas (opcional):");
+            Require(standard.Font.Bold, "Tutorial step three must fully emphasize its optional defaults instruction.");
+            Require(!Descendants(tutorial).OfType<Label>().Any(l => l.Text.Contains("ODS experimental")), "Tutorial step three must omit the previous format sentence.");
+            next.PerformClick();
             Application.DoEvents();
             foreach (var size in new[] { tutorial.Size, tutorial.MinimumSize })
             {

@@ -61,3 +61,14 @@ O seletor de tema mostra um único ícone vetorial: sol no modo claro, lua no es
 O checkbox Não sincronizo inicia marcado também nas instalações existentes; a política de abertura só muda quando o usuário salva. A pasta anterior permanece disponível ao desmarcar. Painéis internos mantêm a largura do painel pai; aviso em largura total e seletor/caminho em duas colunas iguais.
 
 A ilustração da página 3 mostra CSV, TSV, XLSX e XLS, sem ODS; o aviso textual de suporte experimental permanece. Na página 4, ícones, números e legendas ficam próximos, com imagem mais baixa. O tutorial dimensiona imagem e janela pelo conteúdo para manter textos e ações visíveis, sem barra vertical.
+
+
+## 0.9.19 - Textos em português e Sobre
+
+Em 04/10/2026, Fernando confirmou o aceite visual e funcional da versão 0.9.18: importar, reabrir o atalho, restaurar backup e atualizar preservando configurações. Etapa de consolidação concluída.
+
+O instalador e a desinstalação usam português do Brasil, incluindo mensagens próprias e o botão Iniciar configuração. Ajuda usa o nome curto. Travessões da interface foram substituídos por hífens. Instruções usam ênfase seletiva em negrito com texto acessível completo; licenças originais não são alteradas. A etapa 3 da ajuda apresenta a instrução de aplicativo padrão totalmente em negrito.
+
+Sobre inclui a página inicial e a seção de licenças do Zagotools, além dos links existentes de privacidade, termos e código. Avisos locais identificam MIT para o aplicativo e as licenças próprias das dependências. A consulta a https://zagotools.top/legal.html nesta data retornou HTTP 404; correspondência textual com o site permanece pendente, sem presumir aprovação do conteúdo publicado.
+
+Idiomas adicionais e seleção inicial do idioma no instalador pertencem à próxima etapa de internacionalização.

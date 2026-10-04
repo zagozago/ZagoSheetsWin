@@ -8,14 +8,14 @@ internal sealed class SetupForm : Form
     public int ExitCode { get; private set; }
     private readonly TextBox client = new() { Width = 570, ReadOnly = true };
     private readonly TextBox folder = new() { Width = 570, ReadOnly = true };
-    private readonly Label status = new() { AutoSize = true, MaximumSize = new Size(570, 0) };
+    private readonly Label status = new EmphasisLabel() { AutoSize = true, MaximumSize = new Size(570, 0) };
     private CancellationTokenSource cancellation = new();
     private bool busy;
     internal Form AdvancedDialog { get; private set; } = null!;
     public SetupForm(bool firstUse = false, bool preview = false)
     {
         var storage = LocalStorage.ForCurrentUser();
-        Text = firstUse ? "Primeiro uso — ZagoSheetsWin" : "Configurações — ZagoSheetsWin";
+        Text = firstUse ? "Primeiro uso - ZagoSheetsWin" : "Configurações - ZagoSheetsWin";
         ClientSize = new Size(560, 700); MinimumSize = new Size(480, 520); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterScreen;
         var layout = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18), FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = true };
         Label Info(string text) => Ui.Text(text);
@@ -38,7 +38,7 @@ internal sealed class SetupForm : Form
         void ShowFolderOptions() { folderOptions.Visible = !noSync.Checked; layout.PerformLayout(); }
         noSync.CheckedChanged += (_, _) => ShowFolderOptions();
         var advanced = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoScroll = true, Padding = new Padding(18), FlowDirection = FlowDirection.TopDown, WrapContents = false };
-        var advancedDialog = new Form { Text = "Opções avançadas — ZagoSheetsWin", ClientSize = new Size(550, 640), MinimumSize = new Size(480, 480), StartPosition = FormStartPosition.CenterParent, AutoScaleMode = AutoScaleMode.Dpi, ShowInTaskbar = false, MinimizeBox = false };
+        var advancedDialog = new Form { Text = "Opções avançadas - ZagoSheetsWin", ClientSize = new Size(550, 640), MinimumSize = new Size(480, 480), StartPosition = FormStartPosition.CenterParent, AutoScaleMode = AutoScaleMode.Dpi, ShowInTaskbar = false, MinimizeBox = false };
         var closeAdvanced = new Button { Text = "Fechar", Dock = DockStyle.Bottom, Height = 44 };
         advancedDialog.Controls.Add(advanced); advancedDialog.Controls.Add(closeAdvanced);
         closeAdvanced.Click += (_, _) => advancedDialog.Close();
@@ -51,7 +51,7 @@ internal sealed class SetupForm : Form
         advanced.Controls.Add(Info("Conexão Google\nO aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida."));
         var chooseClient = new Button { AutoSize = true, Text = "Escolher arquivo JSON de conexão…", Enabled = !File.Exists(LauncherConfiguration.ClientPath(storage)) };
         chooseClient.Click += (_, _) => { using var dialog = new OpenFileDialog { Filter = "JSON OAuth|*.json", CheckFileExists = true }; if (dialog.ShowDialog(this) == DialogResult.OK)  { client.Text = dialog.FileName;  status.Text = "JSON selecionado. Clique em Autorizar Google."; } };
-        advanced.Controls.Add(Info("Privacidade da conexão Google\nO ZagoSheetsWin usa somente a permissão drive.file para criar e gerenciar os arquivos usados com o aplicativo. Tokens ficam neste computador, protegidos pelo Windows, e suas planilhas são enviadas diretamente às APIs do Google — não passam por servidor do Zagotools."));
+        advanced.Controls.Add(Info("Privacidade da conexão Google\nO ZagoSheetsWin usa somente a permissão drive.file para criar e gerenciar os arquivos usados com o aplicativo. As credenciais de acesso ficam neste computador, protegidos pelo Windows, e suas planilhas são enviadas diretamente às APIs do Google - não passam por servidor do Zagotools."));
         advanced.Controls.Add(chooseClient); advanced.Controls.Add(client);
         if (File.Exists(LauncherConfiguration.ClientPath(storage))) client.Text = "Configuração de conexão existente mantida.";
         var extended = new CheckBox { AutoSize = true, Checked = true, Text = "Habilitar CSV, TSV, XLS e ODS (experimental)." };
@@ -73,7 +73,7 @@ internal sealed class SetupForm : Form
         status.TextChanged += (_, _) => advancedStatus.Text = status.Text;
         layout.Controls.Add(Ui.Separator()); layout.Controls.Add(Ui.Text("1. Conta Google", true));
         layout.Controls.Add(Info("Entre com sua própria conta. As planilhas ficam no seu Google Drive."));
-        layout.Controls.Add(Info("Privacidade: usamos somente drive.file para os arquivos usados com o app. Tokens ficam protegidos neste computador; as planilhas vão diretamente ao Google, sem passar por servidor do Zagotools."));
+        layout.Controls.Add(Info("Privacidade: usamos somente drive.file para os arquivos usados com o aplicativo. As credenciais de acesso ficam protegidos neste computador; as planilhas vão diretamente ao Google, sem passar por servidor do Zagotools."));
         var connectionState = Ui.Text(FirstUseState.NeedsAuthorization(storage) ? "○ Google ainda não autorizado" : "◉ Autorização salva · verificando conexão…", true);
         connectionState.AccessibleName = "Estado da autorização Google";
         layout.Controls.Add(connectionState);

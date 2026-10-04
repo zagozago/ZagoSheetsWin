@@ -88,10 +88,10 @@ internal sealed class AboutForm : Form
 {
     public AboutForm()
     {
-        Text = "Sobre — ZagoSheetsWin / Zagotools"; ClientSize = new Size(810, 520); MinimumSize = new Size(600, 400); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterParent;
+        Text = "Sobre - ZagoSheetsWin / Zagotools"; ClientSize = new Size(810, 520); MinimumSize = new Size(600, 400); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterParent;
         var body = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, Padding = new Padding(18), AutoScroll = true };
-        body.Controls.Add(new Label { AutoSize = true, MaximumSize = new Size(740, 0), Text = "ZagoSheetsWin 0.9.18 — Zagotools\n\nZagoSheetsWin é uma evolução do projeto Open in Google, de Swati K (SwatiK425), desenvolvida pelo Zagotools e distribuída sob licença MIT.\n\nCopyright (c) 2026 Swati K. A autoria e a licença originais foram preservadas." });
-        foreach (var item in new[] { ("Projeto original — Open in Google", "https://github.com/SwatiK425/open-in-google/"), ("Autora original — SwatiK425", "https://github.com/SwatiK425"), ("Código da evolução — Zagotools", "https://github.com/zagozago/ZagoSheetsWin"), ("Política de Privacidade", "https://zagotools.top/legal.html#privacidade"), ("Termos de Uso", "https://zagotools.top/legal.html#termos") })
+        body.Controls.Add(new EmphasisLabel { AutoSize = true, MaximumSize = new Size(740, 0), Text = "ZagoSheetsWin 0.9.19 - Zagotools\n\nZagoSheetsWin é uma evolução do projeto Open in Google, de Swati K (SwatiK425), desenvolvida pelo Zagotools e distribuída sob licença MIT.\n\nDireitos autorais: 2026 Swati K e 2026 Zagotools. A autoria e a licença originais foram preservadas." });
+        foreach (var item in new[] { ("Site do Zagotools", "https://zagotools.top/"), ("Licenças do Zagotools", "https://zagotools.top/legal.html#licencas"), ("Projeto original - Open in Google", "https://github.com/SwatiK425/open-in-google/"), ("Autora original - SwatiK425", "https://github.com/SwatiK425"), ("Código da evolução - Zagotools", "https://github.com/zagozago/ZagoSheetsWin"), ("Política de Privacidade", "https://zagotools.top/legal.html#privacidade"), ("Termos de Uso", "https://zagotools.top/legal.html#termos") })
         {
             var link = new LinkLabel { Text = item.Item1, AutoSize = true, Margin = new Padding(0, 8, 0, 8) };
             link.LinkClicked += (_, _) => { try { new BrowserLauncher().Open(new Uri(item.Item2)); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { MessageBox.Show(item.Item2, "Link do projeto"); } };
@@ -99,7 +99,7 @@ internal sealed class AboutForm : Form
         }
         var license = Path.Combine(AppContext.BaseDirectory, "LICENSE");
         body.Controls.Add(new TextBox { Multiline = true, ReadOnly = true, ScrollBars = ScrollBars.Vertical, Width = 740, Height = 170, Text = File.ReadAllText(license) });
-        body.Controls.Add(new Label { Text = "ExcelDataReader — MIT: leitura e verificação.\nNPOI 2.7.6 — Apache-2.0: conversão local de XLS para XLSX.\nHtmlAgilityPack 1.12.4 — MIT: relatórios HTML com extensão XLS.\nNSax 1.0.2 — LGPL-3.0-only (dependência do NPOI).\nLicenças e créditos das dependências incluídos na pasta third-party.", AutoSize = true, MaximumSize = new Size(740, 0) });
+        body.Controls.Add(new EmphasisLabel { Text = "ExcelDataReader - MIT: leitura e verificação.\nNPOI 2.7.6 - Apache-2.0: conversão local de XLS para XLSX.\nHtmlAgilityPack 1.12.4 - MIT: relatórios HTML com extensão XLS.\nNSax 1.0.2 - LGPL-3.0-only (dependência do NPOI).\nLicenças e créditos das dependências incluídos na pasta third-party.", AutoSize = true, MaximumSize = new Size(740, 0) });
         Controls.Add(body); Branding.Apply(this, aboutButton: false);
     }
 }

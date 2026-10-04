@@ -74,7 +74,7 @@ internal static class HtmlWorkbookReader
             foreach (var row in table.Descendants("tr"))
             {
                 ct.ThrowIfCancellationRequested();
-                if (r >= SpreadsheetFormats.MaxRows) throw new SpreadsheetCapacityException("HTML spreadsheet exceeds the row limit.");
+                if (r >= SpreadsheetFormats.MaxRows) throw new SpreadsheetCapacityException("A planilha HTML excede o limite de linhas.");
                 var c = 0;
                 foreach (var cell in row.ChildNodes.Where(n => n.Name is "td" or "th"))
                 {
@@ -83,11 +83,11 @@ internal static class HtmlWorkbookReader
                     int Span(string name, int max)
                     {
                         var attr = cell.GetAttributeValue(name, "1");
-                        if (!int.TryParse(attr, out var size) || size < 1 || size > max) throw new SpreadsheetCapacityException("HTML cell span exceeds limits.");
+                        if (!int.TryParse(attr, out var size) || size < 1 || size > max) throw new SpreadsheetCapacityException("Uma célula mesclada da planilha HTML excede os limites.");
                         return size;
                     }
                     var rows = Span("rowspan", SpreadsheetFormats.MaxRows); var columns = Span("colspan", SpreadsheetFormats.MaxColumns);
-                    if (r + rows > SpreadsheetFormats.MaxRows || c + columns > SpreadsheetFormats.MaxColumns || (long)cells + (long)rows * columns > SpreadsheetFormats.MaxCells) throw new SpreadsheetCapacityException("HTML spreadsheet exceeds cell limits.");
+                    if (r + rows > SpreadsheetFormats.MaxRows || c + columns > SpreadsheetFormats.MaxColumns || (long)cells + (long)rows * columns > SpreadsheetFormats.MaxCells) throw new SpreadsheetCapacityException("A planilha HTML excede o limite de células.");
                     var value = Value(cell);
                     for (var dr = 0; dr < rows; dr++) for (var dc = 0; dc < columns; dc++)
                     {
@@ -99,7 +99,7 @@ internal static class HtmlWorkbookReader
                 r++;
             }
             if (width == 0 || height == 0) throw new InvalidDataException("Empty HTML table.");
-            if ((long)height * width > SpreadsheetFormats.MaxCells || (long)sheets.Sum(s => s.Rows.Count * (s.Rows.FirstOrDefault()?.Count ?? 0)) + (long)height * width > SpreadsheetFormats.MaxCells) throw new SpreadsheetCapacityException("HTML spreadsheet exceeds cell limits.");
+            if ((long)height * width > SpreadsheetFormats.MaxCells || (long)sheets.Sum(s => s.Rows.Count * (s.Rows.FirstOrDefault()?.Count ?? 0)) + (long)height * width > SpreadsheetFormats.MaxCells) throw new SpreadsheetCapacityException("A planilha HTML excede o limite de células.");
             var result = new List<IReadOnlyList<object?>>();
             for (var y = 0; y < height; y++)
             {
@@ -112,7 +112,7 @@ internal static class HtmlWorkbookReader
         var information = document.DocumentNode.Descendants().Where(n => n.Name is "h1" or "h2" or "h3" or "p" or "li")
             .Where(n => !n.Ancestors().Any(a => a.Name is "table" or "script" or "style" or "p" or "li"))
             .Select(n => (IReadOnlyList<object?>)new object?[] { Text(n) }).Where(r => ((string)r[0]!).Length != 0).ToArray();
-        if (information.Length > SpreadsheetFormats.MaxRows || (long)sheets.Sum(s => s.Rows.Count * s.Rows[0].Count) + information.Length > SpreadsheetFormats.MaxCells) throw new SpreadsheetCapacityException("HTML report information exceeds limits.");
+        if (information.Length > SpreadsheetFormats.MaxRows || (long)sheets.Sum(s => s.Rows.Count * s.Rows[0].Count) + information.Length > SpreadsheetFormats.MaxCells) throw new SpreadsheetCapacityException("As informações do relatório HTML excedem os limites.");
         if (information.Length != 0) sheets.Add(new("Informações", information));
         return sheets;
     }

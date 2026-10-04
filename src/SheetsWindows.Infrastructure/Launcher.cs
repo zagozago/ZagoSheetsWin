@@ -92,11 +92,11 @@ public static class LauncherErrors
         or System.Security.Cryptography.CryptographicException or Microsoft.Data.Sqlite.SqliteException or System.Text.Json.JsonException or System.Xml.XmlException or KeyNotFoundException or SecurityException or ExcelDataReader.Exceptions.ExcelReaderException;
     public static string Message(Exception ex) => ex switch
     {
-        BackupQuotaException => "Não há espaço dentro da quota de backups. O original foi preservado e não foi enviado ao Google. Abra Backups para limpar backups concluídos ou ajustar o limite (máximo 1 GB).",
+        BackupQuotaException => "Não há espaço dentro da limite de backups. O original foi preservado e não foi enviado ao Google. Abra Backups para limpar backups concluídos ou ajustar o limite (máximo 1 GB).",
         BackupRemovedException => "Este backup já teve limpeza registrada e não está disponível para restauração ou retomada. O documento Google e seu atalho foram preservados. Use o atalho para abrir a planilha online.",
-        LauncherNotConfiguredException => "Conclua o primeiro uso antes de abrir planilhas. Abra o ZagoSheetsWin ou suas Configurações para escolher a pasta e conectar ao Google.",
-        AuthorizationRequiredException => "O Google precisa de autorização. Abra Configurações e clique em Salvar e conectar Google; depois abra a planilha novamente.",
-        ReconciliationRequiredException => "A importação aguarda reconciliação. Não repita o upload manualmente. Consulte o guia de recuperação.",
+        LauncherNotConfiguredException => "Conclua o primeiro uso antes de abrir planilhas. Abra o ZagoSheetsWin ou suas Configurações para conectar ao Google e salvar suas preferências.",
+        AuthorizationRequiredException => "O Google precisa de autorização. Abra Configurações e clique em Autorizar Google; depois abra a planilha novamente.",
+        ReconciliationRequiredException => "A importação aguarda reconciliação. Não repita o envio manualmente. Consulte o guia de recuperação.",
         FormulaVerificationException => "A planilha convertida contém fórmulas que o aplicativo ainda não consegue conferir. O original e o backup foram preservados. Em Recuperação / backups, selecione esta operação e use Retomar como cópia para abrir a planilha no Google sem repetir o envio.",
         ConversionMismatchException => "A conferência encontrou diferença nos dados convertidos. O original e o backup foram preservados. Pode existir uma cópia no Google; consulte a recuperação antes de repetir.",
         SpreadsheetCapacityException capacity => capacity.Message + " O original foi preservado. Divida a tabela em arquivos menores para tentar novamente.",
@@ -105,7 +105,7 @@ public static class LauncherErrors
         InvalidDataException data when data.Message == "Ambiguous CSV delimiter; configure it explicitly." => "O CSV pode usar vírgula ou ponto e vírgula. Escolha o separador nas opções de texto. O original foi preservado.",
         InvalidDataException data when data.Message is "Irregular delimited table." or "Invalid quoted field." or "Unclosed quoted field." or "Empty text spreadsheet." or "Empty table." => "O CSV/TSV está vazio ou contém linhas, separadores ou aspas inconsistentes. Confira o separador e a estrutura do arquivo. O original foi preservado.",
         InvalidDataException data when data.Message == "Export too large." => "A exportação excedeu o limite da conferência. O original e o backup foram preservados; consulte a recuperação antes de repetir a importação.",
-        GoogleApiException api when api.Status == 429 || api.Status >= 500 => "O Google está temporariamente indisponível ou limitou as requisições. O original foi preservado. Aguarde e retome pela recuperação, evitando upload repetido.",
+        GoogleApiException api when api.Status == 429 || api.Status >= 500 => "O Google está temporariamente indisponível ou limitou as requisições. O original foi preservado. Aguarde e retome pela recuperação, evitando repetir o envio.",
         GoogleApiException api when api.Status is 401 or 403 => "O Google recusou o acesso. Confira a autorização e as permissões da conta/pasta. O original foi preservado.",
         GoogleApiException => "O Google recusou a importação ou a exportação para conferência. O original foi preservado. Consulte o diagnóstico e a recuperação antes de repetir.",
         HttpRequestException => "Falha ao comunicar com o Google. Confira a conexão e retome pelo aplicativo; o original foi preservado e uma operação pendente pode precisar de recuperação.",

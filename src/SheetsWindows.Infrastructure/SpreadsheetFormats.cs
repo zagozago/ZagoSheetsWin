@@ -313,7 +313,7 @@ public static class SpreadsheetFormats
                 writer.WriteEndElement(); writer.WriteEndElement();
             }
         }
-        var bytes = buffer.ToArray(); if (bytes.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException("A planilha normalizada excede o limite de 20 MiB para upload."); return bytes;
+        var bytes = buffer.ToArray(); if (bytes.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException("A planilha normalizada excede o limite de 20 MiB para envio."); return bytes;
     }
     private static string Column(int index)
     {

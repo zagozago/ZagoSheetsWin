@@ -1,5 +1,5 @@
 #ifndef PilotVersion
-  #define PilotVersion "0.9.18"
+  #define PilotVersion "0.9.19"
 #endif
 [Setup]
 AppId={{D970FA65-0364-4F10-A6AA-D4302F31B607}
@@ -7,7 +7,7 @@ AppName=ZagoSheetsWin
 UninstallDisplayName=ZagoSheetsWin
 AppVersion={#PilotVersion}
 AppPublisher=Zagotools
-AppPublisherURL=https://github.com/zagozago/ZagoSheetsWin
+AppPublisherURL=https://zagotools.top/
 AppSupportURL=https://github.com/zagozago/ZagoSheetsWin/issues
 SetupIconFile=..\branding\zagosheetswin.ico
 WizardImageFile=..\branding\wizard.bmp
@@ -30,6 +30,9 @@ DisableReadyPage=yes
 UninstallDisplayIcon={app}\SheetsWindows.exe
 CloseApplications=yes
 
+[Languages]
+Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
+
 [Files]
 Source: "..\artifacts\SheetsWindows-win-x64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
@@ -51,14 +54,14 @@ begin
   if RegQueryStringValue(HKCU, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{D970FA65-0364-4F10-A6AA-D4302F31B607}_is1', 'DisplayVersion', InstalledVersion) then
   begin
     if not StrToVersion(InstalledVersion, InstalledPacked) then
-      Result := 'Installed version is invalid. Repair the version record before updating.'
+      Result := 'O registro da versão instalada é inválido. Corrija esse registro antes de atualizar.'
     else if StrToVersion('{#PilotVersion}', PackagePacked) then
       if ComparePackedVersion(InstalledPacked, PackagePacked) > 0 then
-        Result := 'A newer version is installed. Downgrades require an explicit migration and are blocked.';
+        Result := 'Uma versão mais recente já está instalada. A instalação de uma versão anterior está bloqueada e exige uma migração específica.';
   end;
   if CompareText(RemoveBackslashUnlessRoot(WizardDirValue),
     ExpandConstant('{localappdata}\Programs\SheetsWindows')) <> 0 then
-    Result := 'Use the dedicated per-user installation directory. Other directories are not supported.';
+    Result := 'Use a pasta de instalação exclusiva deste usuário. Outras pastas não são compatíveis.';
 end;
 
 procedure MaintainAssociation(const Argument: String);
@@ -67,9 +70,9 @@ var
 begin
   if not Exec(ExpandConstant('{app}\SheetsWindows.exe'), Argument, '', SW_HIDE,
     ewWaitUntilTerminated, ExitCode) then
-    RaiseException('Could not run association maintenance. Existing data was preserved.');
+    RaiseException('Não foi possível atualizar as associações de arquivos. Os dados existentes foram preservados.');
   if ExitCode <> 0 then
-    RaiseException('Association conflict. Remove the prior portable registration before installing, or repair this installation before uninstalling. Existing data was preserved.');
+    RaiseException('Há um conflito nas associações de arquivos. Remova o registro da versão portátil antes de instalar ou repare esta instalação antes de desinstalar. Os dados existentes foram preservados.');
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
@@ -102,7 +105,7 @@ procedure CurPageChanged(CurPageID: Integer);
 begin
   if CurPageID = wpFinished then
   begin
-    WizardForm.NextButton.Caption := 'Run Setup';
+    WizardForm.NextButton.Caption := 'Iniciar configuração';
     WizardForm.RunList.Checked[0] := True;
     WizardForm.RunList.Visible := False;
   end;

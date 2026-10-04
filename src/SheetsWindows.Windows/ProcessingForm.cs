@@ -4,7 +4,7 @@ namespace SheetsWindows.Windows;
 
 internal sealed class ProcessingForm : Form
 {
-    private readonly Label status = new() { Dock = DockStyle.Fill, Padding = new Padding(18), TextAlign = ContentAlignment.MiddleLeft, Text = "Preparando sua planilha…", AccessibleName = "Estado do processamento" };
+    private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Fill, Padding = new Padding(18), TextAlign = ContentAlignment.MiddleLeft, Text = "Preparando sua planilha…", AccessibleName = "Estado do processamento" };
     private readonly Button cancel = new() { AutoSize = true, Text = "Cancelar" };
     private readonly FlowLayoutPanel actions = new() { Dock = DockStyle.Bottom, AutoSize = true, Padding = new Padding(12), WrapContents = true };
     private readonly CancellationTokenSource cancellation = new();
@@ -21,7 +21,7 @@ internal sealed class ProcessingForm : Form
     {
         if (request.Action is not (LauncherAction.Open or LauncherAction.Copy or LauncherAction.Login)) throw new ArgumentException("Processing request required.");
         this.request = request; this.execute = execute; this.recordDiagnostics = recordDiagnostics; this.startedAt = startedAt ?? System.Diagnostics.Stopwatch.GetTimestamp();
-        Text = "Abrindo no Google Sheets — ZagoSheetsWin"; ClientSize = new Size(620, 240); MinimumSize = new Size(620, 240);
+        Text = "Abrindo no Google Sheets - ZagoSheetsWin"; ClientSize = new Size(620, 240); MinimumSize = new Size(620, 240);
         StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
         cancel.Click += (_, _) => { if (busy) { cancellation.Cancel(); cancel.Enabled = false; status.Text = "Interrompendo com segurança…"; } else Close(); };
         actions.Controls.Add(cancel); Controls.Add(status); Controls.Add(actions);
@@ -32,7 +32,7 @@ internal sealed class ProcessingForm : Form
     }
     private void ShowFailure(Exception ex)
     {
-        Text = "Importação interrompida — ZagoSheetsWin";
+        Text = "Importação interrompida - ZagoSheetsWin";
         status.Text = ex is OperationCanceledException && !cancellation.IsCancellationRequested ? "A conexão demorou demais. Confira a internet e retome pela recuperação; backups já criados foram conservados." : LauncherErrors.Message(ex);
         var recovery = new Button { Text = "Recuperação / backups", AutoSize = true };
         recovery.Click += (_, _) => { using var form = new RecoveryForm(); form.ShowDialog(this); };
@@ -93,7 +93,7 @@ internal sealed class ProcessingForm : Form
         }
         if (ExitCode == 0 && importNotice is not null)
         {
-            Text = "Planilha aberta como cópia — ZagoSheetsWin"; status.Text = importNotice;
+            Text = "Planilha aberta como cópia - ZagoSheetsWin"; status.Text = importNotice;
             cancel.Text = "Fechar"; cancel.Enabled = true;
         }
         else if (ExitCode == 0 || cancellation.IsCancellationRequested) Close();

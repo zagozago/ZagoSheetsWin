@@ -21,13 +21,13 @@ internal sealed class TutorialForm : Form
     [
         ("Abra suas planilhas no Google Sheets", "Abra um arquivo no computador. O ZagoSheetsWin importa e confere a planilha. Continue no navegador.|Após a conferência: backup do original + atalho para o Sheets. Se a conversão não puder ser confirmada, o original é mantido."),
         ("Conecte sua conta Google", "Escolha sua conta → autorize o acesso → volte ao aplicativo.|Nas configurações, ✓ Google conectado confirma a autorização. Suas planilhas ficam no Google Drive dessa conta. Não precisa instalar o Google Drive para Windows."),
-        ("Escolha como abrir suas planilhas", "Dê dois cliques ou use Abrir com → ZagoSheetsWin no menu do Windows.|CSV · TSV · XLSX · XLS. ODS experimental. Definir como aplicativo padrão é opcional."),
+        ("Escolha como abrir suas planilhas", "Dê dois cliques ou use Abrir com → ZagoSheetsWin no menu do Windows.|Defina o ZagoSheetsWin como aplicativo padrão de planilhas (opcional):"),
         ("Guarde o original. Saiba como recuperar.", "Original → backup local → Google Sheets. Em Backups, escolha Restaurar em… para recuperar o arquivo.|30 dias · 200 MB (ajustável até 1 GB). Limpeza automática só quando ativada; operações pendentes são protegidas.|O backup guarda o original, sem alterações posteriores no Sheets. Fórmulas e formatação podem mudar; macros XLS não funcionam no Sheets.")
     ];
     public TutorialForm(int initialPage = 0)
     {
         page = Math.Clamp(initialPage, 0, Pages.Length - 1);
-        Text = "Como funciona — ZagoSheetsWin"; ClientSize = new Size(760, 650); MinimumSize = new Size(620, 560); StartPosition = FormStartPosition.CenterParent; AutoScaleMode = AutoScaleMode.Dpi;
+        Text = "Como funciona - ZagoSheetsWin"; ClientSize = new Size(760, 650); MinimumSize = new Size(620, 560); StartPosition = FormStartPosition.CenterParent; AutoScaleMode = AutoScaleMode.Dpi;
         layout = new TableLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(20), ColumnCount = 1, RowCount = 5 };
         layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 55)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 250)); layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48));
         layout.Controls.Add(heading, 0, 0); layout.Controls.Add(picture, 0, 1); layout.Controls.Add(explanation, 0, 2); layout.Controls.Add(hide, 0, 3);
@@ -55,7 +55,7 @@ internal sealed class TutorialForm : Form
         for (var i = 0; i < groups.Length; i++)
         {
             if (i > 0 && page != 3) explanation.Controls.Add(Ui.Separator());
-            var paragraph = Ui.Text(groups[i]);
+            var paragraph = Ui.Text(groups[i], page == 2 && i == 1);
             if (page == 3) paragraph.Margin = new Padding(0, 2, 0, 4);
             paragraph.MaximumSize = new Size(Math.Max(120, explanation.ClientSize.Width - 6), 0); explanation.Controls.Add(paragraph);
         }

@@ -11,14 +11,18 @@ internal sealed class RecoveryForm : Form
     private void AddEntry(RecoveryEntry entry)
     {
         var item = new ListViewItem(Path.GetFileName(entry.OriginalPath)) { Tag = entry, ToolTipText = entry.OriginalPath };
-        item.SubItems.Add(entry.CapturedAt?.ToLocalTime().ToString("dd/MM/yyyy HH:mm") ?? "—");
+        item.SubItems.Add(entry.CapturedAt?.ToLocalTime().ToString("dd/MM/yyyy HH:mm") ?? "-");
         item.SubItems.Add($"{entry.Bytes / 1_000_000d:N2} MB");
         item.SubItems.Add(entry.CleanupState == 2 ? "Limpo" : entry.CleanupState == 1 ? "Limpeza pendente" : !entry.Available ? "Indisponível" : entry.CanClean ? "Concluído" : "Protegido / pendente"); entries.Items.Add(item);
     }
-    private readonly Label status = new() { Dock = DockStyle.Top, Height = 85, Padding = new Padding(12), Text = "Para recuperar: selecione uma linha e use Restaurar em…\nPara apagar vários backups: marque as caixas ou use Selecionar todos.\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos." };
+    private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Top, Height = 85, Padding = new Padding(12), Text = "Para recuperar: selecione uma linha e use Restaurar em…\nPara apagar vários backups: marque as caixas ou use Selecionar todos.\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos." };
     public RecoveryForm(bool preview = false, bool previewBusy = false)
     {
-        Text = "Recuperar arquivos e gerenciar backups — ZagoSheetsWin"; ClientSize = new Size(700, 650); MinimumSize = new Size(560, 540); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterScreen;
+        Text = "Recuperar arquivos e gerenciar backups - ZagoSheetsWin"; ClientSize = new Size(700, 650); MinimumSize = new Size(560, 540); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterScreen;
+        void FitStatus() { status.MaximumSize = new Size(Math.Max(120, ClientSize.Width), 0); status.Height = status.GetPreferredSize(new Size(ClientSize.Width, 0)).Height; }
+        SizeChanged += (_, _) => FitStatus();
+        status.TextChanged += (_, _) => FitStatus();
+        Shown += (_, _) => FitStatus();
         entries.Columns.Add("Arquivo", 230); entries.Columns.Add("Data", 140); entries.Columns.Add("Tamanho", 80); entries.Columns.Add("Estado", 180); entries.ShowItemToolTips = true;
         var storage = LocalStorage.ForCurrentUser();
         var manager = new BackupManagement(storage);
@@ -28,7 +32,7 @@ internal sealed class RecoveryForm : Form
         var quota = new NumericUpDown { Minimum = 1, Maximum = 1000, Value = 200, Width = 80, AccessibleName = "Teto em MB" };
         var automatic = new CheckBox { Text = "Limpar automaticamente backups concluídos", AutoSize = true };
         var save = new Button { Text = "Salvar regras", AutoSize = true };
-        var usage = new Label { AutoSize = true, Text = "Teto: 200 MB · máximo: 1 GB. Operações pendentes são protegidas." };
+        var usage = new EmphasisLabel { AutoSize = true, Text = "Teto: 200 MB · máximo: 1 GB. Operações pendentes são protegidas." };
         policyPanel.SizeChanged += (_, _) => usage.MaximumSize = new Size(Math.Max(120, policyPanel.ClientSize.Width - policyPanel.Padding.Horizontal - usage.Margin.Horizontal), 0);
         policyPanel.Controls.AddRange([new Label { Text = "Prazo (dias):", AutoSize = true }, days, new Label { Text = "Espaço (MB):", AutoSize = true }, quota, automatic, save, usage]);
         var restore = new Button { Text = "Restaurar em…", Dock = DockStyle.Bottom, Height = 44 };

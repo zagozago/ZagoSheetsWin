@@ -4,7 +4,7 @@ namespace SheetsWindows.Windows;
 
 internal sealed class LauncherForm : Form
 {
-    private readonly Label status = new() { AutoSize = true, MaximumSize = new Size(382, 0), Text = "Abra uma planilha do computador e continue no Google Sheets.\n\nDepois de importar e conferir, o aplicativo guarda um backup do original e cria um atalho no lugar do arquivo." };
+    private readonly Label status = new EmphasisLabel() { AutoSize = true, MaximumSize = new Size(382, 0), Text = "Abra uma planilha do computador e continue no Google Sheets.\n\nDepois de importar e conferir, o aplicativo guarda um backup do original e cria um atalho no lugar do arquivo." };
     public int ExitCode { get; private set; }
     public LauncherForm(LauncherRequest request, bool expanded = false)
     {
@@ -14,7 +14,7 @@ internal sealed class LauncherForm : Form
         Button Action(string text, EventHandler action) { var b = new Button { Text = text, Width = 382, Height = 38, AccessibleName = text.Replace("&", "") }; b.Click += action; return b; }
         void Pick(LauncherAction action)
         {
-            using var dialog = new OpenFileDialog { Filter = "Planilhas|*.xlsx;*.xls;*.csv;*.tsv;*.ods", CheckFileExists = true, Multiselect = false, Title = action == LauncherAction.Copy ? "Importar cópia — conservar o original" : "Abrir planilha no Google Sheets" };
+            using var dialog = new OpenFileDialog { Filter = "Planilhas|*.xlsx;*.xls;*.csv;*.tsv;*.ods", CheckFileExists = true, Multiselect = false, Title = action == LauncherAction.Copy ? "Importar cópia - conservar o original" : "Abrir planilha no Google Sheets" };
             if (dialog.ShowDialog(this) != DialogResult.OK) return;
             using var processing = new ProcessingForm(new LauncherRequest(action, dialog.FileName)); processing.ShowDialog(this); ExitCode = processing.ExitCode;
         }
@@ -24,7 +24,7 @@ internal sealed class LauncherForm : Form
         for (var i = 0; i < 3; i++) navigation.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 3));
         var settings = Action("&Configurações", (_, _) => { using var setup = new SetupForm(); setup.ShowDialog(this); });
         var backups = Action("&Backups", (_, _) => { using var recovery = new RecoveryForm(); recovery.ShowDialog(this); });
-        var help = Action("&Ajuda — como funciona", (_, _) => { using var tutorial = new TutorialForm(); tutorial.ShowDialog(this); });
+        var help = Action("&Ajuda", (_, _) => { using var tutorial = new TutorialForm(); tutorial.ShowDialog(this); });
         foreach (var button in new[] { settings, backups, help }) { button.Dock = DockStyle.Fill; button.Font = new Font("Segoe UI", 9); navigation.Controls.Add(button); }
         layout.Controls.Add(navigation);
         var advanced = new FlowLayoutPanel { AutoSize = true, FlowDirection = FlowDirection.TopDown, WrapContents = false, Visible = false };
