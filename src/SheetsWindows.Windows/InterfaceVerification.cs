@@ -57,6 +57,9 @@ internal static class InterfaceVerification
             sync.Checked = false; Application.DoEvents(); Require(folder.Visible, "Choosing synchronized folders must reveal the folder controls.");
             sync.Checked = true; Application.DoEvents(); Require(!folder.Visible, "Disabling folder restrictions must collapse their controls again.");
             Require(Descendants(setup).OfType<Label>().Any(l => l.AccessibleName == "Estado da autorização Google" && !string.IsNullOrWhiteSpace(l.Text)), "Google authorization must have a visible accessible status.");
+            Require(Descendants(setup).OfType<Label>().Any(l => l.Text.Contains("drive.file", StringComparison.Ordinal) && l.Text.Contains("diretamente ao Google", StringComparison.Ordinal)), "Setup must show the OAuth data-use disclosure before authorization.");
+            Require(Descendants(setup).OfType<LinkLabel>().Any(l => l.Text == "Política de Privacidade"), "Setup must expose the privacy policy link.");
+            Require(Descendants(setup).OfType<LinkLabel>().Any(l => l.Text == "Termos de Uso"), "Setup must expose the terms link.");
             var sections = Descendants(setup).OfType<Label>().Where(l => l.Text.StartsWith("1. ") || l.Text.StartsWith("2. ") || l.Text.StartsWith("3. ")).ToArray();
             Require(sections.Length == 3 && sections[0].Text.Contains("Google") && sections[2].Text.Contains("sincronizadas"), "Setup must order Google, Windows defaults and optional sync folders.");
             var advanced = Descendants(setup).OfType<Button>().Single(b => b.Text == "Opções avançadas…");
