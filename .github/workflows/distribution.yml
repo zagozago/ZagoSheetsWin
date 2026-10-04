@@ -50,6 +50,7 @@ jobs:
           foreach ($file in @('LICENSE', 'NOTICE.md', 'ATTRIBUTION.md', 'third-party/NOTICE.md', 'SheetsWindows.exe', 'SheetsWindows.runtimeconfig.json', 'System.Windows.Forms.dll', 'coreclr.dll', 'e_sqlite3.dll', 'ExcelDataReader.dll', 'third-party/ExcelDataReader-LICENSE.txt')) {
             if (!(Test-Path (Join-Path $package $file))) { throw "Missing package dependency: $file" }
           }
+          if (!(Select-String -Path (Join-Path $package 'third-party/NOTICE.md') -Pattern 'ZagoSheetsWin 0\.9\.17' -Quiet)) { throw 'Third-party notice version does not match the package.' }
           $image = [IO.File]::ReadAllBytes((Join-Path $package 'SheetsWindows.exe'))
           $peOffset = [BitConverter]::ToInt32($image, 0x3c)
           if ([BitConverter]::ToUInt16($image, $peOffset + 24 + 68) -ne 2) { throw 'Launcher must use the Windows GUI subsystem' }
