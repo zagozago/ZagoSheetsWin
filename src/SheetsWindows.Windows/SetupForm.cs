@@ -22,13 +22,18 @@ internal sealed class SetupForm : Form
         layout.Controls.Add(Info("Abra suas planilhas no Google Sheets com sua conta Google. O original é guardado em backup antes da substituição por um atalho."));
         var configured = !FirstUseState.NeedsSetup(storage);
         var opening = OpeningPolicy.Load(storage);
-        var noSync = new CheckBox { AutoSize = true, Checked = !opening.RestrictToFolder, Text = "Não sincronizo minhas planilhas com Google Drive para Windows, OneDrive ou similares." };
+        var noSync = new CheckBox { AutoSize = true, Checked = true, Text = "Não sincronizo minhas planilhas com Google Drive para Windows, OneDrive ou similares." };
         var folderOptions = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, FlowDirection = FlowDirection.TopDown, WrapContents = false };
         folder.Text = opening.Folder ?? "";
         var chooseFolder = new Button { AutoSize = true, Text = "Escolher pasta local…" };
         chooseFolder.Click += (_, _) => { using var dialog = new FolderBrowserDialog(); if (dialog.ShowDialog(this) == DialogResult.OK) folder.Text = dialog.SelectedPath; };
         folderOptions.Controls.Add(Info("Usa sincronização? Escolha uma pasta local fora desses aplicativos. Retirar um arquivo de uma pasta sincronizada pode apagá-lo também na nuvem e em outros dispositivos."));
-        folderOptions.Controls.Add(chooseFolder); folderOptions.Controls.Add(folder);
+        var folderRow = new TableLayoutPanel { AutoSize = false, Height = 38, ColumnCount = 2, RowCount = 1, Margin = new Padding(0, 4, 0, 4) };
+        folderRow.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50)); folderRow.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
+        chooseFolder.AutoSize = false; chooseFolder.Dock = DockStyle.Fill; chooseFolder.Height = 34;
+        folder.Dock = DockStyle.Fill; folder.Margin = new Padding(3, 7, 3, 3);
+        folderRow.Controls.Add(chooseFolder, 0, 0); folderRow.Controls.Add(folder, 1, 0);
+        folderOptions.Controls.Add(folderRow);
         var consent = new CheckBox { AutoSize = true, Checked = configured, Text = "Entendi: após a importação confirmada, o original é substituído por um atalho; um backup local é guardado." };
         void ShowFolderOptions() { folderOptions.Visible = !noSync.Checked; layout.PerformLayout(); }
         noSync.CheckedChanged += (_, _) => ShowFolderOptions();

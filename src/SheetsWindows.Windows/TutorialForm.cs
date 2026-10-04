@@ -8,13 +8,15 @@ internal sealed class TutorialForm : Form
 {
     private readonly CheckBox hide = new() { Text = "Não mostrar este tutorial ao abrir o aplicativo", AutoSize = true, Checked = false };
     private readonly Label heading = new() { Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, Font = new Font("Segoe UI", 14, FontStyle.Bold) };
-    private readonly FlowLayoutPanel explanation = new() { Dock = DockStyle.Fill, AutoScroll = true, FlowDirection = FlowDirection.TopDown, WrapContents = false };
+    private readonly FlowLayoutPanel explanation = new() { Dock = DockStyle.Fill, AutoScroll = false, FlowDirection = FlowDirection.TopDown, WrapContents = false };
     private readonly TutorialPicture picture = new() { Dock = DockStyle.Fill };
     private readonly Button previous = new() { Text = "Voltar", AutoSize = true };
     private readonly Button next = new() { Text = "Próximo", AutoSize = true };
     private readonly Label count = new() { AutoSize = true };
     private int page;
     private bool saving;
+    private bool fitting;
+    private readonly TableLayoutPanel layout;
     private static readonly (string Title, string Text)[] Pages =
     [
         ("Abra suas planilhas no Google Sheets", "Abra um arquivo no computador. O ZagoSheetsWin importa e confere a planilha. Continue no navegador.|Após a conferência: backup do original + atalho para o Sheets. Se a conversão não puder ser confirmada, o original é mantido."),
@@ -26,7 +28,7 @@ internal sealed class TutorialForm : Form
     {
         page = Math.Clamp(initialPage, 0, Pages.Length - 1);
         Text = "Como funciona — ZagoSheetsWin"; ClientSize = new Size(760, 650); MinimumSize = new Size(620, 560); StartPosition = FormStartPosition.CenterParent; AutoScaleMode = AutoScaleMode.Dpi;
-        var layout = new TableLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(20), ColumnCount = 1, RowCount = 5 };
+        layout = new TableLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(20), ColumnCount = 1, RowCount = 5 };
         layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 55)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 250)); layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48));
         layout.Controls.Add(heading, 0, 0); layout.Controls.Add(picture, 0, 1); layout.Controls.Add(explanation, 0, 2); layout.Controls.Add(hide, 0, 3);
         var actions = new FlowLayoutPanel { Dock = DockStyle.Fill, WrapContents = false };
@@ -34,6 +36,8 @@ internal sealed class TutorialForm : Form
         actions.Controls.Add(skip); actions.Controls.Add(previous); actions.Controls.Add(next); actions.Controls.Add(count); layout.Controls.Add(actions, 0, 4);
         previous.Click += (_, _) => { page--; RefreshPage(); }; next.Click += (_, _) => { if (page == Pages.Length - 1) Close(); else { page++; RefreshPage(); } }; skip.Click += (_, _) => Close();
         Ui.Primary(next); Controls.Add(layout); Branding.Apply(this); Ui.Adapt(explanation); RefreshPage();
+        Shown += (_, _) => FitContent();
+        layout.SizeChanged += (_, _) => FitContent();
         FormClosing += async (_, e) =>
         {
             if (saving) { e.Cancel = true; return; }
@@ -48,7 +52,13 @@ internal sealed class TutorialForm : Form
         heading.Text = $"{page + 1}. {Pages[page].Title}";
         var old = explanation.Controls.Cast<Control>().ToArray(); explanation.Controls.Clear(); foreach (var control in old) control.Dispose();
         var groups = Pages[page].Text.Split('|');
-        for (var i = 0; i < groups.Length; i++) { if (i > 0) explanation.Controls.Add(Ui.Separator()); var paragraph = Ui.Text(groups[i]); paragraph.MaximumSize = new Size(Math.Max(120, explanation.ClientSize.Width - 25), 0); explanation.Controls.Add(paragraph); }
+        for (var i = 0; i < groups.Length; i++)
+        {
+            if (i > 0 && page != 3) explanation.Controls.Add(Ui.Separator());
+            var paragraph = Ui.Text(groups[i]);
+            if (page == 3) paragraph.Margin = new Padding(0, 2, 0, 4);
+            paragraph.MaximumSize = new Size(Math.Max(120, explanation.ClientSize.Width - 6), 0); explanation.Controls.Add(paragraph);
+        }
         if (page is 2 or 3)
         {
             var action = new Button { AutoSize = true, Text = page == 2 ? "Definir como padrão…" : "Abrir backups…" };
@@ -63,8 +73,32 @@ internal sealed class TutorialForm : Form
         }
         explanation.PerformLayout(); Branding.Refresh(this);
         count.Text = $"{page + 1} de {Pages.Length}";
-        previous.Enabled = page > 0; next.Text = page == Pages.Length - 1 ? "Começar" : "Próximo"; picture.Page = page; picture.AccessibleName = Pages[page].Title; picture.Invalidate();
+        previous.Enabled = page > 0; next.Text = page == Pages.Length - 1 ? "Começar" : "Próximo"; picture.Page = page; picture.AccessibleName = Pages[page].Title; picture.Invalidate(); FitContent();
     }
+    private void FitContent()
+    {
+        if (fitting || !IsHandleCreated || explanation.ClientSize.Width < 120) return;
+        fitting = true;
+        try
+        {
+            foreach (var label in explanation.Controls.OfType<Label>()) label.MaximumSize = new Size(explanation.ClientSize.Width - label.Margin.Horizontal - 6, 0);
+            explanation.PerformLayout();
+            var needed = explanation.Controls.Cast<Control>().Sum(control => control.Height + control.Margin.Vertical);
+            var room = layout.ClientSize.Height - layout.Padding.Vertical - layout.RowStyles[0].Height - layout.RowStyles[3].Height - layout.RowStyles[4].Height - needed - 6;
+            var scale = DeviceDpi / 96f;
+            var minimumPicture = 100 * scale;
+            if (room < minimumPicture)
+            {
+                ClientSize = new Size(ClientSize.Width, ClientSize.Height + (int)Math.Ceiling(minimumPicture - room));
+                MinimumSize = new Size(MinimumSize.Width, Math.Max(MinimumSize.Height, Height));
+                room = minimumPicture;
+            }
+            layout.RowStyles[1].Height = Math.Min((page == 3 ? 180 : 250) * scale, room);
+            layout.PerformLayout();
+        }
+        finally { fitting = false; }
+    }
+
 }
 internal sealed class TutorialPicture : Control
 {
@@ -75,8 +109,8 @@ internal sealed class TutorialPicture : Control
     {
         base.OnPaint(e);
         var g = e.Graphics; g.SmoothingMode = SmoothingMode.AntiAlias;
-        var scale = Math.Min(Width / 700f, Height / 250f);
-        g.TranslateTransform((Width - 700 * scale) / 2, (Height - 250 * scale) / 2); g.ScaleTransform(scale, scale);
+        var scale = Math.Min(Width / 700f, Height / (Page == 3 ? 180f : 250f));
+        g.TranslateTransform((Width - 700 * scale) / 2, (Height - (Page == 3 ? 180 : 250) * scale) / 2); g.ScaleTransform(scale, scale);
         var dark = Branding.Current == ApplicationTheme.Dark;
         var accent = SystemInformation.HighContrast ? ForeColor : Color.FromArgb(25, 134, 74);
         using var pen = new Pen(accent, 3);
@@ -123,8 +157,8 @@ internal sealed class TutorialPicture : Control
         if (Page == 2)
         {
             Round(5, 10, 465, 151, pale);
-            var formats = new[] { "CSV", "TSV", "XLSX", "XLS", "ODS" };
-            for (var index = 0; index < formats.Length; index++) FileIcon(15 + index * 91, 32, formats[index]);
+            var formats = new[] { "CSV", "TSV", "XLSX", "XLS" };
+            for (var index = 0; index < formats.Length; index++) FileIcon(36 + index * 112, 32, formats[index]);
             AppIcon(540, 30, false);
             g.DrawLine(pen, 487, 83, 521, 83); g.DrawLines(pen, [new PointF(511, 73), new PointF(521, 83), new PointF(511, 93)]);
             g.DrawString("Escolha sua planilha", font, ink, new RectangleF(5, 185, 465, 45), centered);
@@ -141,20 +175,21 @@ internal sealed class TutorialPicture : Control
         for (var step = 0; step < 3; step++)
         {
             var x = 5 + step * 245;
-            Round(x, 10, 195, 151, pale);
+            Round(x, 6, 195, Page == 3 ? 115 : 151, pale);
             if (Page == 1 && step == 0)
             {
                 g.DrawString("Google", font, ink, new RectangleF(x, 27, 195, 35), centered);
                 g.FillEllipse(green, x + 78, 70, 38, 38);
                 g.DrawString("Sua conta", small, ink, new RectangleF(x, 112, 195, 26), centered);
             }
-            else if (step == 1 && Page == 3) Folder(x + 48, 39);
+            else if (step == 1 && Page == 3) Folder(x + 48, 15);
             else if (step == 1) AppIcon(x + 25, 30, Page == 1);
-            else FileIcon(x + 61, 31, step == 0 ? "XLSX" : "", step == 2);
-            g.FillEllipse(green, x + 5, 174, 26, 26);
-            g.DrawString((step + 1).ToString(), small, white, new RectangleF(x + 5, 174, 26, 26), centered);
-            g.DrawString(labels[step], font, ink, new RectangleF(x + 2, 207, 191, 42), centered);
+            else FileIcon(x + 61, Page == 3 ? 11 : 31, step == 0 ? "XLSX" : "", step == 2);
+            var numberY = Page == 3 ? 128 : 174;
+            g.FillEllipse(green, x + 5, numberY, 26, 26);
+            g.DrawString((step + 1).ToString(), small, white, new RectangleF(x + 5, numberY, 26, 26), centered);
+            g.DrawString(labels[step], font, ink, Page == 3 ? new RectangleF(x + 33, 124, 162, 34) : new RectangleF(x + 2, 207, 191, 42), centered);
         }
-        foreach (var x in new[] { 211, 456 }) { g.DrawLine(pen, x, 83, x + 24, 83); g.DrawLines(pen, [new PointF(x + 15, 74), new PointF(x + 24, 83), new PointF(x + 15, 92)]); }
+        foreach (var x in new[] { 211, 456 }) { var arrowY = Page == 3 ? 65 : 83; g.DrawLine(pen, x, arrowY, x + 24, arrowY); g.DrawLines(pen, [new PointF(x + 15, arrowY - 9), new PointF(x + 24, arrowY), new PointF(x + 15, arrowY + 9)]); }
     }
 }

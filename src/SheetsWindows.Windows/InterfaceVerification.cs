@@ -55,6 +55,12 @@ internal static class InterfaceVerification
             var folder = Descendants(setup).OfType<Button>().Single(b => b.Text == "Escolher pasta local…");
             Require(sync.Checked && !folder.Visible, "New setup must not require a folder and must collapse its optional controls.");
             sync.Checked = false; Application.DoEvents(); Require(folder.Visible, "Choosing synchronized folders must reveal the folder controls.");
+            var folderRow = folder.Parent as TableLayoutPanel;
+            Require(folderRow is not null && folderRow.ColumnCount == 2, "Folder selector and path must share a two-column row.");
+            var folderPath = folderRow!.Controls.OfType<TextBox>().Single();
+            Require(Math.Abs(folder.Width - folderPath.Width) <= 2 && folder.Left < folderPath.Left, "Folder selector and path must each occupy half the row.");
+            var folderInfo = folderRow.Parent!.Controls.OfType<Label>().Single();
+            Require(folderInfo.Width >= folderRow.Parent.ClientSize.Width * .8, "Synchronization instructions must span the folder panel instead of collapsing to a narrow column.");
             sync.Checked = true; Application.DoEvents(); Require(!folder.Visible, "Disabling folder restrictions must collapse their controls again.");
             Require(Descendants(setup).OfType<Label>().Any(l => l.AccessibleName == "Estado da autorização Google" && !string.IsNullOrWhiteSpace(l.Text)), "Google authorization must have a visible accessible status.");
             Require(Descendants(setup).OfType<Label>().Any(l => l.Text.Contains("drive.file", StringComparison.Ordinal) && l.Text.Contains("diretamente ao Google", StringComparison.Ordinal)), "Setup must show the OAuth data-use disclosure before authorization.");
@@ -83,6 +89,15 @@ internal static class InterfaceVerification
             Require(!Descendants(tutorial).OfType<CheckBox>().Single().Checked, "Tutorial dismissal must require explicit opt-in.");
             var next = Descendants(tutorial).OfType<Button>().Single(b => b.Text == "Próximo");
             for (var i = 0; i < 3; i++) next.PerformClick();
+            Application.DoEvents();
+            foreach (var size in new[] { tutorial.Size, tutorial.MinimumSize })
+            {
+                tutorial.Size = size; tutorial.PerformLayout(); Application.DoEvents();
+                var content = Descendants(tutorial).OfType<FlowLayoutPanel>().Single(p => p.FlowDirection == FlowDirection.TopDown);
+                Require(!content.AutoScroll && !content.VerticalScroll.Visible, "Tutorial must have no vertical scrollbar.");
+                foreach (Control control in content.Controls)
+                    Require(control.Bottom <= content.ClientSize.Height && control.Right <= content.ClientSize.Width, "Tutorial text and actions must remain fully visible without clipping.");
+            }
             Require(next.Text == "Começar", "Tutorial must reach its final page.");
             Descendants(tutorial).OfType<Button>().Single(b => b.Text == "Pular tutorial").PerformClick();
             Require(!tutorial.Visible, "Tutorial must be skippable on the final page.");

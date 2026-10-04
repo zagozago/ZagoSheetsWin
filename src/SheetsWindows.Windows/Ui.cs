@@ -15,10 +15,10 @@ internal static class Ui
     {
         void ResizeChildren()
         {
-            var available = Math.Max(120, layout.ClientSize.Width - layout.Padding.Horizontal - SystemInformation.VerticalScrollBarWidth - 6);
+            var available = Math.Max(120, layout.ClientSize.Width - layout.Padding.Horizontal - (layout.AutoScroll ? SystemInformation.VerticalScrollBarWidth : 0) - 6);
             foreach (Control child in layout.Controls)
             {
-                if (child is FlowLayoutPanel nested) { nested.Width = available; nested.MaximumSize = new Size(available, 0); }
+                if (child is FlowLayoutPanel nested) { nested.MaximumSize = new Size(available, 0); nested.MinimumSize = new Size(available, 0); nested.Width = available; }
                 else if (child is Label label) label.MaximumSize = new Size(available - label.Margin.Horizontal, 0);
                 else if (child is CheckBox check) { check.AutoSize = false; check.Width = available; check.Height = TextRenderer.MeasureText(check.Text, check.Font, new Size(available - 28, 0), TextFormatFlags.WordBreak).Height + 12; }
                 else if (child is Button or TextBox or ComboBox or TableLayoutPanel || child.Tag as string == "separator") child.Width = available - child.Margin.Horizontal;

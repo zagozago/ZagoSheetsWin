@@ -55,3 +55,9 @@ A importação detecta HTML dentro de XLS e gera XLSX localmente, com filtros em
 O teste Windows de revogação agora compara os bytes protegidos do armazenamento antes/depois, sem comparar a identidade de objetos reconstituídos. A 0.9.16 foi bloqueada por essa comparação incorreta; não houve mudança no comportamento do OAuth.
 
 O seletor de tema mostra um único ícone vetorial: sol no modo claro, lua no escuro. Um clique alterna o tema e salva a preferência; as janelas abertas são atualizadas juntas. O botão mantém foco por teclado, descrição acessível e contraste do tema, sem trilha ou marcador deslizante.
+
+## 0.9.18 — Pasta em largura total e tutorial sem rolagem
+
+O checkbox Não sincronizo inicia marcado também nas instalações existentes; a política de abertura só muda quando o usuário salva. A pasta anterior permanece disponível ao desmarcar. Painéis internos mantêm a largura do painel pai; aviso em largura total e seletor/caminho em duas colunas iguais.
+
+A ilustração da página 3 mostra CSV, TSV, XLSX e XLS, sem ODS; o aviso textual de suporte experimental permanece. Na página 4, ícones, números e legendas ficam próximos, com imagem mais baixa. O tutorial dimensiona imagem e janela pelo conteúdo para manter textos e ações visíveis, sem barra vertical.
