@@ -1,4 +1,4 @@
-# Third-party licenses — ZagoSheetsWin 0.9.16
+# Third-party licenses — ZagoSheetsWin 0.9.17
 
 The application and the original Open in Google attribution remain MIT.
 Each dependency retains its own license. NPOI is pinned to 2.7.6; the license
