@@ -1,3 +1,4 @@
+using SheetsWindows.Infrastructure;
 using System.Drawing.Drawing2D;
 
 namespace SheetsWindows.Windows;
@@ -10,7 +11,7 @@ internal sealed class ThemeToggle : Button
     public ThemeToggle()
     {
         Text = ""; Cursor = Cursors.Hand; AccessibleRole = AccessibleRole.PushButton;
-        AccessibleDescription = "Mostra o tema atual: sol para claro, lua para escuro. Clique para mudar; preferência salva neste usuário do Windows.";
+        AccessibleDescription = UiText.Get("accessibility.themeDescription");
         FlatStyle = FlatStyle.Flat; FlatAppearance.BorderSize = 0;
         SetStyle(ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
     }
@@ -43,8 +44,8 @@ internal sealed class ThemeToggle : Button
     protected override AccessibleObject CreateAccessibilityInstance() => new ThemeAccessibility(this);
     private sealed class ThemeAccessibility(ThemeToggle owner) : ControlAccessibleObject(owner)
     {
-        public override string DefaultAction => "Alternar tema";
+        public override string DefaultAction => UiText.Get("accessibility.toggleTheme");
         public override void DoDefaultAction() => owner.PerformClick();
-        public override string? Value { get => owner.Dark ? "Escuro" : "Claro"; set { } }
+        public override string? Value { get => owner.Dark ? UiText.Get("theme.dark") : UiText.Get("theme.light"); set { } }
     }
 }

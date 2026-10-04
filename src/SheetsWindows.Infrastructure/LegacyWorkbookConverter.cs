@@ -14,7 +14,7 @@ internal static class LegacyWorkbookConverter
         try { return ConvertCore(bytes, ct, out copyOnly); }
         catch (Exception ex) when (ex is not OperationCanceledException and not IOException and not NotSupportedException and not OutOfMemoryException)
         {
-            throw new InvalidDataException("Não foi possível converter este XLS para XLSX. O original e o backup foram preservados.", ex);
+            throw new InvalidDataException(UiText.Source("error.xlsConversion"), ex);
         }
     }
     private static byte[] ConvertCore(byte[] bytes, CancellationToken ct, out bool copyOnly)
@@ -128,7 +128,7 @@ internal static class LegacyWorkbookConverter
                 else read.CopyTo(write);
             }
         var result = canonical.ToArray();
-        if (result.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException("O XLSX convertido excede o limite de 20 MiB para importação.");
+        if (result.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException(UiText.Message("capacity.convertedXlsx"));
         GoogleImport.ValidateXlsx(result); return result;
     }
 }

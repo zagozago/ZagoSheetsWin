@@ -40,7 +40,7 @@ public sealed class ProcessingTelemetry(long? startedAt = null, IProgress<string
     public IDisposable Begin(ProcessingPhase phase)
     {
         if (!Enum.IsDefined(phase)) throw new ArgumentException("Invalid phase.");
-        try { progress?.Report(phase switch { ProcessingPhase.Conversion => "Convertendo a planilha…", ProcessingPhase.Upload => "Enviando e conferindo a importação no Google…", _ => "Conferindo os dados convertidos antes da substituição…" }); }
+        try { progress?.Report(phase switch { ProcessingPhase.Conversion => UiText.Get("progress.conversion"), ProcessingPhase.Upload => UiText.Get("progress.upload"), _ => UiText.Get("progress.verification") }); }
         catch (Exception ex) when (LauncherErrors.Expected(ex)) { /* UI telemetry cannot change import outcome. */ }
         return new Scope(this, phase);
     }

@@ -46,7 +46,7 @@ internal static class Program
             }
             if (args.Length == 2 && args[0] == "--verify-interface") { ApplicationConfiguration.Initialize(); return InterfaceVerification.Run(args[1]); }
             var request = LauncherRequest.Parse(args);
-            if (request.Action == LauncherAction.Version) { Console.WriteLine("ZagoSheetsWin pilot 0.9.19"); return 0; }
+            if (request.Action == LauncherAction.Version) { Console.WriteLine("ZagoSheetsWin pilot 0.9.20"); return 0; }
             if (request.Action is LauncherAction.Register or LauncherAction.Unregister)
             {
                 var held = new FileOperationLock(LocalStorage.ForCurrentUser().LocksPath).AcquireAsync("windows-registration").AsTask().GetAwaiter().GetResult();
@@ -87,7 +87,7 @@ internal static class Program
         {
             if (args.Length == 2 && args[0] == "--verify-interface") { Console.Error.WriteLine(ex.Message); return 1; }
             if (args.Length == 1 && args[0] is "--register" or "--unregister") { Console.Error.WriteLine("Association maintenance failed; existing state preserved."); return 1; }
-            MessageBox.Show("Use o ZagoSheetsWin para abrir uma planilha suportada. " + LauncherErrors.Message(ex), "ZagoSheetsWin", MessageBoxButtons.OK, MessageBoxIcon.Warning); return 1;
+            MessageBox.Show(UiText.Format("error.launcherContext", ("reason", LauncherErrors.Message(ex))), "ZagoSheetsWin", MessageBoxButtons.OK, MessageBoxIcon.Warning); return 1;
         }
     }
 }

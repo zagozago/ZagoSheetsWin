@@ -8,7 +8,13 @@ using ExcelDataReader;
 
 namespace SheetsWindows.Infrastructure;
 
-public sealed class SpreadsheetCapacityException(string message) : NotSupportedException(message);
+public sealed class SpreadsheetCapacityException : NotSupportedException
+{
+    private readonly LocalizedMessage? descriptor;
+    public SpreadsheetCapacityException(string message) : base(message) { }
+    public SpreadsheetCapacityException(LocalizedMessage message) : base(message.SourceText) { descriptor = message; }
+    public string UserMessage => descriptor?.Text ?? Message;
+}
 public class ConversionMismatchException() : IOException("Converted cell values differ; source preserved.");
 public sealed class FormulaVerificationException : ConversionMismatchException;
 public sealed class CopyRequiredException() : NotSupportedException("This workbook requires copy-only import.");
@@ -30,7 +36,7 @@ public static class SpreadsheetFormats
     public static SpreadsheetPayload Prepare(string format, byte[] bytes, TextImportOptions? options = null, CancellationToken ct = default)
     {
         ct.ThrowIfCancellationRequested();
-        if (bytes.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException("O arquivo excede o limite de 20 MiB para importação.");
+        if (bytes.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException(UiText.Message("capacity.importSize"));
         switch (format)
         {
             case "xlsx": GoogleImport.ValidateXlsx(bytes); return new(bytes, XlsxMime, null);
@@ -77,7 +83,7 @@ public static class SpreadsheetFormats
     public static IReadOnlyList<IReadOnlyList<object?>> ReadText(byte[] bytes, string format, TextImportOptions options, CancellationToken ct = default)
     {
         ct.ThrowIfCancellationRequested();
-        if (bytes.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException("O arquivo excede o limite de 20 MiB para importação.");
+        if (bytes.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException(UiText.Message("capacity.importSize"));
         var text = Decode(bytes, options.Encoding);
         if (text.Length == 0) throw new InvalidDataException("Empty text spreadsheet.");
         if (format == "tsv") return ParseDelimited(text, '\t', ct);
@@ -109,21 +115,21 @@ public static class SpreadsheetFormats
         var quoted = false; var closed = false; var cells = 0;
         void Field()
         {
-            if (++cells > MaxCells) throw new SpreadsheetCapacityException($"A tabela excede o limite de {MaxCells:N0} células.");
-            if (row.Count >= MaxColumns) throw new SpreadsheetCapacityException($"A tabela excede o limite de {MaxColumns:N0} colunas.");
-            if (field.Length > 32767) throw new SpreadsheetCapacityException("Uma célula excede o limite de 32.767 caracteres.");
+            if (++cells > MaxCells) throw new SpreadsheetCapacityException(UiText.Message("capacity.tableCells", ("limit", MaxCells)));
+            if (row.Count >= MaxColumns) throw new SpreadsheetCapacityException(UiText.Message("capacity.tableColumns", ("limit", MaxColumns)));
+            if (field.Length > 32767) throw new SpreadsheetCapacityException(UiText.Message("capacity.cellCharacters"));
             row.Add(field.ToString()); field.Clear(); closed = false;
         }
         void Row()
         {
-            Field(); if (rows.Count >= MaxRows) throw new SpreadsheetCapacityException($"A tabela excede o limite de {MaxRows:N0} linhas.");
+            Field(); if (rows.Count >= MaxRows) throw new SpreadsheetCapacityException(UiText.Message("capacity.tableRows", ("limit", MaxRows)));
             if (rows.Count > 0 && row.Count != rows[0].Count) throw new InvalidDataException("Irregular delimited table.");
             rows.Add(row); row = [];
         }
         for (var i = 0; i < text.Length; i++)
         {
             if ((i & 4095) == 0) ct.ThrowIfCancellationRequested();
-            if (field.Length > 32767) throw new SpreadsheetCapacityException("Uma célula excede o limite de 32.767 caracteres.");
+            if (field.Length > 32767) throw new SpreadsheetCapacityException(UiText.Message("capacity.cellCharacters"));
             var c = text[i];
             if (quoted)
             {
@@ -220,7 +226,7 @@ public static class SpreadsheetFormats
             using var zip = OpenPackage(bytes); _ = Xml(zip, "xl/workbook.xml");
             foreach (var entry in zip.Entries.Where(e => e.FullName.StartsWith("xl/worksheets/", StringComparison.Ordinal) && e.FullName.EndsWith(".xml", StringComparison.Ordinal)))
             {
-                if (entry.Length > 64 * 1024 * 1024) throw new SpreadsheetCapacityException("Uma aba excede o limite de 64 MiB descompactados para conferência.");
+                if (entry.Length > 64 * 1024 * 1024) throw new SpreadsheetCapacityException(UiText.Message("capacity.uncompressedSheet"));
                 using var xmlStream = entry.Open();
                 using var xmlReader = XmlReader.Create(xmlStream, new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null, MaxCharactersInDocument = 64 * 1024 * 1024 });
                 while (xmlReader.Read())
@@ -313,7 +319,7 @@ public static class SpreadsheetFormats
                 writer.WriteEndElement(); writer.WriteEndElement();
             }
         }
-        var bytes = buffer.ToArray(); if (bytes.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException("A planilha normalizada excede o limite de 20 MiB para envio."); return bytes;
+        var bytes = buffer.ToArray(); if (bytes.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException(UiText.Message("capacity.normalizedSize")); return bytes;
     }
     private static string Column(int index)
     {

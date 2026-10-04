@@ -1,5 +1,5 @@
 #ifndef PilotVersion
-  #define PilotVersion "0.9.19"
+  #define PilotVersion "0.9.20"
 #endif
 [Setup]
 AppId={{D970FA65-0364-4F10-A6AA-D4302F31B607}
@@ -31,15 +31,15 @@ UninstallDisplayIcon={app}\SheetsWindows.exe
 CloseApplications=yes
 
 [Languages]
-Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
+Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl,i18n\pt.isl"
 
 [Files]
 Source: "..\artifacts\SheetsWindows-win-x64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{group}\ZagoSheetsWin"; Filename: "{app}\SheetsWindows.exe"
-Name: "{group}\Restaurar backups"; Filename: "{app}\SheetsWindows.exe"; Parameters: "--recovery"
-Name: "{group}\Desinstalar ZagoSheetsWin"; Filename: "{uninstallexe}"
+Name: "{group}\{cm:Zago_restoreBackups}"; Filename: "{app}\SheetsWindows.exe"; Parameters: "--recovery"
+Name: "{group}\{cm:Zago_uninstall}"; Filename: "{uninstallexe}"
 
 [Run]
 Filename: "{app}\SheetsWindows.exe"; Parameters: "--first-use"; Flags: nowait postinstall skipifsilent
@@ -54,14 +54,14 @@ begin
   if RegQueryStringValue(HKCU, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{D970FA65-0364-4F10-A6AA-D4302F31B607}_is1', 'DisplayVersion', InstalledVersion) then
   begin
     if not StrToVersion(InstalledVersion, InstalledPacked) then
-      Result := 'O registro da versão instalada é inválido. Corrija esse registro antes de atualizar.'
+      Result := CustomMessage('Zago_invalidInstalledVersion')
     else if StrToVersion('{#PilotVersion}', PackagePacked) then
       if ComparePackedVersion(InstalledPacked, PackagePacked) > 0 then
-        Result := 'Uma versão mais recente já está instalada. A instalação de uma versão anterior está bloqueada e exige uma migração específica.';
+        Result := CustomMessage('Zago_downgradeBlocked');
   end;
   if CompareText(RemoveBackslashUnlessRoot(WizardDirValue),
     ExpandConstant('{localappdata}\Programs\SheetsWindows')) <> 0 then
-    Result := 'Use a pasta de instalação exclusiva deste usuário. Outras pastas não são compatíveis.';
+    Result := CustomMessage('Zago_dedicatedDirectory');
 end;
 
 procedure MaintainAssociation(const Argument: String);
@@ -70,9 +70,9 @@ var
 begin
   if not Exec(ExpandConstant('{app}\SheetsWindows.exe'), Argument, '', SW_HIDE,
     ewWaitUntilTerminated, ExitCode) then
-    RaiseException('Não foi possível atualizar as associações de arquivos. Os dados existentes foram preservados.');
+    RaiseException(CustomMessage('Zago_associationRunFailed'));
   if ExitCode <> 0 then
-    RaiseException('Há um conflito nas associações de arquivos. Remova o registro da versão portátil antes de instalar ou repare esta instalação antes de desinstalar. Os dados existentes foram preservados.');
+    RaiseException(CustomMessage('Zago_associationConflict'));
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
@@ -92,7 +92,7 @@ var
 begin
   Credit := TNewStaticText.Create(WizardForm);
   Credit.Parent := WizardForm;
-  Credit.Caption := 'Zagotools | Open in Google - Swati K (SwatiK425) | MIT';
+  Credit.Caption := CustomMessage('Zago_credit');
   Credit.Left := ScaleX(8);
   Credit.Top := WizardForm.ClientHeight - ScaleY(31);
   Credit.Width := WizardForm.BackButton.Left - ScaleX(16);
@@ -105,7 +105,7 @@ procedure CurPageChanged(CurPageID: Integer);
 begin
   if CurPageID = wpFinished then
   begin
-    WizardForm.NextButton.Caption := 'Iniciar configuração';
+    WizardForm.NextButton.Caption := CustomMessage('Zago_runSetup');
     WizardForm.RunList.Checked[0] := True;
     WizardForm.RunList.Visible := False;
   end;

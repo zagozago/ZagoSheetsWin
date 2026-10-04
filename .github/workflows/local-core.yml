@@ -18,6 +18,10 @@ jobs:
       - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9
         with:
           dotnet-version: '10.0.401'
+      - name: Validate localization source and generated resources
+        run: |
+          python tools/i18n/generate.py --check
+          python tools/i18n/test_catalog.py
       - run: dotnet restore SheetsWindows.slnx --locked-mode
       - run: dotnet build SheetsWindows.slnx --configuration Release --no-restore
       - run: dotnet test SheetsWindows.slnx --configuration Release --no-build --no-restore --logger "trx;LogFileName=local-core.trx"
@@ -37,7 +41,7 @@ jobs:
         shell: pwsh
         run: |
           $package = 'artifacts/SheetsWindows-win-x64'
-          foreach ($file in @('LICENSE', 'NOTICE.md', 'ATTRIBUTION.md', 'third-party/NOTICE.md', 'SheetsWindows.exe', 'SheetsWindows.runtimeconfig.json', 'System.Windows.Forms.dll', 'coreclr.dll', 'e_sqlite3.dll', 'ExcelDataReader.dll', 'third-party/ExcelDataReader-LICENSE.txt')) {
+          foreach ($file in @('LICENSE', 'ATTRIBUTION.md', 'SheetsWindows.exe', 'SheetsWindows.runtimeconfig.json', 'System.Windows.Forms.dll', 'coreclr.dll', 'e_sqlite3.dll', 'ExcelDataReader.dll', 'third-party/ExcelDataReader-LICENSE.txt')) {
             if (!(Test-Path (Join-Path $package $file))) { throw "Missing package dependency: $file" }
           }
           $image = [IO.File]::ReadAllBytes((Join-Path $package 'SheetsWindows.exe'))

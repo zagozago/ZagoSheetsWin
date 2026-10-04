@@ -92,28 +92,28 @@ public static class LauncherErrors
         or System.Security.Cryptography.CryptographicException or Microsoft.Data.Sqlite.SqliteException or System.Text.Json.JsonException or System.Xml.XmlException or KeyNotFoundException or SecurityException or ExcelDataReader.Exceptions.ExcelReaderException;
     public static string Message(Exception ex) => ex switch
     {
-        BackupQuotaException => "Não há espaço dentro da limite de backups. O original foi preservado e não foi enviado ao Google. Abra Backups para limpar backups concluídos ou ajustar o limite (máximo 1 GB).",
-        BackupRemovedException => "Este backup já teve limpeza registrada e não está disponível para restauração ou retomada. O documento Google e seu atalho foram preservados. Use o atalho para abrir a planilha online.",
-        LauncherNotConfiguredException => "Conclua o primeiro uso antes de abrir planilhas. Abra o ZagoSheetsWin ou suas Configurações para conectar ao Google e salvar suas preferências.",
-        AuthorizationRequiredException => "O Google precisa de autorização. Abra Configurações e clique em Autorizar Google; depois abra a planilha novamente.",
-        ReconciliationRequiredException => "A importação aguarda reconciliação. Não repita o envio manualmente. Consulte o guia de recuperação.",
-        FormulaVerificationException => "A planilha convertida contém fórmulas que o aplicativo ainda não consegue conferir. O original e o backup foram preservados. Em Recuperação / backups, selecione esta operação e use Retomar como cópia para abrir a planilha no Google sem repetir o envio.",
-        ConversionMismatchException => "A conferência encontrou diferença nos dados convertidos. O original e o backup foram preservados. Pode existir uma cópia no Google; consulte a recuperação antes de repetir.",
-        SpreadsheetCapacityException capacity => capacity.Message + " O original foi preservado. Divida a tabela em arquivos menores para tentar novamente.",
-        InvalidDataException data when data.Message is "Unsupported workbook content type." or "Ambiguous workbook content type." or "Invalid content types XML." => "Não foi possível identificar com segurança o formato interno do XLSX. O original foi preservado. Salve uma nova cópia como XLSX no Excel ou LibreOffice e tente essa cópia.",
-        InvalidDataException data when data.Message is "Invalid text encoding or characters." or "Encoding conflicts with BOM." => "Não foi possível ler a codificação do CSV/TSV. Use UTF-8 ou UTF-16 com BOM; para arquivos antigos, selecione Windows-1252 nas opções de texto. O original foi preservado.",
-        InvalidDataException data when data.Message == "Ambiguous CSV delimiter; configure it explicitly." => "O CSV pode usar vírgula ou ponto e vírgula. Escolha o separador nas opções de texto. O original foi preservado.",
-        InvalidDataException data when data.Message is "Irregular delimited table." or "Invalid quoted field." or "Unclosed quoted field." or "Empty text spreadsheet." or "Empty table." => "O CSV/TSV está vazio ou contém linhas, separadores ou aspas inconsistentes. Confira o separador e a estrutura do arquivo. O original foi preservado.",
-        InvalidDataException data when data.Message == "Export too large." => "A exportação excedeu o limite da conferência. O original e o backup foram preservados; consulte a recuperação antes de repetir a importação.",
-        GoogleApiException api when api.Status == 429 || api.Status >= 500 => "O Google está temporariamente indisponível ou limitou as requisições. O original foi preservado. Aguarde e retome pela recuperação, evitando repetir o envio.",
-        GoogleApiException api when api.Status is 401 or 403 => "O Google recusou o acesso. Confira a autorização e as permissões da conta/pasta. O original foi preservado.",
-        GoogleApiException => "O Google recusou a importação ou a exportação para conferência. O original foi preservado. Consulte o diagnóstico e a recuperação antes de repetir.",
-        HttpRequestException => "Falha ao comunicar com o Google. Confira a conexão e retome pelo aplicativo; o original foi preservado e uma operação pendente pode precisar de recuperação.",
-        CopyRequiredException => "Esta planilha requer importação de cópia; o original deve ser preservado.",
-        LocalConflictException => "O arquivo ou sua associação mudou. A substituição foi interrompida para conservar as versões existentes.",
-        TimeoutException => "Outra operação ainda está usando o arquivo ou o registro. Aguarde e retome; o original e os backups foram conservados.",
-        OperationCanceledException => "Operação interrompida. O backup e o registro de recuperação, quando criados, foram conservados.",
-        _ => "Não foi possível concluir. Confira a configuração, a conexão e se o arquivo está aberto em outro aplicativo. Backups já criados permanecem disponíveis."
+        BackupQuotaException => UiText.Get("error.backupQuota"),
+        BackupRemovedException => UiText.Get("error.backupRemoved"),
+        LauncherNotConfiguredException => UiText.Get("error.setupRequired"),
+        AuthorizationRequiredException => UiText.Get("error.authorizationRequired"),
+        ReconciliationRequiredException => UiText.Get("error.reconciliationRequired"),
+        FormulaVerificationException => UiText.Get("error.formulaVerification"),
+        ConversionMismatchException => UiText.Get("error.conversionMismatch"),
+        SpreadsheetCapacityException capacity => UiText.Format("error.capacity", ("reason", capacity.UserMessage)),
+        InvalidDataException data when data.Message is "Unsupported workbook content type." or "Ambiguous workbook content type." or "Invalid content types XML." => UiText.Get("error.xlsxContentType"),
+        InvalidDataException data when data.Message is "Invalid text encoding or characters." or "Encoding conflicts with BOM." => UiText.Get("error.textEncoding"),
+        InvalidDataException data when data.Message == "Ambiguous CSV delimiter; configure it explicitly." => UiText.Get("error.csvDelimiter"),
+        InvalidDataException data when data.Message is "Irregular delimited table." or "Invalid quoted field." or "Unclosed quoted field." or "Empty text spreadsheet." or "Empty table." => UiText.Get("error.textStructure"),
+        InvalidDataException data when data.Message == "Export too large." => UiText.Get("error.exportSize"),
+        GoogleApiException api when api.Status == 429 || api.Status >= 500 => UiText.Get("error.googleUnavailable"),
+        GoogleApiException api when api.Status is 401 or 403 => UiText.Get("error.googleAccess"),
+        GoogleApiException => UiText.Get("error.googleConversion"),
+        HttpRequestException => UiText.Get("error.network"),
+        CopyRequiredException => UiText.Get("error.copyRequired"),
+        LocalConflictException => UiText.Get("error.localConflict"),
+        TimeoutException => UiText.Get("error.busy"),
+        OperationCanceledException => UiText.Get("error.cancelled"),
+        _ => UiText.Get("error.generic")
     };
 }
 
@@ -144,29 +144,29 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         if (!opening.RestrictToFolder && SourceEnvironment.RequiresCopy(path))
         {
             var copied = await CopyAsync(path, progress, ct);
-            ImportNotice = "Arquivo aberto como cópia: a pasta é sincronizada ou de rede. O original foi mantido para evitar excluir a cópia em outros dispositivos.";
+            ImportNotice = UiText.Get("import.notice.syncedCopy");
             return copied;
         }
         if (SpreadsheetFormats.Format(path) == "xls" && !XlsReplacementSettings.Load(storage)) return await CopyAsync(path, progress, ct);
         var sources = new WindowsRetirementReader(opening.RestrictToFolder ? opening.Folder : null);
         await using (var eligibility = sources.Open(request.Path!)) { }
-        progress?.Report("Conferindo arquivo e backup…");
+        progress?.Report(UiText.Get("progress.fileAndBackup"));
         var textOptions = SpreadsheetFormats.Format(path) == "xlsx" ? null : ExtendedConfiguration.Load(storage);
         var preparation = storage.CreatePreparation(); var local = new SqliteOperationRegistry(storage.DatabasePath);
         var remote = new GoogleRemoteRegistry(System.IO.Path.Combine(storage.Root, "google.db")); var locks = new FileOperationLock(storage.LocksPath);
         var auth = Auth(client, locks);
         var importer = new GoogleImport(preparation, local, remote, new SourceReader(), locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads"))), textOptions, telemetry, new BackupManagement(storage));
-        progress?.Report("Abrindo sua planilha no Google Sheets…");
+        progress?.Report(UiText.Get("progress.openingSheets"));
         var receipt = await importer.ImportReceiptAsync(request.Path!, ct);
         if (!receipt.CanReplace) return await PublishCopyAsync(receipt, progress, ct);
-        progress?.Report("Publicando atalho e concluindo substituição…");
+        progress?.Report(UiText.Get("progress.publishingShortcut"));
         var coordinator = new ReplacementCoordinator(local, remote, new ManagedBackupStore(storage), locks,
             new ReplacementJournal(System.IO.Path.Combine(storage.Root, "replacement.db")), sources, browser, new ConversionVerifier(new GoogleDriveClient(http, auth), textOptions, telemetry), ShortcutIcon.Ensure(storage));
         try { return await coordinator.ReplaceAsync(receipt, ct); }
         catch (FormulaVerificationException) when (receipt.Operation.Format == "xls")
         {
             var shortcut = await PublishCopyAsync(receipt, progress, ct);
-            ImportNotice = "Sua planilha foi aberta no Google Sheets como cópia. Ela contém fórmulas que ainda não conseguimos conferir para substituir o arquivo. O original e o backup foram mantidos. O atalho da cópia está disponível na pasta de atalhos do aplicativo.";
+            ImportNotice = UiText.Get("import.notice.formulaCopy");
             return shortcut;
         }
     }
@@ -181,7 +181,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         var locks = new FileOperationLock(storage.LocksPath); var auth = Auth(client, locks);
         var importer = new GoogleImport(storage.CreatePreparation(sources), new SqliteOperationRegistry(storage.DatabasePath),
             new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")), sources, locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads"))), options, telemetry, new BackupManagement(storage));
-        progress?.Report("Importando cópia; o original será conservado…");
+        progress?.Report(UiText.Get("progress.importingCopy"));
         return await PublishCopyAsync(await importer.ImportReceiptAsync(path, ct), progress, ct);
     }
     public async Task<string> ResumeAsync(Guid id, bool replace, IProgress<string>? progress = null, CancellationToken ct = default)
@@ -238,7 +238,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         using var checkedShortcut = InternetShortcut.Hold(shortcut, bytes);
         ct.ThrowIfCancellationRequested(); browser.Open(receipt.Url);
         await new BackupManagement(storage).RegisterCopyCompletionAsync(receipt, ct);
-        progress?.Report("Cópia aberta no Sheets. Original preservado; atalho disponível na pasta de atalhos do aplicativo.");
+        progress?.Report(UiText.Get("import.notice.copyComplete"));
         return shortcut;
     }
 

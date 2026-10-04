@@ -4,8 +4,8 @@ namespace SheetsWindows.Windows;
 
 internal sealed class ProcessingForm : Form
 {
-    private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Fill, Padding = new Padding(18), TextAlign = ContentAlignment.MiddleLeft, Text = "Preparando sua planilha…", AccessibleName = "Estado do processamento" };
-    private readonly Button cancel = new() { AutoSize = true, Text = "Cancelar" };
+    private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Fill, Padding = new Padding(18), TextAlign = ContentAlignment.MiddleLeft, Text = UiText.Get("progress.preparing"), AccessibleName = UiText.Get("accessibility.processingStatus") };
+    private readonly Button cancel = new() { AutoSize = true, Text = UiText.Get("action.cancel") };
     private readonly FlowLayoutPanel actions = new() { Dock = DockStyle.Bottom, AutoSize = true, Padding = new Padding(12), WrapContents = true };
     private readonly CancellationTokenSource cancellation = new();
     private readonly LauncherRequest request;
@@ -21,32 +21,32 @@ internal sealed class ProcessingForm : Form
     {
         if (request.Action is not (LauncherAction.Open or LauncherAction.Copy or LauncherAction.Login)) throw new ArgumentException("Processing request required.");
         this.request = request; this.execute = execute; this.recordDiagnostics = recordDiagnostics; this.startedAt = startedAt ?? System.Diagnostics.Stopwatch.GetTimestamp();
-        Text = "Abrindo no Google Sheets - ZagoSheetsWin"; ClientSize = new Size(620, 240); MinimumSize = new Size(620, 240);
+        Text = UiText.Get("processing.title"); ClientSize = new Size(620, 240); MinimumSize = new Size(620, 240);
         StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
-        cancel.Click += (_, _) => { if (busy) { cancellation.Cancel(); cancel.Enabled = false; status.Text = "Interrompendo com segurança…"; } else Close(); };
+        cancel.Click += (_, _) => { if (busy) { cancellation.Cancel(); cancel.Enabled = false; status.Text = UiText.Get("progress.stopping"); } else Close(); };
         actions.Controls.Add(cancel); Controls.Add(status); Controls.Add(actions);
-        FormClosing += (_, e) => { if (busy) { e.Cancel = true; cancellation.Cancel(); cancel.Enabled = false; status.Text = "Interrompendo com segurança…"; } };
+        FormClosing += (_, e) => { if (busy) { e.Cancel = true; cancellation.Cancel(); cancel.Enabled = false; status.Text = UiText.Get("progress.stopping"); } };
         Branding.Apply(this, aboutButton: false, compact: true);
-        if (preview) { status.Text = "Conferindo os dados convertidos antes da substituição…"; if (previewError) ShowFailure(new ConversionMismatchException()); }
+        if (preview) { status.Text = UiText.Get("progress.verification"); if (previewError) ShowFailure(new ConversionMismatchException()); }
         else Shown += async (_, _) => await RunAsync();
     }
     private void ShowFailure(Exception ex)
     {
-        Text = "Importação interrompida - ZagoSheetsWin";
-        status.Text = ex is OperationCanceledException && !cancellation.IsCancellationRequested ? "A conexão demorou demais. Confira a internet e retome pela recuperação; backups já criados foram conservados." : LauncherErrors.Message(ex);
-        var recovery = new Button { Text = "Recuperação / backups", AutoSize = true };
+        Text = UiText.Get("processing.failureTitle");
+        status.Text = ex is OperationCanceledException && !cancellation.IsCancellationRequested ? UiText.Get("error.connectionTimeout") : LauncherErrors.Message(ex);
+        var recovery = new Button { Text = UiText.Get("action.recovery"), AutoSize = true };
         recovery.Click += (_, _) => { using var form = new RecoveryForm(); form.ShowDialog(this); };
-        var export = new Button { Text = "Exportar diagnóstico…", AutoSize = true };
+        var export = new Button { Text = UiText.Get("action.exportDiagnostics"), AutoSize = true };
         export.Click += async (_, _) =>
         {
-            using var dialog = new SaveFileDialog { Filter = "Diagnóstico JSONL|*.jsonl", FileName = "zagosheetswin-diagnostico.jsonl", OverwritePrompt = true };
+            using var dialog = new SaveFileDialog { Filter = UiText.Get("dialog.diagnosticFilter"), FileName = "zagosheetswin-diagnostico.jsonl", OverwritePrompt = true };
             if (dialog.ShowDialog(this) != DialogResult.OK) return;
-            try { await new DiagnosticLog(LocalStorage.ForCurrentUser()).ExportAsync(dialog.FileName); status.Text = "Diagnóstico exportado: eventos, horários, IDs e medidas numéricas; sem arquivos, contas ou conteúdo."; }
-            catch (Exception failure) when (LauncherErrors.Expected(failure)) { status.Text = "Escolha um arquivo inexistente e confira as permissões para exportar."; }
+            try { await new DiagnosticLog(LocalStorage.ForCurrentUser()).ExportAsync(dialog.FileName); status.Text = UiText.Get("diagnostics.exported"); }
+            catch (Exception failure) when (LauncherErrors.Expected(failure)) { status.Text = UiText.Get("diagnostics.destinationInvalid"); }
         };
-        var setup = new Button { Text = "Configurações", AutoSize = true };
+        var setup = new Button { Text = UiText.Get("action.settings"), AutoSize = true };
         setup.Click += (_, _) => { using var form = new SetupForm(); form.ShowDialog(this); };
-        actions.Controls.AddRange([recovery, export, setup]); cancel.Text = "Fechar"; cancel.Enabled = true;
+        actions.Controls.AddRange([recovery, export, setup]); cancel.Text = UiText.Get("action.close"); cancel.Enabled = true;
         ClientSize = new Size((int)(620 * DeviceDpi / 96.0), (int)(330 * DeviceDpi / 96.0)); Branding.Refresh(this);
     }
     private async Task RunAsync()
@@ -63,7 +63,7 @@ internal sealed class ProcessingForm : Form
         if (recordDiagnostics) await diagnostics.RecordAsync(DiagnosticEvent.Started);
         try
         {
-            status.Text = request.Action == LauncherAction.Login ? "Aguardando autorização no navegador…" : "Conferindo arquivo e backup…";
+            status.Text = request.Action == LauncherAction.Login ? UiText.Get("progress.authorizing") : UiText.Get("progress.fileAndBackup");
             if (execute is not null) await execute(progress, cancellation.Token);
             else
             {
@@ -93,8 +93,8 @@ internal sealed class ProcessingForm : Form
         }
         if (ExitCode == 0 && importNotice is not null)
         {
-            Text = "Planilha aberta como cópia - ZagoSheetsWin"; status.Text = importNotice;
-            cancel.Text = "Fechar"; cancel.Enabled = true;
+            Text = UiText.Get("processing.copyTitle"); status.Text = importNotice;
+            cancel.Text = UiText.Get("action.close"); cancel.Enabled = true;
         }
         else if (ExitCode == 0 || cancellation.IsCancellationRequested) Close();
     }

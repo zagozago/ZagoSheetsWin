@@ -1,3 +1,4 @@
+using SheetsWindows.Infrastructure;
 using System.Text.RegularExpressions;
 
 namespace SheetsWindows.Windows;
@@ -6,21 +7,7 @@ namespace SheetsWindows.Windows;
 // the same wrapping algorithm, including when the text or Windows DPI changes.
 internal sealed class EmphasisLabel : Label
 {
-    private static readonly string[] Phrases =
-    [
-        "ZagoSheetsWin", "Zagotools", "Google Sheets", "Google Drive",
-        "backup do original", "backup local", "original é mantido", "original foi preservado",
-        "original e o backup foram preservados", "original é substituído por um atalho",
-        "antes da substituição", "após a importação confirmada", "importação confirmada",
-        "Restaurar em…", "Selecionar todos", "Autorizar Google", "Verificar conexão Google",
-        "Aplicativos padrão", "Abrir com", "importar como cópia", "Importe como cópia",
-        "operações pendentes são protegidas", "Operações pendentes são protegidas",
-        "Limpeza automática só quando ativada", "não passam por servidor do Zagotools",
-        "diretamente ao Google", "drive.file", "MIT", "Apache-2.0", "LGPL-3.0-only",
-        "30 dias", "200 MB", "1 GB", "20 MiB", "Macros não funcionam",
-        "Não será possível restaurar", "Usa sincronização?", "pasta local",
-        "Escolha sua conta", "autorize o acesso", "Google conectado", "não precisa instalar"
-    ];
+    private static IReadOnlyList<string> Phrases => UiText.EmphasisTerms;
 
     public EmphasisLabel()
     {

@@ -6,45 +6,45 @@ internal sealed class RecoveryForm : Form
 {
     private bool busy;
     private CancellationTokenSource? activeCancellation;
-    private readonly ListView entries = new() { Dock = DockStyle.Fill, View = View.Details, FullRowSelect = true, MultiSelect = true, CheckBoxes = true, HideSelection = false, AccessibleName = "Backups disponíveis" };
+    private readonly ListView entries = new() { Dock = DockStyle.Fill, View = View.Details, FullRowSelect = true, MultiSelect = true, CheckBoxes = true, HideSelection = false, AccessibleName = UiText.Get("accessibility.availableBackups") };
     private RecoveryEntry? Selected => entries.SelectedItems.Count != 1 ? null : entries.SelectedItems[0].Tag as RecoveryEntry;
     private void AddEntry(RecoveryEntry entry)
     {
         var item = new ListViewItem(Path.GetFileName(entry.OriginalPath)) { Tag = entry, ToolTipText = entry.OriginalPath };
         item.SubItems.Add(entry.CapturedAt?.ToLocalTime().ToString("dd/MM/yyyy HH:mm") ?? "-");
-        item.SubItems.Add($"{entry.Bytes / 1_000_000d:N2} MB");
-        item.SubItems.Add(entry.CleanupState == 2 ? "Limpo" : entry.CleanupState == 1 ? "Limpeza pendente" : !entry.Available ? "Indisponível" : entry.CanClean ? "Concluído" : "Protegido / pendente"); entries.Items.Add(item);
+        item.SubItems.Add(UiText.Format("recovery.sizeMb", ("sizeMb", entry.Bytes / 1_000_000d)));
+        item.SubItems.Add(entry.CleanupState == 2 ? UiText.Get("recovery.state.cleaned") : entry.CleanupState == 1 ? UiText.Get("recovery.state.cleaning") : !entry.Available ? UiText.Get("recovery.state.unavailable") : entry.CanClean ? UiText.Get("recovery.state.completed") : UiText.Get("recovery.state.protected")); entries.Items.Add(item);
     }
-    private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Top, Height = 85, Padding = new Padding(12), Text = "Para recuperar: selecione uma linha e use Restaurar em…\nPara apagar vários backups: marque as caixas ou use Selecionar todos.\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos." };
+    private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Top, Height = 85, Padding = new Padding(12), Text = UiText.Get("recovery.instructions") };
     public RecoveryForm(bool preview = false, bool previewBusy = false)
     {
-        Text = "Recuperar arquivos e gerenciar backups - ZagoSheetsWin"; ClientSize = new Size(700, 650); MinimumSize = new Size(560, 540); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterScreen;
+        Text = UiText.Get("recovery.title"); ClientSize = new Size(700, 650); MinimumSize = new Size(560, 540); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterScreen;
         void FitStatus() { status.MaximumSize = new Size(Math.Max(120, ClientSize.Width), 0); status.Height = status.GetPreferredSize(new Size(ClientSize.Width, 0)).Height; }
         SizeChanged += (_, _) => FitStatus();
         status.TextChanged += (_, _) => FitStatus();
         Shown += (_, _) => FitStatus();
-        entries.Columns.Add("Arquivo", 230); entries.Columns.Add("Data", 140); entries.Columns.Add("Tamanho", 80); entries.Columns.Add("Estado", 180); entries.ShowItemToolTips = true;
+        entries.Columns.Add(UiText.Get("recovery.column.file"), 230); entries.Columns.Add(UiText.Get("recovery.column.date"), 140); entries.Columns.Add(UiText.Get("recovery.column.size"), 80); entries.Columns.Add(UiText.Get("recovery.column.state"), 180); entries.ShowItemToolTips = true;
         var storage = LocalStorage.ForCurrentUser();
         var manager = new BackupManagement(storage);
         var service = new BackupRecovery(storage);
         var policyPanel = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, Padding = new Padding(8) };
-        var days = new NumericUpDown { Minimum = 1, Maximum = 365, Value = 30, Width = 70, AccessibleName = "Retenção em dias" };
-        var quota = new NumericUpDown { Minimum = 1, Maximum = 1000, Value = 200, Width = 80, AccessibleName = "Teto em MB" };
-        var automatic = new CheckBox { Text = "Limpar automaticamente backups concluídos", AutoSize = true };
-        var save = new Button { Text = "Salvar regras", AutoSize = true };
-        var usage = new EmphasisLabel { AutoSize = true, Text = "Teto: 200 MB · máximo: 1 GB. Operações pendentes são protegidas." };
+        var days = new NumericUpDown { Minimum = 1, Maximum = 365, Value = 30, Width = 70, AccessibleName = UiText.Get("accessibility.retentionDays") };
+        var quota = new NumericUpDown { Minimum = 1, Maximum = 1000, Value = 200, Width = 80, AccessibleName = UiText.Get("accessibility.quotaMb") };
+        var automatic = new CheckBox { Text = UiText.Get("recovery.autoCleanup"), AutoSize = true };
+        var save = new Button { Text = UiText.Get("recovery.savePolicy"), AutoSize = true };
+        var usage = new EmphasisLabel { AutoSize = true, Text = UiText.Get("recovery.limits") };
         policyPanel.SizeChanged += (_, _) => usage.MaximumSize = new Size(Math.Max(120, policyPanel.ClientSize.Width - policyPanel.Padding.Horizontal - usage.Margin.Horizontal), 0);
-        policyPanel.Controls.AddRange([new Label { Text = "Prazo (dias):", AutoSize = true }, days, new Label { Text = "Espaço (MB):", AutoSize = true }, quota, automatic, save, usage]);
-        var restore = new Button { Text = "Restaurar em…", Dock = DockStyle.Bottom, Height = 44 };
+        policyPanel.Controls.AddRange([new Label { Text = UiText.Get("recovery.retentionLabel"), AutoSize = true }, days, new Label { Text = UiText.Get("recovery.quotaLabel"), AutoSize = true }, quota, automatic, save, usage]);
+        var restore = new Button { Text = UiText.Get("action.restore"), Dock = DockStyle.Bottom, Height = 44 };
         var actions = new FlowLayoutPanel { Dock = DockStyle.Bottom, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, Padding = new Padding(8) };
-        var copy = new MenuActionButton { Text = "Retomar como cópia", AutoSize = true };
-        var resume = new MenuActionButton { Text = "Concluir substituição", AutoSize = true };
-        var export = new MenuActionButton { Text = "Exportar diagnóstico…", AutoSize = true };
-        var cancel = new Button { Text = "Cancelar retomada", AutoSize = true, Enabled = previewBusy, Visible = previewBusy };
+        var copy = new MenuActionButton { Text = UiText.Get("recovery.resumeCopy"), AutoSize = true };
+        var resume = new MenuActionButton { Text = UiText.Get("recovery.completeReplacement"), AutoSize = true };
+        var export = new MenuActionButton { Text = UiText.Get("action.exportDiagnostics"), AutoSize = true };
+        var cancel = new Button { Text = UiText.Get("recovery.cancelResume"), AutoSize = true, Enabled = previewBusy, Visible = previewBusy };
         cancel.Click += (_, _) => activeCancellation?.Cancel();
-        var delete = new MenuActionButton { Text = "Apagar selecionados…", AutoSize = true };
-        var clean = new MenuActionButton { Text = "Limpar vencidos / excesso…", AutoSize = true };
-        var more = new Button { Text = "Mais ações ▾", AutoSize = true, Height = 34 };
+        var delete = new MenuActionButton { Text = UiText.Get("recovery.deleteSelected"), AutoSize = true };
+        var clean = new MenuActionButton { Text = UiText.Get("recovery.cleanExpired"), AutoSize = true };
+        var more = new Button { Text = UiText.Get("recovery.moreActions"), AutoSize = true, Height = 34 };
         var menu = new ContextMenuStrip();
         foreach (var action in new[] { copy, resume, export, delete, clean })
         {
@@ -53,8 +53,8 @@ internal sealed class RecoveryForm : Form
             menu.Items.Add(item);
         }
         more.Click += (_, _) => { var buttons = new[] { copy, resume, export, delete, clean }; for (var i = 0; i < buttons.Length; i++) menu.Items[i].Enabled = buttons[i].Enabled && !busy; menu.Show(more, new Point(0, more.Height)); };
-        var selectAll = new Button { Text = "Selecionar todos", AutoSize = true };
-        var clearSelection = new Button { Text = "Limpar seleção", AutoSize = true };
+        var selectAll = new Button { Text = UiText.Get("recovery.selectAll"), AutoSize = true };
+        var clearSelection = new Button { Text = UiText.Get("recovery.clearSelection"), AutoSize = true };
         selectAll.Click += (_, _) => { foreach (ListViewItem item in entries.Items) item.Checked = (item.Tag as RecoveryEntry)?.CanClean == true; };
         clearSelection.Click += (_, _) => { foreach (ListViewItem item in entries.Items) { item.Checked = false; item.Selected = false; } };
         actions.Controls.AddRange([selectAll, clearSelection, delete, more]);
@@ -77,7 +77,7 @@ internal sealed class RecoveryForm : Form
                 await Task.Run(() => launcher.ResumeAsync(entry.Id, replace, ct: cancellation.Token));
                 await diagnostics.RecordAsync(DiagnosticEvent.Completed, entry.Id);
                 await RefreshEntries();
-                status.Text = replace ? "Substituição concluída. Backup privado conservado." : "Cópia aberta no Google. Original conservado.";
+                status.Text = replace ? UiText.Get("recovery.replacementCompleted") : UiText.Get("recovery.copyCompleted");
             }
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { await diagnostics.RecordAsync(DiagnosticLog.Failure(ex), entry.Id, failure: ex); status.Text = LauncherErrors.Message(ex); }
             finally { activeCancellation = null; cancel.Enabled = false; cancel.Visible = false; busy = false; actions.Enabled = true; entries.Enabled = true; UpdateSelection(); }
@@ -87,18 +87,18 @@ internal sealed class RecoveryForm : Form
         export.Click += async (_, _) =>
         {
             if (busy) return;
-            using var dialog = new SaveFileDialog { Filter = "Diagnóstico JSONL|*.jsonl", FileName = "sheets-windows-diagnostico.jsonl", OverwritePrompt = true };
+            using var dialog = new SaveFileDialog { Filter = UiText.Get("dialog.diagnosticFilter"), FileName = "sheets-windows-diagnostico.jsonl", OverwritePrompt = true };
             if (dialog.ShowDialog(this) != DialogResult.OK) return;
-            try { await new DiagnosticLog(LocalStorage.ForCurrentUser()).ExportAsync(dialog.FileName); status.Text = "Diagnóstico exportado: eventos, horários, IDs e medidas numéricas, sem arquivos, contas ou conteúdo."; }
-            catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = "Escolha um arquivo inexistente para exportar o diagnóstico."; }
+            try { await new DiagnosticLog(LocalStorage.ForCurrentUser()).ExportAsync(dialog.FileName); status.Text = UiText.Get("diagnostics.exported"); }
+            catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = UiText.Get("diagnostics.fileExists"); }
         };
         FormClosing += (_, e) => { if (busy) { e.Cancel = true; activeCancellation?.Cancel(); } };
         async Task RefreshEntries()
         {
             var result = await Task.Run(() => (Rows: service.List(), Summary: manager.Inspect()));
             entries.Items.Clear(); foreach (var row in result.Rows) AddEntry(row);
-            usage.Text = $"Espaço usado: {result.Summary.UsedBytes / 1_000_000d:N2} MB · limite: {quota.Value} MB · {result.Summary.Entries.Count} backups · {result.Summary.Entries.Count(e => !e.CanClean && e.Available)} protegidos";
-            if (entries.Items.Count == 0) status.Text = "Nenhum backup registrado neste usuário do Windows.";
+            usage.Text = UiText.Format("recovery.usage", ("usedMb", result.Summary.UsedBytes / 1_000_000d), ("limitMb", quota.Value), ("backupCount", result.Summary.Entries.Count), ("protectedCount", result.Summary.Entries.Count(e => !e.CanClean && e.Available)));
+            if (entries.Items.Count == 0) status.Text = UiText.Get("recovery.noBackups");
         }
         if (!preview) Shown += async (_, _) =>
         {
@@ -110,9 +110,9 @@ internal sealed class RecoveryForm : Form
         save.Click += async (_, _) =>
         {
             if (busy || preview) return;
-            if (automatic.Checked && MessageBox.Show(this, "A limpeza automática aplica estas regras também aos backups já existentes. Apaga backups concluídos após o prazo ou para liberar espaço, dos mais antigos para os recentes. Depois não será possível restaurar o original local. Planilhas no Google e atalhos permanecem. Ativar?", "Ativar limpeza automática", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+            if (automatic.Checked && MessageBox.Show(this, UiText.Get("recovery.enableCleanupPrompt"), UiText.Get("recovery.enableCleanupTitle"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
             busy = true;
-            try { await BackupPolicy.SaveAsync(storage, new((int)days.Value, (int)quota.Value, automatic.Checked)); status.Text = "Regras salvas. A limpeza automática ocorre nas próximas importações; não há serviço residente."; }
+            try { await BackupPolicy.SaveAsync(storage, new((int)days.Value, (int)quota.Value, automatic.Checked)); status.Text = UiText.Get("recovery.policySaved"); }
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = LauncherErrors.Message(ex); }
             finally { busy = false; }
         };
@@ -126,9 +126,9 @@ internal sealed class RecoveryForm : Form
                 var marked = selected ? Marked() : [];
                 var protectedCount = marked.Count(entry => !entry.CanClean);
                 var ids = selected ? marked.Where(entry => entry.CanClean).Select(entry => entry.Id).Distinct().ToArray() : (await Task.Run(() => manager.Plan())).ToArray();
-                if (ids.Length == 0) { status.Text = "Nenhum backup concluído elegível. Operações pendentes ou ambíguas são protegidas."; return; }
-                if (MessageBox.Show(this, $"Apagar {ids.Length} backup(s) local(is)?{(protectedCount > 0 ? $"\n{protectedCount} selecionado(s) protegido(s) serão mantidos.\n" : "\n")} Não será possível restaurar os originais após a limpeza. As planilhas no Google, os atalhos e o histórico permanecem.", "Apagar backups", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes) return;
-                var result = await Task.Run(() => manager.CleanAsync(ids)); await RefreshEntries(); status.Text = $"{result.Count} backup(s) apagado(s), {result.Bytes / 1_000_000d:N2} MB liberados.";
+                if (ids.Length == 0) { status.Text = UiText.Get("recovery.noEligibleBackup"); return; }
+                if (MessageBox.Show(this, UiText.Format("recovery.deletePrompt", ("count", ids.Length), ("protectedCount", protectedCount)), UiText.Get("recovery.deleteTitle"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes) return;
+                var result = await Task.Run(() => manager.CleanAsync(ids)); await RefreshEntries(); status.Text = UiText.Format("recovery.deleted", ("count", result.Count), ("freedMb", result.Bytes / 1_000_000d));
             }
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = LauncherErrors.Message(ex); }
             finally { busy = false; actions.Enabled = true; policyPanel.Enabled = true; entries.Enabled = true; UpdateSelection(); }
@@ -145,12 +145,12 @@ internal sealed class RecoveryForm : Form
         entries.ItemChecked += (_, _) => UpdateSelection();
         restore.Click += async (_, _) =>
         {
-            if (busy || Selected is not RecoveryEntry { Available: true } entry) { status.Text = "Selecione um backup na lista."; return; }
-            using var dialog = new SaveFileDialog { Filter = "Arquivo original|*" + Path.GetExtension(entry.OriginalPath), DefaultExt = Path.GetExtension(entry.OriginalPath), FileName = Path.GetFileNameWithoutExtension(entry.OriginalPath) + "-restaurado" + Path.GetExtension(entry.OriginalPath), OverwritePrompt = true };
+            if (busy || Selected is not RecoveryEntry { Available: true } entry) { status.Text = UiText.Get("recovery.selectBackup"); return; }
+            using var dialog = new SaveFileDialog { Filter = UiText.Get("dialog.originalFileFilter") + Path.GetExtension(entry.OriginalPath), DefaultExt = Path.GetExtension(entry.OriginalPath), FileName = Path.GetFileNameWithoutExtension(entry.OriginalPath) + "-restaurado" + Path.GetExtension(entry.OriginalPath), OverwritePrompt = true };
             if (dialog.ShowDialog(this) != DialogResult.OK) return;
             busy = true; restore.Enabled = false; entries.Enabled = false; actions.Enabled = false;
-            try { await Task.Run(() => service.RestoreAsync(entry.Id, dialog.FileName)); status.Text = "Backup verificado e restaurado. O backup privado foi conservado."; }
-            catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = "Não foi possível restaurar. Escolha um nome inexistente e confira a pasta de destino. O backup foi conservado."; }
+            try { await Task.Run(() => service.RestoreAsync(entry.Id, dialog.FileName)); status.Text = UiText.Get("recovery.restored"); }
+            catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = UiText.Get("recovery.restoreFailed"); }
             finally { busy = false; entries.Enabled = true; actions.Enabled = true; UpdateSelection(); }
         };
         if (preview)
@@ -160,7 +160,7 @@ internal sealed class RecoveryForm : Form
                 new RecoveryEntry(Guid.Parse("44444444-4444-4444-4444-444444444444"), "Orçamento.csv", 300_000, 4, new DateTimeOffset(2026, 9, 2, 12, 0, 0, TimeSpan.Zero), true, true),
                 new RecoveryEntry(Guid.Parse("22222222-2222-2222-2222-222222222222"), "Importação pendente.csv", 600_000, 1, new DateTimeOffset(2026, 10, 1, 12, 0, 0, TimeSpan.Zero)),
                 new RecoveryEntry(Guid.Parse("33333333-3333-3333-3333-333333333333"), "Arquivo antigo.xls", 100_000, 4, new DateTimeOffset(2026, 8, 1, 12, 0, 0, TimeSpan.Zero), false, false, 2) }) AddEntry(entry);
-            usage.Text = "Espaço usado: 3,30 MB · limite: 200 MB · 1 protegido · 1 limpo";
+            usage.Text = UiText.Get("recovery.previewUsage");
         }
         UpdateSelection();
         Branding.Apply(this);

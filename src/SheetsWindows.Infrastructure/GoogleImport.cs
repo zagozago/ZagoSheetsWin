@@ -14,7 +14,7 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
     public async Task<ImportReceipt> ImportReceiptAsync(string path, CancellationToken ct = default)
     {
         await using (var preflight = sources.Open(path))
-            if (preflight.Content.Length > MaxBytes) throw new SpreadsheetCapacityException("O arquivo excede o limite de 20 MiB para importação.");
+            if (preflight.Content.Length > MaxBytes) throw new SpreadsheetCapacityException(UiText.Message("capacity.importSize"));
         var access = await auth.AccessAsync(cancellationToken: ct);
         if (backupManagement is not null)
         {
@@ -39,7 +39,7 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
         if (Convert.ToHexString(await SHA256.HashDataAsync(source.Content, ct)) != snapshot.Sha256) throw new LocalConflictException("Source changed; upload blocked.");
         // Hold the backup handle while checking and freezing the bytes that will be sent.
         await using var backup = new FileStream(snapshot.BackupPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-        if (backup.Length > MaxBytes) throw new SpreadsheetCapacityException("O arquivo excede o limite de 20 MiB para importação.");
+        if (backup.Length > MaxBytes) throw new SpreadsheetCapacityException(UiText.Message("capacity.importSize"));
         using var buffer = new MemoryStream(); await backup.CopyToAsync(buffer, ct); var bytes = buffer.ToArray();
         if (bytes.LongLength != snapshot.Length || Convert.ToHexString(SHA256.HashData(bytes)) != snapshot.Sha256) throw new InvalidDataException("Snapshot integrity failure.");
         SpreadsheetPayload payload;

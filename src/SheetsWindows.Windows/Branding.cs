@@ -5,7 +5,7 @@ namespace SheetsWindows.Windows;
 internal static class Branding
 {
     public const string Name = "ZagoSheetsWin";
-    public const string Credit = "Evolução Zagotools • Base: Open in Google, de Swati K (SwatiK425) • MIT";
+    public static readonly string Credit = UiText.Get("about.credit");
     private static ApplicationTheme? selected;
     private static event Action? ThemeChanged;
     internal static ApplicationTheme Current
@@ -61,17 +61,17 @@ internal static class Branding
         var right = new FlowLayoutPanel { Dock = DockStyle.Right, Width = aboutButton ? 192 : 52, FlowDirection = FlowDirection.LeftToRight, WrapContents = false, Padding = new Padding(0, 5, 0, 0) };
         var toggle = new ThemeToggle { Width = 36, Height = 34 };
         var tooltip = new ToolTip();
-        void UpdateToggle() { toggle.Dark = Current == ApplicationTheme.Dark; toggle.AccessibleName = toggle.Dark ? "Ativar modo claro" : "Ativar modo escuro"; tooltip.SetToolTip(toggle, toggle.AccessibleName); toggle.Invalidate(); }
+        void UpdateToggle() { toggle.Dark = Current == ApplicationTheme.Dark; toggle.AccessibleName = toggle.Dark ? UiText.Get("theme.activateLight") : UiText.Get("theme.activateDark"); tooltip.SetToolTip(toggle, toggle.AccessibleName); toggle.Invalidate(); }
         toggle.Click += async (_, _) =>
         {
             toggle.Enabled = false;
             try { var next = Current == ApplicationTheme.Dark ? ApplicationTheme.Light : ApplicationTheme.Dark; await ThemeSettings.SaveAsync(LocalStorage.ForCurrentUser(), next); selected = next; ThemeChanged?.Invoke(); }
-            catch (Exception ex) when (LauncherErrors.Expected(ex)) { MessageBox.Show(form, "Não foi possível salvar o tema. A preferência anterior foi preservada.", Name, MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            catch (Exception ex) when (LauncherErrors.Expected(ex)) { MessageBox.Show(form, UiText.Get("theme.saveFailed"), Name, MessageBoxButtons.OK, MessageBoxIcon.Warning); }
             finally { if (!toggle.IsDisposed) toggle.Enabled = true; }
         };
         if (aboutButton)
         {
-            var about = new LinkLabel { Text = "Sobre / Licenças", AutoSize = false, Width = 130, Height = 32, TextAlign = ContentAlignment.MiddleCenter, TabStop = true, AccessibleName = "Sobre o ZagoSheetsWin e licenças" };
+            var about = new LinkLabel { Text = UiText.Get("about.open"), AutoSize = false, Width = 130, Height = 32, TextAlign = ContentAlignment.MiddleCenter, TabStop = true, AccessibleName = UiText.Get("accessibility.about") };
             about.LinkClicked += (_, _) => { using var info = new AboutForm(); info.ShowDialog(form); }; right.Controls.Add(about);
         }
         right.Controls.Add(toggle); header.Controls.Add(title); header.Controls.Add(picture); header.Controls.Add(right);
@@ -88,18 +88,18 @@ internal sealed class AboutForm : Form
 {
     public AboutForm()
     {
-        Text = "Sobre - ZagoSheetsWin / Zagotools"; ClientSize = new Size(810, 520); MinimumSize = new Size(600, 400); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterParent;
+        Text = UiText.Get("about.title"); ClientSize = new Size(810, 520); MinimumSize = new Size(600, 400); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterParent;
         var body = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, Padding = new Padding(18), AutoScroll = true };
-        body.Controls.Add(new EmphasisLabel { AutoSize = true, MaximumSize = new Size(740, 0), Text = "ZagoSheetsWin 0.9.19 - Zagotools\n\nZagoSheetsWin é uma evolução do projeto Open in Google, de Swati K (SwatiK425), desenvolvida pelo Zagotools e distribuída sob licença MIT.\n\nDireitos autorais: 2026 Swati K e 2026 Zagotools. A autoria e a licença originais foram preservadas." });
-        foreach (var item in new[] { ("Site do Zagotools", "https://zagotools.top/"), ("Licenças do Zagotools", "https://zagotools.top/legal.html#licencas"), ("Projeto original - Open in Google", "https://github.com/SwatiK425/open-in-google/"), ("Autora original - SwatiK425", "https://github.com/SwatiK425"), ("Código da evolução - Zagotools", "https://github.com/zagozago/ZagoSheetsWin"), ("Política de Privacidade", "https://zagotools.top/legal.html#privacidade"), ("Termos de Uso", "https://zagotools.top/legal.html#termos") })
+        body.Controls.Add(new EmphasisLabel { AutoSize = true, MaximumSize = new Size(740, 0), Text = UiText.Format("about.description", ("version", UiText.ProductVersion)) });
+        foreach (var item in new[] { (UiText.Get("about.website"), "https://zagotools.top/"), (UiText.Get("about.licensesWebsite"), "https://zagotools.top/legal.html#licencas"), (UiText.Get("about.upstream"), "https://github.com/SwatiK425/open-in-google/"), (UiText.Get("about.upstreamAuthor"), "https://github.com/SwatiK425"), (UiText.Get("about.sourceCode"), "https://github.com/zagozago/ZagoSheetsWin"), (UiText.Get("legal.privacy"), "https://zagotools.top/legal.html#privacidade"), (UiText.Get("legal.terms"), "https://zagotools.top/legal.html#termos") })
         {
             var link = new LinkLabel { Text = item.Item1, AutoSize = true, Margin = new Padding(0, 8, 0, 8) };
-            link.LinkClicked += (_, _) => { try { new BrowserLauncher().Open(new Uri(item.Item2)); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { MessageBox.Show(item.Item2, "Link do projeto"); } };
+            link.LinkClicked += (_, _) => { try { new BrowserLauncher().Open(new Uri(item.Item2)); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { MessageBox.Show(item.Item2, UiText.Get("about.linkDialog")); } };
             body.Controls.Add(link);
         }
         var license = Path.Combine(AppContext.BaseDirectory, "LICENSE");
         body.Controls.Add(new TextBox { Multiline = true, ReadOnly = true, ScrollBars = ScrollBars.Vertical, Width = 740, Height = 170, Text = File.ReadAllText(license) });
-        body.Controls.Add(new EmphasisLabel { Text = "ExcelDataReader - MIT: leitura e verificação.\nNPOI 2.7.6 - Apache-2.0: conversão local de XLS para XLSX.\nHtmlAgilityPack 1.12.4 - MIT: relatórios HTML com extensão XLS.\nNSax 1.0.2 - LGPL-3.0-only (dependência do NPOI).\nLicenças e créditos das dependências incluídos na pasta third-party.", AutoSize = true, MaximumSize = new Size(740, 0) });
+        body.Controls.Add(new EmphasisLabel { Text = UiText.Get("about.dependencies"), AutoSize = true, MaximumSize = new Size(740, 0) });
         Controls.Add(body); Branding.Apply(this, aboutButton: false);
     }
 }

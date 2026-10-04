@@ -140,7 +140,7 @@ public sealed class LoopbackAuthorizationReceiver(Action<Uri> openBrowser) : IAu
                     var first = lines[0].Split(' '); string? code = null;
                     if (raw.Count < 8192 && first.Length == 3 && first[0] == "GET" && first[2] == "HTTP/1.1"
                         && lines.Any(l => l.Equals($"Host: 127.0.0.1:{port}", StringComparison.OrdinalIgnoreCase))) code = proof.Callback(first[1], path);
-                    var body = Encoding.UTF8.GetBytes(code is null ? "Resposta inválida. Continue o login na janela Google." : "Resposta recebida. Aguarde a conclusão no aplicativo.");
+                    var body = Encoding.UTF8.GetBytes(code is null ? UiText.Get("oauth.callback.invalid") : UiText.Get("oauth.callback.received"));
                     var head = Encoding.ASCII.GetBytes($"HTTP/1.1 {(code is null ? "400 Bad Request" : "200 OK")}\r\nContent-Type: text/plain; charset=utf-8\r\nContent-Length: {body.Length}\r\nConnection: close\r\n\r\n");
                     await stream.WriteAsync(head, timeout.Token); await stream.WriteAsync(body, timeout.Token);
                     if (code is not null) return new(code, redirect);

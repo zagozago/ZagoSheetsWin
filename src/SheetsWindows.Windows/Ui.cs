@@ -1,3 +1,4 @@
+using SheetsWindows.Infrastructure;
 namespace SheetsWindows.Windows;
 
 // Shared native controls. Text remains selectable/readable at Windows DPI and keyboard focus is native.
@@ -9,7 +10,7 @@ internal static class Ui
         Margin = new Padding(0, heading ? 12 : 4, 0, 8),
         Font = new Font("Segoe UI", heading ? 11 : 10, heading ? FontStyle.Bold : FontStyle.Regular)
     };
-    internal static Panel Separator() => new() { Height = 1, Width = 480, Margin = new Padding(0, 10, 0, 10), AccessibleName = "Separador", Tag = "separator" };
+    internal static Panel Separator() => new() { Height = 1, Width = 480, Margin = new Padding(0, 10, 0, 10), AccessibleName = UiText.Get("accessibility.separator"), Tag = "separator" };
     internal static void Primary(Button button) { button.Tag = "primary"; button.MinimumSize = new Size(0, 38); }
     internal static void Adapt(FlowLayoutPanel layout)
     {

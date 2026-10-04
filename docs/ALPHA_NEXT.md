@@ -140,3 +140,10 @@ Manter versão alpha e distribuir pacote novo com evidências Windows/Linux/inst
 ## Reformulação de UX/UI — 0.9.10
 
 Implementação: fontes e componentes compartilhados, tutorial e textos revisados, configurações compactas e tabela de backups. Referências: UI_TEXTS_PT_BR.md e UI_REDESIGN.md. A tradução ocorre após o aceite visual e funcional. Build local e testes devem passar; instalador e prévias Windows dependem da aprovação do ambiente protegido. Fase 2: escalas de tela, teclado, temas e preservação na atualização.
+
+
+## Preparação da internacionalização - 0.9.20
+
+Etapas recentes: Fernando confirmou o aceite visual e funcional da 0.9.18. Textos PT-BR e Sobre revisados na 0.9.19; comparação com legal.html permanece pendente (HTTP 404). A preparação da etapa 3 está documentada em [I18N_PREPARATION.md](I18N_PREPARATION.md): catálogo de 585 entradas, matriz canônica de 51 idiomas, recursos de aplicativo/instalador gerados de uma fonte, contratos e testes. Interface continua PT-BR; 50 alvos ainda não traduzidos.
+
+Requisito explícito de Fernando: todos os botões devem se ajustar ao texto nos 51 idiomas. O botão final de instalação da 0.9.19 corta Iniciar configuração. Corrigir no trabalho de layout da integração multilíngue; não alterar seu tamanho nesta etapa. Validar fontes reais, RTL e DPI 100/125/150/200%, sem corte nem reticências.

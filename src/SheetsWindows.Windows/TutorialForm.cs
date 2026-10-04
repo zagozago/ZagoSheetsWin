@@ -6,12 +6,12 @@ namespace SheetsWindows.Windows;
 // Offline illustrations: no web content, tracking or Google credentials.
 internal sealed class TutorialForm : Form
 {
-    private readonly CheckBox hide = new() { Text = "Não mostrar este tutorial ao abrir o aplicativo", AutoSize = true, Checked = false };
+    private readonly CheckBox hide = new() { Text = UiText.Get("tutorial.hide"), AutoSize = true, Checked = false };
     private readonly Label heading = new() { Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, Font = new Font("Segoe UI", 14, FontStyle.Bold) };
     private readonly FlowLayoutPanel explanation = new() { Dock = DockStyle.Fill, AutoScroll = false, FlowDirection = FlowDirection.TopDown, WrapContents = false };
     private readonly TutorialPicture picture = new() { Dock = DockStyle.Fill };
-    private readonly Button previous = new() { Text = "Voltar", AutoSize = true };
-    private readonly Button next = new() { Text = "Próximo", AutoSize = true };
+    private readonly Button previous = new() { Text = UiText.Get("action.back"), AutoSize = true };
+    private readonly Button next = new() { Text = UiText.Get("action.next"), AutoSize = true };
     private readonly Label count = new() { AutoSize = true };
     private int page;
     private bool saving;
@@ -19,20 +19,20 @@ internal sealed class TutorialForm : Form
     private readonly TableLayoutPanel layout;
     private static readonly (string Title, string Text)[] Pages =
     [
-        ("Abra suas planilhas no Google Sheets", "Abra um arquivo no computador. O ZagoSheetsWin importa e confere a planilha. Continue no navegador.|Após a conferência: backup do original + atalho para o Sheets. Se a conversão não puder ser confirmada, o original é mantido."),
-        ("Conecte sua conta Google", "Escolha sua conta → autorize o acesso → volte ao aplicativo.|Nas configurações, ✓ Google conectado confirma a autorização. Suas planilhas ficam no Google Drive dessa conta. Não precisa instalar o Google Drive para Windows."),
-        ("Escolha como abrir suas planilhas", "Dê dois cliques ou use Abrir com → ZagoSheetsWin no menu do Windows.|Defina o ZagoSheetsWin como aplicativo padrão de planilhas (opcional):"),
-        ("Guarde o original. Saiba como recuperar.", "Original → backup local → Google Sheets. Em Backups, escolha Restaurar em… para recuperar o arquivo.|30 dias · 200 MB (ajustável até 1 GB). Limpeza automática só quando ativada; operações pendentes são protegidas.|O backup guarda o original, sem alterações posteriores no Sheets. Fórmulas e formatação podem mudar; macros XLS não funcionam no Sheets.")
+        (UiText.Get("tutorial.importTitle"), UiText.Get("tutorial.importExplanation")),
+        (UiText.Get("tutorial.googleTitle"), UiText.Get("tutorial.googleExplanation")),
+        (UiText.Get("tutorial.defaultsTitle"), UiText.Get("tutorial.defaultsExplanation")),
+        (UiText.Get("tutorial.backupTitle"), UiText.Get("tutorial.backupExplanation"))
     ];
     public TutorialForm(int initialPage = 0)
     {
         page = Math.Clamp(initialPage, 0, Pages.Length - 1);
-        Text = "Como funciona - ZagoSheetsWin"; ClientSize = new Size(760, 650); MinimumSize = new Size(620, 560); StartPosition = FormStartPosition.CenterParent; AutoScaleMode = AutoScaleMode.Dpi;
+        Text = UiText.Get("tutorial.title"); ClientSize = new Size(760, 650); MinimumSize = new Size(620, 560); StartPosition = FormStartPosition.CenterParent; AutoScaleMode = AutoScaleMode.Dpi;
         layout = new TableLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(20), ColumnCount = 1, RowCount = 5 };
         layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 55)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 250)); layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48));
         layout.Controls.Add(heading, 0, 0); layout.Controls.Add(picture, 0, 1); layout.Controls.Add(explanation, 0, 2); layout.Controls.Add(hide, 0, 3);
         var actions = new FlowLayoutPanel { Dock = DockStyle.Fill, WrapContents = false };
-        var skip = new Button { Text = "Pular tutorial", AutoSize = true };
+        var skip = new Button { Text = UiText.Get("tutorial.skip"), AutoSize = true };
         actions.Controls.Add(skip); actions.Controls.Add(previous); actions.Controls.Add(next); actions.Controls.Add(count); layout.Controls.Add(actions, 0, 4);
         previous.Click += (_, _) => { page--; RefreshPage(); }; next.Click += (_, _) => { if (page == Pages.Length - 1) Close(); else { page++; RefreshPage(); } }; skip.Click += (_, _) => Close();
         Ui.Primary(next); Controls.Add(layout); Branding.Apply(this); Ui.Adapt(explanation); RefreshPage();
@@ -44,12 +44,12 @@ internal sealed class TutorialForm : Form
             if (!hide.Checked) return;
             e.Cancel = true; saving = true; layout.Enabled = false;
             try { await TutorialSettings.SaveAsync(LocalStorage.ForCurrentUser(), true); hide.Checked = false; saving = false; Close(); }
-            catch (Exception ex) when (LauncherErrors.Expected(ex)) { saving = false; layout.Enabled = true; MessageBox.Show(this, LauncherErrors.Message(ex), "Preferência do tutorial", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            catch (Exception ex) when (LauncherErrors.Expected(ex)) { saving = false; layout.Enabled = true; MessageBox.Show(this, LauncherErrors.Message(ex), UiText.Get("tutorial.preferenceTitle"), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         };
     }
     private void RefreshPage()
     {
-        heading.Text = $"{page + 1}. {Pages[page].Title}";
+        heading.Text = UiText.Format("tutorial.numberedTitle", ("number", page + 1), ("title", Pages[page].Title));
         var old = explanation.Controls.Cast<Control>().ToArray(); explanation.Controls.Clear(); foreach (var control in old) control.Dispose();
         var groups = Pages[page].Text.Split('|');
         for (var i = 0; i < groups.Length; i++)
@@ -61,19 +61,19 @@ internal sealed class TutorialForm : Form
         }
         if (page is 2 or 3)
         {
-            var action = new Button { AutoSize = true, Text = page == 2 ? "Definir como padrão…" : "Abrir backups…" };
+            var action = new Button { AutoSize = true, Text = page == 2 ? UiText.Get("tutorial.defineDefaults") : UiText.Get("tutorial.openBackups") };
             var backups = page == 3;
             action.Click += (_, _) =>
             {
                 if (backups) { using var recovery = new RecoveryForm(); recovery.ShowDialog(this); }
                 else try { new BrowserLauncher().Open(WindowsAssociationPlan.DefaultsUri); }
-                catch (Exception ex) when (LauncherErrors.Expected(ex)) { MessageBox.Show(this, "Abra Configurações > Aplicativos > Aplicativos padrão e procure ZagoSheetsWin."); }
+                catch (Exception ex) when (LauncherErrors.Expected(ex)) { MessageBox.Show(this, UiText.Get("setup.windowsDefaultsInstructions")); }
             };
             explanation.Controls.Add(action);
         }
         explanation.PerformLayout(); Branding.Refresh(this);
-        count.Text = $"{page + 1} de {Pages.Length}";
-        previous.Enabled = page > 0; next.Text = page == Pages.Length - 1 ? "Começar" : "Próximo"; picture.Page = page; picture.AccessibleName = Pages[page].Title; picture.Invalidate(); FitContent();
+        count.Text = UiText.Format("tutorial.pageCount", ("number", page + 1), ("total", Pages.Length));
+        previous.Enabled = page > 0; next.Text = page == Pages.Length - 1 ? UiText.Get("tutorial.start") : UiText.Get("action.next"); picture.Page = page; picture.AccessibleName = Pages[page].Title; picture.Invalidate(); FitContent();
     }
     private void FitContent()
     {
@@ -146,7 +146,7 @@ internal sealed class TutorialPicture : Control
             using var logo = Image.FromStream(source); g.DrawImage(logo, x + 48, y + 29, 48, 44);
             g.DrawString("ZagoSheetsWin", small, ink, new RectangleF(x, y + 70, 144, 20), centered);
             Round(x + 12, y + 92, 120, 9, green);
-            if (authorize) { Round(x + 12, y + 80, 120, 23, green); g.DrawString("Autorizar", small, white, new RectangleF(x + 12, y + 80, 120, 23), centered); }
+            if (authorize) { Round(x + 12, y + 80, 120, 23, green); g.DrawString(UiText.Get("tutorial.picture.authorize"), small, white, new RectangleF(x + 12, y + 80, 120, 23), centered); }
         }
         void Folder(float x, float y)
         {
@@ -161,16 +161,16 @@ internal sealed class TutorialPicture : Control
             for (var index = 0; index < formats.Length; index++) FileIcon(36 + index * 112, 32, formats[index]);
             AppIcon(540, 30, false);
             g.DrawLine(pen, 487, 83, 521, 83); g.DrawLines(pen, [new PointF(511, 73), new PointF(521, 83), new PointF(511, 93)]);
-            g.DrawString("Escolha sua planilha", font, ink, new RectangleF(5, 185, 465, 45), centered);
-            g.DrawString("Abrir com → ZagoSheetsWin", small, ink, new RectangleF(485, 178, 210, 60), centered);
+            g.DrawString(UiText.Get("tutorial.picture.chooseSpreadsheet"), font, ink, new RectangleF(5, 185, 465, 45), centered);
+            g.DrawString(UiText.Get("tutorial.picture.openWithZago"), small, ink, new RectangleF(485, 178, 210, 60), centered);
             return;
         }
         string[] labels = Page switch
         {
-            1 => ["Escolha sua conta", "Autorize o acesso", "Google conectado"],
-            2 => ["Arquivo no computador", "Abrir com", "Google Sheets"],
-            3 => ["Original", "Backup local", "Google Sheets"],
-            _ => ["Abra o arquivo", "Importação conferida", "Continue no navegador"]
+            1 => [UiText.Get("tutorial.picture.chooseAccount"), UiText.Get("tutorial.picture.authorizeAccess"), UiText.Get("tutorial.picture.connected")],
+            2 => [UiText.Get("tutorial.picture.localFile"), UiText.Get("tutorial.picture.openWith"), "Google Sheets"],
+            3 => [UiText.Get("tutorial.picture.original"), UiText.Get("tutorial.picture.backup"), "Google Sheets"],
+            _ => [UiText.Get("tutorial.picture.openFile"), UiText.Get("tutorial.picture.importVerified"), UiText.Get("tutorial.picture.browser")]
         };
         for (var step = 0; step < 3; step++)
         {
@@ -180,7 +180,7 @@ internal sealed class TutorialPicture : Control
             {
                 g.DrawString("Google", font, ink, new RectangleF(x, 27, 195, 35), centered);
                 g.FillEllipse(green, x + 78, 70, 38, 38);
-                g.DrawString("Sua conta", small, ink, new RectangleF(x, 112, 195, 26), centered);
+                g.DrawString(UiText.Get("tutorial.picture.yourAccount"), small, ink, new RectangleF(x, 112, 195, 26), centered);
             }
             else if (step == 1 && Page == 3) Folder(x + 48, 15);
             else if (step == 1) AppIcon(x + 25, 30, Page == 1);
