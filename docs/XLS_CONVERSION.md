@@ -38,3 +38,23 @@ copy-only handling and upload/recovery tests. The privately supplied XLS was
 also converted locally and its eight formulas preserved. It is not committed
 as a fixture. Real Google conversion and installer behavior require Windows
 CI and user validation.
+
+## HTML reports named .xls (0.9.15)
+
+The file extension does not identify its internal format. HTML exporters
+sometimes save tables as XLS. Such files are recognized from their HTML
+prefix and decoded locally with HtmlAgilityPack 1.12.4 (MIT, no browser or
+network fetch). Tables become XLSX tabs; filters/headings outside the table
+are retained in an Informações tab. Scripts/styles are not executed.
+
+Simple invariant numbers become numeric cells; leading-zero identifiers and
+formula-looking strings stay literal. UTF-8, declared Windows-1252/ISO-8859-1
+and UTF-16 BOM are supported. Row/column spans are expanded with empty covered
+cells; cell styling/merges are not reproduced. Nested tables, unsupported
+encodings and oversized grids fail before uploading, retaining the original.
+The original HTML bytes remain the backup; export verification checks the
+expected values before replacement. Binary XLS retains the NPOI route.
+
+The private Report.xls was HTML, with 199 rows and five columns. Its conversion
+and independent round-trip verification passed locally. The paired XLSX also
+passed preparation. Neither private report is committed as a test fixture.

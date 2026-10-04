@@ -114,6 +114,18 @@ public sealed class GoogleTests
         public void Open(Uri uri) { if (Fail) throw new IOException("Browser unavailable"); Opened.Add(uri); }
     }
     [Fact]
+    public async Task HtmlXlsUploadsNativePayloadKeepsSourceBackupAndDoesNotDuplicateRemote()
+    {
+        using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".xls");
+        var bytes = Encoding.UTF8.GetBytes("<html><table><tr><th>Valor</th></tr><tr><td>2442</td></tr></table></html>");
+        File.WriteAllBytes(path, bytes); using var server = new DriveServer(); var importer = Importer(w, server);
+        var receipt = await importer.ImportReceiptAsync(path); Assert.True(receipt.CanReplace);
+        Assert.Equal(SpreadsheetFormats.XlsxMime, Assert.Single(server.MediaTypes));
+        SpreadsheetFormats.VerifyValues(SpreadsheetFormats.Prepare("xls", bytes).Expected!, Assert.Single(server.Uploaded).Value);
+        Assert.Equal(bytes, File.ReadAllBytes(receipt.Operation.Snapshot!.BackupPath)); Assert.Equal(bytes, File.ReadAllBytes(path));
+        Assert.Equal(receipt.Url, await importer.ImportAsync(path)); Assert.Equal(2, server.Posts);
+    }
+    [Fact]
     public async Task XlsUploadsConvertedXlsxRetainsBinaryBackupAndReusesRemote()
     {
         using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".xls");

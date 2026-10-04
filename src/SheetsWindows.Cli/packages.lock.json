@@ -22,6 +22,11 @@
         "resolved": "2025.1001.2.129",
         "contentHash": "+woGT1lsBtwkntOpx2EZbdbySv0aWPefE0vrfvclxVdbi4oa2bbtphFPWgMiQe+kRCPICbfFJwp6w1DuR7Ge2Q=="
       },
+      "HtmlAgilityPack": {
+        "type": "Transitive",
+        "resolved": "1.12.4",
+        "contentHash": "ljqvBabvFwKoLniuoQKO8b5bJfJweKLs4fUNS/V5dsvpo0A8MlJqxxn9XVmP2DaskbUXty6IYaWAi1SArGIMeQ=="
+      },
       "MathNet.Numerics.Signed": {
         "type": "Transitive",
         "resolved": "5.0.0",
@@ -145,6 +150,7 @@
         "type": "Project",
         "dependencies": {
           "ExcelDataReader": "[3.9.0, )",
+          "HtmlAgilityPack": "[1.12.4, 1.12.4]",
           "Microsoft.Data.Sqlite": "[10.0.12, )",
           "NPOI": "[2.7.6, 2.7.6]",
           "SheetsWindows.Core": "[1.0.0, )",

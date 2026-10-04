@@ -1,4 +1,4 @@
-# Third-party licenses — ZagoSheetsWin 0.9.13
+# Third-party licenses — ZagoSheetsWin 0.9.15
 
 The application and the original Open in Google attribution remain MIT.
 Each dependency retains its own license. NPOI is pinned to 2.7.6; the license
@@ -6,6 +6,7 @@ of newer binary packages must not be assumed to be Apache-2.0.
 
 | Component | Version | License / bundled text |
 |---|---|---|
+| HtmlAgilityPack (ZZZ Projects, Simon Mourrier and contributors) | 1.12.4 | MIT — HtmlAgilityPack-LICENSE.txt |
 | ExcelDataReader | 3.9.0 | MIT — ExcelDataReader-LICENSE.txt |
 | NPOI (Tony Qu, NPOI contributors, Nissl LLC) | 2.7.6 | Apache-2.0 — NPOI-LICENSE.txt |
 | BouncyCastle.Cryptography | 2.6.2 | MIT — BouncyCastle-LICENSE.txt |

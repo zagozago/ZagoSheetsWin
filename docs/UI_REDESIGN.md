@@ -36,3 +36,7 @@ Novas importações XLS enviam XLSX convertido com NPOI 2.7.6, preservando o bac
 ## 0.9.14 — Painéis de backups adaptáveis
 
 Os painéis de regras e ações calculam a altura pelo conteúdo, em vez de cortar controles quando a fonte ou a largura provocam quebra de linha. A verificação nativa mantém a checagem de limites e cobre a janela mínima, com o nome e as dimensões do botão em caso de falha. O cabeçalho reserva espaço para Sobre / Licenças e o seletor de tema.
+
+## 0.9.15 — XLS de relatórios HTML e ícone ampliado
+
+A importação detecta HTML dentro de XLS e gera XLSX localmente, com filtros em Informações e verificação dos valores. O ícone do aplicativo/instalador usa Z ampliado sobre fundo transparente; o ícone dos atalhos de planilha permanece separado.

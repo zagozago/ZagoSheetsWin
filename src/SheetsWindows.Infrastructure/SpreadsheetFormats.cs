@@ -42,6 +42,11 @@ public static class SpreadsheetFormats
                 var expected = ReadOds(bytes);
                 return new(bytes, "application/vnd.oasis.opendocument.spreadsheet", expected);
             case "xls":
+                if (HtmlWorkbookReader.IsHtml(bytes))
+                {
+                    var html = HtmlWorkbookReader.Read(bytes, ct);
+                    return new(WriteXlsx(html, ct), XlsxMime, html);
+                }
                 // Validate independently with ExcelDataReader before converting the upload payload.
                 var legacy = ReadExcel(bytes, binary: true, ct: ct);
                 var converted = LegacyWorkbookConverter.Convert(bytes, ct, out var copyOnly);

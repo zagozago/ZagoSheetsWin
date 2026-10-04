@@ -3,3 +3,5 @@
 Logos zfull.png e zonly.png fornecidas no template universal Zagotools do usuário. Imagens incorporadas no pacote, sem requisições externas. Ícone e bitmaps do instalador derivados dessas logos; paleta #07100b / #62d98b / #edf8f0. Tipografia nativa Consolas com fallback do Windows.
 
 Marca da evolução: Zagotools. Código-base: Open in Google, de Swati K (SwatiK425), https://github.com/SwatiK425/open-in-google/. Preservar a licença MIT e o copyright original; a marca Zagotools não substitui a atribuição da base.
+
+0.9.15: o ícone do aplicativo/instalador utiliza fundo transparente e Z ampliado, com frames ICO de 16 a 256 px. app-icon-source.png é a fonte raster editada; zonly.png continua como logo do cabeçalho. O ícone de planilha dos atalhos permanece separado.
