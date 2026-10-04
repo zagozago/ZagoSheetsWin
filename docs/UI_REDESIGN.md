@@ -49,3 +49,9 @@ A importação detecta HTML dentro de XLS e gera XLSX localmente, com filtros em
 - Autorização Google independente da pasta; indicador de autorização salva, verificação online com refresh + identidade da conta e indicação de nova autorização. Falha de rede não é apresentada como revogação.
 - Tabela permite múltiplas marcas e seleção; Selecionar todos inclui apenas backups concluídos elegíveis. A confirmação informa a quantidade e mantém protegidos/pendentes. Restaurar exige uma única linha selecionada.
 - Testes de migração, consentimento, política inválida e limpeza de múltiplos backups, mais verificações nativas Windows de seleção, seção recolhida e modal avançado. Prévias e testes nativos são executados no pipeline Windows.
+
+## 0.9.17 — Correção do teste de autorização e botão de tema
+
+O teste Windows de revogação agora compara os bytes protegidos do armazenamento antes/depois, sem comparar a identidade de objetos reconstituídos. A 0.9.16 foi bloqueada por essa comparação incorreta; não houve mudança no comportamento do OAuth.
+
+O seletor de tema mostra um único ícone vetorial: sol no modo claro, lua no escuro. Um clique alterna o tema e salva a preferência; as janelas abertas são atualizadas juntas. O botão mantém foco por teclado, descrição acessível e contraste do tema, sem trilha ou marcador deslizante.

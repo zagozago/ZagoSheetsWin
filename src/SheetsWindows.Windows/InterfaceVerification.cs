@@ -90,9 +90,9 @@ internal static class InterfaceVerification
         Branding.PreviewTheme(ApplicationTheme.Dark);
         Require(home.BackColor != light && home.BackColor == preview.BackColor, "Theme must update open forms together.");
         var toggle = Descendants(home).OfType<ThemeToggle>().Single();
-        Require(toggle.Dark && toggle.AccessibilityObject.State.HasFlag(AccessibleStates.Checked), "Theme accessibility state must match dark selection.");
+        Require(toggle.Dark && toggle.AccessibilityObject.Role == AccessibleRole.PushButton && toggle.AccessibilityObject.Value == "Escuro", "Theme action button must expose its dark mode without checkbox semantics.");
         Branding.PreviewTheme(ApplicationTheme.Light);
-        Require(home.BackColor == light && !toggle.Dark, "Theme must switch back without restarting.");
+        Require(home.BackColor == light && !toggle.Dark && toggle.AccessibilityObject.Value == "Claro", "Theme must switch back without restarting.");
         home.Hide(); preview.Hide();
         using (var success = new ProcessingForm(new(LauncherAction.Open, "preview.xlsx"), execute: async (_, _) => await Task.Yield(), recordDiagnostics: false))
         {

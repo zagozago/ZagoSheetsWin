@@ -567,6 +567,8 @@ public sealed class GoogleTests
         const string id = "pilot.apps.googleusercontent.com";
         var vault = new DpapiTokenVault(Path.Combine(storage.Root, "auth"), id); var saved = vault.Load()!;
         Assert.Equal("new-access", saved.AccessToken); Assert.Equal(id + ":user", saved.AccountId);
+        var tokenPath = Directory.GetFiles(Path.Combine(storage.Root, "auth"), "*.tokens.dat").Single();
+        var encrypted = File.ReadAllBytes(tokenPath);
         server.Revoked = true;
         await Assert.ThrowsAsync<AuthorizationRequiredException>(() => launcher.CheckConnectionAsync());
         var afterRevocation = vault.Load()!;
@@ -575,6 +577,7 @@ public sealed class GoogleTests
         Assert.Equal(saved.AccessToken, afterRevocation.AccessToken);
         Assert.Equal(saved.RefreshToken, afterRevocation.RefreshToken);
         Assert.Equal(saved.ExpiresAt, afterRevocation.ExpiresAt);
+        Assert.True(encrypted.SequenceEqual(File.ReadAllBytes(tokenPath)), "Revoked authorization must leave the protected vault unchanged.");
         Assert.Empty(browser.Opened);
     }
     [Fact]

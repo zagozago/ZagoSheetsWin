@@ -30,7 +30,7 @@ internal static class Branding
             var panel = highContrast ? SystemColors.Window : dark ? Color.FromArgb(13, 28, 19) : Color.White;
             var foreground = highContrast ? SystemColors.WindowText : dark ? Color.FromArgb(237, 248, 240) : Color.FromArgb(23, 49, 38);
             var green = highContrast ? SystemColors.Highlight : dark ? Color.FromArgb(98, 217, 139) : Color.FromArgb(25, 134, 74);
-            control.BackColor = control is Button or TextBox or ComboBox or ListBox ? panel : background;
+            control.BackColor = control is ThemeToggle ? background : control is Button or TextBox or ComboBox or ListBox ? panel : background;
             control.ForeColor = foreground;
             if (control is Button button) { button.FlatStyle = highContrast ? FlatStyle.System : FlatStyle.Flat; button.FlatAppearance.BorderColor = green; button.UseVisualStyleBackColor = false;
                 button.FlatAppearance.MouseOverBackColor = highContrast ? SystemColors.Highlight : dark ? Color.FromArgb(18, 37, 26) : Color.FromArgb(244, 250, 246);
@@ -58,8 +58,8 @@ internal static class Branding
         form.Disposed += (_, _) => logo.Dispose();
         var title = new Label { Text = Name, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, Padding = new Padding(10, 0, 0, 0) };
         title.Font = new Font("Segoe UI", 13, FontStyle.Bold);
-        var right = new FlowLayoutPanel { Dock = DockStyle.Right, Width = aboutButton ? 228 : 88, FlowDirection = FlowDirection.LeftToRight, WrapContents = false, Padding = new Padding(0, 5, 0, 0) };
-        var toggle = new ThemeToggle { Width = 72, Height = 30 };
+        var right = new FlowLayoutPanel { Dock = DockStyle.Right, Width = aboutButton ? 192 : 52, FlowDirection = FlowDirection.LeftToRight, WrapContents = false, Padding = new Padding(0, 5, 0, 0) };
+        var toggle = new ThemeToggle { Width = 36, Height = 34 };
         var tooltip = new ToolTip();
         void UpdateToggle() { toggle.Dark = Current == ApplicationTheme.Dark; toggle.AccessibleName = toggle.Dark ? "Ativar modo claro" : "Ativar modo escuro"; tooltip.SetToolTip(toggle, toggle.AccessibleName); toggle.Invalidate(); }
         toggle.Click += async (_, _) =>
@@ -90,7 +90,7 @@ internal sealed class AboutForm : Form
     {
         Text = "Sobre — ZagoSheetsWin / Zagotools"; ClientSize = new Size(810, 520); MinimumSize = new Size(600, 400); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterParent;
         var body = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, Padding = new Padding(18), AutoScroll = true };
-        body.Controls.Add(new Label { AutoSize = true, MaximumSize = new Size(740, 0), Text = "ZagoSheetsWin 0.9.16 — Zagotools\n\nZagoSheetsWin é uma evolução do projeto Open in Google, de Swati K (SwatiK425), desenvolvida pelo Zagotools e distribuída sob licença MIT.\n\nCopyright (c) 2026 Swati K. A autoria e a licença originais foram preservadas." });
+        body.Controls.Add(new Label { AutoSize = true, MaximumSize = new Size(740, 0), Text = "ZagoSheetsWin 0.9.17 — Zagotools\n\nZagoSheetsWin é uma evolução do projeto Open in Google, de Swati K (SwatiK425), desenvolvida pelo Zagotools e distribuída sob licença MIT.\n\nCopyright (c) 2026 Swati K. A autoria e a licença originais foram preservadas." });
         foreach (var item in new[] { ("Projeto original — Open in Google", "https://github.com/SwatiK425/open-in-google/"), ("Autora original — SwatiK425", "https://github.com/SwatiK425"), ("Código da evolução — Zagotools", "https://github.com/zagozago/ZagoSheetsWin"), ("Política de Privacidade", "https://zagotools.top/legal.html#privacidade"), ("Termos de Uso", "https://zagotools.top/legal.html#termos") })
         {
             var link = new LinkLabel { Text = item.Item1, AutoSize = true, Margin = new Padding(0, 8, 0, 8) };
