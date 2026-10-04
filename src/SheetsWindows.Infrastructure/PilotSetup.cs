@@ -6,9 +6,8 @@ namespace SheetsWindows.Infrastructure;
 public static class PilotSetup
 {
     public static string PolicyPath(LocalStorage storage) => Path.Combine(storage.Root, "replacement-root.txt");
-    public static void Configure(LocalStorage storage, string clientJson, string folder, bool acknowledged)
+    public static string ValidateFolder(string folder)
     {
-        if (!acknowledged) throw new ArgumentException("Explicit unsynced-folder and conversion acknowledgement required.");
         var root = Path.TrimEndingDirectorySeparator(Path.GetFullPath(folder));
         if (!Directory.Exists(root) || root == Path.TrimEndingDirectorySeparator(Path.GetPathRoot(root)!)) throw new ArgumentException("Dedicated existing directory required.");
         for (var current = root; current is not null; current = Path.GetDirectoryName(current))
@@ -24,6 +23,13 @@ public static class PilotSetup
                 if (root.Equals(syncRoot, StringComparison.OrdinalIgnoreCase) || root.StartsWith(syncRoot + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)) throw new NotSupportedException("Synced folder excluded.");
             }
         }
+        if (SourceEnvironment.IsKnownSynced(root)) throw new NotSupportedException("Synced folder excluded.");
+        return root;
+    }
+    public static void Configure(LocalStorage storage, string clientJson, string folder, bool acknowledged)
+    {
+        if (!acknowledged) throw new ArgumentException("Explicit unsynced-folder and conversion acknowledgement required.");
+        var root = ValidateFolder(folder);
         var policy = PolicyPath(storage);
         if (File.Exists(policy) && !Path.GetFullPath(File.ReadAllText(policy)).Equals(root, OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal)) throw new LocalConflictException("Existing folder policy must be preserved.");
         LauncherConfiguration.SaveClient(storage, clientJson);

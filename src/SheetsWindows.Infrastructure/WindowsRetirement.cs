@@ -5,15 +5,20 @@ using SheetsWindows.Core;
 
 namespace SheetsWindows.Infrastructure;
 
-// The configured root is an explicit pilot boundary, declared unsynced during one-time setup.
-public sealed class WindowsRetirementReader(string allowedRoot) : IRetirementReader
+// Folder scope is optional; retirement always requires an unsynced local file and a Windows handle.
+public sealed class WindowsRetirementReader(string? allowedRoot) : IRetirementReader
 {
     public IRetirementLease Open(string path)
     {
         if (!OperatingSystem.IsWindows()) throw new PlatformNotSupportedException("Retirement requires Windows handles.");
-        var full = Path.GetFullPath(path); var root = Path.TrimEndingDirectorySeparator(Path.GetFullPath(allowedRoot));
-        if (root == Path.TrimEndingDirectorySeparator(Path.GetPathRoot(full)!)) throw new NotSupportedException("Configure a dedicated folder, not an entire drive.");
-        if (!full.StartsWith(root + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)) throw new NotSupportedException("Source outside configured local root.");
+        var full = Path.GetFullPath(path);
+        if (allowedRoot is not null)
+        {
+            var root = Path.TrimEndingDirectorySeparator(Path.GetFullPath(allowedRoot));
+            if (root == Path.TrimEndingDirectorySeparator(Path.GetPathRoot(full)!)) throw new NotSupportedException("Configure a dedicated folder, not an entire drive.");
+            if (!full.StartsWith(root + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)) throw new NotSupportedException("Source outside configured local root.");
+        }
+        if (SourceEnvironment.IsKnownSynced(full)) throw new NotSupportedException("Synced sources excluded.");
         if (new DriveInfo(Path.GetPathRoot(full)!).DriveType != DriveType.Fixed) throw new NotSupportedException("Fixed local drive required.");
         foreach (var variable in new[] { "OneDrive", "OneDriveConsumer", "OneDriveCommercial" })
         {

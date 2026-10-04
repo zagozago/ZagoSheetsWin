@@ -318,6 +318,41 @@ public sealed class GoogleTests
         }
         finally { Environment.SetEnvironmentVariable("OneDrive", old); }
     }
+    [WindowsFact]
+    public async Task GeneralOpeningPolicyAllowsFilesOutsideLegacyFolderAfterExplicitChange()
+    {
+        using var w = new Workspace(); ConfigureLauncher(w, out var storage);
+        var legacy = Path.Combine(w.Root, "Downloads"); Directory.CreateDirectory(legacy);
+        File.WriteAllText(PilotSetup.PolicyPath(storage), legacy);
+        var path = Path.Combine(w.Root, "Desktop.xlsx"); var bytes = Workbook(); File.WriteAllBytes(path, bytes);
+        using var server = new DriveServer(); using var http = new HttpClient(server);
+        var launcher = new WindowsLauncher(storage, http, new LauncherBrowser());
+        await Assert.ThrowsAsync<NotSupportedException>(() => launcher.OpenAsync(path)); Assert.Equal(0, server.Posts);
+        await OpeningPolicy.SaveAsync(storage, false, null, true);
+        var shortcut = await launcher.OpenAsync(path);
+        Assert.False(File.Exists(path)); Assert.True(File.Exists(shortcut)); Assert.Equal(2, server.Posts);
+        Assert.Equal(bytes, File.ReadAllBytes(Assert.Single(w.Registry().Pending()).Snapshot!.BackupPath));
+    }
+    [WindowsFact]
+    public async Task GeneralOpeningPolicyAutomaticallyCopiesKnownSyncedFiles()
+    {
+        using var w = new Workspace(); ConfigureLauncher(w, out var storage);
+        await OpeningPolicy.SaveAsync(storage, false, null, true);
+        var bytes = Workbook(); File.WriteAllBytes(w.Source, bytes);
+        using var server = new DriveServer(); using var http = new HttpClient(server);
+        var launcher = new WindowsLauncher(storage, http, new LauncherBrowser());
+        var old = Environment.GetEnvironmentVariable("OneDrive");
+        try
+        {
+            Environment.SetEnvironmentVariable("OneDrive", w.Root);
+            var shortcut = await launcher.OpenAsync(w.Source);
+            Assert.Equal(bytes, File.ReadAllBytes(w.Source)); Assert.NotNull(launcher.ImportNotice);
+            Assert.StartsWith(Path.Combine(storage.Root, "shortcuts"), shortcut);
+            Assert.Equal(shortcut, await launcher.OpenAsync(w.Source)); Assert.Equal(2, server.Posts);
+            Assert.Empty(Directory.GetFiles(w.Root, "*.url"));
+        }
+        finally { Environment.SetEnvironmentVariable("OneDrive", old); }
+    }
     [WindowsCiFact]
     public async Task ReadOnlySmbShareCopiesWithoutWritingOrRetiringSource()
     {
@@ -520,6 +555,21 @@ public sealed class GoogleTests
             }
             return Json(new { user = new { permissionId = OtherAccount ? "other" : "user" } });
         }
+    }
+    [WindowsFact]
+    public async Task ConnectionCheckRefreshesSavedAuthorizationWithoutOpeningBrowserAndDetectsRevocation()
+    {
+        using var w = new Workspace(); ConfigureLauncher(w, out var storage);
+        using var server = new OAuthServer(); using var http = new HttpClient(server); var browser = new LauncherBrowser();
+        var launcher = new WindowsLauncher(storage, http, browser);
+        await launcher.CheckConnectionAsync(); Assert.Empty(browser.Opened);
+        Assert.Contains("grant_type=refresh_token", server.LastBody);
+        const string id = "pilot.apps.googleusercontent.com";
+        var vault = new DpapiTokenVault(Path.Combine(storage.Root, "auth"), id); var saved = vault.Load()!;
+        Assert.Equal("new-access", saved.AccessToken); Assert.Equal(id + ":user", saved.AccountId);
+        server.Revoked = true;
+        await Assert.ThrowsAsync<AuthorizationRequiredException>(() => launcher.CheckConnectionAsync());
+        Assert.Equal(saved, vault.Load()); Assert.Empty(browser.Opened);
     }
     [Fact]
     public async Task RefreshPreservesOldRefreshTokenAndChecksAccount()

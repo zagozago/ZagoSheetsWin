@@ -40,3 +40,12 @@ Os painéis de regras e ações calculam a altura pelo conteúdo, em vez de cort
 ## 0.9.15 — XLS de relatórios HTML e ícone ampliado
 
 A importação detecta HTML dentro de XLS e gera XLSX localmente, com filtros em Informações e verificação dos valores. O ícone do aplicativo/instalador usa Z ampliado sobre fundo transparente; o ícone dos atalhos de planilha permanece separado.
+
+## 0.9.16 — Tutorial visual, conexão e seleção de backups
+
+- Ilustrações locais maiores, com fluxo de três etapas, cinco formatos visíveis e legendas curtas. Ações diretas para Aplicativos padrão e Backups.
+- Ordem: 1. Conta Google; 2. Abrir com dois cliques; 3. Pastas sincronizadas (opcional). A declaração de não sincronizar vem marcada em instalação nova e recolhe a escolha de pasta. A preferência anterior é preservada em atualização.
+- Política de abertura persistida em opening-policy.json, sem exigir pasta no modo geral. replacement-root.txt continua sendo lido para migração. Proteções de arquivo local, handles, backups e verificação de conversão permanecem. Raízes OneDrive e provedores registrados no SyncRootManager são reconhecidos; origens sincronizadas identificadas/rede abrem como cópia. A declaração do usuário é necessária porque a detecção não cobre todas as configurações de sincronização.
+- Autorização Google independente da pasta; indicador de autorização salva, verificação online com refresh + identidade da conta e indicação de nova autorização. Falha de rede não é apresentada como revogação.
+- Tabela permite múltiplas marcas e seleção; Selecionar todos inclui apenas backups concluídos elegíveis. A confirmação informa a quantidade e mantém protegidos/pendentes. Restaurar exige uma única linha selecionada.
+- Testes de migração, consentimento, política inválida e limpeza de múltiplos backups, mais verificações nativas Windows de seleção, seção recolhida e modal avançado. Prévias e testes nativos são executados no pipeline Windows.

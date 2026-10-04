@@ -6,8 +6,8 @@ internal sealed class RecoveryForm : Form
 {
     private bool busy;
     private CancellationTokenSource? activeCancellation;
-    private readonly ListView entries = new() { Dock = DockStyle.Fill, View = View.Details, FullRowSelect = true, MultiSelect = false, HideSelection = false, AccessibleName = "Backups disponíveis" };
-    private RecoveryEntry? Selected => entries.SelectedItems.Count == 0 ? null : entries.SelectedItems[0].Tag as RecoveryEntry;
+    private readonly ListView entries = new() { Dock = DockStyle.Fill, View = View.Details, FullRowSelect = true, MultiSelect = true, CheckBoxes = true, HideSelection = false, AccessibleName = "Backups disponíveis" };
+    private RecoveryEntry? Selected => entries.SelectedItems.Count != 1 ? null : entries.SelectedItems[0].Tag as RecoveryEntry;
     private void AddEntry(RecoveryEntry entry)
     {
         var item = new ListViewItem(Path.GetFileName(entry.OriginalPath)) { Tag = entry, ToolTipText = entry.OriginalPath };
@@ -15,7 +15,7 @@ internal sealed class RecoveryForm : Form
         item.SubItems.Add($"{entry.Bytes / 1_000_000d:N2} MB");
         item.SubItems.Add(entry.CleanupState == 2 ? "Limpo" : entry.CleanupState == 1 ? "Limpeza pendente" : !entry.Available ? "Indisponível" : entry.CanClean ? "Concluído" : "Protegido / pendente"); entries.Items.Add(item);
     }
-    private readonly Label status = new() { Dock = DockStyle.Top, Height = 85, Padding = new Padding(12), Text = "Selecione um backup e clique em Restaurar em… para escolher onde salvar a cópia.\n\nFunciona sem internet e não substitui arquivos existentes. A planilha no Sheets e o atalho continuam disponíveis." };
+    private readonly Label status = new() { Dock = DockStyle.Top, Height = 85, Padding = new Padding(12), Text = "Para recuperar: selecione uma linha e use Restaurar em…\nPara apagar vários backups: marque as caixas ou use Selecionar todos.\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos." };
     public RecoveryForm(bool preview = false, bool previewBusy = false)
     {
         Text = "Recuperar arquivos e gerenciar backups — ZagoSheetsWin"; ClientSize = new Size(700, 650); MinimumSize = new Size(560, 540); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterScreen;
@@ -38,7 +38,7 @@ internal sealed class RecoveryForm : Form
         var export = new MenuActionButton { Text = "Exportar diagnóstico…", AutoSize = true };
         var cancel = new Button { Text = "Cancelar retomada", AutoSize = true, Enabled = previewBusy, Visible = previewBusy };
         cancel.Click += (_, _) => activeCancellation?.Cancel();
-        var delete = new MenuActionButton { Text = "Apagar backup selecionado…", AutoSize = true };
+        var delete = new MenuActionButton { Text = "Apagar selecionados…", AutoSize = true };
         var clean = new MenuActionButton { Text = "Limpar vencidos / excesso…", AutoSize = true };
         var more = new Button { Text = "Mais ações ▾", AutoSize = true, Height = 34 };
         var menu = new ContextMenuStrip();
@@ -49,9 +49,13 @@ internal sealed class RecoveryForm : Form
             menu.Items.Add(item);
         }
         more.Click += (_, _) => { var buttons = new[] { copy, resume, export, delete, clean }; for (var i = 0; i < buttons.Length; i++) menu.Items[i].Enabled = buttons[i].Enabled && !busy; menu.Show(more, new Point(0, more.Height)); };
-        actions.Controls.Add(more);
+        var selectAll = new Button { Text = "Selecionar todos", AutoSize = true };
+        var clearSelection = new Button { Text = "Limpar seleção", AutoSize = true };
+        selectAll.Click += (_, _) => { foreach (ListViewItem item in entries.Items) item.Checked = (item.Tag as RecoveryEntry)?.CanClean == true; };
+        clearSelection.Click += (_, _) => { foreach (ListViewItem item in entries.Items) { item.Checked = false; item.Selected = false; } };
+        actions.Controls.AddRange([selectAll, clearSelection, delete, more]);
         // Keep action buttons parented so native PerformClick executes their existing handlers.
-        var hiddenActions = new Panel { Visible = false }; hiddenActions.Controls.AddRange([copy, resume, export, delete, clean]); Controls.Add(hiddenActions);
+        var hiddenActions = new Panel { Visible = false }; hiddenActions.Controls.AddRange([copy, resume, export, clean]); Controls.Add(hiddenActions);
         Disposed += (_, _) => menu.Dispose(); Ui.Primary(restore);
         Controls.Add(entries); Controls.Add(policyPanel); Controls.Add(status); Controls.Add(actions); Controls.Add(restore); Controls.Add(cancel); cancel.Dock = DockStyle.Bottom;
         async Task Resume(bool replace)
@@ -72,7 +76,7 @@ internal sealed class RecoveryForm : Form
                 status.Text = replace ? "Substituição concluída. Backup privado conservado." : "Cópia aberta no Google. Original conservado.";
             }
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { await diagnostics.RecordAsync(DiagnosticLog.Failure(ex), entry.Id, failure: ex); status.Text = LauncherErrors.Message(ex); }
-            finally { activeCancellation = null; cancel.Enabled = false; cancel.Visible = false; busy = false; actions.Enabled = true; restore.Enabled = true; entries.Enabled = true; }
+            finally { activeCancellation = null; cancel.Enabled = false; cancel.Visible = false; busy = false; actions.Enabled = true; entries.Enabled = true; UpdateSelection(); }
         }
         copy.Click += async (_, _) => await Resume(false);
         resume.Click += async (_, _) => await Resume(true);
@@ -108,23 +112,33 @@ internal sealed class RecoveryForm : Form
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = LauncherErrors.Message(ex); }
             finally { busy = false; }
         };
+        RecoveryEntry[] Marked() => (entries.CheckedItems.Count > 0 ? entries.CheckedItems.Cast<ListViewItem>() : entries.SelectedItems.Cast<ListViewItem>()).Select(item => (RecoveryEntry)item.Tag!).ToArray();
         async Task DeleteBackups(bool selected)
         {
             if (busy || preview) return;
             busy = true; actions.Enabled = false; restore.Enabled = false; policyPanel.Enabled = false; entries.Enabled = false;
             try
             {
-                var ids = selected ? Selected is RecoveryEntry { CanClean: true } entry ? new[] { entry.Id } : Array.Empty<Guid>() : (await Task.Run(() => manager.Plan())).ToArray();
+                var marked = selected ? Marked() : [];
+                var protectedCount = marked.Count(entry => !entry.CanClean);
+                var ids = selected ? marked.Where(entry => entry.CanClean).Select(entry => entry.Id).Distinct().ToArray() : (await Task.Run(() => manager.Plan())).ToArray();
                 if (ids.Length == 0) { status.Text = "Nenhum backup concluído elegível. Operações pendentes ou ambíguas são protegidas."; return; }
-                if (MessageBox.Show(this, $"Apagar {ids.Length} backup(s) local(is)? Não será possível restaurar os originais após a limpeza. As planilhas no Google, os atalhos e o histórico permanecem.", "Apagar backups", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+                if (MessageBox.Show(this, $"Apagar {ids.Length} backup(s) local(is)?{(protectedCount > 0 ? $"\n{protectedCount} selecionado(s) protegido(s) serão mantidos.\n" : "\n")} Não será possível restaurar os originais após a limpeza. As planilhas no Google, os atalhos e o histórico permanecem.", "Apagar backups", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes) return;
                 var result = await Task.Run(() => manager.CleanAsync(ids)); await RefreshEntries(); status.Text = $"{result.Count} backup(s) apagado(s), {result.Bytes / 1_000_000d:N2} MB liberados.";
             }
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = LauncherErrors.Message(ex); }
-            finally { busy = false; actions.Enabled = true; restore.Enabled = true; policyPanel.Enabled = true; entries.Enabled = true; }
+            finally { busy = false; actions.Enabled = true; policyPanel.Enabled = true; entries.Enabled = true; UpdateSelection(); }
         }
         delete.Click += async (_, _) => await DeleteBackups(true);
         clean.Click += async (_, _) => await DeleteBackups(false);
-        entries.SelectedIndexChanged += (_, _) => { var row = Selected; restore.Enabled = row?.Available == true; copy.Enabled = row?.Available == true; resume.Enabled = row?.Available == true; delete.Enabled = row?.CanClean == true; };
+        void UpdateSelection()
+        {
+            var row = Selected;
+            restore.Enabled = copy.Enabled = resume.Enabled = !busy && row?.Available == true;
+            delete.Enabled = !busy && Marked().Any(entry => entry.CanClean);
+        }
+        entries.SelectedIndexChanged += (_, _) => UpdateSelection();
+        entries.ItemChecked += (_, _) => UpdateSelection();
         restore.Click += async (_, _) =>
         {
             if (busy || Selected is not RecoveryEntry { Available: true } entry) { status.Text = "Selecione um backup na lista."; return; }
@@ -133,16 +147,18 @@ internal sealed class RecoveryForm : Form
             busy = true; restore.Enabled = false; entries.Enabled = false; actions.Enabled = false;
             try { await Task.Run(() => service.RestoreAsync(entry.Id, dialog.FileName)); status.Text = "Backup verificado e restaurado. O backup privado foi conservado."; }
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = "Não foi possível restaurar. Escolha um nome inexistente e confira a pasta de destino. O backup foi conservado."; }
-            finally { busy = false; restore.Enabled = true; entries.Enabled = true; actions.Enabled = true; }
+            finally { busy = false; entries.Enabled = true; actions.Enabled = true; UpdateSelection(); }
         };
         if (preview)
         {
             foreach (var entry in new RecoveryEntry[] {
                 new RecoveryEntry(Guid.Parse("11111111-1111-1111-1111-111111111111"), "Relatório.xlsx", 2_400_000, 4, new DateTimeOffset(2026, 9, 1, 12, 0, 0, TimeSpan.Zero), true, true),
+                new RecoveryEntry(Guid.Parse("44444444-4444-4444-4444-444444444444"), "Orçamento.csv", 300_000, 4, new DateTimeOffset(2026, 9, 2, 12, 0, 0, TimeSpan.Zero), true, true),
                 new RecoveryEntry(Guid.Parse("22222222-2222-2222-2222-222222222222"), "Importação pendente.csv", 600_000, 1, new DateTimeOffset(2026, 10, 1, 12, 0, 0, TimeSpan.Zero)),
                 new RecoveryEntry(Guid.Parse("33333333-3333-3333-3333-333333333333"), "Arquivo antigo.xls", 100_000, 4, new DateTimeOffset(2026, 8, 1, 12, 0, 0, TimeSpan.Zero), false, false, 2) }) AddEntry(entry);
-            usage.Text = "Espaço usado: 3,00 MB · limite: 200 MB · 1 protegido · 1 limpo";
+            usage.Text = "Espaço usado: 3,30 MB · limite: 200 MB · 1 protegido · 1 limpo";
         }
+        UpdateSelection();
         Branding.Apply(this);
     }
 }

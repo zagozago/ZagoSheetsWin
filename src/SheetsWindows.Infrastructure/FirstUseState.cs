@@ -6,17 +6,15 @@ public static class FirstUseState
 {
     public static bool NeedsSetup(LocalStorage storage)
     {
-        if (!File.Exists(LauncherConfiguration.ClientPath(storage)) || !File.Exists(PilotSetup.PolicyPath(storage))) return true;
+        if (!File.Exists(LauncherConfiguration.ClientPath(storage)) || !OpeningPolicy.IsConfigured(storage)) return true;
         // Validate existing data; never reset an invalid installation as if it were new.
         _ = LauncherConfiguration.LoadClientAsync(storage).GetAwaiter().GetResult();
-        var policy = PilotSetup.PolicyPath(storage);
-        if ((File.GetAttributes(policy) & FileAttributes.ReparsePoint) != 0 || new FileInfo(policy).Length > 32768) throw new InvalidDataException("Invalid folder policy.");
-        if (!Path.IsPathFullyQualified(File.ReadAllText(policy))) throw new InvalidDataException("Invalid folder policy.");
+        _ = OpeningPolicy.Load(storage);
         return false;
     }
     public static bool NeedsAuthorization(LocalStorage storage, ITokenVault? vault = null)
     {
-        if (NeedsSetup(storage)) return true;
+        if (!File.Exists(LauncherConfiguration.ClientPath(storage))) return true;
         var client = LauncherConfiguration.LoadClientAsync(storage).GetAwaiter().GetResult();
         try
         {

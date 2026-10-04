@@ -56,9 +56,9 @@ Você usa sua própria conta Google. As planilhas importadas ficam no Google Dri
 
 ---
 
-Nas configurações, escolha a pasta local de planilhas e confirme a substituição do original por um atalho, com backup.
+Nas configurações, autorize sua conta Google. A escolha de uma pasta local é opcional e fica em 3. Pastas sincronizadas.
 
-Depois, clique em **Salvar e conectar Google**.
+Depois, clique em **Autorizar Google…**.
 
 ---
 
@@ -174,7 +174,7 @@ Escolha uma pasta no próprio computador, fora do OneDrive e de pastas de rede.
 
 **Texto quando a conta ainda não está conectada:**
 
-Clique em **Salvar e conectar Google**. No navegador, escolha sua conta e autorize o acesso.
+Clique em **Autorizar Google…**. No navegador, escolha sua conta e autorize o acesso.
 
 As planilhas importadas ficam no Google Drive dessa conta.
 
@@ -393,3 +393,7 @@ Depois de importar e conferir, o aplicativo guarda um backup do original e cria 
 - O checkbox do tutorial começa desmarcado. A escolha de não mostrar novamente só é salva quando o usuário marcar a opção. O tutorial continua disponível em Ajuda.
 - Preserve a diferença entre **MB**, apresentada na configuração de backups, e **MiB**, apresentada no limite de importação.
 - Confira a altura disponível nas telas antes de aplicar: os novos parágrafos precisam de mais espaço vertical. Evite reduzir a fonte para acomodar o texto.
+
+## Revisão 0.9.16
+
+As telas nativas são a fonte dos textos atuais: quatro páginas com legendas curtas; Conta Google com estado da conexão; Abrir com dois cliques; Pastas sincronizadas opcionais. Checkbox: “Não sincronizo minhas planilhas com Google Drive para Windows, OneDrive ou similares.” A seção recolhe a escolha de pasta quando marcado, mantendo visível a confirmação de substituição com backup. Em Backups: Selecionar todos, Limpar seleção e Apagar selecionados…

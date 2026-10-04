@@ -8,6 +8,36 @@ namespace SheetsWindows.Infrastructure;
 
 public static class SourceEnvironment
 {
+    public static bool IsKnownSynced(string path)
+    {
+        var full = Path.GetFullPath(path);
+        bool Contains(string? root)
+        {
+            if (string.IsNullOrWhiteSpace(root) || !Path.IsPathFullyQualified(root)) return false;
+            root = Path.TrimEndingDirectorySeparator(Path.GetFullPath(root));
+            return full.Equals(root, StringComparison.OrdinalIgnoreCase) || full.StartsWith(root + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase);
+        }
+        if (new[] { "OneDrive", "OneDriveConsumer", "OneDriveCommercial" }.Any(name => Contains(Environment.GetEnvironmentVariable(name)))) return true;
+        if (!OperatingSystem.IsWindows()) return false;
+        foreach (var hive in new[] { Microsoft.Win32.Registry.CurrentUser, Microsoft.Win32.Registry.LocalMachine })
+        {
+            using var providers = hive.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\SyncRootManager");
+            if (providers is not null) foreach (var name in providers.GetSubKeyNames())
+            {
+                using var provider = providers.OpenSubKey(name + @"\UserSyncRoots");
+                if (provider is not null) foreach (var key in provider.GetValueNames())
+                    if (Contains(provider.GetValue(key) as string)) return true;
+            }
+        }
+        return false;
+    }
+    public static bool RequiresCopy(string path)
+    {
+        if (IsNetwork(path) || IsKnownSynced(path)) return true;
+        for (var current = Path.GetFullPath(path); current is not null; current = Path.GetDirectoryName(current))
+            if (((int)File.GetAttributes(current) & (0x400 | 0x1000 | 0x40000 | 0x400000)) != 0) return true;
+        return false;
+    }
     public static bool IsCloudTag(uint tag) => (tag & ~0x0000F000u) == 0x9000001Au;
     public static bool IsNetwork(string path) => OperatingSystem.IsWindows() && (new Uri(Path.GetFullPath(path)).IsUnc || new DriveInfo(Path.GetPathRoot(path)!).DriveType == DriveType.Network);
     public static void ValidateRead(string full, bool copyOnly)

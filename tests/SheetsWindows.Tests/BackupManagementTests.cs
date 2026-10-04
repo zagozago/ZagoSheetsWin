@@ -50,6 +50,20 @@ public sealed class BackupManagementTests
         await Assert.ThrowsAsync<BackupRemovedException>(()=>Storage(w).CreatePreparation().PrepareAsync("A",w.Source));
         Assert.Single(w.Registry().Pending());
     }
+    [Fact] public async Task MultipleDeletionDeduplicatesIdsAndPreservesUnselectedPendingBackup()
+    {
+        using var w = new Workspace(); var first = await Completed(w);
+        var secondPath = Path.Combine(w.Root, "second.xlsx"); File.WriteAllBytes(secondPath, [5,6,7]);
+        var second = await Completed(w, sourcePath: secondPath);
+        var pendingPath = Path.Combine(w.Root, "pending.xlsx"); File.WriteAllBytes(pendingPath, [8,9]);
+        var pending = await w.Coordinator().PrepareAsync("A", pendingPath);
+        var result = await new BackupManagement(Storage(w)).CleanAsync([first.Id, second.Id, first.Id]);
+        Assert.Equal(new CleanupResult(2,7), result);
+        Assert.False(File.Exists(first.Snapshot!.BackupPath)); Assert.False(File.Exists(second.Snapshot!.BackupPath));
+        Assert.True(File.Exists(pending.Snapshot!.BackupPath)); Assert.True(File.Exists(w.Source)); Assert.True(File.Exists(secondPath));
+        Assert.NotNull(w.Registry().Get(first.Id)); Assert.NotNull(w.Registry().Get(second.Id));
+        Assert.Equal(0, (await new BackupManagement(Storage(w)).CleanAsync([first.Id,second.Id])).Count);
+    }
     [Fact] public async Task PendingAndLegacyUnprovenCopiesAreProtected()
     {
         using var w=new Workspace();var op=await w.Coordinator().PrepareAsync("A",w.Source);var manager=new BackupManagement(Storage(w));

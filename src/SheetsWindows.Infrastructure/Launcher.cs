@@ -122,6 +122,12 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
     public string? ImportNotice { get; private set; }
     private GoogleOAuth Auth(OAuthClient client, FileOperationLock locks) => new(http, client,
         new DpapiTokenVault(System.IO.Path.Combine(storage.Root, "auth"), client.Id), new LoopbackAuthorizationReceiver(browser.Open), locks);
+    public async Task CheckConnectionAsync(CancellationToken ct = default)
+    {
+        var client = await LauncherConfiguration.LoadClientAsync(storage, ct);
+        try { _ = await Auth(client, new FileOperationLock(storage.LocksPath)).AccessAsync(refresh: true, cancellationToken: ct); }
+        catch (GoogleApiException ex) when (ex.Status == 401) { throw new AuthorizationRequiredException(); }
+    }
     public async Task LoginAsync(CancellationToken ct = default)
     {
         var client = await LauncherConfiguration.LoadClientAsync(storage, ct);
@@ -130,13 +136,19 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
     public async Task<string> OpenAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default)
     {
         ImportNotice = null;
-        // Local replacement is limited to the configured unsynced root.
+        // Optional folder scope; fixed-local-file and sync protections still apply.
         var request = LauncherRequest.Parse(["--open", path]);
         var client = await LauncherConfiguration.LoadClientAsync(storage, ct);
-        var policy = System.IO.Path.Combine(storage.Root, "replacement-root.txt");
-        if (!File.Exists(policy)) throw new LauncherNotConfiguredException();
+        if (!OpeningPolicy.IsConfigured(storage)) throw new LauncherNotConfiguredException();
+        var opening = OpeningPolicy.Load(storage);
+        if (!opening.RestrictToFolder && SourceEnvironment.RequiresCopy(path))
+        {
+            var copied = await CopyAsync(path, progress, ct);
+            ImportNotice = "Arquivo aberto como cópia: a pasta é sincronizada ou de rede. O original foi mantido para evitar excluir a cópia em outros dispositivos.";
+            return copied;
+        }
         if (SpreadsheetFormats.Format(path) == "xls" && !XlsReplacementSettings.Load(storage)) return await CopyAsync(path, progress, ct);
-        var root = await File.ReadAllTextAsync(policy, ct); var sources = new WindowsRetirementReader(root);
+        var sources = new WindowsRetirementReader(opening.RestrictToFolder ? opening.Folder : null);
         await using (var eligibility = sources.Open(request.Path!)) { }
         progress?.Report("Conferindo arquivo e backup…");
         var textOptions = SpreadsheetFormats.Format(path) == "xlsx" ? null : ExtendedConfiguration.Load(storage);
@@ -210,9 +222,10 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         }
         if (!replace) return await PublishCopyAsync(receipt, progress, ct);
         if (!receipt.CanReplace || operation.Format == "xls" && !XlsReplacementSettings.Load(storage)) throw new CopyRequiredException();
-        var root = await File.ReadAllTextAsync(PilotSetup.PolicyPath(storage), ct);
+        if (!OpeningPolicy.IsConfigured(storage)) throw new LauncherNotConfiguredException();
+        var opening = OpeningPolicy.Load(storage);
         return await new ReplacementCoordinator(local, remote, new ManagedBackupStore(storage), locks, journal,
-            new WindowsRetirementReader(root), browser, new ConversionVerifier(drive, options, telemetry), ShortcutIcon.Ensure(storage)).ReplaceAsync(receipt, ct);
+            new WindowsRetirementReader(opening.RestrictToFolder ? opening.Folder : null), browser, new ConversionVerifier(drive, options, telemetry), ShortcutIcon.Ensure(storage)).ReplaceAsync(receipt, ct);
     }
 
     private async Task<string> PublishCopyAsync(ImportReceipt receipt, IProgress<string>? progress, CancellationToken ct)

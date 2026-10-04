@@ -78,3 +78,9 @@ Versão 0.9.1 na branch `feature/zagosheetswin`. [Baixar instalador aprovado](ht
 Arquivos XLS são convertidos localmente em XLSX com NPOI 2.7.6 antes da importação. O backup conserva o XLS original; ExcelDataReader continua responsável pela leitura e conferência. Fórmulas não verificáveis e recursos complexos preservam o original. Consulte [limitações da conversão](docs/XLS_CONVERSION.md) e [licenças das dependências](third-party/NOTICE.md).
 
 Desde 0.9.15, relatórios HTML salvos com extensão `.xls` também são reconhecidos e convertidos; filtros externos à tabela ficam na aba Informações. O XLS binário continua utilizando NPOI.
+
+## 0.9.16 — Ajuda e configuração simplificadas
+
+O tutorial usa quatro passos ilustrados. As configurações seguem Conta Google, Aplicativos padrão e Pastas sincronizadas (opcional). Novas instalações podem abrir arquivos locais sem escolher uma pasta; a confirmação de substituição com backup continua necessária. Instalações existentes preservam a pasta anterior até alteração explícita. Arquivos em pastas sincronizadas identificadas ou de rede são importados como cópia.
+
+A conexão distingue autorização salva, conexão verificada e necessidade de nova autorização. Em Backups, marque vários arquivos ou use Selecionar todos para apagar os concluídos após confirmação; operações pendentes continuam protegidas.

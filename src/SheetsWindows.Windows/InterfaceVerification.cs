@@ -31,7 +31,14 @@ internal static class InterfaceVerification
             Require(numbers.Any(n => n.Value == 30 && n.Maximum == 365) && numbers.Any(n => n.Value == 200 && n.Maximum == 1000), "Backup defaults and quota ceiling must be visible.");
             Require(!Descendants(recovery).OfType<CheckBox>().Single().Checked, "Automatic cleanup requires informed opt-in.");
             Require(list.Columns.Count == 4 && list.Items.Cast<ListViewItem>().All(i => i.Tag is RecoveryEntry), "Backup table must preserve recovery identity and expose four readable columns.");
-            Require(list.Items.Count == 3, "Backup preview must cover completed, protected and cleaned history.");
+            Require(list.Items.Count == 4, "Backup preview must cover completed, protected and cleaned history.");
+            Require(list.MultiSelect && list.CheckBoxes, "Backups must support multiple selection.");
+            Descendants(recovery).OfType<Button>().Single(b => b.Text == "Selecionar todos").PerformClick();
+            Require(list.CheckedItems.Count == 2 && list.CheckedItems.Cast<ListViewItem>().All(i => ((RecoveryEntry)i.Tag!).CanClean), "Select all must select only deletable backups.");
+            Descendants(recovery).OfType<Button>().Single(b => b.Text == "Limpar seleção").PerformClick();
+            Require(list.CheckedItems.Count == 0, "Clear selection must remove all marks.");
+            list.Items[0].Selected = list.Items[1].Selected = true; Application.DoEvents();
+            Require(!Descendants(recovery).OfType<Button>().Single(b => b.Text == "Restaurar em…").Enabled, "Restoring must require exactly one selected file.");
             foreach (var size in new[] { new Size(700, 650), new Size(560, 540) })
             {
                 recovery.Size = size; recovery.PerformLayout(); Application.DoEvents();
@@ -41,9 +48,17 @@ internal static class InterfaceVerification
             }
             recovery.Hide();
         }
-        using (var setup = new SetupForm())
+        using (var setup = new SetupForm(preview: true))
         {
             setup.Show(); Application.DoEvents();
+            var sync = Descendants(setup).OfType<CheckBox>().Single(b => b.Text.StartsWith("Não sincronizo"));
+            var folder = Descendants(setup).OfType<Button>().Single(b => b.Text == "Escolher pasta local…");
+            Require(sync.Checked && !folder.Visible, "New setup must not require a folder and must collapse its optional controls.");
+            sync.Checked = false; Application.DoEvents(); Require(folder.Visible, "Choosing synchronized folders must reveal the folder controls.");
+            sync.Checked = true; Application.DoEvents(); Require(!folder.Visible, "Disabling folder restrictions must collapse their controls again.");
+            Require(Descendants(setup).OfType<Label>().Any(l => l.AccessibleName == "Estado da autorização Google" && !string.IsNullOrWhiteSpace(l.Text)), "Google authorization must have a visible accessible status.");
+            var sections = Descendants(setup).OfType<Label>().Where(l => l.Text.StartsWith("1. ") || l.Text.StartsWith("2. ") || l.Text.StartsWith("3. ")).ToArray();
+            Require(sections.Length == 3 && sections[0].Text.Contains("Google") && sections[2].Text.Contains("sincronizadas"), "Setup must order Google, Windows defaults and optional sync folders.");
             var advanced = Descendants(setup).OfType<Button>().Single(b => b.Text == "Opções avançadas…");
             var dialog = setup.AdvancedDialog;
             var close = dialog.Controls.OfType<Button>().Single(b => b.Text == "Fechar");
