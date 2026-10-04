@@ -61,6 +61,13 @@ internal sealed class SetupForm : Form
         var advancedStatus = Ui.Text(""); advanced.Controls.Add(advancedStatus);
         status.TextChanged += (_, _) => advancedStatus.Text = status.Text;
         layout.Controls.Add(Ui.Separator()); layout.Controls.Add(Ui.Text("2. Conta Google", true)); layout.Controls.Add(Info( (FirstUseState.NeedsAuthorization(storage) ? "Clique em Salvar e conectar Google. No navegador, escolha sua conta e autorize o acesso. Depois, volte aqui." : "Google conectado. Sua configuração foi mantida.") + " As planilhas ficam no seu Drive."));
+        layout.Controls.Add(Info("Privacidade da conexão Google\nO ZagoSheetsWin usa somente a permissão drive.file para criar e gerenciar os arquivos usados com o aplicativo. Tokens ficam neste computador, protegidos pelo Windows, e suas planilhas são enviadas diretamente às APIs do Google — não passam por servidor do Zagotools."));
+        var legalLinks = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, FlowDirection = FlowDirection.LeftToRight, WrapContents = true };
+        var privacyLink = new LinkLabel { Text = "Política de Privacidade", AutoSize = true, Margin = new Padding(0, 4, 18, 4) };
+        privacyLink.LinkClicked += (_, _) => { try { new BrowserLauncher().Open(new Uri("https://zagotools.top/legal.html#privacidade")); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { MessageBox.Show("https://zagotools.top/legal.html#privacidade", "Política de Privacidade"); } };
+        var termsLink = new LinkLabel { Text = "Termos de Uso", AutoSize = true, Margin = new Padding(0, 4, 0, 4) };
+        termsLink.LinkClicked += (_, _) => { try { new BrowserLauncher().Open(new Uri("https://zagotools.top/legal.html#termos")); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { MessageBox.Show("https://zagotools.top/legal.html#termos", "Termos de Uso"); } };
+        legalLinks.Controls.Add(privacyLink); legalLinks.Controls.Add(termsLink); layout.Controls.Add(legalLinks);
         var connect = new Button { AutoSize = true, Text = "Salvar e conectar Google" };
         var save = new Button { AutoSize = true, Text = "Salvar configurações" };
         var defaults = new Button { AutoSize = true, Text = "Abrir Aplicativos padrão do Windows" };
