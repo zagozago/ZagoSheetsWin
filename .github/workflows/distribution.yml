@@ -47,7 +47,7 @@ jobs:
         shell: pwsh
         run: |
           $package = 'artifacts/SheetsWindows-win-x64'
-          foreach ($file in @('LICENSE', 'ATTRIBUTION.md', 'SheetsWindows.exe', 'SheetsWindows.runtimeconfig.json', 'System.Windows.Forms.dll', 'coreclr.dll', 'e_sqlite3.dll', 'ExcelDataReader.dll', 'third-party/ExcelDataReader-LICENSE.txt')) {
+          foreach ($file in @('LICENSE', 'NOTICE.md', 'ATTRIBUTION.md', 'third-party/NOTICE.md', 'SheetsWindows.exe', 'SheetsWindows.runtimeconfig.json', 'System.Windows.Forms.dll', 'coreclr.dll', 'e_sqlite3.dll', 'ExcelDataReader.dll', 'third-party/ExcelDataReader-LICENSE.txt')) {
             if (!(Test-Path (Join-Path $package $file))) { throw "Missing package dependency: $file" }
           }
           $image = [IO.File]::ReadAllBytes((Join-Path $package 'SheetsWindows.exe'))
