@@ -103,7 +103,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--check',action='store_true')
     parser.add_argument('--init-pack');parser.add_argument('--validate-pack',type=pathlib.Path)
     parser.add_argument('--release',action='store_true');args=parser.parse_args()
-    source=json.loads(SOURCE.read_text());locales=json.loads((ROOT/'i18n/locales.json').read_text())
+    source=json.loads(SOURCE.read_text(encoding="utf-8"));locales=json.loads((ROOT/'i18n/locales.json').read_text(encoding="utf-8"))
     validate(source,locales)
     if args.init_pack:
         language=next(v for v in locales['languages'] if v['code']==args.init_pack)
@@ -115,7 +115,7 @@ def main():
         validate_pack(pack,source,locales)
         print(json.dumps(pack,ensure_ascii=False,indent=2));return
     if args.validate_pack:
-        validate_pack(json.loads(args.validate_pack.read_text()),source,locales,args.release)
+        validate_pack(json.loads(args.validate_pack.read_text(encoding="utf-8")),source,locales,args.release)
         print('Pack validation passed.');return
     if args.release: raise ValueError('--release requires --validate-pack.')
     for path, content in files(source).items():
@@ -126,6 +126,9 @@ def main():
     print(f'Catalog validated: {len(source["entries"])} keys, 51 locales, matrix SHA-256 {digest}.')
 
 if __name__=='__main__':
+    # Windows ANSI code pages cannot represent the canonical 51-language matrix.
+    if hasattr(sys.stdout, 'reconfigure'): sys.stdout.reconfigure(encoding='utf-8')
+    if hasattr(sys.stderr, 'reconfigure'): sys.stderr.reconfigure(encoding='utf-8')
     try: main()
     except (AssertionError, ValueError, KeyError, StopIteration) as error:
         print('Localization validation failed:',str(error),file=sys.stderr);sys.exit(1)

@@ -7,8 +7,8 @@ generator=importlib.util.module_from_spec(spec);spec.loader.exec_module(generato
 class CatalogContracts(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.source=json.loads(generator.SOURCE.read_text())
-        cls.locales=json.loads((generator.ROOT/'i18n/locales.json').read_text())
+        cls.source=json.loads(generator.SOURCE.read_text(encoding="utf-8"))
+        cls.locales=json.loads((generator.ROOT/'i18n/locales.json').read_text(encoding="utf-8"))
 
     def pack(self, code='pt'):
         language=next(v for v in self.locales['languages'] if v['code']==code)
@@ -50,7 +50,7 @@ class CatalogContracts(unittest.TestCase):
 
     def test_generated_resources_are_exact_and_only_portuguese_is_embedded(self):
         for path, content in generator.files(self.source).items():self.assertEqual(path.read_bytes(),content)
-        runtime=json.loads((generator.ROOT/'i18n/generated/pt.json').read_text())
+        runtime=json.loads((generator.ROOT/'i18n/generated/pt.json').read_text(encoding="utf-8"))
         self.assertEqual('pt-BR',runtime['sourceLocale'])
         self.assertNotIn('installer.runSetup',runtime['strings'])
 
