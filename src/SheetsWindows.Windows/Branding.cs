@@ -59,7 +59,7 @@ internal static class Branding
         var title = new Label { Text = Name, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, Padding = new Padding(10, 0, 0, 0) };
         title.Font = new Font("Segoe UI", 13, FontStyle.Bold);
         var right = new FlowLayoutPanel { Dock = DockStyle.Right, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, FlowDirection = FlowDirection.LeftToRight, WrapContents = false, Padding = new Padding(0, 5, 0, 0) };
-        var toggle = new ThemeToggle { Width = 36, Height = 34 };
+        var toggle = new ThemeToggle { Width = 36, Height = 34, Margin = new Padding(3,0,3,0) };
         var tooltip = new ToolTip();
         void UpdateToggle() { toggle.Dark = Current == ApplicationTheme.Dark; toggle.AccessibleName = toggle.Dark ? UiText.Get("theme.activateLight") : UiText.Get("theme.activateDark"); tooltip.SetToolTip(toggle, toggle.AccessibleName); toggle.Invalidate(); }
         toggle.Click += async (_, _) =>
@@ -76,7 +76,7 @@ internal static class Branding
         }
         if (languageButton)
         {
-            var language = new AdaptiveButton { Text = UiText.Language.ToUpperInvariant(), AutoSize = true, AccessibleName = UiText.Get("language.button"), Margin = new Padding(3,0,3,0) };
+            var language = new AdaptiveButton { Text = UiText.Language.ToUpperInvariant(), AutoSize = true, Padding = new Padding(8,2,8,2), AccessibleName = UiText.Get("language.button"), Margin = new Padding(3,0,3,0) };
             language.Click += (_,_) => { using var picker = new LanguagePicker(); picker.ShowDialog(form); };
             void UpdateLanguage() { language.Text = UiText.Language.ToUpperInvariant(); tooltip.SetToolTip(language, UiText.Get("language.button")); UpdateToggle(); }
             UiText.Changed += UpdateLanguage; form.Disposed += (_,_) => UiText.Changed -= UpdateLanguage;

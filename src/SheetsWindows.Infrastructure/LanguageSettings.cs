@@ -54,7 +54,7 @@ public static class LanguageSettings
         if (!Supported(code)) throw new ArgumentException("Unsupported installer language.");
         PrivateDirectory.Create(storage.Root);
         await using var held = await new FileOperationLock(storage.LocksPath).AcquireAsync("language-settings", ct);
-        var path = PathFor(storage); if (File.Exists(path)) { _ = Load(storage); return; }
+        var path = PathFor(storage); if (File.Exists(path)) return;
         using var file = new FileStream(path, FileMode.CreateNew, FileAccess.Write, FileShare.None);
         JsonSerializer.Serialize(file, code); file.Flush(true);
     }

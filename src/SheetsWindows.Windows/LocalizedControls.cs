@@ -26,8 +26,10 @@ internal static class LocalizedControls
         Track(form);
         void Refresh(Control control)
         {
+            var previousText=control.Text; var previousName=control.AccessibleName;
             if(bound.TryGetValue(control,out var binding) && binding.Message is {} message)
             {var saved=message;control.Text=message.Text;binding.Message=saved;}
+            if(previousName is not null && previousName==previousText.Replace("&", "")) control.AccessibleName=control.Text.Replace("&", "");
             if(UiText.Descriptor(control.AccessibleName) is {} name)control.AccessibleName=UiText.GetFromDescriptor(name);
             if(UiText.Descriptor(control.AccessibleDescription) is {} description)control.AccessibleDescription=UiText.GetFromDescriptor(description);
             if(control is ComboBox combo)
@@ -62,6 +64,7 @@ internal class AdaptiveButton : Button
         if(max<=0)max=int.MaxValue;
         var natural=TextRenderer.MeasureText(Text,Font,Size.Empty,TextFormatFlags.SingleLine);
         var width=Math.Min(max,natural.Width+Padding.Horizontal+12);
+        if(Parent is FlowLayoutPanel { FlowDirection: FlowDirection.TopDown, WrapContents: false }) width=Math.Min(max,Math.Max(Width,width));
         var text=TextRenderer.MeasureText(Text,Font,new Size(Math.Max(20,width-Padding.Horizontal-12),int.MaxValue),TextFormatFlags.WordBreak);
         return new Size(Math.Max(MinimumSize.Width,width),Math.Max(MinimumSize.Height,text.Height+Padding.Vertical+10));
     }

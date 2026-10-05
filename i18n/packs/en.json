@@ -6,7 +6,7 @@
   "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
   "status": "complete",
   "editorialQa": "passed",
-  "layoutQa": "not_reviewed",
+  "layoutQa": "passed",
   "nativeReview": "not_reviewed",
   "sourceMatchesReviewed": [
     "emphasis.apache",

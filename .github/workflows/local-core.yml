@@ -22,6 +22,7 @@ jobs:
         run: |
           python tools/i18n/generate.py --check
           python tools/i18n/test_catalog.py
+          python tools/i18n/generate.py --validate-pack i18n/packs/en.json --release
       - run: dotnet restore SheetsWindows.slnx --locked-mode
       - run: dotnet build SheetsWindows.slnx --configuration Release --no-restore
       - run: dotnet test SheetsWindows.slnx --configuration Release --no-build --no-restore --logger "trx;LogFileName=local-core.trx"

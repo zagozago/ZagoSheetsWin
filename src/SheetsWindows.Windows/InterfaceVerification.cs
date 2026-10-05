@@ -140,6 +140,8 @@ internal static class InterfaceVerification
             Require(list.Items[0].Checked && list.Items[0].Text==filename && list.Columns[0].Text=="File","Language change must preserve recovery data and selection.");
             Require(Descendants(tutorial).OfType<Label>().Any(l=>l.Text.Contains("Keep the original")),"Existing tutorial must refresh its current page.");
             Require(Descendants(tutorial).OfType<FlowLayoutPanel>().All(p=>!p.VerticalScroll.Visible),"English tutorial must not gain vertical scrolling.");
+            foreach(var field in Descendants(picker).Where(c=>c is TextBox or ListBox or EmphasisLabel))
+                Require(field.Right<=field.Parent!.ClientSize.Width-field.Parent.Padding.Right,$"Language picker content must remain inside its modal: '{field.Text}'.");
             Require(UiText.Get("error.backupQuota").Contains("original was preserved"),"English errors must retain preservation guidance.");
             foreach(var form in new Form[]{home,settings,settings.AdvancedDialog,backups,tutorial,picker})
             {

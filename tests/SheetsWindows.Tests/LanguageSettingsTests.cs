@@ -33,7 +33,7 @@ public sealed class LanguageSettingsTests
         var path=Path.Combine(storage.Root,"language.json");File.WriteAllText(path,"\"xx\"");
         Assert.Throws<InvalidDataException>(()=>LanguageSettings.Load(storage));
         await Assert.ThrowsAsync<InvalidDataException>(()=>LanguageSettings.SaveAsync(storage,"pt"));
-        await Assert.ThrowsAsync<InvalidDataException>(()=>LanguageSettings.InitializeFromInstallerAsync(storage,"en"));
+        await LanguageSettings.InitializeFromInstallerAsync(storage,"en");
         Assert.Equal("\"xx\"",File.ReadAllText(path));
         await Assert.ThrowsAsync<ArgumentException>(()=>LanguageSettings.SaveAsync(storage,"zh"));
     }

@@ -14,17 +14,20 @@ internal sealed class LanguagePicker : Form
         Text = UiText.Get("language.title"); ClientSize = new Size(420, 340); MinimumSize = new Size(360, 320);
         AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterParent; ShowInTaskbar = false; MinimizeBox = false; MaximizeBox = false;
         var body = new TableLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(16), ColumnCount = 1, RowCount = 4 };
+        body.ColumnStyles.Add(new(SizeType.Percent,100));
         body.RowStyles.Add(new(SizeType.AutoSize)); body.RowStyles.Add(new(SizeType.AutoSize)); body.RowStyles.Add(new(SizeType.Percent, 100)); body.RowStyles.Add(new(SizeType.AutoSize));
         body.Controls.Add(Ui.Text(UiText.Get("language.choose"), true),0,0);
         search.AccessibleName = UiText.Get("language.search"); body.Controls.Add(search,0,1); body.Controls.Add(choices,0,2);
-        var note = Ui.Text(UiText.Get("language.available"));note.Dock=DockStyle.Fill;body.Controls.Add(note,0,3);
+        var note = Ui.Text(UiText.Get("language.available"));note.Dock=DockStyle.Fill;
+        void FitNote() {note.MaximumSize=new Size(Math.Max(120,body.ClientSize.Width-body.Padding.Horizontal-note.Margin.Horizontal),0);}
+        body.SizeChanged+=(_,_)=>FitNote();note.TextChanged+=(_,_)=>FitNote();FitNote();body.Controls.Add(note,0,3);
         choices.AccessibleName=UiText.Get("language.choose");
         Controls.Add(body);Controls.Add(apply);Ui.Primary(apply);Branding.Apply(this,aboutButton:false,compact:true,languageButton:false);
         void Filter()
         {
             var selected = (choices.SelectedItem as Choice)?.Code ?? ApplicationLanguages.Preference;
             var query = search.Text.Trim(); choices.Items.Clear();
-            var all = new[] { new Choice(LanguageSettings.Automatic,UiText.Get("language.automatic")) }.Concat(LanguageSettings.Available.Select(l => new Choice(l.Code,$"{l.DisplayCode} - {l.NativeName} / {l.EnglishName}")));
+            var all = new[] { new Choice(LanguageSettings.Automatic,UiText.Get("language.automatic")) }.Concat(LanguageSettings.Available.Select(l => new Choice(l.Code,l.NativeName == l.EnglishName ? $"{l.DisplayCode} - {l.NativeName}" : $"{l.DisplayCode} - {l.NativeName} / {l.EnglishName}")));
             foreach(var item in all.Where(l => CultureInfo.InvariantCulture.CompareInfo.IndexOf(l.Caption, query, CompareOptions.IgnoreCase|CompareOptions.IgnoreNonSpace)>=0)) choices.Items.Add(item);
             choices.SelectedIndex = choices.Items.Cast<Choice>().ToList().FindIndex(l=>l.Code==selected);
             if(choices.SelectedIndex<0 && choices.Items.Count>0) choices.SelectedIndex=0;
