@@ -50,6 +50,7 @@ def validate(source, locales):
     assert set(source['standardInstallerMessages']) <= entries.keys()
 
 def validate_pack(pack, source, locales, release=False):
+    assert pack['status'] in ['not_started','translated','complete','source'], 'Unknown pack stage.'
     assert pack['language'] in locales['canonicalOrder']
     assert pack['catalogRevision'] == source['catalogRevision']
     assert pack['sourceHash'] == source_hash(source), 'Pack belongs to a different source revision.'
@@ -76,9 +77,20 @@ def validate_pack(pack, source, locales, release=False):
         original=visible(entry['text']); translated=visible(text)
         def digits(value):
             return [unicodedata.digit(c) for c in value if c.isdecimal()]
-        assert digits(original)==digits(translated), (key,'functional numbers changed')
-        if pack['language'] in SCRIPT_RANGES and any(c.isalpha() for c in original):
+        if key in pack.get('expandedNumericNotation',[]):
+            assert key=='setup.formatLimits' and digits(original)==[2,0,5,0,0,5,0], (key,'unrecognized expanded numeric notation')
+            values=[int(re.sub(r'[, .\u202f]','',value)) for value in re.findall(r'\d+(?:[, .\u202f]\d{3})*',translated)]
+            assert values==[20,500000,50000,1000], (key,'functional capacity values changed')
+        else:
+            assert digits(original)==digits(translated), (key,'functional numbers changed')
+        if pack['language'] in SCRIPT_RANGES and any(c.isalpha() for c in original) and key!='installer.standard.Messages.ComponentSize1':
             assert any(low<=ord(c)<=high for c in translated for low,high in SCRIPT_RANGES[pack['language']]), (key,'expected script absent')
+    assert set(pack.get('expandedNumericNotation',[])) <= {'setup.formatLimits'}, 'Unrecognized numeric notation exception.'
+    if 'installer.standard.Messages.ComponentSize1' in pack['strings'] and pack['strings']['installer.standard.Messages.ComponentSize1'] is not None:
+        assert pack['strings']['installer.standard.Messages.ComponentSize1']==source['entries']['installer.standard.Messages.ComponentSize1']['text'], 'Installer KB size format must remain invariant.'
+    if pack['status']=='translated':
+        assert all(isinstance(value,str) for value in pack['strings'].values()), 'Translated pack has missing content.'
+        assert pack['editorialQa']=='passed', 'Translated pack needs editorial review.'
     if release:
         assert pack['status'] in ['source','complete']
         assert pack['editorialQa'] == 'passed' and pack['layoutQa'] == 'passed'

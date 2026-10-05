@@ -154,3 +154,11 @@ Validação: testes de preferência, atualização e preservação, catálogo co
 conferência nativa PT→EN→PT mantendo alterações não salvas e seleções; medidas de
 botões com expansão em 100%, 125%, 150% e 200%. A escala programática complementa,
 mas não substitui, a homologação em monitores com esses DPIs reais.
+
+## Traduções posteriores à validação da 0.9.21
+
+Fernando confirmou o aceite de idioma, PT/EN e ajustes dos controles. A próxima
+fase foi dividida em tradução dos 49 catálogos e integração/QA visual dos 51.
+O primeiro catálogo, chinês simplificado, tem as 593 entradas e revisão editorial,
+mas permanece `translated`, sem liberação no programa. O progresso e as fontes
+estão em `docs/I18N_TRANSLATION_PROGRESS.md`. Os outros 48 continuam pendentes.

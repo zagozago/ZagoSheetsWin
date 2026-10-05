@@ -60,4 +60,18 @@ class CatalogContracts(unittest.TestCase):
         generator.validate_pack(pack,self.source,self.locales)
         self.assertTrue(all(isinstance(v,str) for v in pack['strings'].values()))
 
+    def test_translated_catalog_is_complete_but_cannot_be_released_without_layout(self):
+        pack=json.loads((generator.ROOT/'i18n/packs/zh.json').read_text(encoding='utf-8'))
+        generator.validate_pack(pack,self.source,self.locales)
+        self.assertEqual('translated',pack['status'])
+        self.assertEqual(len(self.source['entries']),len(pack['strings']))
+        self.assertTrue(all(isinstance(v,str) for v in pack['strings'].values()))
+        with self.assertRaises(AssertionError):generator.validate_pack(pack,self.source,self.locales,True)
+        self.assertNotIn(generator.ROOT/'i18n/generated/zh.json',generator.files(self.source))
+        for key,value in [('setup.formatLimits',pack['strings']['setup.formatLimits'].replace('500,000','600,000')),('installer.standard.Messages.ComponentSize1','%1 MB')]:
+            invalid=copy.deepcopy(pack);invalid['strings'][key]=value
+            with self.assertRaises(AssertionError):generator.validate_pack(invalid,self.source,self.locales)
+        invalid=copy.deepcopy(pack);invalid['strings']['home.help']=None
+        with self.assertRaises(AssertionError):generator.validate_pack(invalid,self.source,self.locales)
+
 if __name__=='__main__':unittest.main()

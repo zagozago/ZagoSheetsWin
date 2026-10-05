@@ -157,3 +157,11 @@ idioma escolhido no início do instalador e ajustes de dimensão dos botões.
 Inglês integrado como primeiro pack e fallback; os 49 demais alvos seguem
 pendentes. Validar a nova entrega em Windows real antes de expandir os packs.
 Detalhes e limitações de QA em `docs/I18N_PREPARATION.md`.
+
+### Tradução dos 49 idiomas - pack inicial
+
+Aceite manual da 0.9.21 confirmado por Fernando. Tradução e integração visual
+passam a entregas separadas. Primeiro catálogo completo: `zh-CN`, 593 entradas,
+revisão editorial e invariantes validados. Sem alteração no seletor ou instalador
+distribuído; layout e revisão nativa permanecem pendentes. Restam 48 catálogos.
+Acompanhar `docs/I18N_TRANSLATION_PROGRESS.md`.
