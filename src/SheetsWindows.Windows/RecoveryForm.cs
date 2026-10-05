@@ -31,20 +31,20 @@ internal sealed class RecoveryForm : Form
         var days = new NumericUpDown { Minimum = 1, Maximum = 365, Value = 30, Width = 70, AccessibleName = UiText.Get("accessibility.retentionDays") };
         var quota = new NumericUpDown { Minimum = 1, Maximum = 1000, Value = 200, Width = 80, AccessibleName = UiText.Get("accessibility.quotaMb") };
         var automatic = new CheckBox { Text = UiText.Get("recovery.autoCleanup"), AutoSize = true };
-        var save = new Button { Text = UiText.Get("recovery.savePolicy"), AutoSize = true };
+        var save = new AdaptiveButton { Text = UiText.Get("recovery.savePolicy"), AutoSize = true };
         var usage = new EmphasisLabel { AutoSize = true, Text = UiText.Get("recovery.limits") };
         policyPanel.SizeChanged += (_, _) => usage.MaximumSize = new Size(Math.Max(120, policyPanel.ClientSize.Width - policyPanel.Padding.Horizontal - usage.Margin.Horizontal), 0);
         policyPanel.Controls.AddRange([new Label { Text = UiText.Get("recovery.retentionLabel"), AutoSize = true }, days, new Label { Text = UiText.Get("recovery.quotaLabel"), AutoSize = true }, quota, automatic, save, usage]);
-        var restore = new Button { Text = UiText.Get("action.restore"), Dock = DockStyle.Bottom, Height = 44 };
+        var restore = new AdaptiveButton { Text = UiText.Get("action.restore"), Dock = DockStyle.Bottom, Height = 44 };
         var actions = new FlowLayoutPanel { Dock = DockStyle.Bottom, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, Padding = new Padding(8) };
         var copy = new MenuActionButton { Text = UiText.Get("recovery.resumeCopy"), AutoSize = true };
         var resume = new MenuActionButton { Text = UiText.Get("recovery.completeReplacement"), AutoSize = true };
         var export = new MenuActionButton { Text = UiText.Get("action.exportDiagnostics"), AutoSize = true };
-        var cancel = new Button { Text = UiText.Get("recovery.cancelResume"), AutoSize = true, Enabled = previewBusy, Visible = previewBusy };
+        var cancel = new AdaptiveButton { Text = UiText.Get("recovery.cancelResume"), AutoSize = true, Enabled = previewBusy, Visible = previewBusy };
         cancel.Click += (_, _) => activeCancellation?.Cancel();
         var delete = new MenuActionButton { Text = UiText.Get("recovery.deleteSelected"), AutoSize = true };
         var clean = new MenuActionButton { Text = UiText.Get("recovery.cleanExpired"), AutoSize = true };
-        var more = new Button { Text = UiText.Get("recovery.moreActions"), AutoSize = true, Height = 34 };
+        var more = new AdaptiveButton { Text = UiText.Get("recovery.moreActions"), AutoSize = true, Height = 34 };
         var menu = new ContextMenuStrip();
         foreach (var action in new[] { copy, resume, export, delete, clean })
         {
@@ -52,9 +52,9 @@ internal sealed class RecoveryForm : Form
             item.Click += (_, _) => action.InvokeAction();
             menu.Items.Add(item);
         }
-        more.Click += (_, _) => { var buttons = new[] { copy, resume, export, delete, clean }; for (var i = 0; i < buttons.Length; i++) menu.Items[i].Enabled = buttons[i].Enabled && !busy; menu.Show(more, new Point(0, more.Height)); };
-        var selectAll = new Button { Text = UiText.Get("recovery.selectAll"), AutoSize = true };
-        var clearSelection = new Button { Text = UiText.Get("recovery.clearSelection"), AutoSize = true };
+        more.Click += (_, _) => { var buttons = new[] { copy, resume, export, delete, clean }; for (var i = 0; i < buttons.Length; i++) { menu.Items[i].Enabled = buttons[i].Enabled && !busy; menu.Items[i].Text = buttons[i].Text; } menu.Show(more, new Point(0, more.Height)); };
+        var selectAll = new AdaptiveButton { Text = UiText.Get("recovery.selectAll"), AutoSize = true };
+        var clearSelection = new AdaptiveButton { Text = UiText.Get("recovery.clearSelection"), AutoSize = true };
         selectAll.Click += (_, _) => { foreach (ListViewItem item in entries.Items) item.Checked = (item.Tag as RecoveryEntry)?.CanClean == true; };
         clearSelection.Click += (_, _) => { foreach (ListViewItem item in entries.Items) { item.Checked = false; item.Selected = false; } };
         actions.Controls.AddRange([selectAll, clearSelection, delete, more]);
@@ -167,7 +167,7 @@ internal sealed class RecoveryForm : Form
     }
 }
 
-internal sealed class MenuActionButton : Button
+internal sealed class MenuActionButton : AdaptiveButton
 {
     internal void InvokeAction() { if (Enabled) OnClick(EventArgs.Empty); }
 }

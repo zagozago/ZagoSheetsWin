@@ -11,7 +11,7 @@ internal sealed class LauncherForm : Form
         if (request.Action != LauncherAction.Home) throw new ArgumentException("Home request required.");
         Text = "ZagoSheetsWin"; ClientSize = new Size(500, 380); MinimumSize = new Size(500, 380); StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
         var layout = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18), FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = true };
-        Button Action(string text, EventHandler action) { var b = new Button { Text = text, Width = 382, Height = 38, AccessibleName = text.Replace("&", "") }; b.Click += action; return b; }
+        Button Action(string text, EventHandler action) { var b = new AdaptiveButton { Text = text, Width = 382, Height = 38, AccessibleName = text.Replace("&", "") }; b.Click += action; return b; }
         void Pick(LauncherAction action)
         {
             using var dialog = new OpenFileDialog { Filter = UiText.Get("dialog.spreadsheetFilter"), CheckFileExists = true, Multiselect = false, Title = action == LauncherAction.Copy ? UiText.Get("dialog.importCopyTitle") : UiText.Get("dialog.openSpreadsheetTitle") };
@@ -28,7 +28,7 @@ internal sealed class LauncherForm : Form
         foreach (var button in new[] { settings, backups, help }) { button.Dock = DockStyle.Fill; button.Font = new Font("Segoe UI", 9); navigation.Controls.Add(button); }
         layout.Controls.Add(navigation);
         var advanced = new FlowLayoutPanel { AutoSize = true, FlowDirection = FlowDirection.TopDown, WrapContents = false, Visible = false };
-        var toggle = new Button { Text = UiText.Get("home.advancedCollapsed"), AutoSize = true, AccessibleName = UiText.Get("accessibility.showAdvanced") };
+        var toggle = new AdaptiveButton { Text = UiText.Get("home.advancedCollapsed"), AutoSize = true, AccessibleName = UiText.Get("accessibility.showAdvanced") };
         toggle.Click += (_, _) => { advanced.Visible = !advanced.Visible; toggle.Text = advanced.Visible ? UiText.Get("home.advancedExpanded") : UiText.Get("home.advancedCollapsed"); toggle.AccessibleName = advanced.Visible ? UiText.Get("accessibility.hideAdvanced") : UiText.Get("accessibility.showAdvanced"); ClientSize = new Size(ClientSize.Width, (int)((advanced.Visible ? 530 : 380) * DeviceDpi / 96.0)); };
         advanced.Controls.Add(Ui.Text(UiText.Get("home.copyExplanation")));
         advanced.Controls.Add(Action(UiText.Get("home.importCopy"), (_, _) => Pick(LauncherAction.Copy)));

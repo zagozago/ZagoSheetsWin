@@ -48,10 +48,16 @@ class CatalogContracts(unittest.TestCase):
     def test_source_requires_editorial_and_layout_qa_for_release(self):
         with self.assertRaises(KeyError):generator.validate_pack(self.pack(),self.source,self.locales,True)
 
-    def test_generated_resources_are_exact_and_only_portuguese_is_embedded(self):
+    def test_generated_resources_are_exact_and_bilingual_runtime_excludes_installer(self):
         for path, content in generator.files(self.source).items():self.assertEqual(path.read_bytes(),content)
         runtime=json.loads((generator.ROOT/'i18n/generated/pt.json').read_text(encoding="utf-8"))
         self.assertEqual('pt-BR',runtime['sourceLocale'])
         self.assertNotIn('installer.runSetup',runtime['strings'])
+        english=json.loads((generator.ROOT/'i18n/generated/en.json').read_text(encoding='utf-8'))
+        self.assertEqual(set(runtime['strings']),set(english['strings']))
+        self.assertEqual('&Help',english['strings']['home.help'])
+        pack=json.loads((generator.ROOT/'i18n/packs/en.json').read_text(encoding='utf-8'))
+        generator.validate_pack(pack,self.source,self.locales)
+        self.assertTrue(all(isinstance(v,str) for v in pack['strings'].values()))
 
 if __name__=='__main__':unittest.main()

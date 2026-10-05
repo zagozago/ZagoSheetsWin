@@ -123,6 +123,41 @@ internal static class InterfaceVerification
         Require(toggle.Dark && toggle.AccessibilityObject.Role == AccessibleRole.PushButton && toggle.AccessibilityObject.Value == "Escuro", "Theme action button must expose its dark mode without checkbox semantics.");
         Branding.PreviewTheme(ApplicationTheme.Light);
         Require(home.BackColor == light && !toggle.Dark && toggle.AccessibilityObject.Value == "Claro", "Theme must switch back without restarting.");
+        // Switching must update existing instances, preserving checkbox values and identity.
+        using (var settings = new SetupForm(preview: true))
+        using (var backups = new RecoveryForm(preview: true))
+        using (var tutorial = new TutorialForm(3))
+        using (var picker = new LanguagePicker())
+        {
+            settings.Show(); backups.Show(); tutorial.Show(); picker.Show(); Application.DoEvents();
+            var sync = Descendants(settings).OfType<CheckBox>().Single(c=>c.Text==UiText.Get("setup.noSync"));
+            sync.Checked=false;
+            var list = Descendants(backups).OfType<ListView>().Single();list.Items[0].Checked=true;
+            var filename=list.Items[0].Text;
+            UiText.Select("en"); Application.DoEvents();
+            Require(Descendants(home).OfType<Button>().Any(b=>b.Text=="&Help"),"Open home must switch to English.");
+            Require(settings.Text=="Settings - ZagoSheetsWin" && sync.Text.StartsWith("I do not sync") && !sync.Checked,"Language change must preserve unsaved settings.");
+            Require(list.Items[0].Checked && list.Items[0].Text==filename && list.Columns[0].Text=="File","Language change must preserve recovery data and selection.");
+            Require(Descendants(tutorial).OfType<Label>().Any(l=>l.Text.Contains("Keep the original")),"Existing tutorial must refresh its current page.");
+            Require(Descendants(tutorial).OfType<FlowLayoutPanel>().All(p=>!p.VerticalScroll.Visible),"English tutorial must not gain vertical scrolling.");
+            Require(UiText.Get("error.backupQuota").Contains("original was preserved"),"English errors must retain preservation guidance.");
+            foreach(var form in new Form[]{home,settings,settings.AdvancedDialog,backups,tutorial,picker})
+            {
+                foreach(var factor in new[]{1f,1.25f,1.5f,2f})
+                {
+                    var before=form.Size;form.Scale(new SizeF(factor,factor));form.PerformLayout();Application.DoEvents();
+                    foreach(var button in Descendants(form).OfType<AdaptiveButton>().Where(b=>b.Visible))
+                    {
+                        var room=Math.Max(20,button.Width-button.Padding.Horizontal-12);
+                        var needed=TextRenderer.MeasureText(button.Text,button.Font,new Size(room,int.MaxValue),TextFormatFlags.WordBreak).Height+button.Padding.Vertical+10;
+                        Require(button.Height>=needed,$"Button text must fit at scale {factor}: '{button.Text}', {button.Size}, needed {needed}.");
+                    }
+                    form.Scale(new SizeF(1/factor,1/factor));form.Size=before;
+                }
+            }
+            UiText.Select("pt");Application.DoEvents();
+            Require(Descendants(home).OfType<Button>().Any(b=>b.Text=="&Ajuda") && !sync.Checked && list.Items[0].Checked,"Switching back must preserve state.");
+        }
         home.Hide(); preview.Hide();
         using (var success = new ProcessingForm(new(LauncherAction.Open, "preview.xlsx"), execute: async (_, _) => await Task.Yield(), recordDiagnostics: false))
         {

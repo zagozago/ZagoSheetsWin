@@ -1,5 +1,5 @@
 #ifndef PilotVersion
-  #define PilotVersion "0.9.20"
+  #define PilotVersion "0.9.21"
 #endif
 [Setup]
 AppId={{D970FA65-0364-4F10-A6AA-D4302F31B607}
@@ -29,9 +29,13 @@ DisableWelcomePage=yes
 DisableReadyPage=yes
 UninstallDisplayIcon={app}\SheetsWindows.exe
 CloseApplications=yes
+ShowLanguageDialog=yes
+LanguageDetectionMethod=uilanguage
 
 [Languages]
-Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl,i18n\pt.isl"
+Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl,i18n\pt-standard.isl,i18n\pt.isl"
+
+Name: "english"; MessagesFile: "compiler:Default.isl,i18n\en-standard.isl,i18n\en.isl"
 
 [Files]
 Source: "..\artifacts\SheetsWindows-win-x64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -77,7 +81,12 @@ end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
-  if CurStep = ssPostInstall then MaintainAssociation('--register');
+  if CurStep = ssPostInstall then
+  begin
+    MaintainAssociation('--register');
+    if ActiveLanguage = 'brazilianportuguese' then MaintainAssociation('--installer-language pt')
+    else MaintainAssociation('--installer-language en');
+  end;
 end;
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
@@ -86,19 +95,46 @@ begin
 end;
 // No UninstallDelete: state, OAuth, backups, user .url and Google files are never installed here.
 
-procedure InitializeWizard;
 var
   Credit: TNewStaticText;
+
+procedure FitWizardButtons;
+var
+  BackWidth, NextWidth, CancelWidth, Gap, Needed: Integer;
 begin
+  Gap := ScaleX(8);
+  BackWidth := WizardForm.CalculateButtonWidth([WizardForm.BackButton.Caption]);
+  NextWidth := WizardForm.CalculateButtonWidth([WizardForm.NextButton.Caption]);
+  CancelWidth := WizardForm.CalculateButtonWidth([WizardForm.CancelButton.Caption]);
+  Needed := BackWidth + NextWidth + CancelWidth + Gap * 4;
+  if Needed > WizardForm.ClientWidth then WizardForm.ClientWidth := Needed;
+  WizardForm.CancelButton.Width := CancelWidth;
+  WizardForm.CancelButton.Left := WizardForm.ClientWidth - Gap - CancelWidth;
+  WizardForm.NextButton.Width := NextWidth;
+  WizardForm.NextButton.Left := WizardForm.CancelButton.Left - Gap - NextWidth;
+  WizardForm.BackButton.Width := BackWidth;
+  WizardForm.BackButton.Left := WizardForm.NextButton.Left - Gap - BackWidth;
+  if Credit <> nil then Credit.Width := WizardForm.ClientWidth - ScaleX(16);
+end;
+
+procedure InitializeWizard;
+begin
+  WizardForm.ClientHeight := WizardForm.ClientHeight + ScaleY(28);
+  WizardForm.OuterNotebook.Height := WizardForm.OuterNotebook.Height - ScaleY(28);
+  WizardForm.Bevel.Top := WizardForm.Bevel.Top - ScaleY(28);
+  WizardForm.BackButton.Top := WizardForm.BackButton.Top - ScaleY(28);
+  WizardForm.NextButton.Top := WizardForm.NextButton.Top - ScaleY(28);
+  WizardForm.CancelButton.Top := WizardForm.CancelButton.Top - ScaleY(28);
   Credit := TNewStaticText.Create(WizardForm);
   Credit.Parent := WizardForm;
   Credit.Caption := CustomMessage('Zago_credit');
   Credit.Left := ScaleX(8);
-  Credit.Top := WizardForm.ClientHeight - ScaleY(31);
-  Credit.Width := WizardForm.BackButton.Left - ScaleX(16);
+  Credit.Top := WizardForm.ClientHeight - ScaleY(24);
+  Credit.Width := WizardForm.ClientWidth - ScaleX(16);
   Credit.WordWrap := True;
   Credit.Height := ScaleY(24);
   Credit.Font.Size := 7;
+  FitWizardButtons;
 end;
 
 procedure CurPageChanged(CurPageID: Integer);
@@ -109,4 +145,11 @@ begin
     WizardForm.RunList.Checked[0] := True;
     WizardForm.RunList.Visible := False;
   end;
+  FitWizardButtons;
+end;
+
+procedure InitializeUninstallProgressForm;
+begin
+  UninstallProgressForm.CancelButton.Width := UninstallProgressForm.CalculateButtonWidth([UninstallProgressForm.CancelButton.Caption]);
+  UninstallProgressForm.CancelButton.Left := UninstallProgressForm.ClientWidth - ScaleX(8) - UninstallProgressForm.CancelButton.Width;
 end;

@@ -25,6 +25,8 @@ internal static class Ui
                 else if (child is Button or TextBox or ComboBox or TableLayoutPanel || child.Tag as string == "separator") child.Width = available - child.Margin.Horizontal;
             }
         }
+        foreach (Control child in layout.Controls) child.TextChanged += (_,_) => ResizeChildren();
+        layout.ControlAdded += (_,e) => { if (e.Control is {} child) child.TextChanged += (_,_) => ResizeChildren(); ResizeChildren(); };
         layout.Resize += (_, _) => ResizeChildren();
         layout.FontChanged += (_, _) => ResizeChildren();
         layout.HandleCreated += (_, _) => ResizeChildren();

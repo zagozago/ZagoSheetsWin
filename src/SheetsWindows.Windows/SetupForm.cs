@@ -25,7 +25,7 @@ internal sealed class SetupForm : Form
         var noSync = new CheckBox { AutoSize = true, Checked = true, Text = UiText.Get("setup.noSync") };
         var folderOptions = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, FlowDirection = FlowDirection.TopDown, WrapContents = false };
         folder.Text = opening.Folder ?? "";
-        var chooseFolder = new Button { AutoSize = true, Text = UiText.Get("setup.chooseFolder") };
+        var chooseFolder = new AdaptiveButton { AutoSize = true, Text = UiText.Get("setup.chooseFolder") };
         chooseFolder.Click += (_, _) => { using var dialog = new FolderBrowserDialog(); if (dialog.ShowDialog(this) == DialogResult.OK) folder.Text = dialog.SelectedPath; };
         folderOptions.Controls.Add(Info(UiText.Get("setup.syncExplanation")));
         var folderRow = new TableLayoutPanel { AutoSize = false, Height = 38, ColumnCount = 2, RowCount = 1, Margin = new Padding(0, 4, 0, 4) };
@@ -39,21 +39,26 @@ internal sealed class SetupForm : Form
         noSync.CheckedChanged += (_, _) => ShowFolderOptions();
         var advanced = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoScroll = true, Padding = new Padding(18), FlowDirection = FlowDirection.TopDown, WrapContents = false };
         var advancedDialog = new Form { Text = UiText.Get("setup.advancedTitle"), ClientSize = new Size(550, 640), MinimumSize = new Size(480, 480), StartPosition = FormStartPosition.CenterParent, AutoScaleMode = AutoScaleMode.Dpi, ShowInTaskbar = false, MinimizeBox = false };
-        var closeAdvanced = new Button { Text = UiText.Get("action.close"), Dock = DockStyle.Bottom, Height = 44 };
+        var closeAdvanced = new AdaptiveButton { Text = UiText.Get("action.close"), Dock = DockStyle.Bottom, Height = 44 };
         advancedDialog.Controls.Add(advanced); advancedDialog.Controls.Add(closeAdvanced);
         closeAdvanced.Click += (_, _) => advancedDialog.Close();
         AdvancedDialog = advancedDialog;
         advancedDialog.CancelButton = closeAdvanced;
         Disposed += (_, _) => advancedDialog.Dispose();
-        var toggle = new Button { AutoSize = true, Text = UiText.Get("setup.advanced") };
+        var toggle = new AdaptiveButton { AutoSize = true, Text = UiText.Get("setup.advanced") };
         toggle.Click += (_, _) => advancedDialog.ShowDialog(this);
 
         advanced.Controls.Add(Info(UiText.Get("setup.connectionExplanation")));
-        var chooseClient = new Button { AutoSize = true, Text = UiText.Get("setup.chooseClient"), Enabled = !File.Exists(LauncherConfiguration.ClientPath(storage)) };
+        var chooseClient = new AdaptiveButton { AutoSize = true, Text = UiText.Get("setup.chooseClient"), Enabled = !File.Exists(LauncherConfiguration.ClientPath(storage)) };
         chooseClient.Click += (_, _) => { using var dialog = new OpenFileDialog { Filter = UiText.Get("dialog.oauthFileFilter"), CheckFileExists = true }; if (dialog.ShowDialog(this) == DialogResult.OK)  { client.Text = dialog.FileName;  status.Text = UiText.Get("setup.clientSelected"); } };
         advanced.Controls.Add(Info(UiText.Get("setup.connectionPrivacy")));
         advanced.Controls.Add(chooseClient); advanced.Controls.Add(client);
-        if (File.Exists(LauncherConfiguration.ClientPath(storage))) client.Text = UiText.Get("setup.clientPreserved");
+        if (File.Exists(LauncherConfiguration.ClientPath(storage)))
+        {
+            client.Text = UiText.Get("setup.clientPreserved");
+            void UpdateClientLabel() { client.Text = UiText.Get("setup.clientPreserved"); }
+            UiText.Changed += UpdateClientLabel; Disposed += (_,_) => UiText.Changed -= UpdateClientLabel;
+        }
         var extended = new CheckBox { AutoSize = true, Checked = true, Text = UiText.Get("setup.extendedFormats") };
         var encoding = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Width = 570 };
         encoding.Items.AddRange([UiText.Get("setup.encodingUnicode"), UiText.Get("setup.encodingLegacy")]); encoding.SelectedIndex = 0;
@@ -66,7 +71,7 @@ internal sealed class SetupForm : Form
         var xls = new CheckBox { AutoSize = true, Checked = XlsReplacementSettings.Load(storage), Text = UiText.Get("setup.replaceXls") };
         advanced.Controls.Add(Ui.Separator()); advanced.Controls.Add(Ui.Text(UiText.Get("setup.xlsHeading"), true)); advanced.Controls.Add(xls);
         advanced.Controls.Add(Info(UiText.Get("setup.xlsExplanation")));
-        var saveXls = new Button { AutoSize = true, Text = UiText.Get("setup.saveXls") };
+        var saveXls = new AdaptiveButton { AutoSize = true, Text = UiText.Get("setup.saveXls") };
         saveXls.Click += async (_, _) => { saveXls.Enabled = false; try { await XlsReplacementSettings.SaveAsync(storage, xls.Checked); status.Text = UiText.Get("setup.xlsSaved"); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = LauncherErrors.Message(ex); } finally { saveXls.Enabled = true; } };
         advanced.Controls.Add(saveXls);
         var advancedStatus = Ui.Text(""); advanced.Controls.Add(advancedStatus);
@@ -83,12 +88,12 @@ internal sealed class SetupForm : Form
         var termsLink = new LinkLabel { Text = UiText.Get("legal.terms"), AutoSize = true, Margin = new Padding(0, 4, 0, 4) };
         termsLink.LinkClicked += (_, _) => { try { new BrowserLauncher().Open(new Uri("https://zagotools.top/legal.html#termos")); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { MessageBox.Show("https://zagotools.top/legal.html#termos", UiText.Get("legal.terms")); } };
         legalLinks.Controls.Add(privacyLink); legalLinks.Controls.Add(termsLink); layout.Controls.Add(legalLinks);
-        var connect = new Button { AutoSize = true, Text = FirstUseState.NeedsAuthorization(storage) ? UiText.Get("action.authorizeGoogle") : UiText.Get("action.switchGoogleAccount") };
-        var verify = new Button { Text = UiText.Get("setup.verifyGoogle"), AutoSize = true, Enabled = !FirstUseState.NeedsAuthorization(storage) };
-        var save = new Button { AutoSize = true, Text = UiText.Get("setup.save") };
-        var defaults = new Button { AutoSize = true, Text = UiText.Get("setup.openWindowsDefaults") };
-        var finish = new Button { AutoSize = true, Text = firstUse ? UiText.Get("setup.saveFinish") : UiText.Get("action.close") };
-        var cancel = new Button { AutoSize = true, Text = UiText.Get("setup.cancelConnection"), Visible = false };
+        var connect = new AdaptiveButton { AutoSize = true, Text = FirstUseState.NeedsAuthorization(storage) ? UiText.Get("action.authorizeGoogle") : UiText.Get("action.switchGoogleAccount") };
+        var verify = new AdaptiveButton { Text = UiText.Get("setup.verifyGoogle"), AutoSize = true, Enabled = !FirstUseState.NeedsAuthorization(storage) };
+        var save = new AdaptiveButton { AutoSize = true, Text = UiText.Get("setup.save") };
+        var defaults = new AdaptiveButton { AutoSize = true, Text = UiText.Get("setup.openWindowsDefaults") };
+        var finish = new AdaptiveButton { AutoSize = true, Text = firstUse ? UiText.Get("setup.saveFinish") : UiText.Get("action.close") };
+        var cancel = new AdaptiveButton { AutoSize = true, Text = UiText.Get("setup.cancelConnection"), Visible = false };
         cancel.Click += (_, _) => cancellation.Cancel();
         var authorizationValid = !FirstUseState.NeedsAuthorization(storage);
         bool Ready() => authorizationValid && !FirstUseState.NeedsAuthorization(storage);

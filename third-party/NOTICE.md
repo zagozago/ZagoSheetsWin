@@ -1,4 +1,4 @@
-# Licenças de terceiros - ZagoSheetsWin 0.9.20
+# Licenças de terceiros - ZagoSheetsWin 0.9.21
 
 O aplicativo e a atribuição original ao Open in Google mantêm a licença MIT.
 Cada dependência mantém sua própria licença. O NPOI está fixado na versão

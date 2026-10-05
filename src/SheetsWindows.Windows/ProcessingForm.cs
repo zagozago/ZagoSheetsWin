@@ -34,9 +34,9 @@ internal sealed class ProcessingForm : Form
     {
         Text = UiText.Get("processing.failureTitle");
         status.Text = ex is OperationCanceledException && !cancellation.IsCancellationRequested ? UiText.Get("error.connectionTimeout") : LauncherErrors.Message(ex);
-        var recovery = new Button { Text = UiText.Get("action.recovery"), AutoSize = true };
+        var recovery = new AdaptiveButton { Text = UiText.Get("action.recovery"), AutoSize = true };
         recovery.Click += (_, _) => { using var form = new RecoveryForm(); form.ShowDialog(this); };
-        var export = new Button { Text = UiText.Get("action.exportDiagnostics"), AutoSize = true };
+        var export = new AdaptiveButton { Text = UiText.Get("action.exportDiagnostics"), AutoSize = true };
         export.Click += async (_, _) =>
         {
             using var dialog = new SaveFileDialog { Filter = UiText.Get("dialog.diagnosticFilter"), FileName = "zagosheetswin-diagnostico.jsonl", OverwritePrompt = true };
@@ -44,7 +44,7 @@ internal sealed class ProcessingForm : Form
             try { await new DiagnosticLog(LocalStorage.ForCurrentUser()).ExportAsync(dialog.FileName); status.Text = UiText.Get("diagnostics.exported"); }
             catch (Exception failure) when (LauncherErrors.Expected(failure)) { status.Text = UiText.Get("diagnostics.destinationInvalid"); }
         };
-        var setup = new Button { Text = UiText.Get("action.settings"), AutoSize = true };
+        var setup = new AdaptiveButton { Text = UiText.Get("action.settings"), AutoSize = true };
         setup.Click += (_, _) => { using var form = new SetupForm(); form.ShowDialog(this); };
         actions.Controls.AddRange([recovery, export, setup]); cancel.Text = UiText.Get("action.close"); cancel.Enabled = true;
         ClientSize = new Size((int)(620 * DeviceDpi / 96.0), (int)(330 * DeviceDpi / 96.0)); Branding.Refresh(this);

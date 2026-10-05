@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.20",
+  "productVersion": "0.9.21",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
-  "fallbackReady": false,
-  "catalogRevision": 1,
+  "fallbackReady": true,
+  "catalogRevision": 2,
   "translationReady": true,
   "multilingualReady": false,
   "emphasisKeys": [
@@ -4363,10 +4363,12 @@
       "notes": []
     },
     "installer.standard.Messages.OnlyOnTheseArchitectures": {
-      "text": "Este programa só pode ser instalado em versões do Windows projetadas para as seguintes arquiteturas de processadores:%n%n% 1",
+      "text": "Este programa só pode ser instalado em versões do Windows projetadas para as seguintes arquiteturas de processadores:%n%n%1",
       "context": "Inno Setup 6.6.1 Messages/OnlyOnTheseArchitectures",
       "scope": "installer.standard",
-      "placeholders": [],
+      "placeholders": [
+        "%1"
+      ],
       "invariants": [
         "Windows"
       ],
@@ -7172,6 +7174,72 @@
       ],
       "markup": [],
       "notes": []
+    },
+    "language.title": {
+      "text": "Idioma - ZagoSheetsWin",
+      "scope": "app",
+      "context": "Language picker, live switching and accessibility",
+      "placeholders": [],
+      "invariants": [
+        "ZagoSheetsWin"
+      ],
+      "notes": "Complete message; preserve product names."
+    },
+    "language.choose": {
+      "text": "Escolha o idioma do aplicativo",
+      "scope": "app",
+      "context": "Language picker, live switching and accessibility",
+      "placeholders": [],
+      "invariants": [],
+      "notes": "Complete message; preserve product names."
+    },
+    "language.search": {
+      "text": "Buscar por nome ou código",
+      "scope": "app",
+      "context": "Language picker, live switching and accessibility",
+      "placeholders": [],
+      "invariants": [],
+      "notes": "Complete message; preserve product names."
+    },
+    "language.automatic": {
+      "text": "Automático (idioma do Windows)",
+      "scope": "app",
+      "context": "Language picker, live switching and accessibility",
+      "placeholders": [],
+      "invariants": [],
+      "notes": "Complete message; preserve product names."
+    },
+    "language.available": {
+      "text": "Português e inglês disponíveis. Os demais idiomas serão adicionados após tradução e revisão.",
+      "scope": "app",
+      "context": "Language picker, live switching and accessibility",
+      "placeholders": [],
+      "invariants": [],
+      "notes": "Complete message; preserve product names."
+    },
+    "language.apply": {
+      "text": "Aplicar idioma",
+      "scope": "app",
+      "context": "Language picker, live switching and accessibility",
+      "placeholders": [],
+      "invariants": [],
+      "notes": "Complete message; preserve product names."
+    },
+    "language.saveFailed": {
+      "text": "Não foi possível salvar o idioma. A preferência anterior foi preservada.",
+      "scope": "app",
+      "context": "Language picker, live switching and accessibility",
+      "placeholders": [],
+      "invariants": [],
+      "notes": "Complete message; preserve product names."
+    },
+    "language.button": {
+      "text": "Escolher idioma",
+      "scope": "app",
+      "context": "Language picker, live switching and accessibility",
+      "placeholders": [],
+      "invariants": [],
+      "notes": "Complete message; preserve product names."
     }
   },
   "pluralPolicy": "Mensagens de contagem usam rótulos completos sem flexão dependente do número. Traduções que exigirem variantes devem declarar formas CLDR completas; nunca concatenar substantivo e sufixo. Uma alteração de contrato exige nova revisão de catálogo.",

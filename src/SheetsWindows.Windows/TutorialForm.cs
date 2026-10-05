@@ -17,7 +17,7 @@ internal sealed class TutorialForm : Form
     private bool saving;
     private bool fitting;
     private readonly TableLayoutPanel layout;
-    private static readonly (string Title, string Text)[] Pages =
+    private static (string Title, string Text)[] Pages =>
     [
         (UiText.Get("tutorial.importTitle"), UiText.Get("tutorial.importExplanation")),
         (UiText.Get("tutorial.googleTitle"), UiText.Get("tutorial.googleExplanation")),
@@ -29,13 +29,14 @@ internal sealed class TutorialForm : Form
         page = Math.Clamp(initialPage, 0, Pages.Length - 1);
         Text = UiText.Get("tutorial.title"); ClientSize = new Size(760, 650); MinimumSize = new Size(620, 560); StartPosition = FormStartPosition.CenterParent; AutoScaleMode = AutoScaleMode.Dpi;
         layout = new TableLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(20), ColumnCount = 1, RowCount = 5 };
-        layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 55)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 250)); layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48));
+        layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 55)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 250)); layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100)); layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         layout.Controls.Add(heading, 0, 0); layout.Controls.Add(picture, 0, 1); layout.Controls.Add(explanation, 0, 2); layout.Controls.Add(hide, 0, 3);
-        var actions = new FlowLayoutPanel { Dock = DockStyle.Fill, WrapContents = false };
-        var skip = new Button { Text = UiText.Get("tutorial.skip"), AutoSize = true };
+        var actions = new FlowLayoutPanel { Dock = DockStyle.Fill, WrapContents = true, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink };
+        var skip = new AdaptiveButton { Text = UiText.Get("tutorial.skip"), AutoSize = true };
         actions.Controls.Add(skip); actions.Controls.Add(previous); actions.Controls.Add(next); actions.Controls.Add(count); layout.Controls.Add(actions, 0, 4);
         previous.Click += (_, _) => { page--; RefreshPage(); }; next.Click += (_, _) => { if (page == Pages.Length - 1) Close(); else { page++; RefreshPage(); } }; skip.Click += (_, _) => Close();
         Ui.Primary(next); Controls.Add(layout); Branding.Apply(this); Ui.Adapt(explanation); RefreshPage();
+        UiText.Changed += RefreshPage; Disposed += (_,_) => UiText.Changed -= RefreshPage;
         Shown += (_, _) => FitContent();
         layout.SizeChanged += (_, _) => FitContent();
         FormClosing += async (_, e) =>
@@ -61,7 +62,7 @@ internal sealed class TutorialForm : Form
         }
         if (page is 2 or 3)
         {
-            var action = new Button { AutoSize = true, Text = page == 2 ? UiText.Get("tutorial.defineDefaults") : UiText.Get("tutorial.openBackups") };
+            var action = new AdaptiveButton { AutoSize = true, Text = page == 2 ? UiText.Get("tutorial.defineDefaults") : UiText.Get("tutorial.openBackups") };
             var backups = page == 3;
             action.Click += (_, _) =>
             {
@@ -84,7 +85,7 @@ internal sealed class TutorialForm : Form
             foreach (var label in explanation.Controls.OfType<Label>()) label.MaximumSize = new Size(explanation.ClientSize.Width - label.Margin.Horizontal - 6, 0);
             explanation.PerformLayout();
             var needed = explanation.Controls.Cast<Control>().Sum(control => control.Height + control.Margin.Vertical);
-            var room = layout.ClientSize.Height - layout.Padding.Vertical - layout.RowStyles[0].Height - layout.RowStyles[3].Height - layout.RowStyles[4].Height - needed - 6;
+            var room = layout.ClientSize.Height - layout.Padding.Vertical - layout.RowStyles[0].Height - layout.GetRowHeights()[3] - layout.GetRowHeights()[4] - needed - 6;
             var scale = DeviceDpi / 96f;
             var minimumPicture = 100 * scale;
             if (room < minimumPicture)

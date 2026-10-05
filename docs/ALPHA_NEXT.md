@@ -147,3 +147,13 @@ Implementação: fontes e componentes compartilhados, tutorial e textos revisado
 Etapas recentes: Fernando confirmou o aceite visual e funcional da 0.9.18. Textos PT-BR e Sobre revisados na 0.9.19; comparação com legal.html permanece pendente (HTTP 404). A preparação da etapa 3 está documentada em [I18N_PREPARATION.md](I18N_PREPARATION.md): catálogo de 585 entradas, matriz canônica de 51 idiomas, recursos de aplicativo/instalador gerados de uma fonte, contratos e testes. Interface continua PT-BR; 50 alvos ainda não traduzidos.
 
 Requisito explícito de Fernando: todos os botões devem se ajustar ao texto nos 51 idiomas. O botão final de instalação da 0.9.19 corta Iniciar configuração. Corrigir no trabalho de layout da integração multilíngue; não alterar seu tamanho nesta etapa. Validar fontes reais, RTL e DPI 100/125/150/200%, sem corte nem reticências.
+
+### 0.9.21 - escolha do idioma e primeiro pack
+
+Aceite manual da 0.9.20 confirmado por Fernando: funcionalidade preservada e
+sem mudança visual esperada nessa preparação. Etapa 4: seletor PT/EN junto ao
+botão de tema, modal pesquisável, modo automático, persistência independente,
+idioma escolhido no início do instalador e ajustes de dimensão dos botões.
+Inglês integrado como primeiro pack e fallback; os 49 demais alvos seguem
+pendentes. Validar a nova entrega em Windows real antes de expandir os packs.
+Detalhes e limitações de QA em `docs/I18N_PREPARATION.md`.

@@ -5,7 +5,7 @@ namespace SheetsWindows.Windows;
 internal static class Branding
 {
     public const string Name = "ZagoSheetsWin";
-    public static readonly string Credit = UiText.Get("about.credit");
+    public static string Credit => UiText.Get("about.credit");
     private static ApplicationTheme? selected;
     private static event Action? ThemeChanged;
     internal static ApplicationTheme Current
@@ -18,7 +18,7 @@ internal static class Branding
     }
     internal static void PreviewTheme(ApplicationTheme theme) { selected = theme; ThemeChanged?.Invoke(); }
     internal static void Refresh(Form form) => ThemeChanged?.Invoke();
-    public static void Apply(Form form, bool aboutButton = true, bool compact = false)
+    public static void Apply(Form form, bool aboutButton = true, bool compact = false, bool languageButton = true)
     {
         using (var stream = typeof(Branding).Assembly.GetManifestResourceStream("Brand.icon.ico")!) form.Icon = new Icon(stream);
         form.Font = new Font("Segoe UI", 10);
@@ -58,7 +58,7 @@ internal static class Branding
         form.Disposed += (_, _) => logo.Dispose();
         var title = new Label { Text = Name, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, Padding = new Padding(10, 0, 0, 0) };
         title.Font = new Font("Segoe UI", 13, FontStyle.Bold);
-        var right = new FlowLayoutPanel { Dock = DockStyle.Right, Width = aboutButton ? 192 : 52, FlowDirection = FlowDirection.LeftToRight, WrapContents = false, Padding = new Padding(0, 5, 0, 0) };
+        var right = new FlowLayoutPanel { Dock = DockStyle.Right, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, FlowDirection = FlowDirection.LeftToRight, WrapContents = false, Padding = new Padding(0, 5, 0, 0) };
         var toggle = new ThemeToggle { Width = 36, Height = 34 };
         var tooltip = new ToolTip();
         void UpdateToggle() { toggle.Dark = Current == ApplicationTheme.Dark; toggle.AccessibleName = toggle.Dark ? UiText.Get("theme.activateLight") : UiText.Get("theme.activateDark"); tooltip.SetToolTip(toggle, toggle.AccessibleName); toggle.Invalidate(); }
@@ -71,8 +71,17 @@ internal static class Branding
         };
         if (aboutButton)
         {
-            var about = new LinkLabel { Text = UiText.Get("about.open"), AutoSize = false, Width = 130, Height = 32, TextAlign = ContentAlignment.MiddleCenter, TabStop = true, AccessibleName = UiText.Get("accessibility.about") };
+            var about = new LinkLabel { Text = UiText.Get("about.open"), AutoSize = true, Height = 32, TextAlign = ContentAlignment.MiddleCenter, TabStop = true, AccessibleName = UiText.Get("accessibility.about") };
             about.LinkClicked += (_, _) => { using var info = new AboutForm(); info.ShowDialog(form); }; right.Controls.Add(about);
+        }
+        if (languageButton)
+        {
+            var language = new AdaptiveButton { Text = UiText.Language.ToUpperInvariant(), AutoSize = true, AccessibleName = UiText.Get("language.button"), Margin = new Padding(3,0,3,0) };
+            language.Click += (_,_) => { using var picker = new LanguagePicker(); picker.ShowDialog(form); };
+            void UpdateLanguage() { language.Text = UiText.Language.ToUpperInvariant(); tooltip.SetToolTip(language, UiText.Get("language.button")); UpdateToggle(); }
+            UiText.Changed += UpdateLanguage; form.Disposed += (_,_) => UiText.Changed -= UpdateLanguage;
+            tooltip.SetToolTip(language, UiText.Get("language.button"));
+            right.Controls.Add(language);
         }
         right.Controls.Add(toggle); header.Controls.Add(title); header.Controls.Add(picture); header.Controls.Add(right);
         form.Controls.Add(header); header.SendToBack();
@@ -81,6 +90,7 @@ internal static class Branding
         Microsoft.Win32.UserPreferenceChangedEventHandler preference = (_, _) => { if (form.IsHandleCreated && !form.IsDisposed) { try { form.BeginInvoke((Action)RefreshTheme); } catch (InvalidOperationException) { } } };
         Microsoft.Win32.SystemEvents.UserPreferenceChanged += preference;
         form.Disposed += (_, _) => { ThemeChanged -= changed; Microsoft.Win32.SystemEvents.UserPreferenceChanged -= preference; tooltip.Dispose(); };
+        LocalizedControls.Attach(form);
         RefreshTheme();
     }
 }

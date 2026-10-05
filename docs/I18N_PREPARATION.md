@@ -117,3 +117,40 @@ Depois, traduzir os 50 alvos, integrar recursos padrão do instalador e concluir
 QA visual/editorial por pack. Tema, importação, autenticação e backups não devem
 ser reiniciados ao trocar idioma. Comparação com `legal.html` permanece pendente
 desde a consulta que retornou HTTP 404 na etapa anterior.
+
+## Etapa 4 - idioma e interface, 0.9.21
+
+Português e inglês completos no aplicativo e no instalador. O catálogo passou
+para revisão 2, com 593 entradas (oito mensagens do seletor). O pack inglês inclui
+as 293 mensagens padrão do Inno Setup, da mesma revisão oficial 6.6.1. Um erro
+`% 1` da mensagem PT de arquiteturas foi corrigido para `%1` em ambas as fontes
+consumidas pelo instalador. Licenças originais permanecem no idioma original.
+
+O instalador solicita o idioma no início, sugere o idioma da interface do Windows
+e mantém a escolha até o fim. Inicializa `language.json` somente se ausente;
+atualizações preservam escolhas feitas no programa, inclusive `auto`. O programa
+resolve escolha fixa > lista ordenada GetUserPreferredUILanguages > inglês.
+A cultura regional de números e datas não é alterada pela escolha da interface.
+
+O botão PT/EN fica ao lado do sol/lua. Abre um modal compacto com busca por nome
+nativo, nome inglês ou código; seleção por teclado, Aplicar ou duplo clique e
+Escape para fechar. Oferece somente PT, EN e Automático: os outros 49 idiomas
+aguardam tradução e revisão. Mantém a matriz canônica de 51 para futuras entregas.
+
+A troca atualiza instâncias abertas, parágrafos, ajuda, acessibilidade, opções de
+texto e estados de recuperação sem reiniciar autenticação, importações ou tema.
+As caixas editáveis, nomes de arquivo, IDs e seleções continuam intactos. Textos
+são vinculados a descritores semânticos ao serem atribuídos aos controles.
+
+Botões nativos medem a fonte real, reservam padding/foco e quebram linhas quando
+limitados pela largura. Linhas de ações redistribuem os controles. O tutorial
+continua sem rolagem vertical. O instalador mede suas legendas com
+CalculateButtonWidth em cada página, incluindo Iniciar configuração; créditos
+ocupam linha própria, sem disputar espaço com os botões. O desinstalador mede
+seu botão de cancelamento. Cada pack futuro exige QA próprio: a infraestrutura
+não equivale à validação de layouts dos 49 idiomas ainda inexistentes.
+
+Validação: testes de preferência, atualização e preservação, catálogo completo,
+conferência nativa PT→EN→PT mantendo alterações não salvas e seleções; medidas de
+botões com expansão em 100%, 125%, 150% e 200%. A escala programática complementa,
+mas não substitui, a homologação em monitores com esses DPIs reais.

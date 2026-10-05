@@ -67,6 +67,7 @@ def validate_pack(pack, source, locales, release=False):
         assert slots(text, entry['scope']) == slots(entry['text'], entry['scope']), key
         for token in entry['invariants']:
             assert text.count(token) == entry['text'].count(token), (key, token)
+        assert re.findall(r'\*\.[a-z0-9]+',text)==re.findall(r'\*\.[a-z0-9]+',entry['text']), (key,'file masks changed')
         if '|' in entry['text']: assert text.count('|') == entry['text'].count('|'), key
         def visible(value):
             value=INNO.sub('',value) if entry['scope'].startswith('installer.') else NAMED.sub('',value)
@@ -94,10 +95,29 @@ def files(source):
     for key, entry in source['entries'].items():
         if entry['scope'] == 'installer.custom':
             custom.append('Zago_'+key.removeprefix('installer.')+'='+entry['text'].replace('\n','%n'))
-    return {
+    result = {
         ROOT/'i18n/generated/pt.json': (json.dumps(runtime, ensure_ascii=False, indent=2)+'\n').encode('utf-8'),
         ROOT/'installer/i18n/pt.isl': ('\n'.join(custom)+'\n').encode('utf-8-sig')
     }
+    locales=json.loads((ROOT/'i18n/locales.json').read_text(encoding='utf-8'))
+    for path in sorted((ROOT/'i18n/packs').glob('*.json')):
+        pack=json.loads(path.read_text(encoding='utf-8'));validate_pack(pack,source,locales)
+        if pack['status']!='complete': continue
+        code=pack['language']; values=pack['strings']
+        target=dict(runtime,strings={k:values[k] for k in runtime['strings']})
+        result[ROOT/f'i18n/generated/{code}.json']=(json.dumps(target,ensure_ascii=False,indent=2)+'\n').encode('utf-8')
+        lines=['; Generated from the canonical language pack.', '[CustomMessages]']
+        lines += ['Zago_'+k.removeprefix('installer.')+'='+values[k].replace('\n','%n') for k,e in source['entries'].items() if e['scope']=='installer.custom']
+        result[ROOT/f'installer/i18n/{code}.isl']=('\n'.join(lines)+'\n').encode('utf-8-sig')
+    # Override cataloged standard strings, including the corrected PT %1 slot.
+    for code in ['pt','en']:
+        values={k:e['text'] for k,e in source['entries'].items()} if code=='pt' else json.loads((ROOT/'i18n/packs/en.json').read_text(encoding='utf-8'))['strings']
+        lines=['; Generated standard message overrides.'];section=None
+        for k,meta in source['standardInstallerMessages'].items():
+            if meta['section']!=section: section=meta['section'];lines+=['['+section+']']
+            lines += [meta['name']+'='+values[k]]
+        result[ROOT/f'installer/i18n/{code}-standard.isl']=('\n'.join(lines)+'\n').encode('utf-8-sig')
+    return result
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--check',action='store_true')

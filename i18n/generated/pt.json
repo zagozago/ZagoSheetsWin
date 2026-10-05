@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.20",
+  "productVersion": "0.9.21",
   "sourceLocale": "pt-BR",
-  "sourceHash": "df96a38a34d7ac3edf3e3cbc5caa2b565526d513503c2c7654e50f18ece5f1fe",
+  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -329,6 +329,14 @@
     "tutorial.start": "Começar",
     "tutorial.title": "Como funciona - ZagoSheetsWin",
     "windows.fileTypeDescription": "Planilha no Google Sheets",
-    "windows.registrationDescription": "Importa XLSX para Google Sheets e substitui por atalho, mantendo backup privado."
+    "windows.registrationDescription": "Importa XLSX para Google Sheets e substitui por atalho, mantendo backup privado.",
+    "language.title": "Idioma - ZagoSheetsWin",
+    "language.choose": "Escolha o idioma do aplicativo",
+    "language.search": "Buscar por nome ou código",
+    "language.automatic": "Automático (idioma do Windows)",
+    "language.available": "Português e inglês disponíveis. Os demais idiomas serão adicionados após tradução e revisão.",
+    "language.apply": "Aplicar idioma",
+    "language.saveFailed": "Não foi possível salvar o idioma. A preferência anterior foi preservada.",
+    "language.button": "Escolher idioma"
   }
 }
