@@ -20,7 +20,7 @@ internal static class InterfaceVerification
         using var preview = new ProcessingForm(new(LauncherAction.Open, "preview.xlsx"), preview: true);
         home.Show(); preview.Show(); Application.DoEvents();
         Require(Descendants(home).OfType<Button>().Any(b => b.Text == "&Ajuda"), "Home help must use the short Portuguese label.");
-        Require(Descendants(home).OfType<EmphasisLabel>().Any(l => l.HasEmphasis), "Home instructions must emphasize key phrases.");
+        Require(Descendants(home).OfType<EmphasisLabel>().All(l => l.Font.Bold || !l.HasEmphasis), "Home sentences must not apply automatic phrase emphasis.");
         using (var information = new AboutForm())
         {
             Require(Descendants(information).OfType<LinkLabel>().Any(l => l.Text == "Site do Zagotools"), "About must expose the Zagotools homepage.");
@@ -98,7 +98,7 @@ internal static class InterfaceVerification
             for (var i = 0; i < 2; i++) next.PerformClick();
             Application.DoEvents();
             var standard = Descendants(tutorial).OfType<Label>().Single(l => l.Text == "Defina o ZagoSheetsWin como aplicativo padrão de planilhas (opcional):");
-            Require(standard.Font.Bold, "Tutorial step three must fully emphasize its optional defaults instruction.");
+            Require(!standard.Font.Bold, "Tutorial optional defaults instruction must use regular sentence text.");
             Require(!Descendants(tutorial).OfType<Label>().Any(l => l.Text.Contains("ODS experimental")), "Tutorial step three must omit the previous format sentence.");
             next.PerformClick();
             Application.DoEvents();

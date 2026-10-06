@@ -56,7 +56,7 @@ internal sealed class TutorialForm : Form
         for (var i = 0; i < groups.Length; i++)
         {
             if (i > 0 && page != 3) explanation.Controls.Add(Ui.Separator());
-            var paragraph = Ui.Text(groups[i], page == 2 && i == 1);
+            var paragraph = Ui.Text(groups[i]);
             if (page == 3) paragraph.Margin = new Padding(0, 2, 0, 4);
             paragraph.MaximumSize = new Size(Math.Max(120, explanation.ClientSize.Width - 6), 0); explanation.Controls.Add(paragraph);
         }
