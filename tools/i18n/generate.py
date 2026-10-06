@@ -10,6 +10,15 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 SOURCE = ROOT / 'i18n/source.json'
 NAMED = re.compile(r'\{([A-Za-z][A-Za-z0-9_]*)(?::([^{}]+))?\}')
 INNO = re.compile(r'%[1-9]')
+# Exact localized unit spellings, not blanket exceptions for invariants.
+LOCALIZED_UNITS = {'fr': {'MB': 'Mo', 'GB': 'Go'}, 'ru': {'MB': 'МБ', 'GB': 'ГБ'},
+                   'ar': {'MB': 'ميغابايت'}}
+TECHNICAL_LABELS = {
+    'dialog.oauthFileFilter': {'OAuth JSON|*.json'},
+    'installer.standard.Messages.ButtonOK': {'OK'},
+    'installer.standard.Messages.UninstallDisplayNameMark32Bit': {'32-bit'},
+    'installer.standard.Messages.UninstallDisplayNameMark64Bit': {'64-bit'},
+}
 SCRIPT_RANGES = {
     **{c:[(0x0600,0x06ff),(0x0750,0x077f),(0x08a0,0x08ff)] for c in ['ar','ur','fa','ps','sd']},
     **{c:[(0x0900,0x097f)] for c in ['hi','mr','bho','mai','ne']},
@@ -67,12 +76,18 @@ def validate_pack(pack, source, locales, release=False):
         assert text.strip() or not entry['text'].strip(), key
         assert slots(text, entry['scope']) == slots(entry['text'], entry['scope']), key
         for token in entry['invariants']:
-            assert text.count(token) == entry['text'].count(token), (key, token)
+            unit = LOCALIZED_UNITS.get(pack['language'], {}).get(token)
+            unit_count = (text.count(unit) if pack['language']=='ar' else len(re.findall(r'(?<!\w)'+re.escape(unit)+r'(?!\w)',text))) if unit else 0
+            count = text.count(token) + unit_count
+            assert count == entry['text'].count(token), (key, token)
         assert re.findall(r'\*\.[a-z0-9]+',text)==re.findall(r'\*\.[a-z0-9]+',entry['text']), (key,'file masks changed')
         if '|' in entry['text']: assert text.count('|') == entry['text'].count('|'), key
         def visible(value):
             value=INNO.sub('',value) if entry['scope'].startswith('installer.') else NAMED.sub('',value)
-            for token in sorted(entry['invariants'],key=len,reverse=True): value=value.replace(token,'')
+            for token in sorted(entry['invariants'],key=len,reverse=True):
+                value=value.replace(token,'')
+                unit=LOCALIZED_UNITS.get(pack['language'],{}).get(token)
+                if unit: value=value.replace(unit,'') if pack['language']=='ar' else re.sub(r'(?<!\w)'+re.escape(unit)+r'(?!\w)','',value)
             return value
         original=visible(entry['text']); translated=visible(text)
         def digits(value):
@@ -83,7 +98,8 @@ def validate_pack(pack, source, locales, release=False):
             assert values==[20,500000,50000,1000], (key,'functional capacity values changed')
         else:
             assert digits(original)==digits(translated), (key,'functional numbers changed')
-        if pack['language'] in SCRIPT_RANGES and any(c.isalpha() for c in original) and key!='installer.standard.Messages.ComponentSize1':
+        technical = text in TECHNICAL_LABELS.get(key,set()) or (key=='tutorial.pageCount' and not any(c.isalpha() for c in translated))
+        if pack['language'] in SCRIPT_RANGES and any(c.isalpha() for c in original) and key!='installer.standard.Messages.ComponentSize1' and not technical:
             assert any(low<=ord(c)<=high for c in translated for low,high in SCRIPT_RANGES[pack['language']]), (key,'expected script absent')
     assert set(pack.get('expandedNumericNotation',[])) <= {'setup.formatLimits'}, 'Unrecognized numeric notation exception.'
     if 'installer.standard.Messages.ComponentSize1' in pack['strings'] and pack['strings']['installer.standard.Messages.ComponentSize1'] is not None:

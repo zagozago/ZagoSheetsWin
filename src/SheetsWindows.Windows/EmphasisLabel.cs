@@ -7,7 +7,8 @@ namespace SheetsWindows.Windows;
 // the same wrapping algorithm, including when the text or Windows DPI changes.
 internal sealed class EmphasisLabel : Label
 {
-    private static IReadOnlyList<string> Phrases => UiText.EmphasisTerms;
+    // Sentence emphasis is disabled. Explicit heading/control fonts still apply.
+    private static IReadOnlyList<string> Phrases => Array.Empty<string>();
 
     public EmphasisLabel()
     {

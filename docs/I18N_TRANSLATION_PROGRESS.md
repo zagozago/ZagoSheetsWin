@@ -35,14 +35,31 @@ As capacidades CSV/TSV podem ser escritas integralmente como 500,000 células,
 50,000 linhas e 1,000 colunas. A exceção revisada verifica os valores 20,
 500000, 50000 e 1000; não ignora alterações nos limites.
 
-## Demais packs
+## Catálogos recebidos em 2026-10-06
 
-**1 dos 49 novos catálogos concluído; 48 pendentes.** Próximo idioma da ordem
-canônica: Hindi (`hi`, devanágari). Não usar inglês, chinês tradicional ou uma
-variante de outro idioma para preencher silenciosamente itens pendentes.
+Os 48 packs restantes foram fornecidos pelo usuário no arquivo
+`zagosheetswin_48_locales_reviewed.zip`: 28.464 entradas, matriz e hash da fonte
+corretos. Os 49 novos catálogos estão armazenados com `status=translated`.
+PT e EN continuam sendo os idiomas distribuídos até a entrega 2.
 
-O serviço externo de tradução não foi utilizado: a revisão automática rejeitou
-o envio de texto do repositório por falta de autorização para o compartilhamento.
-A tradução e a revisão deste primeiro pack foram feitas sem enviar o catálogo
-a esse serviço. Produção em lote por um serviço externo exige autorização prévia
-para transmitir somente os textos de interface, sem código ou dados de usuários.
+A conferência técnica preserva placeholders, marcas, máscaras, separadores e
+valores. Não equivale a revisão por falantes nativos. Os metadados de revisão
+editorial foram fornecidos com os packs; `layoutQa` e `nativeReview` permanecem
+`not_reviewed`.
+
+Correções: quatro rótulos em inglês de malaiala e um rótulo de inicialização
+em urdu; capacidades em hindi e coreano expressas numericamente com os mesmos
+valores; `%1 KB` preservado no instalador francês e russo. Notações de unidades
+francesas, russas e árabes têm equivalências explícitas no validador. Rótulos
+técnicos sem escrita local têm exceções restritas por chave e valor exatos.
+Números expandidos de capacidades continuam limitados a 20 MiB, 500000 células,
+50000 linhas e 1000 colunas.
+
+Por decisão do usuário, as ênfases automáticas em frases foram desativadas em
+`EmphasisLabel`. Fontes explícitas de títulos e controles continuam aplicáveis.
+As 42 chaves históricas de ênfase permanecem no contrato do catálogo para não
+invalidar as traduções recebidas, mas não são usadas para pintar negritos.
+
+Validação local: 51 idiomas e dez testes de contrato, incluindo rejeição de
+alterações em capacidades, unidades, variáveis e exceções técnicas. Próxima
+entrega: integrar seletor, fontes, direção RTL e layouts no Windows.

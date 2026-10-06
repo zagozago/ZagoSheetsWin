@@ -74,4 +74,25 @@ class CatalogContracts(unittest.TestCase):
         invalid=copy.deepcopy(pack);invalid['strings']['home.help']=None
         with self.assertRaises(AssertionError):generator.validate_pack(invalid,self.source,self.locales)
 
+    def test_received_catalogs_preserve_contracts_and_remain_gated(self):
+        for path in (generator.ROOT/'i18n/packs').glob('*.json'):
+            pack=json.loads(path.read_text(encoding='utf-8'))
+            generator.validate_pack(pack,self.source,self.locales)
+            if pack['language']!='en':
+                with self.assertRaises(AssertionError):generator.validate_pack(pack,self.source,self.locales,True)
+
+    def test_localized_units_and_technical_labels_do_not_allow_corruption(self):
+        cases=[('fr','error.backupQuota','1 Go','2 Go'),
+               ('fr','recovery.sizeMb','Mo','Google'),
+               ('ru','installer.standard.Messages.ComponentSize2','МБ','ГБ'),
+               ('hi','setup.formatLimits','500,000','600,000'),
+               ('ko','setup.formatLimits','50,000','60,000'),
+               ('ja','dialog.oauthFileFilter','OAuth JSON','Ajuda'),
+               ('ja','tutorial.pageCount','{total}','{count}')]
+        for code,key,old,new in cases:
+            pack=json.loads((generator.ROOT/f'i18n/packs/{code}.json').read_text(encoding='utf-8'))
+            self.assertIn(old,pack['strings'][key])
+            pack['strings'][key]=pack['strings'][key].replace(old,new)
+            with self.assertRaises(AssertionError):generator.validate_pack(pack,self.source,self.locales)
+
 if __name__=='__main__':unittest.main()

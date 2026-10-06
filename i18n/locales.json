@@ -86,7 +86,7 @@
       "direction": "ltr",
       "displayCode": "HI",
       "script": "Devanágari",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -97,7 +97,7 @@
       "direction": "ltr",
       "displayCode": "ES",
       "script": "Latino",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -108,7 +108,7 @@
       "direction": "rtl",
       "displayCode": "AR",
       "script": "Árabe",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -119,7 +119,7 @@
       "direction": "ltr",
       "displayCode": "FR",
       "script": "Latino",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -130,7 +130,7 @@
       "direction": "ltr",
       "displayCode": "BN",
       "script": "Bengali–assamês",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -152,7 +152,7 @@
       "direction": "ltr",
       "displayCode": "ID",
       "script": "Latino",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -163,7 +163,7 @@
       "direction": "rtl",
       "displayCode": "UR",
       "script": "Perso-árabe em Nastaliq",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -174,7 +174,7 @@
       "direction": "ltr",
       "displayCode": "RU",
       "script": "Cirílico",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -185,7 +185,7 @@
       "direction": "ltr",
       "displayCode": "DE",
       "script": "Latino",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -196,7 +196,7 @@
       "direction": "ltr",
       "displayCode": "JA",
       "script": "Kanji + hiragana + katakana",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -207,7 +207,7 @@
       "direction": "ltr",
       "displayCode": "VI",
       "script": "Latino (quốc ngữ)",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -218,7 +218,7 @@
       "direction": "ltr",
       "displayCode": "TR",
       "script": "Latino",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -229,7 +229,7 @@
       "direction": "ltr",
       "displayCode": "KO",
       "script": "Hangul; Hanja em usos limitados",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -240,7 +240,7 @@
       "direction": "ltr",
       "displayCode": "IT",
       "script": "Latino",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -251,7 +251,7 @@
       "direction": "ltr",
       "displayCode": "TH",
       "script": "Tailandês",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -262,7 +262,7 @@
       "direction": "ltr",
       "displayCode": "TL",
       "script": "Latino",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -273,7 +273,7 @@
       "direction": "ltr",
       "displayCode": "MS",
       "script": "Latino; Jawi como tradição paralela",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -284,7 +284,7 @@
       "direction": "ltr",
       "displayCode": "SW",
       "script": "Latino; árabe historicamente",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -295,7 +295,7 @@
       "direction": "ltr",
       "displayCode": "PCM",
       "script": "Latino",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -306,7 +306,7 @@
       "direction": "ltr",
       "displayCode": "MR",
       "script": "Devanágari; Modi historicamente",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -317,7 +317,7 @@
       "direction": "ltr",
       "displayCode": "TE",
       "script": "Telugu",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -328,7 +328,7 @@
       "direction": "ltr",
       "displayCode": "HA",
       "script": "Latino (Boko); Ajami árabe também usado",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -339,7 +339,7 @@
       "direction": "ltr",
       "displayCode": "PA",
       "script": "Gurmukhi",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -350,7 +350,7 @@
       "direction": "ltr",
       "displayCode": "TA",
       "script": "Tamil",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -361,7 +361,7 @@
       "direction": "ltr",
       "displayCode": "YUE",
       "script": "Caracteres Han tradicionais",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -372,7 +372,7 @@
       "direction": "rtl",
       "displayCode": "FA",
       "script": "Perso-árabe",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -383,7 +383,7 @@
       "direction": "ltr",
       "displayCode": "AM",
       "script": "Etíope/Geʽez (abugida)",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -394,7 +394,7 @@
       "direction": "ltr",
       "displayCode": "JV",
       "script": "Latino; escrita javanesa e Pegon também existem",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -405,7 +405,7 @@
       "direction": "ltr",
       "displayCode": "GU",
       "script": "Gujarati",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -416,7 +416,7 @@
       "direction": "ltr",
       "displayCode": "KN",
       "script": "Kannada",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -427,7 +427,7 @@
       "direction": "ltr",
       "displayCode": "YO",
       "script": "Latino com marcas tonais",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -438,7 +438,7 @@
       "direction": "ltr",
       "displayCode": "BHO",
       "script": "Devanágari; Kaithi historicamente",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -449,7 +449,7 @@
       "direction": "rtl",
       "displayCode": "PS",
       "script": "Alfabeto Pashto, derivado do árabe",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -460,7 +460,7 @@
       "direction": "ltr",
       "displayCode": "OR",
       "script": "Odia",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -471,7 +471,7 @@
       "direction": "ltr",
       "displayCode": "MY",
       "script": "Mon–birmanês",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -482,7 +482,7 @@
       "direction": "ltr",
       "displayCode": "ML",
       "script": "Malayalam",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -493,7 +493,7 @@
       "direction": "ltr",
       "displayCode": "PL",
       "script": "Latino",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -504,7 +504,7 @@
       "direction": "ltr",
       "displayCode": "SU",
       "script": "Latino; Aksara Sunda também existe",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -515,7 +515,7 @@
       "direction": "ltr",
       "displayCode": "MAI",
       "script": "Devanágari; Tirhuta/Mithilakshar historicamente",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -526,7 +526,7 @@
       "direction": "ltr",
       "displayCode": "UK",
       "script": "Cirílico ucraniano",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -537,7 +537,7 @@
       "direction": "ltr",
       "displayCode": "OM",
       "script": "Latino (Qubee)",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -548,7 +548,7 @@
       "direction": "ltr",
       "displayCode": "UZ",
       "script": "Latino no projeto; cirílico ainda muito usado",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -559,7 +559,7 @@
       "direction": "rtl",
       "displayCode": "SD",
       "script": "Árabe-sindhi no projeto; Devanágari também usado na Índia",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -570,7 +570,7 @@
       "direction": "ltr",
       "displayCode": "NE",
       "script": "Devanágari",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -581,7 +581,7 @@
       "direction": "ltr",
       "displayCode": "IG",
       "script": "Latino (alfabeto Ọnwụ)",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -592,7 +592,7 @@
       "direction": "ltr",
       "displayCode": "AZ",
       "script": "Latino no Azerbaijão; árabe no Azerbaijani meridional do Irã",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -603,7 +603,7 @@
       "direction": "ltr",
       "displayCode": "NL",
       "script": "Latino",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     },
     {
@@ -614,7 +614,7 @@
       "direction": "ltr",
       "displayCode": "GN",
       "script": "Latino guarani contemporâneo",
-      "status": "not_started",
+      "status": "translated",
       "nativeReview": "not_reviewed"
     }
   ]
