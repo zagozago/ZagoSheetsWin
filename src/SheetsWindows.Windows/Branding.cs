@@ -42,7 +42,7 @@ internal static class Branding
             {
                 primary.BackColor = Color.FromArgb(18, 126, 69); primary.ForeColor = Color.White;
                 primary.FlatAppearance.MouseOverBackColor = Color.FromArgb(16, 108, 60);
-                if (!primary.Font.Bold) primary.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                if (!primary.Font.Bold) primary.Font = new Font(primary.Font.FontFamily, 10, FontStyle.Bold);
             }
             if (control is ListView list)
             {
@@ -76,9 +76,9 @@ internal static class Branding
         }
         if (languageButton)
         {
-            var language = new AdaptiveButton { Text = UiText.Language.ToUpperInvariant(), AutoSize = true, Padding = new Padding(8,2,8,2), AccessibleName = UiText.Get("language.button"), Margin = new Padding(3,0,3,0) };
+            var language = new AdaptiveButton { Text = LanguageSettings.Details(UiText.Language).DisplayCode, AutoSize = true, Padding = new Padding(8,2,8,2), AccessibleName = UiText.Get("language.button"), Margin = new Padding(3,0,3,0) };
             language.Click += (_,_) => { using var picker = new LanguagePicker(); picker.ShowDialog(form); };
-            void UpdateLanguage() { language.Text = UiText.Language.ToUpperInvariant(); tooltip.SetToolTip(language, UiText.Get("language.button")); UpdateToggle(); }
+            void UpdateLanguage() { language.Text = LanguageSettings.Details(UiText.Language).DisplayCode; tooltip.SetToolTip(language, UiText.Get("language.button")); UpdateToggle(); }
             UiText.Changed += UpdateLanguage; form.Disposed += (_,_) => UiText.Changed -= UpdateLanguage;
             tooltip.SetToolTip(language, UiText.Get("language.button"));
             right.Controls.Add(language);
@@ -90,6 +90,7 @@ internal static class Branding
         Microsoft.Win32.UserPreferenceChangedEventHandler preference = (_, _) => { if (form.IsHandleCreated && !form.IsDisposed) { try { form.BeginInvoke((Action)RefreshTheme); } catch (InvalidOperationException) { } } };
         Microsoft.Win32.SystemEvents.UserPreferenceChanged += preference;
         form.Disposed += (_, _) => { ThemeChanged -= changed; Microsoft.Win32.SystemEvents.UserPreferenceChanged -= preference; tooltip.Dispose(); };
+        LanguageVisuals.Attach(form);
         LocalizedControls.Attach(form);
         RefreshTheme();
     }

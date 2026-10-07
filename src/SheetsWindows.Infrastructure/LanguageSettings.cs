@@ -4,13 +4,22 @@ using System.Text.Json;
 
 namespace SheetsWindows.Infrastructure;
 
-public sealed record ApplicationLanguage(string Code, string DisplayCode, string NativeName, string EnglishName);
+public sealed record ApplicationLanguage(string Code, string DisplayCode, string NativeName, string EnglishName, string Locale, string Direction, string FontFamily);
 public static class LanguageSettings
 {
     public const string Automatic = "auto";
-    public static IReadOnlyList<ApplicationLanguage> Available { get; } = Array.AsReadOnly(new[] {
-        new ApplicationLanguage("en", "EN", "English", "English"),
-        new ApplicationLanguage("pt", "PT", "Português", "Portuguese") });
+    public static IReadOnlyList<ApplicationLanguage> Available { get; } = ReadLanguages();
+    private static IReadOnlyList<ApplicationLanguage> ReadLanguages()
+    {
+        using var stream = typeof(LanguageSettings).Assembly.GetManifestResourceStream("Localization.languages.json")!;
+        using var data = JsonDocument.Parse(stream);
+        return Array.AsReadOnly(data.RootElement.GetProperty("languages").EnumerateArray().Select(l =>
+            new ApplicationLanguage(l.GetProperty("code").GetString()!, l.GetProperty("displayCode").GetString()!,
+                l.GetProperty("name").GetString()!, l.GetProperty("englishName").GetString()!,
+                l.GetProperty("locale").GetString()!, l.GetProperty("direction").GetString()!,
+                l.GetProperty("fontFamily").GetString()!)).ToArray());
+    }
+    public static ApplicationLanguage Details(string code) => Available.Single(l => l.Code == code);
     public static bool Supported(string code) => Available.Any(l => l.Code == code);
     public static string Resolve(string preference, IEnumerable<string> preferredLanguages)
     {
@@ -19,6 +28,11 @@ public static class LanguageSettings
         foreach (var locale in preferredLanguages)
         {
             var code = locale.Split('-')[0].ToLowerInvariant();
+            if (code == "tl") code = "fil";
+            // Mandarin traditional is not interchangeable with Cantonese or simplified Mandarin.
+            if (code == "zh" && (locale.Contains("Hant", StringComparison.OrdinalIgnoreCase) || locale.EndsWith("-TW", StringComparison.OrdinalIgnoreCase) || locale.EndsWith("-HK", StringComparison.OrdinalIgnoreCase))) continue;
+            if (code == "pa" && locale.Contains("Arab", StringComparison.OrdinalIgnoreCase)) continue;
+            if (code is "uz" or "az" && locale.Contains("Cyrl", StringComparison.OrdinalIgnoreCase)) continue;
             if (Supported(code)) return code;
         }
         return "en";
@@ -76,3 +90,4 @@ public static class LanguageSettings
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool GetUserPreferredUILanguages(uint flags, out uint count, [Out] char[]? buffer, ref uint size);
 }
+

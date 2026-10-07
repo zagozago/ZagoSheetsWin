@@ -93,3 +93,4 @@ catch (Exception ex) when (LauncherErrors.Expected(ex))
 {
     Console.Error.WriteLine(ex is AuthorizationRequiredException ? "Autentique com o comando login." : ex is ReconciliationRequiredException ? "Resultado pendente de reconciliação. O original permanece preservado." : "A operação não foi concluída. Consulte o journal e o backup privado antes de retomar; não recrie nem remova arquivos manualmente."); return 1;
 }
+

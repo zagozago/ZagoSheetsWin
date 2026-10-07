@@ -7,11 +7,15 @@ public sealed class LanguageSettingsTests
     public void ExplicitLanguageOverridesWindowsAndAutomaticUsesPreferredList()
     {
         Assert.Equal("pt",LanguageSettings.Resolve("pt",["en-US"]));
-        Assert.Equal("en",LanguageSettings.Resolve("auto",["de-DE","en-GB","pt-BR"]));
-        Assert.Equal("pt",LanguageSettings.Resolve("auto",["es-ES","pt-PT"]));
-        Assert.Equal("en",LanguageSettings.Resolve("auto",["zh-TW","yue-Hant-HK"]));
-        Assert.Throws<ArgumentException>(()=>LanguageSettings.Resolve("zh",["en"]));
-        Assert.Equal(new[]{"en","pt"},LanguageSettings.Available.Select(l=>l.Code));
+        Assert.Equal("de",LanguageSettings.Resolve("auto",["de-DE","en-GB","pt-BR"]));
+        Assert.Equal("es",LanguageSettings.Resolve("auto",["es-ES","pt-PT"]));
+        Assert.Equal("yue",LanguageSettings.Resolve("auto",["zh-TW","yue-Hant-HK"]));
+        Assert.Equal("zh",LanguageSettings.Resolve("zh",["en"]));
+        Assert.Equal("en",LanguageSettings.Resolve("auto",["zh-TW"]));
+        Assert.Equal("fil",LanguageSettings.Resolve("auto",["tl-PH"]));
+        Assert.Equal(51,LanguageSettings.Available.Count);
+        Assert.Equal(new[]{"ar","ur","fa","ps","sd"},LanguageSettings.Available.Where(l=>l.Direction=="rtl").Select(l=>l.Code));
+        Assert.Equal("TL",LanguageSettings.Details("fil").DisplayCode);
     }
     [Fact]
     public async Task InstallerInitializesOnceAndUpdatesPreserveUserChoiceAndOtherState()
@@ -35,6 +39,6 @@ public sealed class LanguageSettingsTests
         await Assert.ThrowsAsync<InvalidDataException>(()=>LanguageSettings.SaveAsync(storage,"pt"));
         await LanguageSettings.InitializeFromInstallerAsync(storage,"en");
         Assert.Equal("\"xx\"",File.ReadAllText(path));
-        await Assert.ThrowsAsync<ArgumentException>(()=>LanguageSettings.SaveAsync(storage,"zh"));
+        await Assert.ThrowsAsync<ArgumentException>(()=>LanguageSettings.SaveAsync(storage,"xx"));
     }
 }

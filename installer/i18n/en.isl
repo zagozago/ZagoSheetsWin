@@ -9,3 +9,4 @@ Zago_invalidInstalledVersion=The installed version record is invalid. Correct th
 Zago_restoreBackups=Restore backups
 Zago_runSetup=Run setup
 Zago_uninstall=Uninstall ZagoSheetsWin
+Zago_languageCode=en

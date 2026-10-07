@@ -1,77 +1,9 @@
-using SheetsWindows.Infrastructure;
-using System.Text.RegularExpressions;
-
 namespace SheetsWindows.Windows;
 
-// Plain accessible text with selective emphasis. Measurement and painting share
-// the same wrapping algorithm, including when the text or Windows DPI changes.
+// Native Label provides script shaping, bidirectional text and Windows font fallback.
+// Historical phrase keys stay in the catalog; sentence emphasis is disabled.
 internal sealed class EmphasisLabel : Label
 {
-    // Sentence emphasis is disabled. Explicit heading/control fonts still apply.
-    private static IReadOnlyList<string> Phrases => Array.Empty<string>();
-
-    public EmphasisLabel()
-    {
-        SetStyle(ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
-        UseMnemonic = false;
-    }
-
-    internal bool HasEmphasis => Font.Bold || Phrases.Any(p => Text.Contains(p, StringComparison.OrdinalIgnoreCase));
-
-    public override Size GetPreferredSize(Size proposedSize)
-    {
-        using var graphics = CreateGraphics();
-        var width = MaximumSize.Width > 0 ? MaximumSize.Width : proposedSize.Width > 0 ? proposedSize.Width : 480;
-        var size = LayoutText(graphics, Math.Max(1, width - Padding.Horizontal), false);
-        return new Size(Math.Min(width, size.Width + Padding.Horizontal), size.Height + Padding.Vertical);
-    }
-
-    protected override void OnPaint(PaintEventArgs e)
-    {
-        LayoutText(e.Graphics, Math.Max(1, ClientSize.Width - Padding.Horizontal), true);
-    }
-
-    private Size LayoutText(Graphics graphics, int width, bool paint)
-    {
-        using var bold = new Font(Font, FontStyle.Bold);
-        using var ink = new SolidBrush(Enabled ? ForeColor : SystemColors.GrayText);
-        using var format = (StringFormat)StringFormat.GenericTypographic.Clone();
-        format.FormatFlags |= StringFormatFlags.MeasureTrailingSpaces;
-        var ranges = new List<(int Start, int End)>();
-        foreach (var phrase in Phrases)
-        {
-            var start = 0;
-            while ((start = Text.IndexOf(phrase, start, StringComparison.OrdinalIgnoreCase)) >= 0)
-            { ranges.Add((start, start + phrase.Length)); start += phrase.Length; }
-        }
-        float x = 0, y = 0, widest = 0;
-        var line = Math.Max(Font.GetHeight(graphics), bold.GetHeight(graphics));
-        foreach (Match token in Regex.Matches(Text, @"\r\n|\n|[^\S\r\n]+|[^\s]+"))
-        {
-            if (token.Value is "\n" or "\r\n") { widest = Math.Max(widest, x); x = 0; y += line; continue; }
-            var font = Font.Bold || ranges.Any(r => token.Index < r.End && token.Index + token.Length > r.Start) ? bold : Font;
-            var measured = graphics.MeasureString(token.Value, font, int.MaxValue, format).Width;
-            var whitespace = string.IsNullOrWhiteSpace(token.Value);
-            if (x > 0 && x + measured > width) { widest = Math.Max(widest, x); x = 0; y += line; if (whitespace) continue; }
-            if (measured <= width)
-            {
-                if (paint) graphics.DrawString(token.Value, font, ink, Padding.Left + x, Padding.Top + y, format);
-                x += measured;
-            }
-            else
-            {
-                // Break long paths/identifiers without splitting Unicode text elements.
-                var elements = System.Globalization.StringInfo.GetTextElementEnumerator(token.Value);
-                while (elements.MoveNext())
-                {
-                    var part = elements.GetTextElement();
-                    var partWidth = graphics.MeasureString(part, font, int.MaxValue, format).Width;
-                    if (x > 0 && x + partWidth > width) { widest = Math.Max(widest, x); x = 0; y += line; }
-                    if (paint) graphics.DrawString(part, font, ink, Padding.Left + x, Padding.Top + y, format);
-                    x += partWidth;
-                }
-            }
-        }
-        return new Size((int)Math.Ceiling(Math.Max(widest, x)), (int)Math.Ceiling(y + line));
-    }
+    public EmphasisLabel() { UseMnemonic = false; AutoEllipsis = false; }
+    internal bool HasEmphasis => Font.Bold;
 }

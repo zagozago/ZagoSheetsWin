@@ -1,4 +1,9 @@
-# Licenças de terceiros - ZagoSheetsWin 0.9.21
+# Licenças de terceiros - ZagoSheetsWin 0.9.22
+
+Mensagens padrão do instalador em chinês simplificado adaptadas da tradução
+de Zhenghan Yang (Kira), copyright 2019-2020 kirakira, sob MIT.
+Origem: https://github.com/kira-96/Inno-Setup-Chinese-Simplified-Translation
+Licença incluída em `Inno-ChineseSimplified-LICENSE.txt`.
 
 O aplicativo e a atribuição original ao Open in Google mantêm a licença MIT.
 Cada dependência mantém sua própria licença. O NPOI está fixado na versão

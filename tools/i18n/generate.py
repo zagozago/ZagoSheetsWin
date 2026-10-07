@@ -130,7 +130,7 @@ def files(source):
     locales=json.loads((ROOT/'i18n/locales.json').read_text(encoding='utf-8'))
     for path in sorted((ROOT/'i18n/packs').glob('*.json')):
         pack=json.loads(path.read_text(encoding='utf-8'));validate_pack(pack,source,locales)
-        if pack['status']!='complete': continue
+        if pack['status']!='complete' and not (source.get('multilingualReady') and pack['status']=='translated'): continue
         code=pack['language']; values=pack['strings']
         target=dict(runtime,strings={k:values[k] for k in runtime['strings']})
         result[ROOT/f'i18n/generated/{code}.json']=(json.dumps(target,ensure_ascii=False,indent=2)+'\n').encode('utf-8')
@@ -138,13 +138,22 @@ def files(source):
         lines += ['Zago_'+k.removeprefix('installer.')+'='+values[k].replace('\n','%n') for k,e in source['entries'].items() if e['scope']=='installer.custom']
         result[ROOT/f'installer/i18n/{code}.isl']=('\n'.join(lines)+'\n').encode('utf-8-sig')
     # Override cataloged standard strings, including the corrected PT %1 slot.
-    for code in ['pt','en']:
-        values={k:e['text'] for k,e in source['entries'].items()} if code=='pt' else json.loads((ROOT/'i18n/packs/en.json').read_text(encoding='utf-8'))['strings']
+    for code in locales['canonicalOrder'] if source.get('multilingualReady') else ['pt','en']:
+        values={k:e['text'] for k,e in source['entries'].items()} if code=='pt' else json.loads((ROOT/f'i18n/packs/{code}.json').read_text(encoding='utf-8'))['strings']
         lines=['; Generated standard message overrides.'];section=None
         for k,meta in source['standardInstallerMessages'].items():
             if meta['section']!=section: section=meta['section'];lines+=['['+section+']']
             lines += [meta['name']+'='+values[k]]
         result[ROOT/f'installer/i18n/{code}-standard.isl']=('\n'.join(lines)+'\n').encode('utf-8-sig')
+    if source.get('multilingualReady'):
+        for language in locales['languages']:
+            code=language['code']
+            options=['; Generated Unicode language options.', '[LangOptions]',
+                     'LanguageName='+language['name'], 'LanguageID=$'+format(language['installerLanguageId'],'04x'),
+                     'LanguageCodePage=0', 'DialogFontName='+language['fontFamily'], 'DialogFontSize=9',
+                     'WelcomeFontName='+language['fontFamily'], 'RightToLeft='+('yes' if language['direction']=='rtl' else 'no')]
+            result[ROOT/f'installer/i18n/{code}-options.isl']=('\n'.join(options)+'\n').encode('utf-8-sig')
+            result[ROOT/f'installer/i18n/{code}.isl'] += ('Zago_languageCode='+code+'\n').encode('utf-8')
     return result
 
 def main():

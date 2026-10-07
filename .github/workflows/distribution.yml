@@ -57,7 +57,7 @@ jobs:
           foreach ($file in @('LICENSE', 'NOTICE.md', 'ATTRIBUTION.md', 'third-party/NOTICE.md', 'SheetsWindows.exe', 'SheetsWindows.runtimeconfig.json', 'System.Windows.Forms.dll', 'coreclr.dll', 'e_sqlite3.dll', 'ExcelDataReader.dll', 'third-party/ExcelDataReader-LICENSE.txt')) {
             if (!(Test-Path (Join-Path $package $file))) { throw "Missing package dependency: $file" }
           }
-          if (!(Select-String -Path (Join-Path $package 'third-party/NOTICE.md') -Pattern 'ZagoSheetsWin 0\.9\.21' -Quiet)) { throw 'Third-party notice must identify ZagoSheetsWin 0.9.21.' }
+          if (!(Select-String -Path (Join-Path $package 'third-party/NOTICE.md') -Pattern 'ZagoSheetsWin 0\.9\.22' -Quiet)) { throw 'Third-party notice must identify ZagoSheetsWin 0.9.22.' }
           $image = [IO.File]::ReadAllBytes((Join-Path $package 'SheetsWindows.exe'))
           $peOffset = [BitConverter]::ToInt32($image, 0x3c)
           if ([BitConverter]::ToUInt16($image, $peOffset + 24 + 68) -ne 2) { throw 'Launcher must use the Windows GUI subsystem' }
@@ -73,7 +73,7 @@ jobs:
           New-Item -ItemType Directory -Force (Split-Path $output) | Out-Null
           $errorFile = Join-Path (Get-Location).Path 'artifacts/native-verification-error.txt'
           $process = Start-Process -FilePath $exe -ArgumentList @('--verify-interface', $output) -RedirectStandardError $errorFile -PassThru
-          if (!$process.WaitForExit(30000)) { $process.Kill(); throw 'Native interface verification timed out' }
+          if (!$process.WaitForExit(300000)) { $process.Kill(); throw 'Native interface verification timed out' }
           if ($process.ExitCode -ne 0) { Get-Content $errorFile; throw 'Native interface verification failed' }
           Get-Content $output
       - name: Render native branding previews offline
@@ -102,7 +102,7 @@ jobs:
         run: |
           $compiler = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
           if (!(Test-Path $compiler)) { throw 'Inno Setup 6 compiler missing from Windows runner' }
-          & $compiler /DPilotVersion=0.9.21 installer/SheetsWindows.iss
+          & $compiler /DPilotVersion=0.9.22 installer/SheetsWindows.iss
           if ($LASTEXITCODE -ne 0) { throw 'Installer compilation failed' }
           $oldOutput = Join-Path (Get-Location).Path "artifacts/installer-old"
           & $compiler /DPilotVersion=0.7.0 "/O$oldOutput" installer/SheetsWindows.iss
@@ -112,7 +112,7 @@ jobs:
         shell: pwsh
         run: |
           ./installer/Test-UpdateVerification.ps1
-          ./installer/Test-Lifecycle.ps1 -ExpectedVersion 0.9.21
+          ./installer/Test-Lifecycle.ps1 -ExpectedVersion 0.9.22
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:

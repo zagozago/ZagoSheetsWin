@@ -21,10 +21,16 @@ public static class UiText
     }
     private static IReadOnlyDictionary<string,string> Strings(JsonDocument resource) => resource.RootElement.GetProperty("strings").EnumerateObject()
         .ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.Ordinal);
+    private static IReadOnlyDictionary<string,string> Translation(string code)
+    {
+        using var resource = Load(code);
+        return Strings(resource);
+    }
+    public static bool RightToLeft => LanguageSettings.Details(Language).Direction == "rtl";
     public static void Select(string code)
     {
         if (!LanguageSettings.Supported(code)) throw new ArgumentException("Unsupported language.");
-        var next = new LocalizationCatalog(SourceStrings, EnglishStrings, code == "pt" ? SourceStrings : EnglishStrings);
+        var next = new LocalizationCatalog(SourceStrings, EnglishStrings, code == "pt" ? SourceStrings : Translation(code));
         catalog = next; Language = code; Changed?.Invoke();
     }
     public static string ProductVersion => Resource.RootElement.GetProperty("productVersion").GetString()!;
@@ -63,3 +69,4 @@ public sealed class LocalizedMessage
     public string SourceText => raw ? UiText.Source(key) : UiText.FormatSource(key, arguments);
     public string Text => raw ? UiText.Raw(key) : UiText.Render(key, arguments.Select((a, i) => (a.Name, nested[i] is { } message ? (object?)message.Text : a.Value)).ToArray());
 }
+

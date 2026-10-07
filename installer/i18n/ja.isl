@@ -1,0 +1,12 @@
+﻿; Generated from the canonical language pack.
+[CustomMessages]
+Zago_associationConflict=ファイルの関連付けが競合しています。インストール前にポータブル版の登録を解除するか、アンインストール前にこのインストールを修復してください。既存のデータは保持されています。
+Zago_associationRunFailed=ファイルの関連付けを更新できませんでした。既存のデータは保持されています。
+Zago_credit=Zagotools | Open in Google - Swati K (SwatiK425) | MIT
+Zago_dedicatedDirectory=このユーザー専用のインストールフォルダーを使用してください。他のフォルダーはサポートされません。
+Zago_downgradeBlocked=新しいバージョンが既にインストールされています。古いバージョンのインストールはブロックされ、専用の移行処理が必要です。
+Zago_invalidInstalledVersion=インストール済みバージョンの記録が無効です。更新する前にこの記録を修正してください。
+Zago_restoreBackups=バックアップを復元
+Zago_runSetup=セットアップを実行
+Zago_uninstall=ZagoSheetsWin をアンインストール
+Zago_languageCode=ja

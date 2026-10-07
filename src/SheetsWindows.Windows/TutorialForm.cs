@@ -10,8 +10,8 @@ internal sealed class TutorialForm : Form
     private readonly Label heading = new() { Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, Font = new Font("Segoe UI", 14, FontStyle.Bold) };
     private readonly FlowLayoutPanel explanation = new() { Dock = DockStyle.Fill, AutoScroll = false, FlowDirection = FlowDirection.TopDown, WrapContents = false };
     private readonly TutorialPicture picture = new() { Dock = DockStyle.Fill };
-    private readonly Button previous = new() { Text = UiText.Get("action.back"), AutoSize = true };
-    private readonly Button next = new() { Text = UiText.Get("action.next"), AutoSize = true };
+    private readonly Button previous = new AdaptiveButton() { Text = UiText.Get("action.back"), AutoSize = true };
+    private readonly Button next = new AdaptiveButton() { Text = UiText.Get("action.next"), AutoSize = true };
     private readonly Label count = new() { AutoSize = true };
     private int page;
     private bool saving;
@@ -194,3 +194,4 @@ internal sealed class TutorialPicture : Control
         foreach (var x in new[] { 211, 456 }) { var arrowY = Page == 3 ? 65 : 83; g.DrawLine(pen, x, arrowY, x + 24, arrowY); g.DrawLines(pen, [new PointF(x + 15, arrowY - 9), new PointF(x + 24, arrowY), new PointF(x + 15, arrowY + 9)]); }
     }
 }
+

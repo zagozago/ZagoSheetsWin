@@ -1,4 +1,4 @@
-param([string]$ExpectedVersion = "0.9.21")
+param([string]$ExpectedVersion = "0.9.22")
 $ErrorActionPreference = 'Stop'
 function Run-Checked($file, $arguments) {
     $process = Start-Process -FilePath $file -ArgumentList $arguments -PassThru
@@ -73,3 +73,4 @@ Assert-NoLauncherUI
 Write-Host 'Running registered uninstaller'
 Run-Checked (Current-Uninstaller) '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART'
 Write-Host 'Per-user install, upgrade, uninstall and reinstall passed; backups, state, shortcut and Windows defaults preserved.'
+

@@ -66,7 +66,7 @@ internal static class Program
             { LanguageSettings.InitializeFromInstallerAsync(LocalStorage.ForCurrentUser(), args[1]).GetAwaiter().GetResult(); return 0; }
             ApplicationLanguages.Initialize();
             var request = LauncherRequest.Parse(args);
-            if (request.Action == LauncherAction.Version) { Console.WriteLine("ZagoSheetsWin pilot 0.9.21"); return 0; }
+            if (request.Action == LauncherAction.Version) { Console.WriteLine("ZagoSheetsWin pilot 0.9.22"); return 0; }
             if (request.Action is LauncherAction.Register or LauncherAction.Unregister)
             {
                 var held = new FileOperationLock(LocalStorage.ForCurrentUser().LocksPath).AcquireAsync("windows-registration").AsTask().GetAwaiter().GetResult();
@@ -111,3 +111,4 @@ internal static class Program
         }
     }
 }
+

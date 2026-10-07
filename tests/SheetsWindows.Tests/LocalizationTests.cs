@@ -7,6 +7,27 @@ namespace SheetsWindows.Tests;
 public sealed class LocalizationTests
 {
     [Fact]
+    public void All51EmbeddedResourcesHaveExactRuntimeKeysAndValidFormats()
+    {
+        var assembly=typeof(UiText).Assembly;
+        Dictionary<string,string> Read(string code)
+        {
+            using var stream=assembly.GetManifestResourceStream($"Localization.{code}.json")!;
+            Assert.NotNull(stream);
+            using var json=System.Text.Json.JsonDocument.Parse(stream);
+            return json.RootElement.GetProperty("strings").EnumerateObject().ToDictionary(p=>p.Name,p=>p.Value.GetString()!);
+        }
+        var source=Read("pt");var fallback=Read("en");
+        foreach(var language in LanguageSettings.Available)
+        {
+            var strings=Read(language.Code);
+            Assert.Equal(source.Keys.Order(),strings.Keys.Order());
+            var catalog=new LocalizationCatalog(source,fallback,strings);
+            Assert.Equal(strings["home.help"],catalog.Get("home.help"));
+            Assert.Contains("ZagoSheetsWin",catalog.Get("home.description"));
+        }
+    }
+    [Fact]
     public void FallbackUsesSelectedPackThenEnglishThenSourceWithoutChangingSource()
     {
         var source = new Dictionary<string,string> { ["a"]="Fonte A", ["b"]="Fonte B", ["c"]="Fonte C" };
