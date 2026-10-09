@@ -1,14 +1,41 @@
-import copy, importlib.util, json, unittest
+import copy, importlib.util, json, unittest, tempfile
 from pathlib import Path
 
 spec=importlib.util.spec_from_file_location('catalog_generator',Path(__file__).with_name('generate.py'))
 generator=importlib.util.module_from_spec(spec);spec.loader.exec_module(generator)
 
+class JsonLoading(unittest.TestCase):
+    def test_utf8_and_bom_preserve_non_latin_text(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'catalog.json'
+            value={'text':'ação العربية हिन्दी 中文'}
+            for encoding in ('utf-8','utf-8-sig'):
+                path.write_bytes(json.dumps(value,ensure_ascii=False).encode(encoding))
+                self.assertEqual(value,generator.load_json(path))
+
+    def test_truncated_output_and_invalid_encodings_are_rejected(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'catalog.json'
+            for content in (b'Warning: truncated output\n{}', b'', b'\xff{}'):
+                path.write_bytes(content)
+                with self.assertRaisesRegex(ValueError,str(path)):
+                    generator.load_json(path)
+
+    def test_generation_accepts_bom_in_locale_metadata(self):
+        path=generator.ROOT/'i18n/locales.json'
+        original=path.read_bytes()
+        try:
+            path.write_bytes(b'\xef\xbb\xbf'+original.removeprefix(b'\xef\xbb\xbf'))
+            source=generator.load_json(generator.SOURCE)
+            self.assertTrue(generator.files(source))
+        finally:
+            path.write_bytes(original)
+
 class CatalogContracts(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.source=json.loads(generator.SOURCE.read_text(encoding="utf-8"))
-        cls.locales=json.loads((generator.ROOT/'i18n/locales.json').read_text(encoding="utf-8"))
+        cls.source=generator.load_json(generator.SOURCE)
+        cls.locales=generator.load_json(generator.ROOT/'i18n/locales.json')
 
     def pack(self, code='pt'):
         language=next(v for v in self.locales['languages'] if v['code']==code)

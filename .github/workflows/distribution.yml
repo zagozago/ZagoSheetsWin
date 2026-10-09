@@ -35,8 +35,11 @@ jobs:
           PYTHONUTF8: '1'
         run: |
           python tools/i18n/generate.py --check
+          if ($LASTEXITCODE -ne 0) { throw 'Localization generation validation failed' }
           python tools/i18n/test_catalog.py
+          if ($LASTEXITCODE -ne 0) { throw 'Localization contract tests failed' }
           python tools/i18n/generate.py --validate-pack i18n/packs/en.json --release
+          if ($LASTEXITCODE -ne 0) { throw 'English release validation failed' }
       - run: dotnet restore SheetsWindows.slnx --locked-mode
       - run: dotnet build SheetsWindows.slnx --configuration Release --no-restore -p:RequireDistributionOAuth=true
       - run: dotnet test SheetsWindows.slnx --configuration Release --no-build --no-restore --logger "trx;LogFileName=local-core.trx"

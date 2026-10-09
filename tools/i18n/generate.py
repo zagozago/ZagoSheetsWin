@@ -31,6 +31,22 @@ SCRIPT_RANGES = {
     'ja':[(0x3040,0x30ff),(0x4e00,0x9fff)],'ko':[(0x1100,0x11ff),(0xac00,0xd7af)]
 }
 
+def load_json(path):
+    """Load UTF-8 JSON, allowing a UTF-8 BOM while rejecting unsafe encodings."""
+    raw = path.read_bytes()
+    try:
+        payload = raw.decode('utf-8-sig')
+    except UnicodeDecodeError as error:
+        raise ValueError(f'{path}: invalid UTF-8 at byte {error.start}; expected UTF-8 JSON') from error
+    try:
+        return json.loads(payload)
+    except json.JSONDecodeError as error:
+        prefix = raw[:24].hex(' ')
+        raise ValueError(
+            f'{path}: invalid JSON at line {error.lineno}, column {error.colno} '
+            f'(byte prefix: {prefix or "<empty file>"})'
+        ) from error
+
 def slots(text, scope):
     return collections.Counter(INNO.findall(text) if scope.startswith('installer.') else
                                [(m.group(1), m.group(2)) for m in NAMED.finditer(text)])
@@ -127,9 +143,9 @@ def files(source):
         ROOT/'i18n/generated/pt.json': (json.dumps(runtime, ensure_ascii=False, indent=2)+'\n').encode('utf-8'),
         ROOT/'installer/i18n/pt.isl': ('\n'.join(custom)+'\n').encode('utf-8-sig')
     }
-    locales=json.loads((ROOT/'i18n/locales.json').read_text(encoding='utf-8'))
+    locales=load_json(ROOT/'i18n/locales.json')
     for path in sorted((ROOT/'i18n/packs').glob('*.json')):
-        pack=json.loads(path.read_text(encoding='utf-8'));validate_pack(pack,source,locales)
+        pack=load_json(path);validate_pack(pack,source,locales)
         if pack['status']!='complete' and not (source.get('multilingualReady') and pack['status']=='translated'): continue
         code=pack['language']; values=pack['strings']
         target=dict(runtime,strings={k:values[k] for k in runtime['strings']})
@@ -139,7 +155,7 @@ def files(source):
         result[ROOT/f'installer/i18n/{code}.isl']=('\n'.join(lines)+'\n').encode('utf-8-sig')
     # Override cataloged standard strings, including the corrected PT %1 slot.
     for code in locales['canonicalOrder'] if source.get('multilingualReady') else ['pt','en']:
-        values={k:e['text'] for k,e in source['entries'].items()} if code=='pt' else json.loads((ROOT/f'i18n/packs/{code}.json').read_text(encoding='utf-8'))['strings']
+        values={k:e['text'] for k,e in source['entries'].items()} if code=='pt' else load_json(ROOT/f'i18n/packs/{code}.json')['strings']
         lines=['; Generated standard message overrides.'];section=None
         for k,meta in source['standardInstallerMessages'].items():
             if meta['section']!=section: section=meta['section'];lines+=['['+section+']']
@@ -160,7 +176,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--check',action='store_true')
     parser.add_argument('--init-pack');parser.add_argument('--validate-pack',type=pathlib.Path)
     parser.add_argument('--release',action='store_true');args=parser.parse_args()
-    source=json.loads(SOURCE.read_text(encoding="utf-8"));locales=json.loads((ROOT/'i18n/locales.json').read_text(encoding="utf-8"))
+    source=load_json(SOURCE);locales=load_json(ROOT/'i18n/locales.json')
     validate(source,locales)
     if args.init_pack:
         language=next(v for v in locales['languages'] if v['code']==args.init_pack)
@@ -172,7 +188,7 @@ def main():
         validate_pack(pack,source,locales)
         print(json.dumps(pack,ensure_ascii=False,indent=2));return
     if args.validate_pack:
-        validate_pack(json.loads(args.validate_pack.read_text(encoding="utf-8")),source,locales,args.release)
+        validate_pack(load_json(args.validate_pack),source,locales,args.release)
         print('Pack validation passed.');return
     if args.release: raise ValueError('--release requires --validate-pack.')
     for path, content in files(source).items():
