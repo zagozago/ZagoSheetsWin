@@ -7,8 +7,8 @@ generator=importlib.util.module_from_spec(spec);spec.loader.exec_module(generato
 class CatalogContracts(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.source=json.loads(generator.SOURCE.read_text(encoding="utf-8"))
-        cls.locales=json.loads((generator.ROOT/'i18n/locales.json').read_text(encoding="utf-8"))
+        cls.source=generator.load_json(generator.SOURCE)
+        cls.locales=generator.load_json(generator.ROOT/'i18n/locales.json')
 
     def pack(self, code='pt'):
         language=next(v for v in self.locales['languages'] if v['code']==code)
