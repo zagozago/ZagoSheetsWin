@@ -31,6 +31,22 @@ SCRIPT_RANGES = {
     'ja':[(0x3040,0x30ff),(0x4e00,0x9fff)],'ko':[(0x1100,0x11ff),(0xac00,0xd7af)]
 }
 
+def load_json(path):
+    """Load UTF-8 JSON, allowing a UTF-8 BOM while rejecting unsafe encodings."""
+    raw = path.read_bytes()
+    try:
+        payload = raw.decode('utf-8-sig')
+    except UnicodeDecodeError as error:
+        raise ValueError(f'{path}: invalid UTF-8 at byte {error.start}; expected UTF-8 JSON') from error
+    try:
+        return json.loads(payload)
+    except json.JSONDecodeError as error:
+        prefix = raw[:24].hex(' ')
+        raise ValueError(
+            f'{path}: invalid JSON at line {error.lineno}, column {error.colno} '
+            f'(byte prefix: {prefix or "<empty file>"})'
+        ) from error
+
 def slots(text, scope):
     return collections.Counter(INNO.findall(text) if scope.startswith('installer.') else
                                [(m.group(1), m.group(2)) for m in NAMED.finditer(text)])
@@ -160,7 +176,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--check',action='store_true')
     parser.add_argument('--init-pack');parser.add_argument('--validate-pack',type=pathlib.Path)
     parser.add_argument('--release',action='store_true');args=parser.parse_args()
-    source=json.loads(SOURCE.read_text(encoding="utf-8"));locales=json.loads((ROOT/'i18n/locales.json').read_text(encoding="utf-8"))
+    source=load_json(SOURCE);locales=load_json(ROOT/'i18n/locales.json')
     validate(source,locales)
     if args.init_pack:
         language=next(v for v in locales['languages'] if v['code']==args.init_pack)
