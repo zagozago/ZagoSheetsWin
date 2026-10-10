@@ -25,6 +25,16 @@
 - [Bahasa Melayu](../ms/README.md)
 - [Kiswahili](../sw/README.md)
 - **Nigerian Pidgin** — Na dis page you dey
+- [मराठी](../mr/README.md)
+- [తెలుగు](../te/README.md)
+- [Hausa](../ha/README.md)
+- [ਪੰਜਾਬੀ](../pa/README.md)
+- [தமிழ்](../ta/README.md)
+- [粵語](../yue/README.md)
+- [فارسی](../fa/README.md)
+- [አማርኛ](../am/README.md)
+- [Basa Jawa](../jv/README.md)
+- [ગુજરાતી](../gu/README.md)
 
 </details>
 
