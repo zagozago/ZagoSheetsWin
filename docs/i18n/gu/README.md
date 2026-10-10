@@ -35,6 +35,16 @@
 - [አማርኛ](../am/README.md)
 - [Basa Jawa](../jv/README.md)
 - **ગુજરાતી** — વર્તમાન પાનું
+- [ಕನ್ನಡ](../kn/README.md)
+- [Yorùbá](../yo/README.md)
+- [भोजपुरी](../bho/README.md)
+- [پښتو](../ps/README.md)
+- [ଓଡ଼ିଆ](../or/README.md)
+- [မြန်မာ](../my/README.md)
+- [മലയാളം](../ml/README.md)
+- [Polski](../pl/README.md)
+- [Basa Sunda](../su/README.md)
+- [मैथिली](../mai/README.md)
 
 </details>
 

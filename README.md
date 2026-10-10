@@ -35,6 +35,16 @@
 - [አማርኛ](docs/i18n/am/README.md)
 - [Basa Jawa](docs/i18n/jv/README.md)
 - [ગુજરાતી](docs/i18n/gu/README.md)
+- [ಕನ್ನಡ](docs/i18n/kn/README.md)
+- [Yorùbá](docs/i18n/yo/README.md)
+- [भोजपुरी](docs/i18n/bho/README.md)
+- [پښتو](docs/i18n/ps/README.md)
+- [ଓଡ଼ିଆ](docs/i18n/or/README.md)
+- [မြန်မာ](docs/i18n/my/README.md)
+- [മലയാളം](docs/i18n/ml/README.md)
+- [Polski](docs/i18n/pl/README.md)
+- [Basa Sunda](docs/i18n/su/README.md)
+- [मैथिली](docs/i18n/mai/README.md)
 
 </details>
 
