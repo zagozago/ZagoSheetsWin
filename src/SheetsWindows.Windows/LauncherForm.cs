@@ -18,11 +18,17 @@ internal sealed class LauncherForm : Form
             if (dialog.ShowDialog(this) != DialogResult.OK) return;
             using var processing = new ProcessingForm(new LauncherRequest(action, dialog.FileName)); processing.ShowDialog(this); ExitCode = processing.ExitCode;
         }
+        void RefreshDescription()
+        {
+            var description = UiText.Get("home.description");
+            status.Text = ShortcutSettings.Load(LocalStorage.ForCurrentUser()) ? description :
+                description.Split("\n\n")[0] + "\n\n" + UiText.Get("emphasis.originalKept");
+        }
         layout.Controls.Add(status);
         var open = Action(UiText.Get("home.open"), (_, _) => Pick(LauncherAction.Open)); Ui.Primary(open); layout.Controls.Add(open); layout.Controls.Add(Ui.Separator());
         var navigation = new TableLayoutPanel { ColumnCount = 3, RowCount = 1, Height = 48, Width = 440, Margin = new Padding(0, 4, 0, 12) };
         for (var i = 0; i < 3; i++) navigation.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 3));
-        var settings = Action(UiText.Get("home.settings"), (_, _) => { using var setup = new SetupForm(); setup.ShowDialog(this); });
+        var settings = Action(UiText.Get("home.settings"), (_, _) => { using var setup = new SetupForm(); setup.ShowDialog(this); RefreshDescription(); });
         var backups = Action(UiText.Get("home.backups"), (_, _) => { using var recovery = new RecoveryForm(); recovery.ShowDialog(this); });
         var help = Action(UiText.Get("home.help"), (_, _) => { using var tutorial = new TutorialForm(); tutorial.ShowDialog(this); });
         foreach (var button in new[] { settings, backups, help }) { button.Dock = DockStyle.Fill; button.Font = new Font("Segoe UI", 9); navigation.Controls.Add(button); }
@@ -39,6 +45,7 @@ internal sealed class LauncherForm : Form
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = UiText.Get("home.openFolderFailed"); }
         }));
         layout.Controls.Add(toggle); layout.Controls.Add(advanced); Controls.Add(layout); Branding.Apply(this, compact: true); Ui.Adapt(layout); Ui.Adapt(advanced);
+        UiText.Changed += RefreshDescription; Disposed += (_, _) => UiText.Changed -= RefreshDescription; RefreshDescription();
         if (expanded) { advanced.Visible = true; toggle.Text = UiText.Get("home.advancedExpanded"); toggle.AccessibleName = UiText.Get("accessibility.hideAdvanced"); ClientSize = new Size(500, 530); }
     }
 }

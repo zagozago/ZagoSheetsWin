@@ -242,8 +242,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         {
             ct.ThrowIfCancellationRequested(); browser.Open(receipt.Url);
             await new BackupManagement(storage).RegisterCopyCompletionAsync(receipt, ct);
-            ImportNotice = UiText.Get("emphasis.originalPreserved");
-            progress?.Report(ImportNotice);
+            progress?.Report(UiText.Get("emphasis.originalPreserved"));
             return receipt.Url.AbsoluteUri;
         }
         var folder = Path.Combine(storage.Root, "shortcuts"); PrivateDirectory.Create(folder);
