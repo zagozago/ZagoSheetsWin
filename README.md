@@ -15,6 +15,16 @@
 - [اردو](docs/i18n/ur/README.md)
 - [Русский](docs/i18n/ru/README.md)
 - [Deutsch](docs/i18n/de/README.md)
+- [日本語](docs/i18n/ja/README.md)
+- [Tiếng Việt](docs/i18n/vi/README.md)
+- [Türkçe](docs/i18n/tr/README.md)
+- [한국어](docs/i18n/ko/README.md)
+- [Italiano](docs/i18n/it/README.md)
+- [ไทย](docs/i18n/th/README.md)
+- [Filipino](docs/i18n/fil/README.md)
+- [Bahasa Melayu](docs/i18n/ms/README.md)
+- [Kiswahili](docs/i18n/sw/README.md)
+- [Nigerian Pidgin](docs/i18n/pcm/README.md)
 
 </details>
 

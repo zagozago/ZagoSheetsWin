@@ -15,6 +15,16 @@
 - [اردو](../ur/README.md)
 - **Русский** — текущая страница
 - [Deutsch](../de/README.md)
+- [日本語](../ja/README.md)
+- [Tiếng Việt](../vi/README.md)
+- [Türkçe](../tr/README.md)
+- [한국어](../ko/README.md)
+- [Italiano](../it/README.md)
+- [ไทย](../th/README.md)
+- [Filipino](../fil/README.md)
+- [Bahasa Melayu](../ms/README.md)
+- [Kiswahili](../sw/README.md)
+- [Nigerian Pidgin](../pcm/README.md)
 
 </details>
 
