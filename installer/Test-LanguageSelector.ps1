@@ -45,7 +45,7 @@ $output = 'artifacts/installer-verification'
 New-Item -ItemType Directory -Force $output | Out-Null
 $results = @()
 function New-InstallerIds($baseline) {
-    [uint[]]@(Get-Process | Where-Object { $_.Id -notin $baseline -and ($_.ProcessName -eq 'ZagoSheetsWin-Setup-win-x64' -or $_.ProcessName -like 'is-*') } | Select-Object -ExpandProperty Id)
+    [uint[]]@(Get-Process | Where-Object { $_.Id -notin $baseline -and ($_.ProcessName -like 'ZagoSheetsWin-Setup-win-x64*' -or $_.ProcessName -like 'is-*') } | Select-Object -ExpandProperty Id)
 }
 function Stop-InstallerProcesses($baseline) {
     foreach ($idToStop in @(New-InstallerIds $baseline)) { Stop-Process -Id $idToStop -Force -ErrorAction SilentlyContinue }

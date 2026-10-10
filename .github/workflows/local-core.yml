@@ -60,6 +60,23 @@ jobs:
           if (!$probe.WaitForExit(30000)) { $probe.Kill(); throw 'Launcher startup timed out' }
           if ($probe.ExitCode -ne 0) { throw 'Published launcher failed to start' }
 
+      - name: Compile per-user installer
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $compiler = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (!(Test-Path $compiler)) { throw 'Inno Setup 6 compiler missing from Windows runner' }
+          & $compiler installer/SheetsWindows.iss
+          if ($LASTEXITCODE -ne 0) { throw 'Installer compilation failed' }
+          $oldOutput = Join-Path (Get-Location).Path "artifacts/installer-old"
+          & $compiler /DPilotVersion=0.7.0 "/O$oldOutput" installer/SheetsWindows.iss
+          if ($LASTEXITCODE -ne 0) { throw 'Previous-version policy fixture compilation failed' }
+
+      - name: Verify all 51 installer language transitions
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./installer/Test-LanguageSelector.ps1
+
       - name: Verify native interface offline
         if: runner.os == 'Windows'
         shell: pwsh
@@ -96,23 +113,10 @@ jobs:
           name: ZagoSheetsWin-win-x64
           path: artifacts/SheetsWindows-win-x64/
 
-      - name: Compile per-user installer
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          $compiler = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
-          if (!(Test-Path $compiler)) { throw 'Inno Setup 6 compiler missing from Windows runner' }
-          & $compiler installer/SheetsWindows.iss
-          if ($LASTEXITCODE -ne 0) { throw 'Installer compilation failed' }
-          $oldOutput = Join-Path (Get-Location).Path "artifacts/installer-old"
-          & $compiler /DPilotVersion=0.7.0 "/O$oldOutput" installer/SheetsWindows.iss
-          if ($LASTEXITCODE -ne 0) { throw 'Previous-version policy fixture compilation failed' }
-
       - name: Verify installation, upgrade and preservation on uninstall
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          ./installer/Test-LanguageSelector.ps1
           ./installer/Test-UpdateVerification.ps1
           ./installer/Test-Lifecycle.ps1
 
