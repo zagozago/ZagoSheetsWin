@@ -229,7 +229,7 @@ public sealed class GoogleTests
     [WindowsFact]
     public async Task DisabledShortcutsKeepOriginalAcrossOpenCopyAndResumeWithoutDuplicateUpload()
     {
-        using var w = new Workspace(); ConfigureLauncher(w, out var storage);
+        using var w = new Workspace(); File.WriteAllBytes(w.Source, Workbook()); ConfigureLauncher(w, out var storage);
         await ShortcutSettings.SaveAsync(storage, false);
         var original = File.ReadAllBytes(w.Source);
         var server = new DriveServer(); using var http = new HttpClient(server); var browser = new LauncherBrowser();
