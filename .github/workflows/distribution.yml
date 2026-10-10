@@ -9,6 +9,8 @@ permissions:
 jobs:
   distribution:
     if: github.ref == 'refs/heads/feature/zagosheetswin'
+    env:
+      SixLaborsLicenseKey: ${{ secrets.ZAGOSHEETS_SIXLABORS_LICENSE_KEY }}
     runs-on: windows-latest
     timeout-minutes: 20
     environment: zagosheets-distribution

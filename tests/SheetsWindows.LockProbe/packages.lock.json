@@ -90,8 +90,11 @@
       },
       "SixLabors.ImageSharp": {
         "type": "Transitive",
-        "resolved": "2.1.13",
-        "contentHash": "zmVHZR13XE477TBAVXE71VcMhqhiv1PbzMWIfuIDytVdBPl3KZlvYYBkqcuQSDdszVY2XHanW98VmDffoNzSSw=="
+        "resolved": "4.1.2",
+        "contentHash": "AQ0oouhH/6qmXJC70/k50iVt7SiZRjCgd4tXXiC5ZrB5CvyBwA81HTqb5twcXz8CvTAFxUNV0TAcL83OhyRA1g==",
+        "dependencies": {
+          "System.IO.Hashing": "8.0.0"
+        }
       },
       "SQLitePCLRaw.bundle_e_sqlite3": {
         "type": "Transitive",
@@ -119,6 +122,11 @@
         "dependencies": {
           "SQLitePCLRaw.core": "2.1.12"
         }
+      },
+      "System.IO.Hashing": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "ne1843evDugl0md7Fjzy6QjJrzsjh46ZKbhf8GwBXb5f/gw97J4bxMs0NQKifDuThh/f0bZ0e62NPl1jzTuRqA=="
       },
       "System.Security.Cryptography.Pkcs": {
         "type": "Transitive",
@@ -154,7 +162,7 @@
           "Microsoft.Data.Sqlite": "[10.0.12, )",
           "NPOI": "[2.7.6, 2.7.6]",
           "SheetsWindows.Core": "[1.0.0, )",
-          "SixLabors.ImageSharp": "[2.1.13, 2.1.13]",
+          "SixLabors.ImageSharp": "[4.1.2, 4.1.2]",
           "System.Security.Cryptography.ProtectedData": "[10.0.12, )",
           "System.Security.Cryptography.Xml": "[10.0.12, )"
         }

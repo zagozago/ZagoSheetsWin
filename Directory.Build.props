@@ -1,5 +1,6 @@
 <Project>
   <PropertyGroup>
+    <ImageSharpVersion>4.1.2</ImageSharpVersion>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
