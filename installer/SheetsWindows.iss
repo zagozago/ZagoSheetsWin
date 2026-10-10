@@ -69,7 +69,7 @@ Name: "kn"; MessagesFile: "compiler:Default.isl,i18n\kn-options.isl,i18n\kn-stan
 Name: "yo"; MessagesFile: "compiler:Default.isl,i18n\yo-options.isl,i18n\yo-standard.isl,i18n\yo.isl"
 Name: "bho"; MessagesFile: "compiler:Default.isl,i18n\bho-options.isl,i18n\bho-standard.isl,i18n\bho.isl"
 Name: "ps"; MessagesFile: "compiler:Default.isl,i18n\ps-options.isl,i18n\ps-standard.isl,i18n\ps.isl"
-Name: "or"; MessagesFile: "compiler:Default.isl,i18n\or-options.isl,i18n\or-standard.isl,i18n\or.isl"
+Name: "odia"; MessagesFile: "compiler:Default.isl,i18n\or-options.isl,i18n\or-standard.isl,i18n\or.isl"
 Name: "my"; MessagesFile: "compiler:Default.isl,i18n\my-options.isl,i18n\my-standard.isl,i18n\my.isl"
 Name: "ml"; MessagesFile: "compiler:Default.isl,i18n\ml-options.isl,i18n\ml-standard.isl,i18n\ml.isl"
 Name: "pl"; MessagesFile: "compiler:Default.isl,i18n\pl-options.isl,i18n\pl-standard.isl,i18n\pl.isl"
