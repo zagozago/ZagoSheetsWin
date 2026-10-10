@@ -30,7 +30,7 @@ jobs:
           $path = Join-Path $env:RUNNER_TEMP 'zagosheets-oauth.json'
           [IO.File]::WriteAllText($path, $minimal)
           "DistributionOAuthClientPath=$path" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-      - name: Validate localization source and generated resources
+      - name: Validate localization source, message order and generated resources
         env:
           PYTHONUTF8: '1'
         run: |
