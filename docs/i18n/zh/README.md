@@ -1,10 +1,20 @@
 # ZagoSheetsWin
 
 <details>
-<summary>🌐 文档语言 · English / 简体中文</summary>
+<summary>🌐 文档语言 · 选择语言</summary>
 
-- **English** — [Read in English](../../../README.md)
+- [English](../../../README.md)
 - **简体中文** — 当前页面
+- [हिन्दी](../hi/README.md)
+- [Español](../es/README.md)
+- [العربية](../ar/README.md)
+- [Français](../fr/README.md)
+- [বাংলা](../bn/README.md)
+- [Português (Brasil)](../pt/README.md)
+- [Bahasa Indonesia](../id/README.md)
+- [اردو](../ur/README.md)
+- [Русский](../ru/README.md)
+- [Deutsch](../de/README.md)
 
 </details>
 
