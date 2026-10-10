@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.23: custom language selector, window activation and transient retries validated in Local core run 38019047588.
+# Distribution candidate 0.9.23: enforce LF for generated selector and fail-fast localization checks.
 name: Protected alpha distribution
 on:
   workflow_dispatch:

@@ -1,4 +1,5 @@
 # Generated localization resources must have identical bytes on Windows/Linux.
 i18n/** text eol=lf
 installer/i18n/*.isl text eol=lf
+installer/i18n/*.iss text eol=lf
 tools/i18n/*.py text eol=lf
