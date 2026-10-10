@@ -2,8 +2,8 @@
   "language": "mr",
   "locale": "mr-IN",
   "direction": "ltr",
-  "catalogRevision": 2,
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "catalogRevision": 3,
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -629,6 +629,8 @@
     "language.available": "पोर्तुगीज आणि इंग्रजी उपलब्ध आहेत. भाषांतर आणि पुनरावलोकनानंतर इतर भाषा जोडल्या जातील.",
     "language.apply": "भाषा लागू करा",
     "language.saveFailed": "भाषा जतन करता आली नाही. तुमची मागील पसंती जतन केली.",
-    "language.button": "भाषा निवडा"
+    "language.button": "भाषा निवडा",
+    "setup.shortcutsHeading": "4. शॉर्टकट",
+    "setup.createShortcuts": "Google Sheets साठी शॉर्टकट तयार करा"
   }
 }

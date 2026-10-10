@@ -2,8 +2,8 @@
   "language": "kn",
   "locale": "kn-IN",
   "direction": "ltr",
-  "catalogRevision": 2,
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "catalogRevision": 3,
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -629,6 +629,8 @@
     "language.available": "ಪೋರ್ಚುಗೀಸ್ ಮತ್ತು ಇಂಗ್ಲಿಷ್ ಲಭ್ಯವಿವೆ. ಇತರೆ ಭಾಷೆಗಳು ಅನುವಾದ ಮತ್ತು ಪರಿಶೀಲನೆ ನಂತರ ಸೇರಿಸಲಾಗುತ್ತವೆ.",
     "language.apply": "ಭಾಷೆ ಅನ್ವಯಿಸಿ",
     "language.saveFailed": "ಭಾಷೆ ಉಳಿಸಲಾಗಲಿಲ್ಲ. ನಿಮ್ಮ ಹಿಂದಿನ ಆದ್ಯತೆ ಉಳಿಸಲಾಗಿದೆ.",
-    "language.button": "ಭಾಷೆ ಆಯ್ಕೆ ಮಾಡಿ"
+    "language.button": "ಭಾಷೆ ಆಯ್ಕೆ ಮಾಡಿ",
+    "setup.shortcutsHeading": "4. ಶಾರ್ಟ್‌ಕಟ್‌ಗಳು",
+    "setup.createShortcuts": "Google Sheets ಗಾಗಿ ಶಾರ್ಟ್‌ಕಟ್‌ಗಳನ್ನು ರಚಿಸಿ"
   }
 }

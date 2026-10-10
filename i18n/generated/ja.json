@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.22",
+  "productVersion": "0.9.25",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -337,6 +337,8 @@
     "language.available": "ポルトガル語と英語を利用できます。その他の言語は翻訳とレビュー後に追加されます。",
     "language.apply": "言語を適用",
     "language.saveFailed": "言語を保存できませんでした。以前の設定は保持されています。",
-    "language.button": "言語を選択"
+    "language.button": "言語を選択",
+    "setup.shortcutsHeading": "4. ショートカット",
+    "setup.createShortcuts": "Google Sheets へのショートカットを作成する"
   }
 }

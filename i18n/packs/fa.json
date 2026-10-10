@@ -2,8 +2,8 @@
   "language": "fa",
   "locale": "fa-IR",
   "direction": "rtl",
-  "catalogRevision": 2,
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "catalogRevision": 3,
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -629,6 +629,8 @@
     "language.available": "پرتغالی و انگلیسی در دسترس هستند. زبان‌های دیگر پس از ترجمه و بازبینی اضافه خواهند شد.",
     "language.apply": "اعمال زبان",
     "language.saveFailed": "زبان ذخیره نشد. ترجیح قبلی شما حفظ شد.",
-    "language.button": "انتخاب زبان"
+    "language.button": "انتخاب زبان",
+    "setup.shortcutsHeading": "4. میان‌برها",
+    "setup.createShortcuts": "ایجاد میان‌بر برای Google Sheets"
   }
 }

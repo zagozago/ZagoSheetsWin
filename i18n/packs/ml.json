@@ -2,8 +2,8 @@
   "language": "ml",
   "locale": "ml-IN",
   "direction": "ltr",
-  "catalogRevision": 2,
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "catalogRevision": 3,
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -633,6 +633,8 @@
     "language.available": "പോർച്ചുഗീസും ഇംഗ്ലീഷും ലഭ്യമാണ്. പരിഭാഷയും പരിശോധനയും കഴിഞ്ഞ് മറ്റ് ഭാഷകൾ ചേർക്കും.",
     "language.apply": "ഭാഷ apply ചെയ്യുക",
     "language.saveFailed": "ഭാഷ സംരക്ഷിക്കുക ചെയ്യാനായില്ല. നിങ്ങളുടെ മുൻ മുൻഗണന നിലനിർത്തി.",
-    "language.button": "ഭാഷ തിരഞ്ഞെടുക്കുക"
+    "language.button": "ഭാഷ തിരഞ്ഞെടുക്കുക",
+    "setup.shortcutsHeading": "4. കുറുക്കുവഴികൾ",
+    "setup.createShortcuts": "Google Sheets-ലേക്കുള്ള കുറുക്കുവഴികൾ സൃഷ്ടിക്കുക"
   }
 }

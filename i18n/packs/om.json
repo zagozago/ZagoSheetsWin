@@ -2,8 +2,8 @@
   "language": "om",
   "locale": "om-ET",
   "direction": "ltr",
-  "catalogRevision": 2,
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "catalogRevision": 3,
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -633,6 +633,8 @@
     "language.available": "Portuguese fi English ni jiru. Afaanonni biroo erga hiikamanii fi ilaalamanii booda ni dabalamu.",
     "language.apply": "Afaan hojiirra oolchi",
     "language.saveFailed": "Afaan kuusuun hin danda'amne. Filannoon kee duraa eegameera.",
-    "language.button": "Afaan filadhu"
+    "language.button": "Afaan filadhu",
+    "setup.shortcutsHeading": "4. Karaa gabaabaa",
+    "setup.createShortcuts": "Google Sheets tiif karaa gabaabaa uumi"
   }
 }

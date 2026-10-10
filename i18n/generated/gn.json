@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.22",
+  "productVersion": "0.9.25",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -337,6 +337,8 @@
     "language.available": "Portugués ha Inglés oĩ guive. Ambue ñe'ẽ oñembojoajúta oñemoñe'ẽasa ha oñemboaje rire.",
     "language.apply": "Ñe'ẽ jeporu",
     "language.saveFailed": "Ndaikatúi oñeñongatu ñe'ẽ. Ne poravopyre mboyvegua oñeñongatu.",
-    "language.button": "Ñe'ẽ poravo"
+    "language.button": "Ñe'ẽ poravo",
+    "setup.shortcutsHeading": "4. Jeike pya’e",
+    "setup.createShortcuts": "Ejapo jeike pya’e Google Sheets-pe"
   }
 }

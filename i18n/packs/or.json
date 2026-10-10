@@ -2,8 +2,8 @@
   "language": "or",
   "locale": "or-IN",
   "direction": "ltr",
-  "catalogRevision": 2,
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "catalogRevision": 3,
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -629,6 +629,8 @@
     "language.available": "ପର୍ତ୍ତୁଗୀଜ୍ ଏବଂ ଇଂରାଜୀ ଉପଲବ୍ଧ। ଅନ୍ୟ ଭାଷା ଅନୁବାଦ ଏବଂ ସମୀକ୍ଷା ପରେ ଯୋଡ଼ାଯିବ।",
     "language.apply": "ଭାଷା ପ୍ରୟୋଗ କରନ୍ତୁ",
     "language.saveFailed": "ଭାଷା ସେଭ୍ ହୋଇପାରିଲା ନାହିଁ। ପୂର୍ବ ପସନ୍ଦ ସୁରକ୍ଷିତ ରହିଲା।",
-    "language.button": "ଭାଷା ବାଛନ୍ତୁ"
+    "language.button": "ଭାଷା ବାଛନ୍ତୁ",
+    "setup.shortcutsHeading": "4. ସର୍ଟକଟ୍",
+    "setup.createShortcuts": "Google Sheets ପାଇଁ ସର୍ଟକଟ୍ ତିଆରି କରନ୍ତୁ"
   }
 }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.22",
+  "productVersion": "0.9.25",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -337,6 +337,8 @@
     "language.available": "পর্তুগিজ এবং ইংরেজি উপলব্ধ। অনুবাদ ও পর্যালোচনার পরে অন্য ভাষা যোগ করা হবে।",
     "language.apply": "ভাষা প্রয়োগ করুন",
     "language.saveFailed": "ভাষা সংরক্ষণ করা যায়নি। আগের পছন্দ রাখা হয়েছে।",
-    "language.button": "ভাষা নির্বাচন করুন"
+    "language.button": "ভাষা নির্বাচন করুন",
+    "setup.shortcutsHeading": "4. শর্টকাট",
+    "setup.createShortcuts": "Google Sheets-এর শর্টকাট তৈরি করুন"
   }
 }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.22",
+  "productVersion": "0.9.25",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -337,6 +337,8 @@
     "language.available": "而家提供葡萄牙文同英文。其他語言會喺翻譯同審閱之後加入。",
     "language.apply": "套用語言",
     "language.saveFailed": "未能儲存語言。你之前嘅偏好已保留。",
-    "language.button": "揀語言"
+    "language.button": "揀語言",
+    "setup.shortcutsHeading": "4. 捷徑",
+    "setup.createShortcuts": "建立 Google Sheets 捷徑"
   }
 }

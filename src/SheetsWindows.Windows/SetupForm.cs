@@ -22,7 +22,7 @@ internal sealed class SetupForm : Form
         layout.Controls.Add(Info(UiText.Get("setup.description")));
         var configured = !FirstUseState.NeedsSetup(storage);
         var opening = OpeningPolicy.Load(storage);
-        var noSync = new CheckBox { AutoSize = true, Checked = true, Text = UiText.Get("setup.noSync") };
+        var noSync = new CheckBox { AutoSize = true, Checked = !opening.RestrictToFolder, Text = UiText.Get("setup.noSync") };
         var folderOptions = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, FlowDirection = FlowDirection.TopDown, WrapContents = false };
         folder.Text = opening.Folder ?? "";
         var chooseFolder = new AdaptiveButton { AutoSize = true, Text = UiText.Get("setup.chooseFolder") };
@@ -34,6 +34,7 @@ internal sealed class SetupForm : Form
         folder.Dock = DockStyle.Fill; folder.Margin = new Padding(3, 7, 3, 3);
         folderRow.Controls.Add(chooseFolder, 0, 0); folderRow.Controls.Add(folder, 1, 0);
         folderOptions.Controls.Add(folderRow);
+        var shortcuts = new CheckBox { AutoSize = true, Checked = ShortcutSettings.Load(storage), Text = UiText.Get("setup.createShortcuts") };
         var consent = new CheckBox { AutoSize = true, Checked = configured, Text = UiText.Get("setup.replacementConsent") };
         void ShowFolderOptions() { folderOptions.Visible = !noSync.Checked; layout.PerformLayout(); }
         noSync.CheckedChanged += (_, _) => ShowFolderOptions();
@@ -109,8 +110,9 @@ internal sealed class SetupForm : Form
                     var json = await LauncherConfiguration.SetupClientJsonAsync(storage, client.Text, cancellation.Token);
                     if (!authorize)
                     {
-                        await OpeningPolicy.SaveAsync(storage, !noSync.Checked, folder.Text, consent.Checked, cancellation.Token);
+                        await OpeningPolicy.SaveAsync(storage, !noSync.Checked, folder.Text, !shortcuts.Checked || consent.Checked, cancellation.Token);
                         ExtendedConfiguration.Save(storage, new(encoding.SelectedIndex == 0 ? "auto" : "windows-1252", delimiter.SelectedIndex switch { 1 => "comma", 2 => "semicolon", _ => "auto" }), extended.Checked);
+                        await ShortcutSettings.SaveAsync(storage, shortcuts.Checked, cancellation.Token);
                         await XlsReplacementSettings.SaveAsync(storage, xls.Checked, cancellation.Token);
                     }
                     LauncherConfiguration.SaveClient(storage, json);
@@ -137,6 +139,10 @@ internal sealed class SetupForm : Form
         layout.Controls.Add(Ui.Separator()); layout.Controls.Add(Ui.Text(UiText.Get("setup.syncHeading"), true));
         layout.Controls.Add(noSync); layout.Controls.Add(folderOptions); layout.Controls.Add(consent);
         layout.Controls.Add(Info(UiText.Get("setup.replacementExplanation")));
+        layout.Controls.Add(Ui.Separator()); layout.Controls.Add(Ui.Text(UiText.Get("setup.shortcutsHeading"), true)); layout.Controls.Add(shortcuts);
+        var shortcutNote = Info(UiText.Get("emphasis.originalKept")); layout.Controls.Add(shortcutNote);
+        void RefreshShortcuts() { shortcutNote.Visible = !shortcuts.Checked; consent.Visible = shortcuts.Checked; }
+        shortcuts.CheckedChanged += (_, _) => RefreshShortcuts(); RefreshShortcuts();
         layout.Controls.Add(save);
         ShowFolderOptions(); Ui.Adapt(folderOptions);
         async Task CheckConnection()

@@ -55,7 +55,11 @@ internal static class LocaleVerification
                     var list = Descendants(picker).OfType<ListBox>().Single();
                     if (list.Items.Count != 52) throw new InvalidOperationException("Language picker must contain automatic and all 51 languages.");
                 }
-                for (var page=0;page<4;page++) using (var tutorial=new TutorialForm(page)) Check(tutorial,$"help-{page+1}",true);
+                for (var page=0;page<4;page++)
+                {
+                    using var tutorial = new TutorialForm(page); Check(tutorial,$"help-{page+1}",true);
+                    using var wizard = new FirstUseWizard(preview:true, initialPage:page); Check(wizard,$"first-use-{page+1}",true);
+                }
                 using (var error = new ProcessingForm(new(LauncherAction.Open,"preview.xlsx"),preview:true,previewError:true)) Check(error,"error");
                 // Font-size stress at the four requested scales, with native GDI measurement.
                 foreach (var scale in new[] {1f,1.25f,1.5f,2f})

@@ -2,8 +2,8 @@
   "language": "es",
   "locale": "es",
   "direction": "ltr",
-  "catalogRevision": 2,
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "catalogRevision": 3,
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -629,6 +629,8 @@
     "language.available": "Portugués e inglés están disponibles. Los demás idiomas se añadirán después de su traducción y revisión.",
     "language.apply": "Aplicar idioma",
     "language.saveFailed": "No se pudo guardar el idioma. Se conservó tu preferencia anterior.",
-    "language.button": "Elegir idioma"
+    "language.button": "Elegir idioma",
+    "setup.shortcutsHeading": "4. Accesos directos",
+    "setup.createShortcuts": "Crear accesos directos a Google Sheets"
   }
 }

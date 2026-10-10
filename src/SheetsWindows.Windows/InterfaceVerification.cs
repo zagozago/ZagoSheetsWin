@@ -1,3 +1,4 @@
+using SheetsWindows.Core;
 using SheetsWindows.Infrastructure;
 
 namespace SheetsWindows.Windows;
@@ -28,6 +29,29 @@ internal static class InterfaceVerification
             action.InvokeAction(); action.Enabled = false; action.InvokeAction();
             Require(invoked == 1, "Recovery menu must invoke enabled handlers and refuse disabled actions.");
         }
+        var wizardRoot = Path.Combine(Path.GetDirectoryName(Path.GetFullPath(output))!, "wizard-fixture-" + Guid.NewGuid().ToString("N"));
+        var wizardStorage = new LocalStorage(wizardRoot);
+        var connectionAttempts = 0; var saved = 0;
+        using (var wizard = new FirstUseWizard(storage: wizardStorage,
+            authorize: _ => ++connectionAttempts == 1 ? Task.FromException(new AuthorizationRequiredException()) : Task.CompletedTask,
+            save: _ => { saved++; return Task.CompletedTask; }))
+        {
+            wizard.Show(); Application.DoEvents();
+            Require(!Descendants(wizard).OfType<CheckBox>().Any(c => c.Text == UiText.Get("tutorial.hide")), "Post-install wizard must not expose the help hide preference.");
+            Require(!Descendants(wizard).OfType<Button>().Any(b => b.Text == UiText.Get("tutorial.skip")), "Post-install wizard must not expose skip tutorial.");
+            wizard.NextButton.PerformClick(); Application.DoEvents();
+            Require(wizard.CurrentPage == 1 && !wizard.NextButton.Enabled && !wizard.PreviousButton.Enabled, "Google step must require successful authorization before navigation.");
+            wizard.Close(); Require(!wizard.IsDisposed && wizard.Visible, "Google step must reject closing before authorization.");
+            wizard.ConnectButton.PerformClick(); Application.DoEvents();
+            Require(!wizard.AuthorizationConfirmed && !wizard.NextButton.Enabled, "Failed authorization must leave the wizard on the Google step.");
+            wizard.ConnectButton.PerformClick(); Application.DoEvents();
+            Require(wizard.AuthorizationConfirmed && wizard.NextButton.Enabled, "Successful authorization must unlock navigation.");
+            wizard.NextButton.PerformClick(); wizard.NextButton.PerformClick(); Application.DoEvents();
+            Require(wizard.CurrentPage == 3 && !wizard.NextButton.Enabled, "Defaults are optional; replacement acknowledgement is required before completion.");
+            wizard.Acknowledgement.Checked = true; wizard.NextButton.PerformClick(); Application.DoEvents();
+            Require(wizard.Completed && saved == 1, "Finishing must save once and complete without opening a second setup dialog.");
+        }
+        Require(!Directory.Exists(wizardRoot), "Offline wizard verification must not write user settings or OAuth data.");
         Branding.PreviewTheme(ApplicationTheme.Light);
         using var home = new LauncherForm(new(LauncherAction.Home));
         using var preview = new ProcessingForm(new(LauncherAction.Open, "preview.xlsx"), preview: true);

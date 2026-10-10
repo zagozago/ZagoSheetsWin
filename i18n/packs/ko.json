@@ -2,8 +2,8 @@
   "language": "ko",
   "locale": "ko-KR",
   "direction": "ltr",
-  "catalogRevision": 2,
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "catalogRevision": 3,
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -626,7 +626,9 @@
     "language.available": "포르투갈어와 영어를 사용할 수 있습니다. 다른 언어는 번역 및 검토 후 추가됩니다.",
     "language.apply": "언어 적용",
     "language.saveFailed": "언어를 저장할 수 없습니다. 이전 설정은 보존되었습니다.",
-    "language.button": "언어 선택"
+    "language.button": "언어 선택",
+    "setup.shortcutsHeading": "4. 바로가기",
+    "setup.createShortcuts": "Google Sheets 바로가기 만들기"
   },
   "expandedNumericNotation": [
     "setup.formatLimits"

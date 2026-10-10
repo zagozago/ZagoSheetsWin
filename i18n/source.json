@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.22",
+  "productVersion": "0.9.25",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 2,
+  "catalogRevision": 3,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -7240,6 +7240,26 @@
       "placeholders": [],
       "invariants": [],
       "notes": "Complete message; preserve product names."
+    },
+    "setup.shortcutsHeading": {
+      "text": "4. Atalhos",
+      "context": "src/SheetsWindows.Windows/SetupForm.cs - shortcut preferences",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "setup.createShortcuts": {
+      "text": "Criar atalhos para o Google Sheets",
+      "context": "src/SheetsWindows.Windows/SetupForm.cs - shortcut preferences",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [
+        "Google Sheets"
+      ],
+      "markup": [],
+      "notes": []
     }
   },
   "pluralPolicy": "Mensagens de contagem usam rótulos completos sem flexão dependente do número. Traduções que exigirem variantes devem declarar formas CLDR completas; nunca concatenar substantivo e sufixo. Uma alteração de contrato exige nova revisão de catálogo.",

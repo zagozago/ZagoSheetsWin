@@ -2,8 +2,8 @@
   "language": "hi",
   "locale": "hi",
   "direction": "ltr",
-  "catalogRevision": 2,
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "catalogRevision": 3,
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -626,7 +626,9 @@
     "language.available": "पुर्तगाली और अंग्रेज़ी उपलब्ध हैं। अन्य भाषाएँ अनुवाद और समीक्षा के बाद जोड़ी जाएँगी।",
     "language.apply": "भाषा लागू करें",
     "language.saveFailed": "भाषा सहेजी नहीं जा सकी। आपकी पिछली पसंद सुरक्षित रखी गई।",
-    "language.button": "भाषा चुनें"
+    "language.button": "भाषा चुनें",
+    "setup.shortcutsHeading": "4. शॉर्टकट",
+    "setup.createShortcuts": "Google Sheets के लिए शॉर्टकट बनाएँ"
   },
   "expandedNumericNotation": [
     "setup.formatLimits"

@@ -2,8 +2,8 @@
   "language": "ur",
   "locale": "ur",
   "direction": "rtl",
-  "catalogRevision": 2,
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "catalogRevision": 3,
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -629,6 +629,8 @@
     "language.available": "پرتگالی اور انگریزی دستیاب ہیں۔ دیگر زبانیں ترجمہ اور جائزے کے بعد شامل کی جائیں گی۔",
     "language.apply": "زبان لاگو کریں",
     "language.saveFailed": "زبان محفوظ نہیں ہو سکی۔ پچھلی ترجیح برقرار رکھی گئی۔",
-    "language.button": "زبان منتخب کریں"
+    "language.button": "زبان منتخب کریں",
+    "setup.shortcutsHeading": "4. شارٹ کٹس",
+    "setup.createShortcuts": "Google Sheets کے شارٹ کٹس بنائیں"
   }
 }

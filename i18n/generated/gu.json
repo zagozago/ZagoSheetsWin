@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.22",
+  "productVersion": "0.9.25",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -337,6 +337,8 @@
     "language.available": "પોર્ટુગીઝ અને અંગ્રેજી ઉપલબ્ધ છે. અન્ય ભાષાઓ અનુવાદ અને સમીક્ષા પછી ઉમેરવામાં આવશે.",
     "language.apply": "ભાષા લાગુ કરો",
     "language.saveFailed": "ભાષા સાચવી શકાઈ નહીં. તમારી અગાઉની પસંદગી જાળવવામાં આવી.",
-    "language.button": "ભાષા પસંદ કરો"
+    "language.button": "ભાષા પસંદ કરો",
+    "setup.shortcutsHeading": "4. શૉર્ટકટ",
+    "setup.createShortcuts": "Google Sheets માટે શૉર્ટકટ બનાવો"
   }
 }

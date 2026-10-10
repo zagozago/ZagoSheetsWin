@@ -2,8 +2,8 @@
   "language": "sw",
   "locale": "sw-KE",
   "direction": "ltr",
-  "catalogRevision": 2,
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "catalogRevision": 3,
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -629,6 +629,8 @@
     "language.available": "Kireno na Kiingereza vinapatikana. Lugha nyingine zitaongezwa baada ya tafsiri na mapitio.",
     "language.apply": "Tumia lugha",
     "language.saveFailed": "Haikuwezekana kuhifadhi lugha. Mapendeleo yako ya awali yalihifadhiwa.",
-    "language.button": "Chagua lugha"
+    "language.button": "Chagua lugha",
+    "setup.shortcutsHeading": "4. Njia za mkato",
+    "setup.createShortcuts": "Unda njia za mkato za Google Sheets"
   }
 }

@@ -2,8 +2,8 @@
   "language": "yo",
   "locale": "yo-NG",
   "direction": "ltr",
-  "catalogRevision": 2,
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "catalogRevision": 3,
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -630,6 +630,8 @@
     "language.available": "Portuguese àti English wà. A ó fi àwọn èdè mìíràn kun lẹ́yìn translation àti review.",
     "language.apply": "Lo èdè náà",
     "language.saveFailed": "A kò lè pa èdè mọ́. A pa preference rẹ tẹ́lẹ̀ mọ́.",
-    "language.button": "Yan èdè"
+    "language.button": "Yan èdè",
+    "setup.shortcutsHeading": "4. Ọ̀nà abuja",
+    "setup.createShortcuts": "Ṣẹ̀dá ọ̀nà abuja sí Google Sheets"
   }
 }

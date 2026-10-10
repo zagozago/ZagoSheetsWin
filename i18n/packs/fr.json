@@ -2,8 +2,8 @@
   "language": "fr",
   "locale": "fr",
   "direction": "ltr",
-  "catalogRevision": 2,
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "catalogRevision": 3,
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -626,7 +626,9 @@
     "language.available": "Le portugais et l’anglais sont disponibles. D’autres langues seront ajoutées après traduction et révision.",
     "language.apply": "Appliquer la langue",
     "language.saveFailed": "Impossible d’enregistrer la langue. Votre préférence précédente a été conservée.",
-    "language.button": "Choisir la langue"
+    "language.button": "Choisir la langue",
+    "setup.shortcutsHeading": "4. Raccourcis",
+    "setup.createShortcuts": "Créer des raccourcis vers Google Sheets"
   },
   "expandedNumericNotation": [
     "setup.formatLimits"

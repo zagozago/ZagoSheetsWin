@@ -2,8 +2,8 @@
   "language": "nl",
   "locale": "nl-NL",
   "direction": "ltr",
-  "catalogRevision": 2,
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "catalogRevision": 3,
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -632,6 +632,8 @@
     "language.available": "Portugees en Engels zijn beschikbaar. Andere talen worden toegevoegd na vertaling en controle.",
     "language.apply": "Taal toepassen",
     "language.saveFailed": "De taal kon niet worden opgeslagen. Uw vorige voorkeur is behouden.",
-    "language.button": "Taal kiezen"
+    "language.button": "Taal kiezen",
+    "setup.shortcutsHeading": "4. Snelkoppelingen",
+    "setup.createShortcuts": "Snelkoppelingen naar Google Sheets maken"
   }
 }

@@ -2,8 +2,8 @@
   "language": "my",
   "locale": "my-MM",
   "direction": "ltr",
-  "catalogRevision": 2,
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "catalogRevision": 3,
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -629,6 +629,8 @@
     "language.available": "ပေါ်တူဂီဘာသာ နှင့် အင်္ဂလိပ်ဘာသာ ရရှိနိုင်သည်။ အခြားဘာသာစကားများကို ဘာသာပြန်ပြီး ပြန်လည်စစ်ဆေးခြင်း လုပ်ပြီးနောက် ထည့်သွင်းမည်။",
     "language.apply": "ဘာသာစကား သက်ရောက်စေရန်",
     "language.saveFailed": "ဘာသာစကားကို မသိမ်းနိုင်ပါ။ ယခင် ဦးစားပေး ကို ထိန်းသိမ်းထားသည်။",
-    "language.button": "ဘာသာစကား ရွေးပါ"
+    "language.button": "ဘာသာစကား ရွေးပါ",
+    "setup.shortcutsHeading": "4. ဖြတ်လမ်းများ",
+    "setup.createShortcuts": "Google Sheets သို့ ဖြတ်လမ်းများ ဖန်တီးပါ"
   }
 }

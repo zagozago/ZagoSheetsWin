@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.22",
+  "productVersion": "0.9.25",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -337,6 +337,8 @@
     "language.available": "पुर्तगाली आ अंग्रेजी उपलब्ध बा. दोसरा भाषा अनुवाद आ समीक्षा के बाद जोड़ल जाई.",
     "language.apply": "भाषा लागू करीं",
     "language.saveFailed": "भाषा सहेजीं ना हो पावल. रउआ पुरान preference बचा के रखल गइल.",
-    "language.button": "भाषा चुनीं"
+    "language.button": "भाषा चुनीं",
+    "setup.shortcutsHeading": "4. शॉर्टकट",
+    "setup.createShortcuts": "Google Sheets खातिर शॉर्टकट बनाईं"
   }
 }

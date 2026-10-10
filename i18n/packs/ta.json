@@ -2,8 +2,8 @@
   "language": "ta",
   "locale": "ta-IN",
   "direction": "ltr",
-  "catalogRevision": 2,
-  "sourceHash": "f1cd851b1f75ee481b9972766209d1158868ae8defffff753ecb34f2bbb3a00f",
+  "catalogRevision": 3,
+  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -628,6 +628,8 @@
     "language.available": "போர்ச்சுகீசியம் மற்றும் ஆங்கிலம் கிடைக்கின்றன. மொழிபெயர்ப்பு மற்றும் மதிப்பாய்வுக்குப் பிறகு பிற மொழிகள் சேர்க்கப்படும்.",
     "language.apply": "மொழியைப் பயன்படுத்து",
     "language.saveFailed": "மொழியைச் சேமிக்க முடியவில்லை. உங்கள் முந்தைய விருப்பம் பாதுகாக்கப்பட்டது.",
-    "language.button": "மொழியைத் தேர்ந்தெடுக்கவும்"
+    "language.button": "மொழியைத் தேர்ந்தெடுக்கவும்",
+    "setup.shortcutsHeading": "4. குறுக்குவழிகள்",
+    "setup.createShortcuts": "Google Sheets-க்கான குறுக்குவழிகளை உருவாக்கவும்"
   }
 }

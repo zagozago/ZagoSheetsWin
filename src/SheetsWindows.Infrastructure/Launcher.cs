@@ -141,6 +141,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         var client = await LauncherConfiguration.LoadClientAsync(storage, ct);
         if (!OpeningPolicy.IsConfigured(storage)) throw new LauncherNotConfiguredException();
         var opening = OpeningPolicy.Load(storage);
+        if (!ShortcutSettings.Load(storage)) return await CopyAsync(path, progress, ct);
         if (!opening.RestrictToFolder && SourceEnvironment.RequiresCopy(path))
         {
             var copied = await CopyAsync(path, progress, ct);
@@ -191,6 +192,11 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         new BackupManagement(storage).RequireAvailable(id);
         var journal = new ReplacementJournal(Path.Combine(storage.Root, "replacement.db"));
         var recorded = journal.Get(id); var path = recorded?.SourcePath ?? operation.SourcePath;
+        if (replace && !ShortcutSettings.Load(storage))
+        {
+            if (!File.Exists(path) || recorded is { Step: >= 3 }) throw new CopyRequiredException();
+            replace = false;
+        }
         var remote = new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db"));
         var mapping = remote.Get("sheet:" + id.ToString("N")) ?? throw new ReconciliationRequiredException();
         var client = await LauncherConfiguration.LoadClientAsync(storage, ct); var locks = new FileOperationLock(storage.LocksPath); var auth = Auth(client, locks);
@@ -232,6 +238,14 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
     {
         await using var held = await new FileOperationLock(storage.LocksPath).AcquireAsync(receipt.Operation.SourceKey, ct);
         await new ManagedBackupStore(storage).VerifyAsync(receipt.Operation.Id, receipt.Operation.Snapshot ?? throw new InvalidDataException("No backup."), ct);
+        if (!ShortcutSettings.Load(storage))
+        {
+            ct.ThrowIfCancellationRequested(); browser.Open(receipt.Url);
+            await new BackupManagement(storage).RegisterCopyCompletionAsync(receipt, ct);
+            ImportNotice = UiText.Get("emphasis.originalPreserved");
+            progress?.Report(ImportNotice);
+            return receipt.Url.AbsoluteUri;
+        }
         var folder = Path.Combine(storage.Root, "shortcuts"); PrivateDirectory.Create(folder);
         var shortcut = Path.Combine(folder, receipt.Operation.Id.ToString("N") + ".url"); var bytes = InternetShortcut.ForExisting(shortcut, receipt.Url, ShortcutIcon.Ensure(storage));
         if (!File.Exists(shortcut)) InternetShortcut.Publish(shortcut, bytes);

@@ -227,6 +227,26 @@ public sealed class GoogleTests
         if (OperatingSystem.IsWindows()) new DpapiTokenVault(Path.Combine(storage.Root, "auth"), client).Save(new(client, client + ":user", "test-token", "test-refresh", DateTimeOffset.UtcNow.AddHours(1)));
     }
     [WindowsFact]
+    public async Task DisabledShortcutsKeepOriginalAcrossOpenCopyAndResumeWithoutDuplicateUpload()
+    {
+        using var w = new Workspace(); ConfigureLauncher(w, out var storage);
+        await ShortcutSettings.SaveAsync(storage, false);
+        var original = File.ReadAllBytes(w.Source);
+        var server = new DriveServer(); using var http = new HttpClient(server); var browser = new LauncherBrowser();
+        var launcher = new WindowsLauncher(storage, http, browser);
+        var result = await launcher.OpenAsync(w.Source);
+        Assert.StartsWith("https://", result); Assert.Equal(original, File.ReadAllBytes(w.Source));
+        Assert.Empty(Directory.GetFiles(w.Root, "*.url", SearchOption.AllDirectories));
+        Assert.False(Directory.Exists(Path.Combine(storage.Root, "shortcuts")));
+        Assert.False(File.Exists(Path.Combine(storage.Root, "shortcut-icon-v1.ico")));
+        Assert.Equal(result, await launcher.CopyAsync(w.Source));
+        var operation = Assert.Single(new SqliteOperationRegistry(storage.DatabasePath).Pending());
+        Assert.Equal(result, await launcher.ResumeAsync(operation.Id, replace: true));
+        Assert.Equal(2, server.Posts); Assert.Equal(original, File.ReadAllBytes(w.Source));
+        Assert.Empty(Directory.GetFiles(w.Root, "*.url", SearchOption.AllDirectories));
+        Assert.Equal(3, browser.Opened.Count);
+    }
+    [WindowsFact]
     public async Task NewLocalFormatsRetireOnlyAfterExportedValuesMatch()
     {
         foreach (var format in new[] { "csv", "tsv", "ods", "large-csv" })

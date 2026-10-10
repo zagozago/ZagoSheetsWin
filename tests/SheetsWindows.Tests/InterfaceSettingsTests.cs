@@ -7,6 +7,19 @@ namespace SheetsWindows.Tests;
 public sealed class InterfaceSettingsTests
 {
     [Fact]
+    public async Task ShortcutsDefaultOnAndPersistWithoutChangingExistingPreferences()
+    {
+        using var w = new Workspace(); var storage = new LocalStorage(Path.Combine(w.Root, "preferences"));
+        Assert.True(ShortcutSettings.Load(storage)); Assert.False(Directory.Exists(storage.Root));
+        await ThemeSettings.SaveAsync(storage, ApplicationTheme.Dark);
+        await ShortcutSettings.SaveAsync(storage, false); Assert.False(ShortcutSettings.Load(storage));
+        Assert.Equal(ApplicationTheme.Dark, ThemeSettings.Load(storage));
+        await FirstUseCompletion.SaveAsync(storage); Assert.True(FirstUseCompletion.Load(storage));
+        Assert.False(TutorialSettings.Load(storage)); Assert.False(ShortcutSettings.Load(storage));
+        await ShortcutSettings.SaveAsync(storage, true); Assert.True(ShortcutSettings.Load(storage));
+        Assert.Empty(Directory.GetFiles(storage.Root, "*.tmp"));
+    }
+    [Fact]
     public async Task TutorialOnlyHidesAfterExplicitPreferenceAndPreservesOtherSettings()
     {
         using var w = new Workspace(); var storage = new LocalStorage(Path.Combine(w.Root, "interface"));

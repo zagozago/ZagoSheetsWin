@@ -17,7 +17,7 @@ internal sealed class TutorialForm : Form
     private bool saving;
     private bool fitting;
     private readonly TableLayoutPanel layout;
-    private static (string Title, string Text)[] Pages =>
+    internal static (string Title, string Text)[] Pages =>
     [
         (UiText.Get("tutorial.importTitle"), UiText.Get("tutorial.importExplanation")),
         (UiText.Get("tutorial.googleTitle"), UiText.Get("tutorial.googleExplanation")),
