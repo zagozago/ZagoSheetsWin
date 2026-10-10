@@ -117,6 +117,13 @@ jobs:
           ./installer/Test-Lifecycle.ps1
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && runner.os == 'Windows'
+        with:
+          name: installer-language-verification
+          path: artifacts/installer-verification/
+          if-no-files-found: ignore
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: runner.os == 'Windows'
         with:
           name: ZagoSheetsWin-Setup-win-x64

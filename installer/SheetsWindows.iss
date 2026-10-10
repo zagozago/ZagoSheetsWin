@@ -1,5 +1,5 @@
 #ifndef PilotVersion
-  #define PilotVersion "0.9.23"
+  #define PilotVersion "0.9.24"
 #endif
 [Setup]
 AppId={{D970FA65-0364-4F10-A6AA-D4302F31B607}
@@ -25,7 +25,7 @@ OutputBaseFilename=ZagoSheetsWin-Setup-win-x64
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
-DisableWelcomePage=yes
+DisableWelcomePage=no
 DisableReadyPage=yes
 UninstallDisplayIcon={app}\SheetsWindows.exe
 CloseApplications=yes
@@ -98,6 +98,12 @@ Filename: "{app}\SheetsWindows.exe"; Parameters: "--first-use"; Flags: nowait po
 
 [Code]
 #include "i18n\language-picker.iss"
+
+// The OS launch API permits a language handoff before installation begins.
+// Inno's Exec/ShellExec wrappers explicitly reject launching Setup at this stage.
+function LaunchInstaller(Handle: HWND; Operation, FileName, Parameters, Directory: String;
+  ShowCommand: Integer): THandle;
+  external 'ShellExecuteW@shell32.dll stdcall';
 
 // Keep the stock alphabetical dialog disabled. This selector uses canonical order.
 function QuotedArgument(const Value: String): String;
@@ -176,9 +182,10 @@ begin
     Code := Codes[Choice.ItemIndex]; Name := Names[Choice.ItemIndex];
     if Name = ActiveLanguage then Exit;
     // Relaunch this same installer with the selected language, before any installation.
-    if not Exec(ExpandConstant('{srcexe}'), ForwardedArguments + ' /LANG=' + Name +
-      ' /ZagoSelectedLanguage=' + Code, '', SW_SHOWNORMAL, ewNoWait, ExitCode) then
-      RaiseException(CustomMessage('Zago_associationRunFailed'));
+    ExitCode := LaunchInstaller(0, 'open', ExpandConstant('{srcexe}'),
+      ForwardedArguments + ' /LANG=' + Name + ' /ZagoSelectedLanguage=' + Code,
+      '', SW_SHOWNORMAL);
+    if ExitCode <= 32 then RaiseException(SysErrorMessage(ExitCode));
     Result := False;
   finally
     Names.Free; Codes.Free; Dialog.Free;
@@ -257,6 +264,7 @@ end;
 
 procedure InitializeWizard;
 begin
+  Log('Zago installer language: ' + CustomMessage('Zago_languageCode'));
   WizardForm.ClientHeight := WizardForm.ClientHeight + ScaleY(28);
   WizardForm.OuterNotebook.Height := WizardForm.OuterNotebook.Height - ScaleY(28);
   WizardForm.Bevel.Top := WizardForm.Bevel.Top - ScaleY(28);
