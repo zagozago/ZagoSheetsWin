@@ -1,57 +1,134 @@
-# Open in Google
+# ZagoSheetsWin
 
-I don't have Microsoft 365. So every time someone sent me an `.xlsx`, or ChatGPT generated one for me, I did the same stupid dance: open drive.google.com, New → File upload, wait, right-click → Open with Sheets. Six clicks just to look at a spreadsheet. And lately it's gotten worse, because now the LLMs spit out CSVs and spreadsheets constantly, and every single one means doing that dance again.
+**Open local spreadsheet files directly in Google Sheets from Windows.**
 
-So I built the thing I wanted: right-click the file → "Open in Google Sheets." Done.
+ZagoSheetsWin is a lightweight Windows application that turns opening a local spreadsheet into a simple workflow:
+
+**double-click the file → upload and convert → open in Google Sheets**
+
+After a successful import, ZagoSheetsWin can replace the original local file with an Internet shortcut (`.url`) pointing to the Google Sheets document, while keeping a recoverable local backup of the original file.
+
+The goal is simple: make Google Sheets feel like a native Windows application for opening spreadsheet files.
 
 ## What it does
 
-Right-click any Excel, CSV, Word, or PowerPoint file on Windows. It uploads to a folder in your Google Drive, converts it, and opens it in Sheets / Docs / Slides in your browser.
+ZagoSheetsWin integrates spreadsheet files with Windows and Google Sheets.
 
-Open the same file again next week and it updates that Drive copy instead of making a second one. Rename the file and it starts fresh. New name, new Drive file, which is what you'd expect.
+When you open a supported local file, the application can:
 
-`.xlsx` `.xls` `.csv` → Sheets · `.docx` `.doc` → Docs · `.pptx` `.ppt` → Slides
+- detect and validate the spreadsheet;
+- create a recoverable backup;
+- upload it directly to Google Drive using Google's official APIs;
+- convert it to a native Google Sheets document;
+- open the resulting spreadsheet in your default browser;
+- create a local `.url` shortcut to the Google document;
+- avoid uploading the same file again on subsequent opens.
 
-## Setup
+No manual Drive upload. No browser navigation. No repeated conversion workflow.
 
-Two parts, about ten minutes, once ever.
+## Supported formats
 
-**Part 1: Give the app a Google credential (5 min).** Google doesn't let any app touch your Drive without one, so you create it in your own account. Free, and the app only ever gets permission to touch files it created itself. The rest of your Drive stays invisible to it.
+Current development targets:
 
-```mermaid
-flowchart LR
-    A[Cloud Console] --> B[New project]
-    B --> C[Enable Drive API]
-    C --> D[Consent screen<br/>+ add yourself<br/>as test user]
-    D --> E[OAuth client<br/>Desktop app]
-    E --> F[Download JSON]
-```
+- `.xlsx`
+- `.xls`
+- `.ods`
+- `.csv`
+- `.tsv`
 
-The click-by-click version is in [SETUP.md](SETUP.md).
+Some formats may have additional compatibility restrictions. Files containing features that cannot be safely preserved are handled conservatively to avoid silent data loss.
 
-**Part 2: Install on Windows (2 min).** Grab `open-in-google.zip` from [Releases](../../releases), extract it anywhere, open PowerShell in that folder:
+## Designed for Windows
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\Install.ps1 -ClientJson "$env:USERPROFILE\Downloads\client_secret_*.apps.googleusercontent.com.json"
-```
+ZagoSheetsWin is built specifically for Windows and integrates with the operating system through:
 
-Right-click a spreadsheet → Open in Google Sheets. Your browser asks you to sign in once; you never see it again. No admin rights needed.
+- **Open with**
+- file type registration
+- double-click handling
+- optional Explorer integration
+- a native Windows installer
 
-## Privacy
+The application does not silently override your Windows default applications. File associations remain under the user's control.
 
-- This talks only to Google's APIs, straight from your PC. No server, no analytics, no account with anyone.
-- Your sign-in tokens are encrypted by Windows and never leave your machine.
-- It's three small scripts. Read them. That's the whole point of open source.
+## Safe by design
 
-## Things it doesn't do
+ZagoSheetsWin treats the local file replacement as a recoverable operation.
 
-- Edits you make in the browser don't sync back to the file on your disk. The local file is the source; Drive is where you view and edit.
-- It needs internet to upload, obviously. After that it's just a Google doc.
+Before removing an original file from its folder, the application verifies that:
 
-## If you hate it
+1. a recoverable backup exists;
+2. the Google Sheets document was successfully created;
+3. the local association was persisted;
+4. the Internet shortcut was successfully written and validated.
 
-Run `Uninstall.ps1`. The right-click entries disappear; your Drive files stay where they are. Add `-RemoveAppData` to wipe the saved login too.
+If the process fails, the original file is preserved.
+
+The application is intentionally designed around a simple rule:
+
+> Never destroy user data silently.
+
+## Backups
+
+Original files can be stored in a private local backup area before being replaced by shortcuts.
+
+Backup management includes configurable storage limits, retention policies and cleanup controls.
+
+Backups protect the original imported file. They are **not** a bidirectional synchronization system: changes made later in Google Sheets are not written back to the original spreadsheet file.
+
+## Privacy and Google access
+
+ZagoSheetsWin communicates directly from your computer to Google's APIs.
+
+- No Zagotools server receives your spreadsheet contents.
+- OAuth tokens are stored locally and protected using Windows security mechanisms.
+- The application uses the Google Drive `drive.file` scope, limiting access to files created or opened through the application.
+- No analytics are required for the spreadsheet import workflow.
+
+Privacy Policy and Terms of Use:
+
+https://zagotools.top/legal.html
+
+## Project status
+
+ZagoSheetsWin is currently under active development and should be considered **alpha software**.
+
+The core Windows → Google Sheets workflow is functional and is being expanded with improvements to installation, recovery, format compatibility, internationalization and user experience.
+
+Expect changes while the project approaches its first stable release.
+
+## Relationship with Open in Google
+
+ZagoSheetsWin is based on and derived from
+[Open in Google](https://github.com/SwatiK425/open-in-google) by
+[SwatiK425](https://github.com/SwatiK425).
+
+Open in Google provided the original foundation and inspiration for the project.
+
+ZagoSheetsWin has since evolved into an independent Windows application with its own architecture, installer, user interface, backup and recovery system, file association workflow, format handling and local-to-Google-Sheets experience.
+
+The upstream project remains an independent project. Generic improvements may be contributed upstream when appropriate, while ZagoSheetsWin continues to evolve independently.
+
+## Open source
+
+ZagoSheetsWin is free and open-source software.
+
+The project preserves the attribution and licensing requirements of the original Open in Google code while clearly identifying the subsequent ZagoSheetsWin / Zagotools development.
+
+See:
+
+- [LICENSE](LICENSE)
+- [ATTRIBUTION.md](ATTRIBUTION.md)
+- [NOTICE.md](NOTICE.md)
+- [third-party/NOTICE.md](third-party/NOTICE.md)
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT License.
+
+See [LICENSE](LICENSE) for details.
+
+---
+
+**ZagoSheetsWin — a Zagotools project**
+
+Small software for real problems.
