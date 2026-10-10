@@ -87,16 +87,16 @@ for ($index=0; $index -lt $languages.Count; $index++) {
         do {
             $windows = [InstallerSelectorNative]::Windows([uint[]]@(New-InstallerIds $baseline))
             foreach ($window in $windows) {
-                if ([InstallerSelectorNative]::Class($window) -eq 'TWizardForm') {
-                    $texts = @([InstallerSelectorNative]::Children($window) | ForEach-Object { [InstallerSelectorNative]::Text($_) })
-                    if ($welcome -cin $texts) { $wizard = $window; break }
+                if ([InstallerSelectorNative]::Class($window).StartsWith('TWizardForm')) {
+                    $texts = @([InstallerSelectorNative]::Children($window) | Where-Object { [InstallerSelectorNative]::IsWindowVisible($_) } | ForEach-Object { [InstallerSelectorNative]::Text($_).Trim() })
+                    if ($welcome.Trim() -cin $texts) { $wizard = $window; break }
                 }
             }
             if ($wizard -ne [IntPtr]::Zero) { break }
             Start-Sleep -Milliseconds 100
         } while ([DateTime]::UtcNow -lt $deadline)
         if ($wizard -eq [IntPtr]::Zero) {
-            $details = @($windows | ForEach-Object { [InstallerSelectorNative]::Text($_); [InstallerSelectorNative]::Children($_) | ForEach-Object { [InstallerSelectorNative]::Text($_) } }) -join ' | '
+            $details = @($windows | ForEach-Object { [InstallerSelectorNative]::Class($_) + ': ' + [InstallerSelectorNative]::Text($_); [InstallerSelectorNative]::Children($_) | ForEach-Object { [InstallerSelectorNative]::Text($_) } }) -join ' | '
             throw "Language $code did not reach its translated welcome page. Windows: $details"
         }
         if (!(Test-Path $log) -or !(Select-String -Path $log -SimpleMatch "Zago installer language: $code" -Quiet)) { throw "Installer did not activate requested language $code" }
