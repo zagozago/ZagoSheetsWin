@@ -1,5 +1,13 @@
 # ZagoSheetsWin
 
+<details>
+<summary>🌐 Documentation language · English / 简体中文</summary>
+
+- **English** — current page
+- **简体中文 (Chinese, Simplified)** — [阅读中文文档](docs/i18n/zh/README.md)
+
+</details>
+
 **Open local spreadsheet files directly in Google Sheets from Windows.**
 
 ZagoSheetsWin is a lightweight Windows application that turns opening a local spreadsheet into a simple workflow:
