@@ -1,3 +1,4 @@
+# Distribution candidate 0.9.22: license and installer fixes validated in Local core run 38015355292.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
