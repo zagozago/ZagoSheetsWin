@@ -103,7 +103,8 @@ internal sealed class FirstUseWizard : Form
             connection.Text = UiText.Get(AuthorizationConfirmed ? "setup.authConfirmed" : "setup.authMissing");
             ConnectButton.Text = UiText.Get(AuthorizationConfirmed ? "action.switchGoogleAccount" : "action.authorizeGoogle");
             content.Controls.Add(connection); content.Controls.Add(ConnectButton);
-            if (!File.Exists(LauncherConfiguration.ClientPath(storage)))
+            if (!File.Exists(LauncherConfiguration.ClientPath(storage)) &&
+                !typeof(LauncherConfiguration).Assembly.GetManifestResourceNames().Contains("OAuth.official.desktop.json"))
             {
                 var choose = new AdaptiveButton { AutoSize = true, Text = UiText.Get("setup.chooseClient") };
                 choose.Click += (_, _) => { using var dialog = new OpenFileDialog { Filter = UiText.Get("dialog.oauthFileFilter"), CheckFileExists = true }; if (dialog.ShowDialog(this) == DialogResult.OK) { clientPath = dialog.FileName; status.Text = UiText.Get("setup.clientSelected"); } };
