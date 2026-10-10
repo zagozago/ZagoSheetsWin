@@ -45,6 +45,15 @@
 - [Polski](../pl/README.md)
 - [Basa Sunda](../su/README.md)
 - **मैथिली** — वर्तमान पन्ना
+- [Українська](../uk/README.md)
+- [Afaan Oromoo](../om/README.md)
+- [Oʻzbekcha](../uz/README.md)
+- [سنڌي](../sd/README.md)
+- [नेपाली](../ne/README.md)
+- [Asụsụ Igbo](../ig/README.md)
+- [Azərbaycan dili](../az/README.md)
+- [Nederlands](../nl/README.md)
+- [Avañe’ẽ](../gn/README.md)
 
 </details>
 

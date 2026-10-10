@@ -45,6 +45,15 @@
 - [Polski](docs/i18n/pl/README.md)
 - [Basa Sunda](docs/i18n/su/README.md)
 - [मैथिली](docs/i18n/mai/README.md)
+- [Українська](docs/i18n/uk/README.md)
+- [Afaan Oromoo](docs/i18n/om/README.md)
+- [Oʻzbekcha](docs/i18n/uz/README.md)
+- [سنڌي](docs/i18n/sd/README.md)
+- [नेपाली](docs/i18n/ne/README.md)
+- [Asụsụ Igbo](docs/i18n/ig/README.md)
+- [Azərbaycan dili](docs/i18n/az/README.md)
+- [Nederlands](docs/i18n/nl/README.md)
+- [Avañe’ẽ](docs/i18n/gn/README.md)
 
 </details>
 
