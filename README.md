@@ -25,6 +25,16 @@
 - [Bahasa Melayu](docs/i18n/ms/README.md)
 - [Kiswahili](docs/i18n/sw/README.md)
 - [Nigerian Pidgin](docs/i18n/pcm/README.md)
+- [मराठी](docs/i18n/mr/README.md)
+- [తెలుగు](docs/i18n/te/README.md)
+- [Hausa](docs/i18n/ha/README.md)
+- [ਪੰਜਾਬੀ](docs/i18n/pa/README.md)
+- [தமிழ்](docs/i18n/ta/README.md)
+- [粵語](docs/i18n/yue/README.md)
+- [فارسی](docs/i18n/fa/README.md)
+- [አማርኛ](docs/i18n/am/README.md)
+- [Basa Jawa](docs/i18n/jv/README.md)
+- [ગુજરાતી](docs/i18n/gu/README.md)
 
 </details>
 
