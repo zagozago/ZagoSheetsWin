@@ -18,8 +18,9 @@ class JsonLoading(unittest.TestCase):
             path=Path(folder)/'catalog.json'
             for content in (b'Warning: truncated output\n{}', b'', b'\xff{}'):
                 path.write_bytes(content)
-                with self.assertRaisesRegex(ValueError,str(path)):
+                with self.assertRaises(ValueError) as error:
                     generator.load_json(path)
+                self.assertIn(str(path),str(error.exception))
 
     def test_generation_accepts_bom_in_locale_metadata(self):
         path=generator.ROOT/'i18n/locales.json'
