@@ -22,7 +22,7 @@ Cada dependência mantém sua própria licença. O NPOI está fixado na versão
 | NSax | 1.0.2 | LGPL-3.0-only - NSax-LICENSE.txt e GPL-3.0.txt |
 | SharpZipLib | 1.4.2 | MIT - SharpZipLib-LICENSE.txt |
 | SixLabors.Fonts | 1.0.1 | Apache-2.0 - Fonts-LICENSE.txt |
-| SixLabors.ImageSharp | 4.1.2 | Apache-2.0 - ImageSharp-LICENSE.txt |
+| SixLabors.ImageSharp | 4.1.3 | Six Labors Split License (concessão Apache-2.0) - ImageSharp-LICENSE.txt |
 | ZString | 2.6.0 | MIT - ZString-LICENSE.txt |
 
 O NPOI deriva do Apache POI (Apache Software Foundation), licenciado sob
@@ -42,7 +42,8 @@ para evitar vulnerabilidades da dependência padrão antiga do NPOI. Ele e as
 outras bibliotecas de execução da Microsoft mantêm seus avisos MIT originais
 (consulte ThirdPartyNotices.txt do .NET incluído nas instalações autossuficientes).
 
-ImageSharp 4.1.2: distribuição MIT enquadrada na concessão Apache-2.0
+ImageSharp 4.1.3: distribuição MIT enquadrada na concessão Apache-2.0
 para software open source/source available, conforme LICENSE do mantenedor.
 A compilação requer chave Six Labors válida para SheetsWindows.Infrastructure.
-A chave é configuração privada de build e não deve ser incluída no repositório.
+A licença comunitária limitada ao assembly está em sixlabors.lic, conforme
+a autorização do fornecedor. Válida até 2028-01-08.

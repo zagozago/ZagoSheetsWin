@@ -24,7 +24,8 @@ public sealed class LocalizationTests
             Assert.Equal(source.Keys.Order(),strings.Keys.Order());
             var catalog=new LocalizationCatalog(source,fallback,strings);
             Assert.Equal(strings["home.help"],catalog.Get("home.help"));
-            Assert.Contains("ZagoSheetsWin",catalog.Get("home.description"));
+            Assert.Equal(strings["home.description"],catalog.Get("home.description"));
+            Assert.Equal(source["emphasis.brand"],catalog.Get("emphasis.brand"));
         }
     }
     [Fact]

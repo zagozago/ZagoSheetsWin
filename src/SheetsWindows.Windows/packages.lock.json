@@ -89,8 +89,8 @@
       },
       "SixLabors.ImageSharp": {
         "type": "Transitive",
-        "resolved": "4.1.2",
-        "contentHash": "AQ0oouhH/6qmXJC70/k50iVt7SiZRjCgd4tXXiC5ZrB5CvyBwA81HTqb5twcXz8CvTAFxUNV0TAcL83OhyRA1g==",
+        "resolved": "4.1.3",
+        "contentHash": "VzzKPgdC0ZupEg937iKpg2cEGXudnFyQRwiHfIvtCKSlFUaxVbLjW3AztDhyk06z+4NzD7IAlMf7fqU57WXyBQ==",
         "dependencies": {
           "System.IO.Hashing": "8.0.0"
         }
@@ -161,7 +161,7 @@
           "Microsoft.Data.Sqlite": "[10.0.12, )",
           "NPOI": "[2.7.6, 2.7.6]",
           "SheetsWindows.Core": "[1.0.0, )",
-          "SixLabors.ImageSharp": "[4.1.2, 4.1.2]",
+          "SixLabors.ImageSharp": "[4.1.3, 4.1.3]",
           "System.Security.Cryptography.ProtectedData": "[10.0.12, )",
           "System.Security.Cryptography.Xml": "[10.0.12, )"
         }

@@ -1,25 +1,26 @@
-# ImageSharp 4.1.2: dependency update awaiting license
+# ImageSharp 4.1.3 and assembly-scoped community license
 
-The 2.1.13 dependency blocks restore because of five security advisories.
-4.1.2 restores successfully with the NuGet audit enabled and no suppressions.
-Release compilation requires a Six Labors community or commercial license key.
+ImageSharp 2.1.13 blocked restore with security advisories. 4.1.3 is pinned
+in Directory.Build.props and dependency locks; auditing remains enabled
+without suppressions. The 4.1.3 licensing update accepts the assembly-scoped
+license issued on 2026-10-10, which the 4.1.2 validator rejected.
 
-Request a community key at https://licensing.sixlabors.com/ using the truthful
-eligibility details and exact assembly name `SheetsWindows.Infrastructure`.
-The repository is currently private; do not claim a public repository URL or
-eligibility that does not apply. The provider also supports hobbyist applications.
+The supplied sixlabors.lic is preserved verbatim at the repository root.
+Directory.Build.props sets SixLaborsLicenseFile to its absolute location
+so nested projects can find it. The provider explicitly permits committing
+assembly-scoped community keys; this permission does not apply to unrestricted
+community or commercial keys. The license is valid until 2028-01-08 and was
+validated by a Release build of SheetsWindows.Infrastructure.
 
-Add the full key/file contents as repository Actions secret
-`ZAGOSHEETS_SIXLABORS_LICENSE_KEY` (not just the JSON Key field).
-Both Local core and Protected alpha distribution pass it as
-`SixLaborsLicenseKey` to MSBuild. Never commit the key or license file.
-If a same-named environment secret exists, it takes precedence in distribution.
+No repository secret is necessary for this key. Existing workflow secret
+configuration can still override the file if a nonempty key is configured.
+XLS support is retained; no format, translation pack, or UI was removed.
 
-Validation so far: restore with regenerated dependency locks passes. Release
-build, conversion tests, native locale checks and installer validation remain
-pending the key. No release-ready claim is made.
+Local Release compilation passes. Localization catalog: 593 messages,
+51 locales; all 13 Python tests pass. Windows interface, installer lifecycle
+and remaining Windows-specific tests must pass in Local core before protected
+distribution is dispatched. No distribution was dispatched for this change.
 
 Sources:
 - https://docs.sixlabors.com/articles/imagesharp/index.html
-- https://sixlabors.com/posts/licence-enforcement-changes/
-- https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-jjfr-hcj7-qf5w
+- https://github.com/SixLabors/ImageSharp/releases/tag/v4.1.3
