@@ -186,5 +186,5 @@ internal sealed class FirstUseWizard : Form
         try { _ = ExtendedConfiguration.Load(storage); } catch (LauncherNotConfiguredException) { ExtendedConfiguration.Save(storage, new(), true); }
         await FirstUseCompletion.SaveAsync(storage, ct);
     }
-    protected override void Dispose(bool disposing) { if (disposing) { cancellation.Cancel(); cancellation.Dispose(); } base.Dispose(disposing); }
+    protected override void Dispose(bool disposing) { if (disposing && !IsDisposed) { cancellation.Cancel(); cancellation.Dispose(); } base.Dispose(disposing); }
 }
