@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=मैथिली
+LanguageName=MAI - मैथिली / Maithili (mai)
 LanguageID=$0000
 LanguageCodePage=0
 DialogFontName=Nirmala UI

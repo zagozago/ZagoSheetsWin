@@ -19,6 +19,15 @@ public static class LanguageSettings
                 l.GetProperty("locale").GetString()!, l.GetProperty("direction").GetString()!,
                 l.GetProperty("fontFamily").GetString()!)).ToArray());
     }
+    public static string Caption(ApplicationLanguage language) => language.NativeName == language.EnglishName
+        ? $"{language.DisplayCode} - {language.NativeName}"
+        : $"{language.DisplayCode} - {language.NativeName} / {language.EnglishName} ({language.Code})";
+    // An explicit interactive installer selection overrides an older app preference.
+    public static Task SelectFromInstallerAsync(LocalStorage storage, string code, CancellationToken ct = default)
+    {
+        if (!Supported(code)) throw new ArgumentException("Unsupported installer language.");
+        return SaveAsync(storage, code, ct);
+    }
     public static ApplicationLanguage Details(string code) => Available.Single(l => l.Code == code);
     public static bool Supported(string code) => Available.Any(l => l.Code == code);
     public static string Resolve(string preference, IEnumerable<string> preferredLanguages)

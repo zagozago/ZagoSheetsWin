@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=ଓଡ଼ିଆ
+LanguageName=OR - ଓଡ଼ିଆ / Odia (or)
 LanguageID=$0448
 LanguageCodePage=0
 DialogFontName=Nirmala UI

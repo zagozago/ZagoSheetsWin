@@ -1,5 +1,5 @@
 #ifndef PilotVersion
-  #define PilotVersion "0.9.22"
+  #define PilotVersion "0.9.23"
 #endif
 [Setup]
 AppId={{D970FA65-0364-4F10-A6AA-D4302F31B607}
@@ -29,7 +29,7 @@ DisableWelcomePage=yes
 DisableReadyPage=yes
 UninstallDisplayIcon={app}\SheetsWindows.exe
 CloseApplications=yes
-ShowLanguageDialog=yes
+ShowLanguageDialog=no
 LanguageDetectionMethod=uilanguage
 
 [Languages]
@@ -97,6 +97,94 @@ Name: "{group}\{cm:Zago_uninstall}"; Filename: "{uninstallexe}"
 Filename: "{app}\SheetsWindows.exe"; Parameters: "--first-use"; Flags: nowait postinstall skipifsilent
 
 [Code]
+#include "i18n\language-picker.iss"
+
+// Keep the stock alphabetical dialog disabled. This selector uses canonical order.
+function QuotedArgument(const Value: String): String;
+var
+  I, Slashes: Integer;
+  C: String;
+begin
+  Result := '"'; Slashes := 0;
+  for I := 1 to Length(Value) do begin
+    C := Copy(Value, I, 1);
+    if C = '\' then Slashes := Slashes + 1
+    else begin
+      if C = '"' then Result := Result + StringOfChar('\', Slashes * 2 + 1)
+      else Result := Result + StringOfChar('\', Slashes);
+      Result := Result + C; Slashes := 0;
+    end;
+  end;
+  Result := Result + StringOfChar('\', Slashes * 2) + '"';
+end;
+
+function ForwardedArguments: String;
+var
+  I: Integer;
+  Argument, Upper: String;
+begin
+  Result := '';
+  for I := 1 to ParamCount do begin
+    Argument := ParamStr(I); Upper := Uppercase(Argument);
+    // Loader-only handles refer to the original process; never forward them.
+    if (Pos('/SL5=', Upper) <> 1) and (Pos('/SPAWNWND=', Upper) <> 1) and
+       (Pos('/NOTIFYWND=', Upper) <> 1) then
+      Result := Result + ' ' + QuotedArgument(Argument);
+  end;
+end;
+
+function InitializeSetup: Boolean;
+var
+  Dialog: TSetupForm;
+  LabelText: TNewStaticText;
+  Choice: TNewComboBox;
+  AcceptButton, CancelButton: TNewButton;
+  Codes, Names: TStringList;
+  I, ExitCode: Integer;
+  Code, Name: String;
+begin
+  Result := True;
+  if WizardSilent then Exit;
+  // /LANG is also the handoff from the selector; it prevents a second dialog.
+  for I := 1 to ParamCount do
+    if Pos('/LANG=', Uppercase(ParamStr(I))) = 1 then Exit;
+  Dialog := CreateCustomForm(ScaleX(660), ScaleY(180), False, False);
+  Codes := TStringList.Create; Names := TStringList.Create;
+  try
+    Dialog.Caption := SetupMessage(msgSelectLanguageTitle);
+    Dialog.Position := poScreenCenter;
+    LabelText := TNewStaticText.Create(Dialog); LabelText.Parent := Dialog;
+    LabelText.SetBounds(ScaleX(20), ScaleY(20), ScaleX(620), ScaleY(36));
+    LabelText.AutoSize := False; LabelText.WordWrap := True;
+    LabelText.Caption := SetupMessage(msgSelectLanguageLabel);
+    Choice := TNewComboBox.Create(Dialog); Choice.Parent := Dialog;
+    Choice.SetBounds(ScaleX(20), ScaleY(65), ScaleX(620), ScaleY(28));
+    Choice.Style := csDropDownList; Choice.Sorted := False; Choice.DropDownCount := 20;
+    FillInstallerLanguages(Choice.Items, Codes, Names);
+    Choice.ItemIndex := Codes.IndexOf(CustomMessage('Zago_languageCode'));
+    if Choice.ItemIndex < 0 then Choice.ItemIndex := 0;
+    AcceptButton := TNewButton.Create(Dialog); AcceptButton.Parent := Dialog;
+    AcceptButton.SetBounds(ScaleX(400), ScaleY(125), ScaleX(110), ScaleY(32));
+    AcceptButton.Caption := SetupMessage(msgButtonOK); AcceptButton.ModalResult := mrOK;
+    AcceptButton.Default := True;
+    CancelButton := TNewButton.Create(Dialog); CancelButton.Parent := Dialog;
+    CancelButton.SetBounds(ScaleX(525), ScaleY(125), ScaleX(115), ScaleY(32));
+    CancelButton.Caption := SetupMessage(msgButtonCancel); CancelButton.ModalResult := mrCancel;
+    CancelButton.Cancel := True;
+    Dialog.ActiveControl := Choice;
+    if Dialog.ShowModal <> mrOK then begin Result := False; Exit; end;
+    Code := Codes[Choice.ItemIndex]; Name := Names[Choice.ItemIndex];
+    if Name = ActiveLanguage then Exit;
+    // Relaunch this same installer with the selected language, before any installation.
+    if not Exec(ExpandConstant('{srcexe}'), ForwardedArguments + ' /LANG=' + Name +
+      ' /ZagoSelectedLanguage=' + Code, '', SW_SHOWNORMAL, ewNoWait, ExitCode) then
+      RaiseException(CustomMessage('Zago_associationRunFailed'));
+    Result := False;
+  finally
+    Names.Free; Codes.Free; Dialog.Free;
+  end;
+end;
+
 function PrepareToInstall(var NeedsRestart: Boolean): String;
 var
   InstalledVersion: String;
@@ -132,7 +220,10 @@ begin
   if CurStep = ssPostInstall then
   begin
     MaintainAssociation('--register');
-    MaintainAssociation('--installer-language ' + CustomMessage('Zago_languageCode'));
+    if (not WizardSilent) or (ExpandConstant('{param:ZagoSelectedLanguage|}') <> '') then
+      MaintainAssociation('--installer-language-selected ' + CustomMessage('Zago_languageCode'))
+    else
+      MaintainAssociation('--installer-language ' + CustomMessage('Zago_languageCode'));
   end;
 end;
 
@@ -200,4 +291,3 @@ begin
   UninstallProgressForm.CancelButton.Width := UninstallProgressForm.CalculateButtonWidth([UninstallProgressForm.CancelButton.Caption]);
   UninstallProgressForm.CancelButton.Left := UninstallProgressForm.ClientWidth - ScaleX(8) - UninstallProgressForm.CancelButton.Width;
 end;
-

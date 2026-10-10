@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Tiếng Việt
+LanguageName=VI - Tiếng Việt / Vietnamese (vi)
 LanguageID=$042a
 LanguageCodePage=0
 DialogFontName=Segoe UI

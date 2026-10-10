@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=हिन्दी
+LanguageName=HI - हिन्दी / Hindi (hi)
 LanguageID=$0439
 LanguageCodePage=0
 DialogFontName=Nirmala UI

@@ -1,4 +1,4 @@
-param([string]$ExpectedVersion = "0.9.22")
+param([string]$ExpectedVersion = "0.9.23")
 $ErrorActionPreference = 'Stop'
 function Run-Checked($file, $arguments) {
     $process = Start-Process -FilePath $file -ArgumentList $arguments -PassThru
@@ -69,8 +69,11 @@ if (Compare-Object $before (Defaults-Snapshot)) { throw 'Windows defaults change
 # Reinstall and remove again demonstrates retained state does not block maintenance.
 Write-Host 'Running installer'
 Run-Checked $setup '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /LANG=english'
+Run-Checked $setup '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /LANG=ar /ZagoSelectedLanguage=ar'
+if ([IO.File]::ReadAllText((Join-Path $state 'language.json')) -ne '"ar"') { throw 'Explicit installer selection was not passed to the app' }
+Run-Checked $exe '--installer-language-selected pt'
+
 Assert-NoLauncherUI
 Write-Host 'Running registered uninstaller'
 Run-Checked (Current-Uninstaller) '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART'
 Write-Host 'Per-user install, upgrade, uninstall and reinstall passed; backups, state, shortcut and Windows defaults preserved.'
-

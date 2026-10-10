@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=سنڌي
+LanguageName=SD - سنڌي / Sindhi (sd)
 LanguageID=$0859
 LanguageCodePage=0
 DialogFontName=Segoe UI

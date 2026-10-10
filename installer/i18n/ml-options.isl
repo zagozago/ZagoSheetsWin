@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=മലയാളം
+LanguageName=ML - മലയാളം / Malayalam (ml)
 LanguageID=$044c
 LanguageCodePage=0
 DialogFontName=Nirmala UI

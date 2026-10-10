@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Avañe’ẽ
+LanguageName=GN - Avañe’ẽ / Guarani (gn)
 LanguageID=$0474
 LanguageCodePage=0
 DialogFontName=Segoe UI

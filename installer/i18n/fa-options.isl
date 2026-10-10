@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=فارسی
+LanguageName=FA - فارسی / Persian (fa)
 LanguageID=$0429
 LanguageCodePage=0
 DialogFontName=Segoe UI

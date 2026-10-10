@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Bahasa Melayu
+LanguageName=MS - Bahasa Melayu / Malay (ms)
 LanguageID=$043e
 LanguageCodePage=0
 DialogFontName=Segoe UI

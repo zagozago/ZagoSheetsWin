@@ -130,6 +130,10 @@ def validate_pack(pack, source, locales, release=False):
         if pack['language']!='pt': assert identical <= set(pack.get('sourceMatchesReviewed',[])), 'Unreviewed source-language matches.'
         # Native review is reported separately; it is never inferred from technical PASS.
 
+def language_caption(language):
+    native=language['name']; english=language['englishName']; code=language['code']
+    return f"{language['displayCode']} - {native}" if native==english else f"{language['displayCode']} - {native} / {english} ({code})"
+
 def files(source):
     runtime = {'productVersion':source['productVersion'], 'sourceLocale':source['sourceLocale'],
                'sourceHash':source_hash(source),
@@ -165,11 +169,19 @@ def files(source):
         for language in locales['languages']:
             code=language['code']
             options=['; Generated Unicode language options.', '[LangOptions]',
-                     'LanguageName='+language['name'], 'LanguageID=$'+format(language['installerLanguageId'],'04x'),
+                     'LanguageName='+language_caption(language), 'LanguageID=$'+format(language['installerLanguageId'],'04x'),
                      'LanguageCodePage=0', 'DialogFontName='+language['fontFamily'], 'DialogFontSize=9',
                      'WelcomeFontName='+language['fontFamily'], 'RightToLeft='+('yes' if language['direction']=='rtl' else 'no')]
             result[ROOT/f'installer/i18n/{code}-options.isl']=('\n'.join(options)+'\n').encode('utf-8-sig')
             result[ROOT/f'installer/i18n/{code}.isl'] += ('Zago_languageCode='+code+'\n').encode('utf-8')
+    if source.get('multilingualReady'):
+        lines=['// Generated from the same ordered language metadata as the application.', 'procedure FillInstallerLanguages(Choices: TStrings; Codes: TStrings; Names: TStrings);', 'begin']
+        for language in locales['languages']:
+            code=language['code']; name={'en':'english','pt':'brazilianportuguese','or':'odia'}.get(code,code)
+            caption=language_caption(language).replace("'","''")
+            lines += [f"  Choices.Add('{caption}'); Codes.Add('{code}'); Names.Add('{name}');"]
+        lines += ['end;']
+        result[ROOT/'installer/i18n/language-picker.iss']=('\n'.join(lines)+'\n').encode('utf-8-sig')
     return result
 
 def main():

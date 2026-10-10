@@ -77,7 +77,8 @@ internal static class Branding
         if (languageButton)
         {
             var language = new AdaptiveButton { Text = LanguageSettings.Details(UiText.Language).DisplayCode, AutoSize = true, Padding = new Padding(8,2,8,2), AccessibleName = UiText.Get("language.button"), Margin = new Padding(3,0,3,0) };
-            language.Click += (_,_) => { using var picker = new LanguagePicker(); picker.ShowDialog(form); };
+            language.Click += (_,_) => { using var picker = new LanguagePicker(); if (picker.ShowDialog(form) == DialogResult.OK && !form.IsDisposed)
+                { LanguageVisuals.RestoreAfterSelection(form); } };
             void UpdateLanguage() { language.Text = LanguageSettings.Details(UiText.Language).DisplayCode; tooltip.SetToolTip(language, UiText.Get("language.button")); UpdateToggle(); }
             UiText.Changed += UpdateLanguage; form.Disposed += (_,_) => UiText.Changed -= UpdateLanguage;
             tooltip.SetToolTip(language, UiText.Get("language.button"));

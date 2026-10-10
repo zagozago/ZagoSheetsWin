@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=العربية
+LanguageName=AR - العربية / Arabic (ar)
 LanguageID=$0401
 LanguageCodePage=0
 DialogFontName=Segoe UI

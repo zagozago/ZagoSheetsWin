@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Yorùbá
+LanguageName=YO - Yorùbá / Yoruba (yo)
 LanguageID=$046a
 LanguageCodePage=0
 DialogFontName=Segoe UI

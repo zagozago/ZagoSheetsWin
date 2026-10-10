@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=भोजपुरी
+LanguageName=BHO - भोजपुरी / Bhojpuri (bho)
 LanguageID=$0000
 LanguageCodePage=0
 DialogFontName=Nirmala UI

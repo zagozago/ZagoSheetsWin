@@ -39,13 +39,13 @@ public sealed class ResumableUpload(HttpClient http, IGoogleAuth auth, UploadSes
             request.Content.Headers.ContentRange = query ? new ContentRangeHeaderValue(bytes.Length) : new ContentRangeHeaderValue(offset, offset + count - 1, bytes.Length);
             HttpResponseMessage response;
             try { response = await SendAsync(request, attempt.AccountId, refresh, ct); refresh = false; }
-            catch (HttpRequestException) when (++transient <= 3) { query = true; await Task.Delay(TimeSpan.FromMilliseconds(200 * transient), ct); continue; }
+            catch (HttpRequestException) when (++transient <= 3) { query = true; await GoogleRetry.DelayAsync(transient, null, ct); continue; }
             using (response)
             {
                 if (response.StatusCode == HttpStatusCode.Unauthorized && !refreshed)
                 { if (++transient > 3) throw new AuthorizationRequiredException(); refresh = true; refreshed = true; query = true; continue; }
-                if ((int)response.StatusCode >= 500 || (int)response.StatusCode == 429)
-                { if (++transient > 3) throw new GoogleApiException((int)response.StatusCode); query = true; await Task.Delay(TimeSpan.FromMilliseconds(200 * transient), ct); continue; }
+                if (GoogleRetry.Transient((int)response.StatusCode))
+                { if (++transient > 3) throw new GoogleApiException((int)response.StatusCode); query = true; await GoogleRetry.DelayAsync(transient, response, ct); continue; }
                 if (response.StatusCode is HttpStatusCode.OK or HttpStatusCode.Created)
                 {
                     if (response.Content.Headers.ContentLength > 65536) throw new InvalidDataException("Upload response too large.");

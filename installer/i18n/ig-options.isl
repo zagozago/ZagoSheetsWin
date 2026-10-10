@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Igbo
+LanguageName=IG - Igbo
 LanguageID=$0470
 LanguageCodePage=0
 DialogFontName=Segoe UI

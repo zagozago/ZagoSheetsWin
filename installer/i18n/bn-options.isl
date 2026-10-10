@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=বাংলা
+LanguageName=BN - বাংলা / Bengali (bn)
 LanguageID=$0845
 LanguageCodePage=0
 DialogFontName=Nirmala UI

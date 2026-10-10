@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=ไทย
+LanguageName=TH - ไทย / Thai (th)
 LanguageID=$041e
 LanguageCodePage=0
 DialogFontName=Leelawadee UI

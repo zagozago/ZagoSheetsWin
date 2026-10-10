@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Português
+LanguageName=PT - Português / Portuguese (pt)
 LanguageID=$0416
 LanguageCodePage=0
 DialogFontName=Segoe UI

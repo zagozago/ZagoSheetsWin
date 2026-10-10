@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=اردو
+LanguageName=UR - اردو / Urdu (ur)
 LanguageID=$0420
 LanguageCodePage=0
 DialogFontName=Segoe UI

@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Basa Sunda
+LanguageName=SU - Basa Sunda / Sundanese (su)
 LanguageID=$0000
 LanguageCodePage=0
 DialogFontName=Segoe UI

@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=नेपाली
+LanguageName=NE - नेपाली / Nepali (ne)
 LanguageID=$0461
 LanguageCodePage=0
 DialogFontName=Nirmala UI

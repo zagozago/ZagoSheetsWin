@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Basa Jawa
+LanguageName=JV - Basa Jawa / Javanese (jv)
 LanguageID=$0000
 LanguageCodePage=0
 DialogFontName=Segoe UI

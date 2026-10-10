@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=မြန်မာဘာသာ
+LanguageName=MY - မြန်မာဘာသာ / Burmese (my)
 LanguageID=$0455
 LanguageCodePage=0
 DialogFontName=Myanmar Text

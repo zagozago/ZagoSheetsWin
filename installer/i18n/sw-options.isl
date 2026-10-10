@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Kiswahili
+LanguageName=SW - Kiswahili / Swahili (sw)
 LanguageID=$0441
 LanguageCodePage=0
 DialogFontName=Segoe UI

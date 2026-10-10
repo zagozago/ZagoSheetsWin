@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=ਪੰਜਾਬੀ
+LanguageName=PA - ਪੰਜਾਬੀ / Punjabi (pa)
 LanguageID=$0446
 LanguageCodePage=0
 DialogFontName=Nirmala UI

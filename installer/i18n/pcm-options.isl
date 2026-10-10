@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Nigerian Pidgin
+LanguageName=PCM - Nigerian Pidgin
 LanguageID=$0000
 LanguageCodePage=0
 DialogFontName=Segoe UI

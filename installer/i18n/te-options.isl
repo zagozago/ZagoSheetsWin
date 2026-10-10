@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=తెలుగు
+LanguageName=TE - తెలుగు / Telugu (te)
 LanguageID=$044a
 LanguageCodePage=0
 DialogFontName=Nirmala UI

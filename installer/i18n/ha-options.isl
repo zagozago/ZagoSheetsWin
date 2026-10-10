@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Hausa
+LanguageName=HA - Hausa
 LanguageID=$0468
 LanguageCodePage=0
 DialogFontName=Segoe UI

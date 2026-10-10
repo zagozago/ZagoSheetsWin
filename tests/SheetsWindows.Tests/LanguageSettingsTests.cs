@@ -31,6 +31,18 @@ public sealed class LanguageSettingsTests
         Assert.Empty(Directory.GetFiles(storage.Root,"*.tmp"));
     }
     [Fact]
+    public async Task ExplicitInstallerChoiceOverridesExistingPreferenceWithoutChangingOtherSettings()
+    {
+        using var w = new Workspace(); var storage = new LocalStorage(Path.Combine(w.Root, "lang"));
+        await LanguageSettings.SaveAsync(storage, "pt");
+        await ThemeSettings.SaveAsync(storage, ApplicationTheme.Dark);
+        await LanguageSettings.SelectFromInstallerAsync(storage, "ar");
+        Assert.Equal("ar", LanguageSettings.Load(storage));
+        Assert.Equal(ApplicationTheme.Dark, ThemeSettings.Load(storage));
+        await Assert.ThrowsAsync<ArgumentException>(() => LanguageSettings.SelectFromInstallerAsync(storage, "auto"));
+        Assert.Equal("ar", LanguageSettings.Load(storage));
+    }
+    [Fact]
     public async Task InvalidLanguageIsNotSilentlyOverwritten()
     {
         using var w=new Workspace();var storage=new LocalStorage(Path.Combine(w.Root,"lang"));Directory.CreateDirectory(storage.Root);

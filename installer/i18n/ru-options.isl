@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Русский
+LanguageName=RU - Русский / Russian (ru)
 LanguageID=$0419
 LanguageCodePage=0
 DialogFontName=Segoe UI

@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Filipino
+LanguageName=TL - Filipino
 LanguageID=$0464
 LanguageCodePage=0
 DialogFontName=Segoe UI

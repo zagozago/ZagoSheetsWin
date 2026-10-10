@@ -13,6 +13,12 @@ internal static class LanguageVisuals
     }
     internal static string Family => Installed.Contains(LanguageSettings.Details(UiText.Language).FontFamily)
         ? LanguageSettings.Details(UiText.Language).FontFamily : "Segoe UI";
+    internal static void RestoreAfterSelection(Form form)
+    {
+        if (form.IsDisposed) return;
+        if (form.WindowState == FormWindowState.Minimized) form.WindowState = FormWindowState.Normal;
+        form.Show(); form.BringToFront(); form.Activate();
+    }
     internal static void Attach(Form form)
     {
         var fonts = new Dictionary<(string Family, float Size, FontStyle Style), Font>();

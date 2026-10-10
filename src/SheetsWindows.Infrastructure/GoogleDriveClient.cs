@@ -31,13 +31,13 @@ public sealed class GoogleDriveClient(HttpClient http, IGoogleAuth auth, UploadS
             HttpResponseMessage response;
             try { response = await http.SendAsync(req, HttpCompletionOption.ResponseHeadersRead, ct); }
             catch (HttpRequestException) when (req.Method == HttpMethod.Get && ++retries <= 3)
-            { await Task.Delay(TimeSpan.FromMilliseconds(200 * retries), ct); continue; }
+            { await GoogleRetry.DelayAsync(retries, null, ct); continue; }
             using (response)
             {
                 if (response.StatusCode == HttpStatusCode.Unauthorized && req.Method == HttpMethod.Get && !refreshed)
                 { refreshed = true; refresh = true; continue; }
-                if (req.Method == HttpMethod.Get && ((int)response.StatusCode == 429 || (int)response.StatusCode >= 500) && ++retries <= 3)
-                { await Task.Delay(TimeSpan.FromMilliseconds(200 * retries), ct); continue; }
+                if (req.Method == HttpMethod.Get && GoogleRetry.Transient((int)response.StatusCode) && ++retries <= 3)
+                { await GoogleRetry.DelayAsync(retries, response, ct); continue; }
                 if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode);
                 const int max = 1024 * 1024;
                 if (response.Content.Headers.ContentLength > max) throw new InvalidDataException("Google response too large.");
@@ -82,27 +82,36 @@ public sealed class GoogleDriveClient(HttpClient http, IGoogleAuth auth, UploadS
     {
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(ct); deadline.CancelAfter(requestTimeout ?? TimeSpan.FromSeconds(90)); ct = deadline.Token;
         ValidateId(id);
-        for (var retry = 0; retry < 2; retry++)
+        var refreshed = false; var refresh = false; var retries = 0;
+        for (var attempt = 0; attempt < 5; attempt++)
         {
-            var access = await auth.AccessAsync(retry == 1, ct);
+            var access = await auth.AccessAsync(refresh, ct); refresh = false;
             if (access.AccountId != account) throw new InvalidOperationException("Google account changed.");
             using var request = new HttpRequestMessage(HttpMethod.Get, $"https://www.googleapis.com/drive/v3/files/{id}/export?mimeType={Uri.EscapeDataString(SpreadsheetFormats.XlsxMime)}");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", access.Token);
-            using var response = await http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, ct);
-            if (retry == 0 && response.StatusCode == HttpStatusCode.Unauthorized) continue;
-            if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode);
-            const int max = 10 * 1024 * 1024;
-            if (response.Content.Headers.ContentLength > max) throw new InvalidDataException("Export too large.");
-            await using var stream = await response.Content.ReadAsStreamAsync(ct); using var buffer = new MemoryStream();
-            var chunk = new byte[81920]; int count;
-            while ((count = await stream.ReadAsync(chunk, ct)) != 0)
+            try
             {
-                if (buffer.Length + count > max) throw new InvalidDataException("Export too large.");
-                await buffer.WriteAsync(chunk.AsMemory(0, count), ct);
+                using var response = await http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, ct);
+                if (response.StatusCode == HttpStatusCode.Unauthorized && !refreshed)
+                { refreshed = true; refresh = true; continue; }
+                if (GoogleRetry.Transient((int)response.StatusCode) && ++retries <= 3)
+                { await GoogleRetry.DelayAsync(retries, response, ct); continue; }
+                if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode);
+                const int max = 10 * 1024 * 1024;
+                if (response.Content.Headers.ContentLength > max) throw new InvalidDataException("Export too large.");
+                await using var stream = await response.Content.ReadAsStreamAsync(ct); using var buffer = new MemoryStream();
+                var chunk = new byte[81920]; int count;
+                while ((count = await stream.ReadAsync(chunk, ct)) != 0)
+                {
+                    if (buffer.Length + count > max) throw new InvalidDataException("Export too large.");
+                    await buffer.WriteAsync(chunk.AsMemory(0, count), ct);
+                }
+                return buffer.ToArray();
             }
-            return buffer.ToArray();
+            catch (HttpRequestException) when (++retries <= 3)
+            { await GoogleRetry.DelayAsync(retries, null, ct); }
         }
-        throw new AuthorizationRequiredException();
+        throw new ReconciliationRequiredException();
     }
     public async Task<string> CreateAsync(RemoteAttempt attempt, string name, string? folder, byte[]? bytes, CancellationToken ct, string mediaType = SpreadsheetFormats.XlsxMime)
     {

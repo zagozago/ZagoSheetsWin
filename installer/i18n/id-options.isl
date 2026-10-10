@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Bahasa Indonesia
+LanguageName=ID - Bahasa Indonesia / Indonesian (id)
 LanguageID=$0421
 LanguageCodePage=0
 DialogFontName=Segoe UI

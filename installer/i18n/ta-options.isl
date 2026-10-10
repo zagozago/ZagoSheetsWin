@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=தமிழ்
+LanguageName=TA - தமிழ் / Tamil (ta)
 LanguageID=$0449
 LanguageCodePage=0
 DialogFontName=Nirmala UI

@@ -32,6 +32,23 @@ class JsonLoading(unittest.TestCase):
         finally:
             path.write_bytes(original)
 
+class InstallerLanguagePicker(unittest.TestCase):
+    def test_selector_uses_exact_application_captions_and_canonical_order(self):
+        locales=generator.load_json(generator.ROOT/'i18n/locales.json')
+        source=generator.load_json(generator.SOURCE)
+        files=generator.files(source)
+        script=files[generator.ROOT/'installer/i18n/language-picker.iss'].decode('utf-8-sig')
+        self.assertEqual(locales['canonicalOrder'],[l['code'] for l in locales['languages']])
+        previous=-1
+        for language in locales['languages']:
+            caption=generator.language_caption(language)
+            marker="Choices.Add('"+caption.replace("'","''")+"'); Codes.Add('"+language['code']+"');"
+            position=script.index(marker)
+            self.assertGreater(position,previous); previous=position
+            options=files[generator.ROOT/f"installer/i18n/{language['code']}-options.isl"].decode('utf-8-sig')
+            self.assertIn('LanguageName='+caption,options)
+        self.assertIn("Codes.Add('or'); Names.Add('odia')",script)
+
 class CatalogContracts(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

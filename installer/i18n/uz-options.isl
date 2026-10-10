@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Oʻzbekcha
+LanguageName=UZ - Oʻzbekcha / Uzbek (uz)
 LanguageID=$0443
 LanguageCodePage=0
 DialogFontName=Segoe UI

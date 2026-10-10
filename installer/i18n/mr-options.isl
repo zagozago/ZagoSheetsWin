@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=मराठी
+LanguageName=MR - मराठी / Marathi (mr)
 LanguageID=$044e
 LanguageCodePage=0
 DialogFontName=Nirmala UI

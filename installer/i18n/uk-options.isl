@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Українська
+LanguageName=UK - Українська / Ukrainian (uk)
 LanguageID=$0422
 LanguageCodePage=0
 DialogFontName=Segoe UI

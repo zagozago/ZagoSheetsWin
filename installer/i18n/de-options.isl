@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Deutsch
+LanguageName=DE - Deutsch / German (de)
 LanguageID=$0407
 LanguageCodePage=0
 DialogFontName=Segoe UI

@@ -201,6 +201,50 @@ public sealed class RobustnessTests
         });
         using var http = new HttpClient(server); Assert.Equal("sheet_1", (await new GoogleDriveClient(http, new Auth()).GetAsync("A", "sheet_1", default)).Id); Assert.Equal(3, server.Calls);
     }
+    [Theory]
+    [InlineData(429)]
+    [InlineData(503)]
+    public async Task ExportRetriesTransientResponsesWithoutCreatingAnotherFile(int status)
+    {
+        using var server = new Responses((request, count) =>
+        {
+            Assert.Equal(HttpMethod.Get, request.Method);
+            Assert.Contains("/export?", request.RequestUri!.AbsoluteUri);
+            if (count <= 2)
+            {
+                var response = new HttpResponseMessage((HttpStatusCode)status);
+                response.Headers.RetryAfter = new System.Net.Http.Headers.RetryConditionHeaderValue(TimeSpan.Zero);
+                return response;
+            }
+            return new(HttpStatusCode.OK) { Content = new ByteArrayContent([1, 2, 3]) };
+        });
+        using var http = new HttpClient(server);
+        Assert.Equal(new byte[] { 1, 2, 3 }, await new GoogleDriveClient(http, new Auth()).ExportXlsxAsync("A", "sheet_1", default));
+        Assert.Equal(3, server.Calls);
+    }
+    [Theory]
+    [InlineData(400)]
+    [InlineData(403)]
+    [InlineData(404)]
+    public async Task ExportDoesNotRetryPermanentFailures(int status)
+    {
+        using var server = new Responses((_, _) => new((HttpStatusCode)status)); using var http = new HttpClient(server);
+        await Assert.ThrowsAsync<GoogleApiException>(() => new GoogleDriveClient(http, new Auth()).ExportXlsxAsync("A", "sheet_1", default));
+        Assert.Equal(1, server.Calls);
+    }
+    [Fact]
+    public async Task ExportTransientRetryIsBounded()
+    {
+        using var server = new Responses((_, _) =>
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+            response.Headers.RetryAfter = new System.Net.Http.Headers.RetryConditionHeaderValue(TimeSpan.Zero);
+            return response;
+        });
+        using var http = new HttpClient(server);
+        await Assert.ThrowsAsync<GoogleApiException>(() => new GoogleDriveClient(http, new Auth()).ExportXlsxAsync("A", "sheet_1", default));
+        Assert.Equal(4, server.Calls);
+    }
     [Fact]
     public async Task CreatePostIsNeverRetriedAfterTransientFailure()
     {

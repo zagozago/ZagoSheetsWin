@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Türkçe
+LanguageName=TR - Türkçe / Turkish (tr)
 LanguageID=$041f
 LanguageCodePage=0
 DialogFontName=Segoe UI

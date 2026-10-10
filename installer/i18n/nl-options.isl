@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Nederlands
+LanguageName=NL - Nederlands / Dutch (nl)
 LanguageID=$0413
 LanguageCodePage=0
 DialogFontName=Segoe UI

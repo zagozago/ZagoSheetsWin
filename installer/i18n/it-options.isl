@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Italiano
+LanguageName=IT - Italiano / Italian (it)
 LanguageID=$0410
 LanguageCodePage=0
 DialogFontName=Segoe UI

@@ -106,6 +106,7 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
+          ./installer/Test-LanguageSelector.ps1
           ./installer/Test-UpdateVerification.ps1
           ./installer/Test-Lifecycle.ps1
 

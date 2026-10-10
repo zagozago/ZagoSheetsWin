@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=Español
+LanguageName=ES - Español / Spanish (es)
 LanguageID=$040a
 LanguageCodePage=0
 DialogFontName=Segoe UI

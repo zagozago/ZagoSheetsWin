@@ -9,6 +9,19 @@ internal static class InterfaceVerification
     {
         var measurements = new Dictionary<string, ProcessingMetrics>();
         void Require(bool value, string detail) { if (!value) throw new InvalidOperationException(detail); }
+        using (var languageOwner = new LauncherForm(new(LauncherAction.Home)))
+        {
+            languageOwner.Show(); Application.DoEvents();
+            foreach (var code in new[] { "ar", "hi", "en", "pt" })
+            {
+                languageOwner.WindowState = FormWindowState.Minimized;
+                UiText.Select(code); LanguageVisuals.RestoreAfterSelection(languageOwner); Application.DoEvents();
+                Require(languageOwner.Visible && languageOwner.WindowState != FormWindowState.Minimized,
+                    $"Language change to {code} must restore the existing window.");
+                Require(languageOwner.RightToLeftLayout == UiText.RightToLeft, "Restored window must use the selected text direction.");
+            }
+            languageOwner.Hide();
+        }
         using (var action = new MenuActionButton())
         {
             var invoked = 0; action.Click += (_, _) => invoked++;

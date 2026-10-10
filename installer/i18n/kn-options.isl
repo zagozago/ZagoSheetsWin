@@ -1,6 +1,6 @@
 ﻿; Generated Unicode language options.
 [LangOptions]
-LanguageName=ಕನ್ನಡ
+LanguageName=KN - ಕನ್ನಡ / Kannada (kn)
 LanguageID=$044b
 LanguageCodePage=0
 DialogFontName=Nirmala UI
