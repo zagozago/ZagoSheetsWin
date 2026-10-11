@@ -8,7 +8,7 @@ public static class TutorialSettings
     public static bool Load(LocalStorage storage)
     {
         var path = PathFor(storage);
-        if (!File.Exists(path)) return false;
+        if (!File.Exists(path)) return true;
         if ((File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0) throw new InvalidDataException("Invalid tutorial settings.");
         using var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
         if (file.Length > 1024) throw new InvalidDataException("Invalid tutorial settings.");

@@ -2,8 +2,8 @@
   "language": "th",
   "locale": "th-TH",
   "direction": "ltr",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -633,6 +633,13 @@
     "setup.createShortcuts": "สร้างทางลัดไปยัง Google Sheets",
     "action.retry": "ลองอีกครั้ง",
     "progress.retry": "ลองอีกครั้งใน {seconds} วินาที ({attempt}/2)…",
-    "recovery.discardPrompt": "ลบข้อมูลสำรอง {count} รายการ ({protectedCount} รายการรอดำเนินการ) หรือไม่? ความพยายามที่ค้างอยู่จะสิ้นสุดและกู้คืนไม่ได้ ไฟล์ต้นฉบับ ทางลัด และสเปรดชีต Google จะยังอยู่"
+    "recovery.discardPrompt": "ลบข้อมูลสำรอง {count} รายการ ({protectedCount} รายการรอดำเนินการ) หรือไม่? ความพยายามที่ค้างอยู่จะสิ้นสุดและกู้คืนไม่ได้ ไฟล์ต้นฉบับ ทางลัด และสเปรดชีต Google จะยังอยู่",
+    "firstUse.upload": "อัปโหลดตรงไปยัง Drive",
+    "firstUse.googleExplanation": "สเปรดชีตอยู่ใน Google Drive ของบัญชีนี้ ไม่ต้องติดตั้ง Google Drive สำหรับ Windows",
+    "firstUse.defaultsExplanation": "เลือก ZagoSheetsWin ในแอปเริ่มต้นของ Windows",
+    "firstUse.backupExplanation": "ข้อมูลสำรองเก็บต้นฉบับ ไม่รวมการเปลี่ยนแปลงภายหลังใน Sheets\nในข้อมูลสำรอง เลือกคืนค่าไปยัง… เพื่อกู้คืนไฟล์",
+    "setup.importHeading": "4. ทางลัดและการนำเข้าไฟล์เป็นสำเนา",
+    "tutorial.showAtStartup": "แสดงบทแนะนำนี้เมื่อเปิดแอป",
+    "setup.defaultsHelp": "เลือก ZagoSheetsWin ในแอปเริ่มต้นของ Windows ไม่บังคับ แต่แนะนำให้ใช้ เลือก ZagoSheetsWin ในแอปเริ่มต้นของ Windows ขั้นตอนนี้เป็นตัวเลือก คุณยังสามารถใช้ เปิดด้วย → ZagoSheetsWin ได้"
   }
 }

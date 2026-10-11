@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLocale": "pt-BR",
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -342,6 +342,13 @@
     "setup.createShortcuts": "Google Sheets-க்கான குறுக்குவழிகளை உருவாக்கவும்",
     "action.retry": "மீண்டும் முயற்சிக்கவும்",
     "progress.retry": "{seconds} நொடிகளில் மீண்டும் முயற்சி ({attempt}/2)…",
-    "recovery.discardPrompt": "{count} காப்புப்பிரதிகளை நீக்கவா ({protectedCount} நிலுவையில்)? நிலுவை முயற்சிகள் முடிவடைந்து மீட்டெடுக்க முடியாது. அசல் கோப்புகள், குறுக்குவழிகள், Google விரிதாள்கள் இருக்கும்."
+    "recovery.discardPrompt": "{count} காப்புப்பிரதிகளை நீக்கவா ({protectedCount} நிலுவையில்)? நிலுவை முயற்சிகள் முடிவடைந்து மீட்டெடுக்க முடியாது. அசல் கோப்புகள், குறுக்குவழிகள், Google விரிதாள்கள் இருக்கும்.",
+    "firstUse.upload": "நேரடியாக Drive இல் பதிவேற்றம்",
+    "firstUse.googleExplanation": "உங்கள் விரிதாள்கள் இந்தக் கணக்கின் Google Drive இல் இருக்கும். Windows க்கான Google Drive ஐ நிறுவத் தேவையில்லை.",
+    "firstUse.defaultsExplanation": "Windows இயல்புநிலை பயன்பாடுகளில் ZagoSheetsWin ஐத் தேர்ந்தெடுக்கவும்.",
+    "firstUse.backupExplanation": "காப்புப்பிரதி அசல் கோப்பைச் சேமிக்கிறது, Sheets இல் பிந்தைய மாற்றங்களை அல்ல.\nகாப்புப்பிரதிகளில் இங்கே மீட்டமை… என்பதைத் தேர்ந்தெடுத்து கோப்பை மீட்கவும்.",
+    "setup.importHeading": "4. குறுக்குவழிகள் மற்றும் கோப்பை நகலாக இறக்குமதி செய்தல்",
+    "tutorial.showAtStartup": "பயன்பாட்டைத் திறக்கும்போது இந்தப் பயிற்சியைக் காட்டு",
+    "setup.defaultsHelp": "Windows இயல்புநிலை பயன்பாடுகளில் ZagoSheetsWin ஐத் தேர்ந்தெடுக்கவும். விருப்பமானது, ஆனால் பரிந்துரைக்கப்படுகிறது. Windows இயல்புநிலை செயலிகள்-ல் ZagoSheetsWin-ஐத் தேர்ந்தெடுக்கவும். இது விருப்பமானது: இதன் மூலம் திற → ZagoSheetsWin என்பதையும் பயன்படுத்தலாம்."
   }
 }

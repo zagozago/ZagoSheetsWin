@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLocale": "pt-BR",
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -342,6 +342,13 @@
     "setup.createShortcuts": "Google Sheets માટે શૉર્ટકટ બનાવો",
     "action.retry": "ફરી પ્રયાસ કરો",
     "progress.retry": "{seconds} સેકન્ડમાં ફરી પ્રયાસ ({attempt}/2)…",
-    "recovery.discardPrompt": "{count} બેકઅપ કાઢવા છે ({protectedCount} બાકી)? બાકી પ્રયાસો સમાપ્ત થશે અને પુનઃપ્રાપ્ત નહીં થઈ શકે. મૂળ ફાઇલો, શૉર્ટકટ અને Google સ્પ્રેડશીટ રહેશે."
+    "recovery.discardPrompt": "{count} બેકઅપ કાઢવા છે ({protectedCount} બાકી)? બાકી પ્રયાસો સમાપ્ત થશે અને પુનઃપ્રાપ્ત નહીં થઈ શકે. મૂળ ફાઇલો, શૉર્ટકટ અને Google સ્પ્રેડશીટ રહેશે.",
+    "firstUse.upload": "સીધું Drive પર અપલોડ",
+    "firstUse.googleExplanation": "તમારી સ્પ્રેડશીટ આ ખાતાના Google Driveમાં રહે છે. Windows માટે Google Drive ઇન્સ્ટોલ કરવું જરૂરી નથી.",
+    "firstUse.defaultsExplanation": "Windowsની ડિફૉલ્ટ ઍપમાં ZagoSheetsWin પસંદ કરો.",
+    "firstUse.backupExplanation": "બૅકઅપ મૂળ ફાઇલ રાખે છે, Sheetsમાં પછીના ફેરફારો નહીં.\nબૅકઅપમાં અહીં પુનઃસ્થાપિત કરો… પસંદ કરીને ફાઇલ પાછી મેળવો.",
+    "setup.importHeading": "4. શૉર્ટકટ અને ફાઇલને નકલ તરીકે આયાત કરવી",
+    "tutorial.showAtStartup": "ઍપ ખોલતી વખતે આ માર્ગદર્શિકા બતાવો",
+    "setup.defaultsHelp": "Windowsની ડિફૉલ્ટ ઍપમાં ZagoSheetsWin પસંદ કરો. વૈકલ્પિક, પરંતુ ભલામણ કરેલ. Windows ડિફૉલ્ટ એપ્સ માં ZagoSheetsWin પસંદ કરો. આ વૈકલ્પિક છે: તમે આ સાથે ખોલો → ZagoSheetsWin પણ વાપરી શકો છો."
   }
 }

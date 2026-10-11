@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLocale": "pt-BR",
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -342,6 +342,13 @@
     "setup.createShortcuts": "Google Sheets へのショートカットを作成する",
     "action.retry": "再試行",
     "progress.retry": "{seconds}秒後に再試行（{attempt}/2）…",
-    "recovery.discardPrompt": "{count}件のバックアップ（{protectedCount}件が保留中）を削除しますか？保留中の試行は終了し、復元できなくなります。元のファイル、ショートカット、Googleのスプレッドシートは保持されます。"
+    "recovery.discardPrompt": "{count}件のバックアップ（{protectedCount}件が保留中）を削除しますか？保留中の試行は終了し、復元できなくなります。元のファイル、ショートカット、Googleのスプレッドシートは保持されます。",
+    "firstUse.upload": "Drive に直接アップロード",
+    "firstUse.googleExplanation": "スプレッドシートはこのアカウントの Google Drive に保存されます。Windows 版 Google Drive のインストールは不要です。",
+    "firstUse.defaultsExplanation": "Windows の既定のアプリで ZagoSheetsWin を選択してください。",
+    "firstUse.backupExplanation": "バックアップは元のファイルを保存し、その後の Sheets の変更は含みません。\n「バックアップ」で「復元先…」を選ぶとファイルを復元できます。",
+    "setup.importHeading": "4. ショートカットとファイルのコピーとしてのインポート",
+    "tutorial.showAtStartup": "アプリを開くときにこのチュートリアルを表示",
+    "setup.defaultsHelp": "Windows の既定のアプリで ZagoSheetsWin を選択してください。 任意ですが、推奨します。 Windows の既定のアプリで ZagoSheetsWin を選択してください。これは任意です。「プログラムから開く → ZagoSheetsWin」も使用できます。"
   }
 }

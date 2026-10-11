@@ -2,8 +2,8 @@
   "language": "my",
   "locale": "my-MM",
   "direction": "ltr",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -634,6 +634,13 @@
     "setup.createShortcuts": "Google Sheets သို့ ဖြတ်လမ်းများ ဖန်တီးပါ",
     "action.retry": "ထပ်စမ်းပါ",
     "progress.retry": "{seconds} စက္ကန့်အတွင်း ထပ်စမ်းမည် ({attempt}/2)…",
-    "recovery.discardPrompt": "အရန်သိမ်းဆည်းမှု {count} ခု ({protectedCount} ခု ဆိုင်းငံ့) ဖျက်မလား။ ဆိုင်းငံ့ကြိုးစားမှုများ ရပ်ဆုံးပြီး ပြန်မရနိုင်တော့ပါ။ မူရင်းဖိုင်များ၊ ဖြတ်လမ်းများနှင့် Google စာရင်းဇယားများ ကျန်ရှိမည်။"
+    "recovery.discardPrompt": "အရန်သိမ်းဆည်းမှု {count} ခု ({protectedCount} ခု ဆိုင်းငံ့) ဖျက်မလား။ ဆိုင်းငံ့ကြိုးစားမှုများ ရပ်ဆုံးပြီး ပြန်မရနိုင်တော့ပါ။ မူရင်းဖိုင်များ၊ ဖြတ်လမ်းများနှင့် Google စာရင်းဇယားများ ကျန်ရှိမည်။",
+    "firstUse.upload": "Drive သို့ တိုက်ရိုက်တင်မည်",
+    "firstUse.googleExplanation": "ဇယားများကို ဤအကောင့်၏ Google Drive တွင် သိမ်းထားသည်။ Windows အတွက် Google Drive တပ်ဆင်ရန် မလိုပါ။",
+    "firstUse.defaultsExplanation": "Windows မူလအက်ပ်များတွင် ZagoSheetsWin ကို ရွေးပါ။",
+    "firstUse.backupExplanation": "အရန်သိမ်းဆည်းမှုသည် မူရင်းကိုသာ ထိန်းသိမ်းပြီး Sheets တွင် နောက်ပိုင်းပြောင်းလဲမှုများ မပါဝင်ပါ။\nဖိုင်ပြန်ရယူရန် အရန်များတွင် ဤနေရာသို့ ပြန်လည်ရယူရန်… ကို ရွေးပါ။",
+    "setup.importHeading": "4. ဖြတ်လမ်းများနှင့် ဖိုင်ကို မိတ္တူအဖြစ် ထည့်သွင်းခြင်း",
+    "tutorial.showAtStartup": "အက်ပ်ဖွင့်ချိန်တွင် ဤလမ်းညွှန်ကို ပြပါ",
+    "setup.defaultsHelp": "Windows မူလအက်ပ်များတွင် ZagoSheetsWin ကို ရွေးပါ။ မဖြစ်မနေမဟုတ်သော်လည်း အကြံပြုပါသည်။ Windows မူလသတ်မှတ် အက်ပ်များ တွင် ZagoSheetsWin ကို ရွေးပါ။ ၎င်းသည် ရွေးချယ်နိုင် ဖြစ်သည်: ဤဖြင့်ဖွင့်ပါ → ZagoSheetsWin ကိုလည်း သုံးနိုင်သည်။"
   }
 }

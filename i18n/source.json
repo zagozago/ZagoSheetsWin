@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 4,
+  "catalogRevision": 5,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -7295,6 +7295,85 @@
       ],
       "markup": [],
       "maxLength": null
+    },
+    "firstUse.upload": {
+      "text": "Upload direto ao Drive",
+      "context": "Compact first-use and settings interface",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [
+        "Drive"
+      ],
+      "markup": [],
+      "notes": []
+    },
+    "firstUse.googleExplanation": {
+      "text": "Suas planilhas ficam no Google Drive dessa conta. Não precisa instalar o Google Drive para Windows.",
+      "context": "Compact first-use and settings interface",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [
+        "Google Drive",
+        "Windows",
+        "Drive",
+        "Google"
+      ],
+      "markup": [],
+      "notes": []
+    },
+    "firstUse.defaultsExplanation": {
+      "text": "Escolha ZagoSheetsWin nos Aplicativos padrão do Windows.",
+      "context": "Compact first-use and settings interface",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [
+        "ZagoSheetsWin",
+        "Windows",
+        "Sheets"
+      ],
+      "markup": [],
+      "notes": []
+    },
+    "firstUse.backupExplanation": {
+      "text": "O backup guarda o original, sem alterações posteriores no Sheets.\nEm Backups, escolha Restaurar em… para recuperar o arquivo.",
+      "context": "Compact first-use and settings interface",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [
+        "Sheets"
+      ],
+      "markup": [],
+      "notes": []
+    },
+    "setup.importHeading": {
+      "text": "4. Atalhos e importação do arquivo como cópia",
+      "context": "Compact first-use and settings interface",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "tutorial.showAtStartup": {
+      "text": "Mostrar este tutorial ao abrir o aplicativo",
+      "context": "Compact first-use and settings interface",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "setup.defaultsHelp": {
+      "text": "Escolha ZagoSheetsWin nos Aplicativos padrão do Windows. Opcional, mas recomendado. Escolha ZagoSheetsWin nos Aplicativos padrão do Windows. É opcional: você também pode usar Abrir com → ZagoSheetsWin.",
+      "context": "Contextual Windows defaults help",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [
+        "ZagoSheetsWin",
+        "Windows"
+      ],
+      "markup": [],
+      "notes": []
     }
   },
   "pluralPolicy": "Mensagens de contagem usam rótulos completos sem flexão dependente do número. Traduções que exigirem variantes devem declarar formas CLDR completas; nunca concatenar substantivo e sufixo. Uma alteração de contrato exige nova revisão de catálogo.",

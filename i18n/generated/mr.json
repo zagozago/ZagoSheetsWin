@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLocale": "pt-BR",
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -342,6 +342,13 @@
     "setup.createShortcuts": "Google Sheets साठी शॉर्टकट तयार करा",
     "action.retry": "पुन्हा प्रयत्न करा",
     "progress.retry": "{seconds} सेकंदांत पुन्हा प्रयत्न ({attempt}/2)…",
-    "recovery.discardPrompt": "{count} बॅकअप हटवायचे ({protectedCount} प्रलंबित)? प्रलंबित प्रयत्न संपतील आणि पुनर्प्राप्त करता येणार नाहीत. मूळ फाइल्स, शॉर्टकट आणि Google स्प्रेडशीट राहतील."
+    "recovery.discardPrompt": "{count} बॅकअप हटवायचे ({protectedCount} प्रलंबित)? प्रलंबित प्रयत्न संपतील आणि पुनर्प्राप्त करता येणार नाहीत. मूळ फाइल्स, शॉर्टकट आणि Google स्प्रेडशीट राहतील.",
+    "firstUse.upload": "थेट Drive वर अपलोड",
+    "firstUse.googleExplanation": "तुमची स्प्रेडशीट या खात्याच्या Google Drive मध्ये राहतात. Windows साठी Google Drive स्थापित करण्याची गरज नाही.",
+    "firstUse.defaultsExplanation": "Windows च्या डीफॉल्ट अॅप्समध्ये ZagoSheetsWin निवडा.",
+    "firstUse.backupExplanation": "बॅकअप मूळ फाइल जतन करतो, Sheets मधील नंतरचे बदल नाही.\nबॅकअपमध्ये येथे पुनर्स्थापित करा… निवडून फाइल परत मिळवा.",
+    "setup.importHeading": "4. शॉर्टकट आणि फाइल प्रत म्हणून आयात करणे",
+    "tutorial.showAtStartup": "अॅप उघडताना हे मार्गदर्शन दाखवा",
+    "setup.defaultsHelp": "Windows च्या डीफॉल्ट अॅप्समध्ये ZagoSheetsWin निवडा. ऐच्छिक, पण शिफारस केलेले. Windows डीफॉल्ट अॅप्समध्ये ZagoSheetsWin निवडा. हे ऐच्छिक आहे: तुम्ही यासह उघडा → ZagoSheetsWin देखील वापरू शकता."
   }
 }

@@ -2,8 +2,8 @@
   "language": "ig",
   "locale": "ig-NG",
   "direction": "ltr",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -634,6 +634,13 @@
     "setup.createShortcuts": "Mepụta ụzọ mkpirisi gaa na Google Sheets",
     "action.retry": "Gbalịa ọzọ",
     "progress.retry": "Ịnwale ọzọ n'ime sekọnd {seconds} ({attempt}/2)…",
-    "recovery.discardPrompt": "Hichapụ ndabere {count} ({protectedCount} na-echere)? Mgbalị na-echere ga-akwụsị, a gaghị enwe ike iweghachite ha. Faịlụ mbụ, ụzọ mkpirisi na mpempe akwụkwọ Google ga-anọgide."
+    "recovery.discardPrompt": "Hichapụ ndabere {count} ({protectedCount} na-echere)? Mgbalị na-echere ga-akwụsị, a gaghị enwe ike iweghachite ha. Faịlụ mbụ, ụzọ mkpirisi na mpempe akwụkwọ Google ga-anọgide.",
+    "firstUse.upload": "Bulite ozugbo na Drive",
+    "firstUse.googleExplanation": "Akwụkwọ mgbakọ gị dị na Google Drive nke akaụntụ a. Ọ dịghị mkpa ịwụnye Google Drive maka Windows.",
+    "firstUse.defaultsExplanation": "Họrọ ZagoSheetsWin na ngwa ndabara nke Windows.",
+    "firstUse.backupExplanation": "Ndabere na-edobe faịlụ mbụ, ọ bụghị mgbanwe e mesịrị na Sheets.\nNa Ndabere, họrọ Weghachite na… iji nwetaghachi faịlụ.",
+    "setup.importHeading": "4. Ụzọ mkpirisi na ibubata faịlụ dịka oyiri",
+    "tutorial.showAtStartup": "Gosi nkuzi a mgbe a na-emeghe ngwa",
+    "setup.defaultsHelp": "Họrọ ZagoSheetsWin na ngwa ndabara nke Windows. Ọ bụ nhọrọ, ma a na-atụ aro ya. Họrọ ZagoSheetsWin na Windows Default apps. Nke a bụ nhọrọ: ị nwekwara ike iji Mepee na → ZagoSheetsWin."
   }
 }

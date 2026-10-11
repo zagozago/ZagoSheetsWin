@@ -2,8 +2,8 @@
   "language": "mai",
   "locale": "mai-IN",
   "direction": "ltr",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -634,6 +634,13 @@
     "setup.createShortcuts": "Google Sheets लेल शॉर्टकट बनाउ",
     "action.retry": "फेर प्रयास करू",
     "progress.retry": "{seconds} सेकंड मे फेर प्रयास ({attempt}/2)…",
-    "recovery.discardPrompt": "{count} बैकअप हटाबी ({protectedCount} लंबित)? लंबित प्रयास समाप्त भऽ जायत आ फेर प्राप्त नहि होयत। मूल फाइल, शॉर्टकट आ Google स्प्रेडशीट रहत।"
+    "recovery.discardPrompt": "{count} बैकअप हटाबी ({protectedCount} लंबित)? लंबित प्रयास समाप्त भऽ जायत आ फेर प्राप्त नहि होयत। मूल फाइल, शॉर्टकट आ Google स्प्रेडशीट रहत।",
+    "firstUse.upload": "सीधा Drive पर अपलोड",
+    "firstUse.googleExplanation": "अहाँक स्प्रेडशीट एहि खाताक Google Drive मे रहैत अछि। Windows लेल Google Drive स्थापित करबाक जरूरत नहि अछि।",
+    "firstUse.defaultsExplanation": "Windows क पूर्वनिर्धारित ऐप मे ZagoSheetsWin चुनू।",
+    "firstUse.backupExplanation": "बैकअप मूल फाइल रखैत अछि, Sheets मे बादक बदलाव नहि।\nबैकअप मे एतय पुनर्स्थापित करू… चुनि फाइल वापस पाउ।",
+    "setup.importHeading": "4. शॉर्टकट आ फाइलक कॉपी रूप मे आयात",
+    "tutorial.showAtStartup": "ऐप खोलबाक समय ई मार्गदर्शन देखाउ",
+    "setup.defaultsHelp": "Windows क पूर्वनिर्धारित ऐप मे ZagoSheetsWin चुनू। वैकल्पिक, मुदा अनुशंसित। Windows डिफॉल्ट ऐप मेँ ZagoSheetsWin चुनू। ई वैकल्पिक अछि: अहाँ एकरासँ खोलू → ZagoSheetsWin सेहो उपयोग क' सकैत छी।"
   }
 }

@@ -15,10 +15,10 @@ internal static class Program
                 ApplicationConfiguration.Initialize();
                 var folder = Path.GetFullPath(args[1]); Directory.CreateDirectory(folder);
                 Branding.PreviewTheme(ApplicationTheme.Light);
-                using var home = new LauncherForm(new LauncherRequest(LauncherAction.Home)); using var homeAdvanced = new LauncherForm(new(LauncherAction.Home), expanded: true);
+                using var home = new LauncherForm(new LauncherRequest(LauncherAction.Home));
                 using var processingPreview = new ProcessingForm(new(LauncherAction.Open, "preview.xlsx"), preview: true); using var failurePreview = new ProcessingForm(new(LauncherAction.Open, "preview.xlsx"), preview: true, previewError: true);
-                using var setupPreview = new SetupForm(preview: true); using var advancedPreview = new SetupForm(preview: true); using var firstUsePreview = new FirstUseWizard(preview: true); using var recoveryPreview = new RecoveryForm(preview: true); using var recoveryBusyPreview = new RecoveryForm(preview: true, previewBusy: true); using var aboutPreview = new AboutForm();
-                foreach (var entry in new[] { ("home", (Form)home), ("home-advanced", (Form)homeAdvanced), ("setup", (Form)setupPreview), ("first-use", (Form)firstUsePreview), ("setup-advanced", advancedPreview.AdvancedDialog), ("recovery", (Form)recoveryPreview), ("recovery-busy", (Form)recoveryBusyPreview), ("about", (Form)aboutPreview), ("processing", (Form)processingPreview), ("processing-error", (Form)failurePreview) })
+                using var setupPreview = new SetupForm(preview: true); using var firstUsePreview = new FirstUseWizard(preview: true); using var recoveryPreview = new RecoveryForm(preview: true); using var recoveryBusyPreview = new RecoveryForm(preview: true, previewBusy: true); using var aboutPreview = new AboutForm();
+                foreach (var entry in new[] { ("home", (Form)home), ("setup", (Form)setupPreview), ("first-use", (Form)firstUsePreview), ("recovery", (Form)recoveryPreview), ("recovery-busy", (Form)recoveryBusyPreview), ("about", (Form)aboutPreview), ("processing", (Form)processingPreview), ("processing-error", (Form)failurePreview) })
                 {
                     entry.Item2.Show(); Application.DoEvents(); entry.Item2.PerformLayout();
                     using var bitmap = new Bitmap(entry.Item2.Width, entry.Item2.Height);
@@ -27,7 +27,7 @@ internal static class Program
                     entry.Item2.Hide();
                 }
                 Branding.PreviewTheme(ApplicationTheme.Dark);
-                foreach (var entry in new[] { ("home-dark", (Form)home), ("home-advanced-dark", (Form)homeAdvanced), ("setup-dark", (Form)setupPreview), ("setup-advanced-dark", advancedPreview.AdvancedDialog), ("recovery-dark", (Form)recoveryPreview), ("recovery-busy-dark", (Form)recoveryBusyPreview), ("processing-dark", (Form)processingPreview), ("processing-error-dark", (Form)failurePreview) })
+                foreach (var entry in new[] { ("home-dark", (Form)home), ("setup-dark", (Form)setupPreview), ("recovery-dark", (Form)recoveryPreview), ("recovery-busy-dark", (Form)recoveryBusyPreview), ("processing-dark", (Form)processingPreview), ("processing-error-dark", (Form)failurePreview) })
                 {
                     entry.Item2.Show(); Application.DoEvents(); using var bitmap = new Bitmap(entry.Item2.Width, entry.Item2.Height);
                     entry.Item2.DrawToBitmap(bitmap, new Rectangle(Point.Empty, bitmap.Size)); bitmap.Save(Path.Combine(folder, entry.Item1 + ".png"), System.Drawing.Imaging.ImageFormat.Png); entry.Item2.Hide();
@@ -68,7 +68,7 @@ internal static class Program
             { LanguageSettings.SelectFromInstallerAsync(LocalStorage.ForCurrentUser(), args[1]).GetAwaiter().GetResult(); return 0; }
             ApplicationLanguages.Initialize();
             var request = LauncherRequest.Parse(args);
-            if (request.Action == LauncherAction.Version) { Console.WriteLine("ZagoSheetsWin pilot 0.9.27"); return 0; }
+            if (request.Action == LauncherAction.Version) { Console.WriteLine("ZagoSheetsWin pilot 0.9.28"); return 0; }
             if (request.Action is LauncherAction.Register or LauncherAction.Unregister)
             {
                 var held = new FileOperationLock(LocalStorage.ForCurrentUser().LocksPath).AcquireAsync("windows-registration").AsTask().GetAwaiter().GetResult();
@@ -92,7 +92,7 @@ internal static class Program
                     if (request.Action is LauncherAction.Home or LauncherAction.FirstUse)
                     { using var home = new LauncherForm(new(LauncherAction.Home)); Application.Run(home); return home.ExitCode; }
                 }
-                else if (request.Action == LauncherAction.Home && !FirstUseCompletion.Load(storage) && !TutorialSettings.Load(storage))
+                else if (request.Action == LauncherAction.Home && !TutorialSettings.Load(storage))
                 { using var tutorial = new TutorialForm(); tutorial.ShowDialog(); }
             }
             if (request.Action == LauncherAction.Setup) { using var setup = new SetupForm(); Application.Run(setup); return setup.ExitCode; }

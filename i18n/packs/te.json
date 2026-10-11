@@ -2,8 +2,8 @@
   "language": "te",
   "locale": "te-IN",
   "direction": "ltr",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -634,6 +634,13 @@
     "setup.createShortcuts": "Google Sheets కోసం షార్ట్‌కట్‌లను సృష్టించండి",
     "action.retry": "మళ్లీ ప్రయత్నించండి",
     "progress.retry": "{seconds} సెకన్లలో మళ్లీ ప్రయత్నం ({attempt}/2)…",
-    "recovery.discardPrompt": "{count} బ్యాకప్‌లను తొలగించాలా ({protectedCount} పెండింగ్)? పెండింగ్ ప్రయత్నాలు ముగుస్తాయి, తిరిగి పొందలేరు. అసలు ఫైళ్లు, షార్ట్‌కట్‌లు, Google స్ప్రెడ్‌షీట్‌లు అలాగే ఉంటాయి."
+    "recovery.discardPrompt": "{count} బ్యాకప్‌లను తొలగించాలా ({protectedCount} పెండింగ్)? పెండింగ్ ప్రయత్నాలు ముగుస్తాయి, తిరిగి పొందలేరు. అసలు ఫైళ్లు, షార్ట్‌కట్‌లు, Google స్ప్రెడ్‌షీట్‌లు అలాగే ఉంటాయి.",
+    "firstUse.upload": "నేరుగా Driveకు అప్‌లోడ్",
+    "firstUse.googleExplanation": "మీ స్ప్రెడ్‌షీట్‌లు ఈ ఖాతా Google Driveలో ఉంటాయి. Windows కోసం Google Drive ఇన్‌స్టాల్ చేయనవసరం లేదు.",
+    "firstUse.defaultsExplanation": "Windows డిఫాల్ట్ యాప్‌లలో ZagoSheetsWin ఎంచుకోండి.",
+    "firstUse.backupExplanation": "బ్యాకప్ అసలు ఫైల్‌ను ఉంచుతుంది, Sheetsలో తరువాతి మార్పులను కాదు.\nబ్యాకప్‌లలో ఇక్కడ పునరుద్ధరించు… ఎంచుకుని ఫైల్‌ను పొందండి.",
+    "setup.importHeading": "4. సత్వరమార్గాలు మరియు ఫైల్‌ను కాపీగా దిగుమతి చేయడం",
+    "tutorial.showAtStartup": "యాప్ తెరిచినప్పుడు ఈ ట్యుటోరియల్ చూపించు",
+    "setup.defaultsHelp": "Windows డిఫాల్ట్ యాప్‌లలో ZagoSheetsWin ఎంచుకోండి. ఐచ్ఛికం, కానీ సిఫార్సు చేయబడింది. Windows డిఫాల్ట్ యాప్‌లలో ZagoSheetsWinను ఎంచుకోండి. ఇది ఐచ్చికం: దీనితో తెరువు → ZagoSheetsWinను కూడా ఉపయోగించవచ్చు."
   }
 }

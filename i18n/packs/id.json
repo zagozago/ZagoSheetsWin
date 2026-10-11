@@ -2,8 +2,8 @@
   "language": "id",
   "locale": "id",
   "direction": "ltr",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -635,6 +635,13 @@
     "setup.createShortcuts": "Buat pintasan ke Google Sheets",
     "action.retry": "Coba lagi",
     "progress.retry": "Mencoba lagi dalam {seconds}d ({attempt}/2)…",
-    "recovery.discardPrompt": "Hapus {count} cadangan ({protectedCount} tertunda)? Upaya tertunda akan diakhiri tanpa pemulihan. Berkas asli, pintasan, dan spreadsheet Google tetap ada."
+    "recovery.discardPrompt": "Hapus {count} cadangan ({protectedCount} tertunda)? Upaya tertunda akan diakhiri tanpa pemulihan. Berkas asli, pintasan, dan spreadsheet Google tetap ada.",
+    "firstUse.upload": "Unggah langsung ke Drive",
+    "firstUse.googleExplanation": "Spreadsheet tersimpan di Google Drive akun ini. Tidak perlu memasang Google Drive untuk Windows.",
+    "firstUse.defaultsExplanation": "Pilih ZagoSheetsWin di Aplikasi default Windows.",
+    "firstUse.backupExplanation": "Cadangan menyimpan file asli, tanpa perubahan berikutnya di Sheets.\nDi Cadangan, pilih Pulihkan ke… untuk memulihkan file.",
+    "setup.importHeading": "4. Pintasan dan mengimpor file sebagai salinan",
+    "tutorial.showAtStartup": "Tampilkan tutorial ini saat membuka aplikasi",
+    "setup.defaultsHelp": "Pilih ZagoSheetsWin di Aplikasi default Windows. Opsional, tetapi disarankan. Pilih ZagoSheetsWin di Aplikasi default Windows. Ini opsional: Anda juga dapat menggunakan Buka dengan → ZagoSheetsWin."
   }
 }

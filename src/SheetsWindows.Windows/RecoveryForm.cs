@@ -6,7 +6,7 @@ internal sealed class RecoveryForm : Form
 {
     private bool busy;
     private CancellationTokenSource? activeCancellation;
-    private readonly ListView entries = new() { Dock = DockStyle.Fill, View = View.Details, FullRowSelect = true, MultiSelect = true, CheckBoxes = true, HideSelection = false, AccessibleName = UiText.Get("accessibility.availableBackups") };
+    private readonly ListView entries = new ToggleListView() { Dock = DockStyle.Fill, View = View.Details, FullRowSelect = true, MultiSelect = true, CheckBoxes = true, HideSelection = false, AccessibleName = UiText.Get("accessibility.availableBackups") };
     private RecoveryEntry? Selected => entries.SelectedItems.Count != 1 ? null : entries.SelectedItems[0].Tag as RecoveryEntry;
     private void AddEntry(RecoveryEntry entry)
     {
@@ -31,7 +31,7 @@ internal sealed class RecoveryForm : Form
         var policyPanel = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoScroll = true, FlowDirection = FlowDirection.TopDown, WrapContents = false, Padding = new Padding(12) };
         var days = new NumericUpDown { Minimum = 1, Maximum = 365, Value = 30, Width = 70, AccessibleName = UiText.Get("accessibility.retentionDays") };
         var quota = new NumericUpDown { Minimum = 1, Maximum = 1000, Value = 200, Width = 80, AccessibleName = UiText.Get("accessibility.quotaMb") };
-        var automatic = new CheckBox { Text = UiText.Get("recovery.autoCleanup"), AutoSize = true };
+        var automatic = new ToggleSwitch { Text = UiText.Get("recovery.autoCleanup"), AutoSize = true };
         var save = new AdaptiveButton { Text = UiText.Get("recovery.savePolicy"), AutoSize = true };
         var usage = new EmphasisLabel { AutoSize = true, Text = UiText.Get("recovery.limits") };
         var limits = new TableLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, ColumnCount = 2, RowCount = 2, Margin = new Padding(0, 0, 0, 8) };
@@ -48,7 +48,7 @@ internal sealed class RecoveryForm : Form
             limits.MinimumSize = new Size(width, 0); limits.MaximumSize = new Size(width, 0); limits.Width = width;
             daysLabel.MaximumSize = quotaLabel.MaximumSize = new Size(Math.Max(45, width/2-6), 0);
             days.Width = quota.Width = Math.Max(45, width/2-6);
-            automatic.Height = TextRenderer.MeasureText(automatic.Text, automatic.Font, new Size(Math.Max(40, width-24), int.MaxValue), TextFormatFlags.WordBreak).Height + 14;
+            automatic.Height = TextRenderer.MeasureText(automatic.Text, automatic.Font, new Size(Math.Max(40, width-54), int.MaxValue), TextFormatFlags.WordBreak).Height + 14;
             save.AutoSize = false; save.Width = width;
         }
         policyPanel.SizeChanged += (_, _) => FitPolicy(); automatic.TextChanged += (_, _) => FitPolicy(); automatic.FontChanged += (_, _) => FitPolicy();
@@ -168,8 +168,23 @@ internal sealed class RecoveryForm : Form
             restore.Enabled = copy.Enabled = resume.Enabled = !busy && row?.Available == true;
             delete.Enabled = !busy && Marked().Any(entry => entry.CleanupState != 2);
         }
-        entries.SelectedIndexChanged += (_, _) => UpdateSelection();
-        entries.ItemChecked += (_, _) => UpdateSelection();
+        var synchronizingSelection = false;
+        entries.SelectedIndexChanged += (_, _) =>
+        {
+            if (synchronizingSelection) return;
+            synchronizingSelection = true;
+            try { foreach (ListViewItem item in entries.Items) item.Checked = item.Selected; }
+            finally { synchronizingSelection = false; }
+            UpdateSelection();
+        };
+        entries.ItemChecked += (_, e) =>
+        {
+            if (synchronizingSelection) return;
+            synchronizingSelection = true;
+            try { e.Item.Selected = e.Item.Checked; }
+            finally { synchronizingSelection = false; }
+            UpdateSelection();
+        };
         restore.Click += async (_, _) =>
         {
             if (busy || Selected is not RecoveryEntry { Available: true } entry) { status.Text = UiText.Get("recovery.selectBackup"); return; }

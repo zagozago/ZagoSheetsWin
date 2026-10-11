@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLocale": "pt-BR",
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -342,6 +342,13 @@
     "setup.createShortcuts": "Google Sheets uchun yorliqlar yaratish",
     "action.retry": "Qayta urinish",
     "progress.retry": "{seconds} soniyadan so‘ng qayta urinish ({attempt}/2)…",
-    "recovery.discardPrompt": "{count} zaxira nusxa o‘chirilsinmi ({protectedCount} kutilmoqda)? Kutilayotgan urinishlar tiklash imkonisiz tugatiladi. Asl fayllar, yorliqlar va Google jadvallari saqlanadi."
+    "recovery.discardPrompt": "{count} zaxira nusxa o‘chirilsinmi ({protectedCount} kutilmoqda)? Kutilayotgan urinishlar tiklash imkonisiz tugatiladi. Asl fayllar, yorliqlar va Google jadvallari saqlanadi.",
+    "firstUse.upload": "To‘g‘ridan-to‘g‘ri Drive’ga yuklash",
+    "firstUse.googleExplanation": "Jadvallar shu hisobning Google Drive’ida saqlanadi. Windows uchun Google Drive o‘rnatish shart emas.",
+    "firstUse.defaultsExplanation": "Windows standart ilovalarida ZagoSheetsWin’ni tanlang.",
+    "firstUse.backupExplanation": "Zaxira asl faylni saqlaydi, Sheets’dagi keyingi o‘zgarishlarni emas.\nFaylni qaytarish uchun Zaxiralarda Bu yerga tiklash… ni tanlang.",
+    "setup.importHeading": "4. Yorliqlar va faylni nusxa sifatida import qilish",
+    "tutorial.showAtStartup": "Ilova ochilganda ushbu qo‘llanmani ko‘rsatish",
+    "setup.defaultsHelp": "Windows standart ilovalarida ZagoSheetsWin’ni tanlang. Ixtiyoriy, ammo tavsiya etiladi. Windows Default apps’da ZagoSheetsWin’ni tanlang. Bu ixtiyoriy: Open with → ZagoSheetsWin’dan ham foydalanishingiz mumkin."
   }
 }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLocale": "pt-BR",
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -342,6 +342,13 @@
     "setup.createShortcuts": "Google Sheets-এর শর্টকাট তৈরি করুন",
     "action.retry": "আবার চেষ্টা করুন",
     "progress.retry": "{seconds} সেকেন্ড পরে আবার চেষ্টা ({attempt}/2)…",
-    "recovery.discardPrompt": "{count}টি ব্যাকআপ মুছবেন ({protectedCount}টি অপেক্ষমাণ)? অপেক্ষমাণ প্রচেষ্টা শেষ হবে, পুনরুদ্ধার করা যাবে না। মূল ফাইল, শর্টকাট ও Google স্প্রেডশিট থাকবে।"
+    "recovery.discardPrompt": "{count}টি ব্যাকআপ মুছবেন ({protectedCount}টি অপেক্ষমাণ)? অপেক্ষমাণ প্রচেষ্টা শেষ হবে, পুনরুদ্ধার করা যাবে না। মূল ফাইল, শর্টকাট ও Google স্প্রেডশিট থাকবে।",
+    "firstUse.upload": "সরাসরি Drive-এ আপলোড",
+    "firstUse.googleExplanation": "আপনার স্প্রেডশিট এই অ্যাকাউন্টের Google Drive-এ থাকে। Windows-এর জন্য Google Drive ইনস্টল করতে হবে না।",
+    "firstUse.defaultsExplanation": "Windows-এর ডিফল্ট অ্যাপে ZagoSheetsWin বেছে নিন।",
+    "firstUse.backupExplanation": "ব্যাকআপ মূল ফাইল রাখে, Sheets-এর পরবর্তী পরিবর্তন নয়।\nব্যাকআপে এখানে পুনরুদ্ধার করুন… বেছে ফাইল ফেরত পান।",
+    "setup.importHeading": "4. শর্টকাট ও ফাইলকে কপি হিসেবে আমদানি",
+    "tutorial.showAtStartup": "অ্যাপ খোলার সময় এই টিউটোরিয়াল দেখান",
+    "setup.defaultsHelp": "Windows-এর ডিফল্ট অ্যাপে ZagoSheetsWin বেছে নিন। ঐচ্ছিক, তবে প্রস্তাবিত। Windows-এর ডিফল্ট অ্যাপসে ZagoSheetsWin নির্বাচন করুন। এটি ঐচ্ছিক: খুলুন এর মাধ্যমে → ZagoSheetsWin-ও ব্যবহার করতে পারেন।"
   }
 }

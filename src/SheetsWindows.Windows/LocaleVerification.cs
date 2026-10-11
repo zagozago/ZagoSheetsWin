@@ -47,7 +47,7 @@ internal static class LocaleVerification
                     form.Hide();
                 }
                 using (var home = new LauncherForm(new(LauncherAction.Home))) Check(home,"home",true);
-                using (var settings = new SetupForm(preview:true)) { Check(settings,"setup",true); Check(settings.AdvancedDialog,"advanced"); }
+                using (var settings = new SetupForm(preview:true)) { Check(settings,"setup",true); foreach (var info in Descendants(settings).OfType<InformationButton>()) { info.OpenInformation(); Application.DoEvents(); } }
                 using (var recovery = new RecoveryForm(preview:true)) Check(recovery,"backups");
                 using (var picker = new LanguagePicker())
                 {

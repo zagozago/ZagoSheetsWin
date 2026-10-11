@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLocale": "pt-BR",
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -342,6 +342,13 @@
     "setup.createShortcuts": "Criar atalhos para o Google Sheets",
     "action.retry": "Tentar novamente",
     "progress.retry": "Tentando novamente em {seconds}s ({attempt}/2)…",
-    "recovery.discardPrompt": "Apagar {count} backups ({protectedCount} pendentes)? As tentativas pendentes serão encerradas, sem recuperação. Originais, atalhos e planilhas no Google permanecem."
+    "recovery.discardPrompt": "Apagar {count} backups ({protectedCount} pendentes)? As tentativas pendentes serão encerradas, sem recuperação. Originais, atalhos e planilhas no Google permanecem.",
+    "firstUse.upload": "Upload direto ao Drive",
+    "firstUse.googleExplanation": "Suas planilhas ficam no Google Drive dessa conta. Não precisa instalar o Google Drive para Windows.",
+    "firstUse.defaultsExplanation": "Escolha ZagoSheetsWin nos Aplicativos padrão do Windows.",
+    "firstUse.backupExplanation": "O backup guarda o original, sem alterações posteriores no Sheets.\nEm Backups, escolha Restaurar em… para recuperar o arquivo.",
+    "setup.importHeading": "4. Atalhos e importação do arquivo como cópia",
+    "tutorial.showAtStartup": "Mostrar este tutorial ao abrir o aplicativo",
+    "setup.defaultsHelp": "Escolha ZagoSheetsWin nos Aplicativos padrão do Windows. Opcional, mas recomendado. Escolha ZagoSheetsWin nos Aplicativos padrão do Windows. É opcional: você também pode usar Abrir com → ZagoSheetsWin."
   }
 }

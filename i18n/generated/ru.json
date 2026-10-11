@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLocale": "pt-BR",
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -342,6 +342,13 @@
     "setup.createShortcuts": "Создавать ярлыки для Google Sheets",
     "action.retry": "Повторить",
     "progress.retry": "Повтор через {seconds} с ({attempt}/2)…",
-    "recovery.discardPrompt": "Удалить {count} резервных копий ({protectedCount} незавершённых)? Незавершённые попытки будут прекращены без возможности восстановления. Оригиналы, ярлыки и таблицы Google останутся."
+    "recovery.discardPrompt": "Удалить {count} резервных копий ({protectedCount} незавершённых)? Незавершённые попытки будут прекращены без возможности восстановления. Оригиналы, ярлыки и таблицы Google останутся.",
+    "firstUse.upload": "Загрузка прямо в Drive",
+    "firstUse.googleExplanation": "Таблицы остаются в Google Drive этого аккаунта. Устанавливать Google Drive для Windows не нужно.",
+    "firstUse.defaultsExplanation": "Выберите ZagoSheetsWin в приложениях Windows по умолчанию.",
+    "firstUse.backupExplanation": "Резервная копия хранит оригинал без последующих изменений в Sheets.\nВ разделе резервных копий выберите «Восстановить в…», чтобы вернуть файл.",
+    "setup.importHeading": "4. Ярлыки и импорт файла как копии",
+    "tutorial.showAtStartup": "Показывать это руководство при открытии приложения",
+    "setup.defaultsHelp": "Выберите ZagoSheetsWin в приложениях Windows по умолчанию. Необязательно, но рекомендуется. Выберите ZagoSheetsWin в приложениях по умолчанию Windows. Это необязательно: также можно использовать Открыть с помощью → ZagoSheetsWin."
   }
 }

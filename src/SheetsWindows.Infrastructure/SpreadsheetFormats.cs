@@ -77,15 +77,15 @@ public static class SpreadsheetFormats
             encoding = Encoding.GetEncoding(1252, EncoderFallback.ExceptionFallback, DecoderFallback.ExceptionFallback);
         }
         else throw new ArgumentException("Unsupported text encoding.");
-        try { var text = encoding.GetString(bytes, offset, bytes.Length - offset); XmlConvert.VerifyXmlChars(text); return text; }
-        catch (Exception ex) when (ex is DecoderFallbackException or XmlException) { throw new InvalidDataException("Invalid text encoding or characters."); }
+        try { return encoding.GetString(bytes, offset, bytes.Length - offset); }
+        catch (DecoderFallbackException) { throw new InvalidDataException("Invalid text encoding or characters."); }
     }
     public static IReadOnlyList<IReadOnlyList<object?>> ReadText(byte[] bytes, string format, TextImportOptions options, CancellationToken ct = default)
     {
         ct.ThrowIfCancellationRequested();
         if (bytes.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException(UiText.Message("capacity.importSize"));
         var text = Decode(bytes, options.Encoding);
-        if (text.Length == 0) throw new InvalidDataException("Empty text spreadsheet.");
+        if (text.Length == 0 || text.All(c => c < ' ' && c is not ('\t' or '\n' or '\r'))) throw new InvalidDataException("Empty text spreadsheet.");
         if (format == "tsv") return ParseDelimited(text, '\t', ct);
         if (options.Delimiter is "comma" or "semicolon") return ParseDelimited(text, options.Delimiter == "comma" ? ',' : ';', ct);
         if (options.Delimiter != "auto") throw new ArgumentException("Unsupported delimiter.");
@@ -309,7 +309,7 @@ public static class SpreadsheetFormats
                         {
                             writer.WriteAttributeString("t", "inlineStr"); writer.WriteStartElement("is", main.NamespaceName); writer.WriteStartElement("t", main.NamespaceName);
                             writer.WriteAttributeString("xml", "space", XNamespace.Xml.NamespaceName, "preserve");
-                            writer.WriteString(Regex.Replace(value.ToString()!, @"_x[0-9a-fA-F]{4}_", m => "_x005F_" + m.Value[1..]));
+                            writer.WriteString(EscapeSpreadsheetText(value.ToString()!));
                             writer.WriteEndElement(); writer.WriteEndElement();
                         }
                         writer.WriteEndElement();
@@ -320,6 +320,12 @@ public static class SpreadsheetFormats
             }
         }
         var bytes = buffer.ToArray(); if (bytes.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException(UiText.Message("capacity.normalizedSize")); return bytes;
+    }
+    private static string EscapeSpreadsheetText(string value)
+    {
+        // ST_Xstring represents XML-forbidden controls without deleting cell data.
+        var literal = Regex.Replace(value, @"_x[0-9a-fA-F]{4}_", m => "_x005F_" + m.Value[1..]);
+        return Regex.Replace(literal, @"[\x00-\x08\x0B\x0C\x0E-\x1F\uFFFE\uFFFF]", m => $"_x{(int)m.Value[0]:X4}_");
     }
     private static string Column(int index)
     {

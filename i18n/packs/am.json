@@ -2,8 +2,8 @@
   "language": "am",
   "locale": "am-ET",
   "direction": "ltr",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -633,6 +633,13 @@
     "setup.createShortcuts": "ወደ Google Sheets አቋራጮችን ፍጠር",
     "action.retry": "እንደገና ሞክር",
     "progress.retry": "በ{seconds} ሰከንድ እንደገና መሞከር ({attempt}/2)…",
-    "recovery.discardPrompt": "{count} ምትኬዎችን ይሰረዙ ({protectedCount} በመጠባበቅ ላይ)? ያልተጠናቀቁ ሙከራዎች ያበቃሉ፣ መመለስ አይቻልም። ዋና ፋይሎች፣ አቋራጮች እና የGoogle ሉሆች ይቀራሉ።"
+    "recovery.discardPrompt": "{count} ምትኬዎችን ይሰረዙ ({protectedCount} በመጠባበቅ ላይ)? ያልተጠናቀቁ ሙከራዎች ያበቃሉ፣ መመለስ አይቻልም። ዋና ፋይሎች፣ አቋራጮች እና የGoogle ሉሆች ይቀራሉ።",
+    "firstUse.upload": "በቀጥታ ወደ Drive መላክ",
+    "firstUse.googleExplanation": "የስራ ሉሆችዎ በዚህ መለያ Google Drive ውስጥ ይቆያሉ። ለWindows Google Drive መጫን አያስፈልግም።",
+    "firstUse.defaultsExplanation": "በWindows ነባሪ መተግበሪያዎች ውስጥ ZagoSheetsWin ይምረጡ።",
+    "firstUse.backupExplanation": "ምትኬው ዋናውን ፋይል ያስቀምጣል፤ በSheets ውስጥ በኋላ የተደረጉ ለውጦችን አያካትትም።\nፋይሉን ለመመለስ በምትኬዎች ውስጥ ወደ… መመለስ ይምረጡ።",
+    "setup.importHeading": "4. አቋራጮች እና ፋይሉን እንደ ቅጂ ማስገባት",
+    "tutorial.showAtStartup": "መተግበሪያው ሲከፈት ይህን መመሪያ አሳይ",
+    "setup.defaultsHelp": "በWindows ነባሪ መተግበሪያዎች ውስጥ ZagoSheetsWin ይምረጡ። አማራጭ ነው፣ ግን ይመከራል። በWindows ነባሪ መተግበሪያዎች ውስጥ ZagoSheetsWinን ይምረጡ። ይህ አማራጭ ነው፦ በ… ክፈት → ZagoSheetsWin መጠቀምም ይችላሉ።"
   }
 }

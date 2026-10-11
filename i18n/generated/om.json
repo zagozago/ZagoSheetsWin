@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLocale": "pt-BR",
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -342,6 +342,13 @@
     "setup.createShortcuts": "Google Sheets tiif karaa gabaabaa uumi",
     "action.retry": "Irra deebi'i yaali",
     "progress.retry": "Sekondii {seconds} keessatti irra deebi'uun yaaluu ({attempt}/2)…",
-    "recovery.discardPrompt": "Kuusaa {count} ({protectedCount} eegaa jiru) haquu? Yaaliiwwan eegaa jiran ni xumuramu, deebisanii argachuun hin danda'amu. Faayiloonni jalqabaa, karaa gabaabaa fi gabateewwan Google ni hafu."
+    "recovery.discardPrompt": "Kuusaa {count} ({protectedCount} eegaa jiru) haquu? Yaaliiwwan eegaa jiran ni xumuramu, deebisanii argachuun hin danda'amu. Faayiloonni jalqabaa, karaa gabaabaa fi gabateewwan Google ni hafu.",
+    "firstUse.upload": "Kallattiin Drive irratti fe’i",
+    "firstUse.googleExplanation": "Gabateewwan kee Google Drive herrega kanaa keessa turu. Google Drive kan Windows fe’uun hin barbaachisu.",
+    "firstUse.defaultsExplanation": "Appoota durtii Windows keessatti ZagoSheetsWin filadhu.",
+    "firstUse.backupExplanation": "Kuusaan deeggarsaa faayilii jalqabaa qaba, jijjiirama boodaa Sheets keessaa hin qabaatu.\nKuusaa deeggarsaa keessatti Asitti deebisi… filadhuutii faayilii deebisi.",
+    "setup.importHeading": "4. Karaa gabaabaa fi faayilii akka garagalchaatti galchuu",
+    "tutorial.showAtStartup": "Yeroo appii banattu qajeelfama kana agarsiisi",
+    "setup.defaultsHelp": "Appoota durtii Windows keessatti ZagoSheetsWin filadhu. Dirqama miti, garuu ni gorfama. Windows Default apps keessatti ZagoSheetsWin filadhu. Kun filannoo dha: Open with → ZagoSheetsWin fayyadamuus dandeessa."
   }
 }

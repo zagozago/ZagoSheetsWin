@@ -7,6 +7,16 @@ namespace SheetsWindows.Tests;
 public sealed class InterfaceSettingsTests
 {
     [Fact]
+    public async Task CopyPreferenceDefaultsOffAndPreservesOtherPreferencesWhenToggled()
+    {
+        using var w = new Workspace(); var storage = new LocalStorage(Path.Combine(w.Root, "copy-settings"));
+        Assert.False(CopyImportSettings.Load(storage)); Assert.False(Directory.Exists(storage.Root));
+        await ShortcutSettings.SaveAsync(storage, false); await CopyImportSettings.SaveAsync(storage, true);
+        Assert.True(CopyImportSettings.Load(storage)); Assert.False(ShortcutSettings.Load(storage));
+        await CopyImportSettings.SaveAsync(storage, false); Assert.False(CopyImportSettings.Load(storage));
+    }
+
+    [Fact]
     public async Task ShortcutsDefaultOnAndPersistWithoutChangingExistingPreferences()
     {
         using var w = new Workspace(); var storage = new LocalStorage(Path.Combine(w.Root, "preferences"));
@@ -15,15 +25,15 @@ public sealed class InterfaceSettingsTests
         await ShortcutSettings.SaveAsync(storage, false); Assert.False(ShortcutSettings.Load(storage));
         Assert.Equal(ApplicationTheme.Dark, ThemeSettings.Load(storage));
         await FirstUseCompletion.SaveAsync(storage); Assert.True(FirstUseCompletion.Load(storage));
-        Assert.False(TutorialSettings.Load(storage)); Assert.False(ShortcutSettings.Load(storage));
+        Assert.True(TutorialSettings.Load(storage)); Assert.False(ShortcutSettings.Load(storage));
         await ShortcutSettings.SaveAsync(storage, true); Assert.True(ShortcutSettings.Load(storage));
         Assert.Empty(Directory.GetFiles(storage.Root, "*.tmp"));
     }
     [Fact]
-    public async Task TutorialOnlyHidesAfterExplicitPreferenceAndPreservesOtherSettings()
+    public async Task TutorialStartsHiddenAndPreservesExplicitExistingPreferences()
     {
         using var w = new Workspace(); var storage = new LocalStorage(Path.Combine(w.Root, "interface"));
-        Assert.False(TutorialSettings.Load(storage)); Assert.False(Directory.Exists(storage.Root));
+        Assert.True(TutorialSettings.Load(storage)); Assert.False(Directory.Exists(storage.Root));
         await ThemeSettings.SaveAsync(storage, ApplicationTheme.Dark);
         await TutorialSettings.SaveAsync(storage, true); Assert.True(TutorialSettings.Load(storage));
         Assert.Equal(ApplicationTheme.Dark, ThemeSettings.Load(storage));

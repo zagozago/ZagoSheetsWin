@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLocale": "pt-BR",
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -342,6 +342,13 @@
     "setup.createShortcuts": "Ejapo jeike pya’e Google Sheets-pe",
     "action.retry": "Eñeha'ã jey",
     "progress.retry": "Oñeha'ã jeýta {seconds} aravo'ive rire ({attempt}/2)…",
-    "recovery.discardPrompt": "Embogue {count} ñongatu ({protectedCount} oha'arõva)? Ñeha'ã oha'arõva opáta ha ndaikatumo'ãi oñemoĩjey. Marandurenda ypykue, jeike pya'e ha Google kuatia renda opytáta."
+    "recovery.discardPrompt": "Embogue {count} ñongatu ({protectedCount} oha'arõva)? Ñeha'ã oha'arõva opáta ha ndaikatumo'ãi oñemoĩjey. Marandurenda ypykue, jeike pya'e ha Google kuatia renda opytáta.",
+    "firstUse.upload": "Emondo directamente Drive-pe",
+    "firstUse.googleExplanation": "Ne kuatia cálculo rehegua opyta ko cuenta Google Drive-pe. Natekotevẽi remoĩ Google Drive Windows-pe g̃uarã.",
+    "firstUse.defaultsExplanation": "Eiporavo ZagoSheetsWin Windows aplicación ypykuéra apytépe.",
+    "firstUse.backupExplanation": "Pe ñongatu oñongatu kuatia ypy, ndaha’éi umi ñemoambue ojejapóva upe rire Sheets-pe.\nÑongatukuérape, eiporavo Embojevy ápe… egueru jey hag̃ua kuatia.",
+    "setup.importHeading": "4. Jeike pya’e ha kuatia jegueru peteĩ copia ramo",
+    "tutorial.showAtStartup": "Ehechauka ko mbo’epy rembojehe’ávo aplicación",
+    "setup.defaultsHelp": "Eiporavo ZagoSheetsWin Windows aplicación ypykuéra apytépe. Natekotevẽi, hákatu oñemoñe’ẽ eiporu hag̃ua. Eiporavo ZagoSheetsWin Windows Default apps-pe. Kóva ikatu reiporu térã nahániri: ikatu avei reiporu Jeike hendive → ZagoSheetsWin."
   }
 }

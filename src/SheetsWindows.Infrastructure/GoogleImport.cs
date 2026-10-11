@@ -69,13 +69,21 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
                 _ => throw new ReconciliationRequiredException(), ct);
             return new ImportReceipt(op, GoogleDriveClient.Editor(known), source.Source.Path, canReplace);
         }
-        var folderKey = "folder:" + access.AccountId;
-        string folder;
-        await using (var folderLock = await locks.AcquireAsync(folderKey, ct))
-            folder = await EnsureAsync(folderKey, access.AccountId, "folder", "", a => drive.CreateAsync(a, "ZagoSheetsWin", null, null, ct), ct);
+        var folder = await EnsureFolderForAccountAsync(access.AccountId, ct);
         var id = await EnsureAsync(sheetKey, access.AccountId, "sheet", snapshot.Sha256,
             a => drive.CreateAsync(a, Path.GetFileNameWithoutExtension(path), folder, payload.Bytes, ct, payload.MimeType), ct);
         return new ImportReceipt(op, GoogleDriveClient.Editor(id), source.Source.Path, canReplace);
+    }
+    public async Task<string> EnsureFolderAsync(CancellationToken ct = default)
+    {
+        var access = await auth.AccessAsync(cancellationToken: ct);
+        return await EnsureFolderForAccountAsync(access.AccountId, ct);
+    }
+    private async Task<string> EnsureFolderForAccountAsync(string accountId, CancellationToken ct)
+    {
+        var key = "folder:" + accountId;
+        await using var held = await locks.AcquireAsync(key, ct);
+        return await EnsureAsync(key, accountId, "folder", "", a => drive.CreateAsync(a, "ZagoSheetsWin", "root", null, ct), ct);
     }
     private async Task<string> EnsureAsync(string key, string account, string kind, string hash, Func<RemoteAttempt, Task<string>> create, CancellationToken ct)
     {

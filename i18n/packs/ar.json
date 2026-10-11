@@ -2,8 +2,8 @@
   "language": "ar",
   "locale": "ar",
   "direction": "rtl",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -629,6 +629,13 @@
     "setup.createShortcuts": "إنشاء اختصارات إلى Google Sheets",
     "action.retry": "حاول مجددًا",
     "progress.retry": "إعادة المحاولة بعد {seconds} ثوانٍ ({attempt}/2)…",
-    "recovery.discardPrompt": "حذف {count} نسخ احتياطية ({protectedCount} معلقة)؟ ستنتهي المحاولات المعلقة دون إمكانية استعادتها. تبقى الملفات الأصلية والاختصارات وجداول Google."
+    "recovery.discardPrompt": "حذف {count} نسخ احتياطية ({protectedCount} معلقة)؟ ستنتهي المحاولات المعلقة دون إمكانية استعادتها. تبقى الملفات الأصلية والاختصارات وجداول Google.",
+    "firstUse.upload": "رفع مباشر إلى Drive",
+    "firstUse.googleExplanation": "تبقى جداولك في Google Drive لهذا الحساب. لا تحتاج إلى تثبيت Google Drive لنظام Windows.",
+    "firstUse.defaultsExplanation": "اختر ZagoSheetsWin في التطبيقات الافتراضية لنظام Windows.",
+    "firstUse.backupExplanation": "تحفظ النسخة الاحتياطية الأصل دون التغييرات اللاحقة في Sheets.\nفي النسخ الاحتياطية، اختر استعادة إلى… لاسترجاع الملف.",
+    "setup.importHeading": "4. الاختصارات واستيراد الملف كنسخة",
+    "tutorial.showAtStartup": "إظهار هذا الدليل عند فتح التطبيق",
+    "setup.defaultsHelp": "اختر ZagoSheetsWin في التطبيقات الافتراضية لنظام Windows. اختياري، لكنه موصى به. اختر ZagoSheetsWin ضمن التطبيقات الافتراضية في Windows. هذا اختياري: يمكنك أيضًا استخدام «فتح باستخدام → ZagoSheetsWin»."
   }
 }

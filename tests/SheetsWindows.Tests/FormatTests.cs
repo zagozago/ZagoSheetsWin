@@ -9,6 +9,19 @@ namespace SheetsWindows.Tests;
 
 public sealed class FormatTests
 {
+    [Fact]
+    public void CsvXmlForbiddenControlsArePreservedThroughOpenXmlNotTreatedAsBadEncoding()
+    {
+        var text = "a,b\r\n\"Olá\b \u0000 literal _x0008_ 😀\",valor\r\n";
+        var payload = SpreadsheetFormats.Prepare("csv", Encoding.UTF8.GetBytes(text));
+        SpreadsheetFormats.VerifyValues(payload.Expected!, payload.Bytes);
+        Assert.Contains("\b", (string)payload.Expected![0].Rows[1][0]!);
+        using var archive = new ZipArchive(new MemoryStream(payload.Bytes));
+        using var reader = new StreamReader(archive.GetEntry("xl/worksheets/sheet1.xml")!.Open());
+        var xml = reader.ReadToEnd(); Assert.Contains("_x0008_", xml); Assert.Contains("_x0000_", xml); Assert.Contains("_x005F_x0008_", xml);
+        Assert.DoesNotContain("\b", xml, StringComparison.Ordinal);
+    }
+
     [Theory]
     [InlineData(false, false, true)]
     [InlineData(true, false, false)]

@@ -6,7 +6,7 @@ namespace SheetsWindows.Windows;
 // Offline illustrations: no web content, tracking or Google credentials.
 internal sealed class TutorialForm : Form
 {
-    private readonly CheckBox hide = new() { Text = UiText.Get("tutorial.hide"), AutoSize = true, Checked = false };
+    private readonly CheckBox hide = new ToggleSwitch() { Text = UiText.Get("tutorial.showAtStartup"), AutoSize = true, Checked = !TutorialSettings.Load(LocalStorage.ForCurrentUser()) };
     private readonly Label heading = new() { Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, Font = new Font("Segoe UI", 14, FontStyle.Bold) };
     private readonly FlowLayoutPanel explanation = new() { Dock = DockStyle.Fill, AutoScroll = false, FlowDirection = FlowDirection.TopDown, WrapContents = false };
     private readonly TutorialPicture picture = new() { Dock = DockStyle.Fill };
@@ -27,6 +27,7 @@ internal sealed class TutorialForm : Form
     public TutorialForm(int initialPage = 0)
     {
         page = Math.Clamp(initialPage, 0, Pages.Length - 1);
+        var previousPreference = hide.Checked;
         Text = UiText.Get("tutorial.title"); ClientSize = new Size(760, 650); MinimumSize = new Size(620, 560); StartPosition = FormStartPosition.CenterParent; AutoScaleMode = AutoScaleMode.Dpi;
         layout = new TableLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(20), ColumnCount = 1, RowCount = 5 };
         layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 55)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 250)); layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100)); layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
@@ -39,14 +40,15 @@ internal sealed class TutorialForm : Form
         UiText.Changed += RefreshPage; Disposed += (_,_) => UiText.Changed -= RefreshPage;
         Shown += (_, _) => FitContent();
         layout.SizeChanged += (_, _) => FitContent();
-        FormClosing += async (_, e) =>
+        FormClosing += SavePreference;
+        async void SavePreference(object? sender, FormClosingEventArgs e)
         {
             if (saving) { e.Cancel = true; return; }
-            if (!hide.Checked) return;
+            if (hide.Checked == previousPreference) return;
             e.Cancel = true; saving = true; layout.Enabled = false;
-            try { await TutorialSettings.SaveAsync(LocalStorage.ForCurrentUser(), true); hide.Checked = false; saving = false; Close(); }
+            try { await TutorialSettings.SaveAsync(LocalStorage.ForCurrentUser(), !hide.Checked); previousPreference = hide.Checked; saving = false; Close(); }
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { saving = false; layout.Enabled = true; MessageBox.Show(this, LauncherErrors.Message(ex), UiText.Get("tutorial.preferenceTitle"), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-        };
+        }
     }
     private void RefreshPage()
     {
@@ -105,6 +107,8 @@ internal sealed class TutorialPicture : Control
 {
     [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
     public int Page { get; set; }
+    [System.ComponentModel.DefaultValue(false)]
+    public bool FirstUse { get; set; }
     public TutorialPicture() { DoubleBuffered = true; }
     protected override void OnPaint(PaintEventArgs e)
     {
@@ -163,7 +167,7 @@ internal sealed class TutorialPicture : Control
             AppIcon(540, 30, false);
             g.DrawLine(pen, 487, 83, 521, 83); g.DrawLines(pen, [new PointF(511, 73), new PointF(521, 83), new PointF(511, 93)]);
             g.DrawString(UiText.Get("tutorial.picture.chooseSpreadsheet"), font, ink, new RectangleF(5, 185, 465, 45), centered);
-            g.DrawString(UiText.Get("tutorial.picture.openWithZago"), small, ink, new RectangleF(485, 178, 210, 60), centered);
+            g.DrawString(UiText.Get("tutorial.picture.openWithZago"), font, ink, new RectangleF(485, 178, 210, 60), centered);
             return;
         }
         string[] labels = Page switch
@@ -171,7 +175,7 @@ internal sealed class TutorialPicture : Control
             1 => [UiText.Get("tutorial.picture.chooseAccount"), UiText.Get("tutorial.picture.authorizeAccess"), UiText.Get("tutorial.picture.connected")],
             2 => [UiText.Get("tutorial.picture.localFile"), UiText.Get("tutorial.picture.openWith"), "Google Sheets"],
             3 => [UiText.Get("tutorial.picture.original"), UiText.Get("tutorial.picture.backup"), "Google Sheets"],
-            _ => [UiText.Get("tutorial.picture.openFile"), UiText.Get("tutorial.picture.importVerified"), UiText.Get("tutorial.picture.browser")]
+            _ => [UiText.Get("tutorial.picture.openFile"), UiText.Get(FirstUse ? "firstUse.upload" : "tutorial.picture.importVerified"), UiText.Get("tutorial.picture.browser")]
         };
         for (var step = 0; step < 3; step++)
         {

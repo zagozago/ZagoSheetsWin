@@ -2,8 +2,8 @@
   "language": "az",
   "locale": "az-Latn-AZ",
   "direction": "ltr",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -634,6 +634,13 @@
     "setup.createShortcuts": "Google Sheets üçün qısayollar yaradın",
     "action.retry": "Yenidən cəhd edin",
     "progress.retry": "{seconds} saniyə sonra yenidən cəhd ({attempt}/2)…",
-    "recovery.discardPrompt": "{count} ehtiyat nüsxə silinsin ({protectedCount} gözləyən)? Gözləyən cəhdlər bərpa imkanı olmadan bitəcək. Orijinal fayllar, qısayollar və Google cədvəlləri qalacaq."
+    "recovery.discardPrompt": "{count} ehtiyat nüsxə silinsin ({protectedCount} gözləyən)? Gözləyən cəhdlər bərpa imkanı olmadan bitəcək. Orijinal fayllar, qısayollar və Google cədvəlləri qalacaq.",
+    "firstUse.upload": "Birbaşa Drive-a yükləmə",
+    "firstUse.googleExplanation": "Cədvəllər bu hesabın Google Drive-ında qalır. Windows üçün Google Drive quraşdırmaq lazım deyil.",
+    "firstUse.defaultsExplanation": "Windows standart tətbiqlərində ZagoSheetsWin seçin.",
+    "firstUse.backupExplanation": "Ehtiyat nüsxə ilkin faylı saxlayır, Sheets-dəki sonrakı dəyişiklikləri deyil.\nFaylı bərpa etmək üçün Ehtiyat nüsxələrdə Buraya bərpa et… seçin.",
+    "setup.importHeading": "4. Qısayollar və faylın nüsxə kimi idxalı",
+    "tutorial.showAtStartup": "Tətbiq açılarkən bu təlimatı göstər",
+    "setup.defaultsHelp": "Windows standart tətbiqlərində ZagoSheetsWin seçin. İstəyə bağlıdır, lakin tövsiyə olunur. Windows Standart tətbiqlərində ZagoSheetsWin-i seçin. Bu istəyə bağlıdır: Birlikdə aç → ZagoSheetsWin istifadə edə bilərsiniz."
   }
 }

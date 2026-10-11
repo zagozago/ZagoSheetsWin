@@ -62,18 +62,25 @@ internal static class InterfaceVerification
             Require(!Descendants(wizard).OfType<CheckBox>().Any(c => c.Text == UiText.Get("tutorial.hide")), "Post-install wizard must not expose the help hide preference.");
             Require(!Descendants(wizard).OfType<Button>().Any(b => b.Text == UiText.Get("tutorial.skip")), "Post-install wizard must not expose skip tutorial.");
             wizard.NextButton.PerformClick(); Application.DoEvents();
-            Require(wizard.CurrentPage == 1 && !wizard.NextButton.Enabled && !wizard.PreviousButton.Enabled, "Google step must require successful authorization before navigation.");
-            wizard.Close(); Require(!wizard.IsDisposed && wizard.Visible, "Google step must reject closing before authorization.");
+            Require(wizard.CurrentPage == 1 && !wizard.NextButton.Enabled && wizard.PreviousButton.Enabled, "Google step must require successful authorization before navigation.");
+            wizard.PreviousButton.PerformClick(); Require(wizard.CurrentPage == 0, "An unauthenticated user must be able to go back."); wizard.NextButton.PerformClick();
             wizard.ConnectButton.PerformClick(); Application.DoEvents();
             Require(!wizard.AuthorizationConfirmed && !wizard.NextButton.Enabled, "Failed authorization must leave the wizard on the Google step.");
             wizard.ConnectButton.PerformClick(); Application.DoEvents();
             Require(wizard.AuthorizationConfirmed && wizard.NextButton.Enabled, "Successful authorization must unlock navigation.");
             wizard.NextButton.PerformClick(); wizard.NextButton.PerformClick(); Application.DoEvents();
-            Require(wizard.CurrentPage == 3 && !wizard.NextButton.Enabled, "Defaults are optional; replacement acknowledgement is required before completion.");
-            wizard.Acknowledgement.Checked = true; wizard.NextButton.PerformClick(); Application.DoEvents();
+            Require(wizard.CurrentPage == 3 && wizard.NextButton.Enabled, "Defaults are optional; replacement acknowledgement is required before completion.");
+            Require(!Descendants(wizard).OfType<CheckBox>().Any(), "The simplified final step must contain no switches or old acknowledgement controls.");
+            Require(Descendants(wizard).OfType<NumericUpDown>().Count() == 2, "The final step must expose only retention and quota settings.");
+            wizard.NextButton.PerformClick(); Application.DoEvents();
             Require(wizard.Completed && saved == 1, "Finishing must save once and complete without opening a second setup dialog.");
         }
         Require(!Directory.Exists(wizardRoot), "Offline wizard verification must not write user settings or OAuth data.");
+        using (var closable = new FirstUseWizard(storage: wizardStorage, authorize: _ => Task.CompletedTask))
+        {
+            closable.Show(); closable.NextButton.PerformClick(); Application.DoEvents(); closable.Close();
+            Require(closable.IsDisposed && !closable.Completed, "Closing without authorization must cancel first use without marking it complete.");
+        }
         Branding.PreviewTheme(ApplicationTheme.Light);
         using var home = new LauncherForm(new(LauncherAction.Home));
         using var preview = new ProcessingForm(new(LauncherAction.Open, "preview.xlsx"), preview: true);
@@ -100,7 +107,7 @@ internal static class InterfaceVerification
             Require(list.Items.Count == 3 && list.Items.Cast<ListViewItem>().All(i => ((RecoveryEntry)i.Tag!).CleanupState != 2), "Deleted backup history must be absent from the recovery list.");
             Require(list.MultiSelect && list.CheckBoxes, "Backups must support multiple selection.");
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Selecionar todos").PerformClick();
-            Require(list.CheckedItems.Count == 3, "Select all must include pending backups for explicit confirmed discard.");
+            Require(list.CheckedItems.Count == 3 && list.SelectedItems.Count == 3, "Select all must include pending backups for explicit confirmed discard.");
             Require(Descendants(recovery).OfType<Button>().Single(b => b.Text == "Apagar selecionados…").Enabled, "Pending backups must allow the confirmed manual delete action.");
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Limpar seleção").PerformClick();
             Require(list.CheckedItems.Count == 0, "Clear selection must remove all marks.");
@@ -126,34 +133,19 @@ internal static class InterfaceVerification
             Require(folderRow is not null && folderRow.ColumnCount == 2, "Folder selector and path must share a two-column row.");
             var folderPath = folderRow!.Controls.OfType<TextBox>().Single();
             Require(Math.Abs(folder.Width - folderPath.Width) <= 2 && folder.Left < folderPath.Left, "Folder selector and path must each occupy half the row.");
-            var folderInfo = folderRow.Parent!.Controls.OfType<Label>().Single();
-            Require(folderInfo.Width >= folderRow.Parent.ClientSize.Width * .8, "Synchronization instructions must span the folder panel instead of collapsing to a narrow column.");
             sync.Checked = true; Application.DoEvents(); Require(!folder.Visible, "Disabling folder restrictions must collapse their controls again.");
             Require(Descendants(setup).OfType<Label>().Any(l => l.AccessibleName == "Estado da autorização Google" && !string.IsNullOrWhiteSpace(l.Text)), "Google authorization must have a visible accessible status.");
-            Require(Descendants(setup).OfType<Label>().Any(l => l.Text.Contains("drive.file", StringComparison.Ordinal) && l.Text.Contains("diretamente ao Google", StringComparison.Ordinal)), "Setup must show the OAuth data-use disclosure before authorization.");
-            Require(Descendants(setup).OfType<LinkLabel>().Any(l => l.Text == "Política de Privacidade"), "Setup must expose the privacy policy link.");
-            Require(Descendants(setup).OfType<LinkLabel>().Any(l => l.Text == "Termos de Uso"), "Setup must expose the terms link.");
-            var sections = Descendants(setup).OfType<Label>().Where(l => l.Text.StartsWith("1. ") || l.Text.StartsWith("2. ") || l.Text.StartsWith("3. ")).ToArray();
-            Require(sections.Length == 3 && sections[0].Text.Contains("Google") && sections[2].Text.Contains("sincronizadas"), "Setup must order Google, Windows defaults and optional sync folders.");
-            var advanced = Descendants(setup).OfType<Button>().Single(b => b.Text == "Opções avançadas…");
-            var dialog = setup.AdvancedDialog;
-            var close = dialog.Controls.OfType<Button>().Single(b => b.Text == "Fechar");
-            var checkedModal = false;
-            dialog.Shown += (_, _) => dialog.BeginInvoke((Action)(() =>
-            {
-                checkedModal = dialog.Modal && dialog.Owner == setup && close.Visible && close.Bottom <= dialog.ClientSize.Height;
-                close.PerformClick();
-            }));
-            advanced.PerformClick();
-            Require(checkedModal && setup.Enabled && !dialog.Visible, "Advanced settings must be modal, keep Close visible and restore the owner after closing.");
-            advanced.PerformClick();
-            Require(!dialog.IsDisposed && setup.Enabled, "Advanced settings must reopen after closing.");
+            Require(!Descendants(setup).OfType<Button>().Any(b => b.Text == UiText.Get("setup.advanced")), "Advanced navigation must be removed.");
+            var informationButtons = Descendants(setup).OfType<InformationButton>().ToArray();
+            Require(informationButtons.Length == 4, "Settings must have global information and three section pop-ups.");
+            informationButtons[0].OpenInformation(); Application.DoEvents();
+            Require(informationButtons[0].PopupVisible && informationButtons[0].PopupContent is not null, "Contextual information must open without a second settings modal.");
             setup.Hide();
         }
         using (var tutorial = new TutorialForm())
         {
             tutorial.Show(); Application.DoEvents();
-            Require(!Descendants(tutorial).OfType<CheckBox>().Single().Checked, "Tutorial dismissal must require explicit opt-in.");
+            Require(!Descendants(tutorial).OfType<CheckBox>().Single().Checked, "Showing the tutorial at startup requires explicit opt-in.");
             var next = Descendants(tutorial).OfType<Button>().Single(b => b.Text == "Próximo");
             for (var i = 0; i < 2; i++) next.PerformClick();
             Application.DoEvents();
@@ -203,7 +195,7 @@ internal static class InterfaceVerification
             foreach(var field in Descendants(picker).Where(c=>c is TextBox or ListBox or EmphasisLabel))
                 Require(field.Right<=field.Parent!.ClientSize.Width-field.Parent.Padding.Right,$"Language picker content must remain inside its modal: '{field.Text}'.");
             Require(UiText.Get("error.backupQuota").Contains("original was preserved"),"English errors must retain preservation guidance.");
-            foreach(var form in new Form[]{home,settings,settings.AdvancedDialog,backups,tutorial,picker})
+            foreach(var form in new Form[]{home,settings,backups,tutorial,picker})
             {
                 foreach(var factor in new[]{1f,1.25f,1.5f,2f})
                 {

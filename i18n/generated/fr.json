@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLocale": "pt-BR",
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -342,6 +342,13 @@
     "setup.createShortcuts": "Créer des raccourcis vers Google Sheets",
     "action.retry": "Réessayer",
     "progress.retry": "Nouvel essai dans {seconds}s ({attempt}/2)…",
-    "recovery.discardPrompt": "Supprimer {count} sauvegardes ({protectedCount} en attente) ? Les tentatives en attente seront terminées sans récupération possible. Les originaux, raccourcis et feuilles Google sont conservés."
+    "recovery.discardPrompt": "Supprimer {count} sauvegardes ({protectedCount} en attente) ? Les tentatives en attente seront terminées sans récupération possible. Les originaux, raccourcis et feuilles Google sont conservés.",
+    "firstUse.upload": "Envoi direct vers Drive",
+    "firstUse.googleExplanation": "Vos feuilles de calcul restent dans le Google Drive de ce compte. Inutile d’installer Google Drive pour Windows.",
+    "firstUse.defaultsExplanation": "Choisissez ZagoSheetsWin dans les Applications par défaut de Windows.",
+    "firstUse.backupExplanation": "La sauvegarde conserve l’original, sans les modifications ultérieures dans Sheets.\nDans Sauvegardes, choisissez Restaurer dans… pour récupérer le fichier.",
+    "setup.importHeading": "4. Raccourcis et importation du fichier comme copie",
+    "tutorial.showAtStartup": "Afficher ce tutoriel à l’ouverture de l’application",
+    "setup.defaultsHelp": "Choisissez ZagoSheetsWin dans les Applications par défaut de Windows. Facultatif, mais recommandé. Choisissez ZagoSheetsWin dans les Applications par défaut de Windows. C’est facultatif : vous pouvez aussi utiliser Ouvrir avec → ZagoSheetsWin."
   }
 }

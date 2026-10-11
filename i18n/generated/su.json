@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLocale": "pt-BR",
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -342,6 +342,13 @@
     "setup.createShortcuts": "Jieun jalan pintas ka Google Sheets",
     "action.retry": "Cobaan deui",
     "progress.retry": "Nyobian deui dina {seconds}d ({attempt}/2)…",
-    "recovery.discardPrompt": "Pupus {count} cadangan ({protectedCount} ngantosan)? Usaha anu ngantosan bakal ditungtungan sareng teu tiasa dipulihkeun. Berkas asli, potong kompas sareng spreadsheet Google tetep aya."
+    "recovery.discardPrompt": "Pupus {count} cadangan ({protectedCount} ngantosan)? Usaha anu ngantosan bakal ditungtungan sareng teu tiasa dipulihkeun. Berkas asli, potong kompas sareng spreadsheet Google tetep aya.",
+    "firstUse.upload": "Unggah langsung ka Drive",
+    "firstUse.googleExplanation": "Spreadsheet disimpen dina Google Drive akun ieu. Teu kedah masang Google Drive pikeun Windows.",
+    "firstUse.defaultsExplanation": "Pilih ZagoSheetsWin dina Aplikasi standar Windows.",
+    "firstUse.backupExplanation": "Cadangan nyimpen berkas aslina, tanpa parobahan saterusna dina Sheets.\nDina Cadangan, pilih Pulihkeun ka… pikeun mulangkeun berkas.",
+    "setup.importHeading": "4. Potong kompas sareng ngimpor berkas minangka salinan",
+    "tutorial.showAtStartup": "Témbongkeun tutorial ieu nalika muka aplikasi",
+    "setup.defaultsHelp": "Pilih ZagoSheetsWin dina Aplikasi standar Windows. Pilihan, tapi disarankeun. Pilih ZagoSheetsWin dina Aplikasi standar Windows. Ieu opsional: anjeun ogé bisa maké Buka ku → ZagoSheetsWin."
   }
 }

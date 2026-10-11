@@ -2,8 +2,8 @@
   "language": "ha",
   "locale": "ha-NG",
   "direction": "ltr",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -634,6 +634,13 @@
     "setup.createShortcuts": "Ƙirƙiri gajerun hanyoyi zuwa Google Sheets",
     "action.retry": "Sake gwadawa",
     "progress.retry": "Za a sake gwadawa cikin daƙiƙa {seconds} ({attempt}/2)…",
-    "recovery.discardPrompt": "A goge ajiyar {count} ({protectedCount} suna jira)? Ƙoƙarin da ke jira za su ƙare ba tare da maidowa ba. Fayiloli na asali, gajerun hanyoyi da maƙunsar Google za su kasance."
+    "recovery.discardPrompt": "A goge ajiyar {count} ({protectedCount} suna jira)? Ƙoƙarin da ke jira za su ƙare ba tare da maidowa ba. Fayiloli na asali, gajerun hanyoyi da maƙunsar Google za su kasance.",
+    "firstUse.upload": "Loda kai tsaye zuwa Drive",
+    "firstUse.googleExplanation": "Takardun lissafi suna cikin Google Drive na wannan asusun. Ba sai an girka Google Drive don Windows ba.",
+    "firstUse.defaultsExplanation": "Zaɓi ZagoSheetsWin a Manhajojin asali na Windows.",
+    "firstUse.backupExplanation": "Ajiyar baya tana riƙe asalin fayil, ba canje-canjen da aka yi daga baya a Sheets ba.\nA Ajiyar baya, zaɓi Mayar zuwa… don dawo da fayil.",
+    "setup.importHeading": "4. Gajerun hanyoyi da shigo da fayil a matsayin kwafi",
+    "tutorial.showAtStartup": "Nuna wannan koyarwar lokacin buɗe manhajar",
+    "setup.defaultsHelp": "Zaɓi ZagoSheetsWin a Manhajojin asali na Windows. Ba dole ba, amma ana ba da shawara. Zaɓi ZagoSheetsWin a Windows Default apps. Wannan na zaɓi ne: za ka iya kuma amfani da Buɗe da → ZagoSheetsWin."
   }
 }

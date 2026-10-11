@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLocale": "pt-BR",
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -342,6 +342,13 @@
     "setup.createShortcuts": "Gumawa ng mga shortcut papunta sa Google Sheets",
     "action.retry": "Subukan muli",
     "progress.retry": "Susubukan muli sa {seconds}s ({attempt}/2)…",
-    "recovery.discardPrompt": "Burahin ang {count} backup ({protectedCount} nakabinbin)? Tatapusin ang mga nakabinbing pagtatangka at hindi na maibabalik. Mananatili ang mga orihinal, shortcut at spreadsheet sa Google."
+    "recovery.discardPrompt": "Burahin ang {count} backup ({protectedCount} nakabinbin)? Tatapusin ang mga nakabinbing pagtatangka at hindi na maibabalik. Mananatili ang mga orihinal, shortcut at spreadsheet sa Google.",
+    "firstUse.upload": "Direktang pag-upload sa Drive",
+    "firstUse.googleExplanation": "Nasa Google Drive ng account na ito ang iyong mga spreadsheet. Hindi kailangang i-install ang Google Drive para sa Windows.",
+    "firstUse.defaultsExplanation": "Piliin ang ZagoSheetsWin sa Default apps ng Windows.",
+    "firstUse.backupExplanation": "Pinapanatili ng backup ang orihinal, hindi kasama ang mga pagbabago sa Sheets pagkatapos nito.\nSa Mga backup, piliin ang Ibalik sa… upang mabawi ang file.",
+    "setup.importHeading": "4. Mga shortcut at pag-import ng file bilang kopya",
+    "tutorial.showAtStartup": "Ipakita ang tutorial na ito kapag binubuksan ang app",
+    "setup.defaultsHelp": "Piliin ang ZagoSheetsWin sa Default apps ng Windows. Opsyonal, ngunit inirerekomenda. Piliin ang ZagoSheetsWin sa Windows Default apps. Optional ito: maaari mo ring gamitin ang Open with → ZagoSheetsWin."
   }
 }

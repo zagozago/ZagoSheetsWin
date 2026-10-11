@@ -2,8 +2,8 @@
   "language": "pcm",
   "locale": "pcm-NG",
   "direction": "ltr",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -814,6 +814,13 @@
     "setup.createShortcuts": "Make shortcut dem to Google Sheets",
     "action.retry": "Try again",
     "progress.retry": "We go try again for {seconds}s ({attempt}/2)…",
-    "recovery.discardPrompt": "Delete {count} backup ({protectedCount} still dey wait)? Those attempts go end and you no go fit recover dem. Original files, shortcuts and Google spreadsheets go remain."
+    "recovery.discardPrompt": "Delete {count} backup ({protectedCount} still dey wait)? Those attempts go end and you no go fit recover dem. Original files, shortcuts and Google spreadsheets go remain.",
+    "firstUse.upload": "Upload straight to Drive",
+    "firstUse.googleExplanation": "Your spreadsheets dey for this account Google Drive. You no need install Google Drive for Windows.",
+    "firstUse.defaultsExplanation": "Choose ZagoSheetsWin for Windows Default apps.",
+    "firstUse.backupExplanation": "Backup dey keep original file, e no include later changes for Sheets.\nFor Backups, choose Restore to… to get the file back.",
+    "setup.importHeading": "4. Shortcuts and import file as copy",
+    "tutorial.showAtStartup": "Show this tutorial when app open",
+    "setup.defaultsHelp": "Choose ZagoSheetsWin for Windows Default apps. Na optional, but we recommend am. Choose ZagoSheetsWin for Windows Default apps. Dis one optional: you fit also use Open with → ZagoSheetsWin."
   }
 }

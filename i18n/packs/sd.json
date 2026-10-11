@@ -2,8 +2,8 @@
   "language": "sd",
   "locale": "sd-Arab-PK",
   "direction": "rtl",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -634,6 +634,13 @@
     "setup.createShortcuts": "Google Sheets لاءِ شارٽ ڪٽ ٺاهيو",
     "action.retry": "ٻيهر ڪوشش ڪريو",
     "progress.retry": "{seconds} سيڪنڊن ۾ ٻيهر ڪوشش ({attempt}/2)…",
-    "recovery.discardPrompt": "{count} بيڪ اپ ڊاهيو ({protectedCount} انتظار ۾)؟ انتظار واريون ڪوششون ختم ٿينديون ۽ بحال نه ٿي سگهنديون. اصل فائلون، شارٽ ڪٽ ۽ Google اسپريڊ شيٽون رهنديون."
+    "recovery.discardPrompt": "{count} بيڪ اپ ڊاهيو ({protectedCount} انتظار ۾)؟ انتظار واريون ڪوششون ختم ٿينديون ۽ بحال نه ٿي سگهنديون. اصل فائلون، شارٽ ڪٽ ۽ Google اسپريڊ شيٽون رهنديون.",
+    "firstUse.upload": "سڌو Drive تي اپلوڊ",
+    "firstUse.googleExplanation": "توهان جون اسپريڊشيٽون هن اڪائونٽ جي Google Drive ۾ رهن ٿيون. Windows لاءِ Google Drive انسٽال ڪرڻ جي ضرورت ناهي.",
+    "firstUse.defaultsExplanation": "Windows جي ڊفالٽ ايپس ۾ ZagoSheetsWin چونڊيو.",
+    "firstUse.backupExplanation": "بيڪ اپ اصل فائل رکي ٿو، Sheets ۾ پوءِ ٿيندڙ تبديليون نه.\nبيڪ اپ ۾ هتي بحال ڪريو… چونڊي فائل واپس حاصل ڪريو.",
+    "setup.importHeading": "4. شارٽ ڪٽ ۽ فائل کي ڪاپي طور درآمد ڪرڻ",
+    "tutorial.showAtStartup": "ايپ کولڻ وقت هي رهنمائي ڏيکاريو",
+    "setup.defaultsHelp": "Windows جي ڊفالٽ ايپس ۾ ZagoSheetsWin چونڊيو. اختياري، پر سفارش ڪيل. Windows ڊفالٽ ايپس ۾ ZagoSheetsWin چونڊيو. هي اختياري آهي: هن سان کوليو → ZagoSheetsWin به استعمال ڪري سگهو ٿا."
   }
 }

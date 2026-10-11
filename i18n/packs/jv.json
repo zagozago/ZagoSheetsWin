@@ -2,8 +2,8 @@
   "language": "jv",
   "locale": "jv-ID",
   "direction": "ltr",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -635,6 +635,13 @@
     "setup.createShortcuts": "Gawe trabasan menyang Google Sheets",
     "action.retry": "Coba maneh",
     "progress.retry": "Nyoba maneh ing {seconds}d ({attempt}/2)…",
-    "recovery.discardPrompt": "Busak {count} serep ({protectedCount} ngenteni)? Upaya sing ngenteni bakal dipungkasi lan ora bisa dibalekake. Berkas asli, trabasan lan lembar kerja Google tetep ana."
+    "recovery.discardPrompt": "Busak {count} serep ({protectedCount} ngenteni)? Upaya sing ngenteni bakal dipungkasi lan ora bisa dibalekake. Berkas asli, trabasan lan lembar kerja Google tetep ana.",
+    "firstUse.upload": "Unggah langsung menyang Drive",
+    "firstUse.googleExplanation": "Spreadsheet tetep ana ing Google Drive akun iki. Ora perlu nginstal Google Drive kanggo Windows.",
+    "firstUse.defaultsExplanation": "Pilih ZagoSheetsWin ing Aplikasi gawan Windows.",
+    "firstUse.backupExplanation": "Serep nyimpen berkas asli, tanpa owah-owahan sabanjure ing Sheets.\nIng Serep, pilih Pulihake menyang… kanggo mbalekake berkas.",
+    "setup.importHeading": "4. Trabasan lan ngimpor berkas minangka salinan",
+    "tutorial.showAtStartup": "Tampilake tutorial iki nalika mbukak aplikasi",
+    "setup.defaultsHelp": "Pilih ZagoSheetsWin ing Aplikasi gawan Windows. Opsional, nanging dianjurake. Pilih ZagoSheetsWin ing Aplikasi baku Windows. Iki opsional: sampeyan uga bisa nggunakake Bukak nganggo → ZagoSheetsWin."
   }
 }

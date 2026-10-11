@@ -2,8 +2,8 @@
   "language": "fa",
   "locale": "fa-IR",
   "direction": "rtl",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -634,6 +634,13 @@
     "setup.createShortcuts": "ایجاد میان‌بر برای Google Sheets",
     "action.retry": "دوباره تلاش کنید",
     "progress.retry": "تلاش دوباره در {seconds} ثانیه ({attempt}/2)…",
-    "recovery.discardPrompt": "حذف {count} پشتیبان ({protectedCount} در انتظار)؟ تلاش‌های معلق پایان می‌یابند و قابل بازیابی نیستند. فایل‌های اصلی، میان‌برها و صفحه‌گسترده‌های Google باقی می‌مانند."
+    "recovery.discardPrompt": "حذف {count} پشتیبان ({protectedCount} در انتظار)؟ تلاش‌های معلق پایان می‌یابند و قابل بازیابی نیستند. فایل‌های اصلی، میان‌برها و صفحه‌گسترده‌های Google باقی می‌مانند.",
+    "firstUse.upload": "بارگذاری مستقیم در Drive",
+    "firstUse.googleExplanation": "صفحه‌گسترده‌ها در Google Drive این حساب می‌مانند. نیازی به نصب Google Drive برای Windows نیست.",
+    "firstUse.defaultsExplanation": "ZagoSheetsWin را در برنامه‌های پیش‌فرض Windows انتخاب کنید.",
+    "firstUse.backupExplanation": "پشتیبان اصل فایل را بدون تغییرات بعدی در Sheets نگه می‌دارد.\nدر پشتیبان‌ها، «بازیابی در…» را برای بازگرداندن فایل انتخاب کنید.",
+    "setup.importHeading": "4. میانبرها و وارد کردن فایل به‌صورت کپی",
+    "tutorial.showAtStartup": "نمایش این آموزش هنگام باز کردن برنامه",
+    "setup.defaultsHelp": "ZagoSheetsWin را در برنامه‌های پیش‌فرض Windows انتخاب کنید. اختیاری، اما توصیه‌شده. در برنامه‌های پیش‌فرض Windows، ZagoSheetsWin را انتخاب کنید. این کار اختیاری است: می‌توانید از «باز کردن با → ZagoSheetsWin» نیز استفاده کنید."
   }
 }

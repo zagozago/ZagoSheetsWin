@@ -34,6 +34,7 @@ public sealed class GoogleTests
         public readonly Dictionary<string, byte[]> Uploaded = []; public readonly List<string> MediaTypes = [];
         private readonly Dictionary<string, (string Id, object File, string Mime, MemoryStream Bytes)> sessions = [];
         public bool Offline, DisconnectOnLoss;
+        public readonly List<string> Metadata = [];
         public int Posts; public bool LoseSheetResponse, LoseFolderResponse, ListLag, DuplicateList, WrongMime, Trashed, DenyEdit, Get401;
         public readonly Dictionary<string, object> Files = [];
         public readonly List<string> Methods = [];
@@ -42,7 +43,7 @@ public sealed class GoogleTests
             Methods.Add(req.Method.Method); var path = req.RequestUri!.AbsolutePath;
             if (req.Method == HttpMethod.Post)
             {
-                Posts++; var body = await req.Content!.ReadAsStringAsync(ct);
+                Posts++; var body = await req.Content!.ReadAsStringAsync(ct); Metadata.Add(body);
                 string Value(string key) => Regex.Match(body, "\"" + key + "\":\"([^\"]*)\"").Groups[1].Value;
                 var mime = Value("mimeType"); var id = "file_" + Posts;
                 var file = new { id, mimeType = WrongMime && mime == GoogleDriveClient.SheetMime ? "application/octet-stream" : mime, trashed = Trashed && mime == GoogleDriveClient.SheetMime, capabilities = new { canEdit = !(DenyEdit && mime == GoogleDriveClient.SheetMime) }, appProperties = new Dictionary<string, string> { { "sw_operation", Value("sw_operation") }, { "sw_hash", Value("sw_hash") } } };
@@ -113,6 +114,17 @@ public sealed class GoogleTests
         public bool Fail; public List<Uri> Opened { get; } = [];
         public void Open(Uri uri) { if (Fail) throw new IOException("Browser unavailable"); Opened.Add(uri); }
     }
+    [Fact]
+    public async Task PreparingAccountCreatesOneRootFolderAndLaterImportsUseIt()
+    {
+        using var w = new Workspace(); using var server = new DriveServer();
+        var importer = Importer(w, server);
+        var folder = await importer.EnsureFolderAsync(); Assert.Equal(folder, await importer.EnsureFolderAsync());
+        Assert.Equal(1, server.Posts); Assert.Contains("\"parents\":[\"root\"]", server.Metadata[0]); Assert.Contains("ZagoSheetsWin", server.Metadata[0]);
+        File.WriteAllBytes(w.Source, Workbook()); await importer.ImportAsync(w.Source);
+        Assert.Equal(2, server.Posts); Assert.Contains("\"parents\":[\"" + folder + "\"]", server.Metadata[1]);
+    }
+
     [Fact]
     public async Task HtmlXlsUploadsNativePayloadKeepsSourceBackupAndDoesNotDuplicateRemote()
     {

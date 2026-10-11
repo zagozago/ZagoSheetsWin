@@ -2,8 +2,8 @@
   "language": "tr",
   "locale": "tr-TR",
   "direction": "ltr",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -633,6 +633,13 @@
     "setup.createShortcuts": "Google Sheets için kısayollar oluştur",
     "action.retry": "Yeniden dene",
     "progress.retry": "{seconds} saniye sonra yeniden deneniyor ({attempt}/2)…",
-    "recovery.discardPrompt": "{count} yedek silinsin mi ({protectedCount} bekleyen)? Bekleyen denemeler kurtarılamayacak şekilde sonlandırılır. Özgün dosyalar, kısayollar ve Google e-tabloları korunur."
+    "recovery.discardPrompt": "{count} yedek silinsin mi ({protectedCount} bekleyen)? Bekleyen denemeler kurtarılamayacak şekilde sonlandırılır. Özgün dosyalar, kısayollar ve Google e-tabloları korunur.",
+    "firstUse.upload": "Doğrudan Drive’a yükleme",
+    "firstUse.googleExplanation": "E-tablolarınız bu hesabın Google Drive alanında kalır. Windows için Google Drive yüklemeniz gerekmez.",
+    "firstUse.defaultsExplanation": "Windows Varsayılan uygulamalarında ZagoSheetsWin’i seçin.",
+    "firstUse.backupExplanation": "Yedek, Sheets’teki sonraki değişiklikler olmadan özgün dosyayı saklar.\nDosyayı kurtarmak için Yedekler’de Şuraya geri yükle… seçeneğini seçin.",
+    "setup.importHeading": "4. Kısayollar ve dosyayı kopya olarak içe aktarma",
+    "tutorial.showAtStartup": "Uygulama açılırken bu öğreticiyi göster",
+    "setup.defaultsHelp": "Windows Varsayılan uygulamalarında ZagoSheetsWin’i seçin. İsteğe bağlı, ancak önerilir. Windows Varsayılan uygulamalar bölümünde ZagoSheetsWin’i seçin. Bu isteğe bağlıdır: Birlikte aç → ZagoSheetsWin de kullanabilirsiniz."
   }
 }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLocale": "pt-BR",
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -342,6 +342,13 @@
     "setup.createShortcuts": "Create shortcuts to Google Sheets",
     "action.retry": "Try again",
     "progress.retry": "Retrying in {seconds}s ({attempt}/2)…",
-    "recovery.discardPrompt": "Delete {count} backups ({protectedCount} pending)? Pending attempts will end without recovery. Originals, shortcuts and Google spreadsheets remain."
+    "recovery.discardPrompt": "Delete {count} backups ({protectedCount} pending)? Pending attempts will end without recovery. Originals, shortcuts and Google spreadsheets remain.",
+    "firstUse.upload": "Upload directly to Drive",
+    "firstUse.googleExplanation": "Your spreadsheets stay in this account’s Google Drive. You don’t need Google Drive for Windows.",
+    "firstUse.defaultsExplanation": "Choose ZagoSheetsWin in Windows Default apps.",
+    "firstUse.backupExplanation": "The backup keeps the original, without later changes in Sheets.\nIn Backups, choose Restore to… to recover the file.",
+    "setup.importHeading": "4. Shortcuts and importing the file as a copy",
+    "tutorial.showAtStartup": "Show this tutorial when opening the app",
+    "setup.defaultsHelp": "Choose ZagoSheetsWin in Windows Default apps. Optional, but recommended. Choose ZagoSheetsWin in Windows Default apps. This is optional: you can also use Open with → ZagoSheetsWin."
   }
 }

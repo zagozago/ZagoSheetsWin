@@ -9,7 +9,7 @@ internal static class LocalizedControls
 {
     private sealed class Binding { internal LocalizedMessage? Message; }
     private static readonly ConditionalWeakTable<Control, Binding> bound = new();
-    internal static void Attach(Form form)
+    internal static void Attach(Control form)
     {
         void Track(Control control)
         {

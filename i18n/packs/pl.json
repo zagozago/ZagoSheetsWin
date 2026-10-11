@@ -2,8 +2,8 @@
   "language": "pl",
   "locale": "pl-PL",
   "direction": "ltr",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -636,6 +636,13 @@
     "setup.createShortcuts": "Twórz skróty do Google Sheets",
     "action.retry": "Spróbuj ponownie",
     "progress.retry": "Ponowna próba za {seconds}s ({attempt}/2)…",
-    "recovery.discardPrompt": "Usunąć {count} kopii zapasowych ({protectedCount} oczekujących)? Oczekujące próby zostaną zakończone bez możliwości odzyskania. Oryginały, skróty i arkusze Google pozostaną."
+    "recovery.discardPrompt": "Usunąć {count} kopii zapasowych ({protectedCount} oczekujących)? Oczekujące próby zostaną zakończone bez możliwości odzyskania. Oryginały, skróty i arkusze Google pozostaną.",
+    "firstUse.upload": "Przesyłanie wprost do Drive",
+    "firstUse.googleExplanation": "Arkusze pozostają na Google Drive tego konta. Nie trzeba instalować Google Drive dla Windows.",
+    "firstUse.defaultsExplanation": "Wybierz ZagoSheetsWin w Aplikacjach domyślnych Windows.",
+    "firstUse.backupExplanation": "Kopia zapasowa zachowuje oryginał bez późniejszych zmian w Sheets.\nW Kopiach zapasowych wybierz Przywróć do…, aby odzyskać plik.",
+    "setup.importHeading": "4. Skróty i importowanie pliku jako kopii",
+    "tutorial.showAtStartup": "Pokazuj ten samouczek przy otwieraniu aplikacji",
+    "setup.defaultsHelp": "Wybierz ZagoSheetsWin w Aplikacjach domyślnych Windows. Opcjonalne, ale zalecane. Wybierz ZagoSheetsWin w domyślnych aplikacjach Windows. To opcjonalne: możesz też użyć Otwórz za pomocą → ZagoSheetsWin."
   }
 }

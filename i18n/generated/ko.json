@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLocale": "pt-BR",
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -342,6 +342,13 @@
     "setup.createShortcuts": "Google Sheets 바로가기 만들기",
     "action.retry": "다시 시도",
     "progress.retry": "{seconds}초 후 다시 시도 ({attempt}/2)…",
-    "recovery.discardPrompt": "백업 {count}개(대기 중 {protectedCount}개)를 삭제할까요? 대기 중인 시도는 종료되어 복구할 수 없습니다. 원본, 바로가기 및 Google 스프레드시트는 유지됩니다."
+    "recovery.discardPrompt": "백업 {count}개(대기 중 {protectedCount}개)를 삭제할까요? 대기 중인 시도는 종료되어 복구할 수 없습니다. 원본, 바로가기 및 Google 스프레드시트는 유지됩니다.",
+    "firstUse.upload": "Drive에 직접 업로드",
+    "firstUse.googleExplanation": "스프레드시트는 이 계정의 Google Drive에 저장됩니다. Windows용 Google Drive를 설치할 필요가 없습니다.",
+    "firstUse.defaultsExplanation": "Windows 기본 앱에서 ZagoSheetsWin을 선택하세요.",
+    "firstUse.backupExplanation": "백업은 원본을 보관하며 이후 Sheets에서 한 변경은 포함하지 않습니다.\n백업에서 복원 위치…를 선택하여 파일을 복구하세요.",
+    "setup.importHeading": "4. 바로가기 및 파일을 사본으로 가져오기",
+    "tutorial.showAtStartup": "앱을 열 때 이 자습서 표시",
+    "setup.defaultsHelp": "Windows 기본 앱에서 ZagoSheetsWin을 선택하세요. 선택 사항이지만 권장합니다. Windows 기본 앱에서 ZagoSheetsWin을 선택하세요. 선택 사항이며 연결 프로그램 → ZagoSheetsWin을 사용할 수도 있습니다."
   }
 }

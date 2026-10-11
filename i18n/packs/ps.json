@@ -2,8 +2,8 @@
   "language": "ps",
   "locale": "ps-AF",
   "direction": "rtl",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -634,6 +634,13 @@
     "setup.createShortcuts": "Google Sheets ته لنډلارې جوړې کړئ",
     "action.retry": "بیا هڅه وکړئ",
     "progress.retry": "په {seconds} ثانیو کې بیا هڅه ({attempt}/2)…",
-    "recovery.discardPrompt": "{count} بیک اپونه ړنګ کړئ ({protectedCount} پاتې)؟ پاتې هڅې به پای ته ورسېږي او بېرته نه شي ترلاسه کېدای. اصلي فایلونه، لنډلارې او د Google پاڼې به پاتې شي."
+    "recovery.discardPrompt": "{count} بیک اپونه ړنګ کړئ ({protectedCount} پاتې)؟ پاتې هڅې به پای ته ورسېږي او بېرته نه شي ترلاسه کېدای. اصلي فایلونه، لنډلارې او د Google پاڼې به پاتې شي.",
+    "firstUse.upload": "مستقیم Drive ته پورته کول",
+    "firstUse.googleExplanation": "ستاسو جدولونه د دې حساب په Google Drive کې پاتې کېږي. د Windows لپاره Google Drive نصبولو ته اړتیا نشته.",
+    "firstUse.defaultsExplanation": "د Windows په اصلي کاریالونو کې ZagoSheetsWin غوره کړئ.",
+    "firstUse.backupExplanation": "شاتړ اصلي فایل ساتي، په Sheets کې وروسته بدلونونه نه ساتي.\nپه شاتړونو کې دلته بېرته راګرځول… غوره کړئ او فایل ترلاسه کړئ.",
+    "setup.importHeading": "4. لنډلارې او د فایل د نقل په توګه واردول",
+    "tutorial.showAtStartup": "د کاریال پرانیستلو پر مهال دا لارښود ښکاره کړئ",
+    "setup.defaultsHelp": "د Windows په اصلي کاریالونو کې ZagoSheetsWin غوره کړئ. اختیاري، خو سپارښتنه کېږي. په Windows ډیفالټ اپونه کې ZagoSheetsWin وټاکئ. دا اختیاري ده: تاسو له دې سره پرانیزئ → ZagoSheetsWin هم کارولی شئ."
   }
 }

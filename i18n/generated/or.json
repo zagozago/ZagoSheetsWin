@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.27",
+  "productVersion": "0.9.28",
   "sourceLocale": "pt-BR",
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -342,6 +342,13 @@
     "setup.createShortcuts": "Google Sheets ପାଇଁ ସର୍ଟକଟ୍ ତିଆରି କରନ୍ତୁ",
     "action.retry": "ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ",
     "progress.retry": "{seconds} ସେକେଣ୍ଡରେ ପୁଣି ଚେଷ୍ଟା ({attempt}/2)…",
-    "recovery.discardPrompt": "{count} ବ୍ୟାକଅପ୍ ହଟାଇବେ ({protectedCount} ବାକି)? ବାକି ପ୍ରୟାସ ଶେଷ ହେବ ଏବଂ ପୁନରୁଦ୍ଧାର ହେବ ନାହିଁ। ମୂଳ ଫାଇଲ୍, ସର୍ଟକଟ୍ ଓ Google ସ୍ପ୍ରେଡ୍‌ସିଟ୍ ରହିବ।"
+    "recovery.discardPrompt": "{count} ବ୍ୟାକଅପ୍ ହଟାଇବେ ({protectedCount} ବାକି)? ବାକି ପ୍ରୟାସ ଶେଷ ହେବ ଏବଂ ପୁନରୁଦ୍ଧାର ହେବ ନାହିଁ। ମୂଳ ଫାଇଲ୍, ସର୍ଟକଟ୍ ଓ Google ସ୍ପ୍ରେଡ୍‌ସିଟ୍ ରହିବ।",
+    "firstUse.upload": "ସିଧାସଳଖ Driveକୁ ଅପଲୋଡ୍",
+    "firstUse.googleExplanation": "ଆପଣଙ୍କ ସ୍ପ୍ରେଡ୍‌ଶିଟ୍ ଏହି ଖାତାର Google Driveରେ ରହେ। Windows ପାଇଁ Google Drive ଇନଷ୍ଟଲ୍ କରିବା ଆବଶ୍ୟକ ନାହିଁ।",
+    "firstUse.defaultsExplanation": "Windowsର ଡିଫଲ୍ଟ ଆପ୍‌ରେ ZagoSheetsWin ବାଛନ୍ତୁ।",
+    "firstUse.backupExplanation": "ବ୍ୟାକଅପ୍ ମୂଳ ଫାଇଲ୍ ରଖେ, Sheetsର ପରବର୍ତ୍ତୀ ପରିବର୍ତ୍ତନ ନୁହେଁ।\nବ୍ୟାକଅପ୍‌ରେ ଏଠାରେ ପୁନରୁଦ୍ଧାର କରନ୍ତୁ… ବାଛି ଫାଇଲ୍ ଫେରାଇ ଆଣନ୍ତୁ।",
+    "setup.importHeading": "4. ସର୍ଟକଟ୍ ଓ ଫାଇଲ୍‌କୁ ନକଲ ଭାବେ ଆମଦାନୀ",
+    "tutorial.showAtStartup": "ଆପ୍ ଖୋଲିବାବେଳେ ଏହି ମାର୍ଗଦର୍ଶିକା ଦେଖାନ୍ତୁ",
+    "setup.defaultsHelp": "Windowsର ଡିଫଲ୍ଟ ଆପ୍‌ରେ ZagoSheetsWin ବାଛନ୍ତୁ। ଇଚ୍ଛାଧୀନ, କିନ୍ତୁ ସୁପାରିଶ କରାଯାଏ। Windows ଡିଫଲ୍ଟ ଆପ୍‌ଗୁଡ଼ିକ ରେ ZagoSheetsWin ବାଛନ୍ତୁ। ଏହା ବୈକଳ୍ପିକ: ଏହା ସହ ଖୋଲନ୍ତୁ → ZagoSheetsWin ମଧ୍ୟ ବ୍ୟବହାର କରିପାରିବେ।"
   }
 }

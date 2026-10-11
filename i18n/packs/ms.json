@@ -2,8 +2,8 @@
   "language": "ms",
   "locale": "ms-MY",
   "direction": "ltr",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -635,6 +635,13 @@
     "setup.createShortcuts": "Cipta pintasan ke Google Sheets",
     "action.retry": "Cuba lagi",
     "progress.retry": "Mencuba lagi dalam {seconds}s ({attempt}/2)…",
-    "recovery.discardPrompt": "Padam {count} sandaran ({protectedCount} tertunda)? Cubaan tertunda akan ditamatkan tanpa pemulihan. Fail asal, pintasan dan hamparan Google kekal."
+    "recovery.discardPrompt": "Padam {count} sandaran ({protectedCount} tertunda)? Cubaan tertunda akan ditamatkan tanpa pemulihan. Fail asal, pintasan dan hamparan Google kekal.",
+    "firstUse.upload": "Muat naik terus ke Drive",
+    "firstUse.googleExplanation": "Hamparan kekal dalam Google Drive akaun ini. Tidak perlu memasang Google Drive untuk Windows.",
+    "firstUse.defaultsExplanation": "Pilih ZagoSheetsWin dalam Aplikasi lalai Windows.",
+    "firstUse.backupExplanation": "Sandaran menyimpan fail asal tanpa perubahan kemudian dalam Sheets.\nDalam Sandaran, pilih Pulihkan ke… untuk mendapatkan semula fail.",
+    "setup.importHeading": "4. Pintasan dan mengimport fail sebagai salinan",
+    "tutorial.showAtStartup": "Paparkan tutorial ini semasa membuka aplikasi",
+    "setup.defaultsHelp": "Pilih ZagoSheetsWin dalam Aplikasi lalai Windows. Pilihan, tetapi disyorkan. Pilih ZagoSheetsWin dalam Aplikasi lalai Windows. Ini pilihan: anda juga boleh menggunakan Buka dengan → ZagoSheetsWin."
   }
 }

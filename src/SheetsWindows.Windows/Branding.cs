@@ -56,7 +56,7 @@ internal static class Branding
         using var original = Image.FromStream(source); var logo = new Bitmap(original);
         var picture = new PictureBox { Image = logo, SizeMode = PictureBoxSizeMode.Zoom, Dock = DockStyle.Left, Width = 36 };
         form.Disposed += (_, _) => logo.Dispose();
-        var title = new Label { Text = Name, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, Padding = new Padding(10, 0, 0, 0) };
+        var title = new Label { Text = Name, AutoSize = true, TextAlign = ContentAlignment.MiddleLeft, Padding = new Padding(10, 0, 0, 0) };
         title.Font = new Font("Segoe UI", 13, FontStyle.Bold);
         var right = new FlowLayoutPanel { Dock = DockStyle.Right, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, FlowDirection = FlowDirection.LeftToRight, WrapContents = false, Padding = new Padding(0, 5, 0, 0) };
         var toggle = new ThemeToggle { Width = 36, Height = 34, Margin = new Padding(3,0,3,0) };
@@ -84,7 +84,10 @@ internal static class Branding
             tooltip.SetToolTip(language, UiText.Get("language.button"));
             right.Controls.Add(language);
         }
-        right.Controls.Add(toggle); header.Controls.Add(title); header.Controls.Add(picture); header.Controls.Add(right);
+        var brand = new FlowLayoutPanel { Dock = DockStyle.Fill, FlowDirection = FlowDirection.LeftToRight, WrapContents = false, Padding = new Padding(0, 5, 0, 0) };
+        title.Margin = new Padding(0, 2, 0, 0);
+        brand.Controls.Add(title); brand.Controls.Add(new InformationButton(() => InformationButton.TextPanel("home.description"), hover: false));
+        right.Controls.Add(toggle); header.Controls.Add(brand); header.Controls.Add(picture); header.Controls.Add(right);
         form.Controls.Add(header); header.SendToBack();
         void RefreshTheme() { if (!form.IsDisposed) { Theme(form); UpdateToggle(); } }
         Action changed = RefreshTheme; ThemeChanged += changed;

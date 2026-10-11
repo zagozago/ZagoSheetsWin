@@ -131,7 +131,11 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
     public async Task LoginAsync(CancellationToken ct = default)
     {
         var client = await LauncherConfiguration.LoadClientAsync(storage, ct);
-        await Auth(client, new FileOperationLock(storage.LocksPath)).ConnectAsync(ct);
+        var locks = new FileOperationLock(storage.LocksPath); var auth = Auth(client, locks);
+        await auth.ConnectAsync(ct);
+        await new GoogleImport(storage.CreatePreparation(), new SqliteOperationRegistry(storage.DatabasePath),
+            new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")), new SourceReader(), locks, auth, new GoogleDriveClient(http, auth))
+            .EnsureFolderAsync(ct);
     }
     public async Task<string> OpenAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default)
     {
@@ -141,7 +145,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         var client = await LauncherConfiguration.LoadClientAsync(storage, ct);
         if (!OpeningPolicy.IsConfigured(storage)) throw new LauncherNotConfiguredException();
         var opening = OpeningPolicy.Load(storage);
-        if (!ShortcutSettings.Load(storage)) return await CopyAsync(path, progress, ct);
+        if (CopyImportSettings.Load(storage) || !ShortcutSettings.Load(storage)) return await CopyAsync(path, progress, ct);
         if (!opening.RestrictToFolder && SourceEnvironment.RequiresCopy(path))
         {
             var copied = await CopyAsync(path, progress, ct);

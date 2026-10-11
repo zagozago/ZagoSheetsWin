@@ -2,8 +2,8 @@
   "language": "ur",
   "locale": "ur",
   "direction": "rtl",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -634,6 +634,13 @@
     "setup.createShortcuts": "Google Sheets کے شارٹ کٹس بنائیں",
     "action.retry": "دوبارہ کوشش کریں",
     "progress.retry": "{seconds} سیکنڈ میں دوبارہ کوشش ({attempt}/2)…",
-    "recovery.discardPrompt": "{count} بیک اپ حذف کریں ({protectedCount} زیر التوا)؟ زیر التوا کوششیں ختم ہو جائیں گی اور بحال نہیں ہو سکیں گی۔ اصل فائلیں، شارٹ کٹس اور Google اسپریڈشیٹس محفوظ رہیں گی۔"
+    "recovery.discardPrompt": "{count} بیک اپ حذف کریں ({protectedCount} زیر التوا)؟ زیر التوا کوششیں ختم ہو جائیں گی اور بحال نہیں ہو سکیں گی۔ اصل فائلیں، شارٹ کٹس اور Google اسپریڈشیٹس محفوظ رہیں گی۔",
+    "firstUse.upload": "براہ راست Drive پر اپ لوڈ",
+    "firstUse.googleExplanation": "آپ کی اسپریڈشیٹس اس اکاؤنٹ کے Google Drive میں رہتی ہیں۔ Windows کے لیے Google Drive انسٹال کرنا ضروری نہیں۔",
+    "firstUse.defaultsExplanation": "Windows کی ڈیفالٹ ایپس میں ZagoSheetsWin منتخب کریں۔",
+    "firstUse.backupExplanation": "بیک اپ اصل فائل محفوظ رکھتا ہے، Sheets میں بعد کی تبدیلیاں نہیں۔\nبیک اپ میں بحال کریں… منتخب کرکے فائل واپس حاصل کریں۔",
+    "setup.importHeading": "4. شارٹ کٹس اور فائل کو نقل کے طور پر درآمد کرنا",
+    "tutorial.showAtStartup": "ایپ کھولتے وقت یہ رہنما دکھائیں",
+    "setup.defaultsHelp": "Windows کی ڈیفالٹ ایپس میں ZagoSheetsWin منتخب کریں۔ اختیاری، لیکن تجویز کردہ۔ Windows کی ڈیفالٹ ایپس میں ZagoSheetsWin منتخب کریں۔ یہ اختیاری ہے: آپ اس کے ساتھ کھولیں → ZagoSheetsWin بھی استعمال کر سکتے ہیں۔"
   }
 }

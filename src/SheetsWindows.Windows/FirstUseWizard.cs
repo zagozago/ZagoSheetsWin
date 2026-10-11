@@ -15,11 +15,11 @@ internal sealed class FirstUseWizard : Form
     private CancellationTokenSource cancellation = new();
     private readonly TableLayoutPanel layout = new() { Dock = DockStyle.Fill, Padding = new Padding(20), ColumnCount = 1, RowCount = 5 };
     private readonly Label heading = Ui.Text("", true);
-    private readonly TutorialPicture picture = new() { Dock = DockStyle.Fill };
+    private readonly TutorialPicture picture = new() { Dock = DockStyle.Fill, FirstUse = true };
     private readonly FlowLayoutPanel content = new() { Dock = DockStyle.Fill, AutoScroll = true, FlowDirection = FlowDirection.TopDown, WrapContents = false };
     private readonly FlowLayoutPanel actions = new() { Dock = DockStyle.Fill, AutoSize = true, WrapContents = true };
     private readonly Label count = new() { AutoSize = true };
-    private readonly Label connection = Ui.Text("", true);
+    private readonly Label connection = Ui.Hero("");
     private readonly Label status = Ui.Text("");
     private readonly CheckBox noSync;
     private readonly TextBox folder = new() { ReadOnly = true };
@@ -33,18 +33,19 @@ internal sealed class FirstUseWizard : Form
     internal Button NextButton { get; } = new AdaptiveButton { AutoSize = true };
     internal Button PreviousButton { get; } = new AdaptiveButton { AutoSize = true, Text = UiText.Get("action.back") };
     internal Button ConnectButton { get; } = new AdaptiveButton { AutoSize = true, Text = UiText.Get("action.authorizeGoogle") };
-    internal CheckBox Acknowledgement { get; }
+    private readonly NumericUpDown days = new() { Minimum = 1, Maximum = 365, Value = 30, AccessibleName = UiText.Get("accessibility.retentionDays") };
+    private readonly NumericUpDown quota = new() { Minimum = 1, Maximum = 1000, Value = 200, AccessibleName = UiText.Get("accessibility.quotaMb") };
 
     internal FirstUseWizard(bool preview = false, int initialPage = 0, LocalStorage? storage = null,
         Func<CancellationToken, Task>? authorize = null, Func<CancellationToken, Task>? verify = null,
         Func<CancellationToken, Task>? save = null)
     {
-        this.storage = storage ?? LocalStorage.ForCurrentUser(); this.preview = preview;
+        this.storage = storage ?? LocalStorage.ForCurrentUser(); this.preview = preview; AuthorizationConfirmed = preview;
         this.authorize = authorize ?? Authorize; this.verify = verify ?? Verify; this.save = save ?? Save;
         var opening = OpeningPolicy.Load(this.storage);
-        noSync = new CheckBox { AutoSize = true, Text = UiText.Get("setup.noSync"), Checked = !opening.RestrictToFolder };
+        noSync = new ToggleSwitch { AutoSize = true, Text = UiText.Get("setup.noSync"), Checked = !opening.RestrictToFolder };
         folder.Text = opening.Folder ?? "";
-        Acknowledgement = new CheckBox { AutoSize = true, Text = UiText.Get("setup.replacementConsent"), Checked = OpeningPolicy.IsConfigured(this.storage) };
+        var policy = BackupPolicy.Load(this.storage); days.Value = policy.RetentionDays; quota.Value = policy.QuotaMb;
         CurrentPage = Math.Clamp(initialPage, 0, 3);
         Text = UiText.Get("setup.firstUseTitle"); ClientSize = new Size(760, 740); MinimumSize = new Size(620, 620);
         StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
@@ -61,7 +62,7 @@ internal sealed class FirstUseWizard : Form
             legal.Controls.Add(link);
         }
         layout.Controls.Add(legal, 0, 4); Controls.Add(layout); Ui.Primary(NextButton);
-        PreviousButton.Click += (_, _) => { if (busy || CurrentPage == 0 || CurrentPage == 1 && !AuthorizationConfirmed) return; CurrentPage--; RefreshPage(); };
+        PreviousButton.Click += (_, _) => { if (busy || CurrentPage == 0 ) return; CurrentPage--; RefreshPage(); };
         NextButton.Click += async (_, _) =>
         {
             if (busy || CurrentPage == 1 && !AuthorizationConfirmed) return;
@@ -71,12 +72,11 @@ internal sealed class FirstUseWizard : Form
         };
         ConnectButton.Click += async (_, _) => await Run(this.authorize, authentication: true);
         cancel.Click += (_, _) => cancellation.Cancel();
-        Acknowledgement.CheckedChanged += (_, _) => UpdateNavigation();
         UiText.Changed += RefreshPage; Disposed += (_, _) => UiText.Changed -= RefreshPage;
         FormClosing += (_, e) =>
         {
             if (Completed || preview) return;
-            if (busy || CurrentPage == 1 && !AuthorizationConfirmed) { e.Cancel = true; if (!busy) connection.Text = UiText.Get("setup.authMissing"); }
+            if (busy) { e.Cancel = true; cancellation.Cancel(); }
         };
         Branding.Apply(this); Ui.Adapt(content); RefreshPage();
         if (!preview) Shown += async (_, _) => { if (CurrentPage == 1) await CheckExistingConnection(); };
@@ -84,25 +84,24 @@ internal sealed class FirstUseWizard : Form
     private static string SectionTitle(string key) => System.Text.RegularExpressions.Regex.Replace(UiText.Get(key), @"^\s*\d+[.、．]?\s*", "");
     private void UpdateNavigation()
     {
-        PreviousButton.Enabled = !busy && CurrentPage > 0 && (CurrentPage != 1 || AuthorizationConfirmed);
-        NextButton.Enabled = !busy && (CurrentPage != 1 || AuthorizationConfirmed) &&
-            (CurrentPage != 3 || !ShortcutSettings.Load(storage) || Acknowledgement.Checked);
+        PreviousButton.Enabled = !busy && CurrentPage > 0;
+        NextButton.Enabled = !busy && (CurrentPage != 1 || AuthorizationConfirmed);
         ConnectButton.Enabled = !busy;
     }
     private void RefreshPage()
     {
         // Persistent input controls survive both page navigation and language changes.
-        foreach (var persistent in new Control[] { noSync, folder, Acknowledgement, ConnectButton, connection, status }) persistent.Parent?.Controls.Remove(persistent);
+        foreach (var persistent in new Control[] { noSync, folder, days, quota, ConnectButton, connection, status }) persistent.Parent?.Controls.Remove(persistent);
         var old = content.Controls.Cast<Control>().ToArray(); content.Controls.Clear(); foreach (var control in old) control.Dispose();
         heading.Text = UiText.Format("tutorial.numberedTitle", ("number", CurrentPage + 1), ("title", TutorialForm.Pages[CurrentPage].Title));
         picture.Page = CurrentPage; picture.AccessibleName = TutorialForm.Pages[CurrentPage].Title; picture.Invalidate();
         layout.RowStyles[1].Height = (CurrentPage == 3 ? 165 : 220) * DeviceDpi / 96f;
-        foreach (var paragraph in TutorialForm.Pages[CurrentPage].Text.Split('|')) content.Controls.Add(Ui.Text(paragraph));
         if (CurrentPage == 1)
         {
+            content.Controls.Add(Ui.Center(Ui.Text(UiText.Get("firstUse.googleExplanation"))));
             connection.Text = UiText.Get(AuthorizationConfirmed ? "setup.authConfirmed" : "setup.authMissing");
             ConnectButton.Text = UiText.Get(AuthorizationConfirmed ? "action.switchGoogleAccount" : "action.authorizeGoogle");
-            content.Controls.Add(connection); content.Controls.Add(ConnectButton);
+            content.Controls.Add(Ui.Center(connection)); content.Controls.Add(ConnectButton);
             if (!File.Exists(LauncherConfiguration.ClientPath(storage)) &&
                 !typeof(LauncherConfiguration).Assembly.GetManifestResourceNames().Contains("OAuth.official.desktop.json"))
             {
@@ -113,27 +112,22 @@ internal sealed class FirstUseWizard : Form
         }
         else if (CurrentPage == 2)
         {
-            content.Controls.Add(Ui.Text(SectionTitle("setup.defaultsHeading"), true)); content.Controls.Add(Ui.Text(UiText.Get("setup.defaultsExplanation")));
+            content.Controls.Add(Ui.Hero(SectionTitle("setup.defaultsHeading"))); content.Controls.Add(Ui.Center(Ui.Text(UiText.Get("firstUse.defaultsExplanation"))));
             var defaults = new AdaptiveButton { AutoSize = true, Text = UiText.Get("tutorial.defineDefaults") }; Ui.Primary(defaults);
             defaults.Click += (_, _) => { try { new BrowserLauncher().Open(WindowsAssociationPlan.DefaultsUri); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = UiText.Get("setup.windowsDefaultsInstructions"); } };
             content.Controls.Add(defaults);
         }
         else if (CurrentPage == 3)
         {
-            noSync.Text = UiText.Get("setup.noSync"); Acknowledgement.Text = UiText.Get("setup.replacementConsent");
-            content.Controls.Add(Ui.Text(SectionTitle("setup.syncHeading"), true)); content.Controls.Add(noSync);
-            var folderOptions = new FlowLayoutPanel { AutoSize = true, FlowDirection = FlowDirection.TopDown, WrapContents = false, Visible = !noSync.Checked };
-            folderOptions.Controls.Add(Ui.Text(UiText.Get("setup.syncExplanation"))); folderOptions.Controls.Add(folder);
-            var choose = new AdaptiveButton { AutoSize = true, Text = UiText.Get("setup.chooseFolder") };
-            choose.Click += (_, _) => { using var dialog = new FolderBrowserDialog(); if (dialog.ShowDialog(this) == DialogResult.OK) folder.Text = dialog.SelectedPath; };
-            folderOptions.Controls.Add(choose); content.Controls.Add(folderOptions); Ui.Adapt(folderOptions);
-            // Remove the page-specific handler when leaving this page.
-            EventHandler change = (_, _) => folderOptions.Visible = !noSync.Checked;
-            noSync.CheckedChanged += change; folderOptions.Disposed += (_, _) => noSync.CheckedChanged -= change;
-            if (ShortcutSettings.Load(storage)) content.Controls.Add(Acknowledgement);
-            var backups = new AdaptiveButton { AutoSize = true, Text = UiText.Get("tutorial.openBackups") };
-            backups.Click += (_, _) => { using var recovery = new RecoveryForm(preview: preview); recovery.ShowDialog(this); }; content.Controls.Add(backups);
+            content.Controls.Add(Ui.Center(Ui.Text(UiText.Get("firstUse.backupExplanation"))));
+            var limits = new TableLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, ColumnCount = 2, RowCount = 2, Margin = new Padding(0, 12, 0, 0) };
+            limits.ColumnStyles.Add(new(SizeType.Percent, 50)); limits.ColumnStyles.Add(new(SizeType.Percent, 50)); limits.RowStyles.Add(new(SizeType.AutoSize)); limits.RowStyles.Add(new(SizeType.AutoSize));
+            var daysLabel = Ui.Text(UiText.Get("recovery.retentionLabel")); var quotaLabel = Ui.Text(UiText.Get("recovery.quotaLabel"));
+            daysLabel.Dock = quotaLabel.Dock = DockStyle.Fill; daysLabel.TextAlign = quotaLabel.TextAlign = ContentAlignment.MiddleCenter;
+            days.Dock = quota.Dock = DockStyle.Fill; limits.Controls.Add(daysLabel, 0, 0); limits.Controls.Add(quotaLabel, 1, 0); limits.Controls.Add(days, 0, 1); limits.Controls.Add(quota, 1, 1);
+            content.Controls.Add(limits);
         }
+        status.Visible = !string.IsNullOrEmpty(status.Text);
         content.Controls.Add(status);
         NextButton.Text = UiText.Get(CurrentPage == 3 ? "tutorial.start" : "action.next"); PreviousButton.Text = UiText.Get("action.back");
         count.Text = UiText.Format("tutorial.pageCount", ("number", CurrentPage + 1), ("total", 4));
@@ -147,23 +141,24 @@ internal sealed class FirstUseWizard : Form
     private async Task Run(Func<CancellationToken, Task> action, bool authentication)
     {
         if (busy) return;
+        SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());
         busy = true;
         if (authentication) AuthorizationConfirmed = false;
         content.Enabled = false; cancel.Visible = authentication; UpdateNavigation();
-        status.Text = UiText.Get(authentication ? "setup.savingAuthorizing" : "setup.saving");
+        status.Visible = true; status.Text = UiText.Get(authentication ? "setup.savingAuthorizing" : "setup.saving");
         try
         {
             await action(cancellation.Token);
             if (authentication) { AuthorizationConfirmed = true; connection.Text = UiText.Get("setup.authConfirmed"); ConnectButton.Text = UiText.Get("action.switchGoogleAccount"); }
             else Completed = true;
-            status.Text = UiText.Get(authentication ? "setup.authorizedReviewSettings" : "setup.saved");
+            status.Text = "";
         }
         catch (Exception ex) when (LauncherErrors.Expected(ex))
         {
             if (authentication) connection.Text = UiText.Get("setup.authNotCompleted");
             status.Text = ex is ArgumentException ? UiText.Get("setup.consentRequired") : LauncherErrors.Message(ex);
         }
-        finally { busy = false; content.Enabled = true; cancel.Visible = false; if (cancellation.IsCancellationRequested) { cancellation.Dispose(); cancellation = new CancellationTokenSource(); } UpdateNavigation(); }
+        finally { status.Visible = !string.IsNullOrEmpty(status.Text); busy = false; content.Enabled = true; cancel.Visible = false; if (cancellation.IsCancellationRequested) { cancellation.Dispose(); cancellation = new CancellationTokenSource(); } UpdateNavigation(); }
     }
     private async Task Authorize(CancellationToken ct)
     {
@@ -183,8 +178,10 @@ internal sealed class FirstUseWizard : Form
     private async Task Save(CancellationToken ct)
     {
         if (!AuthorizationConfirmed || FirstUseState.NeedsAuthorization(storage)) throw new AuthorizationRequiredException();
-        await OpeningPolicy.SaveAsync(storage, !noSync.Checked, folder.Text, !ShortcutSettings.Load(storage) || Acknowledgement.Checked, ct);
+        await OpeningPolicy.SaveAsync(storage, !noSync.Checked, folder.Text, true, ct);
         try { _ = ExtendedConfiguration.Load(storage); } catch (LauncherNotConfiguredException) { ExtendedConfiguration.Save(storage, new(), true); }
+        var policy = BackupPolicy.Load(storage);
+        await BackupPolicy.SaveAsync(storage, new((int)days.Value, (int)quota.Value, policy.AutomaticCleanup), ct);
         await FirstUseCompletion.SaveAsync(storage, ct);
     }
     protected override void Dispose(bool disposing) { if (disposing && !IsDisposed) { cancellation.Cancel(); cancellation.Dispose(); } base.Dispose(disposing); }

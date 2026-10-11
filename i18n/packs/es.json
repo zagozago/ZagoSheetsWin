@@ -2,8 +2,8 @@
   "language": "es",
   "locale": "es",
   "direction": "ltr",
-  "catalogRevision": 4,
-  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
+  "catalogRevision": 5,
+  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -634,6 +634,13 @@
     "setup.createShortcuts": "Crear accesos directos a Google Sheets",
     "action.retry": "Reintentar",
     "progress.retry": "Reintentando en {seconds}s ({attempt}/2)…",
-    "recovery.discardPrompt": "¿Eliminar {count} copias de seguridad ({protectedCount} pendientes)? Los intentos pendientes terminarán sin posibilidad de recuperación. Se conservan los originales, los accesos directos y las hojas de Google."
+    "recovery.discardPrompt": "¿Eliminar {count} copias de seguridad ({protectedCount} pendientes)? Los intentos pendientes terminarán sin posibilidad de recuperación. Se conservan los originales, los accesos directos y las hojas de Google.",
+    "firstUse.upload": "Subida directa a Drive",
+    "firstUse.googleExplanation": "Tus hojas de cálculo quedan en el Google Drive de esta cuenta. No necesitas instalar Google Drive para Windows.",
+    "firstUse.defaultsExplanation": "Elige ZagoSheetsWin en las Aplicaciones predeterminadas de Windows.",
+    "firstUse.backupExplanation": "La copia de seguridad guarda el original, sin los cambios posteriores en Sheets.\nEn Copias de seguridad, elige Restaurar en… para recuperar el archivo.",
+    "setup.importHeading": "4. Accesos directos e importación del archivo como copia",
+    "tutorial.showAtStartup": "Mostrar este tutorial al abrir la aplicación",
+    "setup.defaultsHelp": "Elige ZagoSheetsWin en las Aplicaciones predeterminadas de Windows. Opcional, pero recomendado. Elige ZagoSheetsWin en Aplicaciones predeterminadas de Windows. Es opcional: también puedes usar Abrir con → ZagoSheetsWin."
   }
 }
