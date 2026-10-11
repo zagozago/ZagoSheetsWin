@@ -15,9 +15,15 @@ internal sealed class AdvancedPreferencesForm : Form
         void Heading(string key, Func<FlowLayoutPanel> help)
         {
             var row = new FlowLayoutPanel { AutoSize = true, WrapContents = false, Margin = new Padding(0, 4, 0, 4) };
-            var label = Ui.Text(UiText.Get(key), true); label.Margin = new Padding(0, 2, 0, 2);
+            string HeadingText() => key == "setup.syncHeading" ? System.Text.RegularExpressions.Regex.Replace(UiText.Get(key), @"^\d+\.\s*", "") : UiText.Get(key);
+            var label = Ui.Text(HeadingText(), true);
+            void RefreshHeading() => label.Text = HeadingText();
+            UiText.Changed += RefreshHeading; Disposed += (_, _) => UiText.Changed -= RefreshHeading;
+            label.Margin = new Padding(0, 2, 0, 2);
             var info = new InformationButton(help) { AccessibleDescription = UiText.Get(key) };
-            row.Controls.Add(label); row.Controls.Add(info); layout.Controls.Add(row);
+            row.Controls.Add(label); row.Controls.Add(info);
+            row.SizeChanged += (_, _) => label.MaximumSize = new Size(Math.Max(100, row.Width - info.Width - info.Margin.Horizontal - 12), 0);
+            layout.Controls.Add(row);
         }
         var opening = OpeningPolicy.Load(storage);
         var sync = new ToggleSwitch { Checked = !opening.RestrictToFolder, Text = UiText.Get("setup.noSync") };
