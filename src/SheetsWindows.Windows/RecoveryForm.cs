@@ -40,7 +40,7 @@ internal sealed class RecoveryForm : Form
             usage.MaximumSize = new Size(width, 0); automatic.AutoSize = false; automatic.Width = width;
             foreach (var label in policyPanel.Controls.OfType<Label>()) label.MaximumSize = new Size(width, 0);
             automatic.Height = TextRenderer.MeasureText(automatic.Text, automatic.Font, new Size(Math.Max(40, width-24), int.MaxValue), TextFormatFlags.WordBreak).Height + 14;
-            save.MaximumSize = new Size(width, 0); save.MinimumSize = new Size(width, 0);
+            save.AutoSize = false; save.Width = width;
         }
         policyPanel.SizeChanged += (_, _) => FitPolicy(); automatic.TextChanged += (_, _) => FitPolicy(); automatic.FontChanged += (_, _) => FitPolicy();
         policyPanel.Controls.AddRange([new Label { Text = UiText.Get("recovery.retentionLabel"), AutoSize = true }, days, new Label { Text = UiText.Get("recovery.quotaLabel"), AutoSize = true }, quota, automatic, usage, save]);
