@@ -23,6 +23,28 @@ internal static class InterfaceVerification
             }
             languageOwner.Hide();
         }
+        using (var picker = new LanguagePicker())
+        {
+            picker.Show(); Application.DoEvents();
+            var list = Descendants(picker).OfType<ListBox>().Single();
+            var apply = (Button)picker.AcceptButton!;
+            var originalLanguage = UiText.Language;
+            var originalPreference = ApplicationLanguages.Preference;
+            var originalTitle = picker.Text;
+            for (var i = 0; i < LanguageSettings.Available.Count; i++)
+            {
+                var language = LanguageSettings.Available[i];
+                list.SelectedIndex = i + 1; Application.DoEvents();
+                Require(apply.Text == UiText.GetForLanguage(language.Code, "language.apply"), $"Apply caption must preview {language.Code}.");
+                Require(apply.RightToLeft == (language.Direction == "rtl" ? RightToLeft.Yes : RightToLeft.No), "Only the apply caption follows the selected reading direction.");
+                Require(UiText.Language == originalLanguage && ApplicationLanguages.Preference == originalPreference && picker.Text == originalTitle,
+                    "Previewing a language must not change the app, preference or dialog title.");
+            }
+            list.SelectedIndex = 0; Application.DoEvents();
+            var automatic = LanguageSettings.Resolve(LanguageSettings.Automatic, LanguageSettings.WindowsPreferredLanguages());
+            Require(apply.Text == UiText.GetForLanguage(automatic, "language.apply"), "Automatic preview follows the resolved Windows language.");
+            picker.Close();
+        }
         using (var action = new MenuActionButton())
         {
             var invoked = 0; action.Click += (_, _) => invoked++;
@@ -75,7 +97,7 @@ internal static class InterfaceVerification
             Require(numbers.Any(n => n.Value == 30 && n.Maximum == 365) && numbers.Any(n => n.Value == 200 && n.Maximum == 1000), "Backup defaults and quota ceiling must be visible.");
             Require(!Descendants(recovery).OfType<CheckBox>().Single().Checked, "Automatic cleanup requires informed opt-in.");
             Require(list.Columns.Count == 4 && list.Items.Cast<ListViewItem>().All(i => i.Tag is RecoveryEntry), "Backup table must preserve recovery identity and expose four readable columns.");
-            Require(list.Items.Count == 4, "Backup preview must cover completed, protected and cleaned history.");
+            Require(list.Items.Count == 3 && list.Items.Cast<ListViewItem>().All(i => ((RecoveryEntry)i.Tag!).CleanupState != 2), "Deleted backup history must be absent from the recovery list.");
             Require(list.MultiSelect && list.CheckBoxes, "Backups must support multiple selection.");
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Selecionar todos").PerformClick();
             Require(list.CheckedItems.Count == 2 && list.CheckedItems.Cast<ListViewItem>().All(i => ((RecoveryEntry)i.Tag!).CanClean), "Select all must select only deletable backups.");

@@ -46,6 +46,7 @@ public sealed class BackupManagementTests
         Assert.False(File.Exists(op.Snapshot!.BackupPath)); Assert.True(File.Exists(w.Source)); Assert.Equal("preserved shortcut",File.ReadAllText(w.Source+".url"));
         Assert.Equal(op,w.Registry().Get(op.Id)); Assert.True(new GoogleRemoteRegistry(Path.Combine(Storage(w).Root,"google.db")).Get("sheet:"+op.Id.ToString("N"))!.Verified);
         Assert.Equal(2,Assert.Single(manager.Inspect().Entries).CleanupState); Assert.Equal(new CleanupResult(0,0),await manager.DeleteAsync(op.Id));
+        Assert.Empty(new BackupRecovery(Storage(w)).List());
         await Assert.ThrowsAsync<BackupRemovedException>(()=>new BackupRecovery(Storage(w)).RestoreAsync(op.Id,w.Source+".restored"));
         await Assert.ThrowsAsync<BackupRemovedException>(()=>Storage(w).CreatePreparation().PrepareAsync("A",w.Source));
         Assert.Single(w.Registry().Pending());
@@ -61,6 +62,7 @@ public sealed class BackupManagementTests
         Assert.Equal(new CleanupResult(2,7), result);
         Assert.False(File.Exists(first.Snapshot!.BackupPath)); Assert.False(File.Exists(second.Snapshot!.BackupPath));
         Assert.True(File.Exists(pending.Snapshot!.BackupPath)); Assert.True(File.Exists(w.Source)); Assert.True(File.Exists(secondPath));
+        Assert.Equal(pending.Id, Assert.Single(new BackupRecovery(Storage(w)).List()).Id);
         Assert.NotNull(w.Registry().Get(first.Id)); Assert.NotNull(w.Registry().Get(second.Id));
         Assert.Equal(0, (await new BackupManagement(Storage(w)).CleanAsync([first.Id,second.Id])).Count);
     }

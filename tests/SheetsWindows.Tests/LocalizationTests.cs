@@ -26,6 +26,9 @@ public sealed class LocalizationTests
             Assert.Equal(strings["home.help"],catalog.Get("home.help"));
             Assert.Equal(strings["home.description"],catalog.Get("home.description"));
             Assert.Equal(source["emphasis.brand"],catalog.Get("emphasis.brand"));
+            var currentLanguage = UiText.Language;
+            Assert.Equal(strings["language.apply"], UiText.GetForLanguage(language.Code, "language.apply"));
+            Assert.Equal(currentLanguage, UiText.Language);
         }
     }
     [Fact]

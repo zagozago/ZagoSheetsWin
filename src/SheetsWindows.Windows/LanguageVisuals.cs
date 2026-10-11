@@ -11,8 +11,9 @@ internal static class LanguageVisuals
         using var fonts = new InstalledFontCollection();
         return fonts.Families.Select(f => f.Name).ToHashSet(StringComparer.OrdinalIgnoreCase);
     }
-    internal static string Family => Installed.Contains(LanguageSettings.Details(UiText.Language).FontFamily)
-        ? LanguageSettings.Details(UiText.Language).FontFamily : "Segoe UI";
+    internal static string Family => FamilyFor(UiText.Language);
+    internal static string FamilyFor(string code) => Installed.Contains(LanguageSettings.Details(code).FontFamily)
+        ? LanguageSettings.Details(code).FontFamily : "Segoe UI";
     internal static void RestoreAfterSelection(Form form)
     {
         if (form.IsDisposed) return;

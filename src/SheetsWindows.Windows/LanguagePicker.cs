@@ -20,6 +20,21 @@ internal sealed class LanguagePicker : Form
         search.AccessibleName = UiText.Get("language.search"); body.Controls.Add(search,0,1); body.Controls.Add(choices,0,2);
         choices.AccessibleName=UiText.Get("language.choose");
         Controls.Add(body);Controls.Add(apply);Ui.Primary(apply);Branding.Apply(this,aboutButton:false,compact:true,languageButton:false);
+        var previewFonts = new Dictionary<(string Family, float Size, FontStyle Style), Font>();
+        void PreviewChoice()
+        {
+            apply.Enabled = choices.SelectedItem is Choice;
+            var code = choices.SelectedItem is Choice choice
+                ? LanguageSettings.Resolve(choice.Code, LanguageSettings.WindowsPreferredLanguages()) : UiText.Language;
+            apply.Text = UiText.GetForLanguage(code, "language.apply");
+            apply.AccessibleName = apply.Text;
+            apply.RightToLeft = LanguageSettings.Details(code).Direction == "rtl" ? RightToLeft.Yes : RightToLeft.No;
+            var key = (LanguageVisuals.FamilyFor(code), apply.Font.Size, apply.Font.Style);
+            if (!previewFonts.TryGetValue(key, out var font)) previewFonts[key] = font = new Font(key.Item1, key.Item2, key.Item3);
+            apply.Font = font;
+        }
+        UiText.Changed += PreviewChoice;
+        Disposed += (_, _) => { UiText.Changed -= PreviewChoice; foreach (var font in previewFonts.Values) font.Dispose(); };
         void Filter()
         {
             var selected = (choices.SelectedItem as Choice)?.Code ?? ApplicationLanguages.Preference;
@@ -28,9 +43,9 @@ internal sealed class LanguagePicker : Form
             foreach(var item in all.Where(l => CultureInfo.InvariantCulture.CompareInfo.IndexOf(l.Caption, query, CompareOptions.IgnoreCase|CompareOptions.IgnoreNonSpace)>=0)) choices.Items.Add(item);
             choices.SelectedIndex = choices.Items.Cast<Choice>().ToList().FindIndex(l=>l.Code==selected);
             if(choices.SelectedIndex<0 && choices.Items.Count>0) choices.SelectedIndex=0;
-            apply.Enabled=choices.SelectedItem is Choice;
+            PreviewChoice();
         }
-        search.TextChanged+=(_,_)=>Filter();choices.SelectedIndexChanged+=(_,_)=>apply.Enabled=choices.SelectedItem is Choice;
+        search.TextChanged+=(_,_)=>Filter();choices.SelectedIndexChanged+=(_,_)=>PreviewChoice();
         async Task ApplyChoice()
         {
             if(choices.SelectedItem is not Choice choice) return;

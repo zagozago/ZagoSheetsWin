@@ -54,7 +54,7 @@ public sealed class BackupRecovery(LocalStorage storage)
     {
         var path = Path.Combine(storage.Root, "replacement.db");
         var records = File.Exists(path) ? new ReplacementJournal(path).All() : [];
-        return new BackupManagement(storage).Inspect().Entries.Select(entry =>
+        return new BackupManagement(storage).Inspect().Entries.Where(entry => entry.CleanupState != 2).Select(entry =>
         {
             var record = records.GetValueOrDefault(entry.Id);
             return new RecoveryEntry(entry.Id,record?.SourcePath??entry.Operation.SourcePath,entry.Operation.Snapshot!.Length,record?.Step,entry.CapturedAt,entry.Available,entry.CanClean,entry.CleanupState);

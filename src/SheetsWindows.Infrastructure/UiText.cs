@@ -37,6 +37,12 @@ public static class UiText
     public static IReadOnlyList<string> EmphasisTerms => Resource.RootElement.GetProperty("emphasisKeys").EnumerateArray()
         .Select(value => Get(value.GetString()!)).ToList().AsReadOnly();
     public static string Get(string key) => Remember(new(key, [], raw: true));
+    // Preview one message without selecting a language, firing Changed or saving preferences.
+    public static string GetForLanguage(string code, string key)
+    {
+        if (!LanguageSettings.Supported(code)) throw new ArgumentException("Unsupported language.");
+        return new LocalizationCatalog(SourceStrings, EnglishStrings, code == "pt" ? SourceStrings : Translation(code)).Get(key);
+    }
     public static string GetFromDescriptor(LocalizedMessage message) => Remember(message);
     public static string Source(string key) => catalog.Source(key);
     public static string Format(string key, params (string Name, object? Value)[] arguments) => Remember(new(key, arguments));

@@ -10,6 +10,7 @@ internal sealed class RecoveryForm : Form
     private RecoveryEntry? Selected => entries.SelectedItems.Count != 1 ? null : entries.SelectedItems[0].Tag as RecoveryEntry;
     private void AddEntry(RecoveryEntry entry)
     {
+        if (entry.CleanupState == 2) return;
         var item = new ListViewItem(Path.GetFileName(entry.OriginalPath)) { Tag = entry, ToolTipText = entry.OriginalPath };
         item.SubItems.Add(entry.CapturedAt?.ToLocalTime().ToString("dd/MM/yyyy HH:mm") ?? "-");
         item.SubItems.Add(UiText.Format("recovery.sizeMb", ("sizeMb", entry.Bytes / 1_000_000d)));
@@ -97,7 +98,7 @@ internal sealed class RecoveryForm : Form
         {
             var result = await Task.Run(() => (Rows: service.List(), Summary: manager.Inspect()));
             entries.Items.Clear(); foreach (var row in result.Rows) AddEntry(row);
-            usage.Text = UiText.Format("recovery.usage", ("usedMb", result.Summary.UsedBytes / 1_000_000d), ("limitMb", quota.Value), ("backupCount", result.Summary.Entries.Count), ("protectedCount", result.Summary.Entries.Count(e => !e.CanClean && e.Available)));
+            usage.Text = UiText.Format("recovery.usage", ("usedMb", result.Summary.UsedBytes / 1_000_000d), ("limitMb", quota.Value), ("backupCount", result.Rows.Count), ("protectedCount", result.Rows.Count(e => !e.CanClean && e.Available)));
             if (entries.Items.Count == 0) status.Text = UiText.Get("recovery.noBackups");
         }
         if (!preview) Shown += async (_, _) =>
@@ -160,7 +161,7 @@ internal sealed class RecoveryForm : Form
                 new RecoveryEntry(Guid.Parse("44444444-4444-4444-4444-444444444444"), "Orçamento.csv", 300_000, 4, new DateTimeOffset(2026, 9, 2, 12, 0, 0, TimeSpan.Zero), true, true),
                 new RecoveryEntry(Guid.Parse("22222222-2222-2222-2222-222222222222"), "Importação pendente.csv", 600_000, 1, new DateTimeOffset(2026, 10, 1, 12, 0, 0, TimeSpan.Zero)),
                 new RecoveryEntry(Guid.Parse("33333333-3333-3333-3333-333333333333"), "Arquivo antigo.xls", 100_000, 4, new DateTimeOffset(2026, 8, 1, 12, 0, 0, TimeSpan.Zero), false, false, 2) }) AddEntry(entry);
-            usage.Text = UiText.Get("recovery.previewUsage");
+            usage.Text = UiText.Format("recovery.usage", ("usedMb", 3.30d), ("limitMb", quota.Value), ("backupCount", entries.Items.Count), ("protectedCount", 1));
         }
         UpdateSelection();
         Branding.Apply(this);
