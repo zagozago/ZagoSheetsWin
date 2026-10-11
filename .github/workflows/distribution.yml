@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.28: compact first use and settings, contextual information, switches and lossless CSV control characters validated in Local core run 38112251545.
+# Distribution candidate 0.9.29: reorganized settings, advanced modal, contextual information, balanced margins and serialized autosave validated in Local core run 38184468614.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
