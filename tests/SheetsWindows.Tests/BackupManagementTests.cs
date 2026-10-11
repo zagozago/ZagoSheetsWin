@@ -41,7 +41,7 @@ public sealed class BackupManagementTests
     [Fact] public void LegacyBackupCatalogMigrationPreservesRowsAndAddsOnlyTheDiscardFlag()
     {
         using var w = new Workspace(); var storage = Storage(w); Directory.CreateDirectory(storage.Root); var id = Guid.NewGuid();
-        using (var db = new Microsoft.Data.Sqlite.SqliteConnection("Data Source=" + BackupCatalog.PathFor(storage)))
+        using (var db = new Microsoft.Data.Sqlite.SqliteConnection(new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder { DataSource = BackupCatalog.PathFor(storage), Pooling = false }.ToString()))
         {
             db.Open(); using var cmd = db.CreateCommand();
             cmd.CommandText = "CREATE TABLE backups(id TEXT PRIMARY KEY,captured TEXT NOT NULL,hash TEXT NOT NULL,bytes INTEGER NOT NULL,copy_completed INTEGER NOT NULL DEFAULT 0,state INTEGER NOT NULL DEFAULT 0); CREATE TABLE events(seq INTEGER PRIMARY KEY,id TEXT NOT NULL,kind TEXT NOT NULL,at TEXT NOT NULL); PRAGMA user_version=1; INSERT INTO backups VALUES($id,$at,$hash,4,1,0)";
