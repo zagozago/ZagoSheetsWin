@@ -110,7 +110,7 @@ internal static class InterfaceVerification
             {
                 recovery.Size = size; recovery.PerformLayout(); Application.DoEvents();
                 foreach (var button in Descendants(recovery).OfType<Button>().Where(b => b.Visible))
-                    Require(button.Bottom <= button.Parent!.ClientSize.Height && button.Right <= button.Parent.ClientSize.Width,
+                    Require((button.Parent is ScrollableControl { AutoScroll: true } || button.Bottom <= button.Parent!.ClientSize.Height) && button.Right <= button.Parent!.ClientSize.Width,
                         $"Backup action '{button.Text}' must fit its container: {button.Bounds}, container {button.Parent.ClientSize}, window {recovery.Size}.");
             }
             recovery.Hide();

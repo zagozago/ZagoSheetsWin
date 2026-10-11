@@ -34,16 +34,25 @@ internal sealed class RecoveryForm : Form
         var automatic = new CheckBox { Text = UiText.Get("recovery.autoCleanup"), AutoSize = true };
         var save = new AdaptiveButton { Text = UiText.Get("recovery.savePolicy"), AutoSize = true };
         var usage = new EmphasisLabel { AutoSize = true, Text = UiText.Get("recovery.limits") };
+        var limits = new TableLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, ColumnCount = 2, RowCount = 2, Margin = new Padding(0, 0, 0, 8) };
+        limits.ColumnStyles.Add(new(SizeType.Percent, 50)); limits.ColumnStyles.Add(new(SizeType.Percent, 50));
+        limits.RowStyles.Add(new(SizeType.AutoSize)); limits.RowStyles.Add(new(SizeType.AutoSize));
+        var daysLabel = new Label { Text = UiText.Get("recovery.retentionLabel"), AutoSize = true };
+        var quotaLabel = new Label { Text = UiText.Get("recovery.quotaLabel"), AutoSize = true };
+        limits.Controls.Add(daysLabel, 0, 0); limits.Controls.Add(quotaLabel, 1, 0); limits.Controls.Add(days, 0, 1); limits.Controls.Add(quota, 1, 1);
         void FitPolicy()
         {
             var width = Math.Max(120, policyPanel.ClientSize.Width - policyPanel.Padding.Horizontal - 22);
             usage.MaximumSize = new Size(width, 0); automatic.AutoSize = false; automatic.Width = width;
             foreach (var label in policyPanel.Controls.OfType<Label>()) label.MaximumSize = new Size(width, 0);
+            limits.MinimumSize = new Size(width, 0); limits.MaximumSize = new Size(width, 0); limits.Width = width;
+            daysLabel.MaximumSize = quotaLabel.MaximumSize = new Size(Math.Max(45, width/2-6), 0);
+            days.Width = quota.Width = Math.Max(45, width/2-6);
             automatic.Height = TextRenderer.MeasureText(automatic.Text, automatic.Font, new Size(Math.Max(40, width-24), int.MaxValue), TextFormatFlags.WordBreak).Height + 14;
             save.AutoSize = false; save.Width = width;
         }
         policyPanel.SizeChanged += (_, _) => FitPolicy(); automatic.TextChanged += (_, _) => FitPolicy(); automatic.FontChanged += (_, _) => FitPolicy();
-        policyPanel.Controls.AddRange([new Label { Text = UiText.Get("recovery.retentionLabel"), AutoSize = true }, days, new Label { Text = UiText.Get("recovery.quotaLabel"), AutoSize = true }, quota, automatic, usage, save]);
+        policyPanel.Controls.AddRange([limits, automatic, usage, save]);
         var restore = new AdaptiveButton { Text = UiText.Get("action.restore"), Dock = DockStyle.Bottom, Height = 44 };
         var actions = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, Padding = new Padding(8) };
         var copy = new MenuActionButton { Text = UiText.Get("recovery.resumeCopy"), AutoSize = true };

@@ -38,6 +38,19 @@ public sealed class BackupManagementTests
         using var w = new Workspace(); await BackupPolicy.SaveAsync(Storage(w),new(45,1000,true));
         Assert.Equal(new BackupPolicy(45,1000,true),BackupPolicy.Load(Storage(w))); Assert.Equal(1_000_000_000,BackupPolicy.Load(Storage(w)).QuotaBytes);
     }
+    [Fact] public void LegacyBackupCatalogMigrationPreservesRowsAndAddsOnlyTheDiscardFlag()
+    {
+        using var w = new Workspace(); var storage = Storage(w); Directory.CreateDirectory(storage.Root); var id = Guid.NewGuid();
+        using (var db = new Microsoft.Data.Sqlite.SqliteConnection("Data Source=" + BackupCatalog.PathFor(storage)))
+        {
+            db.Open(); using var cmd = db.CreateCommand();
+            cmd.CommandText = "CREATE TABLE backups(id TEXT PRIMARY KEY,captured TEXT NOT NULL,hash TEXT NOT NULL,bytes INTEGER NOT NULL,copy_completed INTEGER NOT NULL DEFAULT 0,state INTEGER NOT NULL DEFAULT 0); CREATE TABLE events(seq INTEGER PRIMARY KEY,id TEXT NOT NULL,kind TEXT NOT NULL,at TEXT NOT NULL); PRAGMA user_version=1; INSERT INTO backups VALUES($id,$at,$hash,4,1,0)";
+            cmd.Parameters.AddWithValue("$id",id.ToString("N")); cmd.Parameters.AddWithValue("$at",DateTimeOffset.UtcNow.ToString("O")); cmd.Parameters.AddWithValue("$hash",new string('A',64)); cmd.ExecuteNonQuery();
+        }
+        var row = Assert.Single(new BackupCatalog(storage).All()).Value;
+        Assert.Equal(id,row.Id); Assert.Equal(4,row.Bytes); Assert.True(row.CopyCompleted); Assert.Equal(0,row.State); Assert.False(row.DiscardRequested);
+        Assert.Equal(row,new BackupCatalog(storage).Get(id));
+    }
     [Theory] [InlineData(false)] [InlineData(true)] public async Task CompletedBackupCanBeDeletedWithoutDeletingOriginalOrHistory(bool replacement)
     {
         using var w = new Workspace(); var op = await Completed(w,replacement:replacement); var manager = new BackupManagement(Storage(w));
