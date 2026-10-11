@@ -40,7 +40,7 @@ internal static class Ui
     {
         void ResizeChildren()
         {
-            var available = Math.Max(120, layout.ClientSize.Width - layout.Padding.Horizontal - (layout.AutoScroll ? SystemInformation.VerticalScrollBarWidth : 0) - 6);
+            var available = Math.Max(120, layout.ClientSize.Width - layout.Padding.Horizontal - (layout.VerticalScroll.Visible ? SystemInformation.VerticalScrollBarWidth : 0));
             foreach (Control child in layout.Controls)
             {
                 if (child is FlowLayoutPanel nested) { nested.MaximumSize = new Size(available, 0); nested.MinimumSize = new Size(available, 0); nested.Width = available; }

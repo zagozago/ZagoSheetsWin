@@ -14,6 +14,11 @@ internal static class InterfaceVerification
         using (var languageOwner = new LauncherForm(new(LauncherAction.Home)))
         {
             languageOwner.Show(); Application.DoEvents();
+            var openButton = Descendants(languageOwner).OfType<Button>().Single(b => b.Text == UiText.Get("home.open"));
+            var container = openButton.Parent!;
+            Require(Math.Abs((openButton.Left - container.Padding.Left) - (container.ClientSize.Width - container.Padding.Right - openButton.Right)) <= 1,
+                "The main action must retain symmetric margins without reserving an absent scrollbar.");
+
             foreach (var code in new[] { "ar", "hi", "en", "pt" })
             {
                 languageOwner.WindowState = FormWindowState.Minimized;
