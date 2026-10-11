@@ -43,17 +43,19 @@ internal sealed class ToggleSwitch : CheckBox
 internal sealed class ToggleListView : ListView
 {
     private ImageList? switches;
+    private List<Bitmap> switchImages = [];
     protected override void OnHandleCreated(EventArgs e) { base.OnHandleCreated(e); RefreshSwitches(); }
     protected override void OnBackColorChanged(EventArgs e) { base.OnBackColorChanged(e); if (IsHandleCreated) RefreshSwitches(); }
     private void RefreshSwitches()
     {
-        var old = switches; switches = new ImageList { ImageSize = new Size(38, 22), ColorDepth = ColorDepth.Depth32Bit };
+        var old = switches; var oldImages = switchImages; switchImages = [];
+        switches = new ImageList { ImageSize = new Size(38, 22), ColorDepth = ColorDepth.Depth32Bit };
         foreach (var on in new[] { false, true })
         {
-            using var image = new Bitmap(38, 22); using var graphics = Graphics.FromImage(image); graphics.Clear(Color.Transparent);
+            var image = new Bitmap(38, 22); switchImages.Add(image); using var graphics = Graphics.FromImage(image); graphics.Clear(Color.Transparent);
             ToggleSwitch.Draw(graphics, new Rectangle(1, 2, 36, 18), on, BackColor, ForeColor); switches.Images.Add(image);
         }
-        StateImageList = switches; old?.Dispose();
+        StateImageList = switches; old?.Dispose(); foreach (var image in oldImages) image.Dispose();
     }
-    protected override void Dispose(bool disposing) { base.Dispose(disposing); if (disposing) switches?.Dispose(); }
+    protected override void Dispose(bool disposing) { base.Dispose(disposing); if (disposing) { switches?.Dispose(); foreach (var image in switchImages) image.Dispose(); } }
 }
