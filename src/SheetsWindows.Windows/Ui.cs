@@ -16,18 +16,21 @@ internal static class Ui
     internal static TableLayoutPanel Pair(Control left, Control right)
     {
         var row = new TableLayoutPanel { AutoSize = false, ColumnCount = 2, RowCount = 1, Margin = new Padding(0, 2, 0, 6) };
-        row.ColumnStyles.Add(new(SizeType.Percent, 50)); row.ColumnStyles.Add(new(SizeType.Percent, 50)); row.RowStyles.Add(new(SizeType.AutoSize));
+        row.ColumnStyles.Add(new(SizeType.Percent, 50)); row.ColumnStyles.Add(new(SizeType.Percent, 50)); row.RowStyles.Add(new(SizeType.Percent, 100));
         foreach (var child in new[] { left, right }) { child.Dock = DockStyle.Fill; child.Margin = new Padding(0, 2, 8, 2); }
         row.Controls.Add(left, 0, 0); row.Controls.Add(right, 1, 0);
         void Fit()
         {
             var width = Math.Max(50, row.ClientSize.Width / 2 - 8);
+            var height = 32;
             foreach (Control child in row.Controls)
             {
-                if (child is CheckBox) { child.AutoSize = false; child.Height = Math.Max(32, TextRenderer.MeasureText(child.Text, child.Font, new Size(Math.Max(30, width - 54), int.MaxValue), TextFormatFlags.WordBreak).Height + 12); }
-                else if (child is Button) { child.AutoSize = false; child.Height = TextRenderer.MeasureText(child.Text, child.Font, new Size(Math.Max(30,width-child.Padding.Horizontal-12),int.MaxValue),TextFormatFlags.WordBreak).Height + child.Padding.Vertical + 10; }
+                var needed = child.PreferredSize.Height;
+                if (child is CheckBox) { child.AutoSize = false; needed = Math.Max(32, TextRenderer.MeasureText(child.Text, child.Font, new Size(Math.Max(30, width - 54), int.MaxValue), TextFormatFlags.WordBreak).Height + 12); }
+                else if (child is Button) { child.AutoSize = false; needed = TextRenderer.MeasureText(child.Text, child.Font, new Size(Math.Max(30,width-child.Padding.Horizontal-12),int.MaxValue),TextFormatFlags.WordBreak).Height + child.Padding.Vertical + 10; }
+                height = Math.Max(height, needed + child.Margin.Vertical);
             }
-            row.Height = row.Controls.Cast<Control>().Max(child => child.Height + child.Margin.Vertical);
+            row.Height = height;
         }
         row.SizeChanged += (_, _) => Fit(); foreach (Control child in row.Controls) { child.TextChanged += (_, _) => Fit(); child.FontChanged += (_, _) => Fit(); } Fit(); return row;
     }

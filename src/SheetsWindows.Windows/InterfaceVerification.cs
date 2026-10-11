@@ -138,6 +138,13 @@ internal static class InterfaceVerification
             var folderPath = folderRow!.Controls.OfType<TextBox>().Single();
             Require(Math.Abs(folder.Width - folderPath.Width) <= 2 && folder.Left < folderPath.Left, "Folder selector and path must each occupy half the row.");
             sync.Checked = true; Application.DoEvents(); Require(!folder.Visible, "Disabling folder restrictions must collapse their controls again.");
+            using (var bitmap = new Bitmap(setup.Width, setup.Height))
+            {
+                setup.DrawToBitmap(bitmap, new Rectangle(Point.Empty, bitmap.Size));
+                bitmap.Save(Path.Combine(Path.GetDirectoryName(Path.GetFullPath(output))!, "settings-reference.png"));
+            }
+            foreach (var panel in Descendants(setup).OfType<FlowLayoutPanel>().Where(p => p.Dock == DockStyle.Fill))
+                Console.Error.WriteLine($"SETTINGS: viewport={panel.ClientSize}, content={panel.DisplayRectangle}, children={string.Join(';', panel.Controls.Cast<Control>().Select(c => $"{c.GetType().Name}:{c.Bounds}"))}");
             Require(Descendants(setup).OfType<FlowLayoutPanel>().Where(p => p.Dock == DockStyle.Fill).All(p => !p.VerticalScroll.Visible), "Portuguese settings must fit without vertical scrolling at the reference size.");
             Require(Descendants(setup).OfType<Label>().Any(l => l.AccessibleName == "Estado da autorização Google" && !string.IsNullOrWhiteSpace(l.Text)), "Google authorization must have a visible accessible status.");
             Require(!Descendants(setup).OfType<Button>().Any(b => b.Text == UiText.Get("setup.advanced")), "Advanced navigation must be removed.");
