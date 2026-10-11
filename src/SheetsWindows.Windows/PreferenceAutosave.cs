@@ -29,7 +29,7 @@ internal sealed class PreferenceAutosave
         catch (Exception ex) when (LauncherErrors.Expected(ex))
         {
             restoring = true;
-            try { restore(); }
+            try { if (pending == 1) restore(); }
             finally { restoring = false; }
             status.Text = ex is ArgumentException ? UiText.Get("setup.consentRequired") : LauncherErrors.Message(ex);
         }

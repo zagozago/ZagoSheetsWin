@@ -57,10 +57,16 @@ internal sealed class SetupForm : Form
         var advanced = new AdaptiveButton { Text = UiText.Get("setup.advanced"), Dock = DockStyle.Bottom, Height = 42 };
         advanced.Click += (_, _) => { using var form = new AdvancedPreferencesForm(storage, preview); form.ShowDialog(this); };
         var preferences = new PreferenceAutosave(this, layout, status, preview);
-        shortcuts.CheckedChanged += async (_, _) => await preferences.SaveAsync(
-            () => ShortcutSettings.SaveAsync(storage, shortcuts.Checked), () => shortcuts.Checked = ShortcutSettings.Load(storage));
-        copy.CheckedChanged += async (_, _) => await preferences.SaveAsync(
-            () => CopyImportSettings.SaveAsync(storage, copy.Checked), () => copy.Checked = CopyImportSettings.Load(storage));
+        shortcuts.CheckedChanged += async (_, _) =>
+        {
+            var value = shortcuts.Checked;
+            await preferences.SaveAsync(() => ShortcutSettings.SaveAsync(storage, value), () => shortcuts.Checked = ShortcutSettings.Load(storage));
+        };
+        copy.CheckedChanged += async (_, _) =>
+        {
+            var value = copy.Checked;
+            await preferences.SaveAsync(() => CopyImportSettings.SaveAsync(storage, value), () => copy.Checked = CopyImportSettings.Load(storage));
+        };
         status.Visible = false; status.TextChanged += (_, _) => status.Visible = !string.IsNullOrEmpty(status.Text); layout.Controls.Add(status);
         var finish = new AdaptiveButton { Text = UiText.Get("action.close"), Dock = DockStyle.Bottom, Height = 44 };
         var cancel = new AdaptiveButton { Text = UiText.Get("setup.cancelConnection"), Dock = DockStyle.Bottom, Visible = false };

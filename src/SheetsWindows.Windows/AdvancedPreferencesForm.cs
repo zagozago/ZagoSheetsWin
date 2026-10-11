@@ -35,8 +35,12 @@ internal sealed class AdvancedPreferencesForm : Form
         layout.Controls.Add(Ui.Pair(sync, consent));
         folderOptions.Controls.Add(Ui.Text(UiText.Get("setup.syncExplanation"))); folderOptions.Controls.Add(Ui.Pair(choose, folder)); layout.Controls.Add(folderOptions);
         void RestoreOpening() { var saved = OpeningPolicy.Load(storage); sync.Checked = !saved.RestrictToFolder; folder.Text = saved.Folder ?? ""; consent.Checked = OpeningPolicy.IsConfigured(storage); folderOptions.Visible = !sync.Checked; }
-        Task SaveOpening() => preferences.SaveAsync(() => OpeningPolicy.SaveAsync(storage, !sync.Checked, folder.Text,
-            CopyImportSettings.Load(storage) || !ShortcutSettings.Load(storage) || consent.Checked), RestoreOpening);
+        Task SaveOpening()
+        {
+            var restrict = !sync.Checked; var path = folder.Text;
+            var acknowledged = CopyImportSettings.Load(storage) || !ShortcutSettings.Load(storage) || consent.Checked;
+            return preferences.SaveAsync(() => OpeningPolicy.SaveAsync(storage, restrict, path, acknowledged), RestoreOpening);
+        }
         choose.Click += async (_, _) => { using var dialog = new FolderBrowserDialog(); if (dialog.ShowDialog(this) == DialogResult.OK) { folder.Text = dialog.SelectedPath; await SaveOpening(); } };
         sync.CheckedChanged += async (_, _) =>
         {
@@ -69,12 +73,21 @@ internal sealed class AdvancedPreferencesForm : Form
         var limits = Ui.Text(FormatPart(0)); layout.Controls.Add(limits);
         void RefreshLimits() => limits.Text = FormatPart(0);
         UiText.Changed += RefreshLimits; Disposed += (_, _) => UiText.Changed -= RefreshLimits;
-        Task SaveFormats() => preferences.SaveAsync(() => { ExtendedConfiguration.Save(storage, new(encoding.SelectedIndex == 0 ? "auto" : "windows-1252", delimiter.SelectedIndex switch { 1 => "comma", 2 => "semicolon", _ => "auto" }), extended.Checked); return Task.CompletedTask; }, RestoreFormats);
+        Task SaveFormats()
+        {
+            var options = new TextImportOptions(encoding.SelectedIndex == 0 ? "auto" : "windows-1252", delimiter.SelectedIndex switch { 1 => "comma", 2 => "semicolon", _ => "auto" });
+            var enabled = extended.Checked;
+            return preferences.SaveAsync(() => { ExtendedConfiguration.Save(storage, options, enabled); return Task.CompletedTask; }, RestoreFormats);
+        }
         extended.CheckedChanged += async (_, _) => { encoding.Enabled = delimiter.Enabled = extended.Checked; await SaveFormats(); };
         encoding.SelectedIndexChanged += async (_, _) => await SaveFormats(); delimiter.SelectedIndexChanged += async (_, _) => await SaveFormats();
         layout.Controls.Add(Ui.Separator()); Heading("setup.xlsHeading", () => InformationButton.TextPanel("setup.xlsExplanation"));
         var xls = new ToggleSwitch { Checked = XlsReplacementSettings.Load(storage), Text = UiText.Get("setup.replaceXls") }; layout.Controls.Add(xls);
-        xls.CheckedChanged += async (_, _) => await preferences.SaveAsync(() => XlsReplacementSettings.SaveAsync(storage, xls.Checked), () => xls.Checked = XlsReplacementSettings.Load(storage));
+        xls.CheckedChanged += async (_, _) =>
+        {
+            var value = xls.Checked;
+            await preferences.SaveAsync(() => XlsReplacementSettings.SaveAsync(storage, value), () => xls.Checked = XlsReplacementSettings.Load(storage));
+        };
         layout.Controls.Add(status);
         var close = new AdaptiveButton { Text = UiText.Get("action.close"), Dock = DockStyle.Bottom, Height = 44 };
         close.Click += (_, _) => Close(); CancelButton = close;

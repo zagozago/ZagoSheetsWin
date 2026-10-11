@@ -174,6 +174,13 @@ internal static class InterfaceVerification
             var failure = saver.SaveAsync(() => Task.FromException(new IOException("offline verification")), () => restored = true);
             Require(failure.IsCompletedSuccessfully && restored && content.Enabled && status.Text.Length > 0,
                 "Failed preference writes must restore the saved value and display an error.");
+            restored = false;
+            var failedEarlier = saver.SaveAsync(async () => { await Task.Yield(); throw new IOException("offline verification"); }, () => restored = true);
+            var latest = saver.SaveAsync(() => { writes.Add(3); return Task.CompletedTask; }, () => { });
+            completed = Task.WhenAll(failedEarlier, latest); deadline.Restart();
+            while (!completed.IsCompleted && deadline.Elapsed < TimeSpan.FromSeconds(5)) Application.DoEvents();
+            Require(completed.IsCompletedSuccessfully && !restored && writes.Last() == 3,
+                "An earlier failed save must not restore over a later queued preference.");
             owner.Close();
         }
         Console.Error.WriteLine("VERIFY: help");
