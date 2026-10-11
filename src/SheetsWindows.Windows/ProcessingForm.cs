@@ -62,6 +62,9 @@ internal sealed class ProcessingForm : Form
     private async Task RunAsync()
     {
         if (busy) return;
+        // Successive modal loops can restore an empty ambient context. All awaits
+        // below must return to this window's thread, including error-button creation.
+        SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());
         busy = true;
         ExitCode = 0;
         foreach (Control control in actions.Controls.Cast<Control>().Where(control => control != cancel).ToArray()) { actions.Controls.Remove(control); control.Dispose(); }
