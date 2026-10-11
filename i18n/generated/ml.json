@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.26",
+  "productVersion": "0.9.27",
   "sourceLocale": "pt-BR",
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -339,6 +339,9 @@
     "language.saveFailed": "ഭാഷ സംരക്ഷിക്കുക ചെയ്യാനായില്ല. നിങ്ങളുടെ മുൻ മുൻഗണന നിലനിർത്തി.",
     "language.button": "ഭാഷ തിരഞ്ഞെടുക്കുക",
     "setup.shortcutsHeading": "4. കുറുക്കുവഴികൾ",
-    "setup.createShortcuts": "Google Sheets-ലേക്കുള്ള കുറുക്കുവഴികൾ സൃഷ്ടിക്കുക"
+    "setup.createShortcuts": "Google Sheets-ലേക്കുള്ള കുറുക്കുവഴികൾ സൃഷ്ടിക്കുക",
+    "action.retry": "വീണ്ടും ശ്രമിക്കുക",
+    "progress.retry": "{seconds} സെക്കൻഡിൽ വീണ്ടും ശ്രമിക്കുന്നു ({attempt}/2)…",
+    "recovery.discardPrompt": "{count} ബാക്കപ്പുകൾ ഇല്ലാതാക്കണോ ({protectedCount} തീർപ്പാകാത്തത്)? തീർപ്പാകാത്ത ശ്രമങ്ങൾ അവസാനിക്കും, വീണ്ടെടുക്കാനാകില്ല. യഥാർത്ഥ ഫയലുകൾ, കുറുക്കുവഴികൾ, Google സ്‌പ്രെഡ്‌ഷീറ്റുകൾ നിലനിൽക്കും."
   }
 }

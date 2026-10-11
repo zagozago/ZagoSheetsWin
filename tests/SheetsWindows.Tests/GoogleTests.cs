@@ -478,6 +478,14 @@ public sealed class GoogleTests
         await Assert.ThrowsAsync<HttpRequestException>(() => importer.ImportAsync(w.Source)); var url = await importer.ImportAsync(w.Source); Assert.Contains("file_2", url.AbsoluteUri); Assert.Equal(2, server.Posts);
     }
     [Fact]
+    public async Task AutomaticRetryReconcilesLostUploadResponseWithoutDuplicatingRemoteCreation()
+    {
+        using var w = new Workspace(); var bytes = Workbook(); File.WriteAllBytes(w.Source, bytes);
+        using var server = new DriveServer { LoseSheetResponse = true }; var importer = Importer(w, server); var attempts = 0;
+        await ImportRetry.ExecuteAsync(async ct => { attempts++; await importer.ImportAsync(w.Source, ct); }, delay: (_, ct) => { ct.ThrowIfCancellationRequested(); return Task.CompletedTask; });
+        Assert.Equal(2, attempts); Assert.Equal(2, server.Posts); Assert.Equal(bytes, File.ReadAllBytes(w.Source)); Assert.Single(w.Registry().Pending());
+    }
+    [Fact]
     public async Task LostFolderResponseIsReconciledWithoutAnotherFolder()
     {
         using var w = new Workspace(); File.WriteAllBytes(w.Source, Workbook()); using var server = new DriveServer { LoseFolderResponse = true }; var importer = Importer(w, server);

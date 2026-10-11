@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.26",
+  "productVersion": "0.9.27",
   "sourceLocale": "pt-BR",
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -339,6 +339,9 @@
     "language.saveFailed": "ভাষা সংরক্ষণ করা যায়নি। আগের পছন্দ রাখা হয়েছে।",
     "language.button": "ভাষা নির্বাচন করুন",
     "setup.shortcutsHeading": "4. শর্টকাট",
-    "setup.createShortcuts": "Google Sheets-এর শর্টকাট তৈরি করুন"
+    "setup.createShortcuts": "Google Sheets-এর শর্টকাট তৈরি করুন",
+    "action.retry": "আবার চেষ্টা করুন",
+    "progress.retry": "{seconds} সেকেন্ড পরে আবার চেষ্টা ({attempt}/2)…",
+    "recovery.discardPrompt": "{count}টি ব্যাকআপ মুছবেন ({protectedCount}টি অপেক্ষমাণ)? অপেক্ষমাণ প্রচেষ্টা শেষ হবে, পুনরুদ্ধার করা যাবে না। মূল ফাইল, শর্টকাট ও Google স্প্রেডশিট থাকবে।"
   }
 }

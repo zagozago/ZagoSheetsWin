@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.26",
+  "productVersion": "0.9.27",
   "sourceLocale": "pt-BR",
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -339,6 +339,9 @@
     "language.saveFailed": "Ndaikatúi oñeñongatu ñe'ẽ. Ne poravopyre mboyvegua oñeñongatu.",
     "language.button": "Ñe'ẽ poravo",
     "setup.shortcutsHeading": "4. Jeike pya’e",
-    "setup.createShortcuts": "Ejapo jeike pya’e Google Sheets-pe"
+    "setup.createShortcuts": "Ejapo jeike pya’e Google Sheets-pe",
+    "action.retry": "Eñeha'ã jey",
+    "progress.retry": "Oñeha'ã jeýta {seconds} aravo'ive rire ({attempt}/2)…",
+    "recovery.discardPrompt": "Embogue {count} ñongatu ({protectedCount} oha'arõva)? Ñeha'ã oha'arõva opáta ha ndaikatumo'ãi oñemoĩjey. Marandurenda ypykue, jeike pya'e ha Google kuatia renda opytáta."
   }
 }

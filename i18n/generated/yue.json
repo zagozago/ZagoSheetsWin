@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.26",
+  "productVersion": "0.9.27",
   "sourceLocale": "pt-BR",
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -339,6 +339,9 @@
     "language.saveFailed": "未能儲存語言。你之前嘅偏好已保留。",
     "language.button": "揀語言",
     "setup.shortcutsHeading": "4. 捷徑",
-    "setup.createShortcuts": "建立 Google Sheets 捷徑"
+    "setup.createShortcuts": "建立 Google Sheets 捷徑",
+    "action.retry": "再試一次",
+    "progress.retry": "{seconds}秒後再試（{attempt}/2）…",
+    "recovery.discardPrompt": "刪除{count}個備份（{protectedCount}個待處理）？待處理嘅嘗試會結束，無法恢復。原檔、捷徑同Google試算表會保留。"
   }
 }

@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.26",
+  "productVersion": "0.9.27",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 3,
+  "catalogRevision": 4,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -7260,6 +7260,41 @@
       ],
       "markup": [],
       "notes": []
+    },
+    "action.retry": {
+      "text": "Tentar novamente",
+      "context": "Explicit recovery discard confirmation or bounded import retry UI.",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "maxLength": null
+    },
+    "progress.retry": {
+      "text": "Tentando novamente em {seconds}s ({attempt}/2)…",
+      "context": "Explicit recovery discard confirmation or bounded import retry UI.",
+      "scope": "app",
+      "placeholders": [
+        "seconds",
+        "attempt"
+      ],
+      "invariants": [],
+      "markup": [],
+      "maxLength": null
+    },
+    "recovery.discardPrompt": {
+      "text": "Apagar {count} backups ({protectedCount} pendentes)? As tentativas pendentes serão encerradas, sem recuperação. Originais, atalhos e planilhas no Google permanecem.",
+      "context": "Explicit recovery discard confirmation or bounded import retry UI.",
+      "scope": "app",
+      "placeholders": [
+        "count",
+        "protectedCount"
+      ],
+      "invariants": [
+        "Google"
+      ],
+      "markup": [],
+      "maxLength": null
     }
   },
   "pluralPolicy": "Mensagens de contagem usam rótulos completos sem flexão dependente do número. Traduções que exigirem variantes devem declarar formas CLDR completas; nunca concatenar substantivo e sufixo. Uma alteração de contrato exige nova revisão de catálogo.",

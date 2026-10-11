@@ -2,8 +2,8 @@
   "language": "ha",
   "locale": "ha-NG",
   "direction": "ltr",
-  "catalogRevision": 3,
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "catalogRevision": 4,
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -631,6 +631,9 @@
     "language.saveFailed": "Ba a iya adana harshen ba. An kiyaye zaɓinka na baya.",
     "language.button": "Zaɓi harshe",
     "setup.shortcutsHeading": "4. Gajerun hanyoyi",
-    "setup.createShortcuts": "Ƙirƙiri gajerun hanyoyi zuwa Google Sheets"
+    "setup.createShortcuts": "Ƙirƙiri gajerun hanyoyi zuwa Google Sheets",
+    "action.retry": "Sake gwadawa",
+    "progress.retry": "Za a sake gwadawa cikin daƙiƙa {seconds} ({attempt}/2)…",
+    "recovery.discardPrompt": "A goge ajiyar {count} ({protectedCount} suna jira)? Ƙoƙarin da ke jira za su ƙare ba tare da maidowa ba. Fayiloli na asali, gajerun hanyoyi da maƙunsar Google za su kasance."
   }
 }

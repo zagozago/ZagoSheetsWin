@@ -2,8 +2,8 @@
   "language": "fa",
   "locale": "fa-IR",
   "direction": "rtl",
-  "catalogRevision": 3,
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "catalogRevision": 4,
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -631,6 +631,9 @@
     "language.saveFailed": "زبان ذخیره نشد. ترجیح قبلی شما حفظ شد.",
     "language.button": "انتخاب زبان",
     "setup.shortcutsHeading": "4. میان‌برها",
-    "setup.createShortcuts": "ایجاد میان‌بر برای Google Sheets"
+    "setup.createShortcuts": "ایجاد میان‌بر برای Google Sheets",
+    "action.retry": "دوباره تلاش کنید",
+    "progress.retry": "تلاش دوباره در {seconds} ثانیه ({attempt}/2)…",
+    "recovery.discardPrompt": "حذف {count} پشتیبان ({protectedCount} در انتظار)؟ تلاش‌های معلق پایان می‌یابند و قابل بازیابی نیستند. فایل‌های اصلی، میان‌برها و صفحه‌گسترده‌های Google باقی می‌مانند."
   }
 }

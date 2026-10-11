@@ -19,8 +19,8 @@ internal sealed class RecoveryForm : Form
     private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Top, Height = 85, Padding = new Padding(12), Text = UiText.Get("recovery.instructions") };
     public RecoveryForm(bool preview = false, bool previewBusy = false)
     {
-        Text = UiText.Get("recovery.title"); ClientSize = new Size(700, 650); MinimumSize = new Size(560, 540); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterScreen;
-        void FitStatus() { status.MaximumSize = new Size(Math.Max(120, ClientSize.Width), 0); status.Height = status.GetPreferredSize(new Size(ClientSize.Width, 0)).Height; }
+        Text = UiText.Get("recovery.title"); ClientSize = new Size(980, 680); MinimumSize = new Size(760, 560); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterScreen;
+        void FitStatus() { var width = status.Parent?.ClientSize.Width ?? ClientSize.Width; status.MaximumSize = new Size(Math.Max(120, width), 0); status.Height = status.GetPreferredSize(new Size(width, 0)).Height; }
         SizeChanged += (_, _) => FitStatus();
         status.TextChanged += (_, _) => FitStatus();
         Shown += (_, _) => FitStatus();
@@ -28,16 +28,24 @@ internal sealed class RecoveryForm : Form
         var storage = LocalStorage.ForCurrentUser();
         var manager = new BackupManagement(storage);
         var service = new BackupRecovery(storage);
-        var policyPanel = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, Padding = new Padding(8) };
+        var policyPanel = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoScroll = true, FlowDirection = FlowDirection.TopDown, WrapContents = false, Padding = new Padding(12) };
         var days = new NumericUpDown { Minimum = 1, Maximum = 365, Value = 30, Width = 70, AccessibleName = UiText.Get("accessibility.retentionDays") };
         var quota = new NumericUpDown { Minimum = 1, Maximum = 1000, Value = 200, Width = 80, AccessibleName = UiText.Get("accessibility.quotaMb") };
         var automatic = new CheckBox { Text = UiText.Get("recovery.autoCleanup"), AutoSize = true };
         var save = new AdaptiveButton { Text = UiText.Get("recovery.savePolicy"), AutoSize = true };
         var usage = new EmphasisLabel { AutoSize = true, Text = UiText.Get("recovery.limits") };
-        policyPanel.SizeChanged += (_, _) => usage.MaximumSize = new Size(Math.Max(120, policyPanel.ClientSize.Width - policyPanel.Padding.Horizontal - usage.Margin.Horizontal), 0);
-        policyPanel.Controls.AddRange([new Label { Text = UiText.Get("recovery.retentionLabel"), AutoSize = true }, days, new Label { Text = UiText.Get("recovery.quotaLabel"), AutoSize = true }, quota, automatic, save, usage]);
+        void FitPolicy()
+        {
+            var width = Math.Max(120, policyPanel.ClientSize.Width - policyPanel.Padding.Horizontal - 22);
+            usage.MaximumSize = new Size(width, 0); automatic.AutoSize = false; automatic.Width = width;
+            foreach (var label in policyPanel.Controls.OfType<Label>()) label.MaximumSize = new Size(width, 0);
+            automatic.Height = TextRenderer.MeasureText(automatic.Text, automatic.Font, new Size(Math.Max(40, width-24), int.MaxValue), TextFormatFlags.WordBreak).Height + 14;
+            save.MaximumSize = new Size(width, 0); save.MinimumSize = new Size(width, 0);
+        }
+        policyPanel.SizeChanged += (_, _) => FitPolicy(); automatic.TextChanged += (_, _) => FitPolicy(); automatic.FontChanged += (_, _) => FitPolicy();
+        policyPanel.Controls.AddRange([new Label { Text = UiText.Get("recovery.retentionLabel"), AutoSize = true }, days, new Label { Text = UiText.Get("recovery.quotaLabel"), AutoSize = true }, quota, automatic, usage, save]);
         var restore = new AdaptiveButton { Text = UiText.Get("action.restore"), Dock = DockStyle.Bottom, Height = 44 };
-        var actions = new FlowLayoutPanel { Dock = DockStyle.Bottom, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, Padding = new Padding(8) };
+        var actions = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, Padding = new Padding(8) };
         var copy = new MenuActionButton { Text = UiText.Get("recovery.resumeCopy"), AutoSize = true };
         var resume = new MenuActionButton { Text = UiText.Get("recovery.completeReplacement"), AutoSize = true };
         var export = new MenuActionButton { Text = UiText.Get("action.exportDiagnostics"), AutoSize = true };
@@ -47,22 +55,30 @@ internal sealed class RecoveryForm : Form
         var clean = new MenuActionButton { Text = UiText.Get("recovery.cleanExpired"), AutoSize = true };
         var more = new AdaptiveButton { Text = UiText.Get("recovery.moreActions"), AutoSize = true, Height = 34 };
         var menu = new ContextMenuStrip();
-        foreach (var action in new[] { copy, resume, export, delete, clean })
+        foreach (var action in new[] { copy, resume, export, clean })
         {
             var item = new ToolStripMenuItem(action.Text);
             item.Click += (_, _) => action.InvokeAction();
             menu.Items.Add(item);
         }
-        more.Click += (_, _) => { var buttons = new[] { copy, resume, export, delete, clean }; for (var i = 0; i < buttons.Length; i++) { menu.Items[i].Enabled = buttons[i].Enabled && !busy; menu.Items[i].Text = buttons[i].Text; } menu.Show(more, new Point(0, more.Height)); };
+        more.Click += (_, _) => { var buttons = new[] { copy, resume, export, clean }; for (var i = 0; i < buttons.Length; i++) { menu.Items[i].Enabled = buttons[i].Enabled && !busy; menu.Items[i].Text = buttons[i].Text; } menu.Show(more, new Point(0, more.Height)); };
         var selectAll = new AdaptiveButton { Text = UiText.Get("recovery.selectAll"), AutoSize = true };
         var clearSelection = new AdaptiveButton { Text = UiText.Get("recovery.clearSelection"), AutoSize = true };
-        selectAll.Click += (_, _) => { foreach (ListViewItem item in entries.Items) item.Checked = (item.Tag as RecoveryEntry)?.CanClean == true; };
+        selectAll.Click += (_, _) => { foreach (ListViewItem item in entries.Items) item.Checked = (item.Tag as RecoveryEntry)?.CleanupState != 2; };
         clearSelection.Click += (_, _) => { foreach (ListViewItem item in entries.Items) { item.Checked = false; item.Selected = false; } };
         actions.Controls.AddRange([selectAll, clearSelection, delete, more]);
         // Keep action buttons parented so native PerformClick executes their existing handlers.
         var hiddenActions = new Panel { Visible = false }; hiddenActions.Controls.AddRange([copy, resume, export, clean]); Controls.Add(hiddenActions);
         Disposed += (_, _) => menu.Dispose(); Ui.Primary(restore);
-        Controls.Add(entries); Controls.Add(policyPanel); Controls.Add(status); Controls.Add(actions); Controls.Add(restore); Controls.Add(cancel); cancel.Dock = DockStyle.Bottom;
+        var main = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 1 };
+        main.ColumnStyles.Add(new(SizeType.Percent, 75)); main.ColumnStyles.Add(new(SizeType.Percent, 25)); main.RowStyles.Add(new(SizeType.Percent, 100));
+        var files = new Panel { Dock = DockStyle.Fill }; files.Controls.Add(entries); files.Controls.Add(actions); files.Controls.Add(status);
+        files.SizeChanged += (_, _) => FitStatus(); main.Controls.Add(files, 0, 0); main.Controls.Add(policyPanel, 1, 0);
+        Controls.Add(main); Controls.Add(restore); Controls.Add(cancel); cancel.Dock = DockStyle.Bottom;
+        long shownBytes = 0; int shownCount = 0, shownProtected = 0;
+        void RefreshUsage() { usage.Text = UiText.Format("recovery.usage", ("usedMb", shownBytes / 1_000_000d), ("limitMb", quota.Value), ("backupCount", shownCount), ("protectedCount", shownProtected)).Replace(" · ", "\n"); FitPolicy(); }
+        UiText.Changed += RefreshUsage; Disposed += (_, _) => UiText.Changed -= RefreshUsage;
+        quota.ValueChanged += (_, _) => RefreshUsage();
         async Task Resume(bool replace)
         {
             if (busy || Selected is not RecoveryEntry { Available: true } entry) return;
@@ -98,7 +114,7 @@ internal sealed class RecoveryForm : Form
         {
             var result = await Task.Run(() => (Rows: service.List(), Summary: manager.Inspect()));
             entries.Items.Clear(); foreach (var row in result.Rows) AddEntry(row);
-            usage.Text = UiText.Format("recovery.usage", ("usedMb", result.Summary.UsedBytes / 1_000_000d), ("limitMb", quota.Value), ("backupCount", result.Rows.Count), ("protectedCount", result.Rows.Count(e => !e.CanClean && e.Available)));
+            shownBytes = result.Summary.UsedBytes; shownCount = result.Rows.Count; shownProtected = result.Rows.Count(e => !e.CanClean && e.Available); RefreshUsage();
             if (entries.Items.Count == 0) status.Text = UiText.Get("recovery.noBackups");
         }
         if (!preview) Shown += async (_, _) =>
@@ -126,10 +142,11 @@ internal sealed class RecoveryForm : Form
             {
                 var marked = selected ? Marked() : [];
                 var protectedCount = marked.Count(entry => !entry.CanClean);
-                var ids = selected ? marked.Where(entry => entry.CanClean).Select(entry => entry.Id).Distinct().ToArray() : (await Task.Run(() => manager.Plan())).ToArray();
+                var ids = selected ? marked.Select(entry => entry.Id).Distinct().ToArray() : (await Task.Run(() => manager.Plan())).ToArray();
                 if (ids.Length == 0) { status.Text = UiText.Get("recovery.noEligibleBackup"); return; }
-                if (MessageBox.Show(this, UiText.Format("recovery.deletePrompt", ("count", ids.Length), ("protectedCount", protectedCount)), UiText.Get("recovery.deleteTitle"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes) return;
-                var result = await Task.Run(() => manager.CleanAsync(ids)); await RefreshEntries(); status.Text = UiText.Format("recovery.deleted", ("count", result.Count), ("freedMb", result.Bytes / 1_000_000d));
+                var prompt = UiText.Format(protectedCount > 0 ? "recovery.discardPrompt" : "recovery.deletePrompt", ("count", ids.Length), ("protectedCount", protectedCount));
+                if (MessageBox.Show(this, prompt, UiText.Get("recovery.deleteTitle"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes) return;
+                var result = await Task.Run(async () => { var count = 0; long bytes = 0; foreach (var id in ids) { var cleaned = selected ? await manager.DiscardAsync(id) : await manager.DeleteAsync(id); count += cleaned.Count; bytes += cleaned.Bytes; } return new CleanupResult(count, bytes); }); await RefreshEntries(); status.Text = UiText.Format("recovery.deleted", ("count", result.Count), ("freedMb", result.Bytes / 1_000_000d));
             }
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = LauncherErrors.Message(ex); }
             finally { busy = false; actions.Enabled = true; policyPanel.Enabled = true; entries.Enabled = true; UpdateSelection(); }
@@ -140,7 +157,7 @@ internal sealed class RecoveryForm : Form
         {
             var row = Selected;
             restore.Enabled = copy.Enabled = resume.Enabled = !busy && row?.Available == true;
-            delete.Enabled = !busy && Marked().Any(entry => entry.CanClean);
+            delete.Enabled = !busy && Marked().Any(entry => entry.CleanupState != 2);
         }
         entries.SelectedIndexChanged += (_, _) => UpdateSelection();
         entries.ItemChecked += (_, _) => UpdateSelection();
@@ -161,7 +178,7 @@ internal sealed class RecoveryForm : Form
                 new RecoveryEntry(Guid.Parse("44444444-4444-4444-4444-444444444444"), "Orçamento.csv", 300_000, 4, new DateTimeOffset(2026, 9, 2, 12, 0, 0, TimeSpan.Zero), true, true),
                 new RecoveryEntry(Guid.Parse("22222222-2222-2222-2222-222222222222"), "Importação pendente.csv", 600_000, 1, new DateTimeOffset(2026, 10, 1, 12, 0, 0, TimeSpan.Zero)),
                 new RecoveryEntry(Guid.Parse("33333333-3333-3333-3333-333333333333"), "Arquivo antigo.xls", 100_000, 4, new DateTimeOffset(2026, 8, 1, 12, 0, 0, TimeSpan.Zero), false, false, 2) }) AddEntry(entry);
-            usage.Text = UiText.Format("recovery.usage", ("usedMb", 3.30d), ("limitMb", quota.Value), ("backupCount", entries.Items.Count), ("protectedCount", 1));
+            shownBytes = 3_300_000; shownCount = entries.Items.Count; shownProtected = 1; RefreshUsage();
         }
         UpdateSelection();
         Branding.Apply(this);

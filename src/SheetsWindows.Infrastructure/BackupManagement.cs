@@ -70,21 +70,26 @@ public sealed class BackupManagement(LocalStorage storage, Func<DateTimeOffset>?
         if(mapping is not {Verified:true,FileId:not null,Kind:"sheet"} || mapping.Hash!=op.Snapshot.Sha256 || mapping.AccountId!=op.AccountId || GoogleDriveClient.Editor(mapping.FileId)!=receipt.Url)throw new LocalConflictException("Copy completion unverified.");
         var catalog=new BackupCatalog(storage);catalog.Register(op.Id,op.Snapshot,registry.SnapshotCreatedAt(op.Id)??Now);catalog.CopyComplete(op.Id,Now);
     }
-    public async Task<CleanupResult> DeleteAsync(Guid id,CancellationToken ct=default)
+    public Task<CleanupResult> DeleteAsync(Guid id,CancellationToken ct=default) => DeleteCoreAsync(id, false, ct);
+    public Task<CleanupResult> DiscardAsync(Guid id,CancellationToken ct=default) => DeleteCoreAsync(id, true, ct);
+    private async Task<CleanupResult> DeleteCoreAsync(Guid id,bool discardPending,CancellationToken ct)
     {
         var registry=new SqliteOperationRegistry(storage.DatabasePath);var original=registry.Get(id)??throw new KeyNotFoundException();
         // Same order as capture/restore: source first, maintenance second. Never hold maintenance while waiting for another source.
         await using var source=await new FileOperationLock(storage.LocksPath).AcquireAsync(original.SourceKey,ct);
         await using var maintenance=await new FileOperationLock(storage.LocksPath).AcquireAsync(LockKey,ct);
-        var entry=Current(id);if(entry.CleanupState==2)return new(0,0);
-        if(!entry.CanClean || entry.CapturedAt is null)throw new InvalidOperationException("Pending or unverified backup is protected.");
-        var snapshot=entry.Operation.Snapshot!;var catalog=new BackupCatalog(storage);catalog.Register(id,snapshot,entry.CapturedAt.Value);
-        if(entry.CleanupState==0)catalog.BeginDelete(id,Now);
+        var entry=Current(id);if(entry.CleanupState==2) { if (ExistingCatalog()?.Get(id)?.DiscardRequested == true) registry.ArchiveDiscarded(id); return new(0,0); }
+        if(!discardPending && (!entry.CanClean || entry.CapturedAt is null))throw new InvalidOperationException("Pending or unverified backup is protected.");
+        var snapshot=entry.Operation.Snapshot!;var catalog=new BackupCatalog(storage);catalog.Register(id,snapshot,entry.CapturedAt ?? Now);
+        if(discardPending && !entry.CanClean)catalog.BeginDiscard(id,Now);
+        else if(entry.CleanupState==0)catalog.BeginDelete(id,Now);
         ct.ThrowIfCancellationRequested();
         if(Directory.Exists(snapshot.BackupPath))throw new InvalidDataException("Backup slot is a directory.");
         var present=File.Exists(snapshot.BackupPath);
         if(present)await SnapshotRemoval.DeleteVerifiedAsync(snapshot,ct);
-        catalog.FinishDelete(id,Now);return new(1,present?snapshot.Length:0);
+        catalog.FinishDelete(id,Now);
+        if (catalog.Get(id)?.DiscardRequested == true) registry.ArchiveDiscarded(id);
+        return new(1,present?snapshot.Length:0);
     }
     public IReadOnlyList<Guid> Plan(long incomingBytes=0,bool includeExpired=true,Guid? excludeId=null)
     {

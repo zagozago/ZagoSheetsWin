@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.26",
+  "productVersion": "0.9.27",
   "sourceLocale": "pt-BR",
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -339,6 +339,9 @@
     "language.saveFailed": "ଭାଷା ସେଭ୍ ହୋଇପାରିଲା ନାହିଁ। ପୂର୍ବ ପସନ୍ଦ ସୁରକ୍ଷିତ ରହିଲା।",
     "language.button": "ଭାଷା ବାଛନ୍ତୁ",
     "setup.shortcutsHeading": "4. ସର୍ଟକଟ୍",
-    "setup.createShortcuts": "Google Sheets ପାଇଁ ସର୍ଟକଟ୍ ତିଆରି କରନ୍ତୁ"
+    "setup.createShortcuts": "Google Sheets ପାଇଁ ସର୍ଟକଟ୍ ତିଆରି କରନ୍ତୁ",
+    "action.retry": "ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ",
+    "progress.retry": "{seconds} ସେକେଣ୍ଡରେ ପୁଣି ଚେଷ୍ଟା ({attempt}/2)…",
+    "recovery.discardPrompt": "{count} ବ୍ୟାକଅପ୍ ହଟାଇବେ ({protectedCount} ବାକି)? ବାକି ପ୍ରୟାସ ଶେଷ ହେବ ଏବଂ ପୁନରୁଦ୍ଧାର ହେବ ନାହିଁ। ମୂଳ ଫାଇଲ୍, ସର୍ଟକଟ୍ ଓ Google ସ୍ପ୍ରେଡ୍‌ସିଟ୍ ରହିବ।"
   }
 }

@@ -100,12 +100,13 @@ internal static class InterfaceVerification
             Require(list.Items.Count == 3 && list.Items.Cast<ListViewItem>().All(i => ((RecoveryEntry)i.Tag!).CleanupState != 2), "Deleted backup history must be absent from the recovery list.");
             Require(list.MultiSelect && list.CheckBoxes, "Backups must support multiple selection.");
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Selecionar todos").PerformClick();
-            Require(list.CheckedItems.Count == 2 && list.CheckedItems.Cast<ListViewItem>().All(i => ((RecoveryEntry)i.Tag!).CanClean), "Select all must select only deletable backups.");
+            Require(list.CheckedItems.Count == 3, "Select all must include pending backups for explicit confirmed discard.");
+            Require(Descendants(recovery).OfType<Button>().Single(b => b.Text == "Apagar selecionados…").Enabled, "Pending backups must allow the confirmed manual delete action.");
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Limpar seleção").PerformClick();
             Require(list.CheckedItems.Count == 0, "Clear selection must remove all marks.");
             list.Items[0].Selected = list.Items[1].Selected = true; Application.DoEvents();
             Require(!Descendants(recovery).OfType<Button>().Single(b => b.Text == "Restaurar em…").Enabled, "Restoring must require exactly one selected file.");
-            foreach (var size in new[] { new Size(700, 650), new Size(560, 540) })
+            foreach (var size in new[] { new Size(980, 680), new Size(760, 560) })
             {
                 recovery.Size = size; recovery.PerformLayout(); Application.DoEvents();
                 foreach (var button in Descendants(recovery).OfType<Button>().Where(b => b.Visible))
@@ -220,6 +221,21 @@ internal static class InterfaceVerification
             Require(Descendants(home).OfType<Button>().Any(b=>b.Text=="&Ajuda") && !sync.Checked && list.Items[0].Checked,"Switching back must preserve state.");
         }
         home.Hide(); preview.Hide();
+        var retryAttempts = 0;
+        using (var automaticRetry = new ProcessingForm(new(LauncherAction.Open, "preview.xlsx"), execute: async (_, _) =>
+        { await Task.Yield(); if (++retryAttempts == 1) throw new HttpRequestException(); }, recordDiagnostics:false,
+            retryDelay: (_, ct) => { ct.ThrowIfCancellationRequested(); return Task.CompletedTask; }))
+        {
+            automaticRetry.ShowDialog(); Require(retryAttempts == 2 && automaticRetry.ExitCode == 0, "Transient import failure must retry and close on success.");
+        }
+        var manualAttempts = 0;
+        using (var manualRetry = new ProcessingForm(new(LauncherAction.Open, "preview.xlsx"), execute: async (_, _) =>
+        { await Task.Yield(); if (++manualAttempts == 1) throw new InvalidOperationException(); }, recordDiagnostics:false))
+        using (var timer = new System.Windows.Forms.Timer { Interval = 25 })
+        {
+            timer.Tick += (_, _) => { if (manualRetry.IsBusy) return; var retry = Descendants(manualRetry).OfType<Button>().SingleOrDefault(b => b.Text == UiText.Get("action.retry")); if (retry is null) return; timer.Stop(); retry.PerformClick(); };
+            timer.Start(); manualRetry.ShowDialog(); Require(manualAttempts == 2 && manualRetry.ExitCode == 0, "Manual retry must rerun the same request and close after success.");
+        }
         using (var success = new ProcessingForm(new(LauncherAction.Open, "preview.xlsx"), execute: async (_, _) => await Task.Yield(), recordDiagnostics: false))
         {
             success.ShowDialog(); measurements["OfflineSuccessUi"] = success.LastMetrics!; Require(success.ExitCode == 0 && !success.IsBusy, "Successful processing must close automatically.");

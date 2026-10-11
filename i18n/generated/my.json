@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.26",
+  "productVersion": "0.9.27",
   "sourceLocale": "pt-BR",
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -339,6 +339,9 @@
     "language.saveFailed": "ဘာသာစကားကို မသိမ်းနိုင်ပါ။ ယခင် ဦးစားပေး ကို ထိန်းသိမ်းထားသည်။",
     "language.button": "ဘာသာစကား ရွေးပါ",
     "setup.shortcutsHeading": "4. ဖြတ်လမ်းများ",
-    "setup.createShortcuts": "Google Sheets သို့ ဖြတ်လမ်းများ ဖန်တီးပါ"
+    "setup.createShortcuts": "Google Sheets သို့ ဖြတ်လမ်းများ ဖန်တီးပါ",
+    "action.retry": "ထပ်စမ်းပါ",
+    "progress.retry": "{seconds} စက္ကန့်အတွင်း ထပ်စမ်းမည် ({attempt}/2)…",
+    "recovery.discardPrompt": "အရန်သိမ်းဆည်းမှု {count} ခု ({protectedCount} ခု ဆိုင်းငံ့) ဖျက်မလား။ ဆိုင်းငံ့ကြိုးစားမှုများ ရပ်ဆုံးပြီး ပြန်မရနိုင်တော့ပါ။ မူရင်းဖိုင်များ၊ ဖြတ်လမ်းများနှင့် Google စာရင်းဇယားများ ကျန်ရှိမည်။"
   }
 }

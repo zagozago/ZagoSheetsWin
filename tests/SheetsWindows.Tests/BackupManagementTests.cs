@@ -73,6 +73,38 @@ public sealed class BackupManagementTests
         var remote=new GoogleRemoteRegistry(Path.Combine(Storage(w).Root,"google.db"));var key="sheet:"+op.Id.ToString("N");remote.Begin(key,"A","sheet",op.Snapshot!.Sha256);remote.Candidate(key,"sheet-id");remote.Verify(key,"sheet-id");
         Assert.False(Assert.Single(manager.Inspect().Entries).CanClean);await Assert.ThrowsAsync<InvalidOperationException>(()=>manager.DeleteAsync(op.Id));Assert.True(File.Exists(op.Snapshot.BackupPath));
     }
+    [Fact] public async Task ExplicitDiscardEndsPendingAttemptAndAllowsFreshImportWithoutRemovingOriginalOrRemote()
+    {
+        using var w = new Workspace(); var storage = Storage(w); var op = await w.Coordinator().PrepareAsync("A", w.Source);
+        var remote = new GoogleRemoteRegistry(Path.Combine(storage.Root,"google.db")); var key = "sheet:" + op.Id.ToString("N");
+        remote.Begin(key,"A","sheet",op.Snapshot!.Sha256); remote.Candidate(key,"sheet-id"); remote.Verify(key,"sheet-id");
+        File.WriteAllText(w.Source + ".url", "existing shortcut"); var manager = new BackupManagement(storage);
+        Assert.False(Assert.Single(manager.Inspect().Entries).CanClean); Assert.Empty(manager.Plan());
+        Assert.Equal(new CleanupResult(1,4), await manager.DiscardAsync(op.Id));
+        Assert.Equal(new byte[] {1,2,3,4}, File.ReadAllBytes(w.Source)); Assert.Equal("existing shortcut", File.ReadAllText(w.Source + ".url"));
+        Assert.True(remote.Get(key)!.Verified); Assert.Empty(new BackupRecovery(storage).List());
+        Assert.Contains(w.Registry().Events(op.Id), e => e.Kind == "Discarded");
+        var fresh = await storage.CreatePreparation().PrepareAsync("A", w.Source);
+        Assert.NotEqual(op.Id, fresh.Id); Assert.Equal(op.SourceKey, fresh.SourceKey); Assert.True(File.Exists(fresh.Snapshot!.BackupPath));
+        Assert.Equal(new CleanupResult(0,0), await manager.DiscardAsync(op.Id));
+    }
+    [Theory] [InlineData(false)] [InlineData(true)] public async Task InterruptedDiscardCanFinishAndReleaseTheOldBinding(bool finishWasRecorded)
+    {
+        using var w = new Workspace(); var storage = Storage(w); var op = await w.Coordinator().PrepareAsync("A", w.Source);
+        var catalog = new BackupCatalog(storage); catalog.Register(op.Id,op.Snapshot!,DateTimeOffset.UtcNow); catalog.BeginDiscard(op.Id,DateTimeOffset.UtcNow);
+        File.Delete(op.Snapshot!.BackupPath); if (finishWasRecorded) catalog.FinishDelete(op.Id,DateTimeOffset.UtcNow);
+        if (!finishWasRecorded) await new BackupManagement(storage).DiscardAsync(op.Id);
+        var fresh = await storage.CreatePreparation().PrepareAsync("A", w.Source);
+        Assert.NotEqual(op.Id,fresh.Id); Assert.True(File.Exists(fresh.Snapshot!.BackupPath)); Assert.NotNull(w.Registry().Get(op.Id));
+    }
+    [Fact] public async Task ExplicitDiscardStillRejectsTamperedBackupAndCancellation()
+    {
+        using var w = new Workspace(); var storage = Storage(w); var op = await w.Coordinator().PrepareAsync("A", w.Source); var manager = new BackupManagement(storage);
+        using var cancelled = new CancellationTokenSource(); cancelled.Cancel();
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => manager.DiscardAsync(op.Id,cancelled.Token)); Assert.True(File.Exists(op.Snapshot!.BackupPath));
+        File.WriteAllBytes(op.Snapshot.BackupPath,[9,9,9,9]); await Assert.ThrowsAsync<InvalidDataException>(() => manager.DiscardAsync(op.Id));
+        Assert.True(File.Exists(op.Snapshot.BackupPath)); Assert.Empty(manager.Plan()); Assert.Equal(op.SourceKey,w.Registry().Get(op.Id)!.SourceKey);
+    }
     [Fact] public async Task IncompleteReplacementOverridesCopyCompletion()
     {
         using var w=new Workspace();var op=await Completed(w);var journal=new ReplacementJournal(Path.Combine(Storage(w).Root,"replacement.db"));journal.Begin(op.Id,w.Source+".url",GoogleDriveClient.Editor("sheet-id"),w.Source);

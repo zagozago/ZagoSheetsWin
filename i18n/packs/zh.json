@@ -2,8 +2,8 @@
   "language": "zh",
   "locale": "zh-CN",
   "direction": "ltr",
-  "catalogRevision": 3,
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "catalogRevision": 4,
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -626,7 +626,10 @@
     "language.saveFailed": "无法保存语言。已保留原偏好设置。",
     "language.button": "选择语言",
     "setup.shortcutsHeading": "4. 快捷方式",
-    "setup.createShortcuts": "创建 Google Sheets 快捷方式"
+    "setup.createShortcuts": "创建 Google Sheets 快捷方式",
+    "action.retry": "重试",
+    "progress.retry": "{seconds}秒后重试（{attempt}/2）…",
+    "recovery.discardPrompt": "删除{count}个备份（{protectedCount}个待处理）？待处理的尝试将结束，无法恢复。原文件、快捷方式和Google电子表格将保留。"
   },
   "expandedNumericNotation": [
     "setup.formatLimits"

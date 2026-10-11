@@ -2,8 +2,8 @@
   "language": "gu",
   "locale": "gu-IN",
   "direction": "ltr",
-  "catalogRevision": 3,
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "catalogRevision": 4,
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -631,6 +631,9 @@
     "language.saveFailed": "ભાષા સાચવી શકાઈ નહીં. તમારી અગાઉની પસંદગી જાળવવામાં આવી.",
     "language.button": "ભાષા પસંદ કરો",
     "setup.shortcutsHeading": "4. શૉર્ટકટ",
-    "setup.createShortcuts": "Google Sheets માટે શૉર્ટકટ બનાવો"
+    "setup.createShortcuts": "Google Sheets માટે શૉર્ટકટ બનાવો",
+    "action.retry": "ફરી પ્રયાસ કરો",
+    "progress.retry": "{seconds} સેકન્ડમાં ફરી પ્રયાસ ({attempt}/2)…",
+    "recovery.discardPrompt": "{count} બેકઅપ કાઢવા છે ({protectedCount} બાકી)? બાકી પ્રયાસો સમાપ્ત થશે અને પુનઃપ્રાપ્ત નહીં થઈ શકે. મૂળ ફાઇલો, શૉર્ટકટ અને Google સ્પ્રેડશીટ રહેશે."
   }
 }

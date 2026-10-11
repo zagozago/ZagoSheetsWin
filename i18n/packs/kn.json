@@ -2,8 +2,8 @@
   "language": "kn",
   "locale": "kn-IN",
   "direction": "ltr",
-  "catalogRevision": 3,
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "catalogRevision": 4,
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -631,6 +631,9 @@
     "language.saveFailed": "ಭಾಷೆ ಉಳಿಸಲಾಗಲಿಲ್ಲ. ನಿಮ್ಮ ಹಿಂದಿನ ಆದ್ಯತೆ ಉಳಿಸಲಾಗಿದೆ.",
     "language.button": "ಭಾಷೆ ಆಯ್ಕೆ ಮಾಡಿ",
     "setup.shortcutsHeading": "4. ಶಾರ್ಟ್‌ಕಟ್‌ಗಳು",
-    "setup.createShortcuts": "Google Sheets ಗಾಗಿ ಶಾರ್ಟ್‌ಕಟ್‌ಗಳನ್ನು ರಚಿಸಿ"
+    "setup.createShortcuts": "Google Sheets ಗಾಗಿ ಶಾರ್ಟ್‌ಕಟ್‌ಗಳನ್ನು ರಚಿಸಿ",
+    "action.retry": "ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ",
+    "progress.retry": "{seconds} ಸೆಕೆಂಡುಗಳಲ್ಲಿ ಮತ್ತೆ ಪ್ರಯತ್ನ ({attempt}/2)…",
+    "recovery.discardPrompt": "{count} ಬ್ಯಾಕಪ್‌ಗಳನ್ನು ಅಳಿಸಬೇಕೇ ({protectedCount} ಬಾಕಿ)? ಬಾಕಿ ಪ್ರಯತ್ನಗಳು ಕೊನೆಗೊಳ್ಳುತ್ತವೆ ಮತ್ತು ಮರುಪಡೆಯಲು ಸಾಧ್ಯವಿಲ್ಲ. ಮೂಲ ಫೈಲ್‌ಗಳು, ಶಾರ್ಟ್‌ಕಟ್‌ಗಳು ಮತ್ತು Google ಸ್ಪ್ರೆಡ್‌ಶೀಟ್‌ಗಳು ಉಳಿಯುತ್ತವೆ."
   }
 }

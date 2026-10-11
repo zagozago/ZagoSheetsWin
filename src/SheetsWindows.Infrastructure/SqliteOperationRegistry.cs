@@ -106,6 +106,12 @@ public sealed class SqliteOperationRegistry : IOperationRegistry
         using (var find = Command(db, tx, $"SELECT {Columns} FROM operations WHERE account_id=$a AND source_key=$s",
             ("$a", accountId), ("$s", source.IdentityKey)))
         using (var read = find.ExecuteReader()) op = read.Read() ? Read(read) : null;
+        if (op is not null && File.Exists(BackupCatalog.PathFor(new(Path.GetDirectoryName(DatabasePath())!))))
+        {
+            var storage = new LocalStorage(Path.GetDirectoryName(DatabasePath())!);
+            if (new BackupCatalog(storage).Get(op.Id) is { State: 2, DiscardRequested: true })
+            { Archive(db, tx, op.Id); op = null; }
+        }
         if (op is null)
         {
             op = new(Guid.NewGuid(), accountId, source.IdentityKey, source.Path, source.Format, OperationState.Prepared, null, 0);
@@ -123,6 +129,18 @@ public sealed class SqliteOperationRegistry : IOperationRegistry
     {
         using var db = Open(); using var cmd = Command(db, null, $"SELECT {Columns} FROM operations WHERE id=$id", ("$id", id.ToString("N")));
         using var read = cmd.ExecuteReader(); return read.Read() ? Read(read) : null;
+    }
+    private string DatabasePath() => new SqliteConnectionStringBuilder(connectionString).DataSource;
+    private static void Archive(SqliteConnection db, SqliteTransaction tx, Guid id)
+    {
+        using var update = Command(db, tx, "UPDATE operations SET source_key=$key WHERE id=$id AND source_key NOT LIKE 'discarded:%'", ("$key", "discarded:" + id.ToString("N")), ("$id", id.ToString("N")));
+        if (update.ExecuteNonQuery() == 1) Event(db, tx, id, "Discarded");
+    }
+    public void ArchiveDiscarded(Guid id)
+    {
+        var storage = new LocalStorage(Path.GetDirectoryName(DatabasePath())!);
+        if (new BackupCatalog(storage).Get(id) is not { State: 2, DiscardRequested: true }) throw new InvalidOperationException("Discard must finish before retiring its source binding.");
+        using var db = Open(); using var tx = db.BeginTransaction(deferred: false); Archive(db, tx, id); tx.Commit();
     }
     public ImportOperation CommitSnapshot(Guid id, long expectedVersion, Snapshot snapshot)
     {

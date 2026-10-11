@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.26",
+  "productVersion": "0.9.27",
   "sourceLocale": "pt-BR",
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -339,6 +339,9 @@
     "language.saveFailed": "भाषा सहेजल नहि जा सकल। पहिलुक पसंद सुरक्षित राखल गेल।",
     "language.button": "भाषा चुनू",
     "setup.shortcutsHeading": "4. शॉर्टकट",
-    "setup.createShortcuts": "Google Sheets लेल शॉर्टकट बनाउ"
+    "setup.createShortcuts": "Google Sheets लेल शॉर्टकट बनाउ",
+    "action.retry": "फेर प्रयास करू",
+    "progress.retry": "{seconds} सेकंड मे फेर प्रयास ({attempt}/2)…",
+    "recovery.discardPrompt": "{count} बैकअप हटाबी ({protectedCount} लंबित)? लंबित प्रयास समाप्त भऽ जायत आ फेर प्राप्त नहि होयत। मूल फाइल, शॉर्टकट आ Google स्प्रेडशीट रहत।"
   }
 }

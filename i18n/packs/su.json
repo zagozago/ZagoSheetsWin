@@ -2,8 +2,8 @@
   "language": "su",
   "locale": "su-ID",
   "direction": "ltr",
-  "catalogRevision": 3,
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "catalogRevision": 4,
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -633,6 +633,9 @@
     "language.saveFailed": "Basa teu bisa disimpen. Pilihan saméméhna tetep disimpen.",
     "language.button": "Pilih basa",
     "setup.shortcutsHeading": "4. Jalan pintas",
-    "setup.createShortcuts": "Jieun jalan pintas ka Google Sheets"
+    "setup.createShortcuts": "Jieun jalan pintas ka Google Sheets",
+    "action.retry": "Cobaan deui",
+    "progress.retry": "Nyobian deui dina {seconds}d ({attempt}/2)…",
+    "recovery.discardPrompt": "Pupus {count} cadangan ({protectedCount} ngantosan)? Usaha anu ngantosan bakal ditungtungan sareng teu tiasa dipulihkeun. Berkas asli, potong kompas sareng spreadsheet Google tetep aya."
   }
 }

@@ -12,15 +12,18 @@ internal sealed class ProcessingForm : Form
     private readonly Func<IProgress<string>, CancellationToken, Task>? execute;
     private readonly bool recordDiagnostics;
     private readonly long? startedAt;
+    private readonly Func<TimeSpan, CancellationToken, Task>? retryDelay;
     private bool busy;
     public int ExitCode { get; private set; }
     internal bool IsBusy => busy;
     internal ProcessingMetrics? LastMetrics { get; private set; }
     public ProcessingForm(LauncherRequest request, long? startedAt = null, bool preview = false, bool previewError = false,
-        Func<IProgress<string>, CancellationToken, Task>? execute = null, bool recordDiagnostics = true)
+        Func<IProgress<string>, CancellationToken, Task>? execute = null, bool recordDiagnostics = true,
+        Func<TimeSpan, CancellationToken, Task>? retryDelay = null)
     {
         if (request.Action is not (LauncherAction.Open or LauncherAction.Copy or LauncherAction.Login)) throw new ArgumentException("Processing request required.");
         this.request = request; this.execute = execute; this.recordDiagnostics = recordDiagnostics; this.startedAt = startedAt ?? System.Diagnostics.Stopwatch.GetTimestamp();
+        this.retryDelay = retryDelay;
         Text = UiText.Get("processing.title"); ClientSize = new Size(620, 240); MinimumSize = new Size(620, 240);
         StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
         cancel.Click += (_, _) => { if (busy) { cancellation.Cancel(); cancel.Enabled = false; status.Text = UiText.Get("progress.stopping"); } else Close(); };
@@ -47,12 +50,23 @@ internal sealed class ProcessingForm : Form
         var setup = new AdaptiveButton { Text = UiText.Get("action.settings"), AutoSize = true };
         setup.Click += (_, _) => { using var form = new SetupForm(); form.ShowDialog(this); };
         actions.Controls.AddRange([recovery, export, setup]); cancel.Text = UiText.Get("action.close"); cancel.Enabled = true;
+        if (request.Action is LauncherAction.Open or LauncherAction.Copy)
+        {
+            var retry = new AdaptiveButton { Text = UiText.Get("action.retry"), AutoSize = true };
+            retry.Click += async (_, _) => { if (!busy) await RunAsync(); };
+            actions.Controls.Add(retry);
+        }
         ClientSize = new Size((int)(620 * DeviceDpi / 96.0), (int)(330 * DeviceDpi / 96.0)); Branding.Refresh(this);
     }
     private async Task RunAsync()
     {
+        if (busy) return;
         busy = true;
-        var progress = new Progress<string>(text => { if (!IsDisposed && !Disposing && busy && !cancellation.IsCancellationRequested) status.Text = text; });
+        ExitCode = 0;
+        foreach (Control control in actions.Controls.Cast<Control>().Where(control => control != cancel).ToArray()) { actions.Controls.Remove(control); control.Dispose(); }
+        cancel.Text = UiText.Get("action.cancel"); cancel.Enabled = true;
+        Text = UiText.Get("processing.title");
+        IProgress<string> progress = new Progress<string>(text => { if (!IsDisposed && !Disposing && busy && !cancellation.IsCancellationRequested) status.Text = text; });
         var telemetry = new ProcessingTelemetry(startedAt, progress); telemetry.MarkReady(); telemetry.SampleCpu();
         using var cpuSampler = new System.Windows.Forms.Timer { Interval = 100 };
         cpuSampler.Tick += (_, _) => telemetry.SampleCpu(); cpuSampler.Start();
@@ -64,20 +78,22 @@ internal sealed class ProcessingForm : Form
         try
         {
             status.Text = request.Action == LauncherAction.Login ? UiText.Get("progress.authorizing") : UiText.Get("progress.fileAndBackup");
-            if (execute is not null) await execute(progress, cancellation.Token);
-            else
+            async Task ExecuteOnce(CancellationToken ct)
             {
+                if (execute is not null) { await execute(progress, ct); return; }
                 using var handler = new HttpClientHandler { AllowAutoRedirect = false };
                 using var http = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(90) };
                 var launcher = new WindowsLauncher(LocalStorage.ForCurrentUser(), http, new BrowserLauncher(), telemetry);
                 await Task.Run(async () =>
                 {
-                    if (request.Action == LauncherAction.Login) await launcher.LoginAsync(cancellation.Token);
-                    else if (request.Action == LauncherAction.Copy) await launcher.CopyAsync(request.Path!, progress, cancellation.Token);
-                    else await launcher.OpenAsync(request.Path!, progress, cancellation.Token);
+                    if (request.Action == LauncherAction.Login) await launcher.LoginAsync(ct);
+                    else if (request.Action == LauncherAction.Copy) await launcher.CopyAsync(request.Path!, progress, ct);
+                    else await launcher.OpenAsync(request.Path!, progress, ct);
                 });
                 importNotice = launcher.ImportNotice;
             }
+            if (request.Action == LauncherAction.Login) await ExecuteOnce(cancellation.Token);
+            else await ImportRetry.ExecuteAsync(ExecuteOnce, (seconds, attempt) => progress.Report(UiText.Format("progress.retry", ("seconds", seconds), ("attempt", attempt))), cancellation.Token, retryDelay);
         }
         catch (Exception ex) when (LauncherErrors.Expected(ex))
         {

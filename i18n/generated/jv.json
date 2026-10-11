@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.26",
+  "productVersion": "0.9.27",
   "sourceLocale": "pt-BR",
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -339,6 +339,9 @@
     "language.saveFailed": "Basa ora bisa disimpen. Pilihan sadurunge tetep dijaga.",
     "language.button": "Pilih basa",
     "setup.shortcutsHeading": "4. Trabasan",
-    "setup.createShortcuts": "Gawe trabasan menyang Google Sheets"
+    "setup.createShortcuts": "Gawe trabasan menyang Google Sheets",
+    "action.retry": "Coba maneh",
+    "progress.retry": "Nyoba maneh ing {seconds}d ({attempt}/2)…",
+    "recovery.discardPrompt": "Busak {count} serep ({protectedCount} ngenteni)? Upaya sing ngenteni bakal dipungkasi lan ora bisa dibalekake. Berkas asli, trabasan lan lembar kerja Google tetep ana."
   }
 }

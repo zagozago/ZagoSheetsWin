@@ -2,8 +2,8 @@
   "language": "mr",
   "locale": "mr-IN",
   "direction": "ltr",
-  "catalogRevision": 3,
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "catalogRevision": 4,
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -631,6 +631,9 @@
     "language.saveFailed": "भाषा जतन करता आली नाही. तुमची मागील पसंती जतन केली.",
     "language.button": "भाषा निवडा",
     "setup.shortcutsHeading": "4. शॉर्टकट",
-    "setup.createShortcuts": "Google Sheets साठी शॉर्टकट तयार करा"
+    "setup.createShortcuts": "Google Sheets साठी शॉर्टकट तयार करा",
+    "action.retry": "पुन्हा प्रयत्न करा",
+    "progress.retry": "{seconds} सेकंदांत पुन्हा प्रयत्न ({attempt}/2)…",
+    "recovery.discardPrompt": "{count} बॅकअप हटवायचे ({protectedCount} प्रलंबित)? प्रलंबित प्रयत्न संपतील आणि पुनर्प्राप्त करता येणार नाहीत. मूळ फाइल्स, शॉर्टकट आणि Google स्प्रेडशीट राहतील."
   }
 }

@@ -2,8 +2,8 @@
   "language": "bho",
   "locale": "bho-IN",
   "direction": "ltr",
-  "catalogRevision": 3,
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "catalogRevision": 4,
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -631,6 +631,9 @@
     "language.saveFailed": "भाषा सहेजीं ना हो पावल. रउआ पुरान preference बचा के रखल गइल.",
     "language.button": "भाषा चुनीं",
     "setup.shortcutsHeading": "4. शॉर्टकट",
-    "setup.createShortcuts": "Google Sheets खातिर शॉर्टकट बनाईं"
+    "setup.createShortcuts": "Google Sheets खातिर शॉर्टकट बनाईं",
+    "action.retry": "फेर कोशिश करीं",
+    "progress.retry": "{seconds} सेकंड में फेर कोशिश ({attempt}/2)…",
+    "recovery.discardPrompt": "{count} बैकअप मिटावल जाव ({protectedCount} बाकी)? बाकी कोशिश बंद हो जाई आ वापस ना मिल पाई। मूल फाइल, शॉर्टकट आ Google स्प्रेडशीट रही।"
   }
 }

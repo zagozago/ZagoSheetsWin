@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.26",
+  "productVersion": "0.9.27",
   "sourceLocale": "pt-BR",
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -339,6 +339,9 @@
     "language.saveFailed": "No se pudo guardar el idioma. Se conservó tu preferencia anterior.",
     "language.button": "Elegir idioma",
     "setup.shortcutsHeading": "4. Accesos directos",
-    "setup.createShortcuts": "Crear accesos directos a Google Sheets"
+    "setup.createShortcuts": "Crear accesos directos a Google Sheets",
+    "action.retry": "Reintentar",
+    "progress.retry": "Reintentando en {seconds}s ({attempt}/2)…",
+    "recovery.discardPrompt": "¿Eliminar {count} copias de seguridad ({protectedCount} pendientes)? Los intentos pendientes terminarán sin posibilidad de recuperación. Se conservan los originales, los accesos directos y las hojas de Google."
   }
 }

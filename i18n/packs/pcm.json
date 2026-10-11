@@ -2,8 +2,8 @@
   "language": "pcm",
   "locale": "pcm-NG",
   "direction": "ltr",
-  "catalogRevision": 3,
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "catalogRevision": 4,
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -811,6 +811,9 @@
     "language.saveFailed": "No fit save language. Dem keep your previous preference.",
     "language.button": "Choose language",
     "setup.shortcutsHeading": "4. Shortcut dem",
-    "setup.createShortcuts": "Make shortcut dem to Google Sheets"
+    "setup.createShortcuts": "Make shortcut dem to Google Sheets",
+    "action.retry": "Try again",
+    "progress.retry": "We go try again for {seconds}s ({attempt}/2)…",
+    "recovery.discardPrompt": "Delete {count} backup ({protectedCount} still dey wait)? Those attempts go end and you no go fit recover dem. Original files, shortcuts and Google spreadsheets go remain."
   }
 }

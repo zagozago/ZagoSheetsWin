@@ -2,8 +2,8 @@
   "language": "sd",
   "locale": "sd-Arab-PK",
   "direction": "rtl",
-  "catalogRevision": 3,
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "catalogRevision": 4,
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -631,6 +631,9 @@
     "language.saveFailed": "ٻولي محفوظ نه ٿي سگهي. توهان جي اڳين پسند محفوظ رکي وئي.",
     "language.button": "ٻولي چونڊيو",
     "setup.shortcutsHeading": "4. شارٽ ڪٽ",
-    "setup.createShortcuts": "Google Sheets لاءِ شارٽ ڪٽ ٺاهيو"
+    "setup.createShortcuts": "Google Sheets لاءِ شارٽ ڪٽ ٺاهيو",
+    "action.retry": "ٻيهر ڪوشش ڪريو",
+    "progress.retry": "{seconds} سيڪنڊن ۾ ٻيهر ڪوشش ({attempt}/2)…",
+    "recovery.discardPrompt": "{count} بيڪ اپ ڊاهيو ({protectedCount} انتظار ۾)؟ انتظار واريون ڪوششون ختم ٿينديون ۽ بحال نه ٿي سگهنديون. اصل فائلون، شارٽ ڪٽ ۽ Google اسپريڊ شيٽون رهنديون."
   }
 }

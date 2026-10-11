@@ -2,8 +2,8 @@
   "language": "ur",
   "locale": "ur",
   "direction": "rtl",
-  "catalogRevision": 3,
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "catalogRevision": 4,
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -631,6 +631,9 @@
     "language.saveFailed": "زبان محفوظ نہیں ہو سکی۔ پچھلی ترجیح برقرار رکھی گئی۔",
     "language.button": "زبان منتخب کریں",
     "setup.shortcutsHeading": "4. شارٹ کٹس",
-    "setup.createShortcuts": "Google Sheets کے شارٹ کٹس بنائیں"
+    "setup.createShortcuts": "Google Sheets کے شارٹ کٹس بنائیں",
+    "action.retry": "دوبارہ کوشش کریں",
+    "progress.retry": "{seconds} سیکنڈ میں دوبارہ کوشش ({attempt}/2)…",
+    "recovery.discardPrompt": "{count} بیک اپ حذف کریں ({protectedCount} زیر التوا)؟ زیر التوا کوششیں ختم ہو جائیں گی اور بحال نہیں ہو سکیں گی۔ اصل فائلیں، شارٹ کٹس اور Google اسپریڈشیٹس محفوظ رہیں گی۔"
   }
 }

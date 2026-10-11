@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.26",
+  "productVersion": "0.9.27",
   "sourceLocale": "pt-BR",
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -339,6 +339,9 @@
     "language.saveFailed": "Tilni saqlab bo‘lmadi. Oldingi tanlovingiz saqlandi.",
     "language.button": "Tilni tanlash",
     "setup.shortcutsHeading": "4. Yorliqlar",
-    "setup.createShortcuts": "Google Sheets uchun yorliqlar yaratish"
+    "setup.createShortcuts": "Google Sheets uchun yorliqlar yaratish",
+    "action.retry": "Qayta urinish",
+    "progress.retry": "{seconds} soniyadan so‘ng qayta urinish ({attempt}/2)…",
+    "recovery.discardPrompt": "{count} zaxira nusxa o‘chirilsinmi ({protectedCount} kutilmoqda)? Kutilayotgan urinishlar tiklash imkonisiz tugatiladi. Asl fayllar, yorliqlar va Google jadvallari saqlanadi."
   }
 }

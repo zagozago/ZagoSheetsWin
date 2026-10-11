@@ -2,8 +2,8 @@
   "language": "sw",
   "locale": "sw-KE",
   "direction": "ltr",
-  "catalogRevision": 3,
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "catalogRevision": 4,
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -631,6 +631,9 @@
     "language.saveFailed": "Haikuwezekana kuhifadhi lugha. Mapendeleo yako ya awali yalihifadhiwa.",
     "language.button": "Chagua lugha",
     "setup.shortcutsHeading": "4. Njia za mkato",
-    "setup.createShortcuts": "Unda njia za mkato za Google Sheets"
+    "setup.createShortcuts": "Unda njia za mkato za Google Sheets",
+    "action.retry": "Jaribu tena",
+    "progress.retry": "Kujaribu tena baada ya sekunde {seconds} ({attempt}/2)…",
+    "recovery.discardPrompt": "Futa nakala {count} ({protectedCount} zinasubiri)? Majaribio yanayosubiri yataisha bila uwezekano wa kurejeshwa. Faili asili, njia za mkato na lahajedwali za Google zitabaki."
   }
 }

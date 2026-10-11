@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.26",
+  "productVersion": "0.9.27",
   "sourceLocale": "pt-BR",
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -339,6 +339,9 @@
     "language.saveFailed": "A kò lè pa èdè mọ́. A pa preference rẹ tẹ́lẹ̀ mọ́.",
     "language.button": "Yan èdè",
     "setup.shortcutsHeading": "4. Ọ̀nà abuja",
-    "setup.createShortcuts": "Ṣẹ̀dá ọ̀nà abuja sí Google Sheets"
+    "setup.createShortcuts": "Ṣẹ̀dá ọ̀nà abuja sí Google Sheets",
+    "action.retry": "Gbìyànjú lẹ́ẹ̀kan sí i",
+    "progress.retry": "Ìgbìyànjú míì lẹ́yìn ìṣẹ́jú-àáyá {seconds} ({attempt}/2)…",
+    "recovery.discardPrompt": "Pa àfipamọ́ {count} rẹ́ ({protectedCount} ń dúró)? Àwọn ìgbìyànjú tó ń dúró yóò parí láìsí àǹfààní ìmúpadàbọ̀. Fáìlì ìpilẹ̀ṣẹ̀, ọ̀nà abuja àti ìwé tábìlì Google yóò wà."
   }
 }

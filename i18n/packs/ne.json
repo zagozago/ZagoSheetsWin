@@ -2,8 +2,8 @@
   "language": "ne",
   "locale": "ne-NP",
   "direction": "ltr",
-  "catalogRevision": 3,
-  "sourceHash": "ee89f45740b1e505c70dea59c6cd4d981b7e49b0d34131403a003e7df0301c6d",
+  "catalogRevision": 4,
+  "sourceHash": "19c8fba910f7de696c27c0f3a9cbc6ed85e1f0ab172db695d712d3692041d5d3",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -631,6 +631,9 @@
     "language.saveFailed": "भाषा सुरक्षित गर्न सकिएन। तपाईंको अघिल्लो प्राथमिकता सुरक्षित राखियो।",
     "language.button": "भाषा छान्नुहोस्",
     "setup.shortcutsHeading": "4. सर्टकटहरू",
-    "setup.createShortcuts": "Google Sheets का लागि सर्टकटहरू सिर्जना गर्नुहोस्"
+    "setup.createShortcuts": "Google Sheets का लागि सर्टकटहरू सिर्जना गर्नुहोस्",
+    "action.retry": "फेरि प्रयास गर्नुहोस्",
+    "progress.retry": "{seconds} सेकेन्डमा फेरि प्रयास ({attempt}/2)…",
+    "recovery.discardPrompt": "{count} ब्याकअप मेट्ने ({protectedCount} बाँकी)? बाँकी प्रयासहरू समाप्त हुनेछन् र पुनःप्राप्त गर्न सकिने छैन। मूल फाइलहरू, सर्टकट र Google स्प्रेडसिटहरू रहनेछन्।"
   }
 }
