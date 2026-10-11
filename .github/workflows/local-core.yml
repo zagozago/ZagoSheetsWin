@@ -21,10 +21,16 @@ jobs:
         with:
           dotnet-version: '10.0.401'
       - name: Validate localization source and generated resources
+        shell: pwsh
+        env:
+          PYTHONUTF8: '1'
         run: |
           python tools/i18n/generate.py --check
+          if ($LASTEXITCODE -ne 0) { throw 'Localization generation validation failed' }
           python tools/i18n/test_catalog.py
+          if ($LASTEXITCODE -ne 0) { throw 'Localization contract tests failed' }
           python tools/i18n/generate.py --validate-pack i18n/packs/en.json --release
+          if ($LASTEXITCODE -ne 0) { throw 'English release validation failed' }
       - run: dotnet restore SheetsWindows.slnx --locked-mode
       - run: dotnet build SheetsWindows.slnx --configuration Release --no-restore
       - run: dotnet test SheetsWindows.slnx --configuration Release --no-build --no-restore --logger "trx;LogFileName=local-core.trx"
@@ -102,13 +108,24 @@ jobs:
           & $compiler /DPilotVersion=0.7.0 "/O$oldOutput" installer/SheetsWindows.iss
           if ($LASTEXITCODE -ne 0) { throw 'Previous-version policy fixture compilation failed' }
 
+      - name: Verify all 51 installer language transitions
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./installer/Test-LanguageSelector.ps1
+
       - name: Verify installation, upgrade and preservation on uninstall
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          ./installer/Test-LanguageSelector.ps1
           ./installer/Test-UpdateVerification.ps1
           ./installer/Test-Lifecycle.ps1
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && runner.os == 'Windows'
+        with:
+          name: installer-language-verification
+          path: artifacts/installer-verification/
+          if-no-files-found: ignore
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: runner.os == 'Windows'
