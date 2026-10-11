@@ -280,6 +280,20 @@ public sealed class GoogleTests
         server.ExportOverride = null; await launcher.OpenAsync(path); Assert.False(File.Exists(path)); Assert.Equal(2, server.Posts);
     }
     [WindowsFact]
+    public async Task SavedCopyPreferenceControlsNormalOpenAndCanReturnToReplacementWithoutAnotherUpload()
+    {
+        using var w = new Workspace(); var bytes = Workbook(); File.WriteAllBytes(w.Source, bytes); ConfigureLauncher(w, out var storage);
+        using var server = new DriveServer(); using var http = new HttpClient(server); var launcher = new WindowsLauncher(storage, http, new LauncherBrowser());
+        await CopyImportSettings.SaveAsync(storage, true);
+        var copy = await launcher.OpenAsync(w.Source);
+        Assert.StartsWith(Path.Combine(storage.Root, "shortcuts"), copy); Assert.Equal(bytes, File.ReadAllBytes(w.Source));
+        Assert.Equal(copy, await launcher.OpenAsync(w.Source)); Assert.Equal(2, server.Posts);
+        await CopyImportSettings.SaveAsync(storage, false);
+        var replacement = await launcher.OpenAsync(w.Source);
+        Assert.StartsWith(w.Root, replacement); Assert.False(File.Exists(w.Source)); Assert.True(File.Exists(replacement)); Assert.Equal(2, server.Posts);
+    }
+
+    [WindowsFact]
     public async Task CopyModeAndComplexOdsNeverRetireOrWriteIntoTheSourceFolder()
     {
         using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".ods"); var bytes = FormatTests.Ods("<table:table-row><table:table-cell table:formula='of:=1+1' office:value-type='float' office:value='2'/></table:table-row>"); File.WriteAllBytes(path, bytes);

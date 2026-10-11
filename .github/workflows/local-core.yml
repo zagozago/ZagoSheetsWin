@@ -69,7 +69,7 @@ jobs:
           New-Item -ItemType Directory -Force (Split-Path $output) | Out-Null
           $errorFile = Join-Path (Get-Location).Path 'artifacts/native-verification-error.txt'
           $process = Start-Process -FilePath $exe -ArgumentList @('--verify-interface', $output) -RedirectStandardError $errorFile -PassThru
-          if (!$process.WaitForExit(300000)) { $process.Kill(); throw 'Native interface verification timed out' }
+          if (!$process.WaitForExit(300000)) { $process.Kill(); Get-Content $errorFile; throw 'Native interface verification timed out' }
           if ($process.ExitCode -ne 0) { Get-Content $errorFile; throw 'Native interface verification failed' }
           Get-Content $output
       - name: Render native branding previews offline
@@ -85,7 +85,7 @@ jobs:
             if (!(Test-Path (Join-Path $output $file))) { throw "Missing preview: $file" }
           }
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: runner.os == 'Windows'
+        if: always() && runner.os == 'Windows'
         with:
           name: ZagoSheetsWin-branding-preview
           path: artifacts/branding-preview/

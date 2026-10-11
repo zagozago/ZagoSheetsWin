@@ -8,6 +8,7 @@ internal static class InterfaceVerification
 {
     public static int Run(string output)
     {
+        Console.Error.WriteLine("VERIFY: language selection");
         var measurements = new Dictionary<string, ProcessingMetrics>();
         void Require(bool value, string detail) { if (!value) throw new InvalidOperationException(detail); }
         using (var languageOwner = new LauncherForm(new(LauncherAction.Home)))
@@ -51,6 +52,7 @@ internal static class InterfaceVerification
             action.InvokeAction(); action.Enabled = false; action.InvokeAction();
             Require(invoked == 1, "Recovery menu must invoke enabled handlers and refuse disabled actions.");
         }
+        Console.Error.WriteLine("VERIFY: first use");
         var wizardRoot = Path.Combine(Path.GetDirectoryName(Path.GetFullPath(output))!, "wizard-fixture-" + Guid.NewGuid().ToString("N"));
         var wizardStorage = new LocalStorage(wizardRoot);
         var connectionAttempts = 0; var saved = 0;
@@ -94,6 +96,7 @@ internal static class InterfaceVerification
         }
         var about = Descendants(home).OfType<LinkLabel>().Single(l => l.Text == "Sobre / Licenças");
         Require(about.Width >= TextRenderer.MeasureText(about.Text, about.Font, Size.Empty, TextFormatFlags.NoPadding).Width, "MIT credit link must not be clipped.");
+        Console.Error.WriteLine("VERIFY: backup selection");
         using (var recovery = new RecoveryForm(preview: true, previewBusy: true))
         {
             recovery.Show(); Application.DoEvents();
@@ -122,6 +125,7 @@ internal static class InterfaceVerification
             }
             recovery.Hide();
         }
+        Console.Error.WriteLine("VERIFY: settings and information");
         using (var setup = new SetupForm(preview: true))
         {
             setup.Show(); Application.DoEvents();
@@ -142,6 +146,7 @@ internal static class InterfaceVerification
             Require(informationButtons[0].PopupVisible && informationButtons[0].PopupContent is not null, "Contextual information must open without a second settings modal.");
             setup.Hide();
         }
+        Console.Error.WriteLine("VERIFY: help");
         using (var tutorial = new TutorialForm())
         {
             tutorial.Show(); Application.DoEvents();
@@ -175,6 +180,7 @@ internal static class InterfaceVerification
         Require(toggle.Dark && toggle.AccessibilityObject.Role == AccessibleRole.PushButton && toggle.AccessibilityObject.Value == "Escuro", "Theme action button must expose its dark mode without checkbox semantics.");
         Branding.PreviewTheme(ApplicationTheme.Light);
         Require(home.BackColor == light && !toggle.Dark && toggle.AccessibilityObject.Value == "Claro", "Theme must switch back without restarting.");
+        Console.Error.WriteLine("VERIFY: live language switching");
         // Switching must update existing instances, preserving checkbox values and identity.
         using (var settings = new SetupForm(preview: true))
         using (var backups = new RecoveryForm(preview: true))
@@ -213,6 +219,7 @@ internal static class InterfaceVerification
             Require(Descendants(home).OfType<Button>().Any(b=>b.Text=="&Ajuda") && !sync.Checked && list.Items[0].Checked,"Switching back must preserve state.");
         }
         home.Hide(); preview.Hide();
+        Console.Error.WriteLine("VERIFY: processing retry");
         var retryAttempts = 0;
         using (var automaticRetry = new ProcessingForm(new(LauncherAction.Open, "preview.xlsx"), execute: async (_, _) =>
         { await Task.Yield(); if (++retryAttempts == 1) throw new HttpRequestException(); }, recordDiagnostics:false,
@@ -268,6 +275,7 @@ internal static class InterfaceVerification
         using (benchmark.Begin(ProcessingPhase.Conversion)) payload = SpreadsheetFormats.Prepare("csv", bytes, new("auto", "semicolon"));
         using (benchmark.Begin(ProcessingPhase.Verification)) SpreadsheetFormats.VerifyValues(payload.Expected!, payload.Bytes);
         measurements["OfflineCsv5000x40RoundTrip"] = benchmark.Capture();
+        Console.Error.WriteLine("VERIFY: 51 locale layouts");
         LocaleVerification.Run(output);
         Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(output))!);
         File.WriteAllText(output, System.Text.Json.JsonSerializer.Serialize(new { Measurements = measurements, InputBytes = bytes.Length, Rows = 5000, Columns = 40, GoogleNetwork = false }));

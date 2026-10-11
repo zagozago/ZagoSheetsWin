@@ -19,6 +19,7 @@ internal static class LocaleVerification
                 var buttons = 0;
                 void Check(Form form, string name, bool picture = false)
                 {
+                    Console.Error.WriteLine($"VERIFY: {language.Code}/{name}");
                     form.Show(); Application.DoEvents(); form.PerformLayout(); Application.DoEvents();
                     if (form.RightToLeftLayout != UiText.RightToLeft) throw new InvalidOperationException($"{language.Code}/{name}: RTL not applied.");
                     foreach (var button in Descendants(form).OfType<Button>().Where(b => b.Visible && b is not ThemeToggle))

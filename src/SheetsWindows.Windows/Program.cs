@@ -60,7 +60,7 @@ internal static class Program
                 UiText.Select("pt");
                 return 0;
             }
-            if (args.Length == 2 && args[0] == "--verify-interface") { ApplicationConfiguration.Initialize(); return InterfaceVerification.Run(args[1]); }
+            if (args.Length == 2 && args[0] == "--verify-interface") { ApplicationConfiguration.Initialize(); Application.SetUnhandledExceptionMode(UnhandledExceptionMode.ThrowException); return InterfaceVerification.Run(args[1]); }
             // Maintenance saves only an absent preference; no OAuth or UI initialization.
             if (args.Length == 2 && args[0] == "--installer-language")
             { LanguageSettings.InitializeFromInstallerAsync(LocalStorage.ForCurrentUser(), args[1]).GetAwaiter().GetResult(); return 0; }
