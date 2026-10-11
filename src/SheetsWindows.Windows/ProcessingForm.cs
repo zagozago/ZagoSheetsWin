@@ -31,7 +31,8 @@ internal sealed class ProcessingForm : Form
         FormClosing += (_, e) => { if (busy) { e.Cancel = true; cancellation.Cancel(); cancel.Enabled = false; status.Text = UiText.Get("progress.stopping"); } };
         Branding.Apply(this, aboutButton: false, compact: true);
         if (preview) { status.Text = UiText.Get("progress.verification"); if (previewError) ShowFailure(new ConversionMismatchException()); }
-        else Shown += async (_, _) => await RunAsync();
+        // Start after the modal/native message loop installs its UI synchronization context.
+        else Shown += (_, _) => BeginInvoke((Action)(async () => await RunAsync()));
     }
     private void ShowFailure(Exception ex)
     {
