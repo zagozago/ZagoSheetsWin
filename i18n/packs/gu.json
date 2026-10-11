@@ -3,7 +3,7 @@
   "locale": "gu-IN",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -639,7 +639,7 @@
     "firstUse.googleExplanation": "તમારી સ્પ્રેડશીટ આ ખાતાના Google Driveમાં રહે છે. Windows માટે Google Drive ઇન્સ્ટોલ કરવું જરૂરી નથી.",
     "firstUse.defaultsExplanation": "Windowsની ડિફૉલ્ટ ઍપમાં ZagoSheetsWin પસંદ કરો.",
     "firstUse.backupExplanation": "બૅકઅપ મૂળ ફાઇલ રાખે છે, Sheetsમાં પછીના ફેરફારો નહીં.\nબૅકઅપમાં અહીં પુનઃસ્થાપિત કરો… પસંદ કરીને ફાઇલ પાછી મેળવો.",
-    "setup.importHeading": "4. શૉર્ટકટ અને ફાઇલને નકલ તરીકે આયાત કરવી",
+    "setup.importHeading": "3. શૉર્ટકટ અને ફાઇલને નકલ તરીકે આયાત કરવી",
     "tutorial.showAtStartup": "ઍપ ખોલતી વખતે આ માર્ગદર્શિકા બતાવો",
     "setup.defaultsHelp": "Windowsની ડિફૉલ્ટ ઍપમાં ZagoSheetsWin પસંદ કરો. વૈકલ્પિક, પરંતુ ભલામણ કરેલ. Windows ડિફૉલ્ટ એપ્સ માં ZagoSheetsWin પસંદ કરો. આ વૈકલ્પિક છે: તમે આ સાથે ખોલો → ZagoSheetsWin પણ વાપરી શકો છો."
   }

@@ -3,7 +3,7 @@
   "locale": "uz-Latn-UZ",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -643,7 +643,7 @@
     "firstUse.googleExplanation": "Jadvallar shu hisobning Google Drive’ida saqlanadi. Windows uchun Google Drive o‘rnatish shart emas.",
     "firstUse.defaultsExplanation": "Windows standart ilovalarida ZagoSheetsWin’ni tanlang.",
     "firstUse.backupExplanation": "Zaxira asl faylni saqlaydi, Sheets’dagi keyingi o‘zgarishlarni emas.\nFaylni qaytarish uchun Zaxiralarda Bu yerga tiklash… ni tanlang.",
-    "setup.importHeading": "4. Yorliqlar va faylni nusxa sifatida import qilish",
+    "setup.importHeading": "3. Yorliqlar va faylni nusxa sifatida import qilish",
     "tutorial.showAtStartup": "Ilova ochilganda ushbu qo‘llanmani ko‘rsatish",
     "setup.defaultsHelp": "Windows standart ilovalarida ZagoSheetsWin’ni tanlang. Ixtiyoriy, ammo tavsiya etiladi. Windows Default apps’da ZagoSheetsWin’ni tanlang. Bu ixtiyoriy: Open with → ZagoSheetsWin’dan ham foydalanishingiz mumkin."
   }

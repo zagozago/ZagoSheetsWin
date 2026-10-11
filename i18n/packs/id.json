@@ -3,7 +3,7 @@
   "locale": "id",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -640,7 +640,7 @@
     "firstUse.googleExplanation": "Spreadsheet tersimpan di Google Drive akun ini. Tidak perlu memasang Google Drive untuk Windows.",
     "firstUse.defaultsExplanation": "Pilih ZagoSheetsWin di Aplikasi default Windows.",
     "firstUse.backupExplanation": "Cadangan menyimpan file asli, tanpa perubahan berikutnya di Sheets.\nDi Cadangan, pilih Pulihkan ke… untuk memulihkan file.",
-    "setup.importHeading": "4. Pintasan dan mengimpor file sebagai salinan",
+    "setup.importHeading": "3. Pintasan dan mengimpor file sebagai salinan",
     "tutorial.showAtStartup": "Tampilkan tutorial ini saat membuka aplikasi",
     "setup.defaultsHelp": "Pilih ZagoSheetsWin di Aplikasi default Windows. Opsional, tetapi disarankan. Pilih ZagoSheetsWin di Aplikasi default Windows. Ini opsional: Anda juga dapat menggunakan Buka dengan → ZagoSheetsWin."
   }

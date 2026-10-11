@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.28",
+  "productVersion": "0.9.29",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
@@ -1974,7 +1974,7 @@
       "notes": []
     },
     "emphasis.importCopy": {
-      "text": "importar como cópia",
+      "text": "Importar como cópia",
       "context": "Termo destacado em instruções; preservar nomes de marcas",
       "scope": "emphasis",
       "placeholders": [],
@@ -7346,7 +7346,7 @@
       "notes": []
     },
     "setup.importHeading": {
-      "text": "4. Atalhos e importação do arquivo como cópia",
+      "text": "3. Atalhos e importação do arquivo como cópia",
       "context": "Compact first-use and settings interface",
       "scope": "app",
       "placeholders": [],

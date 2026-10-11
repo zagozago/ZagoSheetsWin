@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.28",
+  "productVersion": "0.9.29",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -347,7 +347,7 @@
     "firstUse.googleExplanation": "Tus hojas de cálculo quedan en el Google Drive de esta cuenta. No necesitas instalar Google Drive para Windows.",
     "firstUse.defaultsExplanation": "Elige ZagoSheetsWin en las Aplicaciones predeterminadas de Windows.",
     "firstUse.backupExplanation": "La copia de seguridad guarda el original, sin los cambios posteriores en Sheets.\nEn Copias de seguridad, elige Restaurar en… para recuperar el archivo.",
-    "setup.importHeading": "4. Accesos directos e importación del archivo como copia",
+    "setup.importHeading": "3. Accesos directos e importación del archivo como copia",
     "tutorial.showAtStartup": "Mostrar este tutorial al abrir la aplicación",
     "setup.defaultsHelp": "Elige ZagoSheetsWin en las Aplicaciones predeterminadas de Windows. Opcional, pero recomendado. Elige ZagoSheetsWin en Aplicaciones predeterminadas de Windows. Es opcional: también puedes usar Abrir con → ZagoSheetsWin."
   }

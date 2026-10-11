@@ -3,7 +3,7 @@
   "locale": "mr-IN",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -639,7 +639,7 @@
     "firstUse.googleExplanation": "तुमची स्प्रेडशीट या खात्याच्या Google Drive मध्ये राहतात. Windows साठी Google Drive स्थापित करण्याची गरज नाही.",
     "firstUse.defaultsExplanation": "Windows च्या डीफॉल्ट अॅप्समध्ये ZagoSheetsWin निवडा.",
     "firstUse.backupExplanation": "बॅकअप मूळ फाइल जतन करतो, Sheets मधील नंतरचे बदल नाही.\nबॅकअपमध्ये येथे पुनर्स्थापित करा… निवडून फाइल परत मिळवा.",
-    "setup.importHeading": "4. शॉर्टकट आणि फाइल प्रत म्हणून आयात करणे",
+    "setup.importHeading": "3. शॉर्टकट आणि फाइल प्रत म्हणून आयात करणे",
     "tutorial.showAtStartup": "अॅप उघडताना हे मार्गदर्शन दाखवा",
     "setup.defaultsHelp": "Windows च्या डीफॉल्ट अॅप्समध्ये ZagoSheetsWin निवडा. ऐच्छिक, पण शिफारस केलेले. Windows डीफॉल्ट अॅप्समध्ये ZagoSheetsWin निवडा. हे ऐच्छिक आहे: तुम्ही यासह उघडा → ZagoSheetsWin देखील वापरू शकता."
   }

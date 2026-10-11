@@ -3,7 +3,7 @@
   "locale": "fr",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -636,7 +636,7 @@
     "firstUse.googleExplanation": "Vos feuilles de calcul restent dans le Google Drive de ce compte. Inutile d’installer Google Drive pour Windows.",
     "firstUse.defaultsExplanation": "Choisissez ZagoSheetsWin dans les Applications par défaut de Windows.",
     "firstUse.backupExplanation": "La sauvegarde conserve l’original, sans les modifications ultérieures dans Sheets.\nDans Sauvegardes, choisissez Restaurer dans… pour récupérer le fichier.",
-    "setup.importHeading": "4. Raccourcis et importation du fichier comme copie",
+    "setup.importHeading": "3. Raccourcis et importation du fichier comme copie",
     "tutorial.showAtStartup": "Afficher ce tutoriel à l’ouverture de l’application",
     "setup.defaultsHelp": "Choisissez ZagoSheetsWin dans les Applications par défaut de Windows. Facultatif, mais recommandé. Choisissez ZagoSheetsWin dans les Applications par défaut de Windows. C’est facultatif : vous pouvez aussi utiliser Ouvrir avec → ZagoSheetsWin."
   },

@@ -3,7 +3,7 @@
   "locale": "te-IN",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -639,7 +639,7 @@
     "firstUse.googleExplanation": "మీ స్ప్రెడ్‌షీట్‌లు ఈ ఖాతా Google Driveలో ఉంటాయి. Windows కోసం Google Drive ఇన్‌స్టాల్ చేయనవసరం లేదు.",
     "firstUse.defaultsExplanation": "Windows డిఫాల్ట్ యాప్‌లలో ZagoSheetsWin ఎంచుకోండి.",
     "firstUse.backupExplanation": "బ్యాకప్ అసలు ఫైల్‌ను ఉంచుతుంది, Sheetsలో తరువాతి మార్పులను కాదు.\nబ్యాకప్‌లలో ఇక్కడ పునరుద్ధరించు… ఎంచుకుని ఫైల్‌ను పొందండి.",
-    "setup.importHeading": "4. సత్వరమార్గాలు మరియు ఫైల్‌ను కాపీగా దిగుమతి చేయడం",
+    "setup.importHeading": "3. సత్వరమార్గాలు మరియు ఫైల్‌ను కాపీగా దిగుమతి చేయడం",
     "tutorial.showAtStartup": "యాప్ తెరిచినప్పుడు ఈ ట్యుటోరియల్ చూపించు",
     "setup.defaultsHelp": "Windows డిఫాల్ట్ యాప్‌లలో ZagoSheetsWin ఎంచుకోండి. ఐచ్ఛికం, కానీ సిఫార్సు చేయబడింది. Windows డిఫాల్ట్ యాప్‌లలో ZagoSheetsWinను ఎంచుకోండి. ఇది ఐచ్చికం: దీనితో తెరువు → ZagoSheetsWinను కూడా ఉపయోగించవచ్చు."
   }

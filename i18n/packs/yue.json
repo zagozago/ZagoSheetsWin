@@ -3,7 +3,7 @@
   "locale": "yue-Hant-HK",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -638,7 +638,7 @@
     "firstUse.googleExplanation": "試算表會留喺呢個帳戶嘅 Google Drive。唔使安裝 Windows 版 Google Drive。",
     "firstUse.defaultsExplanation": "喺 Windows 預設應用程式揀 ZagoSheetsWin。",
     "firstUse.backupExplanation": "備份保留原始檔案，唔包括之後喺 Sheets 嘅修改。\n喺「備份」揀「還原到…」就可以還原檔案。",
-    "setup.importHeading": "4. 捷徑同以副本匯入檔案",
+    "setup.importHeading": "3. 捷徑同以副本匯入檔案",
     "tutorial.showAtStartup": "開啟應用程式時顯示呢個教學",
     "setup.defaultsHelp": "喺 Windows 預設應用程式揀 ZagoSheetsWin。 可選，但建議設定。 喺 Windows 預設應用程式揀 ZagoSheetsWin。呢個步驟係可選嘅：你亦可以用「開啟方式 → ZagoSheetsWin」。"
   }

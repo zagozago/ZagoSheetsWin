@@ -3,7 +3,7 @@
   "locale": "yo-NG",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -640,7 +640,7 @@
     "firstUse.googleExplanation": "Àwọn ìwé ìṣirò rẹ wà nínú Google Drive àkọọ́lẹ̀ yìí. Kò sí ìdí láti fi Google Drive fún Windows sí ẹrọ.",
     "firstUse.defaultsExplanation": "Yan ZagoSheetsWin nínú àwọn ìṣàfilọ́lẹ̀ àiyipada Windows.",
     "firstUse.backupExplanation": "Ẹ̀dà àfipamọ́ pa fáìlì àkọ́kọ́ mọ́, láìsí àwọn àyípadà lẹ́yìn náà ní Sheets.\nNínú Àwọn àfipamọ́, yan Dá padà sí… láti gba fáìlì padà.",
-    "setup.importHeading": "4. Ọ̀nà abuja àti gbígbé fáìlì wọlé gẹ́gẹ́ bí ẹ̀dà",
+    "setup.importHeading": "3. Ọ̀nà abuja àti gbígbé fáìlì wọlé gẹ́gẹ́ bí ẹ̀dà",
     "tutorial.showAtStartup": "Fi ẹ̀kọ́ yìí hàn nígbà tí ìṣàfilọ́lẹ̀ bá ṣí",
     "setup.defaultsHelp": "Yan ZagoSheetsWin nínú àwọn ìṣàfilọ́lẹ̀ àiyipada Windows. Kì í ṣe dandan, ṣùgbọ́n a dámọ̀ràn rẹ̀. Yan ZagoSheetsWin nínú Windows Default apps. Èyí jẹ́ aṣayan: o tún lè lo Open with → ZagoSheetsWin."
   }

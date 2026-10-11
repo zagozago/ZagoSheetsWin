@@ -3,7 +3,7 @@
   "locale": "pcm-NG",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -819,7 +819,7 @@
     "firstUse.googleExplanation": "Your spreadsheets dey for this account Google Drive. You no need install Google Drive for Windows.",
     "firstUse.defaultsExplanation": "Choose ZagoSheetsWin for Windows Default apps.",
     "firstUse.backupExplanation": "Backup dey keep original file, e no include later changes for Sheets.\nFor Backups, choose Restore to… to get the file back.",
-    "setup.importHeading": "4. Shortcuts and import file as copy",
+    "setup.importHeading": "3. Shortcuts and import file as copy",
     "tutorial.showAtStartup": "Show this tutorial when app open",
     "setup.defaultsHelp": "Choose ZagoSheetsWin for Windows Default apps. Na optional, but we recommend am. Choose ZagoSheetsWin for Windows Default apps. Dis one optional: you fit also use Open with → ZagoSheetsWin."
   }

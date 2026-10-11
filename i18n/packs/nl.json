@@ -3,7 +3,7 @@
   "locale": "nl-NL",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -642,7 +642,7 @@
     "firstUse.googleExplanation": "Uw spreadsheets blijven in Google Drive van dit account. Google Drive voor Windows hoeft niet te worden geïnstalleerd.",
     "firstUse.defaultsExplanation": "Kies ZagoSheetsWin in de Standaard-apps van Windows.",
     "firstUse.backupExplanation": "De back-up bewaart het origineel, zonder latere wijzigingen in Sheets.\nKies bij Back-ups Herstellen naar… om het bestand terug te halen.",
-    "setup.importHeading": "4. Snelkoppelingen en bestand als kopie importeren",
+    "setup.importHeading": "3. Snelkoppelingen en bestand als kopie importeren",
     "tutorial.showAtStartup": "Deze uitleg tonen bij het openen van de app",
     "setup.defaultsHelp": "Kies ZagoSheetsWin in de Standaard-apps van Windows. Optioneel, maar aanbevolen. Kies ZagoSheetsWin in Standaard-apps van Windows. Dit is optioneel: u kunt ook Openen met → ZagoSheetsWin gebruiken."
   }

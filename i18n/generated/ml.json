@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.28",
+  "productVersion": "0.9.29",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -347,7 +347,7 @@
     "firstUse.googleExplanation": "നിങ്ങളുടെ സ്പ്രെഡ്‌ഷീറ്റുകൾ ഈ അക്കൗണ്ടിന്റെ Google Drive-ൽ തുടരും. Windows-നുള്ള Google Drive ഇൻസ്റ്റാൾ ചെയ്യേണ്ടതില്ല.",
     "firstUse.defaultsExplanation": "Windows ഡിഫോൾട്ട് ആപ്പുകളിൽ ZagoSheetsWin തിരഞ്ഞെടുക്കുക.",
     "firstUse.backupExplanation": "ബാക്കപ്പ് യഥാർത്ഥ ഫയൽ സൂക്ഷിക്കുന്നു, Sheets-ലെ പിന്നീടുള്ള മാറ്റങ്ങളല്ല.\nബാക്കപ്പുകളിൽ ഇവിടേക്ക് പുനഃസ്ഥാപിക്കുക… തിരഞ്ഞെടുത്ത് ഫയൽ വീണ്ടെടുക്കുക.",
-    "setup.importHeading": "4. കുറുക്കുവഴികളും ഫയൽ പകർപ്പായി ഇറക്കുമതി ചെയ്യലും",
+    "setup.importHeading": "3. കുറുക്കുവഴികളും ഫയൽ പകർപ്പായി ഇറക്കുമതി ചെയ്യലും",
     "tutorial.showAtStartup": "ആപ്പ് തുറക്കുമ്പോൾ ഈ ട്യൂട്ടോറിയൽ കാണിക്കുക",
     "setup.defaultsHelp": "Windows ഡിഫോൾട്ട് ആപ്പുകളിൽ ZagoSheetsWin തിരഞ്ഞെടുക്കുക. ഐച്ഛികമാണ്, പക്ഷേ ശുപാർശ ചെയ്യുന്നു. Windows ഡിഫോൾട്ട് ആപ്പുകൾ-ൽ ZagoSheetsWin തിരഞ്ഞെടുക്കുക. ഇത് ഐച്ഛിക ആണ്: ഇതുപയോഗിച്ച് തുറക്കുക → ZagoSheetsWin ഉപയോഗിക്കാനും കഴിയും."
   }

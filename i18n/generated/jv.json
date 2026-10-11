@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.28",
+  "productVersion": "0.9.29",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -347,7 +347,7 @@
     "firstUse.googleExplanation": "Spreadsheet tetep ana ing Google Drive akun iki. Ora perlu nginstal Google Drive kanggo Windows.",
     "firstUse.defaultsExplanation": "Pilih ZagoSheetsWin ing Aplikasi gawan Windows.",
     "firstUse.backupExplanation": "Serep nyimpen berkas asli, tanpa owah-owahan sabanjure ing Sheets.\nIng Serep, pilih Pulihake menyang… kanggo mbalekake berkas.",
-    "setup.importHeading": "4. Trabasan lan ngimpor berkas minangka salinan",
+    "setup.importHeading": "3. Trabasan lan ngimpor berkas minangka salinan",
     "tutorial.showAtStartup": "Tampilake tutorial iki nalika mbukak aplikasi",
     "setup.defaultsHelp": "Pilih ZagoSheetsWin ing Aplikasi gawan Windows. Opsional, nanging dianjurake. Pilih ZagoSheetsWin ing Aplikasi baku Windows. Iki opsional: sampeyan uga bisa nggunakake Bukak nganggo → ZagoSheetsWin."
   }

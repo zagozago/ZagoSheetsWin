@@ -3,7 +3,7 @@
   "locale": "bn",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -636,7 +636,7 @@
     "firstUse.googleExplanation": "আপনার স্প্রেডশিট এই অ্যাকাউন্টের Google Drive-এ থাকে। Windows-এর জন্য Google Drive ইনস্টল করতে হবে না।",
     "firstUse.defaultsExplanation": "Windows-এর ডিফল্ট অ্যাপে ZagoSheetsWin বেছে নিন।",
     "firstUse.backupExplanation": "ব্যাকআপ মূল ফাইল রাখে, Sheets-এর পরবর্তী পরিবর্তন নয়।\nব্যাকআপে এখানে পুনরুদ্ধার করুন… বেছে ফাইল ফেরত পান।",
-    "setup.importHeading": "4. শর্টকাট ও ফাইলকে কপি হিসেবে আমদানি",
+    "setup.importHeading": "3. শর্টকাট ও ফাইলকে কপি হিসেবে আমদানি",
     "tutorial.showAtStartup": "অ্যাপ খোলার সময় এই টিউটোরিয়াল দেখান",
     "setup.defaultsHelp": "Windows-এর ডিফল্ট অ্যাপে ZagoSheetsWin বেছে নিন। ঐচ্ছিক, তবে প্রস্তাবিত। Windows-এর ডিফল্ট অ্যাপসে ZagoSheetsWin নির্বাচন করুন। এটি ঐচ্ছিক: খুলুন এর মাধ্যমে → ZagoSheetsWin-ও ব্যবহার করতে পারেন।"
   }

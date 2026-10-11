@@ -14,7 +14,7 @@ internal sealed class InformationButton : Button
     internal InformationButton(Func<FlowLayoutPanel> build, bool hover = true)
     {
         this.build = build; this.hover = hover;
-        Text = ""; AccessibleName = UiText.Get("home.help"); Size = new Size(28, 28); Margin = new Padding(4, 4, 0, 0); Padding = Padding.Empty;
+        Text = ""; AccessibleName = UiText.Get("home.help"); Size = new Size(22, 22); Margin = new Padding(2, 2, 0, 0); Padding = Padding.Empty;
         FlatStyle = FlatStyle.Flat; FlatAppearance.BorderSize = 0; Cursor = Cursors.Hand;
         Click += (_, _) => { if (PopupVisible) popup!.Close(); else OpenInformation(); };
         MouseEnter += (_, _) => { if (this.hover) delay.Start(); }; MouseLeave += (_, _) => delay.Stop();
@@ -25,7 +25,7 @@ internal sealed class InformationButton : Button
         if (PopupVisible) return;
         if (popup is null)
         {
-            body = build(); body.AutoScroll = true; body.Padding = new Padding(14); body.Width = 440;
+            body = build(); body.AutoScroll = true; body.Padding = new Padding(10); body.Width = 360;
             body.FlowDirection = FlowDirection.TopDown; body.WrapContents = false;
             var close = new AdaptiveButton { AutoSize = true, Text = UiText.Get("action.close") }; close.Click += (_, _) => popup!.Close(); body.Controls.Add(close);
             popup = new ToolStripDropDown { AutoClose = true, Padding = Padding.Empty };
@@ -33,10 +33,10 @@ internal sealed class InformationButton : Button
             LocalizedControls.Attach(body); Ui.Adapt(body);
         }
         var screen = Screen.FromControl(this).WorkingArea;
-        body!.Width = Math.Min(460 * DeviceDpi / 96, screen.Width - 24); body.Font = Font; body.RightToLeft = RightToLeft;
+        body!.Width = Math.Min(380 * DeviceDpi / 96, screen.Width - 24); body.Font = new Font(Font.FontFamily, Math.Max(8, Font.SizeInPoints - 2)); body.RightToLeft = RightToLeft;
         void Style(Control control)
         {
-            control.BackColor = BackColor; control.ForeColor = ForeColor; control.Font = Font; control.RightToLeft = RightToLeft;
+            control.BackColor = BackColor; control.ForeColor = ForeColor; control.Font = body.Font; control.RightToLeft = RightToLeft;
             if (control.Tag as string == "separator") control.BackColor = ForeColor;
             if (control is LinkLabel link) link.LinkColor = ForeColor;
             foreach (Control child in control.Controls) Style(child);
@@ -51,7 +51,7 @@ internal sealed class InformationButton : Button
     }
     protected override void OnPaint(PaintEventArgs e)
     {
-        e.Graphics.Clear(BackColor); var d = Math.Min(Width, Height) - 10; var r = new Rectangle((Width - d) / 2, (Height - d) / 2, d, d);
+        e.Graphics.Clear(Parent?.BackColor ?? BackColor); var d = Math.Max(10, 12 * DeviceDpi / 96); var r = new Rectangle((Width - d) / 2, (Height - d) / 2, d, d);
         using var pen = new Pen(ForeColor, 1); e.Graphics.DrawEllipse(pen, r);
         TextRenderer.DrawText(e.Graphics, "i", Font, r, ForeColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPadding);
         if (Focused && ShowFocusCues) ControlPaint.DrawFocusRectangle(e.Graphics, ClientRectangle, ForeColor, BackColor);

@@ -30,7 +30,7 @@ internal static class Branding
             var panel = highContrast ? SystemColors.Window : dark ? Color.FromArgb(13, 28, 19) : Color.White;
             var foreground = highContrast ? SystemColors.WindowText : dark ? Color.FromArgb(237, 248, 240) : Color.FromArgb(23, 49, 38);
             var green = highContrast ? SystemColors.Highlight : dark ? Color.FromArgb(98, 217, 139) : Color.FromArgb(25, 134, 74);
-            control.BackColor = control is ThemeToggle ? background : control is Button or TextBox or ComboBox or ListBox ? panel : background;
+            control.BackColor = control is ThemeToggle or InformationButton ? background : control is Button or TextBox or ComboBox or ListBox ? panel : background;
             control.ForeColor = foreground;
             if (control is Button button) { button.FlatStyle = highContrast ? FlatStyle.System : FlatStyle.Flat; button.FlatAppearance.BorderColor = green; button.UseVisualStyleBackColor = false;
                 button.FlatAppearance.MouseOverBackColor = highContrast ? SystemColors.Highlight : dark ? Color.FromArgb(18, 37, 26) : Color.FromArgb(244, 250, 246);
@@ -91,7 +91,7 @@ internal static class Branding
         form.Controls.Add(header); header.SendToBack();
         void FitHeader()
         {
-            var required = header.Padding.Horizontal + picture.Width + title.PreferredSize.Width + 40 + right.PreferredSize.Width + 12;
+            var required = header.Padding.Horizontal + picture.Width + title.PreferredSize.Width + 26 + right.PreferredSize.Width + 12;
             if (form.ClientSize.Width < required) form.ClientSize = new Size(required, form.ClientSize.Height);
         }
         header.Layout += (_, _) => FitHeader(); form.Shown += (_, _) => FitHeader();

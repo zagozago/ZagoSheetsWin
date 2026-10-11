@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.28",
+  "productVersion": "0.9.29",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -347,7 +347,7 @@
     "firstUse.googleExplanation": "अहाँक स्प्रेडशीट एहि खाताक Google Drive मे रहैत अछि। Windows लेल Google Drive स्थापित करबाक जरूरत नहि अछि।",
     "firstUse.defaultsExplanation": "Windows क पूर्वनिर्धारित ऐप मे ZagoSheetsWin चुनू।",
     "firstUse.backupExplanation": "बैकअप मूल फाइल रखैत अछि, Sheets मे बादक बदलाव नहि।\nबैकअप मे एतय पुनर्स्थापित करू… चुनि फाइल वापस पाउ।",
-    "setup.importHeading": "4. शॉर्टकट आ फाइलक कॉपी रूप मे आयात",
+    "setup.importHeading": "3. शॉर्टकट आ फाइलक कॉपी रूप मे आयात",
     "tutorial.showAtStartup": "ऐप खोलबाक समय ई मार्गदर्शन देखाउ",
     "setup.defaultsHelp": "Windows क पूर्वनिर्धारित ऐप मे ZagoSheetsWin चुनू। वैकल्पिक, मुदा अनुशंसित। Windows डिफॉल्ट ऐप मेँ ZagoSheetsWin चुनू। ई वैकल्पिक अछि: अहाँ एकरासँ खोलू → ZagoSheetsWin सेहो उपयोग क' सकैत छी।"
   }

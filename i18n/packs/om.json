@@ -3,7 +3,7 @@
   "locale": "om-ET",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -643,7 +643,7 @@
     "firstUse.googleExplanation": "Gabateewwan kee Google Drive herrega kanaa keessa turu. Google Drive kan Windows fe’uun hin barbaachisu.",
     "firstUse.defaultsExplanation": "Appoota durtii Windows keessatti ZagoSheetsWin filadhu.",
     "firstUse.backupExplanation": "Kuusaan deeggarsaa faayilii jalqabaa qaba, jijjiirama boodaa Sheets keessaa hin qabaatu.\nKuusaa deeggarsaa keessatti Asitti deebisi… filadhuutii faayilii deebisi.",
-    "setup.importHeading": "4. Karaa gabaabaa fi faayilii akka garagalchaatti galchuu",
+    "setup.importHeading": "3. Karaa gabaabaa fi faayilii akka garagalchaatti galchuu",
     "tutorial.showAtStartup": "Yeroo appii banattu qajeelfama kana agarsiisi",
     "setup.defaultsHelp": "Appoota durtii Windows keessatti ZagoSheetsWin filadhu. Dirqama miti, garuu ni gorfama. Windows Default apps keessatti ZagoSheetsWin filadhu. Kun filannoo dha: Open with → ZagoSheetsWin fayyadamuus dandeessa."
   }

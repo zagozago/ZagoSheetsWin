@@ -3,7 +3,7 @@
   "locale": "sw-KE",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -639,7 +639,7 @@
     "firstUse.googleExplanation": "Lahajedwali ziko kwenye Google Drive ya akaunti hii. Huhitaji kusakinisha Google Drive kwa Windows.",
     "firstUse.defaultsExplanation": "Chagua ZagoSheetsWin katika Programu chaguomsingi za Windows.",
     "firstUse.backupExplanation": "Nakala ya akiba huhifadhi faili ya asili, bila mabadiliko ya baadaye katika Sheets.\nKatika Nakala za akiba, chagua Rejesha kwenye… kurejesha faili.",
-    "setup.importHeading": "4. Njia za mkato na kuleta faili kama nakala",
+    "setup.importHeading": "3. Njia za mkato na kuleta faili kama nakala",
     "tutorial.showAtStartup": "Onyesha mafunzo haya unapofungua programu",
     "setup.defaultsHelp": "Chagua ZagoSheetsWin katika Programu chaguomsingi za Windows. Si lazima, lakini inapendekezwa. Chagua ZagoSheetsWin katika Programu chaguomsingi za Windows. Hii ni hiari: unaweza pia kutumia Fungua kwa → ZagoSheetsWin."
   }

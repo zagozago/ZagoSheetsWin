@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.28",
+  "productVersion": "0.9.29",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -347,7 +347,7 @@
     "firstUse.googleExplanation": "Cədvəllər bu hesabın Google Drive-ında qalır. Windows üçün Google Drive quraşdırmaq lazım deyil.",
     "firstUse.defaultsExplanation": "Windows standart tətbiqlərində ZagoSheetsWin seçin.",
     "firstUse.backupExplanation": "Ehtiyat nüsxə ilkin faylı saxlayır, Sheets-dəki sonrakı dəyişiklikləri deyil.\nFaylı bərpa etmək üçün Ehtiyat nüsxələrdə Buraya bərpa et… seçin.",
-    "setup.importHeading": "4. Qısayollar və faylın nüsxə kimi idxalı",
+    "setup.importHeading": "3. Qısayollar və faylın nüsxə kimi idxalı",
     "tutorial.showAtStartup": "Tətbiq açılarkən bu təlimatı göstər",
     "setup.defaultsHelp": "Windows standart tətbiqlərində ZagoSheetsWin seçin. İstəyə bağlıdır, lakin tövsiyə olunur. Windows Standart tətbiqlərində ZagoSheetsWin-i seçin. Bu istəyə bağlıdır: Birlikdə aç → ZagoSheetsWin istifadə edə bilərsiniz."
   }

@@ -3,7 +3,7 @@
   "locale": "th-TH",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -638,7 +638,7 @@
     "firstUse.googleExplanation": "สเปรดชีตอยู่ใน Google Drive ของบัญชีนี้ ไม่ต้องติดตั้ง Google Drive สำหรับ Windows",
     "firstUse.defaultsExplanation": "เลือก ZagoSheetsWin ในแอปเริ่มต้นของ Windows",
     "firstUse.backupExplanation": "ข้อมูลสำรองเก็บต้นฉบับ ไม่รวมการเปลี่ยนแปลงภายหลังใน Sheets\nในข้อมูลสำรอง เลือกคืนค่าไปยัง… เพื่อกู้คืนไฟล์",
-    "setup.importHeading": "4. ทางลัดและการนำเข้าไฟล์เป็นสำเนา",
+    "setup.importHeading": "3. ทางลัดและการนำเข้าไฟล์เป็นสำเนา",
     "tutorial.showAtStartup": "แสดงบทแนะนำนี้เมื่อเปิดแอป",
     "setup.defaultsHelp": "เลือก ZagoSheetsWin ในแอปเริ่มต้นของ Windows ไม่บังคับ แต่แนะนำให้ใช้ เลือก ZagoSheetsWin ในแอปเริ่มต้นของ Windows ขั้นตอนนี้เป็นตัวเลือก คุณยังสามารถใช้ เปิดด้วย → ZagoSheetsWin ได้"
   }

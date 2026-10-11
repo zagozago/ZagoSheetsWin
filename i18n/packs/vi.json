@@ -3,7 +3,7 @@
   "locale": "vi-VN",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -639,7 +639,7 @@
     "firstUse.googleExplanation": "Bảng tính nằm trong Google Drive của tài khoản này. Không cần cài Google Drive cho Windows.",
     "firstUse.defaultsExplanation": "Chọn ZagoSheetsWin trong Ứng dụng mặc định của Windows.",
     "firstUse.backupExplanation": "Bản sao lưu giữ bản gốc, không gồm thay đổi sau đó trong Sheets.\nTrong Sao lưu, chọn Khôi phục vào… để lấy lại tệp.",
-    "setup.importHeading": "4. Lối tắt và nhập tệp dưới dạng bản sao",
+    "setup.importHeading": "3. Lối tắt và nhập tệp dưới dạng bản sao",
     "tutorial.showAtStartup": "Hiện hướng dẫn này khi mở ứng dụng",
     "setup.defaultsHelp": "Chọn ZagoSheetsWin trong Ứng dụng mặc định của Windows. Không bắt buộc, nhưng nên chọn. Chọn ZagoSheetsWin trong Ứng dụng mặc định của Windows. Đây là tùy chọn: bạn cũng có thể dùng Mở bằng → ZagoSheetsWin."
   }

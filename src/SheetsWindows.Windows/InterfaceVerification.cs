@@ -129,15 +129,17 @@ internal static class InterfaceVerification
         using (var setup = new SetupForm(preview: true))
         {
             setup.Show(); Application.DoEvents();
-            var sync = Descendants(setup).OfType<CheckBox>().Single(b => b.Text.StartsWith("Não sincronizo"));
-            var folder = Descendants(setup).OfType<Button>().Single(b => b.Text == "Escolher pasta local…");
-            Require(sync.Checked && !folder.Visible, "New setup must not require a folder and must collapse its optional controls.");
-            sync.Checked = false; Application.DoEvents(); Require(folder.Visible, "Choosing synchronized folders must reveal the folder controls.");
-            var folderRow = folder.Parent as TableLayoutPanel;
-            Require(folderRow is not null && folderRow.ColumnCount == 2, "Folder selector and path must share a two-column row.");
-            var folderPath = folderRow!.Controls.OfType<TextBox>().Single();
-            Require(Math.Abs(folder.Width - folderPath.Width) <= 2 && folder.Left < folderPath.Left, "Folder selector and path must each occupy half the row.");
-            sync.Checked = true; Application.DoEvents(); Require(!folder.Visible, "Disabling folder restrictions must collapse their controls again.");
+            Require(!Descendants(setup).OfType<CheckBox>().Any(b => b.Text == UiText.Get("setup.noSync")), "Synchronized folder preferences belong in the advanced modal.");
+            Require(!Descendants(setup).OfType<Button>().Any(b => b.Text == UiText.Get("setup.save")), "Preferences save automatically without a Save button.");
+            using (var advanced = new AdvancedPreferencesForm(LocalStorage.ForCurrentUser(), preview: true))
+            {
+                advanced.Show(setup); Application.DoEvents();
+                var sync = Descendants(advanced).OfType<CheckBox>().Single(b => b.Text == UiText.Get("setup.noSync"));
+                Require(sync.Checked, "Default folder policy must be preserved.");
+                Require(Descendants(advanced).OfType<CheckBox>().Any(b => b.Text == UiText.Get("setup.replaceXls")), "Advanced options must preserve XLS preferences.");
+                Require(Descendants(advanced).OfType<InformationButton>().Count() == 4, "Advanced help is divided into three groups plus header information.");
+                advanced.Close();
+            }
             using (var bitmap = new Bitmap(setup.Width, setup.Height))
             {
                 setup.DrawToBitmap(bitmap, new Rectangle(Point.Empty, bitmap.Size));
@@ -147,12 +149,32 @@ internal static class InterfaceVerification
                 Console.Error.WriteLine($"SETTINGS: viewport={panel.ClientSize}, content={panel.DisplayRectangle}, children={string.Join(';', panel.Controls.Cast<Control>().Select(c => $"{c.GetType().Name}:{c.Bounds}"))}");
             Require(Descendants(setup).OfType<FlowLayoutPanel>().Where(p => p.Dock == DockStyle.Fill).All(p => !p.VerticalScroll.Visible), "Portuguese settings must fit without vertical scrolling at the reference size.");
             Require(Descendants(setup).OfType<Label>().Any(l => l.AccessibleName == "Estado da autorização Google" && !string.IsNullOrWhiteSpace(l.Text)), "Google authorization must have a visible accessible status.");
-            Require(!Descendants(setup).OfType<Button>().Any(b => b.Text == UiText.Get("setup.advanced")), "Advanced navigation must be removed.");
+            Require(Descendants(setup).OfType<Button>().Any(b => b.Text == UiText.Get("setup.advanced")), "Advanced navigation must be available.");
             var informationButtons = Descendants(setup).OfType<InformationButton>().ToArray();
             Require(informationButtons.Length == 4, "Settings must have global information and three section pop-ups.");
             informationButtons[0].OpenInformation(); Application.DoEvents();
             Require(informationButtons[0].PopupVisible && informationButtons[0].PopupContent is not null, "Contextual information must open without a second settings modal.");
             setup.Hide();
+        }
+        Console.Error.WriteLine("VERIFY: preference autosave");
+        using (var owner = new Form())
+        {
+            var content = new Panel(); var status = new Label(); owner.Controls.Add(content); owner.Controls.Add(status);
+            owner.Show(); Application.DoEvents();
+            var saver = new PreferenceAutosave(owner, content, status, preview: false);
+            var writes = new List<int>();
+            var first = saver.SaveAsync(async () => { await Task.Yield(); writes.Add(1); }, () => { });
+            var second = saver.SaveAsync(async () => { await Task.Yield(); writes.Add(2); }, () => { });
+            var completed = Task.WhenAll(first, second);
+            var deadline = System.Diagnostics.Stopwatch.StartNew();
+            while (!completed.IsCompleted && deadline.Elapsed < TimeSpan.FromSeconds(5)) Application.DoEvents();
+            Require(completed.IsCompletedSuccessfully && writes.SequenceEqual(new[] { 1, 2 }) && content.Enabled,
+                "Rapid preference saves must commit in order and restore input after the last write.");
+            var restored = false;
+            var failure = saver.SaveAsync(() => Task.FromException(new IOException("offline verification")), () => restored = true);
+            Require(failure.IsCompletedSuccessfully && restored && content.Enabled && status.Text.Length > 0,
+                "Failed preference writes must restore the saved value and display an error.");
+            owner.Close();
         }
         Console.Error.WriteLine("VERIFY: help");
         using (var tutorial = new TutorialForm())
@@ -191,12 +213,13 @@ internal static class InterfaceVerification
         Console.Error.WriteLine("VERIFY: live language switching");
         // Switching must update existing instances, preserving checkbox values and identity.
         using (var settings = new SetupForm(preview: true))
+        using (var advancedSettings = new AdvancedPreferencesForm(LocalStorage.ForCurrentUser(), preview: true))
         using (var backups = new RecoveryForm(preview: true))
         using (var tutorial = new TutorialForm(3))
         using (var picker = new LanguagePicker())
         {
-            settings.Show(); backups.Show(); tutorial.Show(); picker.Show(); Application.DoEvents();
-            var sync = Descendants(settings).OfType<CheckBox>().Single(c=>c.Text==UiText.Get("setup.noSync"));
+            settings.Show(); advancedSettings.Show(); backups.Show(); tutorial.Show(); picker.Show(); Application.DoEvents();
+            var sync = Descendants(advancedSettings).OfType<CheckBox>().Single(c=>c.Text==UiText.Get("setup.noSync"));
             sync.Checked=false;
             var list = Descendants(backups).OfType<ListView>().Single();list.Items[0].Checked=true;
             var filename=list.Items[0].Text;
@@ -211,7 +234,7 @@ internal static class InterfaceVerification
             foreach(var field in Descendants(picker).Where(c=>c is TextBox or ListBox or EmphasisLabel))
                 Require(field.Right<=field.Parent!.ClientSize.Width-field.Parent.Padding.Right,$"Language picker content must remain inside its modal: '{field.Text}'.");
             Require(UiText.Get("error.backupQuota").Contains("original was preserved"),"English errors must retain preservation guidance.");
-            foreach(var form in new Form[]{home,settings,backups,tutorial,picker})
+            foreach(var form in new Form[]{home,settings,advancedSettings,backups,tutorial,picker})
             {
                 foreach(var factor in new[]{1f,1.25f,1.5f,2f})
                 {

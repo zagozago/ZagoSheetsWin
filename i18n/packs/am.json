@@ -3,7 +3,7 @@
   "locale": "am-ET",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -638,7 +638,7 @@
     "firstUse.googleExplanation": "የስራ ሉሆችዎ በዚህ መለያ Google Drive ውስጥ ይቆያሉ። ለWindows Google Drive መጫን አያስፈልግም።",
     "firstUse.defaultsExplanation": "በWindows ነባሪ መተግበሪያዎች ውስጥ ZagoSheetsWin ይምረጡ።",
     "firstUse.backupExplanation": "ምትኬው ዋናውን ፋይል ያስቀምጣል፤ በSheets ውስጥ በኋላ የተደረጉ ለውጦችን አያካትትም።\nፋይሉን ለመመለስ በምትኬዎች ውስጥ ወደ… መመለስ ይምረጡ።",
-    "setup.importHeading": "4. አቋራጮች እና ፋይሉን እንደ ቅጂ ማስገባት",
+    "setup.importHeading": "3. አቋራጮች እና ፋይሉን እንደ ቅጂ ማስገባት",
     "tutorial.showAtStartup": "መተግበሪያው ሲከፈት ይህን መመሪያ አሳይ",
     "setup.defaultsHelp": "በWindows ነባሪ መተግበሪያዎች ውስጥ ZagoSheetsWin ይምረጡ። አማራጭ ነው፣ ግን ይመከራል። በWindows ነባሪ መተግበሪያዎች ውስጥ ZagoSheetsWinን ይምረጡ። ይህ አማራጭ ነው፦ በ… ክፈት → ZagoSheetsWin መጠቀምም ይችላሉ።"
   }

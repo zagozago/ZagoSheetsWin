@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.28",
+  "productVersion": "0.9.29",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -347,7 +347,7 @@
     "firstUse.googleExplanation": "I fogli restano nel Google Drive di questo account. Non serve installare Google Drive per Windows.",
     "firstUse.defaultsExplanation": "Scegli ZagoSheetsWin nelle App predefinite di Windows.",
     "firstUse.backupExplanation": "Il backup conserva l’originale, senza le modifiche successive in Sheets.\nIn Backup, scegli Ripristina in… per recuperare il file.",
-    "setup.importHeading": "4. Collegamenti e importazione del file come copia",
+    "setup.importHeading": "3. Collegamenti e importazione del file come copia",
     "tutorial.showAtStartup": "Mostra questo tutorial all’apertura dell’app",
     "setup.defaultsHelp": "Scegli ZagoSheetsWin nelle App predefinite di Windows. Facoltativo, ma consigliato. Scegli ZagoSheetsWin nelle App predefinite di Windows. È facoltativo: puoi anche usare Apri con → ZagoSheetsWin."
   }

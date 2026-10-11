@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.28",
+  "productVersion": "0.9.29",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -347,7 +347,7 @@
     "firstUse.googleExplanation": "आपकी स्प्रेडशीट इस खाते के Google Drive में रहती हैं। Windows के लिए Google Drive इंस्टॉल करना ज़रूरी नहीं है।",
     "firstUse.defaultsExplanation": "Windows के डिफ़ॉल्ट ऐप्स में ZagoSheetsWin चुनें।",
     "firstUse.backupExplanation": "बैकअप मूल फ़ाइल रखता है, Sheets में बाद के बदलाव नहीं।\nबैकअप में यहाँ पुनर्स्थापित करें… चुनकर फ़ाइल वापस पाएँ।",
-    "setup.importHeading": "4. शॉर्टकट और फ़ाइल को कॉपी के रूप में आयात करना",
+    "setup.importHeading": "3. शॉर्टकट और फ़ाइल को कॉपी के रूप में आयात करना",
     "tutorial.showAtStartup": "ऐप खोलते समय यह ट्यूटोरियल दिखाएँ",
     "setup.defaultsHelp": "Windows के डिफ़ॉल्ट ऐप्स में ZagoSheetsWin चुनें। वैकल्पिक, लेकिन अनुशंसित। Windows के डिफ़ॉल्ट ऐप्स में ZagoSheetsWin चुनें। यह वैकल्पिक है: आप इसके साथ खोलें → ZagoSheetsWin का भी उपयोग कर सकते हैं।"
   }

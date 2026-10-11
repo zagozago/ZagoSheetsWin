@@ -3,7 +3,7 @@
   "locale": "my-MM",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -639,7 +639,7 @@
     "firstUse.googleExplanation": "ဇယားများကို ဤအကောင့်၏ Google Drive တွင် သိမ်းထားသည်။ Windows အတွက် Google Drive တပ်ဆင်ရန် မလိုပါ။",
     "firstUse.defaultsExplanation": "Windows မူလအက်ပ်များတွင် ZagoSheetsWin ကို ရွေးပါ။",
     "firstUse.backupExplanation": "အရန်သိမ်းဆည်းမှုသည် မူရင်းကိုသာ ထိန်းသိမ်းပြီး Sheets တွင် နောက်ပိုင်းပြောင်းလဲမှုများ မပါဝင်ပါ။\nဖိုင်ပြန်ရယူရန် အရန်များတွင် ဤနေရာသို့ ပြန်လည်ရယူရန်… ကို ရွေးပါ။",
-    "setup.importHeading": "4. ဖြတ်လမ်းများနှင့် ဖိုင်ကို မိတ္တူအဖြစ် ထည့်သွင်းခြင်း",
+    "setup.importHeading": "3. ဖြတ်လမ်းများနှင့် ဖိုင်ကို မိတ္တူအဖြစ် ထည့်သွင်းခြင်း",
     "tutorial.showAtStartup": "အက်ပ်ဖွင့်ချိန်တွင် ဤလမ်းညွှန်ကို ပြပါ",
     "setup.defaultsHelp": "Windows မူလအက်ပ်များတွင် ZagoSheetsWin ကို ရွေးပါ။ မဖြစ်မနေမဟုတ်သော်လည်း အကြံပြုပါသည်။ Windows မူလသတ်မှတ် အက်ပ်များ တွင် ZagoSheetsWin ကို ရွေးပါ။ ၎င်းသည် ရွေးချယ်နိုင် ဖြစ်သည်: ဤဖြင့်ဖွင့်ပါ → ZagoSheetsWin ကိုလည်း သုံးနိုင်သည်။"
   }

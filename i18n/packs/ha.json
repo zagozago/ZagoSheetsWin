@@ -3,7 +3,7 @@
   "locale": "ha-NG",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -639,7 +639,7 @@
     "firstUse.googleExplanation": "Takardun lissafi suna cikin Google Drive na wannan asusun. Ba sai an girka Google Drive don Windows ba.",
     "firstUse.defaultsExplanation": "Zaɓi ZagoSheetsWin a Manhajojin asali na Windows.",
     "firstUse.backupExplanation": "Ajiyar baya tana riƙe asalin fayil, ba canje-canjen da aka yi daga baya a Sheets ba.\nA Ajiyar baya, zaɓi Mayar zuwa… don dawo da fayil.",
-    "setup.importHeading": "4. Gajerun hanyoyi da shigo da fayil a matsayin kwafi",
+    "setup.importHeading": "3. Gajerun hanyoyi da shigo da fayil a matsayin kwafi",
     "tutorial.showAtStartup": "Nuna wannan koyarwar lokacin buɗe manhajar",
     "setup.defaultsHelp": "Zaɓi ZagoSheetsWin a Manhajojin asali na Windows. Ba dole ba, amma ana ba da shawara. Zaɓi ZagoSheetsWin a Windows Default apps. Wannan na zaɓi ne: za ka iya kuma amfani da Buɗe da → ZagoSheetsWin."
   }

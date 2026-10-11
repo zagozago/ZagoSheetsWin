@@ -3,7 +3,7 @@
   "locale": "kn-IN",
   "direction": "ltr",
   "catalogRevision": 5,
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -639,7 +639,7 @@
     "firstUse.googleExplanation": "ನಿಮ್ಮ ಸ್ಪ್ರೆಡ್‌ಶೀಟ್‌ಗಳು ಈ ಖಾತೆಯ Google Driveನಲ್ಲಿ ಉಳಿಯುತ್ತವೆ. Windowsಗಾಗಿ Google Drive ಸ್ಥಾಪಿಸುವ ಅಗತ್ಯವಿಲ್ಲ.",
     "firstUse.defaultsExplanation": "Windows ಡೀಫಾಲ್ಟ್ ಆ್ಯಪ್‌ಗಳಲ್ಲಿ ZagoSheetsWin ಆಯ್ಕೆಮಾಡಿ.",
     "firstUse.backupExplanation": "ಬ್ಯಾಕಪ್ ಮೂಲ ಫೈಲ್ ಉಳಿಸುತ್ತದೆ, Sheetsನಲ್ಲಿನ ನಂತರದ ಬದಲಾವಣೆಗಳನ್ನಲ್ಲ.\nಬ್ಯಾಕಪ್‌ಗಳಲ್ಲಿ ಇಲ್ಲಿಗೆ ಮರುಸ್ಥಾಪಿಸಿ… ಆಯ್ಕೆಮಾಡಿ ಫೈಲ್ ಮರಳಿ ಪಡೆಯಿರಿ.",
-    "setup.importHeading": "4. ಶಾರ್ಟ್‌ಕಟ್‌ಗಳು ಮತ್ತು ಫೈಲ್ ಅನ್ನು ಪ್ರತಿಯಾಗಿ ಆಮದು ಮಾಡುವುದು",
+    "setup.importHeading": "3. ಶಾರ್ಟ್‌ಕಟ್‌ಗಳು ಮತ್ತು ಫೈಲ್ ಅನ್ನು ಪ್ರತಿಯಾಗಿ ಆಮದು ಮಾಡುವುದು",
     "tutorial.showAtStartup": "ಆ್ಯಪ್ ತೆರೆಯುವಾಗ ಈ ಮಾರ್ಗದರ್ಶನ ತೋರಿಸಿ",
     "setup.defaultsHelp": "Windows ಡೀಫಾಲ್ಟ್ ಆ್ಯಪ್‌ಗಳಲ್ಲಿ ZagoSheetsWin ಆಯ್ಕೆಮಾಡಿ. ಐಚ್ಛಿಕ, ಆದರೆ ಶಿಫಾರಸು ಮಾಡಲಾಗಿದೆ. Windows ಡೀಫಾಲ್ಟ್ ಆ್ಯಪ್‌ಗಳು ನಲ್ಲಿ ZagoSheetsWin ಆಯ್ಕೆ ಮಾಡಿ. ಇದು ಐಚ್ಛಿಕ: ಇದರೊಂದಿಗೆ ತೆರೆಯಿರಿ → ZagoSheetsWin ಕೂಡ ಬಳಸಬಹುದು."
   }

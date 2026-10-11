@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.28",
+  "productVersion": "0.9.29",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -347,7 +347,7 @@
     "firstUse.googleExplanation": "ਤੁਹਾਡੀਆਂ ਸਪ੍ਰੈਡਸ਼ੀਟਾਂ ਇਸ ਖਾਤੇ ਦੇ Google Drive ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। Windows ਲਈ Google Drive ਇੰਸਟਾਲ ਕਰਨ ਦੀ ਲੋੜ ਨਹੀਂ।",
     "firstUse.defaultsExplanation": "Windows ਦੀਆਂ ਡਿਫੌਲਟ ਐਪਾਂ ਵਿੱਚ ZagoSheetsWin ਚੁਣੋ।",
     "firstUse.backupExplanation": "ਬੈਕਅੱਪ ਅਸਲ ਫਾਈਲ ਰੱਖਦਾ ਹੈ, Sheets ਵਿੱਚ ਬਾਅਦ ਦੀਆਂ ਤਬਦੀਲੀਆਂ ਨਹੀਂ।\nਬੈਕਅੱਪ ਵਿੱਚ ਇੱਥੇ ਬਹਾਲ ਕਰੋ… ਚੁਣ ਕੇ ਫਾਈਲ ਵਾਪਸ ਲਵੋ।",
-    "setup.importHeading": "4. ਸ਼ਾਰਟਕੱਟ ਅਤੇ ਫਾਈਲ ਨੂੰ ਨਕਲ ਵਜੋਂ ਆਯਾਤ ਕਰਨਾ",
+    "setup.importHeading": "3. ਸ਼ਾਰਟਕੱਟ ਅਤੇ ਫਾਈਲ ਨੂੰ ਨਕਲ ਵਜੋਂ ਆਯਾਤ ਕਰਨਾ",
     "tutorial.showAtStartup": "ਐਪ ਖੋਲ੍ਹਣ ਵੇਲੇ ਇਹ ਟਿਊਟੋਰਿਅਲ ਦਿਖਾਓ",
     "setup.defaultsHelp": "Windows ਦੀਆਂ ਡਿਫੌਲਟ ਐਪਾਂ ਵਿੱਚ ZagoSheetsWin ਚੁਣੋ। ਵਿਕਲਪਿਕ, ਪਰ ਸਿਫਾਰਸ਼ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। Windows ਡਿਫੌਲਟ ਐਪਸ ਵਿੱਚ ZagoSheetsWin ਚੁਣੋ। ਇਹ ਵਿਕਲਪਿਕ ਹੈ: ਤੁਸੀਂ ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ → ZagoSheetsWin ਵੀ ਵਰਤ ਸਕਦੇ ਹੋ।"
   }

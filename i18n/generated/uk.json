@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.28",
+  "productVersion": "0.9.29",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -347,7 +347,7 @@
     "firstUse.googleExplanation": "Таблиці залишаються в Google Drive цього облікового запису. Встановлювати Google Drive для Windows не потрібно.",
     "firstUse.defaultsExplanation": "Виберіть ZagoSheetsWin у стандартних програмах Windows.",
     "firstUse.backupExplanation": "Резервна копія зберігає оригінал без подальших змін у Sheets.\nУ резервних копіях виберіть «Відновити в…», щоб повернути файл.",
-    "setup.importHeading": "4. Ярлики та імпорт файлу як копії",
+    "setup.importHeading": "3. Ярлики та імпорт файлу як копії",
     "tutorial.showAtStartup": "Показувати цей посібник під час відкриття програми",
     "setup.defaultsHelp": "Виберіть ZagoSheetsWin у стандартних програмах Windows. Необов’язково, але рекомендовано. Виберіть ZagoSheetsWin у програмах за замовчуванням Windows. Це необов’язково: можна також скористатися Відкрити за допомогою → ZagoSheetsWin."
   }

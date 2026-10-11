@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.28",
+  "productVersion": "0.9.29",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -347,7 +347,7 @@
     "firstUse.googleExplanation": "Hamparan kekal dalam Google Drive akaun ini. Tidak perlu memasang Google Drive untuk Windows.",
     "firstUse.defaultsExplanation": "Pilih ZagoSheetsWin dalam Aplikasi lalai Windows.",
     "firstUse.backupExplanation": "Sandaran menyimpan fail asal tanpa perubahan kemudian dalam Sheets.\nDalam Sandaran, pilih Pulihkan ke… untuk mendapatkan semula fail.",
-    "setup.importHeading": "4. Pintasan dan mengimport fail sebagai salinan",
+    "setup.importHeading": "3. Pintasan dan mengimport fail sebagai salinan",
     "tutorial.showAtStartup": "Paparkan tutorial ini semasa membuka aplikasi",
     "setup.defaultsHelp": "Pilih ZagoSheetsWin dalam Aplikasi lalai Windows. Pilihan, tetapi disyorkan. Pilih ZagoSheetsWin dalam Aplikasi lalai Windows. Ini pilihan: anda juga boleh menggunakan Buka dengan → ZagoSheetsWin."
   }

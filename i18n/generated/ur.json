@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.28",
+  "productVersion": "0.9.29",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -347,7 +347,7 @@
     "firstUse.googleExplanation": "آپ کی اسپریڈشیٹس اس اکاؤنٹ کے Google Drive میں رہتی ہیں۔ Windows کے لیے Google Drive انسٹال کرنا ضروری نہیں۔",
     "firstUse.defaultsExplanation": "Windows کی ڈیفالٹ ایپس میں ZagoSheetsWin منتخب کریں۔",
     "firstUse.backupExplanation": "بیک اپ اصل فائل محفوظ رکھتا ہے، Sheets میں بعد کی تبدیلیاں نہیں۔\nبیک اپ میں بحال کریں… منتخب کرکے فائل واپس حاصل کریں۔",
-    "setup.importHeading": "4. شارٹ کٹس اور فائل کو نقل کے طور پر درآمد کرنا",
+    "setup.importHeading": "3. شارٹ کٹس اور فائل کو نقل کے طور پر درآمد کرنا",
     "tutorial.showAtStartup": "ایپ کھولتے وقت یہ رہنما دکھائیں",
     "setup.defaultsHelp": "Windows کی ڈیفالٹ ایپس میں ZagoSheetsWin منتخب کریں۔ اختیاری، لیکن تجویز کردہ۔ Windows کی ڈیفالٹ ایپس میں ZagoSheetsWin منتخب کریں۔ یہ اختیاری ہے: آپ اس کے ساتھ کھولیں → ZagoSheetsWin بھی استعمال کر سکتے ہیں۔"
   }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.28",
+  "productVersion": "0.9.29",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -347,7 +347,7 @@
     "firstUse.googleExplanation": "रउआ के स्प्रेडशीट एह खाता के Google Drive में रही। Windows खातिर Google Drive इंस्टॉल करे के जरूरत नइखे।",
     "firstUse.defaultsExplanation": "Windows के डिफॉल्ट ऐप में ZagoSheetsWin चुनीं।",
     "firstUse.backupExplanation": "बैकअप मूल फाइल रखेला, Sheets में बाद के बदलाव ना।\nबैकअप में इहाँ बहाल करीं… चुन के फाइल वापस पाईं।",
-    "setup.importHeading": "4. शॉर्टकट आ फाइल के कॉपी के रूप में आयात",
+    "setup.importHeading": "3. शॉर्टकट आ फाइल के कॉपी के रूप में आयात",
     "tutorial.showAtStartup": "ऐप खोलत घरी ई ट्यूटोरियल देखाईं",
     "setup.defaultsHelp": "Windows के डिफॉल्ट ऐप में ZagoSheetsWin चुनीं। वैकल्पिक बा, बाकिर सुझाव दिहल जाला। Windows डिफॉल्ट ऐप्स में ZagoSheetsWin चुनीं. ई वैकल्पिक बा: रउआ एकरा साथ खोलीं → ZagoSheetsWin भी इस्तेमाल कर सकत बानी."
   }

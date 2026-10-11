@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.28",
+  "productVersion": "0.9.29",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fe05446875eeb71cac906afd52bb50b42a0db09fd2670dcf798ddadc9018703b",
+  "sourceHash": "b3e9bd5c1a469e8ec41db24e79d28611d663a58cc2b918a15c081204c08a0ba1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -347,7 +347,7 @@
     "firstUse.googleExplanation": "스프레드시트는 이 계정의 Google Drive에 저장됩니다. Windows용 Google Drive를 설치할 필요가 없습니다.",
     "firstUse.defaultsExplanation": "Windows 기본 앱에서 ZagoSheetsWin을 선택하세요.",
     "firstUse.backupExplanation": "백업은 원본을 보관하며 이후 Sheets에서 한 변경은 포함하지 않습니다.\n백업에서 복원 위치…를 선택하여 파일을 복구하세요.",
-    "setup.importHeading": "4. 바로가기 및 파일을 사본으로 가져오기",
+    "setup.importHeading": "3. 바로가기 및 파일을 사본으로 가져오기",
     "tutorial.showAtStartup": "앱을 열 때 이 자습서 표시",
     "setup.defaultsHelp": "Windows 기본 앱에서 ZagoSheetsWin을 선택하세요. 선택 사항이지만 권장합니다. Windows 기본 앱에서 ZagoSheetsWin을 선택하세요. 선택 사항이며 연결 프로그램 → ZagoSheetsWin을 사용할 수도 있습니다."
   }
