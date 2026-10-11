@@ -52,17 +52,18 @@ internal sealed class SetupForm : Form
         });
         void Section(string key, InformationButton? info = null)
         {
-            var heading = Ui.Text(UiText.Get(key), true); heading.Margin = new Padding(0, 4, 0, 4);
+            var heading = Ui.Text(UiText.Get(key), true); heading.Margin = new Padding(0, 2, 0, 2);
             var row = new FlowLayoutPanel { AutoSize = true, FlowDirection = FlowDirection.LeftToRight, WrapContents = true, Margin = new Padding(0, 0, 0, 2) };
-            row.Controls.Add(heading); if (info is not null) row.Controls.Add(info);
+            row.Controls.Add(heading); if (info is not null) { info.Margin = new Padding(4, 2, 0, 0); row.Controls.Add(info); }
             if (info is not null) info.AccessibleDescription = UiText.Get(key);
             row.SizeChanged += (_, _) => heading.MaximumSize = new Size(Math.Max(100, row.Width - (info is null ? 8 : info.Width + info.Margin.Horizontal + 12)), 0);
             layout.Controls.Add(row);
         }
-        void Divider() { var line = Ui.Separator(); line.Margin = new Padding(0, 6, 0, 6); layout.Controls.Add(line); }
-        Section("setup.googleHeading", googleInfo); layout.Controls.Add(Ui.Text(UiText.Get("setup.googleExplanation")));
+        void Divider() { var line = Ui.Separator(); line.Margin = new Padding(0, 4, 0, 4); layout.Controls.Add(line); }
+        Section("setup.googleHeading", googleInfo);
+        var googleExplanation = Ui.Text(UiText.Get("setup.googleExplanation")); googleExplanation.Margin = new Padding(0, 2, 0, 4); layout.Controls.Add(googleExplanation);
         var connectionState = Ui.Hero(UiText.Get(preview ? "setup.authConfirmed" : FirstUseState.NeedsAuthorization(storage) ? "setup.authMissing" : "setup.authSavedChecking"));
-        connectionState.AccessibleName = UiText.Get("accessibility.authorizationStatus"); connectionState.Margin = new Padding(0, 6, 0, 6); layout.Controls.Add(connectionState);
+        connectionState.AccessibleName = UiText.Get("accessibility.authorizationStatus"); connectionState.Margin = new Padding(0, 4, 0, 4); layout.Controls.Add(connectionState);
         var connect = new AdaptiveButton { Text = UiText.Get(!preview && FirstUseState.NeedsAuthorization(storage) ? "action.authorizeGoogle" : "action.switchGoogleAccount") };
         var verify = new AdaptiveButton { Text = UiText.Get("setup.verifyGoogle"), Enabled = !FirstUseState.NeedsAuthorization(storage) };
         layout.Controls.Add(Ui.Pair(connect, verify));
