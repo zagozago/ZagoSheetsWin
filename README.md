@@ -95,6 +95,16 @@ Current development targets:
 
 Some formats may have additional compatibility restrictions. Files containing features that cannot be safely preserved are handled conservatively to avoid silent data loss.
 
+## Languages and localization
+
+ZagoSheetsWin includes **51 languages** across the Windows application and installer. You can choose a language during installation or in the app. Automatic language detection follows your Windows language preferences; a language you choose explicitly takes precedence and is preserved across updates.
+
+The languages follow the project's **T51 order**, organized primarily by estimated numbers of speakers rather than alphabetically. Names are displayed in their native scripts, with English names alongside them where appropriate. Localization also supports right-to-left scripts.
+
+**The language selector at the top of this README changes the documentation language, not the application's settings.** The application and installer have their own language selection controls.
+
+Translations and their visual review continue to evolve during alpha development.
+
 ## Designed for Windows
 
 ZagoSheetsWin is built specifically for Windows and integrates with the operating system through:
