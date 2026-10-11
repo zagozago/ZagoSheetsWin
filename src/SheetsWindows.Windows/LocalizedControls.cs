@@ -49,6 +49,7 @@ internal static class LocalizedControls
         }
         void Changed(){if(!form.IsDisposed){form.SuspendLayout();try{Refresh(form);}finally{form.ResumeLayout(true);}}}
         UiText.Changed+=Changed;form.Disposed+=(_,_)=>UiText.Changed-=Changed;
+        Changed(); // A lazily opened pop-up may contain controls created before a language change.
     }
 }
 

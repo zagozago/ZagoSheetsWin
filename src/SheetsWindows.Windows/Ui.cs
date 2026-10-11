@@ -15,7 +15,7 @@ internal static class Ui
         Font = new Font(LanguageVisuals.Family, 16, FontStyle.Bold), Margin = new Padding(0, 16, 0, 10), MaximumSize = new Size(700, 0) };
     internal static TableLayoutPanel Pair(Control left, Control right)
     {
-        var row = new TableLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, ColumnCount = 2, RowCount = 1, Margin = new Padding(0, 2, 0, 6) };
+        var row = new TableLayoutPanel { AutoSize = false, ColumnCount = 2, RowCount = 1, Margin = new Padding(0, 2, 0, 6) };
         row.ColumnStyles.Add(new(SizeType.Percent, 50)); row.ColumnStyles.Add(new(SizeType.Percent, 50)); row.RowStyles.Add(new(SizeType.AutoSize));
         foreach (var child in new[] { left, right }) { child.Dock = DockStyle.Fill; child.Margin = new Padding(0, 2, 8, 2); }
         row.Controls.Add(left, 0, 0); row.Controls.Add(right, 1, 0);
@@ -27,6 +27,7 @@ internal static class Ui
                 if (child is CheckBox) { child.AutoSize = false; child.Height = Math.Max(32, TextRenderer.MeasureText(child.Text, child.Font, new Size(Math.Max(30, width - 54), int.MaxValue), TextFormatFlags.WordBreak).Height + 12); }
                 else if (child is Button) { child.AutoSize = false; child.Height = TextRenderer.MeasureText(child.Text, child.Font, new Size(Math.Max(30,width-child.Padding.Horizontal-12),int.MaxValue),TextFormatFlags.WordBreak).Height + child.Padding.Vertical + 10; }
             }
+            row.Height = row.Controls.Cast<Control>().Max(child => child.Height + child.Margin.Vertical);
         }
         row.SizeChanged += (_, _) => Fit(); foreach (Control child in row.Controls) { child.TextChanged += (_, _) => Fit(); child.FontChanged += (_, _) => Fit(); } Fit(); return row;
     }
@@ -46,6 +47,11 @@ internal static class Ui
                     if (label.Tag as string == "center") { label.AutoSize = false; label.Width = available - label.Margin.Horizontal; label.Height = TextRenderer.MeasureText(label.Text, label.Font, new Size(label.Width, int.MaxValue), TextFormatFlags.WordBreak).Height + 12; }
                 }
                 else if (child is CheckBox check) { check.AutoSize = false; check.Width = available; check.Height = TextRenderer.MeasureText(check.Text, check.Font, new Size(available - 54, 0), TextFormatFlags.WordBreak).Height + 12; }
+                else if (child.Tag as string == "centerFields")
+                {
+                    var width = Math.Min(360, available); child.MinimumSize = new Size(width, 0); child.Width = width;
+                    child.Margin = new Padding((available - width) / 2, child.Margin.Top, 0, child.Margin.Bottom);
+                }
                 else if (child is Button or TextBox or ComboBox or TableLayoutPanel || child.Tag as string == "separator") child.Width = available - child.Margin.Horizontal;
             }
         }

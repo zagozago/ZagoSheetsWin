@@ -89,6 +89,12 @@ internal static class Branding
         brand.Controls.Add(title); brand.Controls.Add(new InformationButton(() => InformationButton.TextPanel("home.description"), hover: false));
         right.Controls.Add(toggle); header.Controls.Add(brand); header.Controls.Add(picture); header.Controls.Add(right);
         form.Controls.Add(header); header.SendToBack();
+        void FitHeader()
+        {
+            var required = header.Padding.Horizontal + picture.Width + title.PreferredSize.Width + 40 + right.PreferredSize.Width + 12;
+            if (form.ClientSize.Width < required) form.ClientSize = new Size(required, form.ClientSize.Height);
+        }
+        header.Layout += (_, _) => FitHeader(); form.Shown += (_, _) => FitHeader();
         void RefreshTheme() { if (!form.IsDisposed) { Theme(form); UpdateToggle(); } }
         Action changed = RefreshTheme; ThemeChanged += changed;
         Microsoft.Win32.UserPreferenceChangedEventHandler preference = (_, _) => { if (form.IsHandleCreated && !form.IsDisposed) { try { form.BeginInvoke((Action)RefreshTheme); } catch (InvalidOperationException) { } } };

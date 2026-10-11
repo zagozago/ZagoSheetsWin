@@ -120,7 +120,7 @@ internal sealed class FirstUseWizard : Form
         else if (CurrentPage == 3)
         {
             content.Controls.Add(Ui.Center(Ui.Text(UiText.Get("firstUse.backupExplanation"))));
-            var limits = new TableLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, ColumnCount = 2, RowCount = 2, Margin = new Padding(0, 12, 0, 0) };
+            var limits = new TableLayoutPanel { Tag = "centerFields", AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, ColumnCount = 2, RowCount = 2, Margin = new Padding(0, 12, 0, 0) };
             limits.ColumnStyles.Add(new(SizeType.Percent, 50)); limits.ColumnStyles.Add(new(SizeType.Percent, 50)); limits.RowStyles.Add(new(SizeType.AutoSize)); limits.RowStyles.Add(new(SizeType.AutoSize));
             var daysLabel = Ui.Text(UiText.Get("recovery.retentionLabel")); var quotaLabel = Ui.Text(UiText.Get("recovery.quotaLabel"));
             daysLabel.Dock = quotaLabel.Dock = DockStyle.Fill; daysLabel.TextAlign = quotaLabel.TextAlign = ContentAlignment.MiddleCenter;

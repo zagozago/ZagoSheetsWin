@@ -37,6 +37,7 @@ internal sealed class InformationButton : Button
         void Style(Control control)
         {
             control.BackColor = BackColor; control.ForeColor = ForeColor; control.Font = Font; control.RightToLeft = RightToLeft;
+            if (control.Tag as string == "separator") control.BackColor = ForeColor;
             if (control is LinkLabel link) link.LinkColor = ForeColor;
             foreach (Control child in control.Controls) Style(child);
         }
@@ -46,7 +47,7 @@ internal sealed class InformationButton : Button
         var position = PointToScreen(new Point(0, Height));
         position.X = Math.Clamp(position.X, screen.Left + 4, Math.Max(screen.Left + 4, screen.Right - body.Width - 8));
         position.Y = Math.Clamp(position.Y, screen.Top + 4, Math.Max(screen.Top + 4, screen.Bottom - body.Height - 8));
-        popup.Show(position); body.Focus();
+        popup.Show(this, PointToClient(position)); body.SelectNextControl(null, true, true, true, false);
     }
     protected override void OnPaint(PaintEventArgs e)
     {

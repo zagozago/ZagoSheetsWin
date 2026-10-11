@@ -31,7 +31,11 @@ internal sealed class SetupForm : Form
         try { var previous = ExtendedConfiguration.Load(storage); extended.Enabled = encoding.Enabled = delimiter.Enabled = false; encoding.SelectedIndex = previous.Encoding == "auto" ? 0 : 1; delimiter.SelectedIndex = previous.Delimiter switch { "comma" => 1, "semicolon" => 2, _ => 0 }; }
         catch (LauncherNotConfiguredException) { }
         var hasClient = File.Exists(LauncherConfiguration.ClientPath(storage));
-        if (hasClient) client.Text = UiText.Get("setup.clientPreserved");
+        if (hasClient)
+        {
+            void RefreshClient() => client.Text = UiText.Get("setup.clientPreserved");
+            RefreshClient(); UiText.Changed += RefreshClient; Disposed += (_, _) => UiText.Changed -= RefreshClient;
+        }
         var chooseClient = new AdaptiveButton { AutoSize = true, Text = UiText.Get("setup.chooseClient"), Enabled = !hasClient };
         chooseClient.Click += (_, _) => { using var dialog = new OpenFileDialog { Filter = UiText.Get("dialog.oauthFileFilter"), CheckFileExists = true }; if (dialog.ShowDialog(this) == DialogResult.OK) { client.Text = dialog.FileName; status.Text = UiText.Get("setup.clientSelected"); } };
         var googleInfo = new InformationButton(() =>
@@ -51,6 +55,7 @@ internal sealed class SetupForm : Form
             var heading = Ui.Text(UiText.Get(key), true); heading.Margin = new Padding(0, 4, 0, 4);
             var row = new FlowLayoutPanel { AutoSize = true, FlowDirection = FlowDirection.LeftToRight, WrapContents = true, Margin = new Padding(0, 0, 0, 2) };
             row.Controls.Add(heading); if (info is not null) row.Controls.Add(info);
+            if (info is not null) info.AccessibleDescription = UiText.Get(key);
             row.SizeChanged += (_, _) => heading.MaximumSize = new Size(Math.Max(100, row.Width - (info is null ? 8 : info.Width + info.Margin.Horizontal + 12)), 0);
             layout.Controls.Add(row);
         }
