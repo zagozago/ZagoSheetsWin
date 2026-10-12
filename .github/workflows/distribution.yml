@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.29: confirmed atomic diagnostic overwrite, safe failure context and large-CSV reopen regressions validated in Local core run 38209641958.
+# Distribution candidate 0.9.29: safe boolean Drive association diagnostics validated in Local core run 38315213837.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
