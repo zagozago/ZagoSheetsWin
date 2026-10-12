@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.29: reorganized settings, advanced modal, contextual information, balanced margins and serialized autosave validated in Local core run 38184468614.
+# Distribution candidate 0.9.29 with the ⓘ glyph: Windows/Linux, native interface and installer validated in Local core run 38190533895.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
