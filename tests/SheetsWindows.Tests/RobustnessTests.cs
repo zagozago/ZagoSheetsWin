@@ -216,6 +216,20 @@ public sealed class RobustnessTests
     }
 
     [Fact]
+    public async Task CurrentWindowFailureExportsEvenWhenHistoryCouldNotBeWritten()
+    {
+        using var w = new Workspace(); var storage = new LocalStorage(Path.Combine(w.Root, "state")); Directory.CreateDirectory(storage.Root);
+        File.WriteAllText(Path.Combine(storage.Root, "logs"), "blocked directory");
+        var attempt = Guid.NewGuid();
+        var current = DiagnosticLog.CreateEntry(DiagnosticEvent.Failed, failure: new IOException("private path"), attemptId: attempt, stage: ProcessingPhase.Upload);
+        var log = new DiagnosticLog(storage); await log.RecordAsync(DiagnosticEvent.Failed, attemptId: attempt);
+        var target = Path.Combine(w.Root, "fresh.jsonl"); await log.ExportAsync(target, currentAttempt: current);
+        var entries = File.ReadAllLines(target).Select(line => JsonSerializer.Deserialize<DiagnosticEntry>(line)!).ToArray();
+        Assert.Equal(attempt, entries[0].AttemptId); Assert.Equal(DiagnosticCode.FileAccess, entries[0].Code);
+        Assert.Equal(UiText.ProductVersion, entries[0].Version); Assert.DoesNotContain("private path", File.ReadAllText(target));
+    }
+
+    [Fact]
     public async Task BrokenDiagnosticDirectoryDoesNotChangeOperationOutcome()
     {
         using var w = new Workspace(); var storage = new LocalStorage(Path.Combine(w.Root, "state")); Directory.CreateDirectory(storage.Root); File.WriteAllText(Path.Combine(storage.Root, "logs"), "blocked");

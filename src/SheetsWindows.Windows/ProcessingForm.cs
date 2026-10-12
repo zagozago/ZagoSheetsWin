@@ -17,6 +17,7 @@ internal sealed class ProcessingForm : Form
     public int ExitCode { get; private set; }
     internal bool IsBusy => busy;
     internal ProcessingMetrics? LastMetrics { get; private set; }
+    private DiagnosticEntry? latestDiagnostic;
     public ProcessingForm(LauncherRequest request, long? startedAt = null, bool preview = false, bool previewError = false,
         Func<IProgress<string>, CancellationToken, Task>? execute = null, bool recordDiagnostics = true,
         Func<TimeSpan, CancellationToken, Task>? retryDelay = null)
@@ -45,7 +46,7 @@ internal sealed class ProcessingForm : Form
         {
             using var dialog = new SaveFileDialog { Filter = UiText.Get("dialog.diagnosticFilter"), FileName = "zagosheetswin-diagnostico.jsonl", OverwritePrompt = true };
             if (dialog.ShowDialog(this) != DialogResult.OK) return;
-            try { await new DiagnosticLog(LocalStorage.ForCurrentUser()).ExportAsync(dialog.FileName, overwrite: true); status.Text = UiText.Get("diagnostics.exported"); }
+            try { await new DiagnosticLog(LocalStorage.ForCurrentUser()).ExportAsync(dialog.FileName, overwrite: true, currentAttempt: latestDiagnostic); status.Text = UiText.Get("diagnostics.exported"); }
             catch (Exception failure) when (LauncherErrors.Expected(failure)) { status.Text = UiText.Get("diagnostics.destinationInvalid"); }
         };
         var setup = new AdaptiveButton { Text = UiText.Get("action.settings"), AutoSize = true };
@@ -109,6 +110,7 @@ internal sealed class ProcessingForm : Form
         {
             cpuSampler.Stop();
             LastMetrics = telemetry.Capture();
+            latestDiagnostic = DiagnosticLog.CreateEntry(outcome, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase);
             if (recordDiagnostics) await diagnostics.RecordAsync(outcome, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase);
             busy = false;
         }
