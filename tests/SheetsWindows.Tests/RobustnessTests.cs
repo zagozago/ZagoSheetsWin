@@ -181,6 +181,41 @@ public sealed class RobustnessTests
     }
 
     [Fact]
+    public async Task ConfirmedDiagnosticOverwritePublishesLatestAttemptAtomically()
+    {
+        using var w = new Workspace(); var storage = new LocalStorage(Path.Combine(w.Root, "state"));
+        var log = new DiagnosticLog(storage); var destination = Path.Combine(w.Root, "diagnostic.jsonl");
+        File.WriteAllText(destination, "old export");
+        var attempt = Guid.NewGuid();
+        await log.RecordAsync(DiagnosticEvent.Failed, failure: new InvalidDataException("Remote conversion or association validation failed."),
+            attemptId: attempt, stage: ProcessingPhase.Upload);
+        await log.ExportAsync(destination, overwrite: true);
+        var entries = File.ReadAllLines(destination).Select(line => JsonSerializer.Deserialize<DiagnosticEntry>(line)!).ToArray();
+        Assert.DoesNotContain("old export", File.ReadAllText(destination));
+        var failure = Assert.Single(entries.Where(e => e.Event == DiagnosticEvent.Failed));
+        Assert.Equal(UiText.ProductVersion, failure.Version); Assert.Equal(attempt, failure.AttemptId);
+        Assert.Equal(ProcessingPhase.Upload, failure.Stage); Assert.Equal(DiagnosticCode.RemoteAssociation, failure.Code);
+        Assert.Equal(DiagnosticEvent.Exported, entries[^1].Event);
+        Assert.Empty(Directory.GetFiles(w.Root, "diagnostic.jsonl.*.tmp"));
+        var previous = File.ReadAllBytes(destination);
+        File.AppendAllText(Path.Combine(storage.Root, "logs", "events.jsonl"), "{invalid}\n");
+        await Assert.ThrowsAsync<JsonException>(() => log.ExportAsync(destination, overwrite: true));
+        Assert.Equal(previous, File.ReadAllBytes(destination));
+    }
+
+    [Fact]
+    public async Task DiagnosticContextDoesNotExportExceptionMessagesOrForgedVersionData()
+    {
+        using var w = new Workspace(); var storage = new LocalStorage(Path.Combine(w.Root, "state")); var log = new DiagnosticLog(storage);
+        await log.RecordAsync(DiagnosticEvent.Failed, failure: new IOException("secret-token C:/private/account.csv"));
+        var path = Path.Combine(w.Root, "safe.jsonl"); await log.ExportAsync(path);
+        Assert.DoesNotContain("secret-token", File.ReadAllText(path)); Assert.DoesNotContain("private", File.ReadAllText(path));
+        File.AppendAllText(Path.Combine(storage.Root, "logs", "events.jsonl"), "{\"Time\":\"2026-01-01T00:00:00Z\",\"Event\":0,\"Operation\":null,\"Version\":\"secret-token\"}\n");
+        await Assert.ThrowsAsync<InvalidDataException>(() => log.ExportAsync(path, overwrite: true));
+        Assert.DoesNotContain("secret-token", File.ReadAllText(path));
+    }
+
+    [Fact]
     public async Task BrokenDiagnosticDirectoryDoesNotChangeOperationOutcome()
     {
         using var w = new Workspace(); var storage = new LocalStorage(Path.Combine(w.Root, "state")); Directory.CreateDirectory(storage.Root); File.WriteAllText(Path.Combine(storage.Root, "logs"), "blocked");

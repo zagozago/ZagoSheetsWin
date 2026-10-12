@@ -45,7 +45,7 @@ internal sealed class ProcessingForm : Form
         {
             using var dialog = new SaveFileDialog { Filter = UiText.Get("dialog.diagnosticFilter"), FileName = "zagosheetswin-diagnostico.jsonl", OverwritePrompt = true };
             if (dialog.ShowDialog(this) != DialogResult.OK) return;
-            try { await new DiagnosticLog(LocalStorage.ForCurrentUser()).ExportAsync(dialog.FileName); status.Text = UiText.Get("diagnostics.exported"); }
+            try { await new DiagnosticLog(LocalStorage.ForCurrentUser()).ExportAsync(dialog.FileName, overwrite: true); status.Text = UiText.Get("diagnostics.exported"); }
             catch (Exception failure) when (LauncherErrors.Expected(failure)) { status.Text = UiText.Get("diagnostics.destinationInvalid"); }
         };
         var setup = new AdaptiveButton { Text = UiText.Get("action.settings"), AutoSize = true };
@@ -76,9 +76,10 @@ internal sealed class ProcessingForm : Form
         cpuSampler.Tick += (_, _) => telemetry.SampleCpu(); cpuSampler.Start();
         var diagnostics = new DiagnosticLog(LocalStorage.ForCurrentUser());
         var outcome = DiagnosticEvent.Completed;
+        var attemptId = Guid.NewGuid();
         Exception? failure = null;
         string? importNotice = null;
-        if (recordDiagnostics) await diagnostics.RecordAsync(DiagnosticEvent.Started);
+        if (recordDiagnostics) await diagnostics.RecordAsync(DiagnosticEvent.Started, attemptId: attemptId);
         try
         {
             status.Text = request.Action == LauncherAction.Login ? UiText.Get("progress.authorizing") : UiText.Get("progress.fileAndBackup");
@@ -108,7 +109,7 @@ internal sealed class ProcessingForm : Form
         {
             cpuSampler.Stop();
             LastMetrics = telemetry.Capture();
-            if (recordDiagnostics) await diagnostics.RecordAsync(outcome, metrics: LastMetrics, failure: failure);
+            if (recordDiagnostics) await diagnostics.RecordAsync(outcome, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase);
             busy = false;
         }
         if (ExitCode == 0 && importNotice is not null)

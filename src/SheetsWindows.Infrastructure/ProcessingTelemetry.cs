@@ -16,6 +16,8 @@ public sealed class ProcessingTelemetry(long? startedAt = null, IProgress<string
     private readonly long[] ticks = new long[3];
     private readonly int[] observed = new int[3];
     private long ready = -1;
+    private int phase = -1;
+    public ProcessingPhase? LastPhase => Volatile.Read(ref phase) < 0 ? null : (ProcessingPhase)Volatile.Read(ref phase);
     private readonly TimeSpan? initialCpu = Cpu();
     private readonly object cpuGate = new();
     private TimeSpan? previousCpu;
@@ -40,6 +42,7 @@ public sealed class ProcessingTelemetry(long? startedAt = null, IProgress<string
     public IDisposable Begin(ProcessingPhase phase)
     {
         if (!Enum.IsDefined(phase)) throw new ArgumentException("Invalid phase.");
+        Volatile.Write(ref this.phase, (int)phase);
         try { progress?.Report(phase switch { ProcessingPhase.Conversion => UiText.Get("progress.conversion"), ProcessingPhase.Upload => UiText.Get("progress.upload"), _ => UiText.Get("progress.verification") }); }
         catch (Exception ex) when (LauncherErrors.Expected(ex)) { /* UI telemetry cannot change import outcome. */ }
         return new Scope(this, phase);

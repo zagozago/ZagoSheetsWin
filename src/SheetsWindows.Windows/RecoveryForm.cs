@@ -115,7 +115,7 @@ internal sealed class RecoveryForm : Form
             if (busy) return;
             using var dialog = new SaveFileDialog { Filter = UiText.Get("dialog.diagnosticFilter"), FileName = "sheets-windows-diagnostico.jsonl", OverwritePrompt = true };
             if (dialog.ShowDialog(this) != DialogResult.OK) return;
-            try { await new DiagnosticLog(LocalStorage.ForCurrentUser()).ExportAsync(dialog.FileName); status.Text = UiText.Get("diagnostics.exported"); }
+            try { await new DiagnosticLog(LocalStorage.ForCurrentUser()).ExportAsync(dialog.FileName, overwrite: true); status.Text = UiText.Get("diagnostics.exported"); }
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = UiText.Get("diagnostics.fileExists"); }
         };
         FormClosing += (_, e) => { if (busy) { e.Cancel = true; activeCancellation?.Cancel(); } };

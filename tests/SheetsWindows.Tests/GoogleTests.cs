@@ -220,6 +220,41 @@ public sealed class GoogleTests
         Assert.Equal(receipt.Url, await importer.ImportAsync(path)); Assert.Equal(2, server.Posts); Assert.True(File.Exists(path));
     }
     [Fact]
+    public async Task SemicolonCsv5000By40ReopensAfterOnlineEditsWithoutAnyUpload()
+    {
+        using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".csv");
+        // Synthetic cells preserve the supplied CSV's BOM, delimiter and dimensions without publishing its contents.
+        var csv = new StringBuilder();
+        for (var row = 0; row < 5000; row++)
+        {
+            for (var column = 0; column < 40; column++) { if (column > 0) csv.Append(';'); csv.Append("cell_").Append(row).Append('_').Append(column); }
+            csv.Append("\r\n");
+        }
+        var original = Encoding.UTF8.GetPreamble().Concat(Encoding.UTF8.GetBytes(csv.ToString())).ToArray(); File.WriteAllBytes(path, original);
+        using var server = new DriveServer(); var first = await Importer(w, server).ImportReceiptAsync(path);
+        Assert.Equal(2, server.Posts);
+        server.Uploaded["file_2"] = SpreadsheetFormats.WriteXlsx([new SheetValues("Online", [new object?[] { "edited online" }])]);
+        var edited = server.Uploaded["file_2"].ToArray();
+        var second = await Importer(w, server).ImportReceiptAsync(path);
+        Assert.Equal(first.Url, second.Url); Assert.Equal(first.Operation.Id, second.Operation.Id);
+        Assert.Equal(2, server.Posts); Assert.Equal(edited, server.Uploaded["file_2"]);
+        Assert.Equal(original, File.ReadAllBytes(path));
+    }
+
+    [Fact]
+    public async Task InvalidKnownRemoteBindingFailsWithoutDuplicateUpload()
+    {
+        using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".csv"); File.WriteAllText(path, "id;valor\r\n001;ok");
+        using var server = new DriveServer(); var importer = Importer(w, server); _ = await importer.ImportReceiptAsync(path);
+        var properties = JsonSerializer.SerializeToElement(server.Files["file_2"]).GetProperty("appProperties").EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!);
+        properties["sw_hash"] = "changed binding";
+        server.Files["file_2"] = new { id = "file_2", mimeType = GoogleDriveClient.SheetMime, trashed = false, capabilities = new { canEdit = true }, appProperties = properties };
+        var failure = await Assert.ThrowsAsync<InvalidDataException>(() => importer.ImportReceiptAsync(path));
+        Assert.Equal("Remote conversion or association validation failed.", failure.Message); Assert.Equal(2, server.Posts);
+        Assert.True(File.Exists(path));
+    }
+
+    [Fact]
     public async Task ExportRefreshesOnceChecksAccountAndComparesActualValues()
     {
         using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".tsv"); File.WriteAllText(path, "codigo\tvalor\n001\t=1+1");
