@@ -51,9 +51,11 @@ internal sealed class InformationButton : Button
     }
     protected override void OnPaint(PaintEventArgs e)
     {
-        e.Graphics.Clear(Parent?.BackColor ?? BackColor); var d = Math.Max(10, 12 * DeviceDpi / 96); var r = new Rectangle((Width - d) / 2, (Height - d) / 2, d, d);
-        using var pen = new Pen(ForeColor, 1); e.Graphics.DrawEllipse(pen, r);
-        TextRenderer.DrawText(e.Graphics, "i", Font, r, ForeColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPadding);
+        e.Graphics.Clear(Parent?.BackColor ?? BackColor);
+        // Use the single circled-information glyph, independent of the UI language.
+        using var symbolFont = new Font("Segoe UI Symbol", 9, FontStyle.Regular);
+        TextRenderer.DrawText(e.Graphics, "ⓘ", symbolFont, ClientRectangle, ForeColor,
+            TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPadding | TextFormatFlags.SingleLine);
         if (Focused && ShowFocusCues) ControlPaint.DrawFocusRectangle(e.Graphics, ClientRectangle, ForeColor, BackColor);
     }
     protected override void Dispose(bool disposing) { if (disposing) { delay.Dispose(); popup?.Dispose(); } base.Dispose(disposing); }
