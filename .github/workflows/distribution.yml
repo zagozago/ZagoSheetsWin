@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.29: safe boolean Drive association diagnostics validated in Local core run 38315213837.
+# Distribution candidate 0.9.29: new local import after confirmed remote trash and bounded processing traces validated in Local core run 38319369375.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
