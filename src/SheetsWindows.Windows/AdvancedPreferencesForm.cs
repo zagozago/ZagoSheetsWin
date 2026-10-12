@@ -4,6 +4,8 @@ namespace SheetsWindows.Windows;
 
 internal sealed class AdvancedPreferencesForm : Form
 {
+    private readonly Func<string, Task> applyClient;
+    internal Task ApplyClientAsync(string path) => applyClient(path);
     internal AdvancedPreferencesForm(LocalStorage storage, bool preview = false)
     {
         Text = UiText.Get("setup.advanced"); ClientSize = new Size(560, 630); MinimumSize = new Size(480, 480);
@@ -14,7 +16,7 @@ internal sealed class AdvancedPreferencesForm : Form
         var preferences = new PreferenceAutosave(this, layout, status, preview);
         void Heading(string key, Func<FlowLayoutPanel> help)
         {
-            var row = new FlowLayoutPanel { AutoSize = true, WrapContents = false, Margin = new Padding(0, 4, 0, 4) };
+            var row = new FlowLayoutPanel { AutoSize = true, WrapContents = false, Margin = new Padding(0, 2, 0, 2) };
             string HeadingText() => key == "setup.syncHeading" ? System.Text.RegularExpressions.Regex.Replace(UiText.Get(key), @"^\d+\.\s*", "") : UiText.Get(key);
             var label = Ui.Text(HeadingText(), true);
             void RefreshHeading() => label.Text = HeadingText();
@@ -25,6 +27,33 @@ internal sealed class AdvancedPreferencesForm : Form
             row.SizeChanged += (_, _) => label.MaximumSize = new Size(Math.Max(100, row.Width - info.Width - info.Margin.Horizontal - 12), 0);
             layout.Controls.Add(row);
         }
+        void Divider()
+        {
+            var line = Ui.Separator(); line.Margin = new Padding(0, 4, 0, 4); layout.Controls.Add(line);
+        }
+        layout.Controls.Add(Ui.Text(UiText.Get("setup.connectionExplanation")));
+        var clientState = new TextBox { ReadOnly = true };
+        var chooseClient = new AdaptiveButton { Text = UiText.Get("setup.chooseClient") };
+        void RefreshClient()
+        {
+            var configured = File.Exists(LauncherConfiguration.ClientPath(storage));
+            clientState.Text = configured ? UiText.Get("setup.clientPreserved") : "";
+            chooseClient.Enabled = !configured;
+        }
+        RefreshClient(); UiText.Changed += RefreshClient; Disposed += (_, _) => UiText.Changed -= RefreshClient;
+        applyClient = path => preferences.SaveAsync(async () =>
+        {
+            await using var held = await new FileOperationLock(storage.LocksPath).AcquireAsync("windows-registration");
+            var json = await LauncherConfiguration.SetupClientJsonAsync(storage, path);
+            LauncherConfiguration.SaveClient(storage, json);
+            RefreshClient();
+        }, RefreshClient);
+        chooseClient.Click += async (_, _) =>
+        {
+            using var dialog = new OpenFileDialog { Filter = UiText.Get("dialog.oauthFileFilter"), CheckFileExists = true };
+            if (dialog.ShowDialog(this) == DialogResult.OK) await ApplyClientAsync(dialog.FileName);
+        };
+        layout.Controls.Add(chooseClient); layout.Controls.Add(clientState); Divider();
         var opening = OpeningPolicy.Load(storage);
         var sync = new ToggleSwitch { Checked = !opening.RestrictToFolder, Text = UiText.Get("setup.noSync") };
         var consent = new ToggleSwitch { Checked = OpeningPolicy.IsConfigured(storage), Text = UiText.Get("setup.replacementConsent") };
@@ -54,7 +83,7 @@ internal sealed class AdvancedPreferencesForm : Form
             await SaveOpening();
         };
         consent.CheckedChanged += async (_, _) => await SaveOpening();
-        layout.Controls.Add(Ui.Separator());
+        Divider();
         // Reuse the two existing paragraphs verbatim, in their respective places.
         string FormatPart(int part) { var blocks = UiText.Get("setup.formatLimits").Replace("\\n", "\n").Split("\n\n", 2); return part < blocks.Length ? blocks[part] : ""; }
         Heading("setup.formatsHeading", () => { var panel = new FlowLayoutPanel(); panel.Controls.Add(Ui.Text(FormatPart(1))); return panel; });
@@ -69,9 +98,10 @@ internal sealed class AdvancedPreferencesForm : Form
             catch (LauncherNotConfiguredException) { encoding.Enabled = delimiter.Enabled = extended.Checked; }
         }
         RestoreFormats();
-        layout.Controls.Add(extended); layout.Controls.Add(encoding); layout.Controls.Add(delimiter);
-        var limits = Ui.Text(FormatPart(0)); layout.Controls.Add(limits);
-        void RefreshLimits() => limits.Text = FormatPart(0);
+        layout.Controls.Add(extended); layout.Controls.Add(Ui.Pair(encoding, delimiter));
+        string LimitText() => FormatPart(0).Replace("\n", " ");
+        var limits = Ui.Text(LimitText()); layout.Controls.Add(limits);
+        void RefreshLimits() => limits.Text = LimitText();
         UiText.Changed += RefreshLimits; Disposed += (_, _) => UiText.Changed -= RefreshLimits;
         Task SaveFormats()
         {
@@ -81,7 +111,7 @@ internal sealed class AdvancedPreferencesForm : Form
         }
         extended.CheckedChanged += async (_, _) => { encoding.Enabled = delimiter.Enabled = extended.Checked; await SaveFormats(); };
         encoding.SelectedIndexChanged += async (_, _) => await SaveFormats(); delimiter.SelectedIndexChanged += async (_, _) => await SaveFormats();
-        layout.Controls.Add(Ui.Separator()); Heading("setup.xlsHeading", () => InformationButton.TextPanel("setup.xlsExplanation"));
+        Divider(); Heading("setup.xlsHeading", () => InformationButton.TextPanel("setup.xlsExplanation"));
         var xls = new ToggleSwitch { Checked = XlsReplacementSettings.Load(storage), Text = UiText.Get("setup.replaceXls") }; layout.Controls.Add(xls);
         xls.CheckedChanged += async (_, _) =>
         {

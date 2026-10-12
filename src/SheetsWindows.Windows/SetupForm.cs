@@ -6,7 +6,6 @@ namespace SheetsWindows.Windows;
 internal sealed class SetupForm : Form
 {
     public int ExitCode { get; private set; }
-    private readonly TextBox client = new() { ReadOnly = true };
     private readonly Label status = Ui.Text("");
     private CancellationTokenSource cancellation = new();
     private bool busy;
@@ -18,18 +17,10 @@ internal sealed class SetupForm : Form
         var layout = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18, 4, 18, 8), FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = true };
         var shortcuts = new ToggleSwitch { Checked = ShortcutSettings.Load(storage), Text = UiText.Get("setup.createShortcuts") };
         var copy = new ToggleSwitch { Checked = CopyImportSettings.Load(storage), Text = UiText.Get("emphasis.importCopy") };
-        var hasClient = File.Exists(LauncherConfiguration.ClientPath(storage));
-        if (hasClient)
-        {
-            void RefreshClient() => client.Text = UiText.Get("setup.clientPreserved");
-            RefreshClient(); UiText.Changed += RefreshClient; Disposed += (_, _) => UiText.Changed -= RefreshClient;
-        }
-        var chooseClient = new AdaptiveButton { AutoSize = true, Text = UiText.Get("setup.chooseClient"), Enabled = !hasClient };
-        chooseClient.Click += (_, _) => { using var dialog = new OpenFileDialog { Filter = UiText.Get("dialog.oauthFileFilter"), CheckFileExists = true }; if (dialog.ShowDialog(this) == DialogResult.OK) { client.Text = dialog.FileName; status.Text = UiText.Get("setup.clientSelected"); } };
         var googleInfo = new InformationButton(() =>
         {
             var panel = InformationButton.TextPanel("setup.privacyExplanation"); InformationButton.AddLegalLinks(panel);
-            panel.Controls.Add(Ui.Separator()); panel.Controls.Add(Ui.Text(UiText.Get("setup.connectionExplanation"))); panel.Controls.Add(chooseClient); panel.Controls.Add(client); return panel;
+            panel.Controls.Add(Ui.Separator()); panel.Controls.Add(Ui.Text(UiText.Get("setup.connectionExplanation"))); return panel;
         });
         var defaultsInfo = new InformationButton(() => InformationButton.TextPanel("setup.defaultsHelp"));
         void Section(string key, InformationButton? info = null)
@@ -80,7 +71,7 @@ internal sealed class SetupForm : Form
             {
                 await using (var held = await new FileOperationLock(storage.LocksPath).AcquireAsync("windows-registration", cancellation.Token))
                 {
-                    var json = await LauncherConfiguration.SetupClientJsonAsync(storage, client.Text, cancellation.Token);
+                    var json = await LauncherConfiguration.SetupClientJsonAsync(storage, ct: cancellation.Token);
                     LauncherConfiguration.SaveClient(storage, json);
                     new WindowsAssociationRegistration(Microsoft.Win32.Registry.CurrentUser).Register(Environment.ProcessPath!); WindowsAssociationRegistration.NotifyShell();
                 }
@@ -118,7 +109,6 @@ internal sealed class SetupForm : Form
         Branding.Apply(this); Ui.Adapt(layout);
         void FitCenter() { connectionState.AutoSize = false; connectionState.Width = Math.Max(120, layout.ClientSize.Width - layout.Padding.Horizontal - 24); connectionState.Height = TextRenderer.MeasureText(connectionState.Text, connectionState.Font, new Size(connectionState.Width, int.MaxValue), TextFormatFlags.WordBreak).Height + 12; }
         connectionState.TextChanged += (_, _) => FitCenter(); layout.SizeChanged += (_, _) => FitCenter(); FitCenter();
-        Disposed += (_, _) => { foreach (var control in new Control[] { client, chooseClient }) if (!control.IsDisposed) control.Dispose(); };
     }
     private void ResetCancellation() { if (cancellation.IsCancellationRequested) { cancellation.Dispose(); cancellation = new(); } }
     protected override void Dispose(bool disposing) { if (disposing) { cancellation.Cancel(); cancellation.Dispose(); } base.Dispose(disposing); }

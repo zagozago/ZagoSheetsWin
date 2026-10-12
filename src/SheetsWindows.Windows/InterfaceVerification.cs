@@ -143,6 +143,12 @@ internal static class InterfaceVerification
                 Require(sync.Checked, "Default folder policy must be preserved.");
                 Require(Descendants(advanced).OfType<CheckBox>().Any(b => b.Text == UiText.Get("setup.replaceXls")), "Advanced options must preserve XLS preferences.");
                 Require(Descendants(advanced).OfType<InformationButton>().Count() == 4, "Advanced help is divided into three groups plus header information.");
+                Require(Descendants(advanced).OfType<Button>().Count(b => b.Text == UiText.Get("setup.chooseClient")) == 1, "Advanced options must provide the only JSON selector.");
+                var selectors = Descendants(advanced).OfType<ComboBox>().ToArray();
+                Require(selectors.Length == 2 && selectors[0].Parent == selectors[1].Parent && selectors[0].Top == selectors[1].Top,
+                    "Encoding and delimiter selectors must be side by side.");
+                Require(Descendants(advanced).OfType<FlowLayoutPanel>().Where(p => p.Dock == DockStyle.Fill).All(p => !p.VerticalScroll.Visible),
+                    "Portuguese advanced options must fit without vertical scrolling at the reference size.");
                 advanced.Close();
             }
             using (var bitmap = new Bitmap(setup.Width, setup.Height))
@@ -161,6 +167,42 @@ internal static class InterfaceVerification
             Require(informationButtons[0].PopupVisible && informationButtons[0].PopupContent is not null, "Contextual information must open without a second settings modal.");
             setup.Hide();
         }
+        Console.Error.WriteLine("VERIFY: advanced JSON selection");
+        var clientTestRoot = Path.Combine(Path.GetTempPath(), "zagosheets-client-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(clientTestRoot);
+        try
+        {
+            var clientStorage = new LocalStorage(Path.Combine(clientTestRoot, "state"));
+            var invalidPath = Path.Combine(clientTestRoot, "invalid.json"); File.WriteAllText(invalidPath, "{}");
+            var validPath = Path.Combine(clientTestRoot, "desktop.json");
+            File.WriteAllText(validPath, System.Text.Json.JsonSerializer.Serialize(new { installed = new { client_id = "preview.apps.googleusercontent.com", client_secret = "test-only" } }));
+            using (var advanced = new AdvancedPreferencesForm(clientStorage))
+            {
+                advanced.Show(); Application.DoEvents();
+                var choose = Descendants(advanced).OfType<Button>().Single(b => b.Text == UiText.Get("setup.chooseClient"));
+                Require(choose.Enabled, "An unconfigured client must allow JSON selection.");
+                void Complete(Task task)
+                {
+                    var deadline = System.Diagnostics.Stopwatch.StartNew();
+                    while (!task.IsCompleted && deadline.Elapsed < TimeSpan.FromSeconds(5)) Application.DoEvents();
+                    Require(task.IsCompletedSuccessfully, "Advanced client selection must finish on the UI message loop.");
+                }
+                Complete(advanced.ApplyClientAsync(invalidPath));
+                Require(!File.Exists(LauncherConfiguration.ClientPath(clientStorage)) && choose.Enabled, "Invalid JSON must leave configuration untouched and selection available.");
+                Complete(advanced.ApplyClientAsync(validPath));
+                Require(File.ReadAllText(LauncherConfiguration.ClientPath(clientStorage)) == File.ReadAllText(validPath) && !choose.Enabled,
+                    "The JSON chosen in advanced options must be validated and persisted using the existing configuration rules.");
+                advanced.Close();
+            }
+            using (var reopened = new AdvancedPreferencesForm(clientStorage))
+            {
+                reopened.Show(); Application.DoEvents();
+                Require(!Descendants(reopened).OfType<Button>().Single(b => b.Text == UiText.Get("setup.chooseClient")).Enabled,
+                    "Reopening must preserve the configured client and the existing migration restriction.");
+                reopened.Close();
+            }
+        }
+        finally { Directory.Delete(clientTestRoot, recursive: true); }
         Console.Error.WriteLine("VERIFY: preference autosave");
         using (var owner = new Form())
         {
@@ -239,7 +281,8 @@ internal static class InterfaceVerification
             Require(Descendants(home).OfType<Button>().Any(b=>b.Text=="&Help"),"Open home must switch to English.");
             Require(settings.Text=="Settings - ZagoSheetsWin" && sync.Text.StartsWith("I do not sync") && !sync.Checked,"Language change must preserve unsaved settings.");
             var googleInfo = Descendants(settings).OfType<InformationButton>().First(); googleInfo.OpenInformation(); Application.DoEvents();
-            Require(Descendants(googleInfo.PopupContent!).OfType<Button>().Any(b => b.Text == UiText.Get("setup.chooseClient")), "A lazily opened information panel must use the current language.");
+            Require(!Descendants(googleInfo.PopupContent!).OfType<Button>().Any(b => b.Text == UiText.Get("setup.chooseClient")), "Google information must contain explanations without client configuration controls.");
+            Require(Descendants(advancedSettings).OfType<Button>().Single(b => b.Text == UiText.Get("setup.chooseClient")).Text.Contains("JSON"), "Advanced client selection must use the current language.");
             Require(list.Items[0].Checked && list.Items[0].Text==filename && list.Columns[0].Text=="File","Language change must preserve recovery data and selection.");
             Require(Descendants(tutorial).OfType<Label>().Any(l=>l.Text.Contains("Keep the original")),"Existing tutorial must refresh its current page.");
             Require(Descendants(tutorial).OfType<FlowLayoutPanel>().All(p=>!p.VerticalScroll.Visible),"English tutorial must not gain vertical scrolling.");
