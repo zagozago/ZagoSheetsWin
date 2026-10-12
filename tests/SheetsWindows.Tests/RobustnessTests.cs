@@ -192,7 +192,7 @@ public sealed class RobustnessTests
         await log.ExportAsync(destination, overwrite: true);
         var entries = File.ReadAllLines(destination).Select(line => JsonSerializer.Deserialize<DiagnosticEntry>(line)!).ToArray();
         Assert.DoesNotContain("old export", File.ReadAllText(destination));
-        var failure = Assert.Single(entries.Where(e => e.Event == DiagnosticEvent.Failed));
+        var failure = Assert.Single(entries, e => e.Event == DiagnosticEvent.Failed);
         Assert.Equal(UiText.ProductVersion, failure.Version); Assert.Equal(attempt, failure.AttemptId);
         Assert.Equal(ProcessingPhase.Upload, failure.Stage); Assert.Equal(DiagnosticCode.RemoteAssociation, failure.Code);
         Assert.Equal(DiagnosticEvent.Exported, entries[^1].Event);
