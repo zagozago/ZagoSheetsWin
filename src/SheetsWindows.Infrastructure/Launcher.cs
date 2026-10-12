@@ -166,7 +166,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         if (!receipt.CanReplace) return await PublishCopyAsync(receipt, progress, ct);
         progress?.Report(UiText.Get("progress.publishingShortcut"));
         var coordinator = new ReplacementCoordinator(local, remote, new ManagedBackupStore(storage), locks,
-            new ReplacementJournal(System.IO.Path.Combine(storage.Root, "replacement.db")), sources, browser, new ConversionVerifier(new GoogleDriveClient(http, auth), textOptions, telemetry), ShortcutIcon.Ensure(storage));
+            new ReplacementJournal(System.IO.Path.Combine(storage.Root, "replacement.db")), sources, browser, new ConversionVerifier(new GoogleDriveClient(http, auth), textOptions, telemetry), ShortcutIcon.Ensure(storage), telemetry);
         try { return await coordinator.ReplaceAsync(receipt, ct); }
         catch (FormulaVerificationException) when (receipt.Operation.Format == "xls")
         {
@@ -216,7 +216,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
             {
                 if (source.Source.IdentityKey != operation.SourceKey || source.Source.Format != operation.Format) throw new LocalConflictException("Source changed.");
                 var importer = new GoogleImport(storage.CreatePreparation(sources), local, remote, sources, locks, auth, drive, options, telemetry, new BackupManagement(storage));
-                receipt = await importer.ImportReceiptAsync(path, ct);
+                receipt = await importer.ImportReceiptAsync(path, ct, renewTrashed: false);
                 if (receipt.Operation.Id != id) throw new LocalConflictException("Operation changed.");
             }
         }
@@ -235,7 +235,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         if (!OpeningPolicy.IsConfigured(storage)) throw new LauncherNotConfiguredException();
         var opening = OpeningPolicy.Load(storage);
         return await new ReplacementCoordinator(local, remote, new ManagedBackupStore(storage), locks, journal,
-            new WindowsRetirementReader(opening.RestrictToFolder ? opening.Folder : null), browser, new ConversionVerifier(drive, options, telemetry), ShortcutIcon.Ensure(storage)).ReplaceAsync(receipt, ct);
+            new WindowsRetirementReader(opening.RestrictToFolder ? opening.Folder : null), browser, new ConversionVerifier(drive, options, telemetry), ShortcutIcon.Ensure(storage), telemetry).ReplaceAsync(receipt, ct);
     }
 
     private async Task<string> PublishCopyAsync(ImportReceipt receipt, IProgress<string>? progress, CancellationToken ct)
@@ -244,19 +244,22 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         await new ManagedBackupStore(storage).VerifyAsync(receipt.Operation.Id, receipt.Operation.Snapshot ?? throw new InvalidDataException("No backup."), ct);
         if (!ShortcutSettings.Load(storage))
         {
-            ct.ThrowIfCancellationRequested(); browser.Open(receipt.Url);
-            await new BackupManagement(storage).RegisterCopyCompletionAsync(receipt, ct);
+            ct.ThrowIfCancellationRequested(); telemetry?.Mark(ProcessingStep.BrowserLaunch, CheckpointOutcome.Started); browser.Open(receipt.Url); telemetry?.Mark(ProcessingStep.BrowserLaunch);
+            await new BackupManagement(storage).RegisterCopyCompletionAsync(receipt, ct); telemetry?.Mark(ProcessingStep.CopyCompletion);
             progress?.Report(UiText.Get("emphasis.originalPreserved"));
             return receipt.Url.AbsoluteUri;
         }
         var folder = Path.Combine(storage.Root, "shortcuts"); PrivateDirectory.Create(folder);
         var shortcut = Path.Combine(folder, receipt.Operation.Id.ToString("N") + ".url"); var bytes = InternetShortcut.ForExisting(shortcut, receipt.Url, ShortcutIcon.Ensure(storage));
+        telemetry?.Mark(ProcessingStep.ShortcutPublication, CheckpointOutcome.Started);
         if (!File.Exists(shortcut)) InternetShortcut.Publish(shortcut, bytes);
+        telemetry?.Mark(ProcessingStep.ShortcutPublication);
         using var checkedShortcut = InternetShortcut.Hold(shortcut, bytes);
-        ct.ThrowIfCancellationRequested(); browser.Open(receipt.Url);
-        await new BackupManagement(storage).RegisterCopyCompletionAsync(receipt, ct);
+        ct.ThrowIfCancellationRequested(); telemetry?.Mark(ProcessingStep.BrowserLaunch, CheckpointOutcome.Started); browser.Open(receipt.Url); telemetry?.Mark(ProcessingStep.BrowserLaunch);
+        await new BackupManagement(storage).RegisterCopyCompletionAsync(receipt, ct); telemetry?.Mark(ProcessingStep.CopyCompletion);
         progress?.Report(UiText.Get("import.notice.copyComplete"));
         return shortcut;
     }
 
 }
+

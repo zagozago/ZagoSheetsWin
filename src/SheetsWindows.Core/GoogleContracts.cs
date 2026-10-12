@@ -14,7 +14,9 @@ public interface IRemoteRegistry
     RemoteAttempt Begin(string key, string accountId, string kind, string hash);
     void Candidate(string key, string id);
     void Verify(string key, string id);
+    void RetireTrashedAssociation(string key, string expectedFileId) => throw new NotSupportedException("Association retirement is unavailable.");
 }
 public sealed class ReconciliationRequiredException() : IOException("Remote creation outcome is uncertain; reconciliation required. No new upload was attempted.");
 public sealed class GoogleApiException(int status) : IOException($"Google request failed (HTTP {status}).") { public int Status { get; } = status; }
 public sealed class AuthorizationRequiredException() : IOException("Google sign-in is required.");
+

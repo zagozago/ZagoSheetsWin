@@ -110,8 +110,8 @@ internal sealed class ProcessingForm : Form
         {
             cpuSampler.Stop();
             LastMetrics = telemetry.Capture();
-            latestDiagnostic = DiagnosticLog.CreateEntry(outcome, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase);
-            if (recordDiagnostics) await diagnostics.RecordAsync(outcome, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase);
+            latestDiagnostic = DiagnosticLog.CreateEntry(outcome, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase, trace: telemetry.CaptureTrace());
+            if (recordDiagnostics) await diagnostics.RecordAsync(outcome, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase, trace: telemetry.CaptureTrace());
             busy = false;
         }
         if (ExitCode == 0 && importNotice is not null)
@@ -123,3 +123,4 @@ internal sealed class ProcessingForm : Form
     }
     protected override void Dispose(bool disposing) { if (disposing) cancellation.Dispose(); base.Dispose(disposing); }
 }
+

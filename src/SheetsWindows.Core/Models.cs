@@ -16,6 +16,8 @@ public interface IOperationRegistry
     void RecordFailure(Guid id, string code);
     IReadOnlyList<ImportOperation> Pending();
     IReadOnlyList<JournalEvent> Events(Guid id);
+    // Caller holds the source lock and has confirmed the bound remote is trashed.
+    void RetireTrashedAssociation(Guid id, long expectedVersion) => throw new NotSupportedException("Association retirement is unavailable.");
 }
 public interface ISourceLease : IAsyncDisposable
 {
@@ -33,3 +35,4 @@ public interface IBackupStore
     Task VerifyAsync(Guid operationId, Snapshot snapshot, CancellationToken cancellationToken = default);
     Task RestoreAsync(Guid operationId, Snapshot snapshot, string destination, CancellationToken cancellationToken = default);
 }
+

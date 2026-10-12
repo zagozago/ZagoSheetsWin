@@ -9,10 +9,24 @@ public enum DiagnosticFailure { WorkbookContentType, FormulaVerification, Conver
 public enum DiagnosticCode { SnapshotIntegrity, RemoteAssociation, SourceIdentity, SourceChanged, AssociationBinding, TextEncoding, TextStructure, CsvDelimiter, WorkbookContentType, FileAccess, Database, GoogleApi, Network, Other }
 public sealed record RemoteValidationContext(bool IsFolder, bool IsTrashed, bool CanEdit, bool MimeMatches,
     bool MarkerPresent, bool MarkerMatches, bool HashPresent, bool HashMatches, bool PreviouslyVerified);
-public sealed record DiagnosticEntry(DateTimeOffset Time, DiagnosticEvent Event, Guid? Operation, ProcessingMetrics? Metrics = null, DiagnosticFailure? Failure = null, string? Version = null, Guid? AttemptId = null, ProcessingPhase? Stage = null, DiagnosticCode? Code = null, int? NativeError = null, int? GoogleStatus = null, int? SqliteCode = null, RemoteValidationContext? RemoteValidation = null);
+public sealed record DiagnosticEntry(DateTimeOffset Time, DiagnosticEvent Event, Guid? Operation, ProcessingMetrics? Metrics = null, DiagnosticFailure? Failure = null, string? Version = null, Guid? AttemptId = null, ProcessingPhase? Stage = null, DiagnosticCode? Code = null, int? NativeError = null, int? GoogleStatus = null, int? SqliteCode = null, RemoteValidationContext? RemoteValidation = null, IReadOnlyList<ProcessingCheckpoint>? Trace = null, string? Revision = null);
 // Diagnostic files are disposable; durable operation journals and backups are never pruned.
 public sealed class DiagnosticLog(LocalStorage storage)
 {
+    public static string? BuildRevision
+    {
+        get
+        {
+            var version = System.Reflection.CustomAttributeExtensions.GetCustomAttribute<System.Reflection.AssemblyInformationalVersionAttribute>(typeof(DiagnosticLog).Assembly)?.InformationalVersion;
+            var match = System.Text.RegularExpressions.Regex.Match(version ?? "", @"[+]([a-fA-F0-9]{40})$");
+            return match.Success ? match.Groups[1].Value : null;
+        }
+    }
+    private static void ValidateRevision(string? revision)
+    {
+        if (revision is not null && !System.Text.RegularExpressions.Regex.IsMatch(revision, @"^[a-fA-F0-9]{40}$"))
+            throw new InvalidDataException("Invalid diagnostic revision.");
+    }
     public const int MaxFileBytes = 64 * 1024;
     public const int FileCount = 4;
     public static DiagnosticEvent Failure(Exception ex) => ex switch
@@ -24,7 +38,7 @@ public sealed class DiagnosticLog(LocalStorage storage)
         ConversionMismatchException => DiagnosticEvent.ConversionMismatch,
         _ => DiagnosticEvent.Failed
     };
-    public async Task RecordAsync(DiagnosticEvent kind, Guid? operation = null, ProcessingMetrics? metrics = null, Exception? failure = null, Guid? attemptId = null, ProcessingPhase? stage = null)
+    public async Task RecordAsync(DiagnosticEvent kind, Guid? operation = null, ProcessingMetrics? metrics = null, Exception? failure = null, Guid? attemptId = null, ProcessingPhase? stage = null, IReadOnlyList<ProcessingCheckpoint>? trace = null)
     {
         try
         {
@@ -38,7 +52,9 @@ public sealed class DiagnosticLog(LocalStorage storage)
                 var candidate = i == 0 ? path : path + "." + i;
                 if (File.Exists(candidate) && (File.GetAttributes(candidate) & FileAttributes.ReparsePoint) != 0) throw new InvalidDataException("Invalid diagnostic file.");
             }
-            var bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(CreateEntry(kind, operation, metrics, failure, attemptId, stage)) + "\n");
+            ValidateTrace(trace);
+            var bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(CreateEntry(kind, operation, metrics, failure, attemptId, stage, trace)) + "\n");
+            if (bytes.Length > MaxFileBytes) throw new InvalidDataException("Diagnostic entry too large.");
             if (File.Exists(path) && new FileInfo(path).Length + bytes.Length > MaxFileBytes)
             {
                 var last = path + "." + (FileCount - 1); if (File.Exists(last)) File.Delete(last);
@@ -53,7 +69,7 @@ public sealed class DiagnosticLog(LocalStorage storage)
         catch (Exception ex) when (LauncherErrors.Expected(ex)) { /* Diagnostics cannot change operation outcome. */ }
     }
     public static DiagnosticEntry CreateEntry(DiagnosticEvent kind, Guid? operation = null, ProcessingMetrics? metrics = null,
-        Exception? failure = null, Guid? attemptId = null, ProcessingPhase? stage = null)
+        Exception? failure = null, Guid? attemptId = null, ProcessingPhase? stage = null, IReadOnlyList<ProcessingCheckpoint>? trace = null)
     {
         DiagnosticFailure? reason = failure switch
         {
@@ -87,7 +103,13 @@ public sealed class DiagnosticLog(LocalStorage storage)
             _ => DiagnosticCode.Other
         };
         return new DiagnosticEntry(DateTimeOffset.UtcNow, kind, operation, metrics, reason, UiText.ProductVersion, attemptId, stage, code,
-            failure?.HResult, (failure as GoogleApiException)?.Status, (failure as Microsoft.Data.Sqlite.SqliteException)?.SqliteErrorCode, failure?.Data["RemoteValidation"] as RemoteValidationContext);
+            failure?.HResult, (failure as GoogleApiException)?.Status, (failure as Microsoft.Data.Sqlite.SqliteException)?.SqliteErrorCode, failure?.Data["RemoteValidation"] as RemoteValidationContext, trace, BuildRevision);
+    }
+    private static void ValidateTrace(IReadOnlyList<ProcessingCheckpoint>? trace)
+    {
+        if (trace is null) return;
+        if (trace.Count > ProcessingTelemetry.MaxCheckpoints || trace.Any(p => p is null || !Enum.IsDefined(p.Step) || !Enum.IsDefined(p.Outcome) || p.ElapsedMs < 0))
+            throw new InvalidDataException("Invalid diagnostic trace.");
     }
     public async Task ExportAsync(string destination, bool overwrite = false, DiagnosticEntry? currentAttempt = null)
     {
@@ -102,6 +124,7 @@ public sealed class DiagnosticLog(LocalStorage storage)
             foreach (var line in await File.ReadAllLinesAsync(path))
             {
                 var entry = JsonSerializer.Deserialize<DiagnosticEntry>(line) ?? throw new InvalidDataException("Invalid diagnostic entry.");
+                ValidateTrace(entry.Trace); ValidateRevision(entry.Revision);
                 if (entry.Metrics is { IsValid: false }) throw new InvalidDataException("Invalid processing metrics.");
                 if (entry.Failure is { } reason && !Enum.IsDefined(reason)) throw new InvalidDataException("Invalid diagnostic failure category.");
                 if (!Enum.IsDefined(entry.Event)) throw new InvalidDataException("Invalid diagnostic event.");
@@ -115,6 +138,7 @@ public sealed class DiagnosticLog(LocalStorage storage)
         }
         if (currentAttempt is { AttemptId: { } currentId } && !included.Contains((currentId, currentAttempt.Event)))
         {
+            ValidateTrace(currentAttempt.Trace); ValidateRevision(currentAttempt.Revision);
             if (currentAttempt.Version != UiText.ProductVersion || currentAttempt.Metrics is { IsValid: false }
                 || !Enum.IsDefined(currentAttempt.Event) || currentAttempt.Stage is { } currentStage && !Enum.IsDefined(currentStage)
                 || currentAttempt.Code is { } currentCode && !Enum.IsDefined(currentCode)
@@ -122,7 +146,7 @@ public sealed class DiagnosticLog(LocalStorage storage)
                 throw new InvalidDataException("Invalid current diagnostic context.");
             output.AppendLine(JsonSerializer.Serialize(currentAttempt));
         }
-        output.AppendLine(JsonSerializer.Serialize(new DiagnosticEntry(DateTimeOffset.UtcNow, DiagnosticEvent.Exported, null, Version: UiText.ProductVersion)));
+        output.AppendLine(JsonSerializer.Serialize(new DiagnosticEntry(DateTimeOffset.UtcNow, DiagnosticEvent.Exported, null, Version: UiText.ProductVersion, Revision: BuildRevision)));
         var target = Path.GetFullPath(destination);
         if (File.Exists(target) && (File.GetAttributes(target) & FileAttributes.ReparsePoint) != 0) throw new InvalidDataException("Invalid diagnostic destination.");
         var temporary = target + "." + Guid.NewGuid().ToString("N") + ".tmp";
@@ -135,3 +159,4 @@ public sealed class DiagnosticLog(LocalStorage storage)
         finally { if (File.Exists(temporary)) File.Delete(temporary); }
     }
 }
+

@@ -128,7 +128,7 @@ public static class InternetShortcut
 }
 
 public sealed class ReplacementCoordinator(IOperationRegistry local, IRemoteRegistry remote, IBackupStore backups,
-    IOperationLock locks, ReplacementJournal journal, IRetirementReader sources, IBrowserLauncher browser, IConversionVerifier? conversion = null, string? iconPath = null)
+    IOperationLock locks, ReplacementJournal journal, IRetirementReader sources, IBrowserLauncher browser, IConversionVerifier? conversion = null, string? iconPath = null, ProcessingTelemetry? telemetry = null)
 {
     public async Task<string> ReplaceAsync(ImportReceipt receipt, CancellationToken ct = default)
     {
@@ -141,6 +141,7 @@ public sealed class ReplacementCoordinator(IOperationRegistry local, IRemoteRegi
     }
     private async Task<string> RunAsync(ImportReceipt receipt, CancellationToken ct)
     {
+        telemetry?.Mark(ProcessingStep.Replacement, CheckpointOutcome.Started);
         var supplied = receipt.Operation;
         await using var held = await locks.AcquireAsync(supplied.SourceKey, ct);
         var op = local.Get(supplied.Id) ?? throw new InvalidOperationException("Missing local association.");
@@ -161,8 +162,10 @@ public sealed class ReplacementCoordinator(IOperationRegistry local, IRemoteRegi
         if (record.Step == 0)
         {
             // A crash may leave our complete file before its journal transition; verify exact bytes on resume.
+            telemetry?.Mark(ProcessingStep.ShortcutPublication, CheckpointOutcome.Started);
             if (!File.Exists(record.ShortcutPath)) InternetShortcut.Publish(record.ShortcutPath, bytes);
             using var check = InternetShortcut.Hold(record.ShortcutPath, bytes);
+            telemetry?.Mark(ProcessingStep.ShortcutPublication);
             journal.Advance(op.Id, 0, 1); record = record with { Step = 1 };
         }
         using var shortcut = InternetShortcut.Hold(record.ShortcutPath, bytes);
@@ -174,7 +177,8 @@ public sealed class ReplacementCoordinator(IOperationRegistry local, IRemoteRegi
         if (!sourceExists)
         {
             if (record.Step != 3) throw new LocalConflictException("Original missing before retirement intent.");
-            journal.Advance(op.Id, 3, 4); return record.ShortcutPath;
+            telemetry?.Mark(ProcessingStep.SourceRetirement);
+        journal.Advance(op.Id, 3, 4); telemetry?.Mark(ProcessingStep.Replacement); return record.ShortcutPath;
         }
         await using (var source = sources.Open(sourcePath))
         {
@@ -183,17 +187,24 @@ public sealed class ReplacementCoordinator(IOperationRegistry local, IRemoteRegi
             if (op.Format != "xlsx")
             {
                 if (conversion is null || !receipt.CanReplace) throw new CopyRequiredException();
+                telemetry?.Mark(ProcessingStep.ConversionVerification, CheckpointOutcome.Started);
                 await conversion.VerifyAsync(op, mapping, ct);
+                telemetry?.Mark(ProcessingStep.ConversionVerification);
             }
             if (record.Step == 1)
             {
+                telemetry?.Mark(ProcessingStep.BrowserLaunch, CheckpointOutcome.Started);
                 browser.Open(receipt.Url); // Acceptance by shell, not proof that the page loaded.
+                telemetry?.Mark(ProcessingStep.BrowserLaunch);
                 journal.Advance(op.Id, 1, 2); record = record with { Step = 2 };
             }
             ct.ThrowIfCancellationRequested();
             if (record.Step == 2) { journal.Advance(op.Id, 2, 3); record = record with { Step = 3 }; }
+            telemetry?.Mark(ProcessingStep.SourceRetirement, CheckpointOutcome.Started);
             source.Retire(); // Exact held file, no delete-by-path race.
         }
-        journal.Advance(op.Id, 3, 4); return record.ShortcutPath;
+        telemetry?.Mark(ProcessingStep.SourceRetirement);
+        journal.Advance(op.Id, 3, 4); telemetry?.Mark(ProcessingStep.Replacement); return record.ShortcutPath;
     }
 }
+

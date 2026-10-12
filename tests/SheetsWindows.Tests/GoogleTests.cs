@@ -104,10 +104,10 @@ public sealed class GoogleTests
         }
     }
     private static HttpResponseMessage Json(object value) => new(HttpStatusCode.OK) { Content = new StringContent(JsonSerializer.Serialize(value), Encoding.UTF8, "application/json") };
-    private static GoogleImport Importer(Workspace w, DriveServer server, FixedAuth? auth = null, IRemoteRegistry? registry = null)
+    private static GoogleImport Importer(Workspace w, DriveServer server, FixedAuth? auth = null, IRemoteRegistry? registry = null, ProcessingTelemetry? telemetry = null)
     {
         auth ??= new FixedAuth(); var http = new HttpClient(server, false) { Timeout = TimeSpan.FromSeconds(10) };
-        return new(w.Coordinator(), w.Registry(), registry ?? new GoogleRemoteRegistry(Path.Combine(w.Root, "state", "google.db")), new SourceReader(), new FileOperationLock(w.Locks), auth, new GoogleDriveClient(http, auth));
+        return new(w.Coordinator(), w.Registry(), registry ?? new GoogleRemoteRegistry(Path.Combine(w.Root, "state", "google.db")), new SourceReader(), new FileOperationLock(w.Locks), auth, new GoogleDriveClient(http, auth), telemetry: telemetry);
     }
     private sealed class LauncherBrowser : IBrowserLauncher
     {
@@ -276,12 +276,81 @@ public sealed class GoogleTests
         var before = server.Posts;
         var failure = await Assert.ThrowsAsync<InvalidDataException>(async () =>
         {
-            if (folder) _ = await importer.EnsureFolderAsync(); else _ = await importer.ImportReceiptAsync(w.Source);
+            if (folder) _ = await importer.EnsureFolderAsync(); else _ = await importer.ImportReceiptAsync(w.Source, renewTrashed: false);
         });
         var context = Assert.IsType<RemoteValidationContext>(failure.Data["RemoteValidation"]);
         Assert.Equal(folder, context.IsFolder); Assert.True(context.PreviouslyVerified); Assert.Equal(before, server.Posts);
         Assert.Equal(condition != "marker", context.MarkerPresent); Assert.Equal(condition != "hash", context.HashPresent);
         Assert.Equal(condition != "permission", context.CanEdit); Assert.Equal(condition != "mime", context.MimeMatches); Assert.Equal(condition == "trashed", context.IsTrashed);
+    }
+
+    private static void Trash(DriveServer server, string id)
+    {
+        var file = JsonSerializer.SerializeToElement(server.Files[id]);
+        var properties = file.GetProperty("appProperties").EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!);
+        server.Files[id] = new { id, mimeType = file.GetProperty("mimeType").GetString(), trashed = true, capabilities = new { canEdit = true }, appProperties = properties };
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task TrashedSheetCreatesNewOperationFromCurrentLocalBytesAndRetainsOldHistory(bool changed)
+    {
+        using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".csv");
+        var original = Encoding.UTF8.GetBytes("id;value\n001;original"); File.WriteAllBytes(path, original);
+        using var server = new DriveServer(); var first = await Importer(w, server).ImportReceiptAsync(path);
+        var oldUpload = server.Uploaded["file_2"].ToArray();
+        Trash(server, "file_2"); var trashedRemote = JsonSerializer.Serialize(server.Files["file_2"]);
+        var current = changed ? Encoding.UTF8.GetBytes("id;value\n001;current") : original; File.WriteAllBytes(path, current);
+        var telemetry = new ProcessingTelemetry();
+        var second = await Importer(w, server, telemetry: telemetry).ImportReceiptAsync(path);
+        Assert.NotEqual(first.Operation.Id, second.Operation.Id); Assert.NotEqual(first.Url, second.Url);
+        Assert.Equal(3, server.Posts); Assert.Equal(current, File.ReadAllBytes(second.Operation.Snapshot!.BackupPath));
+        Assert.Equal(original, File.ReadAllBytes(first.Operation.Snapshot!.BackupPath)); Assert.Equal(current, File.ReadAllBytes(path));
+        Assert.Equal(trashedRemote, JsonSerializer.Serialize(server.Files["file_2"])); Assert.Equal(oldUpload, server.Uploaded["file_2"]);
+        var remote = new GoogleRemoteRegistry(Path.Combine(w.Root, "state", "google.db"));
+        Assert.Equal("file_2", remote.Get("sheet:" + first.Operation.Id.ToString("N"))!.FileId);
+        Assert.Equal("file_3", remote.Get("sheet:" + second.Operation.Id.ToString("N"))!.FileId);
+        Assert.Contains(w.Registry().Events(first.Operation.Id), e => e.Kind == "RemoteTrashed");
+        Assert.Contains(telemetry.CaptureTrace(), p => p.Step == ProcessingStep.TrashedAssociationRetired && p.RemoteValidation!.IsTrashed);
+        Assert.Equal(second.Url, await Importer(w, server).ImportAsync(path)); Assert.Equal(3, server.Posts);
+        Assert.DoesNotContain(server.Methods, m => m is "PATCH" or "DELETE");
+    }
+
+    [Fact]
+    public async Task TrashedFolderGetsNewRootWithoutRestoringOrChangingOldFolder()
+    {
+        using var w = new Workspace(); using var server = new DriveServer(); var importer = Importer(w, server);
+        var old = await importer.EnsureFolderAsync(); Trash(server, old); var saved = JsonSerializer.Serialize(server.Files[old]);
+        var current = await importer.EnsureFolderAsync();
+        Assert.NotEqual(old, current); Assert.Equal(2, server.Posts); Assert.Equal(saved, JsonSerializer.Serialize(server.Files[old]));
+        Assert.Equal(current, await importer.EnsureFolderAsync()); Assert.Equal(2, server.Posts);
+        File.WriteAllBytes(w.Source, Workbook()); await importer.ImportReceiptAsync(w.Source);
+        Assert.Equal(3, server.Posts); Assert.Contains("\"parents\":[\"" + current + "\"]", server.Metadata[^1]);
+        var registry = new GoogleRemoteRegistry(Path.Combine(w.Root, "state", "google.db"));
+        Assert.Contains(registry.All().Values, a => a.FileId == old && a.Key.StartsWith("trashed:", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public async Task LostNewSheetResponseAfterTrashIsReconciledWithoutAnotherUpload()
+    {
+        using var w = new Workspace(); File.WriteAllBytes(w.Source, Workbook()); using var server = new DriveServer();
+        var first = await Importer(w, server).ImportReceiptAsync(w.Source); Trash(server, "file_2"); server.LoseSheetResponse = true;
+        await Assert.ThrowsAsync<HttpRequestException>(() => Importer(w, server).ImportReceiptAsync(w.Source));
+        Assert.Equal(3, server.Posts);
+        var resumed = await Importer(w, server).ImportReceiptAsync(w.Source);
+        Assert.NotEqual(first.Operation.Id, resumed.Operation.Id); Assert.Equal(GoogleDriveClient.Editor("file_3"), resumed.Url);
+        Assert.Equal(3, server.Posts); Assert.Equal(resumed.Url, await Importer(w, server).ImportAsync(w.Source));
+    }
+
+    [Fact]
+    public async Task ConcurrentOpeningsAfterTrashShareOneNewOperation()
+    {
+        using var w = new Workspace(); File.WriteAllBytes(w.Source, Workbook()); using var server = new DriveServer();
+        _ = await Importer(w, server).ImportReceiptAsync(w.Source); Trash(server, "file_2");
+        var receipts = await Task.WhenAll(Importer(w, server).ImportReceiptAsync(w.Source), Importer(w, server).ImportReceiptAsync(w.Source));
+        Assert.Equal(receipts[0].Operation.Id, receipts[1].Operation.Id); Assert.Equal(receipts[0].Url, receipts[1].Url);
+        Assert.Equal(3, server.Posts);
     }
 
     [Fact]
@@ -768,3 +837,4 @@ public sealed class GoogleTests
         Assert.Equal(tokens.RefreshToken, vault.Load()!.RefreshToken); Assert.DoesNotContain("refresh-secret", Encoding.UTF8.GetString(File.ReadAllBytes(Assert.Single(Directory.GetFiles(Path.Combine(w.Root, "auth"))))));
     }
 }
+

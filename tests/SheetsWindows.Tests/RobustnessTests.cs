@@ -244,6 +244,28 @@ public sealed class RobustnessTests
     }
 
     [Fact]
+    public async Task TraceExportIsBoundedReadableAndRetainsChecksWithoutPrivateExceptionText()
+    {
+        using var w = new Workspace(); var telemetry = new ProcessingTelemetry();
+        for (var i = 0; i < ProcessingTelemetry.MaxCheckpoints + 10; i++) telemetry.Mark(ProcessingStep.Preflight);
+        var validation = new RemoteValidationContext(false, true, true, true, true, true, true, true, true);
+        telemetry.Mark(ProcessingStep.RemoteValidation, CheckpointOutcome.Failed, validation);
+        var trace = telemetry.CaptureTrace(); Assert.Equal(ProcessingTelemetry.MaxCheckpoints, trace.Count);
+        var log = new DiagnosticLog(new LocalStorage(Path.Combine(w.Root, "state")));
+        await log.RecordAsync(DiagnosticEvent.Failed, failure: new IOException("private-token /private/file.csv"), attemptId: Guid.NewGuid(), trace: trace);
+        var path = Path.Combine(w.Root, "diagnostic.jsonl"); await log.ExportAsync(path);
+        var entry = JsonSerializer.Deserialize<DiagnosticEntry>(File.ReadLines(path).First())!;
+        Assert.Equal(trace, entry.Trace); Assert.Equal(validation, entry.Trace![^1].RemoteValidation);
+        var text = File.ReadAllText(path); Assert.Contains("RemoteValidation", text); Assert.Contains("Failed", text);
+        Assert.DoesNotContain("private-token", text); Assert.DoesNotContain("/private/file.csv", text);
+        var forged = entry with { Trace = [new((ProcessingStep)999, CheckpointOutcome.Completed, 0)] };
+        var current = Path.Combine(w.Root, "state", "logs", "events.jsonl");
+        File.WriteAllText(current, JsonSerializer.Serialize(forged) + "\n");
+        await Assert.ThrowsAsync<InvalidDataException>(() => log.ExportAsync(path, overwrite: true));
+        Assert.Equal(text, File.ReadAllText(path));
+    }
+
+    [Fact]
     public async Task BrokenDiagnosticDirectoryDoesNotChangeOperationOutcome()
     {
         using var w = new Workspace(); var storage = new LocalStorage(Path.Combine(w.Root, "state")); Directory.CreateDirectory(storage.Root); File.WriteAllText(Path.Combine(storage.Root, "logs"), "blocked");
@@ -348,3 +370,4 @@ public sealed class RobustnessTests
         var bytes = Encoding.UTF8.GetBytes("id,value\n001,=1+1"); Assert.Equal(SpreadsheetFormats.Prepare("csv", bytes).Bytes, SpreadsheetFormats.Prepare("csv", bytes).Bytes);
     }
 }
+

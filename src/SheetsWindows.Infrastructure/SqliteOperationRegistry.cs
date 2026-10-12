@@ -142,6 +142,15 @@ public sealed class SqliteOperationRegistry : IOperationRegistry
         if (new BackupCatalog(storage).Get(id) is not { State: 2, DiscardRequested: true }) throw new InvalidOperationException("Discard must finish before retiring its source binding.");
         using var db = Open(); using var tx = db.BeginTransaction(deferred: false); Archive(db, tx, id); tx.Commit();
     }
+    public void RetireTrashedAssociation(Guid id, long expectedVersion)
+    {
+        using var db = Open(); using var tx = db.BeginTransaction(deferred: false);
+        using var update = Command(db, tx,
+            "UPDATE operations SET source_key=$key,version=version+1 WHERE id=$id AND version=$v AND source_key NOT LIKE 'trashed:%' AND source_key NOT LIKE 'discarded:%'",
+            ("$key", "trashed:" + id.ToString("N")), ("$id", id.ToString("N")), ("$v", expectedVersion));
+        if (update.ExecuteNonQuery() != 1) throw new LocalConflictException("Local association changed.");
+        Event(db, tx, id, "RemoteTrashed"); tx.Commit(); // Retain the old snapshot, remote mapping and replacement journal.
+    }
     public ImportOperation CommitSnapshot(Guid id, long expectedVersion, Snapshot snapshot)
     {
         if (snapshot.Length < 0 || snapshot.Sha256.Length != 64 || !snapshot.Sha256.All(Uri.IsHexDigit))
@@ -187,3 +196,4 @@ public sealed class SqliteOperationRegistry : IOperationRegistry
         return result;
     }
 }
+

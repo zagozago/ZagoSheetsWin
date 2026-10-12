@@ -74,4 +74,16 @@ public sealed class GoogleRemoteRegistry : IRemoteRegistry
     }
     public void Candidate(string key, string id) => Set(key, id, false);
     public void Verify(string key, string id) => Set(key, id, true);
+    public void RetireTrashedAssociation(string key, string expectedFileId)
+    {
+        using var db = Open(); using var tx = db.BeginTransaction(deferred: false);
+        var previous = Read(db, tx, key) ?? throw new InvalidOperationException("Missing creation intent.");
+        if (previous.FileId != expectedFileId) throw new LocalConflictException("Remote association changed.");
+        var archived = "trashed:" + Guid.NewGuid().ToString("N");
+        using (var defer = Cmd(db, tx, "PRAGMA defer_foreign_keys=ON")) defer.ExecuteNonQuery();
+        using (var events = Cmd(db, tx, "UPDATE events SET key=$new WHERE key=$old", ("$new", archived), ("$old", key))) events.ExecuteNonQuery();
+        using (var attempt = Cmd(db, tx, "UPDATE attempts SET key=$new WHERE key=$old", ("$new", archived), ("$old", key))) attempt.ExecuteNonQuery();
+        Event(db, tx, archived, "RemoteTrashed"); tx.Commit();
+    }
 }
+
