@@ -72,7 +72,7 @@ public sealed class InterfaceSettingsTests
         Assert.Equal(before, metrics.UploadMs); Assert.Null(metrics.VerificationMs);
         var log = new DiagnosticLog(storage); await log.RecordAsync(DiagnosticEvent.Completed, metrics: metrics);
         var destination = Path.Combine(w.Root, "metrics.jsonl"); await log.ExportAsync(destination);
-        var entry = JsonSerializer.Deserialize<DiagnosticEntry>(File.ReadAllText(destination)); Assert.Equal(metrics, entry!.Metrics);
+        var entry = JsonSerializer.Deserialize<DiagnosticEntry>(File.ReadLines(destination).First()); Assert.Equal(metrics, entry!.Metrics);
         Assert.DoesNotContain(storage.Root, File.ReadAllText(destination));
         File.WriteAllText(Path.Combine(storage.Root, "logs", "events.jsonl"), "{\"Time\":\"2026-10-03T00:00:00Z\",\"Event\":1,\"Operation\":null,\"Metrics\":{\"ElapsedMs\":0,\"source\":\"secret.csv\"},\"account\":\"private\"}\n");
         var scrubbed = Path.Combine(w.Root, "scrubbed.jsonl"); await log.ExportAsync(scrubbed);
