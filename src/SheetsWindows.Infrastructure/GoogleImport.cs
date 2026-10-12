@@ -103,10 +103,17 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
             if (found.Count != 1) throw new ReconciliationRequiredException();
             file = found[0]; remote.Candidate(key, file.Id);
         }
-        if (file.Trashed || !file.CanEdit || file.MimeType != (kind == "sheet" ? GoogleDriveClient.SheetMime : GoogleDriveClient.FolderMime)
-            || !file.Properties.TryGetValue("sw_operation", out var marker) || marker != attempt.Marker
-            || !file.Properties.TryGetValue("sw_hash", out var remoteHash) || remoteHash != hash)
-            throw new InvalidDataException("Remote conversion or association validation failed.");
+        var hasMarker = file.Properties.TryGetValue("sw_operation", out var marker);
+        var hasHash = file.Properties.TryGetValue("sw_hash", out var remoteHash);
+        var validation = new RemoteValidationContext(kind == "folder", file.Trashed, file.CanEdit,
+            file.MimeType == (kind == "sheet" ? GoogleDriveClient.SheetMime : GoogleDriveClient.FolderMime),
+            hasMarker, hasMarker && marker == attempt.Marker, hasHash, hasHash && remoteHash == hash, attempt.Verified);
+        if (validation.IsTrashed || !validation.CanEdit || !validation.MimeMatches || !validation.MarkerMatches || !validation.HashMatches)
+        {
+            var failure = new InvalidDataException("Remote conversion or association validation failed.");
+            failure.Data["RemoteValidation"] = validation;
+            throw failure;
+        }
         remote.Verify(key, file.Id); return file.Id;
     }
     public static void ValidateXlsx(byte[] bytes)

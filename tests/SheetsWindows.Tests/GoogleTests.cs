@@ -251,7 +251,37 @@ public sealed class GoogleTests
         server.Files["file_2"] = new { id = "file_2", mimeType = GoogleDriveClient.SheetMime, trashed = false, capabilities = new { canEdit = true }, appProperties = properties };
         var failure = await Assert.ThrowsAsync<InvalidDataException>(() => importer.ImportReceiptAsync(path));
         Assert.Equal("Remote conversion or association validation failed.", failure.Message); Assert.Equal(2, server.Posts);
+        var context = Assert.IsType<RemoteValidationContext>(failure.Data["RemoteValidation"]);
+        Assert.False(context.IsFolder); Assert.True(context.PreviouslyVerified); Assert.True(context.CanEdit);
+        Assert.True(context.MimeMatches); Assert.True(context.MarkerMatches); Assert.True(context.HashPresent); Assert.False(context.HashMatches);
         Assert.True(File.Exists(path));
+    }
+
+    [Theory]
+    [InlineData(true, "marker")]
+    [InlineData(true, "hash")]
+    [InlineData(false, "marker")]
+    [InlineData(false, "hash")]
+    [InlineData(false, "permission")]
+    [InlineData(false, "mime")]
+    [InlineData(false, "trashed")]
+    public async Task RemoteValidationReportsTheExactConditionWithoutCreatingAnotherDocument(bool folder, string condition)
+    {
+        using var w = new Workspace(); File.WriteAllBytes(w.Source, Workbook()); using var server = new DriveServer(); var importer = Importer(w, server);
+        var id = folder ? await importer.EnsureFolderAsync() : (await importer.ImportReceiptAsync(w.Source)).Url.AbsolutePath.Split('/')[3];
+        var properties = JsonSerializer.SerializeToElement(server.Files[id]).GetProperty("appProperties").EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!);
+        if (condition == "marker") properties.Remove("sw_operation"); if (condition == "hash") properties.Remove("sw_hash");
+        server.Files[id] = new { id, mimeType = condition == "mime" ? "application/octet-stream" : folder ? GoogleDriveClient.FolderMime : GoogleDriveClient.SheetMime,
+            trashed = condition == "trashed", capabilities = new { canEdit = condition != "permission" }, appProperties = properties };
+        var before = server.Posts;
+        var failure = await Assert.ThrowsAsync<InvalidDataException>(async () =>
+        {
+            if (folder) _ = await importer.EnsureFolderAsync(); else _ = await importer.ImportReceiptAsync(w.Source);
+        });
+        var context = Assert.IsType<RemoteValidationContext>(failure.Data["RemoteValidation"]);
+        Assert.Equal(folder, context.IsFolder); Assert.True(context.PreviouslyVerified); Assert.Equal(before, server.Posts);
+        Assert.Equal(condition != "marker", context.MarkerPresent); Assert.Equal(condition != "hash", context.HashPresent);
+        Assert.Equal(condition != "permission", context.CanEdit); Assert.Equal(condition != "mime", context.MimeMatches); Assert.Equal(condition == "trashed", context.IsTrashed);
     }
 
     [Fact]

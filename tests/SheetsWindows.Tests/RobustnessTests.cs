@@ -230,6 +230,20 @@ public sealed class RobustnessTests
     }
 
     [Fact]
+    public async Task RemoteValidationDiagnosticsContainOnlyBooleanChecks()
+    {
+        using var w = new Workspace(); var log = new DiagnosticLog(new LocalStorage(Path.Combine(w.Root, "state")));
+        var failure = new InvalidDataException("Remote conversion or association validation failed.");
+        var context = new RemoteValidationContext(false, false, true, true, false, false, false, false, true);
+        failure.Data["RemoteValidation"] = context; failure.Data["Token"] = "secret"; failure.Data["GoogleId"] = "private-id";
+        await log.RecordAsync(DiagnosticEvent.Failed, failure: failure);
+        var path = Path.Combine(w.Root, "remote.jsonl"); await log.ExportAsync(path);
+        var entry = JsonSerializer.Deserialize<DiagnosticEntry>(File.ReadLines(path).First())!;
+        Assert.Equal(context, entry.RemoteValidation);
+        Assert.DoesNotContain("secret", File.ReadAllText(path)); Assert.DoesNotContain("private-id", File.ReadAllText(path));
+    }
+
+    [Fact]
     public async Task BrokenDiagnosticDirectoryDoesNotChangeOperationOutcome()
     {
         using var w = new Workspace(); var storage = new LocalStorage(Path.Combine(w.Root, "state")); Directory.CreateDirectory(storage.Root); File.WriteAllText(Path.Combine(storage.Root, "logs"), "blocked");
