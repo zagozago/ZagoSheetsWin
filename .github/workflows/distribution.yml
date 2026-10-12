@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.29: Google JSON selection moved to compact advanced options; Windows/Linux, native UI and installer validated in Local core run 38205898418.
+# Distribution candidate 0.9.29: confirmed atomic diagnostic overwrite, safe failure context and large-CSV reopen regressions validated in Local core run 38209641958.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
