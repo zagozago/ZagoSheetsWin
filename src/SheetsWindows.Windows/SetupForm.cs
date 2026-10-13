@@ -10,6 +10,7 @@ internal sealed class SetupForm : Form
     private CancellationTokenSource cancellation = new();
     private bool busy;
     private bool disconnectRequested;
+    private bool cancellationDisposed;
     public SetupForm(bool firstUse = false, bool preview = false, string? previewEmail = null)
     {
         var storage = LocalStorage.ForCurrentUser();
@@ -183,6 +184,6 @@ internal sealed class SetupForm : Form
         FitCenter();
     }
     private void ResetCancellation() { if (cancellation.IsCancellationRequested) { cancellation.Dispose(); cancellation = new(); } }
-    protected override void Dispose(bool disposing) { if (disposing) { cancellation.Cancel(); cancellation.Dispose(); } base.Dispose(disposing); }
+    protected override void Dispose(bool disposing) { if (disposing && !cancellationDisposed) { cancellationDisposed = true; cancellation.Cancel(); cancellation.Dispose(); } base.Dispose(disposing); }
 }
 
