@@ -122,15 +122,33 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
     public string? ImportNotice { get; private set; }
     private GoogleOAuth Auth(OAuthClient client, FileOperationLock locks) => new(http, client,
         new DpapiTokenVault(System.IO.Path.Combine(storage.Root, "auth"), client.Id), new LoopbackAuthorizationReceiver(browser.Open), locks);
-    public async Task CheckConnectionAsync(CancellationToken ct = default)
+    public async Task<string?> CheckConnectionAsync(CancellationToken ct = default)
     {
+        telemetry?.Mark(ProcessingStep.Configuration, CheckpointOutcome.Started);
         var client = await LauncherConfiguration.LoadClientAsync(storage, ct);
-        try { _ = await Auth(client, new FileOperationLock(storage.LocksPath)).AccessAsync(refresh: true, cancellationToken: ct); }
+        telemetry?.Mark(ProcessingStep.Configuration);
+        try { return (await Auth(client, new FileOperationLock(storage.LocksPath)).AccessAsync(refresh: true, cancellationToken: ct)).Email; }
         catch (GoogleApiException ex) when (ex.Status == 401) { throw new AuthorizationRequiredException(); }
+    }
+    public async Task DisconnectAsync(CancellationToken ct = default)
+    {
+        if (!File.Exists(LauncherConfiguration.ClientPath(storage))) return;
+        telemetry?.Mark(ProcessingStep.Configuration, CheckpointOutcome.Started);
+        var client = await LauncherConfiguration.LoadClientAsync(storage, ct);
+        telemetry?.Mark(ProcessingStep.Configuration);
+        await Auth(client, new FileOperationLock(storage.LocksPath)).DisconnectAsync(ct);
+    }
+    public string? SavedAccountEmail()
+    {
+        if (!File.Exists(LauncherConfiguration.ClientPath(storage))) return null;
+        var client = LauncherConfiguration.LoadClientAsync(storage).GetAwaiter().GetResult();
+        return new DpapiTokenVault(Path.Combine(storage.Root, "auth"), client.Id).Load()?.Email;
     }
     public async Task LoginAsync(CancellationToken ct = default)
     {
+        telemetry?.Mark(ProcessingStep.Configuration, CheckpointOutcome.Started);
         var client = await LauncherConfiguration.LoadClientAsync(storage, ct);
+        telemetry?.Mark(ProcessingStep.Configuration);
         var locks = new FileOperationLock(storage.LocksPath); var auth = Auth(client, locks);
         await auth.ConnectAsync(ct);
         await new GoogleImport(storage.CreatePreparation(), new SqliteOperationRegistry(storage.DatabasePath),
@@ -142,7 +160,9 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         ImportNotice = null;
         // Optional folder scope; fixed-local-file and sync protections still apply.
         var request = LauncherRequest.Parse(["--open", path]);
+        telemetry?.Mark(ProcessingStep.Configuration, CheckpointOutcome.Started);
         var client = await LauncherConfiguration.LoadClientAsync(storage, ct);
+        telemetry?.Mark(ProcessingStep.Configuration);
         if (!OpeningPolicy.IsConfigured(storage)) throw new LauncherNotConfiguredException();
         var opening = OpeningPolicy.Load(storage);
         if (CopyImportSettings.Load(storage) || !ShortcutSettings.Load(storage)) return await CopyAsync(path, progress, ct);
@@ -154,7 +174,9 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         }
         if (SpreadsheetFormats.Format(path) == "xls" && !XlsReplacementSettings.Load(storage)) return await CopyAsync(path, progress, ct);
         var sources = new WindowsRetirementReader(opening.RestrictToFolder ? opening.Folder : null);
+        telemetry?.Mark(ProcessingStep.SourceOpening, CheckpointOutcome.Started);
         await using (var eligibility = sources.Open(request.Path!)) { }
+        telemetry?.Mark(ProcessingStep.SourceOpening);
         progress?.Report(UiText.Get("progress.fileAndBackup"));
         var textOptions = SpreadsheetFormats.Format(path) == "xlsx" ? null : ExtendedConfiguration.Load(storage);
         var preparation = storage.CreatePreparation(); var local = new SqliteOperationRegistry(storage.DatabasePath);
@@ -178,11 +200,15 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
     public async Task<string> CopyAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default)
     {
         _ = LauncherRequest.Parse(["--copy", path]);
+        telemetry?.Mark(ProcessingStep.Configuration, CheckpointOutcome.Started);
         var client = await LauncherConfiguration.LoadClientAsync(storage, ct);
+        telemetry?.Mark(ProcessingStep.Configuration);
         var options = SpreadsheetFormats.Format(path) == "xlsx" ? null : ExtendedConfiguration.Load(storage);
         var sources = new SourceReader(copyEnvironments: true);
         // Preflight is read-only, does not hydrate online-only placeholders and precedes OAuth/network.
+        telemetry?.Mark(ProcessingStep.SourceOpening, CheckpointOutcome.Started);
         await using (var preflight = sources.Open(path)) { }
+        telemetry?.Mark(ProcessingStep.SourceOpening);
         var locks = new FileOperationLock(storage.LocksPath); var auth = Auth(client, locks);
         var importer = new GoogleImport(storage.CreatePreparation(sources), new SqliteOperationRegistry(storage.DatabasePath),
             new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")), sources, locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads"))), options, telemetry, new BackupManagement(storage));
@@ -203,7 +229,9 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         }
         var remote = new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db"));
         var mapping = remote.Get("sheet:" + id.ToString("N")) ?? throw new ReconciliationRequiredException();
-        var client = await LauncherConfiguration.LoadClientAsync(storage, ct); var locks = new FileOperationLock(storage.LocksPath); var auth = Auth(client, locks);
+        telemetry?.Mark(ProcessingStep.Configuration, CheckpointOutcome.Started);
+        var client = await LauncherConfiguration.LoadClientAsync(storage, ct);
+        telemetry?.Mark(ProcessingStep.Configuration); var locks = new FileOperationLock(storage.LocksPath); var auth = Auth(client, locks);
         var access = await auth.AccessAsync(cancellationToken: ct);
         if (access.AccountId != operation.AccountId || mapping.AccountId != operation.AccountId) throw new LocalConflictException("Account changed.");
         var drive = new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads")));
@@ -262,4 +290,5 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
     }
 
 }
+
 

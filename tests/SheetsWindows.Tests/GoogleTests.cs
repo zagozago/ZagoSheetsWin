@@ -723,7 +723,7 @@ public sealed class GoogleTests
     public void WebClientCredentialsAreRejected()
     { Assert.Throws<InvalidDataException>(() => OAuthClient.FromJson("{\"web\":{\"client_id\":\"id\"}}")); }
     private sealed class MemoryVault : ITokenVault
-    { public GoogleTokens? Tokens; public GoogleTokens? Load() => Tokens; public void Save(GoogleTokens t) => Tokens = t; }
+    { public GoogleTokens? Tokens; public GoogleTokens? Load() => Tokens; public void Save(GoogleTokens t) => Tokens = t; public void Delete() => Tokens = null; }
     private sealed class Receiver : IAuthorizationReceiver
     {
         public OAuthProof? Proof;
@@ -731,9 +731,15 @@ public sealed class GoogleTests
     }
     private sealed class OAuthServer : HttpMessageHandler
     {
-        public bool Revoked, DeniedScope, OtherAccount; public string? LastBody;
+        public bool Revoked, DeniedScope, OtherAccount, RevokeOffline; public string? LastBody, RevocationBody; public HttpStatusCode RevocationStatus = HttpStatusCode.OK;
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage req, CancellationToken ct)
         {
+            if (req.RequestUri!.AbsolutePath == "/revoke")
+            {
+                RevocationBody = await req.Content!.ReadAsStringAsync(ct);
+                if (RevokeOffline) throw new HttpRequestException("offline");
+                return new(RevocationStatus);
+            }
             if (req.RequestUri!.AbsolutePath == "/token")
             {
                 LastBody = await req.Content!.ReadAsStringAsync(ct); if (Revoked) return new(HttpStatusCode.BadRequest);
@@ -741,9 +747,51 @@ public sealed class GoogleTests
                 if (LastBody.Contains("grant_type=authorization_code", StringComparison.Ordinal)) values["refresh_token"] = "initial-refresh";
                 return Json(values);
             }
-            return Json(new { user = new { permissionId = OtherAccount ? "other" : "user" } });
+            return Json(new { user = new { permissionId = OtherAccount ? "other" : "user", emailAddress = OtherAccount ? "other@example.com" : "user@example.com" } });
         }
     }
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task DisconnectRemovesCredentialsAndBlocksAccessEvenWhenRevocationIsOffline(bool offline)
+    {
+        using var w = new Workspace(); var vault = new MemoryVault { Tokens = new("client", "client:user", "access", "refresh", DateTimeOffset.UtcNow.AddHours(1), "user@example.com") };
+        using var server = new OAuthServer { RevokeOffline = offline }; using var http = new HttpClient(server);
+        var oauth = new GoogleOAuth(http, new("client", null), vault, new Receiver(), new FileOperationLock(w.Locks));
+        if (offline) await Assert.ThrowsAsync<HttpRequestException>(() => oauth.DisconnectAsync()); else await oauth.DisconnectAsync();
+        Assert.Null(vault.Load()); Assert.Equal("token=refresh", server.RevocationBody);
+        await Assert.ThrowsAsync<AuthorizationRequiredException>(() => oauth.AccessAsync());
+        await Assert.ThrowsAsync<AuthorizationRequiredException>(() => oauth.AccessAsync(refresh: true));
+        await oauth.DisconnectAsync(); Assert.Null(vault.Load());
+    }
+    private sealed class WaitingReceiver : IAuthorizationReceiver
+    {
+        public async Task<AuthorizationCode> ReceiveAsync(OAuthClient client, OAuthProof proof, CancellationToken ct)
+        { await Task.Delay(Timeout.Infinite, ct); throw new InvalidOperationException(); }
+    }
+    [Fact]
+    public async Task CancelPendingSwitchThenDisconnectCannotReusePreviousAccount()
+    {
+        using var w = new Workspace(); var vault = new MemoryVault { Tokens = new("client", "client:user", "access", "refresh", DateTimeOffset.UtcNow.AddHours(1)) };
+        using var server = new OAuthServer(); using var http = new HttpClient(server); using var ct = new CancellationTokenSource();
+        var oauth = new GoogleOAuth(http, new("client", null), vault, new WaitingReceiver(), new FileOperationLock(w.Locks));
+        var connect = oauth.ConnectAsync(ct.Token); ct.Cancel();
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => connect); Assert.NotNull(vault.Load());
+        await oauth.DisconnectAsync(); Assert.Null(vault.Load());
+        await Assert.ThrowsAsync<AuthorizationRequiredException>(() => oauth.AccessAsync());
+    }
+    [WindowsFact]
+    public async Task LauncherDisconnectDeletesProtectedVaultAndPreventsConnectionCheckAndUpload()
+    {
+        using var w = new Workspace(); ConfigureLauncher(w, out var storage); File.WriteAllBytes(w.Source, Workbook());
+        using var server = new OAuthServer(); using var http = new HttpClient(server); var browser = new LauncherBrowser(); var launcher = new WindowsLauncher(storage, http, browser);
+        Assert.Equal("user@example.com", await launcher.CheckConnectionAsync()); Assert.Equal("user@example.com", launcher.SavedAccountEmail());
+        await launcher.DisconnectAsync(); Assert.True(FirstUseState.NeedsAuthorization(storage)); Assert.Null(launcher.SavedAccountEmail());
+        await Assert.ThrowsAsync<AuthorizationRequiredException>(() => launcher.CheckConnectionAsync());
+        await Assert.ThrowsAsync<AuthorizationRequiredException>(() => launcher.OpenAsync(w.Source));
+        Assert.True(File.Exists(w.Source)); Assert.Empty(browser.Opened); Assert.Empty(Directory.GetFiles(Path.Combine(storage.Root, "auth"), "*.tokens.dat"));
+    }
+
     [WindowsFact]
     public async Task ConnectionCheckRefreshesSavedAuthorizationWithoutOpeningBrowserAndDetectsRevocation()
     {
@@ -804,7 +852,7 @@ public sealed class GoogleTests
     {
         using var w = new Workspace(); var vault = new MemoryVault(); var receiver = new Receiver(); using var server = new OAuthServer(); using var http = new HttpClient(server);
         var result = await new GoogleOAuth(http, new("client", null), vault, receiver, new FileOperationLock(w.Locks)).ConnectAsync();
-        Assert.Equal("client:user", result.AccountId); Assert.Equal("initial-refresh", vault.Tokens!.RefreshToken);
+        Assert.Equal("client:user", result.AccountId); Assert.Equal("user@example.com", result.Email); Assert.Equal("user@example.com", vault.Tokens!.Email); Assert.Equal("initial-refresh", vault.Tokens.RefreshToken);
         Assert.Contains("code_verifier=" + receiver.Proof!.Verifier, server.LastBody); Assert.Contains("grant_type=authorization_code", server.LastBody);
     }
     [WindowsFact]
@@ -837,4 +885,5 @@ public sealed class GoogleTests
         Assert.Equal(tokens.RefreshToken, vault.Load()!.RefreshToken); Assert.DoesNotContain("refresh-secret", Encoding.UTF8.GetString(File.ReadAllBytes(Assert.Single(Directory.GetFiles(Path.Combine(w.Root, "auth"))))));
     }
 }
+
 

@@ -4,7 +4,7 @@ namespace SheetsWindows.Infrastructure;
 
 public enum ProcessingPhase { Conversion, Upload, Verification }
 [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<ProcessingStep>))]
-public enum ProcessingStep { Preflight, Authorization, PreviousAssociation, TrashedAssociationRetired, SnapshotPreparation, SourceValidation, SnapshotValidation, Conversion, FolderAssociation, RemoteIntent, RemoteCandidate, RemoteLookup, RemoteValidation, RemoteVerified, UploadResume, ImportReady, Replacement, ConversionVerification, ShortcutPublication, BrowserLaunch, SourceRetirement, CopyCompletion }
+public enum ProcessingStep { Preflight, Authorization, PreviousAssociation, TrashedAssociationRetired, SnapshotPreparation, SourceValidation, SnapshotValidation, Conversion, FolderAssociation, RemoteIntent, RemoteCandidate, RemoteLookup, RemoteValidation, RemoteVerified, UploadResume, ImportReady, Replacement, ConversionVerification, ShortcutPublication, BrowserLaunch, SourceRetirement, CopyCompletion, Configuration, SourceOpening }
 [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<CheckpointOutcome>))]
 public enum CheckpointOutcome { Started, Completed, Failed }
 public sealed record ProcessingCheckpoint(ProcessingStep Step, CheckpointOutcome Outcome, long ElapsedMs, RemoteValidationContext? RemoteValidation = null);
@@ -82,4 +82,5 @@ public sealed class ProcessingTelemetry(long? startedAt = null, IProgress<string
         return new(Ms(Stopwatch.GetTimestamp() - started), readyTicks < 0 ? null : Ms(readyTicks), Stage(0), Stage(1), Stage(2), memory, cpu, peak);
     }
 }
+
 

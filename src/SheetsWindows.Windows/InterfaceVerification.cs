@@ -167,6 +167,25 @@ internal static class InterfaceVerification
             Require(informationButtons[0].PopupVisible && informationButtons[0].PopupContent is not null, "Contextual information must open without a second settings modal.");
             setup.Hide();
         }
+        Console.Error.WriteLine("VERIFY: account email and permanent disconnect action");
+        var longEmail = new string('a', 64) + "@" + new string('b', 120) + ".example";
+        using (var accountSetup = new SetupForm(preview: true, previewEmail: longEmail))
+        {
+            accountSetup.Show(); Application.DoEvents();
+            foreach (var language in LanguageSettings.Available)
+            {
+                UiText.Select(language.Code); Application.DoEvents();
+                var accountLabel = Descendants(accountSetup).OfType<Label>().Single(l => l.Text.Contains(longEmail, StringComparison.Ordinal));
+                Require(TextRenderer.MeasureText(accountLabel.Text, accountLabel.Font, Size.Empty, TextFormatFlags.SingleLine | TextFormatFlags.NoPadding).Width <= accountLabel.Width - 12,
+                    "The complete account email must fit without wrapping or clipping.");
+                var disconnect = Descendants(accountSetup).OfType<Button>().Single(b => b.Text == UiText.Get("setup.cancelConnection"));
+                Require(disconnect.Visible && disconnect.Parent is TableLayoutPanel { ColumnCount: 3 }, "Disconnect must remain in the three account actions.");
+            }
+            UiText.Select("pt"); Application.DoEvents();
+            Descendants(accountSetup).OfType<Button>().Single(b => b.Text == UiText.Get("setup.cancelConnection")).PerformClick(); Application.DoEvents();
+            Require(!Descendants(accountSetup).OfType<Label>().Any(l => l.Text.Contains(longEmail, StringComparison.Ordinal)), "Disconnect must clear the displayed account email.");
+            accountSetup.Close();
+        }
         Console.Error.WriteLine("VERIFY: advanced JSON selection");
         var clientTestRoot = Path.Combine(Path.GetTempPath(), "zagosheets-client-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(clientTestRoot);
@@ -374,4 +393,5 @@ internal static class InterfaceVerification
         foreach (Control child in parent.Controls) { yield return child; foreach (var descendant in Descendants(child)) yield return descendant; }
     }
 }
+
 

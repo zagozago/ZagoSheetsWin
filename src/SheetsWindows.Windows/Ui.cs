@@ -13,15 +13,16 @@ internal static class Ui
     internal static Label Center(Label label) { label.Tag = "center"; label.TextAlign = ContentAlignment.MiddleCenter; return label; }
     internal static Label Hero(string text) => new EmphasisLabel { Tag = "center", Text = text, AutoSize = true, TextAlign = ContentAlignment.MiddleCenter,
         Font = new Font(LanguageVisuals.Family, 16, FontStyle.Bold), Margin = new Padding(0, 16, 0, 10), MaximumSize = new Size(700, 0) };
-    internal static TableLayoutPanel Pair(Control left, Control right)
+    internal static TableLayoutPanel Pair(Control left, Control right) => Columns(left, right);
+    internal static TableLayoutPanel Columns(params Control[] children)
     {
-        var row = new TableLayoutPanel { AutoSize = false, ColumnCount = 2, RowCount = 1, Margin = new Padding(0, 2, 0, 6) };
-        row.ColumnStyles.Add(new(SizeType.Percent, 50)); row.ColumnStyles.Add(new(SizeType.Percent, 50)); row.RowStyles.Add(new(SizeType.Percent, 100));
-        foreach (var child in new[] { left, right }) { child.Dock = DockStyle.Fill; child.Margin = new Padding(0, 2, 8, 2); }
-        row.Controls.Add(left, 0, 0); row.Controls.Add(right, 1, 0);
+        var row = new TableLayoutPanel { AutoSize = false, ColumnCount = children.Length, RowCount = 1, Margin = new Padding(0, 2, 0, 6) };
+        foreach (var child in children) row.ColumnStyles.Add(new(SizeType.Percent, 100f / children.Length)); row.RowStyles.Add(new(SizeType.Percent, 100));
+        foreach (var child in children) { child.Dock = DockStyle.Fill; child.Margin = new Padding(0, 2, 8, 2); }
+        for (var i = 0; i < children.Length; i++) row.Controls.Add(children[i], i, 0);
         void Fit()
         {
-            var width = Math.Max(50, row.ClientSize.Width / 2 - 8);
+            var width = Math.Max(50, row.ClientSize.Width / children.Length - 8);
             var height = 32;
             foreach (Control child in row.Controls)
             {
@@ -67,4 +68,5 @@ internal static class Ui
         ResizeChildren();
     }
 }
+
 

@@ -22,19 +22,21 @@ public sealed class OAuthClient(string id, string? secret)
         return new(id, client.TryGetProperty("client_secret", out var s) ? s.GetString() : null);
     }
 }
-public sealed class GoogleTokens(string clientId, string accountId, string accessToken, string refreshToken, DateTimeOffset expiresAt)
+public sealed class GoogleTokens(string clientId, string accountId, string accessToken, string refreshToken, DateTimeOffset expiresAt, string? email = null)
 {
     public string ClientId { get; } = clientId;
     public string AccountId { get; } = accountId;
     public string AccessToken { get; } = accessToken;
     public string RefreshToken { get; } = refreshToken;
     public DateTimeOffset ExpiresAt { get; } = expiresAt;
+    public string? Email { get; } = email;
     public override string ToString() => "GoogleTokens [redacted]";
 }
 public interface ITokenVault
 {
     GoogleTokens? Load();
     void Save(GoogleTokens tokens);
+    void Delete() => throw new NotSupportedException("Token deletion is unavailable.");
 }
 public sealed class DpapiTokenVault : ITokenVault
 {
@@ -60,6 +62,7 @@ public sealed class DpapiTokenVault : ITokenVault
         }
         catch (CryptographicException) { throw new AuthorizationRequiredException(); }
     }
+    public void Delete() { if (File.Exists(path)) File.Delete(path); }
     public void Save(GoogleTokens tokens)
     {
         if (!OperatingSystem.IsWindows()) throw new PlatformNotSupportedException();
@@ -163,8 +166,8 @@ public sealed class GoogleOAuth(HttpClient http, OAuthClient client, ITokenVault
         var proof = new OAuthProof(); var result = await receiver.ReceiveAsync(client, proof, ct);
         var body = new Dictionary<string, string> { ["grant_type"] = "authorization_code", ["code"] = result.Code, ["code_verifier"] = proof.Verifier, ["redirect_uri"] = result.Redirect.AbsoluteUri };
         var raw = await TokenAsync(body, ct); var account = await AccountAsync(raw.Access, ct);
-        var tokens = new GoogleTokens(client.Id, account, raw.Access, raw.Refresh ?? throw new AuthorizationRequiredException(), DateTimeOffset.UtcNow.AddSeconds(raw.Seconds));
-        vault.Save(tokens); return new(account, tokens.AccessToken);
+        var tokens = new GoogleTokens(client.Id, account.Id, raw.Access, raw.Refresh ?? throw new AuthorizationRequiredException(), DateTimeOffset.UtcNow.AddSeconds(raw.Seconds), account.Email);
+        ct.ThrowIfCancellationRequested(); vault.Save(tokens); return new(account.Id, tokens.AccessToken, tokens.Email);
     }
     public async Task<GoogleAccess> AccessAsync(bool refresh = false, CancellationToken cancellationToken = default)
     {
@@ -175,10 +178,23 @@ public sealed class GoogleOAuth(HttpClient http, OAuthClient client, ITokenVault
         {
             var raw = await TokenAsync(new() { ["grant_type"] = "refresh_token", ["refresh_token"] = tokens.RefreshToken }, cancellationToken);
             var account = await AccountAsync(raw.Access, cancellationToken);
-            if (account != tokens.AccountId) throw new AuthorizationRequiredException();
-            tokens = new(client.Id, account, raw.Access, raw.Refresh ?? tokens.RefreshToken, DateTimeOffset.UtcNow.AddSeconds(raw.Seconds)); vault.Save(tokens);
+            if (account.Id != tokens.AccountId) throw new AuthorizationRequiredException();
+            tokens = new(client.Id, account.Id, raw.Access, raw.Refresh ?? tokens.RefreshToken, DateTimeOffset.UtcNow.AddSeconds(raw.Seconds), account.Email); vault.Save(tokens);
         }
-        return new(tokens.AccountId, tokens.AccessToken);
+        return new(tokens.AccountId, tokens.AccessToken, tokens.Email);
+    }
+    public async Task DisconnectAsync(CancellationToken ct = default)
+    {
+        await using var held = await locks.AcquireAsync(Key, ct);
+        GoogleTokens? tokens;
+        try { tokens = vault.Load(); } catch (AuthorizationRequiredException) { tokens = null; }
+        vault.Delete(); // Local access stops even when the revocation request fails offline.
+        if (tokens is null) return;
+        using var request = new HttpRequestMessage(HttpMethod.Post, "https://oauth2.googleapis.com/revoke")
+        { Content = new FormUrlEncodedContent(new Dictionary<string, string> { ["token"] = tokens.RefreshToken }) };
+        using var response = await http.SendAsync(request, ct);
+        if (!response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.BadRequest)
+            throw new GoogleApiException((int)response.StatusCode);
     }
     private async Task<(string Access, string? Refresh, int Seconds)> TokenAsync(Dictionary<string, string> values, CancellationToken ct)
     {
@@ -193,12 +209,16 @@ public sealed class GoogleOAuth(HttpClient http, OAuthClient client, ITokenVault
         if (e.TryGetProperty("scope", out var scope) && !scope.GetString()!.Split(' ').Contains(Scope)) throw new AuthorizationRequiredException();
         return (access, e.TryGetProperty("refresh_token", out var r) ? r.GetString() : null, seconds);
     }
-    private async Task<string> AccountAsync(string token, CancellationToken ct)
+    private async Task<(string Id, string? Email)> AccountAsync(string token, CancellationToken ct)
     {
-        using var request = new HttpRequestMessage(HttpMethod.Get, "https://www.googleapis.com/drive/v3/about?fields=user(permissionId)"); request.Headers.Authorization = new("Bearer", token);
+        using var request = new HttpRequestMessage(HttpMethod.Get, "https://www.googleapis.com/drive/v3/about?fields=user(permissionId,emailAddress)"); request.Headers.Authorization = new("Bearer", token);
         using var response = await http.SendAsync(request, ct); if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode);
         using var stream = await response.Content.ReadAsStreamAsync(ct); using var doc = await JsonDocument.ParseAsync(stream, cancellationToken: ct);
         var id = doc.RootElement.GetProperty("user").GetProperty("permissionId").GetString(); GoogleDriveClient.ValidateId(id!);
-        return client.Id + ":" + id;
+        var user = doc.RootElement.GetProperty("user");
+        var email = user.TryGetProperty("emailAddress", out var address) ? address.GetString() : null;
+        if (email is not null && (email.Length > 320 || email.Any(char.IsControl) || !email.Contains('@'))) email = null;
+        return (client.Id + ":" + id, email);
     }
 }
+

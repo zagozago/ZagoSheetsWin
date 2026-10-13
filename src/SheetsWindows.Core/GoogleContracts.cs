@@ -1,9 +1,10 @@
 namespace SheetsWindows.Core;
 
-public sealed class GoogleAccess(string accountId, string token)
+public sealed class GoogleAccess(string accountId, string token, string? email = null)
 {
     public string AccountId { get; } = accountId;
     public string Token { get; } = token;
+    public string? Email { get; } = email;
     public override string ToString() => "GoogleAccess [redacted]";
 }
 public interface IGoogleAuth { Task<GoogleAccess> AccessAsync(bool refresh = false, CancellationToken cancellationToken = default); }
@@ -19,4 +20,5 @@ public interface IRemoteRegistry
 public sealed class ReconciliationRequiredException() : IOException("Remote creation outcome is uncertain; reconciliation required. No new upload was attempted.");
 public sealed class GoogleApiException(int status) : IOException($"Google request failed (HTTP {status}).") { public int Status { get; } = status; }
 public sealed class AuthorizationRequiredException() : IOException("Google sign-in is required.");
+
 

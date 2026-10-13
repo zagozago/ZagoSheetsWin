@@ -6,10 +6,10 @@ namespace SheetsWindows.Infrastructure;
 
 public enum DiagnosticEvent { Started, Completed, Cancelled, AuthorizationRequired, ReconciliationRequired, LocalConflict, ConversionMismatch, Failed, Exported }
 public enum DiagnosticFailure { WorkbookContentType, FormulaVerification, ConversionDifference, GoogleApi, Network, FileAccess, InvalidData, UnsupportedFormat, Other }
-public enum DiagnosticCode { SnapshotIntegrity, RemoteAssociation, SourceIdentity, SourceChanged, AssociationBinding, TextEncoding, TextStructure, CsvDelimiter, WorkbookContentType, FileAccess, Database, GoogleApi, Network, Other }
+public enum DiagnosticCode { SnapshotIntegrity, RemoteAssociation, SourceIdentity, SourceChanged, AssociationBinding, TextEncoding, TextStructure, CsvDelimiter, WorkbookContentType, FileAccess, Database, GoogleApi, Network, Other, FileMissing, FileBusy }
 public sealed record RemoteValidationContext(bool IsFolder, bool IsTrashed, bool CanEdit, bool MimeMatches,
     bool MarkerPresent, bool MarkerMatches, bool HashPresent, bool HashMatches, bool PreviouslyVerified);
-public sealed record DiagnosticEntry(DateTimeOffset Time, DiagnosticEvent Event, Guid? Operation, ProcessingMetrics? Metrics = null, DiagnosticFailure? Failure = null, string? Version = null, Guid? AttemptId = null, ProcessingPhase? Stage = null, DiagnosticCode? Code = null, int? NativeError = null, int? GoogleStatus = null, int? SqliteCode = null, RemoteValidationContext? RemoteValidation = null, IReadOnlyList<ProcessingCheckpoint>? Trace = null, string? Revision = null);
+public sealed record DiagnosticEntry(DateTimeOffset Time, DiagnosticEvent Event, Guid? Operation, ProcessingMetrics? Metrics = null, DiagnosticFailure? Failure = null, string? Version = null, Guid? AttemptId = null, ProcessingPhase? Stage = null, DiagnosticCode? Code = null, int? NativeError = null, int? GoogleStatus = null, int? SqliteCode = null, RemoteValidationContext? RemoteValidation = null, IReadOnlyList<ProcessingCheckpoint>? Trace = null, string? Revision = null, int? Win32Code = null);
 // Diagnostic files are disposable; durable operation journals and backups are never pruned.
 public sealed class DiagnosticLog(LocalStorage storage)
 {
@@ -86,10 +86,13 @@ public sealed class DiagnosticLog(LocalStorage storage)
         };
         DiagnosticCode? code = failure is null ? null : failure switch
         {
+            FileNotFoundException or DirectoryNotFoundException => DiagnosticCode.FileMissing,
+            System.ComponentModel.Win32Exception win32 when win32.NativeErrorCode is 32 or 33 => DiagnosticCode.FileBusy,
+            IOException io when (io.HResult & 0xffff) is 32 or 33 => DiagnosticCode.FileBusy,
             InvalidDataException data when data.Message == "Snapshot integrity failure." => DiagnosticCode.SnapshotIntegrity,
             InvalidDataException data when data.Message == "Remote conversion or association validation failed." => DiagnosticCode.RemoteAssociation,
             LocalConflictException conflict when conflict.Message == "Source identity changed; upload blocked." => DiagnosticCode.SourceIdentity,
-            LocalConflictException conflict when conflict.Message == "Source changed; upload blocked." => DiagnosticCode.SourceChanged,
+            LocalConflictException conflict when conflict.Message is "Source changed; upload blocked." or "Source changed after snapshot; original is preserved." => DiagnosticCode.SourceChanged,
             InvalidOperationException binding when binding.Message == "Association binding changed." => DiagnosticCode.AssociationBinding,
             InvalidDataException data when data.Message is "Invalid text encoding or characters." or "Encoding conflicts with BOM." => DiagnosticCode.TextEncoding,
             InvalidDataException data when data.Message == "Ambiguous CSV delimiter; configure it explicitly." => DiagnosticCode.CsvDelimiter,
@@ -103,7 +106,7 @@ public sealed class DiagnosticLog(LocalStorage storage)
             _ => DiagnosticCode.Other
         };
         return new DiagnosticEntry(DateTimeOffset.UtcNow, kind, operation, metrics, reason, UiText.ProductVersion, attemptId, stage, code,
-            failure?.HResult, (failure as GoogleApiException)?.Status, (failure as Microsoft.Data.Sqlite.SqliteException)?.SqliteErrorCode, failure?.Data["RemoteValidation"] as RemoteValidationContext, trace, BuildRevision);
+            failure?.HResult, (failure as GoogleApiException)?.Status, (failure as Microsoft.Data.Sqlite.SqliteException)?.SqliteErrorCode, failure?.Data["RemoteValidation"] as RemoteValidationContext, trace, BuildRevision, (failure as System.ComponentModel.Win32Exception)?.NativeErrorCode);
     }
     private static void ValidateTrace(IReadOnlyList<ProcessingCheckpoint>? trace)
     {
@@ -159,4 +162,5 @@ public sealed class DiagnosticLog(LocalStorage storage)
         finally { if (File.Exists(temporary)) File.Delete(temporary); }
     }
 }
+
 

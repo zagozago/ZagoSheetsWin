@@ -9,6 +9,30 @@ namespace SheetsWindows.Tests;
 
 public sealed class FormatTests
 {
+    [Theory]
+    [InlineData(37790, true)]
+    [InlineData(50000, false)]
+    public void LargeSevenColumnCsvCountsRecordsNotPhysicalLinesAndRoundTripsControls(int rows, bool multiline)
+    {
+        var csv = new StringBuilder();
+        for (var row = 0; row < rows; row++)
+        {
+            for (var column = 0; column < 7; column++)
+            {
+                if (column > 0) csv.Append(',');
+                csv.Append('"');
+                if (multiline && row < 5900 && column == 0) csv.Append("first\nsecond\n");
+                csv.Append("cell_").Append(row).Append('_').Append(column);
+                if (column == 0) csv.Append('\b');
+                csv.Append('"');
+            }
+            csv.Append('\n');
+        }
+        var payload = SpreadsheetFormats.Prepare("csv", Encoding.UTF8.GetBytes(csv.ToString()));
+        Assert.Equal(rows, payload.Expected![0].Rows.Count); Assert.Equal(7, payload.Expected[0].Rows[0].Count);
+        SpreadsheetFormats.VerifyValues(payload.Expected, payload.Bytes);
+    }
+
     [Fact]
     public void CsvXmlForbiddenControlsArePreservedThroughOpenXmlNotTreatedAsBadEncoding()
     {
@@ -275,3 +299,4 @@ public sealed class FormatTests
         Assert.Equal(LauncherAction.Open, LauncherRequest.Parse([path]).Action); Assert.Equal(LauncherAction.Copy, LauncherRequest.Parse(["--copy", path]).Action);
     }
 }
+
