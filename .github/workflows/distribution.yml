@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.29: new local import after confirmed remote trash and bounded processing traces validated in Local core run 38319369375.
+# Distribution candidate 0.9.29: real OAuth disconnect, account email and 50000-record CSV regressions validated in Local core run 38339512292.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
