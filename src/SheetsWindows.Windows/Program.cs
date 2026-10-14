@@ -4,6 +4,13 @@ namespace SheetsWindows.Windows;
 
 internal static class Program
 {
+    internal static Form? StartupConfiguration(LauncherAction action, bool needsSetup, bool needsAuthorization, bool preview = false)
+    {
+        if (action != LauncherAction.FirstUse && !needsSetup && !needsAuthorization) return null;
+        return action is LauncherAction.Open or LauncherAction.Copy
+            ? new SetupForm(preview: preview)
+            : new FirstUseWizard(preview: preview);
+    }
     [STAThread]
     private static int Main(string[] args)
     {
@@ -85,9 +92,16 @@ internal static class Program
             if (request.Action is LauncherAction.FirstUse or LauncherAction.Home or LauncherAction.Open or LauncherAction.Copy)
             {
                 var storage = LocalStorage.ForCurrentUser();
-                if (request.Action == LauncherAction.FirstUse || FirstUseState.NeedsSetup(storage) || FirstUseState.NeedsAuthorization(storage))
+                var needsSetup = FirstUseState.NeedsSetup(storage);
+                using var initial = StartupConfiguration(request.Action, needsSetup, needsSetup || FirstUseState.NeedsAuthorization(storage));
+                if (initial is SetupForm settings)
                 {
-                    using var wizard = new FirstUseWizard(); Application.Run(wizard);
+                    // Opening settings does not authorize importing the pending file. Leave it untouched until reopened.
+                    Application.Run(settings); return settings.ExitCode;
+                }
+                if (initial is FirstUseWizard wizard)
+                {
+                    Application.Run(wizard);
                     if (!wizard.Completed) return 1;
                     if (request.Action is LauncherAction.Home or LauncherAction.FirstUse)
                     { using var home = new LauncherForm(new(LauncherAction.Home)); Application.Run(home); return home.ExitCode; }
@@ -109,4 +123,5 @@ internal static class Program
         }
     }
 }
+
 

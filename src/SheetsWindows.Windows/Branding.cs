@@ -44,6 +44,15 @@ internal static class Branding
                 primary.FlatAppearance.MouseOverBackColor = Color.FromArgb(16, 108, 60);
                 if (!primary.Font.Bold) primary.Font = new Font(primary.Font.FontFamily, 10, FontStyle.Bold);
             }
+            if (control is Button disabled && !disabled.Enabled)
+            {
+                // Blend with the actual surface, including primary buttons. High contrast follows Windows.
+                var surface = disabled.BackColor; var text = disabled.ForeColor;
+                disabled.ForeColor = highContrast ? SystemColors.GrayText : Color.FromArgb(
+                    (text.R + surface.R) / 2, (text.G + surface.G) / 2, (text.B + surface.B) / 2);
+                disabled.FlatAppearance.BorderColor = highContrast ? SystemColors.GrayText : Color.FromArgb(
+                    (green.R + surface.R) / 2, (green.G + surface.G) / 2, (green.B + surface.B) / 2);
+            }
             if (control is ListView list)
             {
                 list.BackColor = panel; list.ForeColor = foreground;
@@ -100,6 +109,13 @@ internal static class Branding
         Microsoft.Win32.UserPreferenceChangedEventHandler preference = (_, _) => { if (form.IsHandleCreated && !form.IsDisposed) { try { form.BeginInvoke((Action)RefreshTheme); } catch (InvalidOperationException) { } } };
         Microsoft.Win32.SystemEvents.UserPreferenceChanged += preference;
         form.Disposed += (_, _) => { ThemeChanged -= changed; Microsoft.Win32.SystemEvents.UserPreferenceChanged -= preference; tooltip.Dispose(); };
+        void TrackEnabled(Control control)
+        {
+            if (control is Button) control.EnabledChanged += (_, _) => { if (!control.IsDisposed) Theme(control); };
+            control.ControlAdded += (_, e) => { if (e.Control is { } added) { TrackEnabled(added); Theme(added); } };
+            foreach (Control child in control.Controls) TrackEnabled(child);
+        }
+        TrackEnabled(form);
         LanguageVisuals.Attach(form);
         LocalizedControls.Attach(form);
         RefreshTheme();
@@ -124,3 +140,4 @@ internal sealed class AboutForm : Form
         Controls.Add(body); Branding.Apply(this, aboutButton: false);
     }
 }
+

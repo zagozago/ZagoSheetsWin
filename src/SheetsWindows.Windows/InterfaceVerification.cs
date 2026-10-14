@@ -57,6 +57,51 @@ internal static class InterfaceVerification
             action.InvokeAction(); action.Enabled = false; action.InvokeAction();
             Require(invoked == 1, "Recovery menu must invoke enabled handlers and refuse disabled actions.");
         }
+        Console.Error.WriteLine("VERIFY: disconnected file startup and disabled buttons");
+        foreach (var extension in new[] { "csv", "tsv", "xlsx", "xls", "ods" })
+        {
+            var request = LauncherRequest.Parse([Path.Combine(Path.GetTempPath(), "disconnected." + extension)]);
+            using var missingAuthorization = Program.StartupConfiguration(request.Action, false, true, preview: true);
+            using var missingSetup = Program.StartupConfiguration(request.Action, true, true, preview: true);
+            Require(missingAuthorization is SetupForm && missingSetup is SetupForm, "Opening a local spreadsheet without connection must show Settings.");
+            Require(Program.StartupConfiguration(request.Action, false, false, preview: true) is null, "Connected file openings must continue directly to processing.");
+        }
+        using (var firstUse = Program.StartupConfiguration(LauncherAction.FirstUse, false, false, preview: true))
+            Require(firstUse is FirstUseWizard, "Explicit post-install first use must retain its wizard.");
+        using (var owner = new Form())
+        {
+            var normal = new AdaptiveButton { Text = "Action", Width = 150 };
+            var primary = new AdaptiveButton { Text = "Primary", Width = 150, Top = 60 }; Ui.Primary(primary);
+            owner.Controls.Add(normal); owner.Controls.Add(primary); Branding.Apply(owner); owner.Show(); Application.DoEvents();
+            foreach (var theme in new[] { ApplicationTheme.Light, ApplicationTheme.Dark })
+            {
+                Branding.PreviewTheme(theme); Application.DoEvents();
+                foreach (var button in new[] { normal, primary })
+                {
+                    var enabledText = button.ForeColor; var enabledBorder = button.FlatAppearance.BorderColor;
+                    button.Enabled = false; Application.DoEvents();
+                    Require(button.ForeColor != enabledText && button.FlatAppearance.BorderColor != enabledBorder, "Disabled actions must visibly fade text and border.");
+                    Branding.Refresh(owner); Application.DoEvents();
+                    Require(button.ForeColor != enabledText, "Theme refresh must not restore active styling to disabled actions.");
+                    button.Enabled = true; Application.DoEvents();
+                    Require(button.ForeColor == enabledText && button.FlatAppearance.BorderColor == enabledBorder, "Enabled actions must restore their original theme colors.");
+                }
+            }
+            owner.Hide();
+        }
+        Branding.PreviewTheme(ApplicationTheme.Light);
+        using (var waiting = new SetupForm(preview: true, previewBusy: true))
+        {
+            waiting.Show(); Application.DoEvents();
+            var accountActions = Descendants(waiting).OfType<TableLayoutPanel>().Single(p => p.ColumnCount == 3).Controls.OfType<Button>().ToArray();
+            var cancelConnection = accountActions.Single(b => b.Text == UiText.Get("setup.cancelConnection"));
+            var finishSetup = Descendants(waiting).OfType<Button>().Single(b => b.Text == UiText.Get("action.close"));
+            Require(cancelConnection.Enabled && accountActions.Where(b => b != cancelConnection).All(b => !b.Enabled) && !finishSetup.Enabled,
+                "Waiting for authorization must disable actual actions, including Close, while keeping Cancel available.");
+            cancelConnection.PerformClick(); Application.DoEvents();
+            Require(finishSetup.Enabled && accountActions[0].Enabled, "Cancelling authorization must restore the settings actions.");
+            waiting.Hide();
+        }
         Console.Error.WriteLine("VERIFY: first use");
         var wizardRoot = Path.Combine(Path.GetDirectoryName(Path.GetFullPath(output))!, "wizard-fixture-" + Guid.NewGuid().ToString("N"));
         var wizardStorage = new LocalStorage(wizardRoot);
@@ -393,5 +438,6 @@ internal static class InterfaceVerification
         foreach (Control child in parent.Controls) { yield return child; foreach (var descendant in Descendants(child)) yield return descendant; }
     }
 }
+
 
 

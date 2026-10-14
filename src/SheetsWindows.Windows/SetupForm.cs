@@ -11,7 +11,7 @@ internal sealed class SetupForm : Form
     private bool busy;
     private bool disconnectRequested;
     private bool cancellationDisposed;
-    public SetupForm(bool firstUse = false, bool preview = false, string? previewEmail = null)
+    public SetupForm(bool firstUse = false, bool preview = false, string? previewEmail = null, bool previewBusy = false)
     {
         var storage = LocalStorage.ForCurrentUser();
         Text = firstUse ? UiText.Get("setup.firstUseTitle") : UiText.Get("setup.title");
@@ -76,9 +76,16 @@ internal sealed class SetupForm : Form
         };
         status.Visible = false; status.TextChanged += (_, _) => status.Visible = !string.IsNullOrEmpty(status.Text); layout.Controls.Add(status);
         var finish = new AdaptiveButton { Text = UiText.Get("action.close"), Dock = DockStyle.Bottom, Height = 44 };
+        void SetBusy(bool value, bool canCancel = true)
+        {
+            busy = value;
+            connect.Enabled = defaults.Enabled = shortcuts.Enabled = copy.Enabled = advanced.Enabled = finish.Enabled = !value;
+            verify.Enabled = !value && !FirstUseState.NeedsAuthorization(storage);
+            cancel.Enabled = !value || canCancel;
+        }
         async Task Disconnect()
         {
-            busy = true; connect.Enabled = verify.Enabled = advanced.Enabled = false; cancel.Enabled = false;
+            SetBusy(true, canCancel: false);
             confirmed = false; currentEmail = null;
             try
             {
@@ -93,13 +100,12 @@ internal sealed class SetupForm : Form
                 var disconnected = FirstUseState.NeedsAuthorization(storage);
                 confirmed = false; currentEmail = null; connectKey = disconnected ? "action.authorizeGoogle" : "action.switchGoogleAccount";
                 connectionState.Text = UiText.Get(disconnected ? "setup.authMissing" : "setup.authSavedOffline");
-                busy = false; connect.Enabled = advanced.Enabled = cancel.Enabled = true;
-                verify.Enabled = !FirstUseState.NeedsAuthorization(storage); ResetCancellation(); RefreshConnection();
+                SetBusy(false); ResetCancellation(); RefreshConnection();
             }
         }
         cancel.Click += async (_, _) =>
         {
-            if (preview) { confirmed = false; currentEmail = null; connectKey = "action.authorizeGoogle"; connectionState.Text = UiText.Get("setup.authMissing"); RefreshConnection(); return; }
+            if (preview) { SetBusy(false); confirmed = false; currentEmail = null; connectKey = "action.authorizeGoogle"; connectionState.Text = UiText.Get("setup.authMissing"); RefreshConnection(); return; }
             if (busy) { disconnectRequested = true; cancellation.Cancel(); return; }
             await Disconnect();
         };
@@ -107,7 +113,7 @@ internal sealed class SetupForm : Form
         {
             if (busy) return;
             SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());
-            busy = true; connect.Enabled = verify.Enabled = advanced.Enabled = false; cancel.Enabled = true; status.Text = UiText.Get(authorize ? "setup.savingAuthorizing" : "setup.saving");
+            SetBusy(true); status.Text = UiText.Get(authorize ? "setup.savingAuthorizing" : "setup.saving");
             try
             {
                 await using (var held = await new FileOperationLock(storage.LocksPath).AcquireAsync("windows-registration", cancellation.Token))
@@ -127,7 +133,7 @@ internal sealed class SetupForm : Form
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { ExitCode = 1; if (authorize) { confirmed = false; connectionState.Text = UiText.Get("setup.authNotCompleted"); } status.Text = ex is ArgumentException ? UiText.Get("setup.consentRequired") : LauncherErrors.Message(ex); }
             finally
             {
-                busy = false; connect.Enabled = advanced.Enabled = true; verify.Enabled = !FirstUseState.NeedsAuthorization(storage); ResetCancellation();
+                SetBusy(false); ResetCancellation();
                 if (disconnectRequested) { disconnectRequested = false; await Disconnect(); }
             }
         }
@@ -136,7 +142,7 @@ internal sealed class SetupForm : Form
         {
             if (busy || FirstUseState.NeedsAuthorization(storage)) return;
             SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());
-            busy = true; confirmed = false; verify.Enabled = connect.Enabled = advanced.Enabled = false; connectionState.Text = UiText.Get("setup.authChecking");
+            SetBusy(true); confirmed = false; connectionState.Text = UiText.Get("setup.authChecking");
             try
             {
                 using var handler = new HttpClientHandler { AllowAutoRedirect = false }; using var http = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(30) };
@@ -147,7 +153,7 @@ internal sealed class SetupForm : Form
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { connectionState.Text = UiText.Get("setup.authSavedOffline"); }
             finally
             {
-                busy = false; connect.Enabled = advanced.Enabled = true; verify.Enabled = !FirstUseState.NeedsAuthorization(storage); ResetCancellation();
+                SetBusy(false); ResetCancellation();
                 if (disconnectRequested) { disconnectRequested = false; await Disconnect(); }
             }
         }
@@ -182,8 +188,10 @@ internal sealed class SetupForm : Form
         UiText.Changed += LanguageChanged;
         Disposed += (_, _) => { UiText.Changed -= LanguageChanged; fittedFont?.Dispose(); };
         FitCenter();
+        if (previewBusy) SetBusy(true);
     }
     private void ResetCancellation() { if (cancellation.IsCancellationRequested) { cancellation.Dispose(); cancellation = new(); } }
     protected override void Dispose(bool disposing) { if (disposing && !cancellationDisposed) { cancellationDisposed = true; cancellation.Cancel(); cancellation.Dispose(); } base.Dispose(disposing); }
 }
+
 
