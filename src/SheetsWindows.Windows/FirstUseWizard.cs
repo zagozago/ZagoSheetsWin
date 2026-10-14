@@ -7,6 +7,7 @@ namespace SheetsWindows.Windows;
 // The help dialog remains independent, including its skip and preference controls.
 internal sealed class FirstUseWizard : Form
 {
+    internal const int PageCount = 3;
     private readonly LocalStorage storage;
     private readonly bool preview;
     private readonly Func<CancellationToken, Task> authorize;
@@ -33,8 +34,6 @@ internal sealed class FirstUseWizard : Form
     internal Button NextButton { get; } = new AdaptiveButton { AutoSize = true };
     internal Button PreviousButton { get; } = new AdaptiveButton { AutoSize = true, Text = UiText.Get("action.back") };
     internal Button ConnectButton { get; } = new AdaptiveButton { AutoSize = true, Text = UiText.Get("action.authorizeGoogle") };
-    private readonly NumericUpDown days = new() { Minimum = 1, Maximum = 365, Value = 30, AccessibleName = UiText.Get("accessibility.retentionDays") };
-    private readonly NumericUpDown quota = new() { Minimum = 1, Maximum = 1000, Value = 200, AccessibleName = UiText.Get("accessibility.quotaMb") };
 
     internal FirstUseWizard(bool preview = false, int initialPage = 0, LocalStorage? storage = null,
         Func<CancellationToken, Task>? authorize = null, Func<CancellationToken, Task>? verify = null,
@@ -45,8 +44,7 @@ internal sealed class FirstUseWizard : Form
         var opening = OpeningPolicy.Load(this.storage);
         noSync = new ToggleSwitch { AutoSize = true, Text = UiText.Get("setup.noSync"), Checked = !opening.RestrictToFolder };
         folder.Text = opening.Folder ?? "";
-        var policy = BackupPolicy.Load(this.storage); days.Value = policy.RetentionDays; quota.Value = policy.QuotaMb;
-        CurrentPage = Math.Clamp(initialPage, 0, 3);
+        CurrentPage = Math.Clamp(initialPage, 0, PageCount - 1);
         Text = UiText.Get("setup.firstUseTitle"); ClientSize = new Size(760, 740); MinimumSize = new Size(620, 620);
         StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
         layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 220));
@@ -66,7 +64,7 @@ internal sealed class FirstUseWizard : Form
         NextButton.Click += async (_, _) =>
         {
             if (busy || CurrentPage == 1 && !AuthorizationConfirmed) return;
-            if (CurrentPage < 3) { CurrentPage++; RefreshPage(); if (CurrentPage == 1) await CheckExistingConnection(); return; }
+            if (CurrentPage < PageCount - 1) { CurrentPage++; RefreshPage(); if (CurrentPage == 1) await CheckExistingConnection(); return; }
             await Run(this.save, authentication: false);
             if (Completed) Close();
         };
@@ -91,11 +89,11 @@ internal sealed class FirstUseWizard : Form
     private void RefreshPage()
     {
         // Persistent input controls survive both page navigation and language changes.
-        foreach (var persistent in new Control[] { noSync, folder, days, quota, ConnectButton, connection, status }) persistent.Parent?.Controls.Remove(persistent);
+        foreach (var persistent in new Control[] { noSync, folder, ConnectButton, connection, status }) persistent.Parent?.Controls.Remove(persistent);
         var old = content.Controls.Cast<Control>().ToArray(); content.Controls.Clear(); foreach (var control in old) control.Dispose();
         heading.Text = UiText.Format("tutorial.numberedTitle", ("number", CurrentPage + 1), ("title", TutorialForm.Pages[CurrentPage].Title));
         picture.Page = CurrentPage; picture.AccessibleName = TutorialForm.Pages[CurrentPage].Title; picture.Invalidate();
-        layout.RowStyles[1].Height = (CurrentPage == 3 ? 165 : 220) * DeviceDpi / 96f;
+        layout.RowStyles[1].Height = 220 * DeviceDpi / 96f;
         if (CurrentPage == 1)
         {
             content.Controls.Add(Ui.Center(Ui.Text(UiText.Get("firstUse.googleExplanation"))));
@@ -117,20 +115,10 @@ internal sealed class FirstUseWizard : Form
             defaults.Click += (_, _) => { try { new BrowserLauncher().Open(WindowsAssociationPlan.DefaultsUri); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = UiText.Get("setup.windowsDefaultsInstructions"); } };
             content.Controls.Add(defaults);
         }
-        else if (CurrentPage == 3)
-        {
-            content.Controls.Add(Ui.Center(Ui.Text(UiText.Get("firstUse.backupExplanation"))));
-            var limits = new TableLayoutPanel { Tag = "centerFields", AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, ColumnCount = 2, RowCount = 2, Margin = new Padding(0, 12, 0, 0) };
-            limits.ColumnStyles.Add(new(SizeType.Percent, 50)); limits.ColumnStyles.Add(new(SizeType.Percent, 50)); limits.RowStyles.Add(new(SizeType.AutoSize)); limits.RowStyles.Add(new(SizeType.AutoSize));
-            var daysLabel = Ui.Text(UiText.Get("recovery.retentionLabel")); var quotaLabel = Ui.Text(UiText.Get("recovery.quotaLabel"));
-            daysLabel.Dock = quotaLabel.Dock = DockStyle.Fill; daysLabel.TextAlign = quotaLabel.TextAlign = ContentAlignment.MiddleCenter;
-            days.Dock = quota.Dock = DockStyle.Fill; limits.Controls.Add(daysLabel, 0, 0); limits.Controls.Add(quotaLabel, 1, 0); limits.Controls.Add(days, 0, 1); limits.Controls.Add(quota, 1, 1);
-            content.Controls.Add(limits);
-        }
         status.Visible = !string.IsNullOrEmpty(status.Text);
         content.Controls.Add(status);
-        NextButton.Text = UiText.Get(CurrentPage == 3 ? "tutorial.start" : "action.next"); PreviousButton.Text = UiText.Get("action.back");
-        count.Text = UiText.Format("tutorial.pageCount", ("number", CurrentPage + 1), ("total", 4));
+        NextButton.Text = UiText.Get(CurrentPage == PageCount - 1 ? "tutorial.start" : "action.next"); PreviousButton.Text = UiText.Get("action.back");
+        count.Text = UiText.Format("tutorial.pageCount", ("number", CurrentPage + 1), ("total", PageCount));
         Branding.Refresh(this); content.PerformLayout(); UpdateNavigation();
     }
     private async Task CheckExistingConnection()
@@ -181,8 +169,9 @@ internal sealed class FirstUseWizard : Form
         await OpeningPolicy.SaveAsync(storage, !noSync.Checked, folder.Text, true, ct);
         try { _ = ExtendedConfiguration.Load(storage); } catch (LauncherNotConfiguredException) { ExtendedConfiguration.Save(storage, new(), true); }
         var policy = BackupPolicy.Load(storage);
-        await BackupPolicy.SaveAsync(storage, new((int)days.Value, (int)quota.Value, policy.AutomaticCleanup), ct);
+        await BackupPolicy.SaveAsync(storage, policy, ct);
         await FirstUseCompletion.SaveAsync(storage, ct);
     }
     protected override void Dispose(bool disposing) { if (disposing && !IsDisposed) { cancellation.Cancel(); cancellation.Dispose(); } base.Dispose(disposing); }
 }
+

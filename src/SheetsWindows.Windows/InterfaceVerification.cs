@@ -120,10 +120,10 @@ internal static class InterfaceVerification
             Require(!wizard.AuthorizationConfirmed && !wizard.NextButton.Enabled, "Failed authorization must leave the wizard on the Google step.");
             wizard.ConnectButton.PerformClick(); Application.DoEvents();
             Require(wizard.AuthorizationConfirmed && wizard.NextButton.Enabled, "Successful authorization must unlock navigation.");
-            wizard.NextButton.PerformClick(); wizard.NextButton.PerformClick(); Application.DoEvents();
-            Require(wizard.CurrentPage == 3 && wizard.NextButton.Enabled, "Defaults are optional; replacement acknowledgement is required before completion.");
+            wizard.NextButton.PerformClick(); Application.DoEvents();
+            Require(wizard.CurrentPage == 2 && wizard.NextButton.Enabled && wizard.NextButton.Text == UiText.Get("tutorial.start") && !wizard.Completed, "The third page must finish setup with Start after authorization.");
             Require(!Descendants(wizard).OfType<CheckBox>().Any(), "The simplified final step must contain no switches or old acknowledgement controls.");
-            Require(Descendants(wizard).OfType<NumericUpDown>().Count() == 2, "The final step must expose only retention and quota settings.");
+            Require(!Descendants(wizard).OfType<NumericUpDown>().Any(), "The removed backup page must not expose retention or quota settings.");
             wizard.NextButton.PerformClick(); Application.DoEvents();
             Require(wizard.Completed && saved == 1, "Finishing must save once and complete without opening a second setup dialog.");
         }

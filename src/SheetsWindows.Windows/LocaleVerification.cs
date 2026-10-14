@@ -60,7 +60,8 @@ internal static class LocaleVerification
                 for (var page=0;page<4;page++)
                 {
                     using var tutorial = new TutorialForm(page); Check(tutorial,$"help-{page+1}",true);
-                    using var wizard = new FirstUseWizard(preview:true, initialPage:page); Check(wizard,$"first-use-{page+1}",true);
+                    if (page < FirstUseWizard.PageCount)
+                    { using var wizard = new FirstUseWizard(preview:true, initialPage:page); Check(wizard,$"first-use-{page+1}",true); }
                 }
                 using (var error = new ProcessingForm(new(LauncherAction.Open,"preview.xlsx"),preview:true,previewError:true)) Check(error,"error");
                 // Font-size stress at the four requested scales, with native GDI measurement.
@@ -85,3 +86,4 @@ internal static class LocaleVerification
         foreach(Control child in parent.Controls) { yield return child;foreach(var nested in Descendants(child))yield return nested; }
     }
 }
+
