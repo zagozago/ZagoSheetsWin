@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.30: security, OAuth, ODS diagnostics and backup actions; validation required.
+# Distribution candidate 0.9.30 with reviewed .NET 10.0.13 dependency locks.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
