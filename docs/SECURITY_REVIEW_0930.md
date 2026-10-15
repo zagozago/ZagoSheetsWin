@@ -14,7 +14,7 @@ Data: 2026-10-15. Base revisada: f76ea12fe06d9c19a8ed035045d7df398ac16d69, branc
 | Configuração desktop | JSON de cliente web/service account ou com tokens pessoais em installed é recusado. A configuração de distribuição contém apenas client_id/client_secret desktop. |
 | Revogação | Credenciais locais são removidas antes da solicitação de revogação. HTTP 400 só é tratado como revogação já efetuada quando o Google informa invalid_token. Outros erros são mostrados; falha de rede não reativa credenciais locais. |
 | Pacotes maliciosos | ODS tem assinatura/MIME verificados, XML sem DTD/resolução externa, rejeição de scripts e orçamento de ZIP. A soma dos tamanhos expandidos agora interrompe antes do limite, evitando overflow aritmético. |
-| Dependências | Restore com lockfile, NuGetAudit habilitado para dependências diretas e transitivas, relatório JSON de vulnerabilidades e bloqueio se houver vulnerabilidade ou falha de consulta. Evidência em dependency-audit-Windows/Linux do run correspondente ao commit. |
+| Dependências | A versão anterior 10.0.12 foi bloqueada pelos avisos Microsoft de 13/10/2026 para Pkcs/Xml; atualizada para pacotes/runtime 10.0.13 e SDK 10.0.402. Restore com lockfile, NuGetAudit habilitado para dependências diretas e transitivas, relatório JSON de vulnerabilidades e bloqueio se houver vulnerabilidade ou falha de consulta. Evidência em dependency-audit-Windows/Linux do run correspondente ao commit. |
 | Integridade da distribuição | SHA256SUMS.txt e build-info.json acompanham o instalador. O manifesto associa versão, commit, run e estado Authenticode ao executável produzido. Não há certificado de assinatura configurado neste código. |
 
 ## Controles confirmados no código
@@ -59,3 +59,5 @@ Checksum comprova correspondência com um digest obtido de fonte confiável; nã
 - Produção e políticas: https://developers.google.com/identity/protocols/oauth2/production-readiness/policy-compliance
 - Verificação de marca: https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification
 - Auditoria de pacotes: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-package-list
+
+- Patch .NET: https://github.com/dotnet/core/blob/main/release-notes/10.0/10.0.13/10.0.13.md

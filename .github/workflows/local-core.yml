@@ -36,15 +36,6 @@ jobs:
         run: |
           python tools/security/audit.py
           if ($LASTEXITCODE -ne 0) { throw 'Source security audit failed' }
-      - name: Regenerate patched dependency locks for review
-        shell: pwsh
-        run: |
-          dotnet restore SheetsWindows.slnx --force-evaluate
-          if ($LASTEXITCODE -ne 0) { throw 'Patched dependency restore failed' }
-          Get-ChildItem -Recurse -Filter packages.lock.json | ForEach-Object {
-            $relative = [IO.Path]::GetRelativePath((Get-Location).Path, $_.FullName).Replace('\', '/')
-            Write-Output ('REVIEW_LOCK ' + $relative + ' ' + [Convert]::ToBase64String([IO.File]::ReadAllBytes($_.FullName)))
-          }
       - run: dotnet restore SheetsWindows.slnx --locked-mode
       - name: Audit transitive dependency vulnerabilities
         shell: pwsh

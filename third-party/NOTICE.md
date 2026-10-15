@@ -37,7 +37,7 @@ versão com interface compatível. Este aplicativo não restringe essa modifica�
 nem a engenharia reversa para depurá-la. O instalador não incorpora a DLL ao
 executável. As instruções de compilação estão disponíveis no repositório NSax.
 
-System.Security.Cryptography.Xml foi atualizado explicitamente para 10.0.12
+System.Security.Cryptography.Xml foi atualizado explicitamente para 10.0.13
 para evitar vulnerabilidades da dependência padrão antiga do NPOI. Ele e as
 outras bibliotecas de execução da Microsoft mantêm seus avisos MIT originais
 (consulte ThirdPartyNotices.txt do .NET incluído nas instalações autossuficientes).

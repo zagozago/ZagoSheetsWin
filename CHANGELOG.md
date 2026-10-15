@@ -8,6 +8,7 @@
 - Respostas OAuth limitadas, callback reforçado, JSONs com tokens pessoais recusados, escopos adicionais rejeitados e erros de revogação tratados explicitamente.
 - Limite de expansão ZIP verificado sem soma suscetível a overflow.
 - Versão 0.9.30 coerente entre aplicativo, catálogo e instalador; distribuição usa a versão do projeto, com teste contra deriva.
+- .NET atualizado para runtime/pacotes 10.0.13 e SDK 10.0.402, corrigindo os avisos de segurança publicados em 13/10/2026.
 - Auditoria de dependências transitivas e checagens de segurança entram no CI. Instalador acompanha checksum SHA-256, versão, commit e estado da assinatura.
 - Revisão técnica e pendências externas documentadas em docs/SECURITY_REVIEW_0930.md.
 
