@@ -53,8 +53,7 @@ internal sealed class RecoveryForm : Form
         }
         policyPanel.SizeChanged += (_, _) => FitPolicy(); automatic.TextChanged += (_, _) => FitPolicy(); automatic.FontChanged += (_, _) => FitPolicy();
         policyPanel.Controls.AddRange([limits, automatic, usage, save]);
-        var restore = new AdaptiveButton { Text = UiText.Get("action.restore"), Dock = DockStyle.Bottom, Height = 44 };
-        var actions = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, Padding = new Padding(8) };
+        var restore = new AdaptiveButton { Text = UiText.Get("action.restore"), AutoSize = true };
         var copy = new MenuActionButton { Text = UiText.Get("recovery.resumeCopy"), AutoSize = true };
         var resume = new MenuActionButton { Text = UiText.Get("recovery.completeReplacement"), AutoSize = true };
         var export = new MenuActionButton { Text = UiText.Get("action.exportDiagnostics"), AutoSize = true };
@@ -75,7 +74,8 @@ internal sealed class RecoveryForm : Form
         var clearSelection = new AdaptiveButton { Text = UiText.Get("recovery.clearSelection"), AutoSize = true };
         selectAll.Click += (_, _) => { foreach (ListViewItem item in entries.Items) item.Checked = (item.Tag as RecoveryEntry)?.CleanupState != 2; };
         clearSelection.Click += (_, _) => { foreach (ListViewItem item in entries.Items) { item.Checked = false; item.Selected = false; } };
-        actions.Controls.AddRange([selectAll, clearSelection, delete, more]);
+        var actions = Ui.Columns(restore, selectAll, clearSelection, delete, more);
+        actions.Dock = DockStyle.Top; actions.Padding = new Padding(8);
         // Keep action buttons parented so native PerformClick executes their existing handlers.
         var hiddenActions = new Panel { Visible = false }; hiddenActions.Controls.AddRange([copy, resume, export, clean]); Controls.Add(hiddenActions);
         Disposed += (_, _) => menu.Dispose(); Ui.Primary(restore);
@@ -83,7 +83,7 @@ internal sealed class RecoveryForm : Form
         main.ColumnStyles.Add(new(SizeType.Percent, 75)); main.ColumnStyles.Add(new(SizeType.Percent, 25)); main.RowStyles.Add(new(SizeType.Percent, 100));
         var files = new Panel { Dock = DockStyle.Fill }; files.Controls.Add(entries); files.Controls.Add(actions); files.Controls.Add(status);
         files.SizeChanged += (_, _) => FitStatus(); main.Controls.Add(files, 0, 0); main.Controls.Add(policyPanel, 1, 0);
-        Controls.Add(main); Controls.Add(restore); Controls.Add(cancel); cancel.Dock = DockStyle.Bottom;
+        Controls.Add(main); Controls.Add(cancel); cancel.Dock = DockStyle.Bottom;
         long shownBytes = 0; int shownCount = 0, shownProtected = 0;
         void RefreshUsage() { usage.Text = UiText.Format("recovery.usage", ("usedMb", shownBytes / 1_000_000d), ("limitMb", quota.Value), ("backupCount", shownCount), ("protectedCount", shownProtected)).Replace(" · ", "\n"); FitPolicy(); }
         UiText.Changed += RefreshUsage; Disposed += (_, _) => UiText.Changed -= RefreshUsage;
@@ -113,7 +113,7 @@ internal sealed class RecoveryForm : Form
         export.Click += async (_, _) =>
         {
             if (busy) return;
-            using var dialog = new SaveFileDialog { Filter = UiText.Get("dialog.diagnosticFilter"), FileName = "sheets-windows-diagnostico.jsonl", OverwritePrompt = true };
+            using var dialog = new SaveFileDialog { Filter = UiText.Get("dialog.diagnosticFilter"), FileName = DiagnosticLog.SuggestedFileName(Selected?.OriginalPath), OverwritePrompt = true };
             if (dialog.ShowDialog(this) != DialogResult.OK) return;
             try { await new DiagnosticLog(LocalStorage.ForCurrentUser()).ExportAsync(dialog.FileName, overwrite: true); status.Text = UiText.Get("diagnostics.exported"); }
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = UiText.Get("diagnostics.fileExists"); }

@@ -16,7 +16,9 @@ public sealed class OAuthClient(string id, string? secret)
     public static OAuthClient FromJson(string json)
     {
         using var doc = JsonDocument.Parse(json);
+        if (doc.RootElement.TryGetProperty("web", out _) || doc.RootElement.TryGetProperty("type", out _)) throw new InvalidDataException("Only desktop OAuth client configuration is allowed.");
         if (!doc.RootElement.TryGetProperty("installed", out var client)) throw new InvalidDataException("A desktop OAuth client JSON is required.");
+        if (client.TryGetProperty("access_token", out _) || client.TryGetProperty("refresh_token", out _)) throw new InvalidDataException("Personal tokens are not desktop client configuration.");
         var id = client.GetProperty("client_id").GetString();
         if (string.IsNullOrWhiteSpace(id) || !id.EndsWith(".apps.googleusercontent.com", StringComparison.Ordinal)) throw new InvalidDataException("Invalid OAuth client ID.");
         return new(id, client.TryGetProperty("client_secret", out var s) ? s.GetString() : null);
@@ -53,7 +55,7 @@ public sealed class DpapiTokenVault : ITokenVault
     {
         if (!OperatingSystem.IsWindows()) throw new PlatformNotSupportedException();
         if (!File.Exists(path)) return null;
-        if (new FileInfo(path).Length > 65536) throw new AuthorizationRequiredException();
+        if (new FileInfo(path).Length > 65536 || (File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0) throw new AuthorizationRequiredException();
         try
         {
             var bytes = ProtectedData.Unprotect(File.ReadAllBytes(path), entropy, DataProtectionScope.CurrentUser);
@@ -101,7 +103,7 @@ public sealed class OAuthProof
     }
     public string? Callback(string target, string expectedPath)
     {
-        if (!Uri.TryCreate("http://127.0.0.1" + target, UriKind.Absolute, out var uri) || uri.AbsolutePath != expectedPath) return null;
+        if (!target.StartsWith('/') || target.StartsWith("//", StringComparison.Ordinal) || !Uri.TryCreate("http://127.0.0.1" + target, UriKind.Absolute, out var uri) || uri.Host != "127.0.0.1" || uri.UserInfo != "" || uri.Fragment != "" || uri.AbsolutePath != expectedPath) return null;
         var fields = new Dictionary<string, string>();
         foreach (var part in uri.Query.TrimStart('?').Split('&', StringSplitOptions.RemoveEmptyEntries))
         {
@@ -142,6 +144,7 @@ public sealed class LoopbackAuthorizationReceiver(Action<Uri> openBrowser) : IAu
                     var lines = Encoding.ASCII.GetString(raw.ToArray()).Split("\r\n");
                     var first = lines[0].Split(' '); string? code = null;
                     if (raw.Count < 8192 && first.Length == 3 && first[0] == "GET" && first[2] == "HTTP/1.1"
+                        && lines.Count(l => l.StartsWith("Host:", StringComparison.OrdinalIgnoreCase)) == 1
                         && lines.Any(l => l.Equals($"Host: 127.0.0.1:{port}", StringComparison.OrdinalIgnoreCase))) code = proof.Callback(first[1], path);
                     var body = Encoding.UTF8.GetBytes(code is null ? UiText.Get("oauth.callback.invalid") : UiText.Get("oauth.callback.received"));
                     var head = Encoding.ASCII.GetBytes($"HTTP/1.1 {(code is null ? "400 Bad Request" : "200 OK")}\r\nContent-Type: text/plain; charset=utf-8\r\nContent-Length: {body.Length}\r\nConnection: close\r\n\r\n");
@@ -179,7 +182,7 @@ public sealed class GoogleOAuth(HttpClient http, OAuthClient client, ITokenVault
             var raw = await TokenAsync(new() { ["grant_type"] = "refresh_token", ["refresh_token"] = tokens.RefreshToken }, cancellationToken);
             var account = await AccountAsync(raw.Access, cancellationToken);
             if (account.Id != tokens.AccountId) throw new AuthorizationRequiredException();
-            tokens = new(client.Id, account.Id, raw.Access, raw.Refresh ?? tokens.RefreshToken, DateTimeOffset.UtcNow.AddSeconds(raw.Seconds), account.Email); vault.Save(tokens);
+            tokens = new(client.Id, account.Id, raw.Access, raw.Refresh ?? tokens.RefreshToken, DateTimeOffset.UtcNow.AddSeconds(raw.Seconds), account.Email); cancellationToken.ThrowIfCancellationRequested(); vault.Save(tokens);
         }
         return new(tokens.AccountId, tokens.AccessToken, tokens.Email);
     }
@@ -192,28 +195,49 @@ public sealed class GoogleOAuth(HttpClient http, OAuthClient client, ITokenVault
         if (tokens is null) return;
         using var request = new HttpRequestMessage(HttpMethod.Post, "https://oauth2.googleapis.com/revoke")
         { Content = new FormUrlEncodedContent(new Dictionary<string, string> { ["token"] = tokens.RefreshToken }) };
-        using var response = await http.SendAsync(request, ct);
-        if (!response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.BadRequest)
-            throw new GoogleApiException((int)response.StatusCode);
+        using var response = await http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, ct);
+        if (response.StatusCode == HttpStatusCode.BadRequest)
+        {
+            using var error = await ReadJsonAsync(response, ct);
+            if (error.RootElement.TryGetProperty("error", out var reason) && reason.GetString() == "invalid_token") return;
+        }
+        if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode);
+    }
+    private static async Task<JsonDocument> ReadJsonAsync(HttpResponseMessage response, CancellationToken ct)
+    {
+        const int limit = 65536;
+        if (response.Content.Headers.ContentLength > limit) throw new InvalidDataException("OAuth response too large.");
+        await using var stream = await response.Content.ReadAsStreamAsync(ct);
+        using var buffer = new MemoryStream(); var chunk = new byte[8192]; int count;
+        while ((count = await stream.ReadAsync(chunk, ct)) != 0)
+        {
+            if (buffer.Length + count > limit) throw new InvalidDataException("OAuth response too large.");
+            buffer.Write(chunk, 0, count);
+        }
+        return JsonDocument.Parse(buffer.ToArray(), new JsonDocumentOptions { MaxDepth = 32 });
     }
     private async Task<(string Access, string? Refresh, int Seconds)> TokenAsync(Dictionary<string, string> values, CancellationToken ct)
     {
         values["client_id"] = client.Id; if (client.Secret is not null) values["client_secret"] = client.Secret;
         using var request = new HttpRequestMessage(HttpMethod.Post, "https://oauth2.googleapis.com/token") { Content = new FormUrlEncodedContent(values) };
-        using var response = await http.SendAsync(request, ct);
+        using var response = await http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, ct);
         if (response.StatusCode == HttpStatusCode.BadRequest) throw new AuthorizationRequiredException();
         if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode);
-        using var stream = await response.Content.ReadAsStreamAsync(ct); using var doc = await JsonDocument.ParseAsync(stream, cancellationToken: ct); var e = doc.RootElement;
+        using var doc = await ReadJsonAsync(response, ct); var e = doc.RootElement;
         var access = e.GetProperty("access_token").GetString(); var seconds = e.GetProperty("expires_in").GetInt32();
         if (string.IsNullOrWhiteSpace(access) || seconds <= 0 || !e.GetProperty("token_type").GetString()!.Equals("Bearer", StringComparison.OrdinalIgnoreCase)) throw new AuthorizationRequiredException();
-        if (e.TryGetProperty("scope", out var scope) && !scope.GetString()!.Split(' ').Contains(Scope)) throw new AuthorizationRequiredException();
+        if (e.TryGetProperty("scope", out var scope))
+        {
+            var granted = (scope.GetString() ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            if (granted.Length != 1 || granted[0] != Scope) throw new AuthorizationRequiredException();
+        }
         return (access, e.TryGetProperty("refresh_token", out var r) ? r.GetString() : null, seconds);
     }
     private async Task<(string Id, string? Email)> AccountAsync(string token, CancellationToken ct)
     {
         using var request = new HttpRequestMessage(HttpMethod.Get, "https://www.googleapis.com/drive/v3/about?fields=user(permissionId,emailAddress)"); request.Headers.Authorization = new("Bearer", token);
-        using var response = await http.SendAsync(request, ct); if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode);
-        using var stream = await response.Content.ReadAsStreamAsync(ct); using var doc = await JsonDocument.ParseAsync(stream, cancellationToken: ct);
+        using var response = await http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, ct); if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode);
+        using var doc = await ReadJsonAsync(response, ct);
         var id = doc.RootElement.GetProperty("user").GetProperty("permissionId").GetString(); GoogleDriveClient.ValidateId(id!);
         var user = doc.RootElement.GetProperty("user");
         var email = user.TryGetProperty("emailAddress", out var address) ? address.GetString() : null;

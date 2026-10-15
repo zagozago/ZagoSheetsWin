@@ -6,13 +6,21 @@ namespace SheetsWindows.Infrastructure;
 
 public enum DiagnosticEvent { Started, Completed, Cancelled, AuthorizationRequired, ReconciliationRequired, LocalConflict, ConversionMismatch, Failed, Exported }
 public enum DiagnosticFailure { WorkbookContentType, FormulaVerification, ConversionDifference, GoogleApi, Network, FileAccess, InvalidData, UnsupportedFormat, Other }
-public enum DiagnosticCode { SnapshotIntegrity, RemoteAssociation, SourceIdentity, SourceChanged, AssociationBinding, TextEncoding, TextStructure, CsvDelimiter, WorkbookContentType, FileAccess, Database, GoogleApi, Network, Other, FileMissing, FileBusy }
+public enum DiagnosticCode { SnapshotIntegrity, RemoteAssociation, SourceIdentity, SourceChanged, AssociationBinding, TextEncoding, TextStructure, CsvDelimiter, WorkbookContentType, FileAccess, Database, GoogleApi, Network, Other, FileMissing, FileBusy, OdsPackage }
 public sealed record RemoteValidationContext(bool IsFolder, bool IsTrashed, bool CanEdit, bool MimeMatches,
     bool MarkerPresent, bool MarkerMatches, bool HashPresent, bool HashMatches, bool PreviouslyVerified);
 public sealed record DiagnosticEntry(DateTimeOffset Time, DiagnosticEvent Event, Guid? Operation, ProcessingMetrics? Metrics = null, DiagnosticFailure? Failure = null, string? Version = null, Guid? AttemptId = null, ProcessingPhase? Stage = null, DiagnosticCode? Code = null, int? NativeError = null, int? GoogleStatus = null, int? SqliteCode = null, RemoteValidationContext? RemoteValidation = null, IReadOnlyList<ProcessingCheckpoint>? Trace = null, string? Revision = null, int? Win32Code = null);
 // Diagnostic files are disposable; durable operation journals and backups are never pruned.
 public sealed class DiagnosticLog(LocalStorage storage)
 {
+    public static string SuggestedFileName(string? sourcePath = null)
+    {
+        if (string.IsNullOrEmpty(sourcePath)) return "ZSW-diagn.jsonl";
+        // Deliberate filename metadata only. Source paths and names never enter the exported JSONL.
+        var name = sourcePath.Replace('\\', '/').Split('/')[^1].ToLowerInvariant();
+        var suffix = string.Concat(name.Where(char.IsLetterOrDigit).Take(100));
+        return suffix.Length == 0 ? "ZSW-diagn.jsonl" : "ZSW-diagn-" + suffix + ".jsonl";
+    }
     public static string? BuildRevision
     {
         get
@@ -86,6 +94,7 @@ public sealed class DiagnosticLog(LocalStorage storage)
         };
         DiagnosticCode? code = failure is null ? null : failure switch
         {
+            InvalidDataException data when data.Message is "Not an ODS package." or "ODS mimetype missing." or "Invalid ODS mimetype." or "Invalid ODS workbook." => DiagnosticCode.OdsPackage,
             FileNotFoundException or DirectoryNotFoundException => DiagnosticCode.FileMissing,
             System.ComponentModel.Win32Exception win32 when win32.NativeErrorCode is 32 or 33 => DiagnosticCode.FileBusy,
             IOException io when (io.HResult & 0xffff) is 32 or 33 => DiagnosticCode.FileBusy,

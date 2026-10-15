@@ -45,7 +45,7 @@ public static class SpreadsheetFormats
                 var table = new SheetValues("Dados", ReadText(bytes, format, options ?? new(), ct));
                 return new(WriteXlsx([table], ct), XlsxMime, [table]);
             case "ods":
-                var expected = ReadOds(bytes);
+                var expected = ReadOds(bytes, ct);
                 return new(bytes, "application/vnd.oasis.opendocument.spreadsheet", expected);
             case "xls":
                 if (HtmlWorkbookReader.IsHtml(bytes))
@@ -149,9 +149,15 @@ public static class SpreadsheetFormats
     private static ZipArchive OpenPackage(byte[] bytes)
     {
         var zip = new ZipArchive(new MemoryStream(bytes), ZipArchiveMode.Read);
-        if (zip.Entries.Count > 10000 || zip.Entries.Sum(e => e.Length) > 96 * 1024 * 1024
-            || zip.Entries.Select(e => e.FullName).Distinct(StringComparer.OrdinalIgnoreCase).Count() != zip.Entries.Count)
-        { zip.Dispose(); throw new InvalidDataException("Oversized or ambiguous ZIP package."); }
+        const long expandedLimit = 96 * 1024 * 1024;
+        long total = 0; var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        if (zip.Entries.Count > 10000) { zip.Dispose(); throw new InvalidDataException("Oversized or ambiguous ZIP package."); }
+        foreach (var entry in zip.Entries)
+        {
+            if (entry.Length > expandedLimit - total || !names.Add(entry.FullName))
+            { zip.Dispose(); throw new InvalidDataException("Oversized or ambiguous ZIP package."); }
+            total += entry.Length;
+        }
         return zip;
     }
     private static XDocument Xml(ZipArchive zip, string path)
@@ -161,8 +167,11 @@ public static class SpreadsheetFormats
         using var stream = entry.Open(); using var reader = XmlReader.Create(stream, new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null, MaxCharactersInDocument = 64 * 1024 * 1024 });
         return XDocument.Load(reader);
     }
-    public static IReadOnlyList<SheetValues>? ReadOds(byte[] bytes)
+    public static IReadOnlyList<SheetValues>? ReadOds(byte[] bytes, CancellationToken ct = default)
     {
+        ct.ThrowIfCancellationRequested();
+        if (bytes.Length < 4 || bytes[0] != 0x50 || bytes[1] != 0x4b || bytes[2] != 3 || bytes[3] != 4)
+            throw new InvalidDataException("Not an ODS package.");
         using var zip = OpenPackage(bytes);
         var mime = zip.GetEntry("mimetype") ?? throw new InvalidDataException("ODS mimetype missing.");
         if (mime.Length > 128) throw new InvalidDataException("Invalid ODS mimetype.");
@@ -177,11 +186,13 @@ public static class SpreadsheetFormats
         var sheets = new List<SheetValues>(); var cells = 0;
         foreach (var sheet in book.Elements(table + "table"))
         {
+            ct.ThrowIfCancellationRequested();
             if (sheets.Count >= 100) throw new InvalidDataException("Too many sheets.");
             var name = (string?)sheet.Attribute(table + "name") ?? throw new InvalidDataException("ODS sheet name missing.");
             var rows = new List<IReadOnlyList<object?>>();
             foreach (var r in sheet.Descendants(table + "table-row"))
             {
+                ct.ThrowIfCancellationRequested();
                 var row = new List<object?>();
                 foreach (var c in r.Elements().Where(e => e.Name == table + "table-cell" || e.Name == table + "covered-table-cell"))
                 {

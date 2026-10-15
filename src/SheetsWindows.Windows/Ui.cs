@@ -22,7 +22,7 @@ internal static class Ui
         for (var i = 0; i < children.Length; i++) row.Controls.Add(children[i], i, 0);
         void Fit()
         {
-            var width = Math.Max(50, row.ClientSize.Width / children.Length - 8);
+            var width = Math.Max(50, (row.ClientSize.Width - row.Padding.Horizontal) / children.Length - 8);
             var height = 32;
             foreach (Control child in row.Controls)
             {
@@ -31,9 +31,9 @@ internal static class Ui
                 else if (child is Button) { child.AutoSize = false; needed = TextRenderer.MeasureText(child.Text, child.Font, new Size(Math.Max(30,width-child.Padding.Horizontal-12),int.MaxValue),TextFormatFlags.WordBreak).Height + child.Padding.Vertical + 10; }
                 height = Math.Max(height, needed + child.Margin.Vertical);
             }
-            row.Height = height;
+            row.Height = height + row.Padding.Vertical;
         }
-        row.SizeChanged += (_, _) => Fit(); foreach (Control child in row.Controls) { child.TextChanged += (_, _) => Fit(); child.FontChanged += (_, _) => Fit(); } Fit(); return row;
+        row.SizeChanged += (_, _) => Fit(); row.PaddingChanged += (_, _) => Fit(); foreach (Control child in row.Controls) { child.TextChanged += (_, _) => Fit(); child.FontChanged += (_, _) => Fit(); } Fit(); return row;
     }
     internal static Panel Separator() => new() { Height = 1, Width = 480, Margin = new Padding(0, 10, 0, 10), AccessibleName = UiText.Get("accessibility.separator"), Tag = "separator" };
     internal static void Primary(Button button) { button.Tag = "primary"; button.MinimumSize = new Size(0, 38); }

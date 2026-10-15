@@ -44,7 +44,7 @@ internal sealed class ProcessingForm : Form
         var export = new AdaptiveButton { Text = UiText.Get("action.exportDiagnostics"), AutoSize = true };
         export.Click += async (_, _) =>
         {
-            using var dialog = new SaveFileDialog { Filter = UiText.Get("dialog.diagnosticFilter"), FileName = "zagosheetswin-diagnostico.jsonl", OverwritePrompt = true };
+            using var dialog = new SaveFileDialog { Filter = UiText.Get("dialog.diagnosticFilter"), FileName = DiagnosticLog.SuggestedFileName(request.Path), OverwritePrompt = true };
             if (dialog.ShowDialog(this) != DialogResult.OK) return;
             try { await new DiagnosticLog(LocalStorage.ForCurrentUser()).ExportAsync(dialog.FileName, overwrite: true, currentAttempt: latestDiagnostic); status.Text = UiText.Get("diagnostics.exported"); }
             catch (Exception failure) when (LauncherErrors.Expected(failure)) { status.Text = UiText.Get("diagnostics.destinationInvalid"); }

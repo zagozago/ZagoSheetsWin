@@ -717,6 +717,8 @@ public sealed class GoogleTests
         var proof = new OAuthProof(); Assert.Null(proof.Callback("/callback?code=x&state=wrong", "/callback")); Assert.Null(proof.Callback("/other?code=x&state=" + proof.State, "/callback"));
         Assert.Null(proof.Callback("/callback?code=x&code=y&state=" + proof.State, "/callback")); Assert.Equal("x", proof.Callback("/callback?code=x&state=" + proof.State, "/callback"));
         Assert.Throws<AuthorizationRequiredException>(() => proof.Callback("/callback?error=access_denied&state=" + proof.State, "/callback"));
+        Assert.Null(proof.Callback("//evil.invalid/callback?code=x&state=" + proof.State, "/callback"));
+        Assert.Null(proof.Callback("/callback?code=x&state=" + proof.State + "#fragment", "/callback"));
         Assert.Equal(43, proof.Verifier.Length); Assert.Contains("code_challenge_method=S256", proof.AuthorizationUri("client", new("http://127.0.0.1:4321/callback")).Query);
     }
     [Fact]
@@ -731,7 +733,7 @@ public sealed class GoogleTests
     }
     private sealed class OAuthServer : HttpMessageHandler
     {
-        public bool Revoked, DeniedScope, OtherAccount, RevokeOffline; public string? LastBody, RevocationBody; public HttpStatusCode RevocationStatus = HttpStatusCode.OK;
+        public bool Revoked, DeniedScope, OtherAccount, RevokeOffline, ExtraScope, OversizedTokenResponse; public string? LastBody, RevocationBody; public HttpStatusCode RevocationStatus = HttpStatusCode.OK;
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage req, CancellationToken ct)
         {
             if (req.RequestUri!.AbsolutePath == "/revoke")
@@ -742,8 +744,9 @@ public sealed class GoogleTests
             }
             if (req.RequestUri!.AbsolutePath == "/token")
             {
+                if (OversizedTokenResponse) return new(HttpStatusCode.OK) { Content = new StringContent(new string('x', 65537)) };
                 LastBody = await req.Content!.ReadAsStringAsync(ct); if (Revoked) return new(HttpStatusCode.BadRequest);
-                var values = new Dictionary<string, object> { { "access_token", "new-access" }, { "token_type", "Bearer" }, { "expires_in", 3600 }, { "scope", DeniedScope ? "other" : GoogleOAuth.Scope } };
+                var values = new Dictionary<string, object> { { "access_token", "new-access" }, { "token_type", "Bearer" }, { "expires_in", 3600 }, { "scope", DeniedScope ? "other" : GoogleOAuth.Scope + (ExtraScope ? " https://www.googleapis.com/auth/drive" : "") } };
                 if (LastBody.Contains("grant_type=authorization_code", StringComparison.Ordinal)) values["refresh_token"] = "initial-refresh";
                 return Json(values);
             }
@@ -841,6 +844,28 @@ public sealed class GoogleTests
         using var w = new Workspace(); var vault = new MemoryVault { Tokens = new("client", "client:user", "expired", "refresh", DateTimeOffset.UtcNow.AddHours(-1)) }; using var server = new OAuthServer { DeniedScope = true }; using var http = new HttpClient(server);
         await Assert.ThrowsAsync<AuthorizationRequiredException>(() => new GoogleOAuth(http, new("client", null), vault, new Receiver(), new FileOperationLock(w.Locks)).AccessAsync());
     }
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task OAuthRejectsBroaderScopesAndOversizedResponsesWithoutReplacingCredentials(bool extraScope)
+    {
+        using var w = new Workspace(); var initial = new GoogleTokens("client", "client:user", "old", "refresh", DateTimeOffset.UtcNow.AddHours(-1));
+        var vault = new MemoryVault { Tokens = initial }; using var server = new OAuthServer { ExtraScope = extraScope, OversizedTokenResponse = !extraScope }; using var http = new HttpClient(server);
+        var oauth = new GoogleOAuth(http, new("client", null), vault, new Receiver(), new FileOperationLock(w.Locks));
+        if (extraScope) await Assert.ThrowsAsync<AuthorizationRequiredException>(() => oauth.AccessAsync());
+        else await Assert.ThrowsAsync<InvalidDataException>(() => oauth.AccessAsync());
+        Assert.Same(initial, vault.Tokens);
+    }
+    [Fact]
+    public async Task DisguisedOdsNeverUploadsAndKeepsOriginalAndBackup()
+    {
+        using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".ods"); var bytes = Encoding.UTF8.GetBytes("<html><script>not executed</script></html>"); File.WriteAllBytes(path, bytes);
+        using var server = new DriveServer();
+        await Assert.ThrowsAsync<InvalidDataException>(() => Importer(w, server).ImportReceiptAsync(path));
+        Assert.Equal(0, server.Posts); Assert.Equal(bytes, File.ReadAllBytes(path));
+        Assert.Equal(bytes, File.ReadAllBytes(Assert.Single(w.Registry().Pending()).Snapshot!.BackupPath));
+    }
+
     [Fact]
     public async Task ExistingSheetOpensEvenAfterImportFolderWasRemoved()
     {

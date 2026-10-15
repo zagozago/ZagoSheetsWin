@@ -1,18 +1,20 @@
 # ZagoSheetsWin
 
-Projeto em preparação: abrir planilhas locais no Google Sheets e substituir o original por um atalho de Internet na mesma pasta, com backup recuperável.
+Abre planilhas locais no Google Sheets e, após confirmação, substitui o original por um atalho na mesma pasta, com backup recuperável.
 
-**Alpha 0.9.6 aprovada:** [Gestão de backups](docs/ALPHA_6_BACKUPS.md). Retenção de 30 dias, teto de 200 MB (até 1 GB), limpeza manual e automática mediante consentimento. [Baixar instalador Windows x64](https://github.com/zagozago/ZagoSheetsWin/actions/runs/37119038565/artifacts/11273180494). CI Windows/Linux, interface e instalador aprovados; aceite manual final pendente.
+**Candidato atual: 0.9.30.** A publicação 1.0 depende do aceite final no Windows/Google real e das pendências externas de distribuição.
 
-**Alpha 0.9.5 aprovada:** [Interface mínima, temas e processamento](docs/ALPHA_4_UI.md). [Baixar instalador Windows x64](https://github.com/zagozago/ZagoSheetsWin/actions/runs/37101501901/artifacts/11265857512). CI Windows/Linux, interface nativa, prévias e instalador aprovados; aceite manual Windows 11/Google real pendente.
+- [Alterações](CHANGELOG.md)
+- [Revisão de segurança, OAuth e pendências externas](docs/SECURITY_REVIEW_0930.md)
+- [Plano do projeto](docs/ALPHA_NEXT.md)
 
-**Alpha 0.9.4 aprovada:** [Instalação e primeiro uso](docs/ALPHA_3_SETUP.md). [Baixar instalador Windows x64](https://github.com/zagozago/ZagoSheetsWin/actions/runs/37097216126/artifacts/11264632553). CI Windows/Linux, instalador e prévias nativas aprovados; aceite manual Google real/Windows 11 pendente. [Plano atualizado com internacionalização](docs/ALPHA_NEXT.md).
+Para obter o pacote oficial, use o workflow **Protected alpha distribution**, na branch feature/zagosheetswin, após seus testes ficarem verdes. O Environment zagosheets-distribution exige aprovação. O artifact ZagoSheetsWin-Setup-win-x64 contém o instalador, SHA256SUMS.txt e build-info.json. Confira versão, commit e hash antes de executar.
 
-**Alpha 0.9.3:** [XLS padrão e ícone dos atalhos](docs/ALPHA_2_XLS.md). [Baixar instalador aprovado](https://github.com/zagozago/ZagoSheetsWin/actions/runs/37096149671/artifacts/11264247583). CI Windows/Linux e instalador aprovados; aceite Google real/Explorer pendente.
+Os builds comuns de CI validam código e interface com respostas Google simuladas. O build protegido adiciona a configuração OAuth desktop oficial. O instalador é por usuário e preserva dados locais ao atualizar/desinstalar.
 
-**Atualização alpha 0.9.2:** [CSV, capacidade e diagnóstico](docs/ALPHA_1_CSV.md). [Baixar instalador aprovado 0.9.2](https://github.com/zagozago/ZagoSheetsWin/actions/runs/37095090039/artifacts/11264096007). CI Windows/Linux e instalador aprovados; teste Google real desta correção pendente.
+Formatos: CSV, TSV, XLSX, XLS e ODS. O nome/extensão não prova o formato: HTML renomeado para ODS é recusado. Recursos sem verificação de fidelidade podem exigir importação como cópia, preservando o original. O produto não sincroniza edições do Sheets de volta ao arquivo local.
 
-**Estado:** etapa 9 consolida o piloto 0.9.1 com nome ZagoSheetsWin, identidade Zagotools e créditos à origem. [Guia único de instalação, escopo e homologação](docs/STAGE_9.md). Suporte atual: planilhas no Windows; Google real/Explorer/Windows 11 serão homologados no fechamento. Os scripts PowerShell herdados ainda atualizam a cópia no Drive e não representam o fluxo seguro do aplicativo novo.
+Os scripts PowerShell herdados são referência histórica; o fluxo atual usa o aplicativo C#.
 
 ## Relationship with Open in Google
 

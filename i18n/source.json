@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.29",
+  "productVersion": "0.9.30",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 5,
+  "catalogRevision": 6,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -1544,7 +1544,7 @@
       "notes": []
     },
     "action.restore": {
-      "text": "Restaurar em…",
+      "text": "Restaurar",
       "context": "src/SheetsWindows.Windows/RecoveryForm.cs - public RecoveryForm(bool preview = false, bool previewBusy = false)",
       "scope": "app",
       "placeholders": [],
@@ -2148,7 +2148,7 @@
       "notes": []
     },
     "emphasis.restore": {
-      "text": "Restaurar em…",
+      "text": "Restaurar",
       "context": "Termo destacado em instruções; preservar nomes de marcas",
       "scope": "emphasis",
       "placeholders": [],
@@ -5924,7 +5924,7 @@
       ]
     },
     "recovery.deleteSelected": {
-      "text": "Apagar selecionados…",
+      "text": "Apagar",
       "context": "src/SheetsWindows.Windows/RecoveryForm.cs - public RecoveryForm(bool preview = false, bool previewBusy = false)",
       "scope": "app",
       "placeholders": [],

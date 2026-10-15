@@ -153,6 +153,11 @@ internal static class InterfaceVerification
             var stop = Descendants(recovery).OfType<Button>().Single(b => b.Text == "Cancelar retomada");
             var list = Descendants(recovery).OfType<ListView>().Single();
             Require(stop.Visible && stop.Enabled && !stop.Bounds.IntersectsWith(list.Bounds) && stop.Bottom <= recovery.ClientSize.Height, "Recovery cancellation must remain visible outside the list.");
+            var restoreAction = Descendants(recovery).OfType<Button>().Single(b => b.Text == UiText.Get("action.restore"));
+            var selectionAction = Descendants(recovery).OfType<Button>().Single(b => b.Text == UiText.Get("recovery.selectAll"));
+            Require(restoreAction.Parent == selectionAction.Parent && restoreAction.Parent!.Controls.GetChildIndex(restoreAction) == 0
+                && restoreAction.Parent is TableLayoutPanel { ColumnCount: 5 } && restoreAction.Tag as string == "primary",
+                "Restore must be the first regular primary action beside selection controls.");
             var numbers = Descendants(recovery).OfType<NumericUpDown>().ToArray();
             Require(numbers.Any(n => n.Value == 30 && n.Maximum == 365) && numbers.Any(n => n.Value == 200 && n.Maximum == 1000), "Backup defaults and quota ceiling must be visible.");
             Require(!Descendants(recovery).OfType<CheckBox>().Single().Checked, "Automatic cleanup requires informed opt-in.");
@@ -161,11 +166,11 @@ internal static class InterfaceVerification
             Require(list.MultiSelect && list.CheckBoxes, "Backups must support multiple selection.");
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Selecionar todos").PerformClick();
             Require(list.CheckedItems.Count == 3 && list.SelectedItems.Count == 3, "Select all must include pending backups for explicit confirmed discard.");
-            Require(Descendants(recovery).OfType<Button>().Single(b => b.Text == "Apagar selecionados…").Enabled, "Pending backups must allow the confirmed manual delete action.");
+            Require(Descendants(recovery).OfType<Button>().Single(b => b.Text == UiText.Get("recovery.deleteSelected")).Enabled, "Pending backups must allow the confirmed manual delete action.");
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Limpar seleção").PerformClick();
             Require(list.CheckedItems.Count == 0, "Clear selection must remove all marks.");
             list.Items[0].Selected = list.Items[1].Selected = true; Application.DoEvents();
-            Require(!Descendants(recovery).OfType<Button>().Single(b => b.Text == "Restaurar em…").Enabled, "Restoring must require exactly one selected file.");
+            Require(!Descendants(recovery).OfType<Button>().Single(b => b.Text == UiText.Get("action.restore")).Enabled, "Restoring must require exactly one selected file.");
             foreach (var size in new[] { new Size(980, 680), new Size(760, 560) })
             {
                 recovery.Size = size; recovery.PerformLayout(); Application.DoEvents();

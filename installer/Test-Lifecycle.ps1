@@ -1,4 +1,8 @@
-param([string]$ExpectedVersion = "0.9.29")
+param([string]$ExpectedVersion = "")
+if ([string]::IsNullOrEmpty($ExpectedVersion)) {
+    [xml]$project = Get-Content (Join-Path $PSScriptRoot '../src/SheetsWindows.Windows/SheetsWindows.Windows.csproj') -Raw
+    $ExpectedVersion = [string]$project.Project.PropertyGroup.Version
+}
 $ErrorActionPreference = 'Stop'
 function Run-Checked($file, $arguments) {
     $process = Start-Process -FilePath $file -ArgumentList $arguments -PassThru

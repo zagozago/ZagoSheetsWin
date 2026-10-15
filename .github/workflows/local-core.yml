@@ -31,7 +31,27 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Localization contract tests failed' }
           python tools/i18n/generate.py --validate-pack i18n/packs/en.json --release
           if ($LASTEXITCODE -ne 0) { throw 'English release validation failed' }
+      - name: Audit source, versions and workflow security
+        shell: pwsh
+        run: |
+          python tools/security/audit.py
+          if ($LASTEXITCODE -ne 0) { throw 'Source security audit failed' }
       - run: dotnet restore SheetsWindows.slnx --locked-mode
+      - name: Audit transitive dependency vulnerabilities
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts/security | Out-Null
+          dotnet list SheetsWindows.slnx package --vulnerable --include-transitive --format json > artifacts/security/dependencies.json
+          if ($LASTEXITCODE -ne 0) { throw 'Dependency audit failed' }
+          python tools/security/audit.py --dependencies artifacts/security/dependencies.json
+          if ($LASTEXITCODE -ne 0) { throw 'Vulnerable dependencies or unavailable audit data' }
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: dependency-audit-${{ runner.os }}
+          path: artifacts/security/
+          if-no-files-found: ignore
+
       - run: dotnet build SheetsWindows.slnx --configuration Release --no-restore
       - name: Publish Windows launcher
         if: runner.os == 'Windows'
@@ -127,9 +147,17 @@ jobs:
           path: artifacts/installer-verification/
           if-no-files-found: ignore
 
+      - name: Record installer integrity and publisher signature status
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./installer/Write-Integrity.ps1
+
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: runner.os == 'Windows'
         with:
           name: ZagoSheetsWin-Setup-win-x64
-          path: artifacts/installer/ZagoSheetsWin-Setup-win-x64.exe
+          path: |
+            artifacts/installer/ZagoSheetsWin-Setup-win-x64.exe
+            artifacts/installer/SHA256SUMS.txt
+            artifacts/installer/build-info.json
           if-no-files-found: error
