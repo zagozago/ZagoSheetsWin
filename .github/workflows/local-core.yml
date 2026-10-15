@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9
         with:
-          dotnet-version: '10.0.401'
+          dotnet-version: '10.0.402'
       - name: Validate localization source and generated resources
         shell: pwsh
         env:
@@ -36,6 +36,15 @@ jobs:
         run: |
           python tools/security/audit.py
           if ($LASTEXITCODE -ne 0) { throw 'Source security audit failed' }
+      - name: Regenerate patched dependency locks for review
+        shell: pwsh
+        run: |
+          dotnet restore SheetsWindows.slnx --force-evaluate
+          if ($LASTEXITCODE -ne 0) { throw 'Patched dependency restore failed' }
+          Get-ChildItem -Recurse -Filter packages.lock.json | ForEach-Object {
+            $relative = [IO.Path]::GetRelativePath((Get-Location).Path, $_.FullName).Replace('\', '/')
+            Write-Output ('REVIEW_LOCK ' + $relative + ' ' + [Convert]::ToBase64String([IO.File]::ReadAllBytes($_.FullName)))
+          }
       - run: dotnet restore SheetsWindows.slnx --locked-mode
       - name: Audit transitive dependency vulnerabilities
         shell: pwsh
