@@ -22,7 +22,17 @@ internal sealed class LauncherForm : Form
         for (var i = 0; i < 3; i++) navigation.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 3));
         var settings = Action(UiText.Get("home.settings"), (_, _) => { using var setup = new SetupForm(); setup.ShowDialog(this); });
         var backups = Action(UiText.Get("home.backups"), (_, _) => { using var recovery = new RecoveryForm(); recovery.ShowDialog(this); });
-        var help = Action(UiText.Get("home.help"), (_, _) => { using var tutorial = new TutorialForm(); tutorial.ShowDialog(this); });
+        var help = Action(UiText.Get("home.help"), (_, _) =>
+        {
+            // Web manual complements the offline first-use wizard and optional startup tutorial.
+            var url = "https://zagotools.top/apps/zagosheetswin/ajuda/?lang=" +
+                Uri.EscapeDataString(UiText.Language);
+            try { new BrowserLauncher().Open(new Uri(url)); }
+            catch (Exception ex) when (LauncherErrors.Expected(ex))
+            {
+                MessageBox.Show(this, url, UiText.Get("home.help"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        });
         foreach (var button in new[] { settings, backups, help }) { button.Dock = DockStyle.Fill; button.Font = new Font("Segoe UI", 9); navigation.Controls.Add(button); }
         layout.Controls.Add(navigation);
         Controls.Add(layout); Branding.Apply(this, compact: true); Ui.Adapt(layout);
