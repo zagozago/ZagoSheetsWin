@@ -1,3 +1,7 @@
+> **REGISTRO HISTÓRICO (01/10/2026).** Este roteiro descreve uma etapa inicial e não representa o estado vigente nem o limite atual do produto. Consulte [documentação atual](README.md), [arquitetura implementada](ARCHITECTURE_CURRENT.md) e [histórico](HISTORY.md).
+
+---
+
 # ZagoSheetsWin — plano de desenvolvimento
 
 Data: 2026-10-01. Complementa SW_00_PRINCIPAL.md.
