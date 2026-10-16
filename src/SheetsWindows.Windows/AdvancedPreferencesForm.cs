@@ -87,18 +87,18 @@ internal sealed class AdvancedPreferencesForm : Form
         // Reuse the two existing paragraphs verbatim, in their respective places.
         string FormatPart(int part) { var blocks = UiText.Get("setup.formatLimits").Replace("\\n", "\n").Split("\n\n", 2); return part < blocks.Length ? blocks[part] : ""; }
         Heading("setup.formatsHeading", () => { var panel = new FlowLayoutPanel(); panel.Controls.Add(Ui.Text(FormatPart(1))); return panel; });
-        var extended = new ToggleSwitch { Checked = true, Text = UiText.Get("setup.extendedFormats") };
+        var formats = Ui.Text(UiText.Get("setup.extendedFormats"));
         var encoding = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList };
         encoding.Items.AddRange([UiText.Get("setup.encodingUnicode"), UiText.Get("setup.encodingLegacy")]); encoding.SelectedIndex = 0;
         var delimiter = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList };
         delimiter.Items.AddRange([UiText.Get("setup.delimiterAuto"), UiText.Get("setup.delimiterComma"), UiText.Get("setup.delimiterSemicolon")]); delimiter.SelectedIndex = 0;
         void RestoreFormats()
         {
-            try { var saved = ExtendedConfiguration.Load(storage); extended.Checked = true; extended.Enabled = encoding.Enabled = delimiter.Enabled = false; encoding.SelectedIndex = saved.Encoding == "auto" ? 0 : 1; delimiter.SelectedIndex = saved.Delimiter switch { "comma" => 1, "semicolon" => 2, _ => 0 }; }
-            catch (LauncherNotConfiguredException) { encoding.Enabled = delimiter.Enabled = extended.Checked; }
+            try { var saved = ExtendedConfiguration.Load(storage); encoding.Enabled = delimiter.Enabled = false; encoding.SelectedIndex = saved.Encoding == "auto" ? 0 : 1; delimiter.SelectedIndex = saved.Delimiter switch { "comma" => 1, "semicolon" => 2, _ => 0 }; }
+            catch (LauncherNotConfiguredException) { encoding.Enabled = delimiter.Enabled = true; }
         }
         RestoreFormats();
-        layout.Controls.Add(extended); layout.Controls.Add(Ui.Pair(encoding, delimiter));
+        layout.Controls.Add(formats); layout.Controls.Add(Ui.Pair(encoding, delimiter));
         string LimitText() => FormatPart(0).Replace("\n", " ");
         var limits = Ui.Text(LimitText()); layout.Controls.Add(limits);
         void RefreshLimits() => limits.Text = LimitText();
@@ -106,10 +106,8 @@ internal sealed class AdvancedPreferencesForm : Form
         Task SaveFormats()
         {
             var options = new TextImportOptions(encoding.SelectedIndex == 0 ? "auto" : "windows-1252", delimiter.SelectedIndex switch { 1 => "comma", 2 => "semicolon", _ => "auto" });
-            var enabled = extended.Checked;
-            return preferences.SaveAsync(() => { ExtendedConfiguration.Save(storage, options, enabled); return Task.CompletedTask; }, RestoreFormats);
+            return preferences.SaveAsync(() => { ExtendedConfiguration.Save(storage, options, true); return Task.CompletedTask; }, RestoreFormats);
         }
-        extended.CheckedChanged += async (_, _) => { encoding.Enabled = delimiter.Enabled = extended.Checked; await SaveFormats(); };
         encoding.SelectedIndexChanged += async (_, _) => await SaveFormats(); delimiter.SelectedIndexChanged += async (_, _) => await SaveFormats();
         Divider(); Heading("setup.xlsHeading", () => InformationButton.TextPanel("setup.xlsExplanation"));
         var xls = new ToggleSwitch { Checked = XlsReplacementSettings.Load(storage), Text = UiText.Get("setup.replaceXls") }; layout.Controls.Add(xls);

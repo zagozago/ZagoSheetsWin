@@ -162,8 +162,8 @@ internal sealed class TutorialPicture : Control
         if (Page == 2)
         {
             Round(5, 10, 465, 151, pale);
-            var formats = new[] { "CSV", "TSV", "XLSX", "XLS" };
-            for (var index = 0; index < formats.Length; index++) FileIcon(36 + index * 112, 32, formats[index]);
+            var formats = new[] { "CSV", "TSV", "XLSX", "XLS", "ODS" };
+            for (var index = 0; index < formats.Length; index++) FileIcon(13 + index * 93, 32, formats[index]);
             AppIcon(540, 30, false);
             g.DrawLine(pen, 487, 83, 521, 83); g.DrawLines(pen, [new PointF(511, 73), new PointF(521, 83), new PointF(511, 93)]);
             g.DrawString(UiText.Get("tutorial.picture.chooseSpreadsheet"), font, ink, new RectangleF(5, 185, 465, 45), centered);

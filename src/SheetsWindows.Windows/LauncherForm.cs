@@ -33,7 +33,7 @@ internal sealed class LauncherForm : Form
                 MessageBox.Show(this, url, UiText.Get("home.help"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         });
-        foreach (var button in new[] { settings, backups, help }) { button.Dock = DockStyle.Fill; button.Font = new Font("Segoe UI", 9); navigation.Controls.Add(button); }
+        foreach (var button in new[] { settings, backups, help }) { button.Dock = DockStyle.Fill; navigation.Controls.Add(button); }
         layout.Controls.Add(navigation);
         Controls.Add(layout); Branding.Apply(this, compact: true); Ui.Adapt(layout);
     }

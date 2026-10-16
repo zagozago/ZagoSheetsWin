@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "Mepee spreadsheets gị na Google Sheets site na akaụntụ Google gị. A na-eme nnomi ndabere nke mbụ tupu eji ụzọ mkpirisi dochie ya.",
     "setup.encodingLegacy": "Ederede: Windows-1252",
     "setup.encodingUnicode": "Ederede: UTF-8 / UTF-16 nwere BOM",
-    "setup.extendedFormats": "Gbanwuo CSV, TSV, XLS na ODS (nnwale).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Ojiji mbụ - ZagoSheetsWin",
     "setup.formatLimits": "Ruo 20 MiB kwa faịlụ.\nCSV/TSV: sel puku 500, ahịrị puku 50 na kọlụm puku otu.\n\nA na-ewere ọdịnaya dịka ederede nkịtị. Ọ bụrụ na enweghị ike inyocha ntụgharị ODS, a na-edobe nke mbụ. A na-echekwa nhọrọ ederede gị.",
     "setup.formatsHeading": "Ụdị na ederede",
@@ -329,7 +329,7 @@
     "tutorial.start": "Bido",
     "tutorial.title": "Otu o si arụ ọrụ - ZagoSheetsWin",
     "windows.fileTypeDescription": "Spreadsheet na Google Sheets",
-    "windows.registrationDescription": "Na-ebubata XLSX gaa Google Sheets ma jiri ụzọ mkpirisi dochie ya, ebe a na-echekwa nnomi ndabere nzuzo.",
+    "windows.registrationDescription": "Na-ebubata XLSX, CSV, TSV, XLS, ODS gaa Google Sheets ma jiri ụzọ mkpirisi dochie ya, ebe a na-echekwa nnomi ndabere nzuzo.",
     "language.title": "Asụsụ - ZagoSheetsWin",
     "language.choose": "Họrọ asụsụ ngwa",
     "language.search": "Chọọ site na aha ma ọ bụ koodu",

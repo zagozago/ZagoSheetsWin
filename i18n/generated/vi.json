@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "Mở bảng tính trong Google Sheets bằng tài khoản Google của bạn. Tệp gốc được sao lưu trước khi bị thay bằng lối tắt.",
     "setup.encodingLegacy": "Văn bản: Windows-1252",
     "setup.encodingUnicode": "Văn bản: UTF-8 / UTF-16 có BOM",
-    "setup.extendedFormats": "Bật CSV, TSV, XLS và ODS (thử nghiệm).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Lần sử dụng đầu - ZagoSheetsWin",
     "setup.formatLimits": "Tối đa 20 MiB mỗi tệp.\nCSV/TSV: 500 nghìn ô, 50 nghìn hàng và một nghìn cột.\n\nNội dung được xử lý như văn bản thuần. Nếu không thể xác minh chuyển đổi ODS, tệp gốc được giữ lại. Tùy chọn văn bản của bạn được giữ nguyên.",
     "setup.formatsHeading": "Định dạng và văn bản",
@@ -329,7 +329,7 @@
     "tutorial.start": "Bắt đầu",
     "tutorial.title": "Cách hoạt động - ZagoSheetsWin",
     "windows.fileTypeDescription": "Bảng tính trong Google Sheets",
-    "windows.registrationDescription": "Nhập XLSX vào Google Sheets và thay bằng lối tắt, đồng thời giữ bản sao lưu riêng tư.",
+    "windows.registrationDescription": "Nhập XLSX, CSV, TSV, XLS, ODS vào Google Sheets và thay bằng lối tắt, đồng thời giữ bản sao lưu riêng tư.",
     "language.title": "Ngôn ngữ - ZagoSheetsWin",
     "language.choose": "Chọn ngôn ngữ ứng dụng",
     "language.search": "Tìm theo tên hoặc mã",

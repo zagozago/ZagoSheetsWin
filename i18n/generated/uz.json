@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "Jadvallaringizni Google hisobingiz bilan Google Sheets’da oching. Asl fayl yorliq bilan almashtirilishidan oldin zaxira nusxalanadi.",
     "setup.encodingLegacy": "Matn: Windows-1252",
     "setup.encodingUnicode": "Matn: UTF-8 / UTF-16 with BOM",
-    "setup.extendedFormats": "CSV, TSV, XLS va ODS’ni yoqish (tajribaviy).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Birinchi foydalanish - ZagoSheetsWin",
     "setup.formatLimits": "Har bir fayl uchun 20 MiB gacha.\nCSV/TSV: 500 ming katak, 50 ming qator va mingta ustun.\n\nKontent oddiy matn sifatida ko‘riladi. ODS aylantirishini tekshirib bo‘lmasa, asl fayl saqlanadi. Matn bo‘yicha tanlovlaringiz saqlanadi.",
     "setup.formatsHeading": "Formatlar va matn",
@@ -329,7 +329,7 @@
     "tutorial.start": "Boshlash",
     "tutorial.title": "Qanday ishlaydi - ZagoSheetsWin",
     "windows.fileTypeDescription": "Google Sheets’dagi jadval",
-    "windows.registrationDescription": "XLSX’ni Google Sheets’ga import qiladi va xususiy zaxira nusxani saqlagan holda yorliq bilan almashtiradi.",
+    "windows.registrationDescription": "XLSX, CSV, TSV, XLS, ODS’ni Google Sheets’ga import qiladi va xususiy zaxira nusxani saqlagan holda yorliq bilan almashtiradi.",
     "language.title": "Til - ZagoSheetsWin",
     "language.choose": "Ilova tilini tanlang",
     "language.search": "Nom yoki kod bo‘yicha qidiring",

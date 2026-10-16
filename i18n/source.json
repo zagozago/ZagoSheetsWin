@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 6,
+  "catalogRevision": 7,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -6508,14 +6508,15 @@
       "notes": []
     },
     "setup.extendedFormats": {
-      "text": "Habilitar CSV, TSV, XLS e ODS (experimental).",
-      "context": "src/SheetsWindows.Windows/SetupForm.cs - public SetupForm(bool firstUse = false, bool preview = false)",
+      "text": "XLSX · CSV · TSV · XLS · ODS",
+      "context": "Supported file types; informational label in AdvancedPreferencesForm, not a setting.",
       "scope": "app",
       "placeholders": [],
       "invariants": [
-        "XLS",
+        "XLSX",
         "CSV",
         "TSV",
+        "XLS",
         "ODS"
       ],
       "markup": [],
@@ -7162,15 +7163,17 @@
       "notes": []
     },
     "windows.registrationDescription": {
-      "text": "Importa XLSX para Google Sheets e substitui por atalho, mantendo backup privado.",
+      "text": "Importa XLSX, CSV, TSV, XLS, ODS para Google Sheets e substitui por atalho, mantendo backup privado.",
       "context": "src/SheetsWindows.Infrastructure/WindowsAssociations.cs - public static IReadOnlyList<Value> Values(string exe, bool legacy = false, bool legacyIcon = false)",
       "scope": "app",
       "placeholders": [],
       "invariants": [
-        "Google Sheets",
-        "Google",
         "XLSX",
-        "XLS"
+        "CSV",
+        "TSV",
+        "XLS",
+        "ODS",
+        "Google Sheets"
       ],
       "markup": [],
       "notes": []

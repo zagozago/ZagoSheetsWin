@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.30 with reviewed .NET 10.0.13 dependency locks.
+# Distribution candidate 0.9.31: supported formats and consistent home button typography.
 name: Protected alpha distribution
 on:
   workflow_dispatch:

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "Bukak spreadsheet sampeyan ing Google Sheets nganggo akun Google sampeyan. Berkas asli digawe cadangan sadurunge diganti nganggo trabasan.",
     "setup.encodingLegacy": "Teks: Windows-1252",
     "setup.encodingUnicode": "Teks: UTF-8 / UTF-16 nganggo BOM",
-    "setup.extendedFormats": "Aktifake CSV, TSV, XLS lan ODS (eksperimental).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Panggunaan pisanan - ZagoSheetsWin",
     "setup.formatLimits": "Nganti 20 MiB saben berkas.\nCSV/TSV: 500 ewu sel, 50 ewu baris lan sewu kolom.\n\nIsi dianggep minangka teks literal. Yen konversi ODS ora bisa diverifikasi, berkas asli tetep disimpen. Pilihan teks sampeyan tetep dijaga.",
     "setup.formatsHeading": "Format lan teks",
@@ -329,7 +329,7 @@
     "tutorial.start": "Miwiti",
     "tutorial.title": "Cara kerjane - ZagoSheetsWin",
     "windows.fileTypeDescription": "Spreadsheet ing Google Sheets",
-    "windows.registrationDescription": "Ngimpor XLSX menyang Google Sheets lan ngganti nganggo trabasan, kanthi tetep nyimpen cadangan pribadi.",
+    "windows.registrationDescription": "Ngimpor XLSX, CSV, TSV, XLS, ODS menyang Google Sheets lan ngganti nganggo trabasan, kanthi tetep nyimpen cadangan pribadi.",
     "language.title": "Basa - ZagoSheetsWin",
     "language.choose": "Pilih basa aplikasi",
     "language.search": "Goleki miturut jeneng utawa kode",

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "Открывайте таблицы в Google Sheets со своим аккаунтом Google. Перед заменой файла ярлыком создаётся резервная копия исходного файла.",
     "setup.encodingLegacy": "Текст: Windows-1252",
     "setup.encodingUnicode": "Текст: UTF-8 / UTF-16 с BOM",
-    "setup.extendedFormats": "Включить CSV, TSV, XLS и ODS (экспериментально).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Первый запуск - ZagoSheetsWin",
     "setup.formatLimits": "До 20 MiB на файл.\nCSV/TSV: 500 тысяч ячеек, 50 тысяч строк и тысяча столбцов.\n\nСодержимое обрабатывается как буквальный текст. Если преобразование ODS нельзя проверить, исходный файл сохраняется. Настройки текста сохраняются.",
     "setup.formatsHeading": "Форматы и текст",
@@ -329,7 +329,7 @@
     "tutorial.start": "Начать",
     "tutorial.title": "Как это работает - ZagoSheetsWin",
     "windows.fileTypeDescription": "Таблица в Google Sheets",
-    "windows.registrationDescription": "Импортирует XLSX в Google Sheets и заменяет его ярлыком, сохраняя приватную резервную копию.",
+    "windows.registrationDescription": "Импортирует XLSX, CSV, TSV, XLS, ODS в Google Sheets и заменяет его ярлыком, сохраняя приватную резервную копию.",
     "language.title": "Язык - ZagoSheetsWin",
     "language.choose": "Выберите язык приложения",
     "language.search": "Поиск по названию или коду",

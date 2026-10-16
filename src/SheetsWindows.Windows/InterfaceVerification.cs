@@ -26,6 +26,10 @@ internal static class InterfaceVerification
                 Require(languageOwner.Visible && languageOwner.WindowState != FormWindowState.Minimized,
                     $"Language change to {code} must restore the existing window.");
                 Require(languageOwner.RightToLeftLayout == UiText.RightToLeft, "Restored window must use the selected text direction.");
+                var actionCaptions = new[] { "home.open", "home.settings", "home.backups", "home.help" }.Select(UiText.Get).ToHashSet();
+                foreach (var action in Descendants(languageOwner).OfType<Button>().Where(b => actionCaptions.Contains(b.Text)))
+                    Require(Math.Abs(action.Font.SizeInPoints - 10f) < 0.01f && action.Font.FontFamily.Name == languageOwner.Font.FontFamily.Name,
+                        "Home actions must use the standard 10-point font and the selected language family.");
             }
             languageOwner.Hide();
         }
@@ -195,6 +199,9 @@ internal static class InterfaceVerification
                 Require(Descendants(advanced).OfType<InformationButton>().Count() == 4, "Advanced help is divided into three groups plus header information.");
                 Require(Descendants(advanced).OfType<Button>().Count(b => b.Text == UiText.Get("setup.chooseClient")) == 1, "Advanced options must provide the only JSON selector.");
                 var selectors = Descendants(advanced).OfType<ComboBox>().ToArray();
+                Require(!Descendants(advanced).OfType<CheckBox>().Any(c => c.Text == UiText.Get("setup.extendedFormats"))
+                    && Descendants(advanced).OfType<Label>().Any(l => l.Text == UiText.Get("setup.extendedFormats") && l.Text.Contains("ODS", StringComparison.Ordinal)),
+                    "Supported formats must be informational, including ODS, without an enable/disable switch.");
                 Require(selectors.Length == 2 && selectors[0].Parent == selectors[1].Parent && selectors[0].Top == selectors[1].Top,
                     "Encoding and delimiter selectors must be side by side.");
                 Require(Descendants(advanced).OfType<FlowLayoutPanel>().Where(p => p.Dock == DockStyle.Fill).All(p => !p.VerticalScroll.Visible),

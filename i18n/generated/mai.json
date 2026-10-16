@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "अपन Google अकाउंट सँ Google Sheets मेँ स्प्रेडशीट खोलू। शॉर्टकट सँ बदलबाक पहिने मूल फाइलक बैकअप बनैत अछि।",
     "setup.encodingLegacy": "टेक्स्ट: Windows-1252",
     "setup.encodingUnicode": "टेक्स्ट: UTF-8 / UTF-16 BOM सहित",
-    "setup.extendedFormats": "CSV, TSV, XLS आ ODS सक्षम करू (प्रयोगात्मक)।",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "पहिल उपयोग - ZagoSheetsWin",
     "setup.formatLimits": "प्रति फाइल 20 MiB धरि।\nCSV/TSV: 500 हजार सेल, 50 हजार पंक्ति आ एक हजार कॉलम।\n\nसामग्री केँ अक्षरशः टेक्स्ट मानल जाइत अछि। जँ ODS रूपान्तरण सत्यापित नहि भ' सके, मूल फाइल सुरक्षित रहत। अहाँक टेक्स्ट पसंद सुरक्षित राखल जाइत अछि।",
     "setup.formatsHeading": "फॉर्मेट आ टेक्स्ट",
@@ -329,7 +329,7 @@
     "tutorial.start": "शुरू करू",
     "tutorial.title": "ई कोना काम करैत अछि - ZagoSheetsWin",
     "windows.fileTypeDescription": "Google Sheets मेँ स्प्रेडशीट",
-    "windows.registrationDescription": "XLSX केँ Google Sheets मेँ इम्पोर्ट करैत अछि आ निजी बैकअप सुरक्षित रखैत शॉर्टकट सँ बदलैत अछि।",
+    "windows.registrationDescription": "XLSX, CSV, TSV, XLS, ODS केँ Google Sheets मेँ इम्पोर्ट करैत अछि आ निजी बैकअप सुरक्षित रखैत शॉर्टकट सँ बदलैत अछि।",
     "language.title": "भाषा - ZagoSheetsWin",
     "language.choose": "ऐपक भाषा चुनू",
     "language.search": "नाम वा कोड सँ खोजू",

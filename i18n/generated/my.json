@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "သင့် Google အကောင့် ဖြင့် Google Sheets တွင် စာရင်းဇယားများ များဖွင့်ပါ။ မူရင်းကို ဖြတ်လမ်း ဖြင့် မအစားထိုးမီ အရန်သိမ်းဆည်းမှု လုပ်ထားသည်။",
     "setup.encodingLegacy": "စာသား: Windows-1252",
     "setup.encodingUnicode": "စာသား: UTF-8 / UTF-16 နှင့် BOM",
-    "setup.extendedFormats": "CSV, TSV, XLS နှင့် ODS ကို ဖွင့်ရန် (စမ်းသပ်ဆဲ)။",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "ပထမဆုံးအသုံးပြုမှု - ZagoSheetsWin",
     "setup.formatLimits": "ဖိုင် တစ်ခုလျှင် 20 MiB အထိ။\nCSV/TSV: ဆဲလ် 500 ထောင်, အတန်း 50 ထောင် နှင့် ကော်လံ တစ်ထောင်။\n\nအကြောင်းအရာ ကို စာသားအတိုင်း အဖြစ် သတ်မှတ်သည်။ ODS conversion ကို အတည်ပြု မလုပ်နိုင်ပါက မူရင်းကို ထားရှိမည်။ သင့် စာသားဆိုင်ရာ ဦးစားပေးများ ကို ထိန်းသိမ်းထားသည်။",
     "setup.formatsHeading": "Formats နှင့် စာသား",
@@ -329,7 +329,7 @@
     "tutorial.start": "စတင်",
     "tutorial.title": "အလုပ်လုပ်ပုံ - ZagoSheetsWin",
     "windows.fileTypeDescription": "Google Sheets ရှိ စာရင်းဇယား",
-    "windows.registrationDescription": "XLSX ကို Google Sheets သို့ တင်သွင်းမှု လုပ်ပြီး ကိုယ်ရေးကိုယ်တာ အရန်သိမ်းဆည်းမှု ထားကာ ဖြတ်လမ်း ဖြင့် အစားထိုးသည်။",
+    "windows.registrationDescription": "XLSX, CSV, TSV, XLS, ODS ကို Google Sheets သို့ တင်သွင်းမှု လုပ်ပြီး ကိုယ်ရေးကိုယ်တာ အရန်သိမ်းဆည်းမှု ထားကာ ဖြတ်လမ်း ဖြင့် အစားထိုးသည်။",
     "language.title": "ဘာသာစကား - ZagoSheetsWin",
     "language.choose": "အက်ပ် ဘာသာစကား ရွေးပါ",
     "language.search": "အမည် သို့မဟုတ် ကုဒ် ဖြင့် ရှာပါ",

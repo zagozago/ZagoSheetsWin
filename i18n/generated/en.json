@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "Open your spreadsheets in Google Sheets with your Google account. The original is backed up before being replaced with a shortcut.",
     "setup.encodingLegacy": "Text: Windows-1252",
     "setup.encodingUnicode": "Text: UTF-8 / UTF-16 with BOM",
-    "setup.extendedFormats": "Enable CSV, TSV, XLS and ODS (experimental).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "First use - ZagoSheetsWin",
     "setup.formatLimits": "Up to 20 MiB per file.\nCSV/TSV: 500 thousand cells, 50 thousand rows and one thousand columns.\n\nContent is treated as literal text. If ODS conversion cannot be verified, the original is kept. Your text preferences are preserved.",
     "setup.formatsHeading": "Formats and text",
@@ -329,7 +329,7 @@
     "tutorial.start": "Start",
     "tutorial.title": "How it works - ZagoSheetsWin",
     "windows.fileTypeDescription": "Spreadsheet in Google Sheets",
-    "windows.registrationDescription": "Imports XLSX to Google Sheets and replaces it with a shortcut, keeping a private backup.",
+    "windows.registrationDescription": "Imports XLSX, CSV, TSV, XLS, ODS to Google Sheets and replaces it with a shortcut, keeping a private backup.",
     "language.title": "Language - ZagoSheetsWin",
     "language.choose": "Choose the app language",
     "language.search": "Search by name or code",

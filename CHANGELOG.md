@@ -1,5 +1,11 @@
 # Histórico de alterações
 
+## 0.9.31 — candidato de 2026-10-16
+
+- ODS incluído junto aos demais formatos na ilustração do tutorial e na descrição de integração do Windows em todos os idiomas.
+- Botões da tela principal herdam a fonte padrão de 10 pt, com a família do idioma selecionado.
+- Removido o toggle de habilitação de formatos: suporte é parte do aplicativo. Lista informativa mantém os cinco formatos; preferências de leitura existentes são preservadas.
+
 ## 0.9.30 — candidato de 2026-10-15
 
 - Validação explícita de assinatura ODS; HTML renomeado para .ods é rejeitado antes do upload, com código de diagnóstico específico. Cancelamento propagado à leitura ODS.

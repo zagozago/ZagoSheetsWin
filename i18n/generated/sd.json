@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "پنهنجي Google اڪائونٽ سان اسپريڊ شيٽون Google Sheets ۾ کوليو. اصل کي شارٽ ڪٽ سان بدلائڻ کان اڳ بيڪ اپ ڪيو وڃي ٿو.",
     "setup.encodingLegacy": "ٽيڪسٽ: Windows-1252",
     "setup.encodingUnicode": "ٽيڪسٽ: UTF-8 / UTF-16 BOM سان",
-    "setup.extendedFormats": "CSV، TSV، XLS ۽ ODS فعال ڪريو (تجرباتي).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "پهريون استعمال - ZagoSheetsWin",
     "setup.formatLimits": "هر فائل لاءِ 20 MiB تائين.\nCSV/TSV: 500 هزار سيل، 50 هزار قطارون ۽ هڪ هزار ڪالم.\n\nمواد کي لفظي ٽيڪسٽ طور ورتو وڃي ٿو. جيڪڏهن ODS تبديلي جي تصديق نه ٿي سگهي ته اصل محفوظ رهي ٿو. توهان جون ٽيڪسٽ پسندون محفوظ رهن ٿيون.",
     "setup.formatsHeading": "فارميٽ ۽ ٽيڪسٽ",
@@ -329,7 +329,7 @@
     "tutorial.start": "شروع ڪريو",
     "tutorial.title": "اهو ڪيئن ڪم ڪري ٿو - ZagoSheetsWin",
     "windows.fileTypeDescription": "Google Sheets ۾ اسپريڊ شيٽ",
-    "windows.registrationDescription": "XLSX کي Google Sheets ۾ درآمد ڪري ٿو ۽ خانگي بيڪ اپ رکندي ان کي شارٽ ڪٽ سان بدلائي ٿو.",
+    "windows.registrationDescription": "XLSX, CSV, TSV, XLS, ODS کي Google Sheets ۾ درآمد ڪري ٿو ۽ خانگي بيڪ اپ رکندي ان کي شارٽ ڪٽ سان بدلائي ٿو.",
     "language.title": "ٻولي - ZagoSheetsWin",
     "language.choose": "ايپ جي ٻولي چونڊيو",
     "language.search": "نالي يا ڪوڊ سان ڳوليو",

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "Ṣí spreadsheets rẹ nínú Google Sheets pẹ̀lú account Google rẹ. A máa ṣe backup original kí a tó rọ́pò rẹ̀ pẹ̀lú shortcut.",
     "setup.encodingLegacy": "Ọ̀rọ̀: Windows-1252",
     "setup.encodingUnicode": "Ọ̀rọ̀: UTF-8 / UTF-16 pẹ̀lú BOM",
-    "setup.extendedFormats": "Enable CSV, TSV, XLS àti ODS (experimental).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Lílò àkọ́kọ́ - ZagoSheetsWin",
     "setup.formatLimits": "Títí dé 20 MiB fún file kọ̀ọ̀kan.\nCSV/TSV: 500 thousand cells, 50 thousand rows àti one thousand columns.\n\nA ń ka content gẹ́gẹ́ bí literal text. Bí a kò bá lè verify ODS conversion, a pa original mọ́. A pa text preferences rẹ mọ́.",
     "setup.formatsHeading": "Formats àti text",
@@ -329,7 +329,7 @@
     "tutorial.start": "Bẹ̀rẹ̀",
     "tutorial.title": "Bí ó ṣe ń ṣiṣẹ́ - ZagoSheetsWin",
     "windows.fileTypeDescription": "Spreadsheet nínú Google Sheets",
-    "windows.registrationDescription": "Ó import XLSX sí Google Sheets, ó sì rọ́pò rẹ̀ pẹ̀lú shortcut, nígbà tó ń pa private backup mọ́.",
+    "windows.registrationDescription": "Ó import XLSX, CSV, TSV, XLS, ODS sí Google Sheets, ó sì rọ́pò rẹ̀ pẹ̀lú shortcut, nígbà tó ń pa private backup mọ́.",
     "language.title": "Èdè - ZagoSheetsWin",
     "language.choose": "Yan èdè app",
     "language.search": "Wá nípasẹ̀ orúkọ tàbí code",

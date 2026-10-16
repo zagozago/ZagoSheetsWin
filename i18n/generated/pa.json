@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "ਆਪਣੇ Google ਖਾਤੇ ਨਾਲ ਆਪਣੀਆਂ ਸਪ੍ਰੈਡਸ਼ੀਟਾਂ Google Sheets ਵਿੱਚ ਖੋਲ੍ਹੋ। ਅਸਲ ਫਾਈਲ ਨੂੰ ਸ਼ਾਰਟਕੱਟ ਨਾਲ ਬਦਲਣ ਤੋਂ ਪਹਿਲਾਂ ਇਸਦਾ ਬੈਕਅੱਪ ਲਿਆ ਜਾਂਦਾ ਹੈ।",
     "setup.encodingLegacy": "ਟੈਕਸਟ: Windows-1252",
     "setup.encodingUnicode": "ਟੈਕਸਟ: BOM ਨਾਲ UTF-8 / UTF-16",
-    "setup.extendedFormats": "CSV, TSV, XLS ਅਤੇ ODS ਚਾਲੂ ਕਰੋ (ਪ੍ਰਯੋਗਾਤਮਕ)।",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "ਪਹਿਲੀ ਵਰਤੋਂ - ZagoSheetsWin",
     "setup.formatLimits": "ਹਰ ਫਾਈਲ ਲਈ 20 MiB ਤੱਕ।\nCSV/TSV: 500 ਹਜ਼ਾਰ ਸੈੱਲ, 50 ਹਜ਼ਾਰ ਕਤਾਰਾਂ ਅਤੇ ਇੱਕ ਹਜ਼ਾਰ ਕਾਲਮ।\n\nਸਮੱਗਰੀ ਨੂੰ ਸ਼ਾਬਦਿਕ ਟੈਕਸਟ ਵਜੋਂ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ। ਜੇ ODS ਰੂਪਾਂਤਰਨ ਦੀ ਤਸਦੀਕ ਨਹੀਂ ਹੋ ਸਕਦੀ, ਅਸਲ ਫਾਈਲ ਰੱਖੀ ਜਾਂਦੀ ਹੈ। ਤੁਹਾਡੀਆਂ ਟੈਕਸਟ ਪਸੰਦਾਂ ਸੁਰੱਖਿਅਤ ਰਹਿੰਦੀਆਂ ਹਨ।",
     "setup.formatsHeading": "ਫਾਰਮੈਟ ਅਤੇ ਟੈਕਸਟ",
@@ -329,7 +329,7 @@
     "tutorial.start": "ਸ਼ੁਰੂ ਕਰੋ",
     "tutorial.title": "ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ - ZagoSheetsWin",
     "windows.fileTypeDescription": "Google Sheets ਵਿੱਚ ਸਪ੍ਰੈਡਸ਼ੀਟ",
-    "windows.registrationDescription": "XLSX ਨੂੰ Google Sheets ਵਿੱਚ ਇੰਪੋਰਟ ਕਰਦਾ ਹੈ ਅਤੇ ਨਿੱਜੀ ਬੈਕਅੱਪ ਰੱਖਦਿਆਂ ਇਸਨੂੰ ਸ਼ਾਰਟਕੱਟ ਨਾਲ ਬਦਲਦਾ ਹੈ।",
+    "windows.registrationDescription": "XLSX, CSV, TSV, XLS, ODS ਨੂੰ Google Sheets ਵਿੱਚ ਇੰਪੋਰਟ ਕਰਦਾ ਹੈ ਅਤੇ ਨਿੱਜੀ ਬੈਕਅੱਪ ਰੱਖਦਿਆਂ ਇਸਨੂੰ ਸ਼ਾਰਟਕੱਟ ਨਾਲ ਬਦਲਦਾ ਹੈ।",
     "language.title": "ਭਾਸ਼ਾ - ZagoSheetsWin",
     "language.choose": "ਐਪ ਦੀ ਭਾਸ਼ਾ ਚੁਣੋ",
     "language.search": "ਨਾਮ ਜਾਂ ਕੋਡ ਨਾਲ ਲੱਭੋ",

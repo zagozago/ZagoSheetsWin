@@ -2,7 +2,7 @@
 
 Abre planilhas locais no Google Sheets e, após confirmação, substitui o original por um atalho na mesma pasta, com backup recuperável.
 
-**Candidato atual: 0.9.30.** A publicação 1.0 depende do aceite final no Windows/Google real e das pendências externas de distribuição.
+**Candidato atual: 0.9.31.** A publicação 1.0 depende do aceite final no Windows/Google real e das pendências externas de distribuição.
 
 - [Alterações](CHANGELOG.md)
 - [Revisão de segurança, OAuth e pendências externas](docs/SECURITY_REVIEW_0930.md)

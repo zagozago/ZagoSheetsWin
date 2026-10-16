@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "Open your spreadsheets for Google Sheets with your Google account. Di app go backup di original before shortcut replace am.",
     "setup.encodingLegacy": "Text: Windows-1252",
     "setup.encodingUnicode": "Text: UTF-8 / UTF-16 with BOM",
-    "setup.extendedFormats": "Enable CSV, TSV, XLS and ODS (experimental one).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "First use - ZagoSheetsWin",
     "setup.formatLimits": "Up to 20 MiB per file.\nCSV/TSV: 500 thousand cells, 50 thousand rows and one thousand columns.\n\nDi app dey treat content as literal text. If e no fit verify ODS conversion, e go keep di original. Your text preferences go remain.",
     "setup.formatsHeading": "Formats and text",
@@ -329,7 +329,7 @@
     "tutorial.start": "Start",
     "tutorial.title": "How e dey work - ZagoSheetsWin",
     "windows.fileTypeDescription": "Spreadsheet for Google Sheets",
-    "windows.registrationDescription": "E dey import XLSX go Google Sheets and replace am with shortcut while e keep private backup.",
+    "windows.registrationDescription": "E dey import XLSX, CSV, TSV, XLS, ODS go Google Sheets and replace am with shortcut while e keep private backup.",
     "language.title": "Language - ZagoSheetsWin",
     "language.choose": "Choose di app language",
     "language.search": "Search by name or code",

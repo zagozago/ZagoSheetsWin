@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "Elektronik tablolarınızı Google hesabınızla Google Sheets’te açın. Özgün dosya bir kısayolla değiştirilmeden önce yedeklenir.",
     "setup.encodingLegacy": "Metin: Windows-1252",
     "setup.encodingUnicode": "Metin: BOM içeren UTF-8 / UTF-16",
-    "setup.extendedFormats": "CSV, TSV, XLS ve ODS biçimlerini etkinleştir (deneysel).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "İlk kullanım - ZagoSheetsWin",
     "setup.formatLimits": "Dosya başına en fazla 20 MiB.\nCSV/TSV: 500 bin hücre, 50 bin satır ve bin sütun.\n\nİçerik düz metin olarak işlenir. ODS dönüştürmesi doğrulanamazsa özgün dosya korunur. Metin tercihleriniz korunur.",
     "setup.formatsHeading": "Biçimler ve metin",
@@ -329,7 +329,7 @@
     "tutorial.start": "Başlat",
     "tutorial.title": "Nasıl çalışır - ZagoSheetsWin",
     "windows.fileTypeDescription": "Google Sheets elektronik tablosu",
-    "windows.registrationDescription": "XLSX dosyasını Google Sheets’e içe aktarır ve özel bir yedeği koruyarak dosyayı bir kısayolla değiştirir.",
+    "windows.registrationDescription": "XLSX, CSV, TSV, XLS, ODS dosyasını Google Sheets’e içe aktarır ve özel bir yedeği koruyarak dosyayı bir kısayolla değiştirir.",
     "language.title": "Dil - ZagoSheetsWin",
     "language.choose": "Uygulama dilini seçin",
     "language.search": "Ada veya koda göre ara",

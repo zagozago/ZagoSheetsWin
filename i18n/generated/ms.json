@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "Buka hamparan anda dalam Google Sheets menggunakan akaun Google anda. Fail asal disandarkan sebelum digantikan dengan pintasan.",
     "setup.encodingLegacy": "Teks: Windows-1252",
     "setup.encodingUnicode": "Teks: UTF-8 / UTF-16 dengan BOM",
-    "setup.extendedFormats": "Dayakan CSV, TSV, XLS dan ODS (eksperimen).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Penggunaan pertama - ZagoSheetsWin",
     "setup.formatLimits": "Sehingga 20 MiB setiap fail.\nCSV/TSV: 500 ribu sel, 50 ribu baris dan seribu lajur.\n\nKandungan dianggap sebagai teks literal. Jika penukaran ODS tidak dapat disahkan, fail asal dikekalkan. Pilihan teks anda dipelihara.",
     "setup.formatsHeading": "Format dan teks",
@@ -329,7 +329,7 @@
     "tutorial.start": "Mula",
     "tutorial.title": "Cara ia berfungsi - ZagoSheetsWin",
     "windows.fileTypeDescription": "Hamparan dalam Google Sheets",
-    "windows.registrationDescription": "Mengimport XLSX ke Google Sheets dan menggantikannya dengan pintasan sambil mengekalkan sandaran peribadi.",
+    "windows.registrationDescription": "Mengimport XLSX, CSV, TSV, XLS, ODS ke Google Sheets dan menggantikannya dengan pintasan sambil mengekalkan sandaran peribadi.",
     "language.title": "Bahasa - ZagoSheetsWin",
     "language.choose": "Pilih bahasa aplikasi",
     "language.search": "Cari mengikut nama atau kod",

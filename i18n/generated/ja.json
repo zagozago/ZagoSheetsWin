@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "Google アカウントを使ってスプレッドシートを Google Sheets で開きます。元ファイルはショートカットに置き換える前にバックアップされます。",
     "setup.encodingLegacy": "テキスト: Windows-1252",
     "setup.encodingUnicode": "テキスト: UTF-8 / BOM 付き UTF-16",
-    "setup.extendedFormats": "CSV、TSV、XLS、ODS を有効にする（試験的）。",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "初回使用 - ZagoSheetsWin",
     "setup.formatLimits": "ファイルごとに最大 20 MiB。\nCSV/TSV: 500 千セル、50 千行、千列。\n\n内容はリテラルテキストとして扱われます。ODS の変換を検証できない場合、元ファイルは保持されます。テキスト設定は保持されます。",
     "setup.formatsHeading": "形式とテキスト",
@@ -329,7 +329,7 @@
     "tutorial.start": "開始",
     "tutorial.title": "使い方 - ZagoSheetsWin",
     "windows.fileTypeDescription": "Google Sheets のスプレッドシート",
-    "windows.registrationDescription": "XLSX を Google Sheets にインポートし、非公開バックアップを保持しながらショートカットに置き換えます。",
+    "windows.registrationDescription": "XLSX, CSV, TSV, XLS, ODS を Google Sheets にインポートし、非公開バックアップを保持しながらショートカットに置き換えます。",
     "language.title": "言語 - ZagoSheetsWin",
     "language.choose": "アプリの言語を選択",
     "language.search": "名前またはコードで検索",

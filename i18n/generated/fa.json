@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "صفحه‌گسترده‌های خود را با حساب Google خود در Google Sheets باز کنید. پیش از جایگزینی فایل اصلی با میانبر، از آن پشتیبان گرفته می‌شود.",
     "setup.encodingLegacy": "متن: Windows-1252",
     "setup.encodingUnicode": "متن: UTF-8 / UTF-16 همراه BOM",
-    "setup.extendedFormats": "فعال کردن CSV، TSV، XLS و ODS (آزمایشی).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "اولین استفاده - ZagoSheetsWin",
     "setup.formatLimits": "تا 20 MiB برای هر فایل.\nCSV/TSV: 500 هزار سلول، 50 هزار ردیف و یک هزار ستون.\n\nمحتوا به‌صورت متن تحت‌اللفظی در نظر گرفته می‌شود. اگر تبدیل ODS قابل راستی‌آزمایی نباشد، فایل اصلی نگه داشته می‌شود. ترجیحات متن شما حفظ می‌شوند.",
     "setup.formatsHeading": "فرمت‌ها و متن",
@@ -329,7 +329,7 @@
     "tutorial.start": "شروع",
     "tutorial.title": "نحوه کار - ZagoSheetsWin",
     "windows.fileTypeDescription": "صفحه‌گسترده در Google Sheets",
-    "windows.registrationDescription": "XLSX را به Google Sheets وارد می‌کند و با حفظ یک پشتیبان خصوصی، آن را با میانبر جایگزین می‌کند.",
+    "windows.registrationDescription": "XLSX, CSV, TSV, XLS, ODS را به Google Sheets وارد می‌کند و با حفظ یک پشتیبان خصوصی، آن را با میانبر جایگزین می‌کند.",
     "language.title": "زبان - ZagoSheetsWin",
     "language.choose": "زبان برنامه را انتخاب کنید",
     "language.search": "جستجو بر اساس نام یا کد",

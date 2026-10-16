@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "Eike ne kuatia papapýpe Google Sheets-pe ne Google mba'ete rupive. Ypygua ñongatupyre joapy ojejapo oñemyengovia mboyve mbopya'eháre.",
     "setup.encodingLegacy": "Jehaipy: Windows-1252",
     "setup.encodingUnicode": "Jehaipy: UTF-8 / UTF-16 BOM reheve",
-    "setup.extendedFormats": "CSV, TSV, XLS ha ODS myandy (ñeha'ã).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Jeporu ypygua - ZagoSheetsWin",
     "setup.formatLimits": "20 MiB peve marandurenda peteĩteĩ.\nCSV/TSV: 500 sua koty'i, 50 sua tysýi ha peteĩ sua yta.\n\nPypegua ojeporu jehaipy tee ramo. ODS ñemoambue ndaikatúirõ oñemboaje, ypygua oñeñongatu. Ne jehaipy jeporavorã oñeñongatu.",
     "setup.formatsHeading": "Mba'eichagua ha jehaipy",
@@ -329,7 +329,7 @@
     "tutorial.start": "Ñepyrũ",
     "tutorial.title": "Mba'éichapa omba'apo - ZagoSheetsWin",
     "windows.fileTypeDescription": "Kuatia papapy Google Sheets-pe",
-    "windows.registrationDescription": "Ogueru XLSX Google Sheets-pe ha omyengovia mbopya'eháre, oñongatúvo ñongatupyre joapy ñemíva.",
+    "windows.registrationDescription": "Ogueru XLSX, CSV, TSV, XLS, ODS Google Sheets-pe ha omyengovia mbopya'eháre, oñongatúvo ñongatupyre joapy ñemíva.",
     "language.title": "Ñe'ẽ - ZagoSheetsWin",
     "language.choose": "Eiporavo tembipuru'i ñe'ẽ",
     "language.search": "Eheka téra térã ayvu rupive",

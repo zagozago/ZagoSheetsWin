@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.31",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -266,7 +266,7 @@
     "setup.description": "Buɗe maƙunsar bayananka a Google Sheets da asusun Google ɗinka. Ana yin ajiyar bayan asali kafin a maye gurbinsa da gajeriyar hanya.",
     "setup.encodingLegacy": "Rubutu: Windows-1252",
     "setup.encodingUnicode": "Rubutu: UTF-8 / UTF-16 tare da BOM",
-    "setup.extendedFormats": "Kunna CSV, TSV, XLS da ODS (na gwaji).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Amfani na farko - ZagoSheetsWin",
     "setup.formatLimits": "Har zuwa 20 MiB ga kowane fayil.\nCSV/TSV: sel dubu 500, layuka dubu 50 da ginshiƙai dubu ɗaya.\n\nAna ɗaukar abun ciki a matsayin rubutu na zahiri. Idan ba a iya tabbatar da sauya ODS ba, ana riƙe asali. Ana kiyaye zaɓuɓɓukan rubutunka.",
     "setup.formatsHeading": "Tsare-tsare da rubutu",
@@ -329,7 +329,7 @@
     "tutorial.start": "Fara",
     "tutorial.title": "Yadda yake aiki - ZagoSheetsWin",
     "windows.fileTypeDescription": "Maƙunsar bayanai a Google Sheets",
-    "windows.registrationDescription": "Yana shigo da XLSX zuwa Google Sheets kuma yana maye gurbinsa da gajeriyar hanya, tare da kiyaye ajiyar baya ta sirri.",
+    "windows.registrationDescription": "Yana shigo da XLSX, CSV, TSV, XLS, ODS zuwa Google Sheets kuma yana maye gurbinsa da gajeriyar hanya, tare da kiyaye ajiyar baya ta sirri.",
     "language.title": "Harshe - ZagoSheetsWin",
     "language.choose": "Zaɓi harshen manhajar",
     "language.search": "Nema da suna ko lamba",
