@@ -36,7 +36,7 @@ internal sealed class InformationButton : Button
         body!.Width = Math.Min(380 * DeviceDpi / 96, screen.Width - 24); body.Font = new Font(Font.FontFamily, Math.Max(8, Font.SizeInPoints - 2)); body.RightToLeft = RightToLeft;
         void Style(Control control)
         {
-            control.BackColor = BackColor; control.ForeColor = ForeColor; control.Font = body.Font; control.RightToLeft = RightToLeft;
+            control.BackColor = BackColor; control.ForeColor = ForeColor; control.Font = control is AdaptiveButton ? new Font(body.Font.FontFamily, Ui.ButtonFontSize, control.Font.Style) : body.Font; control.RightToLeft = RightToLeft;
             if (control.Tag as string == "separator") control.BackColor = ForeColor;
             if (control is LinkLabel link) link.LinkColor = ForeColor;
             foreach (Control child in control.Controls) Style(child);

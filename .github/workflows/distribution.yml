@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.31: supported formats and consistent home button typography.
+# Distribution candidate 0.9.32: restore original 9-point button reference and remove unavailable format preferences.
 name: Protected alpha distribution
 on:
   workflow_dispatch:

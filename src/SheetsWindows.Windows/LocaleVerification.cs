@@ -24,6 +24,8 @@ internal static class LocaleVerification
                     if (form.RightToLeftLayout != UiText.RightToLeft) throw new InvalidOperationException($"{language.Code}/{name}: RTL not applied.");
                     foreach (var button in Descendants(form).OfType<Button>().Where(b => b.Visible && b is not ThemeToggle))
                     {
+                        if (button is AdaptiveButton && Math.Abs(button.Font.SizeInPoints - Ui.ButtonFontSize) > 0.01f)
+                            throw new InvalidOperationException($"{language.Code}/{name}: action button must use the standard 9-point font.");
                         var flags = TextFormatFlags.WordBreak;
                         var text = TextRenderer.MeasureText(button.Text, button.Font, new Size(Math.Max(20,button.Width-button.Padding.Horizontal-8),int.MaxValue),flags);
                         if (text.Height > button.Height-button.Padding.Vertical+2)
@@ -69,7 +71,7 @@ internal static class LocaleVerification
                 foreach (var key in new[] {"tutorial.skip","tutorial.start","tutorial.defineDefaults","action.next","language.apply","language.button"})
                 {
                     using var panel = new FlowLayoutPanel { Width = (int)(360*scale) };
-                    using var button = new AdaptiveButton { Text=UiText.Get(key), AutoSize=true, Font=new Font(LanguageVisuals.Family,10*scale) };
+                    using var button = new AdaptiveButton { Text=UiText.Get(key), AutoSize=true, Font=new Font(LanguageVisuals.Family,Ui.ButtonFontSize*scale) };
                     panel.Controls.Add(button);panel.PerformLayout();
                     var preferred=button.GetPreferredSize(new Size(panel.Width,0));
                     var needed=TextRenderer.MeasureText(button.Text,button.Font,new Size(Math.Max(20,preferred.Width-button.Padding.Horizontal-12),int.MaxValue),TextFormatFlags.WordBreak);

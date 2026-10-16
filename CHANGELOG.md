@@ -1,5 +1,11 @@
 # Histórico de alterações
 
+## 0.9.32 — candidato de 2026-10-16
+
+- Corrigida a referência tipográfica: o tamanho original de 9 pt da navegação principal passa a ser o padrão dos botões de ação em todas as telas, incluindo ações principais e pop-ups de informação, com a família do idioma selecionado.
+- Removida a seção Formatos e texto das opções avançadas, incluindo a lista, os seletores indisponíveis e os textos associados à seção. As preferências persistidas e o suporte aos cinco formatos são preservados.
+- Janela de opções avançadas reduzida para acompanhar o conteúdo restante.
+
 ## 0.9.31 — candidato de 2026-10-16
 
 - ODS incluído junto aos demais formatos na ilustração do tutorial e na descrição de integração do Windows em todos os idiomas.

@@ -4,6 +4,7 @@ namespace SheetsWindows.Windows;
 // Shared native controls. Text remains selectable/readable at Windows DPI and keyboard focus is native.
 internal static class Ui
 {
+    internal const float ButtonFontSize = 9f;
     internal static Label Text(string text, bool heading = false) => new EmphasisLabel()
     {
         Text = text, AutoSize = true, MaximumSize = new Size(480, 0),

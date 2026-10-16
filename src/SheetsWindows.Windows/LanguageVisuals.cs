@@ -33,7 +33,7 @@ internal static class LanguageVisuals
             {
                 void Apply(Control control)
                 {
-                    var key = (family, control.Font.Size, control.Font.Style);
+                    var key = (family, control is AdaptiveButton ? Ui.ButtonFontSize : control.Font.Size, control.Font.Style);
                     if (!fonts.TryGetValue(key, out var font)) fonts[key] = font = new Font(key.Item1, key.Item2, key.Item3);
                     control.Font = font;
                     control.RightToLeft = rtl ? RightToLeft.Yes : RightToLeft.No;

@@ -24,6 +24,8 @@ internal static class Branding
         form.Font = new Font("Segoe UI", 10);
         void Theme(Control control)
         {
+            if (control is AdaptiveButton action && action.Font.SizeInPoints != Ui.ButtonFontSize)
+                action.Font = new Font(action.Font.FontFamily, Ui.ButtonFontSize, action.Font.Style);
             var highContrast = SystemInformation.HighContrast;
             var dark = Current == ApplicationTheme.Dark;
             var background = highContrast ? SystemColors.Window : dark ? Color.FromArgb(7, 16, 11) : Color.FromArgb(238, 247, 240);
@@ -42,7 +44,7 @@ internal static class Branding
             {
                 primary.BackColor = Color.FromArgb(18, 126, 69); primary.ForeColor = Color.White;
                 primary.FlatAppearance.MouseOverBackColor = Color.FromArgb(16, 108, 60);
-                if (!primary.Font.Bold) primary.Font = new Font(primary.Font.FontFamily, 10, FontStyle.Bold);
+                if (!primary.Font.Bold || primary.Font.SizeInPoints != Ui.ButtonFontSize) primary.Font = new Font(primary.Font.FontFamily, Ui.ButtonFontSize, FontStyle.Bold);
             }
             if (control is Button disabled && !disabled.Enabled)
             {
