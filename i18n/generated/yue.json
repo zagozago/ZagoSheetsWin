@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "開啟副本捷徑資料夾",
     "home.settings": "&設定",
     "import.notice.copyComplete": "副本已喺 Sheets 開啟。原檔已保留；捷徑可喺應用程式嘅捷徑資料夾搵到。",
-    "import.notice.formulaCopy": "你嘅試算表已經以副本方式喺 Google Sheets 開啟。入面有一啲公式，我哋暫時未能驗證係咪適合取代原檔。原檔同備份都已保留。副本捷徑可喺應用程式嘅捷徑資料夾搵到。",
     "import.notice.syncedCopy": "檔案已以副本方式開啟：資料夾有同步，或者喺網絡位置。原檔已保留，避免其他裝置上嘅副本都被刪除。",
     "legal.privacy": "私隱政策",
     "legal.terms": "使用條款",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "揀你嘅帳戶 → 授權存取 → 返回應用程式。|喺設定入面，✓ Google 已連線 代表授權已確認。你嘅試算表會留喺嗰個帳戶嘅 Google Drive。唔需要安裝 Google Drive for Windows。",
     "tutorial.googleTitle": "連接你嘅 Google 帳戶",
     "tutorial.hide": "開啟應用程式時唔好再顯示呢個教學",
-    "tutorial.importExplanation": "喺你部電腦開一個檔案。ZagoSheetsWin 會匯入同驗證試算表。之後喺瀏覽器繼續。|驗證之後：原檔備份 + Sheets 捷徑。如果轉換未能確認，原檔會保留。",
+    "tutorial.importExplanation": "喺你部電腦開一個檔案。ZagoSheetsWin 會匯入同驗證試算表。之後喺瀏覽器繼續。|匯入確認之後：原檔備份 + Sheets 捷徑。資料夾唔會被刪除。喺識別到嘅同步資料夾入面，原檔會保留。",
     "tutorial.importTitle": "喺 Google Sheets 開啟你嘅試算表",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "開啟備份…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "備份保留原始檔案，唔包括之後喺 Sheets 嘅修改。\n喺「備份」揀「還原到…」就可以還原檔案。",
     "setup.importHeading": "3. 捷徑同以副本匯入檔案",
     "tutorial.showAtStartup": "開啟應用程式時顯示呢個教學",
-    "setup.defaultsHelp": "喺 Windows 預設應用程式揀 ZagoSheetsWin。 可選，但建議設定。 喺 Windows 預設應用程式揀 ZagoSheetsWin。呢個步驟係可選嘅：你亦可以用「開啟方式 → ZagoSheetsWin」。"
+    "setup.defaultsHelp": "喺 Windows 預設應用程式揀 ZagoSheetsWin。 可選，但建議設定。 喺 Windows 預設應用程式揀 ZagoSheetsWin。呢個步驟係可選嘅：你亦可以用「開啟方式 → ZagoSheetsWin」。",
+    "import.notice.partialConversion": "試算表已喺 Google Sheets 開啟。轉換時部分公式或資料可能有變。原始檔案已由捷徑取代。如要還原原始檔案，請開啟 {backups}。"
   }
 }

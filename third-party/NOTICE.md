@@ -1,4 +1,4 @@
-# Licenças de terceiros - ZagoSheetsWin 0.9.32
+# Licenças de terceiros - ZagoSheetsWin 0.9.33
 
 Mensagens padrão do instalador em chinês simplificado adaptadas da tradução
 de Zhenghan Yang (Kira), copyright 2019-2020 kirakira, sob MIT.

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Bukak folder trabasan salinan",
     "home.settings": "&Setelan",
     "import.notice.copyComplete": "Salinan wis dibukak ing Sheets. Berkas asli dijaga; trabasan kasedhiya ing folder trabasan aplikasi.",
-    "import.notice.formulaCopy": "Spreadsheet sampeyan wis dibukak ing Google Sheets minangka salinan. Ana rumus sing durung bisa diverifikasi kanggo panggantos berkas. Berkas asli lan cadangan tetep disimpen. Trabasan salinan kasedhiya ing folder trabasan aplikasi.",
     "import.notice.syncedCopy": "Berkas dibukak minangka salinan: folder disinkronake utawa ana ing jaringan. Berkas asli tetep disimpen supaya salinan ing piranti liyane ora kapusak.",
     "legal.privacy": "Kabijakan Privasi",
     "legal.terms": "Syarat Panggunaan",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Pilih akun sampeyan → wenehi idin akses → bali menyang aplikasi.|Ing Setelan, ✓ Google wis nyambung negesake wewenang. Spreadsheet sampeyan tetep ana ing Google Drive akun kasebut. Sampeyan ora perlu nginstal Google Drive for Windows.",
     "tutorial.googleTitle": "Sambungake akun Google sampeyan",
     "tutorial.hide": "Aja nuduhake tutorial iki nalika mbukak aplikasi",
-    "tutorial.importExplanation": "Bukak berkas ing komputer sampeyan. ZagoSheetsWin ngimpor lan verifikasi spreadsheet. Terusake ing browser.|Sawisé verifikasi: cadangan berkas asli + trabasan menyang Sheets. Yen konversi ora bisa dikonfirmasi, berkas asli tetep disimpen.",
+    "tutorial.importExplanation": "Bukak berkas ing komputer sampeyan. ZagoSheetsWin ngimpor lan verifikasi spreadsheet. Terusake ing browser.|Sawisé impor sing dikonfirmasi: cadangan berkas asli + trabasan menyang Sheets. Folder ora dibusak. Ing folder sinkron sing dingerteni, berkas asli tetep disimpen.",
     "tutorial.importTitle": "Bukak spreadsheet sampeyan ing Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Bukak cadangan…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "Serep nyimpen berkas asli, tanpa owah-owahan sabanjure ing Sheets.\nIng Serep, pilih Pulihake menyang… kanggo mbalekake berkas.",
     "setup.importHeading": "3. Trabasan lan ngimpor berkas minangka salinan",
     "tutorial.showAtStartup": "Tampilake tutorial iki nalika mbukak aplikasi",
-    "setup.defaultsHelp": "Pilih ZagoSheetsWin ing Aplikasi gawan Windows. Opsional, nanging dianjurake. Pilih ZagoSheetsWin ing Aplikasi baku Windows. Iki opsional: sampeyan uga bisa nggunakake Bukak nganggo → ZagoSheetsWin."
+    "setup.defaultsHelp": "Pilih ZagoSheetsWin ing Aplikasi gawan Windows. Opsional, nanging dianjurake. Pilih ZagoSheetsWin ing Aplikasi baku Windows. Iki opsional: sampeyan uga bisa nggunakake Bukak nganggo → ZagoSheetsWin.",
+    "import.notice.partialConversion": "Spreadsheet wis dibukak ing Google Sheets. Sawetara rumus utawa data bisa uga owah nalika konversi. File asli diganti nganggo trabasan. Kanggo mulihake, bukak {backups}."
   }
 }

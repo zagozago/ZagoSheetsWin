@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "অনুলিপির শর্টকাট ফোল্ডার খুলুন",
     "home.settings": "সেটিংস(&S)",
     "import.notice.copyComplete": "অনুলিপিটি Sheets-এ খোলা হয়েছে। মূল ফাইল সংরক্ষিত; অ্যাপের শর্টকাট ফোল্ডারে একটি শর্টকাট আছে।",
-    "import.notice.formulaCopy": "আপনার স্প্রেডশিটটি Google Sheets-এ অনুলিপি হিসেবে খোলা হয়েছে। এতে এমন সূত্র আছে যা ফাইল প্রতিস্থাপনের জন্য আমরা এখনও যাচাই করতে পারি না। মূল ফাইল ও ব্যাকআপ রাখা হয়েছে। অনুলিপির শর্টকাট অ্যাপের শর্টকাট ফোল্ডারে আছে।",
     "import.notice.syncedCopy": "ফাইলটি অনুলিপি হিসেবে খোলা হয়েছে: ফোল্ডারটি সিঙ্ক করা অথবা নেটওয়ার্কে আছে। অন্য ডিভাইসে অনুলিপি মুছে যাওয়া এড়াতে মূল ফাইল রাখা হয়েছে।",
     "legal.privacy": "গোপনীয়তা নীতি",
     "legal.terms": "ব্যবহারের শর্তাবলি",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "আপনার অ্যাকাউন্ট নির্বাচন করুন → অ্যাক্সেস অনুমোদন করুন → অ্যাপে ফিরে আসুন।|সেটিংসে ✓ Google সংযুক্ত অনুমোদন নিশ্চিত করে। আপনার স্প্রেডশিট ওই অ্যাকাউন্টের Google Drive-এ থাকে। Google Drive for Windows ইনস্টল করার দরকার নেই।",
     "tutorial.googleTitle": "আপনার Google অ্যাকাউন্ট সংযুক্ত করুন",
     "tutorial.hide": "অ্যাপ খোলার সময় এই টিউটোরিয়াল দেখাবেন না",
-    "tutorial.importExplanation": "কম্পিউটার থেকে একটি ফাইল খুলুন। ZagoSheetsWin স্প্রেডশিট ইমপোর্ট ও যাচাই করে। ব্রাউজারে কাজ চালিয়ে যান।|যাচাইয়ের পরে: মূল ফাইলের ব্যাকআপ + Sheets-এর শর্টকাট। রূপান্তর নিশ্চিত করা না গেলে মূল ফাইল রাখা হয়।",
+    "tutorial.importExplanation": "কম্পিউটার থেকে একটি ফাইল খুলুন। ZagoSheetsWin স্প্রেডশিট ইমপোর্ট ও যাচাই করে। ব্রাউজারে কাজ চালিয়ে যান।|ইমপোর্ট নিশ্চিত হওয়ার পরে: মূল ফাইলের ব্যাকআপ + Sheets-এর শর্টকাট। ফোল্ডার মুছে ফেলা হয় না। শনাক্ত করা সিঙ্ক ফোল্ডারে মূল ফাইল রাখা হয়।",
     "tutorial.importTitle": "Google Sheets-এ আপনার স্প্রেডশিট খুলুন",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "ব্যাকআপ খুলুন…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "ব্যাকআপ মূল ফাইল রাখে, Sheets-এর পরবর্তী পরিবর্তন নয়।\nব্যাকআপে এখানে পুনরুদ্ধার করুন… বেছে ফাইল ফেরত পান।",
     "setup.importHeading": "3. শর্টকাট ও ফাইলকে কপি হিসেবে আমদানি",
     "tutorial.showAtStartup": "অ্যাপ খোলার সময় এই টিউটোরিয়াল দেখান",
-    "setup.defaultsHelp": "Windows-এর ডিফল্ট অ্যাপে ZagoSheetsWin বেছে নিন। ঐচ্ছিক, তবে প্রস্তাবিত। Windows-এর ডিফল্ট অ্যাপসে ZagoSheetsWin নির্বাচন করুন। এটি ঐচ্ছিক: খুলুন এর মাধ্যমে → ZagoSheetsWin-ও ব্যবহার করতে পারেন।"
+    "setup.defaultsHelp": "Windows-এর ডিফল্ট অ্যাপে ZagoSheetsWin বেছে নিন। ঐচ্ছিক, তবে প্রস্তাবিত। Windows-এর ডিফল্ট অ্যাপসে ZagoSheetsWin নির্বাচন করুন। এটি ঐচ্ছিক: খুলুন এর মাধ্যমে → ZagoSheetsWin-ও ব্যবহার করতে পারেন।",
+    "import.notice.partialConversion": "স্প্রেডশিটটি Google Sheets-এ খোলা হয়েছে। রূপান্তরের সময় কিছু সূত্র বা তথ্য বদলে যেতে পারে। মূল ফাইলের বদলে একটি শর্টকাট তৈরি হয়েছে। মূল ফাইল ফিরিয়ে পেতে {backups} খুলুন।"
   }
 }

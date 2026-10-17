@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Nusxa yorliqlari jildini ochish",
     "home.settings": "&Sozlamalar",
     "import.notice.copyComplete": "Nusxa Sheets’da ochildi. Asl fayl saqlandi; yorliq ilovaning yorliqlar jildida mavjud.",
-    "import.notice.formulaCopy": "Jadvalingiz Google Sheets’da nusxa sifatida ochildi. Unda faylni almashtirish uchun hali tekshira olmaydigan formulalar mavjud. Asl fayl va zaxira nusxa saqlandi. Nusxa yorlig‘i ilovaning yorliqlar jildida mavjud.",
     "import.notice.syncedCopy": "Fayl nusxa sifatida ochildi: jild sinxronlanadi yoki tarmoqda joylashgan. Boshqa qurilmalardagi nusxani o‘chirib yubormaslik uchun asl fayl saqlandi.",
     "legal.privacy": "Maxfiylik siyosati",
     "legal.terms": "Foydalanish shartlari",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Hisobingizni tanlang → kirishga ruxsat bering → ilovaga qayting.|Sozlamalarda ✓ Google ulangan avtorizatsiyani tasdiqlaydi. Jadvallaringiz shu hisobning Google Drive’ida qoladi. Google Drive for Windows’ni o‘rnatish shart emas.",
     "tutorial.googleTitle": "Google hisobingizni ulash",
     "tutorial.hide": "Ilovani ochganda bu qo‘llanmani ko‘rsatmaslik",
-    "tutorial.importExplanation": "Kompyuteringizdagi faylni oching. ZagoSheetsWin jadvalni import qiladi va tekshiradi. Brauzeringizda davom eting.|Tekshiruvdan keyin: asl fayl zaxira nusxasi + Sheets’ga yorliq. Aylantirish tasdiqlanmasa, asl fayl saqlanadi.",
+    "tutorial.importExplanation": "Kompyuteringizdagi faylni oching. ZagoSheetsWin jadvalni import qiladi va tekshiradi. Brauzeringizda davom eting.|Tasdiqlangan importdan keyin: asl fayl zaxira nusxasi + Sheets’ga yorliq. Jildlar o‘chirilmaydi. Aniqlangan sinxronlangan jildlarda asl fayl saqlanadi.",
     "tutorial.importTitle": "Jadvallaringizni Google Sheets’da oching",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Zaxira nusxalarni ochish…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "Zaxira asl faylni saqlaydi, Sheets’dagi keyingi o‘zgarishlarni emas.\nFaylni qaytarish uchun Zaxiralarda Bu yerga tiklash… ni tanlang.",
     "setup.importHeading": "3. Yorliqlar va faylni nusxa sifatida import qilish",
     "tutorial.showAtStartup": "Ilova ochilganda ushbu qo‘llanmani ko‘rsatish",
-    "setup.defaultsHelp": "Windows standart ilovalarida ZagoSheetsWin’ni tanlang. Ixtiyoriy, ammo tavsiya etiladi. Windows Default apps’da ZagoSheetsWin’ni tanlang. Bu ixtiyoriy: Open with → ZagoSheetsWin’dan ham foydalanishingiz mumkin."
+    "setup.defaultsHelp": "Windows standart ilovalarida ZagoSheetsWin’ni tanlang. Ixtiyoriy, ammo tavsiya etiladi. Windows Default apps’da ZagoSheetsWin’ni tanlang. Bu ixtiyoriy: Open with → ZagoSheetsWin’dan ham foydalanishingiz mumkin.",
+    "import.notice.partialConversion": "Jadval Google Sheets’da ochildi. Oʻgirish paytida ayrim formulalar yoki maʼlumotlar oʻzgargan boʻlishi mumkin. Asl fayl yorliq bilan almashtirildi. Uni tiklash uchun {backups} boʻlimini oching."
   }
 }

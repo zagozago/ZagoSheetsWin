@@ -2,8 +2,8 @@
   "language": "it",
   "locale": "it-IT",
   "direction": "ltr",
-  "catalogRevision": 7,
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "catalogRevision": 8,
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -174,7 +174,6 @@
     "home.openShortcutsFolder": "Apri cartella dei collegamenti delle copie",
     "home.settings": "&Impostazioni",
     "import.notice.copyComplete": "Copia aperta in Sheets. Originale conservato; un collegamento è disponibile nella cartella dei collegamenti dell'app.",
-    "import.notice.formulaCopy": "Il foglio di calcolo è stato aperto in Google Sheets come copia. Contiene formule che non possiamo ancora verificare per la sostituzione del file. L'originale e il backup sono stati conservati. Il collegamento della copia è disponibile nella cartella dei collegamenti dell'app.",
     "import.notice.syncedCopy": "File aperto come copia: la cartella è sincronizzata o si trova in rete. L'originale è stato mantenuto per evitare di eliminare la copia sugli altri dispositivi.",
     "installer.associationConflict": "C'è un conflitto di associazione file. Rimuovi la registrazione della versione portatile prima di installare oppure ripara questa installazione prima di disinstallare. I dati esistenti sono stati conservati.",
     "installer.associationRunFailed": "Impossibile aggiornare le associazioni dei file. I dati esistenti sono stati conservati.",
@@ -601,7 +600,7 @@
     "tutorial.googleExplanation": "Scegli il tuo account → autorizza l'accesso → torna all'app.|In Impostazioni, ✓ Google connesso conferma l'autorizzazione. I tuoi fogli di calcolo restano nel Google Drive di quell'account. Non è necessario installare Google Drive per Windows.",
     "tutorial.googleTitle": "Collega il tuo account Google",
     "tutorial.hide": "Non mostrare questo tutorial all'apertura dell'app",
-    "tutorial.importExplanation": "Apri un file sul computer. ZagoSheetsWin importa e verifica il foglio di calcolo. Continua nel browser.|Dopo la verifica: backup dell'originale + collegamento a Sheets. Se la conversione non può essere confermata, l'originale viene mantenuto.",
+    "tutorial.importExplanation": "Apri un file sul computer. ZagoSheetsWin importa e verifica il foglio di calcolo. Continua nel browser.|Dopo l'importazione confermata: backup dell'originale + collegamento a Sheets. Le cartelle non vengono eliminate. Nelle cartelle sincronizzate identificate, l'originale viene mantenuto.",
     "tutorial.importTitle": "Apri i tuoi fogli di calcolo in Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Apri backup…",
@@ -645,6 +644,7 @@
     "firstUse.backupExplanation": "Il backup conserva l’originale, senza le modifiche successive in Sheets.\nIn Backup, scegli Ripristina in… per recuperare il file.",
     "setup.importHeading": "3. Collegamenti e importazione del file come copia",
     "tutorial.showAtStartup": "Mostra questo tutorial all’apertura dell’app",
-    "setup.defaultsHelp": "Scegli ZagoSheetsWin nelle App predefinite di Windows. Facoltativo, ma consigliato. Scegli ZagoSheetsWin nelle App predefinite di Windows. È facoltativo: puoi anche usare Apri con → ZagoSheetsWin."
+    "setup.defaultsHelp": "Scegli ZagoSheetsWin nelle App predefinite di Windows. Facoltativo, ma consigliato. Scegli ZagoSheetsWin nelle App predefinite di Windows. È facoltativo: puoi anche usare Apri con → ZagoSheetsWin.",
+    "import.notice.partialConversion": "Il foglio è stato aperto in Google Sheets. Alcune formule o dati potrebbero essere cambiati durante la conversione. Il file originale è stato sostituito da un collegamento. Per recuperarlo, apri {backups}."
   }
 }

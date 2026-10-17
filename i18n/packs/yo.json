@@ -2,8 +2,8 @@
   "language": "yo",
   "locale": "yo-NG",
   "direction": "ltr",
-  "catalogRevision": 7,
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "catalogRevision": 8,
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -172,7 +172,6 @@
     "home.openShortcutsFolder": "Ṣí copy shortcuts folder",
     "home.settings": "&Àwọn ètò",
     "import.notice.copyComplete": "Copy ṣí nínú Sheets. A pa original mọ́; shortcut wà nínú app shortcuts folder.",
-    "import.notice.formulaCopy": "Spreadsheet rẹ ṣí nínú Google Sheets gẹ́gẹ́ bí copy. Ó ní formulas tí a kò tíì lè verify fún file replacement. A pa original àti backup mọ́. Copy shortcut wà nínú app shortcuts folder.",
     "import.notice.syncedCopy": "File ṣí gẹ́gẹ́ bí copy: folder náà ti synced tàbí ó wà lórí network. A pa original mọ́ kí copy náà má bà a parẹ́ lórí àwọn device mìíràn.",
     "installer.associationConflict": "File association conflict wà. Yọ registration portable version kúrò kí o tó install, tàbí repair installation yìí kí o tó uninstall. A pa data tó wà mọ́.",
     "installer.associationRunFailed": "A kò lè update file associations. A pa data tó wà mọ́.",
@@ -599,7 +598,7 @@
     "tutorial.googleExplanation": "Yan account rẹ → authorize access → padà sí app.|Nínú Settings, ✓ Google connected fìdí authorization múlẹ̀. Spreadsheets rẹ dúró nínú Google Drive ti account náà. O kò nílò láti install Google Drive for Windows.",
     "tutorial.googleTitle": "So account Google rẹ pọ̀",
     "tutorial.hide": "Má fi tutorial yìí hàn nígbà tí app bá ṣí",
-    "tutorial.importExplanation": "Ṣí file kan lórí kọ̀ǹpútà rẹ. ZagoSheetsWin máa import, ó sì máa verify spreadsheet náà. Tẹ̀síwájú nínú browser rẹ.|Lẹ́yìn verification: backup ti original + shortcut sí Sheets. Bí a kò bá lè fìdí conversion múlẹ̀, a pa original mọ́.",
+    "tutorial.importExplanation": "Ṣí file kan lórí kọ̀ǹpútà rẹ. ZagoSheetsWin máa import, ó sì máa verify spreadsheet náà. Tẹ̀síwájú nínú browser rẹ.|Lẹ́yìn confirmed import: backup ti original + shortcut sí Sheets. A kò pa folders rẹ́. Nínú synced folders tí a mọ̀, a pa original mọ́.",
     "tutorial.importTitle": "Ṣí spreadsheets rẹ nínú Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Ṣí backups…",
@@ -643,6 +642,7 @@
     "firstUse.backupExplanation": "Ẹ̀dà àfipamọ́ pa fáìlì àkọ́kọ́ mọ́, láìsí àwọn àyípadà lẹ́yìn náà ní Sheets.\nNínú Àwọn àfipamọ́, yan Dá padà sí… láti gba fáìlì padà.",
     "setup.importHeading": "3. Ọ̀nà abuja àti gbígbé fáìlì wọlé gẹ́gẹ́ bí ẹ̀dà",
     "tutorial.showAtStartup": "Fi ẹ̀kọ́ yìí hàn nígbà tí ìṣàfilọ́lẹ̀ bá ṣí",
-    "setup.defaultsHelp": "Yan ZagoSheetsWin nínú àwọn ìṣàfilọ́lẹ̀ àiyipada Windows. Kì í ṣe dandan, ṣùgbọ́n a dámọ̀ràn rẹ̀. Yan ZagoSheetsWin nínú Windows Default apps. Èyí jẹ́ aṣayan: o tún lè lo Open with → ZagoSheetsWin."
+    "setup.defaultsHelp": "Yan ZagoSheetsWin nínú àwọn ìṣàfilọ́lẹ̀ àiyipada Windows. Kì í ṣe dandan, ṣùgbọ́n a dámọ̀ràn rẹ̀. Yan ZagoSheetsWin nínú Windows Default apps. Èyí jẹ́ aṣayan: o tún lè lo Open with → ZagoSheetsWin.",
+    "import.notice.partialConversion": "A ti ṣí ìwé ìṣirò náà ní Google Sheets. Àwọn àgbékalẹ̀ ìṣirò tàbí dátà kan lè ti yí padà nígbà ìyípadà. A ti fi ọ̀nà abuja rọ́pò fáìlì ìpilẹ̀ṣẹ̀. Láti mú un padà, ṣí {backups}."
   }
 }

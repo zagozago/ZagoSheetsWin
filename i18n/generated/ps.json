@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "د کاپۍ شارټ‌کټونو فولډر پرانیستل",
     "home.settings": "&امستنې",
     "import.notice.copyComplete": "کاپي په Sheets کې پرانیستل شوه. اصلي وساتل شو؛ شارټ‌کټ د اپ د شارټ‌کټونو په فولډر کې شته.",
-    "import.notice.formulaCopy": "ستاسو سپرېډشیټ په Google Sheets کې د کاپۍ په توګه پرانیستل شو. داسې فورمولونه لري چې موږ یې لا د فایل د بدیلولو لپاره تاییدولی نه شو. اصلي او بیک‌اپ وساتل شول. د کاپۍ شارټ‌کټ د اپ د شارټ‌کټونو په فولډر کې شته.",
     "import.notice.syncedCopy": "فایل د کاپۍ په توګه پرانیستل شو: فولډر همغږي شوی یا په شبکه کې دی. اصلي وساتل شو څو په نورو وسایلو کې کاپي حذف نه شي.",
     "legal.privacy": "د محرمیت تګلاره",
     "legal.terms": "د کارونې شرایط",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "خپل حساب وټاکئ → د لاسرسي اجازه ورکړئ → اپ ته ستانه شئ.|په امستنې کې، ✓ Google نښلول شوی د اجازې تایید کوي. ستاسو سپرېډشیټونه د هماغه حساب په Google Drive کې پاتې کېږي. د Google Drive for Windows نصبولو ته اړتیا نشته.",
     "tutorial.googleTitle": "خپل Google حساب ونښلوئ",
     "tutorial.hide": "د اپ د پرانیستلو پر مهال دا لارښود مه ښیه",
-    "tutorial.importExplanation": "په خپل کمپیوټر کې یو فایل پرانیزئ. ZagoSheetsWin سپرېډشیټ واردوي او تاییدوي. په خپل براوزر کې دوام ورکړئ.|له تایید وروسته: د اصلي بیک‌اپ + Sheets ته شارټ‌کټ. که بدلون تایید نه شي، اصلي ساتل کېږي.",
+    "tutorial.importExplanation": "په خپل کمپیوټر کې یو فایل پرانیزئ. ZagoSheetsWin سپرېډشیټ واردوي او تاییدوي. په خپل براوزر کې دوام ورکړئ.|له تایید شوي وارد وروسته: د اصلي بیک‌اپ + Sheets ته شارټ‌کټ. فولډرونه نه حذف کېږي. په پېژندل شويو همغږي فولډرونو کې، اصلي ساتل کېږي.",
     "tutorial.importTitle": "خپل سپرېډشیټونه په Google Sheets کې پرانیزئ",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "بیک‌اپونه پرانیستل…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "شاتړ اصلي فایل ساتي، په Sheets کې وروسته بدلونونه نه ساتي.\nپه شاتړونو کې دلته بېرته راګرځول… غوره کړئ او فایل ترلاسه کړئ.",
     "setup.importHeading": "3. لنډلارې او د فایل د نقل په توګه واردول",
     "tutorial.showAtStartup": "د کاریال پرانیستلو پر مهال دا لارښود ښکاره کړئ",
-    "setup.defaultsHelp": "د Windows په اصلي کاریالونو کې ZagoSheetsWin غوره کړئ. اختیاري، خو سپارښتنه کېږي. په Windows ډیفالټ اپونه کې ZagoSheetsWin وټاکئ. دا اختیاري ده: تاسو له دې سره پرانیزئ → ZagoSheetsWin هم کارولی شئ."
+    "setup.defaultsHelp": "د Windows په اصلي کاریالونو کې ZagoSheetsWin غوره کړئ. اختیاري، خو سپارښتنه کېږي. په Windows ډیفالټ اپونه کې ZagoSheetsWin وټاکئ. دا اختیاري ده: تاسو له دې سره پرانیزئ → ZagoSheetsWin هم کارولی شئ.",
+    "import.notice.partialConversion": "سپریډشیټ په Google Sheets کې پرانیستل شو. ښايي ځینې فورمولونه یا معلومات د بدلولو پر مهال بدل شوي وي. اصلي فایل په لنډلار بدل شو. د بېرته ترلاسه کولو لپاره یې {backups} پرانیزئ."
   }
 }

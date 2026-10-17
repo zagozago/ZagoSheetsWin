@@ -2,8 +2,8 @@
   "language": "hi",
   "locale": "hi",
   "direction": "ltr",
-  "catalogRevision": 7,
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "catalogRevision": 8,
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -168,7 +168,6 @@
     "home.openShortcutsFolder": "प्रति शॉर्टकट फ़ोल्डर खोलें",
     "home.settings": "&सेटिंग्स",
     "import.notice.copyComplete": "प्रति Sheets में खुल गई। मूल फ़ाइल सुरक्षित रखी गई; ऐप के शॉर्टकट फ़ोल्डर में एक शॉर्टकट उपलब्ध है।",
-    "import.notice.formulaCopy": "आपकी स्प्रेडशीट Google Sheets में प्रति के रूप में खोली गई। इसमें ऐसी फ़ॉर्मूले हैं जिन्हें हम अभी फ़ाइल प्रतिस्थापन के लिए सत्यापित नहीं कर सकते। मूल फ़ाइल और बैकअप सुरक्षित रखे गए। प्रति का शॉर्टकट ऐप के शॉर्टकट फ़ोल्डर में उपलब्ध है।",
     "import.notice.syncedCopy": "फ़ाइल प्रति के रूप में खोली गई: फ़ोल्डर सिंक किया गया है या नेटवर्क पर है। अन्य डिवाइसों पर प्रति हटने से बचाने के लिए मूल फ़ाइल रखी गई।",
     "installer.associationConflict": "फ़ाइल संबद्धकरण में टकराव है। इंस्टॉल करने से पहले पोर्टेबल संस्करण का पंजीकरण हटाएँ, या अनइंस्टॉल करने से पहले इस इंस्टॉलेशन की मरम्मत करें। मौजूदा डेटा सुरक्षित रखा गया।",
     "installer.associationRunFailed": "फ़ाइल संबद्धकरण अपडेट नहीं किए जा सके। मौजूदा डेटा सुरक्षित रखा गया।",
@@ -595,7 +594,7 @@
     "tutorial.googleExplanation": "अपना खाता चुनें → पहुँच अधिकृत करें → ऐप पर लौटें।|सेटिंग्स में ✓ Google कनेक्ट है प्राधिकरण की पुष्टि करता है। आपकी स्प्रेडशीट उसी खाते के Google Drive में रहती हैं। आपको Google Drive for Windows इंस्टॉल करने की आवश्यकता नहीं है।",
     "tutorial.googleTitle": "अपना Google खाता कनेक्ट करें",
     "tutorial.hide": "ऐप खोलते समय यह ट्यूटोरियल न दिखाएँ",
-    "tutorial.importExplanation": "अपने कंप्यूटर पर फ़ाइल खोलें। ZagoSheetsWin स्प्रेडशीट आयात और सत्यापित करता है। अपने ब्राउज़र में जारी रखें।|सत्यापन के बाद: मूल फ़ाइल का बैकअप + Sheets का शॉर्टकट। यदि रूपांतरण की पुष्टि नहीं हो सके, तो मूल फ़ाइल रखी जाती है।",
+    "tutorial.importExplanation": "अपने कंप्यूटर पर फ़ाइल खोलें। ZagoSheetsWin स्प्रेडशीट आयात और सत्यापित करता है। अपने ब्राउज़र में जारी रखें।|पुष्ट आयात के बाद: मूल का बैकअप + Sheets का शॉर्टकट। फ़ोल्डर हटाए नहीं जाते। पहचाने गए सिंक फ़ोल्डरों में मूल फ़ाइल रखी जाती है।",
     "tutorial.importTitle": "अपनी स्प्रेडशीट Google Sheets में खोलें",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "बैकअप खोलें…",
@@ -639,7 +638,8 @@
     "firstUse.backupExplanation": "बैकअप मूल फ़ाइल रखता है, Sheets में बाद के बदलाव नहीं।\nबैकअप में यहाँ पुनर्स्थापित करें… चुनकर फ़ाइल वापस पाएँ।",
     "setup.importHeading": "3. शॉर्टकट और फ़ाइल को कॉपी के रूप में आयात करना",
     "tutorial.showAtStartup": "ऐप खोलते समय यह ट्यूटोरियल दिखाएँ",
-    "setup.defaultsHelp": "Windows के डिफ़ॉल्ट ऐप्स में ZagoSheetsWin चुनें। वैकल्पिक, लेकिन अनुशंसित। Windows के डिफ़ॉल्ट ऐप्स में ZagoSheetsWin चुनें। यह वैकल्पिक है: आप इसके साथ खोलें → ZagoSheetsWin का भी उपयोग कर सकते हैं।"
+    "setup.defaultsHelp": "Windows के डिफ़ॉल्ट ऐप्स में ZagoSheetsWin चुनें। वैकल्पिक, लेकिन अनुशंसित। Windows के डिफ़ॉल्ट ऐप्स में ZagoSheetsWin चुनें। यह वैकल्पिक है: आप इसके साथ खोलें → ZagoSheetsWin का भी उपयोग कर सकते हैं।",
+    "import.notice.partialConversion": "स्प्रेडशीट Google Sheets में खुल गई है। रूपांतरण के दौरान कुछ फ़ॉर्मूले या डेटा बदल गए हो सकते हैं। मूल फ़ाइल की जगह शॉर्टकट बनाया गया है। मूल फ़ाइल वापस पाने के लिए {backups} खोलें।"
   },
   "expandedNumericNotation": [
     "setup.formatLimits"

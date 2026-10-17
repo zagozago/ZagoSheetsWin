@@ -2,8 +2,8 @@
   "language": "su",
   "locale": "su-ID",
   "direction": "ltr",
-  "catalogRevision": 7,
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "catalogRevision": 8,
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -173,7 +173,6 @@
     "home.openShortcutsFolder": "Buka folder shortcut salinan",
     "home.settings": "&Setélan",
     "import.notice.copyComplete": "Salinan geus dibuka dina Sheets. File asli tetep disimpen; shortcut sadia dina folder shortcut aplikasi.",
-    "import.notice.formulaCopy": "Spreadsheet dibuka dina Google Sheets salaku salinan. Eusina aya rumus nu can bisa diverifikasi pikeun ngaganti file. File asli jeung cadangan tetep disimpen. Shortcut salinan sadia dina folder shortcut aplikasi.",
     "import.notice.syncedCopy": "File dibuka salaku salinan: folder keur disinkronkeun atawa aya dina jaringan. File asli tetep disimpen supaya salinan dina alat séjén teu kapupus.",
     "installer.associationConflict": "Aya konflik asosiasi file. Pupus registrasi vérsi portabel saméméh masang, atawa benerkeun instalasi ieu saméméh uninstall. Data nu geus aya tetep disimpen.",
     "installer.associationRunFailed": "Asosiasi file teu bisa diropéa. Data nu geus aya tetep disimpen.",
@@ -600,7 +599,7 @@
     "tutorial.googleExplanation": "Pilih akun anjeun → otorisasikeun aksés → balik ka aplikasi.|Dina Setélan, ✓ Google geus nyambung mastikeun otorisasi. Spreadsheet tetep aya dina Google Drive akun éta. Anjeun teu kudu masang Google Drive for Windows.",
     "tutorial.googleTitle": "Sambungkeun akun Google anjeun",
     "tutorial.hide": "Ulah témbongkeun tutorial ieu nalika muka aplikasi",
-    "tutorial.importExplanation": "Buka file dina komputer. ZagoSheetsWin ngimpor jeung mariksa spreadsheet. Teruskeun dina browser.|Sanggeus verifikasi: cadangan file asli + shortcut ka Sheets. Lamun konvérsi teu bisa dikonfirmasi, file asli tetep disimpen.",
+    "tutorial.importExplanation": "Buka file dina komputer. ZagoSheetsWin ngimpor jeung mariksa spreadsheet. Teruskeun dina browser.|Sanggeus impor dikonfirmasi: cadangan file asli + shortcut ka Sheets. Folder teu dipupus. Dina folder sinkronisasi nu kaciri, file asli tetep disimpen.",
     "tutorial.importTitle": "Buka spreadsheet dina Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Buka cadangan…",
@@ -644,6 +643,7 @@
     "firstUse.backupExplanation": "Cadangan nyimpen berkas aslina, tanpa parobahan saterusna dina Sheets.\nDina Cadangan, pilih Pulihkeun ka… pikeun mulangkeun berkas.",
     "setup.importHeading": "3. Potong kompas sareng ngimpor berkas minangka salinan",
     "tutorial.showAtStartup": "Témbongkeun tutorial ieu nalika muka aplikasi",
-    "setup.defaultsHelp": "Pilih ZagoSheetsWin dina Aplikasi standar Windows. Pilihan, tapi disarankeun. Pilih ZagoSheetsWin dina Aplikasi standar Windows. Ieu opsional: anjeun ogé bisa maké Buka ku → ZagoSheetsWin."
+    "setup.defaultsHelp": "Pilih ZagoSheetsWin dina Aplikasi standar Windows. Pilihan, tapi disarankeun. Pilih ZagoSheetsWin dina Aplikasi standar Windows. Ieu opsional: anjeun ogé bisa maké Buka ku → ZagoSheetsWin.",
+    "import.notice.partialConversion": "Spreadsheet parantos dibuka dina Google Sheets. Sababaraha rumus atanapi data tiasa robih nalika konversi. Berkas asli diganti ku potong kompas. Pikeun mulangkeunana, buka {backups}."
   }
 }

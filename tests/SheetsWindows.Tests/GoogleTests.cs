@@ -362,7 +362,7 @@ public sealed class GoogleTests
         var mapping = new GoogleRemoteRegistry(Path.Combine(w.Root, "state", "google.db")).Get("sheet:" + receipt.Operation.Id.ToString("N"))!;
         var verifier = new ConversionVerifier(drive); await verifier.VerifyAsync(receipt.Operation, mapping, default); Assert.Equal(2, server.Exports); Assert.Equal(1, auth.Refreshes);
         server.ExportOverride = SpreadsheetFormats.WriteXlsx([new SheetValues("Dados", [new object?[] { "changed" }])]);
-        await Assert.ThrowsAsync<ConversionMismatchException>(() => verifier.VerifyAsync(receipt.Operation, mapping, default));
+        await verifier.VerifyAsync(receipt.Operation, mapping, default); Assert.True(verifier.HasWarnings);
         auth.Account = "other"; await Assert.ThrowsAsync<InvalidOperationException>(() => verifier.VerifyAsync(receipt.Operation, mapping, default));
     }
     private static void ConfigureLauncher(Workspace w, out LocalStorage storage)
@@ -406,12 +406,13 @@ public sealed class GoogleTests
         }
     }
     [WindowsFact]
-    public async Task FidelityFailurePreservesOriginalThenResumesWithoutNewUpload()
+    public async Task PartialConvertedValuesWarnAndReplaceWithRecoverableBackup()
     {
-        using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".csv"); File.WriteAllBytes(path, FormatTests.LargeCsv()); ConfigureLauncher(w, out var storage);
-        using var server = new DriveServer { ExportOverride = SpreadsheetFormats.WriteXlsx([new SheetValues("Dados", [new object?[] { "wrong" }])]) }; using var http = new HttpClient(server); var browser = new LauncherBrowser(); var launcher = new WindowsLauncher(storage, http, browser);
-        await Assert.ThrowsAsync<ConversionMismatchException>(() => launcher.OpenAsync(path)); Assert.True(File.Exists(path)); Assert.Empty(browser.Opened); Assert.Equal(2, server.Posts);
-        server.ExportOverride = null; await launcher.OpenAsync(path); Assert.False(File.Exists(path)); Assert.Equal(2, server.Posts);
+        using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".csv"); var original = FormatTests.LargeCsv(); File.WriteAllBytes(path, original); ConfigureLauncher(w, out var storage);
+        using var server = new DriveServer { ExportOverride = SpreadsheetFormats.WriteXlsx([new SheetValues("Dados", [new object?[] { "changed" }])]) }; using var http = new HttpClient(server); var browser = new LauncherBrowser(); var launcher = new WindowsLauncher(storage, http, browser);
+        var shortcut = await launcher.OpenAsync(path); Assert.False(File.Exists(path)); Assert.True(File.Exists(shortcut)); Assert.Single(browser.Opened); Assert.NotNull(launcher.ImportNotice); Assert.Equal(2, server.Posts);
+        var op = Assert.Single(w.Registry().Pending()); Assert.Equal(original, File.ReadAllBytes(op.Snapshot!.BackupPath));
+        Assert.Equal(shortcut, await launcher.ResumeAsync(op.Id, true)); Assert.Equal(2, server.Posts);
     }
     [WindowsFact]
     public async Task SavedCopyPreferenceControlsNormalOpenAndCanReturnToReplacementWithoutAnotherUpload()
@@ -427,13 +428,50 @@ public sealed class GoogleTests
         Assert.StartsWith(w.Root, replacement); Assert.False(File.Exists(w.Source)); Assert.True(File.Exists(replacement)); Assert.Equal(2, server.Posts);
     }
 
-    [WindowsFact]
-    public async Task CopyModeAndComplexOdsNeverRetireOrWriteIntoTheSourceFolder()
+    private static byte[] EquivalentFixture(string format) => Convert.FromBase64String(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "p1-equivalent." + format + ".b64")));
+    [Fact]
+    public async Task RealEquivalentFixturesAreReplaceableWithConversionWarningAfterConfirmedImport()
     {
-        using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".ods"); var bytes = FormatTests.Ods("<table:table-row><table:table-cell table:formula='of:=1+1' office:value-type='float' office:value='2'/></table:table-row>"); File.WriteAllBytes(path, bytes);
-        ConfigureLauncher(w, out var storage); using var server = new DriveServer(); using var http = new HttpClient(server); var browser = new LauncherBrowser(); var launcher = new WindowsLauncher(storage, http, browser);
-        var shortcut = await launcher.OpenAsync(path); Assert.StartsWith(Path.Combine(storage.Root, "shortcuts"), shortcut); Assert.Equal(bytes, File.ReadAllBytes(path));
-        Assert.Equal(shortcut, await launcher.CopyAsync(path)); Assert.Equal(2, server.Posts); Assert.Equal(0, server.Exports); Assert.Empty(Directory.GetFiles(w.Root, "*.url"));
+        foreach (var format in new[] { "ods", "xls" })
+        {
+            using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, "." + format); var original = EquivalentFixture(format); File.WriteAllBytes(path, original);
+            using var server = new DriveServer(); using var http = new HttpClient(server, false); var receipt = await Importer(w, server).ImportReceiptAsync(path);
+            Assert.True(receipt.CanReplace); var mapping = new GoogleRemoteRegistry(Path.Combine(w.Root, "state", "google.db")).Get("sheet:" + receipt.Operation.Id.ToString("N"))!;
+            var verifier = new ConversionVerifier(new GoogleDriveClient(http, new FixedAuth())); await verifier.VerifyAsync(receipt.Operation, mapping, default);
+            Assert.True(verifier.HasWarnings); Assert.Equal(original, File.ReadAllBytes(receipt.Operation.Snapshot!.BackupPath));
+        }
+    }
+    [WindowsFact]
+    public async Task RealEquivalentFixturesReplaceAtSourceResumeWithoutUploadAndRestoreExactBackup()
+    {
+        foreach (var format in new[] { "ods", "xls" })
+        {
+            using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, "." + format); var original = EquivalentFixture(format); File.WriteAllBytes(path, original); ConfigureLauncher(w, out var storage);
+            using var server = new DriveServer(); using var http = new HttpClient(server); var launcher = new WindowsLauncher(storage, http, new LauncherBrowser());
+            var shortcut = await launcher.OpenAsync(path); Assert.False(File.Exists(path)); Assert.True(File.Exists(shortcut)); Assert.Equal(Path.GetDirectoryName(path), Path.GetDirectoryName(shortcut)); Assert.NotNull(launcher.ImportNotice);
+            var op = Assert.Single(w.Registry().Pending()); Assert.Equal(original, File.ReadAllBytes(op.Snapshot!.BackupPath));
+            Assert.Equal(shortcut, await launcher.ResumeAsync(op.Id, true)); Assert.Equal(2, server.Posts);
+            var restored = Path.Combine(w.Root, "recovered." + format); await new ManagedBackupStore(storage).RestoreAsync(op.Id, op.Snapshot!, restored); Assert.Equal(original, File.ReadAllBytes(restored));
+        }
+    }
+    [WindowsFact]
+    public async Task RealEquivalentFixturesRespectSavedCopyPreferenceAcrossOpenAndResume()
+    {
+        foreach (var format in new[] { "ods", "xls" })
+        {
+            using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, "." + format); var original = EquivalentFixture(format); File.WriteAllBytes(path, original); ConfigureLauncher(w, out var storage);
+            await CopyImportSettings.SaveAsync(storage, true); using var server = new DriveServer(); using var http = new HttpClient(server); var launcher = new WindowsLauncher(storage, http, new LauncherBrowser());
+            var shortcut = await launcher.OpenAsync(path); Assert.StartsWith(Path.Combine(storage.Root, "shortcuts"), shortcut); Assert.Equal(original, File.ReadAllBytes(path));
+            var op = Assert.Single(w.Registry().Pending()); Assert.Equal(shortcut, await launcher.ResumeAsync(op.Id, true)); Assert.Equal(original, File.ReadAllBytes(path)); Assert.Equal(2, server.Posts);
+            await CopyImportSettings.SaveAsync(storage, false); var replacement = await launcher.ResumeAsync(op.Id, true); Assert.Equal(Path.GetDirectoryName(path), Path.GetDirectoryName(replacement)); Assert.False(File.Exists(path)); Assert.NotNull(launcher.ImportNotice); Assert.Equal(2, server.Posts);
+        }
+    }
+    [WindowsFact]
+    public async Task FailedNativeGoogleImportOfComplexWorkbookKeepsOriginalAndDoesNotPublishShortcut()
+    {
+        using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".ods"); var original = EquivalentFixture("ods"); File.WriteAllBytes(path, original); ConfigureLauncher(w, out var storage);
+        using var server = new DriveServer { WrongMime = true }; using var http = new HttpClient(server); var launcher = new WindowsLauncher(storage, http, new LauncherBrowser());
+        await Assert.ThrowsAsync<InvalidDataException>(() => launcher.OpenAsync(path)); Assert.Equal(original, File.ReadAllBytes(path)); Assert.Empty(Directory.GetFiles(w.Root, "*.url")); Assert.Null(launcher.ImportNotice);
     }
     [WindowsFact]
     public async Task BinaryXlsDefaultRetiresOnlyAfterVerificationAndCanBeConfiguredToCopy()
@@ -450,7 +488,7 @@ public sealed class GoogleTests
         Assert.NotNull(copyMetrics.Capture().ConversionMs); Assert.NotNull(copyMetrics.Capture().UploadMs); Assert.Null(copyMetrics.Capture().VerificationMs);
     }
     [WindowsFact]
-    public async Task XlsFormulaVerificationOpensSameUploadAsCopyAndPreservesOriginal()
+    public async Task XlsFormulaDifferenceWarnsAndReplacesWithBackup()
     {
         using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".xls"); var bytes = FormatTests.Xls();
         File.WriteAllBytes(path, bytes); ConfigureLauncher(w, out var storage);
@@ -467,23 +505,21 @@ public sealed class GoogleTests
         using var server = new DriveServer { ExportOverride = stream.ToArray() }; using var http = new HttpClient(server);
         var launcher = new WindowsLauncher(storage, http, new LauncherBrowser());
         var shortcut = await launcher.OpenAsync(path);
-        Assert.Equal(bytes, File.ReadAllBytes(path)); Assert.True(File.Exists(shortcut)); Assert.NotNull(launcher.ImportNotice);
+        Assert.False(File.Exists(path)); Assert.True(File.Exists(shortcut)); Assert.Equal(Path.GetDirectoryName(path), Path.GetDirectoryName(shortcut)); Assert.NotNull(launcher.ImportNotice);
         Assert.Equal(2, server.Posts); Assert.Equal(1, server.Exports);
-        Assert.Equal(shortcut, await launcher.OpenAsync(path)); Assert.Equal(2, server.Posts);
+        Assert.Equal(shortcut, await launcher.ResumeAsync(Assert.Single(w.Registry().Pending()).Id, true)); Assert.Equal(2, server.Posts);
         Assert.Equal(bytes, File.ReadAllBytes(Assert.Single(w.Registry().Pending()).Snapshot!.BackupPath));
     }
 
     [WindowsFact]
-    public async Task XlsMismatchPreservesOriginalAndResumesSameUpload()
+    public async Task XlsPartialValuesWarnAndReplaceWithoutRepeatingUpload()
     {
         using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".xls"); var bytes = FormatTests.Xls(); File.WriteAllBytes(path, bytes); ConfigureLauncher(w, out var storage);
-        using var server = new DriveServer { ExportOverride = SpreadsheetFormats.WriteXlsx([new SheetValues("wrong", [new object?[] { "wrong" }])]) };
+        using var server = new DriveServer { ExportOverride = SpreadsheetFormats.WriteXlsx([new SheetValues("changed", [new object?[] { "changed" }])]) };
         using var http = new HttpClient(server); var launcher = new WindowsLauncher(storage, http, new LauncherBrowser());
-        await Assert.ThrowsAsync<ConversionMismatchException>(() => launcher.OpenAsync(path)); Assert.Equal(bytes, File.ReadAllBytes(path));
+        var shortcut = await launcher.OpenAsync(path); Assert.False(File.Exists(path)); Assert.True(File.Exists(shortcut)); Assert.NotNull(launcher.ImportNotice);
         var op = Assert.Single(w.Registry().Pending()); Assert.Equal(bytes, File.ReadAllBytes(op.Snapshot!.BackupPath));
-        await XlsReplacementSettings.SaveAsync(storage, false); await Assert.ThrowsAsync<CopyRequiredException>(() => launcher.ResumeAsync(op.Id, true));
-        await XlsReplacementSettings.SaveAsync(storage, true); server.ExportOverride = null;
-        await launcher.ResumeAsync(op.Id, true); Assert.False(File.Exists(path)); Assert.Equal(2, server.Posts);
+        Assert.Equal(shortcut, await launcher.ResumeAsync(op.Id, true)); Assert.Equal(2, server.Posts);
     }
     [WindowsFact]
     public async Task CopyImportOnKnownOneDriveRootPreservesOriginalAndReusesTheMapping()

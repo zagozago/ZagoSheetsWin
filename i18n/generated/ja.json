@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "コピーのショートカットフォルダーを開く",
     "home.settings": "設定(&S)",
     "import.notice.copyComplete": "コピーを Sheets で開きました。元ファイルは保持され、ショートカットはアプリのショートカットフォルダーにあります。",
-    "import.notice.formulaCopy": "スプレッドシートをコピーとして Google Sheets で開きました。ファイル置換のためにまだ検証できない数式が含まれています。元ファイルとバックアップは保持されています。コピーのショートカットはアプリのショートカットフォルダーにあります。",
     "import.notice.syncedCopy": "ファイルをコピーとして開きました。フォルダーが同期されているかネットワーク上にあります。他のデバイスのコピーを削除しないよう、元ファイルは保持されました。",
     "legal.privacy": "プライバシーポリシー",
     "legal.terms": "利用規約",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "アカウントを選択 → アクセスを認証 → アプリに戻る。|設定で「✓ Google 接続済み」と表示されれば認証済みです。スプレッドシートはそのアカウントの Google Drive に保存されます。Google Drive for Windows をインストールする必要はありません。",
     "tutorial.googleTitle": "Google アカウントを接続",
     "tutorial.hide": "アプリを開くときにこのチュートリアルを表示しない",
-    "tutorial.importExplanation": "コンピューター上のファイルを開きます。ZagoSheetsWin がスプレッドシートをインポートして検証します。ブラウザーで作業を続けます。|検証後: 元ファイルのバックアップ + Sheets へのショートカット。変換を確認できない場合は元ファイルが保持されます。",
+    "tutorial.importExplanation": "コンピューター上のファイルを開きます。ZagoSheetsWin がスプレッドシートをインポートして検証します。ブラウザーで作業を続けます。|確認済みインポート後: 元ファイルのバックアップ + Sheets へのショートカット。フォルダーは削除されません。同期フォルダーとして識別された場所では元ファイルが保持されます。",
     "tutorial.importTitle": "スプレッドシートを Google Sheets で開く",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "バックアップを開く…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "バックアップは元のファイルを保存し、その後の Sheets の変更は含みません。\n「バックアップ」で「復元先…」を選ぶとファイルを復元できます。",
     "setup.importHeading": "3. ショートカットとファイルのコピーとしてのインポート",
     "tutorial.showAtStartup": "アプリを開くときにこのチュートリアルを表示",
-    "setup.defaultsHelp": "Windows の既定のアプリで ZagoSheetsWin を選択してください。 任意ですが、推奨します。 Windows の既定のアプリで ZagoSheetsWin を選択してください。これは任意です。「プログラムから開く → ZagoSheetsWin」も使用できます。"
+    "setup.defaultsHelp": "Windows の既定のアプリで ZagoSheetsWin を選択してください。 任意ですが、推奨します。 Windows の既定のアプリで ZagoSheetsWin を選択してください。これは任意です。「プログラムから開く → ZagoSheetsWin」も使用できます。",
+    "import.notice.partialConversion": "スプレッドシートを Google Sheets で開きました。変換時に一部の数式やデータが変更された可能性があります。元のファイルはショートカットに置き換えられました。元のファイルを復元するには、{backups} を開いてください。"
   }
 }

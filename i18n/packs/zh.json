@@ -2,8 +2,8 @@
   "language": "zh",
   "locale": "zh-CN",
   "direction": "ltr",
-  "catalogRevision": 7,
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "catalogRevision": 8,
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -166,7 +166,6 @@
     "home.openShortcutsFolder": "打开副本快捷方式文件夹",
     "home.settings": "设置(&S)",
     "import.notice.copyComplete": "已在 Sheets 中打开副本。原文件已保留；快捷方式位于应用的快捷方式文件夹中。",
-    "import.notice.formulaCopy": "您的电子表格已作为副本在 Google Sheets 中打开。其中的公式尚无法验证，因此无法替换原文件。原文件和备份均已保留。副本的快捷方式位于应用的快捷方式文件夹中。",
     "import.notice.syncedCopy": "文件已作为副本打开：该文件夹具有同步功能或位于网络上。已保留原文件，以免删除其他设备上的副本。",
     "installer.associationConflict": "文件关联存在冲突。请在安装前移除便携版的注册，或在卸载前修复此安装。现有数据已保留。",
     "installer.associationRunFailed": "无法更新文件关联。现有数据已保留。",
@@ -593,7 +592,7 @@
     "tutorial.googleExplanation": "选择您的账号 → 授权访问 → 返回应用。|在设置中，“✓ Google 已连接”表示授权已确认。电子表格保存在该账号的 Google Drive 中。无需安装 Google Drive for Windows。",
     "tutorial.googleTitle": "连接您的 Google 账号",
     "tutorial.hide": "打开应用时不再显示此教程",
-    "tutorial.importExplanation": "打开电脑上的文件。ZagoSheetsWin 会导入并验证电子表格。然后在浏览器中继续工作。|验证后：原文件备份 + 指向 Sheets 的快捷方式。如果无法确认转换结果，会保留原文件。",
+    "tutorial.importExplanation": "打开电脑上的文件。ZagoSheetsWin 会导入并验证电子表格。然后在浏览器中继续工作。|导入确认后：原文件备份 + 指向 Sheets 的快捷方式。不会删除文件夹。在已识别的同步文件夹中，会保留原文件。",
     "tutorial.importTitle": "在 Google Sheets 中打开您的电子表格",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "打开备份…",
@@ -637,7 +636,8 @@
     "firstUse.backupExplanation": "备份保存原始文件，不包含之后在 Sheets 中的修改。\n在“备份”中选择“还原到…”来恢复文件。",
     "setup.importHeading": "3. 快捷方式及将文件作为副本导入",
     "tutorial.showAtStartup": "打开应用时显示本教程",
-    "setup.defaultsHelp": "在 Windows 默认应用中选择 ZagoSheetsWin。 可选，但建议设置。 请在 Windows 的默认应用中选择 ZagoSheetsWin。此设置为可选项：您也可以使用“打开方式 → ZagoSheetsWin”。"
+    "setup.defaultsHelp": "在 Windows 默认应用中选择 ZagoSheetsWin。 可选，但建议设置。 请在 Windows 的默认应用中选择 ZagoSheetsWin。此设置为可选项：您也可以使用“打开方式 → ZagoSheetsWin”。",
+    "import.notice.partialConversion": "电子表格已在 Google Sheets 中打开。转换时部分公式或数据可能发生了变化。原始文件已替换为快捷方式。要恢复原始文件，请打开 {backups}。"
   },
   "expandedNumericNotation": [
     "setup.formatLimits"

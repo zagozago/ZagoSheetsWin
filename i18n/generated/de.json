@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Ordner mit Kopie-Verknüpfungen öffnen",
     "home.settings": "&Einstellungen",
     "import.notice.copyComplete": "Kopie in Sheets geöffnet. Original beibehalten; eine Verknüpfung ist im Verknüpfungsordner der App verfügbar.",
-    "import.notice.formulaCopy": "Ihre Tabelle wurde als Kopie in Google Sheets geöffnet. Sie enthält Formeln, die wir für das Ersetzen der Datei noch nicht prüfen können. Original und Sicherung wurden beibehalten. Die Verknüpfung zur Kopie befindet sich im Verknüpfungsordner der App.",
     "import.notice.syncedCopy": "Datei als Kopie geöffnet: Der Ordner wird synchronisiert oder befindet sich im Netzwerk. Das Original wurde beibehalten, damit die Kopie auf anderen Geräten nicht gelöscht wird.",
     "legal.privacy": "Datenschutzerklärung",
     "legal.terms": "Nutzungsbedingungen",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Konto auswählen → Zugriff autorisieren → zur App zurückkehren.|In den Einstellungen bestätigt ✓ Google verbunden die Autorisierung. Ihre Tabellen bleiben im Google Drive dieses Kontos. Google Drive für Windows muss nicht installiert werden.",
     "tutorial.googleTitle": "Google-Konto verbinden",
     "tutorial.hide": "Dieses Tutorial beim Öffnen der App nicht anzeigen",
-    "tutorial.importExplanation": "Öffnen Sie eine Datei auf Ihrem Computer. ZagoSheetsWin importiert und prüft die Tabelle. Arbeiten Sie im Browser weiter.|Nach der Prüfung: Sicherung des Originals + Verknüpfung zu Sheets. Wenn die Konvertierung nicht bestätigt werden kann, bleibt das Original erhalten.",
+    "tutorial.importExplanation": "Öffnen Sie eine Datei auf Ihrem Computer. ZagoSheetsWin importiert und prüft die Tabelle. Arbeiten Sie im Browser weiter.|Nach dem bestätigten Import: Sicherung des Originals + Verknüpfung zu Sheets. Ordner werden nicht gelöscht. In erkannten synchronisierten Ordnern bleibt das Original erhalten.",
     "tutorial.importTitle": "Tabellen in Google Sheets öffnen",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Sicherungen öffnen…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "Die Sicherung bewahrt das Original ohne spätere Änderungen in Sheets.\nWählen Sie unter Sicherungen Wiederherstellen nach…, um die Datei wiederherzustellen.",
     "setup.importHeading": "3. Verknüpfungen und Datei als Kopie importieren",
     "tutorial.showAtStartup": "Dieses Tutorial beim Öffnen der App anzeigen",
-    "setup.defaultsHelp": "Wählen Sie ZagoSheetsWin in den Windows-Standard-Apps. Optional, aber empfohlen. Wählen Sie ZagoSheetsWin in den Windows-Standard-Apps. Dies ist optional: Sie können auch „Öffnen mit → ZagoSheetsWin“ verwenden."
+    "setup.defaultsHelp": "Wählen Sie ZagoSheetsWin in den Windows-Standard-Apps. Optional, aber empfohlen. Wählen Sie ZagoSheetsWin in den Windows-Standard-Apps. Dies ist optional: Sie können auch „Öffnen mit → ZagoSheetsWin“ verwenden.",
+    "import.notice.partialConversion": "Die Tabelle wurde in Google Sheets geöffnet. Einige Formeln oder Daten könnten bei der Konvertierung verändert worden sein. Die Originaldatei wurde durch eine Verknüpfung ersetzt. Öffnen Sie zum Wiederherstellen {backups}."
   }
 }

@@ -2,8 +2,8 @@
   "language": "ar",
   "locale": "ar",
   "direction": "rtl",
-  "catalogRevision": 7,
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "catalogRevision": 8,
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -166,7 +166,6 @@
     "home.openShortcutsFolder": "فتح مجلد اختصارات النسخ",
     "home.settings": "الإ&عدادات",
     "import.notice.copyComplete": "فُتحت النسخة في Sheets. تم الاحتفاظ بالأصل؛ ويوجد اختصار في مجلد اختصارات التطبيق.",
-    "import.notice.formulaCopy": "فُتح جدول البيانات في Google Sheets كنسخة. يحتوي على صيغ لا يمكننا التحقق منها بعد لاستبدال الملف. تم الاحتفاظ بالأصل والنسخة الاحتياطية. يوجد اختصار النسخة في مجلد اختصارات التطبيق.",
     "import.notice.syncedCopy": "فُتح الملف كنسخة: المجلد متزامن أو موجود على شبكة. تم الاحتفاظ بالأصل لتجنب حذف النسخة على الأجهزة الأخرى.",
     "installer.associationConflict": "يوجد تعارض في اقتران الملفات. أزل تسجيل الإصدار المحمول قبل التثبيت، أو أصلح هذا التثبيت قبل إلغاء التثبيت. تم الاحتفاظ بالبيانات الموجودة.",
     "installer.associationRunFailed": "تعذر تحديث اقترانات الملفات. تم الاحتفاظ بالبيانات الموجودة.",
@@ -593,7 +592,7 @@
     "tutorial.googleExplanation": "اختر حسابك → فوّض الوصول → ارجع إلى التطبيق.|في الإعدادات، تؤكد عبارة ✓ Google متصل التفويض. تبقى جداول بياناتك في Google Drive لذلك الحساب. لا تحتاج إلى تثبيت Google Drive for Windows.",
     "tutorial.googleTitle": "ربط حساب Google",
     "tutorial.hide": "عدم إظهار هذا البرنامج التعليمي عند فتح التطبيق",
-    "tutorial.importExplanation": "افتح ملفًا على جهازك. يستورد ZagoSheetsWin جدول البيانات ويتحقق منه. تابع في متصفحك.|بعد التحقق: نسخة احتياطية من الأصل + اختصار إلى Sheets. إذا تعذر تأكيد التحويل، يتم الاحتفاظ بالأصل.",
+    "tutorial.importExplanation": "افتح ملفًا على جهازك. يستورد ZagoSheetsWin جدول البيانات ويتحقق منه. تابع في متصفحك.|بعد الاستيراد المؤكد: نسخة احتياطية من الأصل + اختصار إلى Sheets. لا تُحذف المجلدات. في المجلدات المتزامنة التي يتم التعرف عليها، يُحتفظ بالأصل.",
     "tutorial.importTitle": "افتح جداول بياناتك في Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "فتح النسخ الاحتياطية…",
@@ -637,6 +636,7 @@
     "firstUse.backupExplanation": "تحفظ النسخة الاحتياطية الأصل دون التغييرات اللاحقة في Sheets.\nفي النسخ الاحتياطية، اختر استعادة إلى… لاسترجاع الملف.",
     "setup.importHeading": "3. الاختصارات واستيراد الملف كنسخة",
     "tutorial.showAtStartup": "إظهار هذا الدليل عند فتح التطبيق",
-    "setup.defaultsHelp": "اختر ZagoSheetsWin في التطبيقات الافتراضية لنظام Windows. اختياري، لكنه موصى به. اختر ZagoSheetsWin ضمن التطبيقات الافتراضية في Windows. هذا اختياري: يمكنك أيضًا استخدام «فتح باستخدام → ZagoSheetsWin»."
+    "setup.defaultsHelp": "اختر ZagoSheetsWin في التطبيقات الافتراضية لنظام Windows. اختياري، لكنه موصى به. اختر ZagoSheetsWin ضمن التطبيقات الافتراضية في Windows. هذا اختياري: يمكنك أيضًا استخدام «فتح باستخدام → ZagoSheetsWin».",
+    "import.notice.partialConversion": "فُتح جدول البيانات في Google Sheets. ربما تغيرت بعض الصيغ أو البيانات أثناء التحويل. استُبدل الملف الأصلي باختصار. لاستعادته، افتح {backups}."
   }
 }

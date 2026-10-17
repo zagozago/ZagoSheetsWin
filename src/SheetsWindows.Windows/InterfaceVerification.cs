@@ -61,6 +61,14 @@ internal static class InterfaceVerification
             action.InvokeAction(); action.Enabled = false; action.InvokeAction();
             Require(invoked == 1, "Recovery menu must invoke enabled handlers and refuse disabled actions.");
         }
+        using (var partial = new ProcessingForm(new(LauncherAction.Open, "partial.ods"), preview: true))
+        {
+            partial.ShowImportNotice(UiText.Format("import.notice.partialConversion", ("backups", UiText.Get("home.backups").Replace("&", "", StringComparison.Ordinal))));
+            partial.Show(); Application.DoEvents();
+            Require(partial.Text == Branding.Name && Descendants(partial).OfType<Button>().Any(b => b.Name == "importNoticeBackups" && b.Enabled),
+                "A successful partial import must offer backup recovery without a copy-only title.");
+            partial.Hide();
+        }
         Console.Error.WriteLine("VERIFY: disconnected file startup and disabled buttons");
         foreach (var extension in new[] { "csv", "tsv", "xlsx", "xls", "ods" })
         {

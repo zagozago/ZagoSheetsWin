@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Fungua folda ya njia za mkato za nakala",
     "home.settings": "&Mipangilio",
     "import.notice.copyComplete": "Nakala imefunguliwa katika Sheets. Faili ya asili ilihifadhiwa; njia ya mkato inapatikana katika folda ya njia za mkato ya programu.",
-    "import.notice.formulaCopy": "Lahajedwali yako imefunguliwa katika Google Sheets kama nakala. Ina fomula ambazo bado hatuwezi kuthibitisha kwa ubadilishaji wa faili. Faili ya asili na nakala rudufu zilihifadhiwa. Njia ya mkato ya nakala inapatikana katika folda ya njia za mkato ya programu.",
     "import.notice.syncedCopy": "Faili imefunguliwa kama nakala: folda imelandanishwa au iko kwenye mtandao. Faili ya asili ilihifadhiwa ili kuepuka kufuta nakala kwenye vifaa vingine.",
     "legal.privacy": "Sera ya Faragha",
     "legal.terms": "Masharti ya Matumizi",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Chagua akaunti yako → idhinisha ufikiaji → rudi kwenye programu.|Katika Mipangilio, ✓ Google imeunganishwa huthibitisha idhini. Lahajedwali zako hubaki kwenye Google Drive ya akaunti hiyo. Huhitaji kusakinisha Google Drive for Windows.",
     "tutorial.googleTitle": "Unganisha akaunti yako ya Google",
     "tutorial.hide": "Usionyeshe mafunzo haya unapofungua programu",
-    "tutorial.importExplanation": "Fungua faili kwenye kompyuta yako. ZagoSheetsWin huingiza na kuthibitisha lahajedwali. Endelea kwenye kivinjari chako.|Baada ya uthibitishaji: nakala rudufu ya faili ya asili + njia ya mkato kwenda Sheets. Ikiwa ubadilishaji hauwezi kuthibitishwa, faili ya asili huhifadhiwa.",
+    "tutorial.importExplanation": "Fungua faili kwenye kompyuta yako. ZagoSheetsWin huingiza na kuthibitisha lahajedwali. Endelea kwenye kivinjari chako.|Baada ya uingizaji uliothibitishwa: nakala rudufu ya faili ya asili + njia ya mkato kwenda Sheets. Folda hazifutwi. Katika folda zilizotambuliwa kuwa zinalandanishwa, faili ya asili huhifadhiwa.",
     "tutorial.importTitle": "Fungua lahajedwali zako katika Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Fungua nakala rudufu…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "Nakala ya akiba huhifadhi faili ya asili, bila mabadiliko ya baadaye katika Sheets.\nKatika Nakala za akiba, chagua Rejesha kwenye… kurejesha faili.",
     "setup.importHeading": "3. Njia za mkato na kuleta faili kama nakala",
     "tutorial.showAtStartup": "Onyesha mafunzo haya unapofungua programu",
-    "setup.defaultsHelp": "Chagua ZagoSheetsWin katika Programu chaguomsingi za Windows. Si lazima, lakini inapendekezwa. Chagua ZagoSheetsWin katika Programu chaguomsingi za Windows. Hii ni hiari: unaweza pia kutumia Fungua kwa → ZagoSheetsWin."
+    "setup.defaultsHelp": "Chagua ZagoSheetsWin katika Programu chaguomsingi za Windows. Si lazima, lakini inapendekezwa. Chagua ZagoSheetsWin katika Programu chaguomsingi za Windows. Hii ni hiari: unaweza pia kutumia Fungua kwa → ZagoSheetsWin.",
+    "import.notice.partialConversion": "Lahajedwali limefunguliwa katika Google Sheets. Baadhi ya fomula au data huenda zimebadilika wakati wa ubadilishaji. Faili asili limebadilishwa na njia ya mkato. Ili kulirejesha, fungua {backups}."
   }
 }

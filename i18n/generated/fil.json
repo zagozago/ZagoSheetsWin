@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Buksan ang folder ng copy shortcuts",
     "home.settings": "&Mga Setting",
     "import.notice.copyComplete": "Nabuksan ang kopya sa Sheets. Napanatili ang orihinal; may shortcut sa shortcuts folder ng app.",
-    "import.notice.formulaCopy": "Nabuksan ang spreadsheet sa Google Sheets bilang kopya. May mga formula itong hindi pa namin ma-verify para sa file replacement. Napanatili ang orihinal at backup. Available ang copy shortcut sa shortcuts folder ng app.",
     "import.notice.syncedCopy": "Nabuksan ang file bilang kopya: naka-sync o nasa network ang folder. Pinanatili ang orihinal para maiwasang mabura ang kopya sa ibang device.",
     "legal.privacy": "Patakaran sa Privacy",
     "legal.terms": "Mga Tuntunin ng Paggamit",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Piliin ang account mo → payagan ang access → bumalik sa app.|Sa Mga Setting, ✓ Nakakonekta ang Google ang nagkukumpirma ng authorization. Mananatili ang spreadsheets mo sa Google Drive ng account na iyon. Hindi mo kailangang i-install ang Google Drive for Windows.",
     "tutorial.googleTitle": "Ikonekta ang Google account mo",
     "tutorial.hide": "Huwag ipakita ang tutorial na ito kapag binubuksan ang app",
-    "tutorial.importExplanation": "Magbukas ng file sa iyong computer. Ini-import at vine-verify ng ZagoSheetsWin ang spreadsheet. Magpatuloy sa browser.|Pagkatapos ng verification: backup ng orihinal + shortcut papuntang Sheets. Kung hindi makumpirma ang conversion, pinananatili ang orihinal.",
+    "tutorial.importExplanation": "Magbukas ng file sa iyong computer. Ini-import at vine-verify ng ZagoSheetsWin ang spreadsheet. Magpatuloy sa browser.|Pagkatapos ng kumpirmadong import: backup ng orihinal + shortcut papuntang Sheets. Hindi dine-delete ang mga folder. Sa mga natukoy na synced folder, pinananatili ang orihinal.",
     "tutorial.importTitle": "Buksan ang iyong spreadsheets sa Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Buksan ang backups…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "Pinapanatili ng backup ang orihinal, hindi kasama ang mga pagbabago sa Sheets pagkatapos nito.\nSa Mga backup, piliin ang Ibalik sa… upang mabawi ang file.",
     "setup.importHeading": "3. Mga shortcut at pag-import ng file bilang kopya",
     "tutorial.showAtStartup": "Ipakita ang tutorial na ito kapag binubuksan ang app",
-    "setup.defaultsHelp": "Piliin ang ZagoSheetsWin sa Default apps ng Windows. Opsyonal, ngunit inirerekomenda. Piliin ang ZagoSheetsWin sa Windows Default apps. Optional ito: maaari mo ring gamitin ang Open with → ZagoSheetsWin."
+    "setup.defaultsHelp": "Piliin ang ZagoSheetsWin sa Default apps ng Windows. Opsyonal, ngunit inirerekomenda. Piliin ang ZagoSheetsWin sa Windows Default apps. Optional ito: maaari mo ring gamitin ang Open with → ZagoSheetsWin.",
+    "import.notice.partialConversion": "Binuksan ang spreadsheet sa Google Sheets. Maaaring nagbago ang ilang formula o data sa conversion. Pinalitan ng shortcut ang orihinal na file. Para mabawi ito, buksan ang {backups}."
   }
 }

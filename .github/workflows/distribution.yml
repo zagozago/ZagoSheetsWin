@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.32: restore original 9-point button reference and remove unavailable format preferences.
+# Distribution candidate 0.9.33: confirmed partial imports follow backup and source shortcut policy.
 name: Protected alpha distribution
 on:
   workflow_dispatch:

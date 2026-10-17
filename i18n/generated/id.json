@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Buka folder pintasan salinan",
     "home.settings": "&Pengaturan",
     "import.notice.copyComplete": "Salinan dibuka di Sheets. Berkas asli dipertahankan; pintasan tersedia di folder pintasan aplikasi.",
-    "import.notice.formulaCopy": "Spreadsheet Anda dibuka di Google Sheets sebagai salinan. Spreadsheet berisi rumus yang belum dapat kami verifikasi untuk penggantian berkas. Berkas asli dan cadangan dipertahankan. Pintasan salinan tersedia di folder pintasan aplikasi.",
     "import.notice.syncedCopy": "Berkas dibuka sebagai salinan: folder disinkronkan atau berada di jaringan. Berkas asli dipertahankan agar salinan di perangkat lain tidak terhapus.",
     "legal.privacy": "Kebijakan Privasi",
     "legal.terms": "Ketentuan Penggunaan",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Pilih akun Anda → otorisasi akses → kembali ke aplikasi.|Di Pengaturan, ✓ Google terhubung mengonfirmasi otorisasi. Spreadsheet Anda tetap berada di Google Drive akun tersebut. Anda tidak perlu memasang Google Drive untuk Windows.",
     "tutorial.googleTitle": "Hubungkan akun Google Anda",
     "tutorial.hide": "Jangan tampilkan tutorial ini saat membuka aplikasi",
-    "tutorial.importExplanation": "Buka berkas di komputer Anda. ZagoSheetsWin mengimpor dan memverifikasi spreadsheet. Lanjutkan di browser.|Setelah verifikasi: cadangan berkas asli + pintasan ke Sheets. Jika konversi tidak dapat dikonfirmasi, berkas asli dipertahankan.",
+    "tutorial.importExplanation": "Buka berkas di komputer Anda. ZagoSheetsWin mengimpor dan memverifikasi spreadsheet. Lanjutkan di browser.|Setelah impor dikonfirmasi: cadangan berkas asli + pintasan ke Sheets. Map tidak dihapus. Pada map tersinkronisasi yang teridentifikasi, berkas asli dipertahankan.",
     "tutorial.importTitle": "Buka spreadsheet Anda di Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Buka cadangan…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "Cadangan menyimpan file asli, tanpa perubahan berikutnya di Sheets.\nDi Cadangan, pilih Pulihkan ke… untuk memulihkan file.",
     "setup.importHeading": "3. Pintasan dan mengimpor file sebagai salinan",
     "tutorial.showAtStartup": "Tampilkan tutorial ini saat membuka aplikasi",
-    "setup.defaultsHelp": "Pilih ZagoSheetsWin di Aplikasi default Windows. Opsional, tetapi disarankan. Pilih ZagoSheetsWin di Aplikasi default Windows. Ini opsional: Anda juga dapat menggunakan Buka dengan → ZagoSheetsWin."
+    "setup.defaultsHelp": "Pilih ZagoSheetsWin di Aplikasi default Windows. Opsional, tetapi disarankan. Pilih ZagoSheetsWin di Aplikasi default Windows. Ini opsional: Anda juga dapat menggunakan Buka dengan → ZagoSheetsWin.",
+    "import.notice.partialConversion": "Spreadsheet dibuka di Google Sheets. Beberapa rumus atau data mungkin berubah selama konversi. File asli diganti dengan pintasan. Untuk memulihkannya, buka {backups}."
   }
 }

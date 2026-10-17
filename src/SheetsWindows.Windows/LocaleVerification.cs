@@ -66,6 +66,14 @@ internal static class LocaleVerification
                     { using var wizard = new FirstUseWizard(preview:true, initialPage:page); Check(wizard,$"first-use-{page+1}",true); }
                 }
                 using (var error = new ProcessingForm(new(LauncherAction.Open,"preview.xlsx"),preview:true,previewError:true)) Check(error,"error");
+                using (var partial = new ProcessingForm(new(LauncherAction.Open,"preview.ods"),preview:true))
+                {
+                    partial.ShowImportNotice(UiText.Format("import.notice.partialConversion", ("backups", UiText.Get("home.backups").Replace("&", "", StringComparison.Ordinal))));
+                    Check(partial,"partial-import",true);
+                    var status = Descendants(partial).OfType<Label>().Single(l => l.AccessibleName == UiText.Get("accessibility.processingStatus"));
+                    var text = TextRenderer.MeasureText(status.Text,status.Font,new Size(Math.Max(100,status.ClientSize.Width-status.Padding.Horizontal),int.MaxValue),TextFormatFlags.WordBreak);
+                    if(text.Height+status.Padding.Vertical>status.ClientSize.Height+2)throw new InvalidOperationException($"{language.Code}: partial import notice is clipped.");
+                }
                 // Font-size stress at the four requested scales, with native GDI measurement.
                 foreach (var scale in new[] {1f,1.25f,1.5f,2f})
                 foreach (var key in new[] {"tutorial.skip","tutorial.start","tutorial.defineDefaults","action.next","language.apply","language.button"})

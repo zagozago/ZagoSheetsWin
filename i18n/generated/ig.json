@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Mepee folda ụzọ mkpirisi nnomi",
     "home.settings": "&Ntọala",
     "import.notice.copyComplete": "Nnomi mepere na Sheets. E chekwara nke mbụ; ụzọ mkpirisi dị na folda ụzọ mkpirisi ngwa ahụ.",
-    "import.notice.formulaCopy": "E mepere spreadsheet gị na Google Sheets dịka nnomi. O nwere formulas anyị na-enweghị ike inyocha ugbu a maka nnọchi faịlụ. E chekwara nke mbụ na nnomi ndabere. Ụzọ mkpirisi nnomi dị na folda ụzọ mkpirisi ngwa ahụ.",
     "import.notice.syncedCopy": "E mepere faịlụ dịka nnomi: folda ahụ na-emekọrịta ma ọ bụ dị na netwọkụ. E debere nke mbụ ka e ghara ihichapụ nnomi na ngwaọrụ ndị ọzọ.",
     "legal.privacy": "Iwu Nzuzo",
     "legal.terms": "Usoro Ojiji",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Họrọ akaụntụ gị → nye ikike ịnweta → laghachi na ngwa.|Na Ntọala, ✓ Google ejikọrọ na-egosi na ikike dị. Spreadsheets gị na-anọ na Google Drive nke akaụntụ ahụ. Ọ dịghị mkpa ịwụnye Google Drive for Windows.",
     "tutorial.googleTitle": "Jikọọ akaụntụ Google gị",
     "tutorial.hide": "Egosila nduzi a mgbe emepe ngwa",
-    "tutorial.importExplanation": "Mepee faịlụ na kọmputa gị. ZagoSheetsWin na-ebubata ma na-enyocha spreadsheet. Gaa n'ihu na ihe nchọgharị gị.|Mgbe nyochachara: nnomi ndabere nke mbụ + ụzọ mkpirisi gaa Sheets. Ọ bụrụ na enweghị ike ikwenye ntụgharị, a na-edobe nke mbụ.",
+    "tutorial.importExplanation": "Mepee faịlụ na kọmputa gị. ZagoSheetsWin na-ebubata ma na-enyocha spreadsheet. Gaa n'ihu na ihe nchọgharị gị.|Mgbe akwadoro mbubata: nnomi ndabere nke mbụ + ụzọ mkpirisi gaa Sheets. A naghị ehichapụ folda. N'ime folda mmekọrịta achọpụtara, a na-edobe nke mbụ.",
     "tutorial.importTitle": "Mepee spreadsheets gị na Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Mepee nnomi ndabere…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "Ndabere na-edobe faịlụ mbụ, ọ bụghị mgbanwe e mesịrị na Sheets.\nNa Ndabere, họrọ Weghachite na… iji nwetaghachi faịlụ.",
     "setup.importHeading": "3. Ụzọ mkpirisi na ibubata faịlụ dịka oyiri",
     "tutorial.showAtStartup": "Gosi nkuzi a mgbe a na-emeghe ngwa",
-    "setup.defaultsHelp": "Họrọ ZagoSheetsWin na ngwa ndabara nke Windows. Ọ bụ nhọrọ, ma a na-atụ aro ya. Họrọ ZagoSheetsWin na Windows Default apps. Nke a bụ nhọrọ: ị nwekwara ike iji Mepee na → ZagoSheetsWin."
+    "setup.defaultsHelp": "Họrọ ZagoSheetsWin na ngwa ndabara nke Windows. Ọ bụ nhọrọ, ma a na-atụ aro ya. Họrọ ZagoSheetsWin na Windows Default apps. Nke a bụ nhọrọ: ị nwekwara ike iji Mepee na → ZagoSheetsWin.",
+    "import.notice.partialConversion": "E meghere akwụkwọ mgbakọ na Google Sheets. Ụfọdụ usoro mgbakọ ma ọ bụ data nwere ike ịgbanwe n'oge ntụgharị. E jiri ụzọ mkpirisi dochie faịlụ mbụ. Iji weghachite ya, mepee {backups}."
   }
 }

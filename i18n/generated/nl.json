@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Map met kopiesnelkoppelingen openen",
     "home.settings": "&Instellingen",
     "import.notice.copyComplete": "Kopie geopend in Sheets. Origineel behouden; er is een snelkoppeling beschikbaar in de map met snelkoppelingen van de app.",
-    "import.notice.formulaCopy": "Uw werkblad is als kopie geopend in Google Sheets. Het bevat formules die we nog niet kunnen verifiëren voor bestandsvervanging. Het origineel en de back-up zijn behouden. De snelkoppeling naar de kopie is beschikbaar in de map met snelkoppelingen van de app.",
     "import.notice.syncedCopy": "Bestand als kopie geopend: de map wordt gesynchroniseerd of staat op een netwerk. Het origineel is behouden om te voorkomen dat de kopie op andere apparaten wordt verwijderd.",
     "legal.privacy": "Privacybeleid",
     "legal.terms": "Gebruiksvoorwaarden",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Kies uw account → autoriseer toegang → keer terug naar de app.|In Instellingen bevestigt ✓ Google verbonden de autorisatie. Uw werkbladen blijven in de Google Drive van dat account. U hoeft Google Drive voor Windows niet te installeren.",
     "tutorial.googleTitle": "Uw Google-account verbinden",
     "tutorial.hide": "Deze handleiding niet tonen bij het openen van de app",
-    "tutorial.importExplanation": "Open een bestand op uw computer. ZagoSheetsWin importeert en verifieert het werkblad. Ga verder in uw browser.|Na verificatie: back-up van het origineel + snelkoppeling naar Sheets. Als de conversie niet kan worden bevestigd, blijft het origineel behouden.",
+    "tutorial.importExplanation": "Open een bestand op uw computer. ZagoSheetsWin importeert en verifieert het werkblad. Ga verder in uw browser.|Na de bevestigde import: back-up van het origineel + snelkoppeling naar Sheets. Mappen worden niet verwijderd. In herkende gesynchroniseerde mappen blijft het origineel behouden.",
     "tutorial.importTitle": "Uw werkbladen openen in Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Back-ups openen…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "De back-up bewaart het origineel, zonder latere wijzigingen in Sheets.\nKies bij Back-ups Herstellen naar… om het bestand terug te halen.",
     "setup.importHeading": "3. Snelkoppelingen en bestand als kopie importeren",
     "tutorial.showAtStartup": "Deze uitleg tonen bij het openen van de app",
-    "setup.defaultsHelp": "Kies ZagoSheetsWin in de Standaard-apps van Windows. Optioneel, maar aanbevolen. Kies ZagoSheetsWin in Standaard-apps van Windows. Dit is optioneel: u kunt ook Openen met → ZagoSheetsWin gebruiken."
+    "setup.defaultsHelp": "Kies ZagoSheetsWin in de Standaard-apps van Windows. Optioneel, maar aanbevolen. Kies ZagoSheetsWin in Standaard-apps van Windows. Dit is optioneel: u kunt ook Openen met → ZagoSheetsWin gebruiken.",
+    "import.notice.partialConversion": "Het werkblad is geopend in Google Sheets. Sommige formules of gegevens kunnen tijdens de conversie zijn gewijzigd. Het oorspronkelijke bestand is vervangen door een snelkoppeling. Open {backups} om het te herstellen."
   }
 }

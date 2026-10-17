@@ -2,8 +2,8 @@
   "language": "vi",
   "locale": "vi-VN",
   "direction": "ltr",
-  "catalogRevision": 7,
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "catalogRevision": 8,
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -171,7 +171,6 @@
     "home.openShortcutsFolder": "Mở thư mục lối tắt bản sao",
     "home.settings": "&Cài đặt",
     "import.notice.copyComplete": "Đã mở bản sao trong Sheets. Tệp gốc được giữ lại; lối tắt có trong thư mục lối tắt của ứng dụng.",
-    "import.notice.formulaCopy": "Bảng tính của bạn đã được mở trong Google Sheets dưới dạng bản sao. Bảng tính chứa công thức mà chúng tôi chưa thể xác minh để thay thế tệp. Tệp gốc và bản sao lưu được giữ lại. Lối tắt của bản sao có trong thư mục lối tắt của ứng dụng.",
     "import.notice.syncedCopy": "Đã mở tệp dưới dạng bản sao: thư mục đang được đồng bộ hoặc nằm trên mạng. Tệp gốc được giữ lại để tránh xóa bản sao trên thiết bị khác.",
     "installer.associationConflict": "Có xung đột liên kết tệp. Hãy gỡ đăng ký của phiên bản di động trước khi cài đặt, hoặc sửa chữa bản cài đặt này trước khi gỡ cài đặt. Dữ liệu hiện có đã được giữ lại.",
     "installer.associationRunFailed": "Không thể cập nhật liên kết tệp. Dữ liệu hiện có đã được giữ lại.",
@@ -598,7 +597,7 @@
     "tutorial.googleExplanation": "Chọn tài khoản → ủy quyền truy cập → quay lại ứng dụng.|Trong Cài đặt, ✓ Đã kết nối Google xác nhận ủy quyền. Bảng tính của bạn vẫn nằm trong Google Drive của tài khoản đó. Bạn không cần cài Google Drive cho Windows.",
     "tutorial.googleTitle": "Kết nối tài khoản Google",
     "tutorial.hide": "Không hiển thị hướng dẫn này khi mở ứng dụng",
-    "tutorial.importExplanation": "Mở một tệp trên máy tính. ZagoSheetsWin nhập và xác minh bảng tính. Tiếp tục trong trình duyệt.|Sau khi xác minh: bản sao lưu tệp gốc + lối tắt đến Sheets. Nếu không thể xác nhận chuyển đổi, tệp gốc được giữ lại.",
+    "tutorial.importExplanation": "Mở một tệp trên máy tính. ZagoSheetsWin nhập và xác minh bảng tính. Tiếp tục trong trình duyệt.|Sau lần nhập đã xác nhận: bản sao lưu tệp gốc + lối tắt đến Sheets. Thư mục không bị xóa. Trong các thư mục đồng bộ đã nhận diện, tệp gốc được giữ lại.",
     "tutorial.importTitle": "Mở bảng tính trong Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Mở bản sao lưu…",
@@ -642,6 +641,7 @@
     "firstUse.backupExplanation": "Bản sao lưu giữ bản gốc, không gồm thay đổi sau đó trong Sheets.\nTrong Sao lưu, chọn Khôi phục vào… để lấy lại tệp.",
     "setup.importHeading": "3. Lối tắt và nhập tệp dưới dạng bản sao",
     "tutorial.showAtStartup": "Hiện hướng dẫn này khi mở ứng dụng",
-    "setup.defaultsHelp": "Chọn ZagoSheetsWin trong Ứng dụng mặc định của Windows. Không bắt buộc, nhưng nên chọn. Chọn ZagoSheetsWin trong Ứng dụng mặc định của Windows. Đây là tùy chọn: bạn cũng có thể dùng Mở bằng → ZagoSheetsWin."
+    "setup.defaultsHelp": "Chọn ZagoSheetsWin trong Ứng dụng mặc định của Windows. Không bắt buộc, nhưng nên chọn. Chọn ZagoSheetsWin trong Ứng dụng mặc định của Windows. Đây là tùy chọn: bạn cũng có thể dùng Mở bằng → ZagoSheetsWin.",
+    "import.notice.partialConversion": "Bảng tính đã được mở trong Google Sheets. Một số công thức hoặc dữ liệu có thể đã thay đổi khi chuyển đổi. Tệp gốc đã được thay bằng lối tắt. Để khôi phục tệp, hãy mở {backups}."
   }
 }

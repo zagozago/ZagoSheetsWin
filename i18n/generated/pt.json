@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Abrir pasta de atalhos das cópias",
     "home.settings": "&Configurações",
     "import.notice.copyComplete": "Cópia aberta no Sheets. Original preservado; atalho disponível na pasta de atalhos do aplicativo.",
-    "import.notice.formulaCopy": "Sua planilha foi aberta no Google Sheets como cópia. Ela contém fórmulas que ainda não conseguimos conferir para substituir o arquivo. O original e o backup foram mantidos. O atalho da cópia está disponível na pasta de atalhos do aplicativo.",
     "import.notice.syncedCopy": "Arquivo aberto como cópia: a pasta é sincronizada ou de rede. O original foi mantido para evitar excluir a cópia em outros dispositivos.",
     "legal.privacy": "Política de Privacidade",
     "legal.terms": "Termos de Uso",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Escolha sua conta → autorize o acesso → volte ao aplicativo.|Nas configurações, ✓ Google conectado confirma a autorização. Suas planilhas ficam no Google Drive dessa conta. Não precisa instalar o Google Drive para Windows.",
     "tutorial.googleTitle": "Conecte sua conta Google",
     "tutorial.hide": "Não mostrar este tutorial ao abrir o aplicativo",
-    "tutorial.importExplanation": "Abra um arquivo no computador. O ZagoSheetsWin importa e confere a planilha. Continue no navegador.|Após a conferência: backup do original + atalho para o Sheets. Se a conversão não puder ser confirmada, o original é mantido.",
+    "tutorial.importExplanation": "Abra um arquivo no computador. O ZagoSheetsWin importa e confere a planilha. Continue no navegador.|Depois da importação confirmada: backup do original + atalho para o Sheets. Pastas não são apagadas. Em pastas sincronizadas identificadas, o original é mantido.",
     "tutorial.importTitle": "Abra suas planilhas no Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Abrir backups…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "O backup guarda o original, sem alterações posteriores no Sheets.\nEm Backups, escolha Restaurar em… para recuperar o arquivo.",
     "setup.importHeading": "3. Atalhos e importação do arquivo como cópia",
     "tutorial.showAtStartup": "Mostrar este tutorial ao abrir o aplicativo",
-    "setup.defaultsHelp": "Escolha ZagoSheetsWin nos Aplicativos padrão do Windows. Opcional, mas recomendado. Escolha ZagoSheetsWin nos Aplicativos padrão do Windows. É opcional: você também pode usar Abrir com → ZagoSheetsWin."
+    "setup.defaultsHelp": "Escolha ZagoSheetsWin nos Aplicativos padrão do Windows. Opcional, mas recomendado. Escolha ZagoSheetsWin nos Aplicativos padrão do Windows. É opcional: você também pode usar Abrir com → ZagoSheetsWin.",
+    "import.notice.partialConversion": "Planilha aberta no Google Sheets. Algumas fórmulas ou dados podem ter mudado na conversão. O original foi substituído por um atalho. Para recuperá-lo, abra {backups}."
   }
 }

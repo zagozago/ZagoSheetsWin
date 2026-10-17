@@ -185,20 +185,18 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         var importer = new GoogleImport(preparation, local, remote, new SourceReader(), locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads"))), textOptions, telemetry, new BackupManagement(storage));
         progress?.Report(UiText.Get("progress.openingSheets"));
         var receipt = await importer.ImportReceiptAsync(request.Path!, ct);
-        if (!receipt.CanReplace) return await PublishCopyAsync(receipt, progress, ct);
         progress?.Report(UiText.Get("progress.publishingShortcut"));
+        var conversion = new ConversionVerifier(new GoogleDriveClient(http, auth), textOptions, telemetry);
         var coordinator = new ReplacementCoordinator(local, remote, new ManagedBackupStore(storage), locks,
-            new ReplacementJournal(System.IO.Path.Combine(storage.Root, "replacement.db")), sources, browser, new ConversionVerifier(new GoogleDriveClient(http, auth), textOptions, telemetry), ShortcutIcon.Ensure(storage), telemetry);
-        try { return await coordinator.ReplaceAsync(receipt, ct); }
-        catch (FormulaVerificationException) when (receipt.Operation.Format == "xls")
-        {
-            var shortcut = await PublishCopyAsync(receipt, progress, ct);
-            ImportNotice = UiText.Get("import.notice.formulaCopy");
-            return shortcut;
-        }
+            new ReplacementJournal(System.IO.Path.Combine(storage.Root, "replacement.db")), sources, browser, conversion, ShortcutIcon.Ensure(storage), telemetry);
+        var shortcut = await coordinator.ReplaceAsync(receipt, ct);
+        SetConversionNotice(conversion);
+        return shortcut;
     }
+
     public async Task<string> CopyAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default)
     {
+        ImportNotice = null;
         _ = LauncherRequest.Parse(["--copy", path]);
         telemetry?.Mark(ProcessingStep.Configuration, CheckpointOutcome.Started);
         var client = await LauncherConfiguration.LoadClientAsync(storage, ct);
@@ -217,12 +215,13 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
     }
     public async Task<string> ResumeAsync(Guid id, bool replace, IProgress<string>? progress = null, CancellationToken ct = default)
     {
+        ImportNotice = null;
         var local = new SqliteOperationRegistry(storage.DatabasePath);
         var operation = local.Get(id) ?? throw new InvalidOperationException("Unknown operation.");
         new BackupManagement(storage).RequireAvailable(id);
         var journal = new ReplacementJournal(Path.Combine(storage.Root, "replacement.db"));
         var recorded = journal.Get(id); var path = recorded?.SourcePath ?? operation.SourcePath;
-        if (replace && !ShortcutSettings.Load(storage))
+        if (replace && (CopyImportSettings.Load(storage) || !ShortcutSettings.Load(storage)))
         {
             if (!File.Exists(path) || recorded is { Step: >= 3 }) throw new CopyRequiredException();
             replace = false;
@@ -262,8 +261,17 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         if (!receipt.CanReplace || operation.Format == "xls" && !XlsReplacementSettings.Load(storage)) throw new CopyRequiredException();
         if (!OpeningPolicy.IsConfigured(storage)) throw new LauncherNotConfiguredException();
         var opening = OpeningPolicy.Load(storage);
-        return await new ReplacementCoordinator(local, remote, new ManagedBackupStore(storage), locks, journal,
-            new WindowsRetirementReader(opening.RestrictToFolder ? opening.Folder : null), browser, new ConversionVerifier(drive, options, telemetry), ShortcutIcon.Ensure(storage), telemetry).ReplaceAsync(receipt, ct);
+        var conversion = new ConversionVerifier(drive, options, telemetry);
+        var shortcut = await new ReplacementCoordinator(local, remote, new ManagedBackupStore(storage), locks, journal,
+            new WindowsRetirementReader(opening.RestrictToFolder ? opening.Folder : null), browser, conversion, ShortcutIcon.Ensure(storage), telemetry).ReplaceAsync(receipt, ct);
+        SetConversionNotice(conversion);
+        return shortcut;
+    }
+
+    private void SetConversionNotice(ConversionVerifier conversion)
+    {
+        if (conversion.HasWarnings)
+            ImportNotice = UiText.Format("import.notice.partialConversion", ("backups", UiText.Get("home.backups").Replace("&", "", StringComparison.Ordinal)));
     }
 
     private async Task<string> PublishCopyAsync(ImportReceipt receipt, IProgress<string>? progress, CancellationToken ct)

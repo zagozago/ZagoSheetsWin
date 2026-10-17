@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 7,
+  "catalogRevision": 8,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -2607,18 +2607,6 @@
       "scope": "app",
       "placeholders": [],
       "invariants": [],
-      "markup": [],
-      "notes": []
-    },
-    "import.notice.formulaCopy": {
-      "text": "Sua planilha foi aberta no Google Sheets como cópia. Ela contém fórmulas que ainda não conseguimos conferir para substituir o arquivo. O original e o backup foram mantidos. O atalho da cópia está disponível na pasta de atalhos do aplicativo.",
-      "context": "src/SheetsWindows.Infrastructure/Launcher.cs - public async Task<string> OpenAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default)",
-      "scope": "app",
-      "placeholders": [],
-      "invariants": [
-        "Google Sheets",
-        "Google"
-      ],
       "markup": [],
       "notes": []
     },
@@ -6925,7 +6913,7 @@
       "notes": []
     },
     "tutorial.importExplanation": {
-      "text": "Abra um arquivo no computador. O ZagoSheetsWin importa e confere a planilha. Continue no navegador.|Após a conferência: backup do original + atalho para o Sheets. Se a conversão não puder ser confirmada, o original é mantido.",
+      "text": "Abra um arquivo no computador. O ZagoSheetsWin importa e confere a planilha. Continue no navegador.|Depois da importação confirmada: backup do original + atalho para o Sheets. Pastas não são apagadas. Em pastas sincronizadas identificadas, o original é mantido.",
       "context": "src/SheetsWindows.Windows/TutorialForm.cs - private static readonly (string Title, string Text)[] Pages =",
       "scope": "app",
       "placeholders": [],
@@ -7374,6 +7362,20 @@
       "invariants": [
         "ZagoSheetsWin",
         "Windows"
+      ],
+      "markup": [],
+      "notes": []
+    },
+    "import.notice.partialConversion": {
+      "text": "Planilha aberta no Google Sheets. Algumas fórmulas ou dados podem ter mudado na conversão. O original foi substituído por um atalho. Para recuperá-lo, abra {backups}.",
+      "context": "Confirmed partial conversion after successful backup and local shortcut replacement. Backups button restores the original.",
+      "scope": "app",
+      "placeholders": [
+        "backups"
+      ],
+      "invariants": [
+        "Google Sheets",
+        "Google"
       ],
       "markup": [],
       "notes": []

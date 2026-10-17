@@ -5,7 +5,7 @@ namespace SheetsWindows.Windows;
 internal sealed class ProcessingForm : Form
 {
     private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Fill, Padding = new Padding(18), TextAlign = ContentAlignment.MiddleLeft, Text = UiText.Get("progress.preparing"), AccessibleName = UiText.Get("accessibility.processingStatus") };
-    private readonly Button cancel = new() { AutoSize = true, Text = UiText.Get("action.cancel") };
+    private readonly Button cancel = new AdaptiveButton() { AutoSize = true, Text = UiText.Get("action.cancel") };
     private readonly FlowLayoutPanel actions = new() { Dock = DockStyle.Bottom, AutoSize = true, Padding = new Padding(12), WrapContents = true };
     private readonly CancellationTokenSource cancellation = new();
     private readonly LauncherRequest request;
@@ -116,10 +116,22 @@ internal sealed class ProcessingForm : Form
         }
         if (ExitCode == 0 && importNotice is not null)
         {
-            Text = UiText.Get("processing.copyTitle"); status.Text = importNotice;
-            cancel.Text = UiText.Get("action.close"); cancel.Enabled = true;
+            ShowImportNotice(importNotice);
         }
         else if (ExitCode == 0 || cancellation.IsCancellationRequested) Close();
+    }
+    internal void ShowImportNotice(string notice)
+    {
+        Text = Branding.Name; status.Text = notice;
+        cancel.Text = UiText.Get("action.close"); cancel.Enabled = true;
+        var recovery = new AdaptiveButton { Text = UiText.Get("home.backups"), AutoSize = true, Name = "importNoticeBackups" };
+        recovery.Click += (_, _) => { using var form = new RecoveryForm(); form.ShowDialog(this); };
+        actions.Controls.Add(recovery);
+        PerformLayout();
+        var needed = TextRenderer.MeasureText(notice, status.Font,
+            new Size(Math.Max(100, status.ClientSize.Width - status.Padding.Horizontal), int.MaxValue), TextFormatFlags.WordBreak).Height + status.Padding.Vertical + 8;
+        if (status.ClientSize.Height < needed) ClientSize = new Size(ClientSize.Width, ClientSize.Height + needed - status.ClientSize.Height);
+        MinimumSize = Size;
     }
     protected override void Dispose(bool disposing) { if (disposing) cancellation.Dispose(); base.Dispose(disposing); }
 }

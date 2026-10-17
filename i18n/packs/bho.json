@@ -2,8 +2,8 @@
   "language": "bho",
   "locale": "bho-IN",
   "direction": "ltr",
-  "catalogRevision": 7,
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "catalogRevision": 8,
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -171,7 +171,6 @@
     "home.openShortcutsFolder": "कॉपी शॉर्टकट फोल्डर खोलीं",
     "home.settings": "&सेटिंग",
     "import.notice.copyComplete": "कॉपी Sheets में खुल गइल. मूल बचा के रखल गइल; शॉर्टकट ऐप शॉर्टकट फोल्डर में बा.",
-    "import.notice.formulaCopy": "रउआ स्प्रेडशीट Google Sheets में कॉपी के रूप में खुलल बा. एह में फार्मूला बा जे फाइल प्रतिस्थापन खातिर अभी सत्यापित करीं ना हो पावत बा. मूल आ बैकअप बचा के रखल गइल बा. कॉपी शॉर्टकट ऐप शॉर्टकट फोल्डर में बा.",
     "import.notice.syncedCopy": "फाइल कॉपी के रूप में खुलल: फोल्डर सिंक कइल बा भा network पर बा. दोसरा डिवाइस पर कॉपी ना मिटे, एह खातिर मूल बचा के रखल गइल बा.",
     "installer.associationConflict": "फाइल एसोसिएशन में टकराव बा. इंस्टॉल से पहिले पोर्टेबल संस्करण के रजिस्ट्रेशन हटाईं, भा अनइंस्टॉल से पहिले ई इंस्टॉलेशन मरम्मत करीं. मौजूद डेटा बचा के रखल गइल बा.",
     "installer.associationRunFailed": "फाइल संबंधs अपडेट ना हो पावल. मौजूद डेटा बचा के रखल गइल बा.",
@@ -598,7 +597,7 @@
     "tutorial.googleExplanation": "आपन खाता चुनीं → पहुँच अनुमति दीं करीं → ऐप पर वापस आईं.|सेटिंग में ✓ Google जुड़ल अनुमति पुष्टि करेला. रउआ स्प्रेडशीट ओह खाता के Google Drive में रही. Google Drive for Windows इंस्टॉल करे के जरूरत नइखे.",
     "tutorial.googleTitle": "आपन Google खाता जोड़ीं",
     "tutorial.hide": "ऐप खोले पर ई tutorial मत देखाईं",
-    "tutorial.importExplanation": "आपन कंप्यूटर पर फाइल खोलीं. ZagoSheetsWin स्प्रेडशीट आयात आ सत्यापित करीं करेला. ब्राउजर में आगे बढ़ीं.|सत्यापन के बाद: मूल के बैकअप + Sheets के शॉर्टकट. अगर conversion पुष्टि ना हो सके त मूल बचा के रखल जाला.",
+    "tutorial.importExplanation": "आपन कंप्यूटर पर फाइल खोलीं. ZagoSheetsWin स्प्रेडशीट आयात आ सत्यापित करीं करेला. ब्राउजर में आगे बढ़ीं.|Confirmed आयात के बाद: मूल के बैकअप + Sheets के शॉर्टकट. फोल्डर ना हटावल जाला. पहिचानल सिंक कइल फोल्डर में मूल बचा के रखल जाला.",
     "tutorial.importTitle": "आपन स्प्रेडशीट Google Sheets में खोलीं",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "बैकअप खोलीं…",
@@ -642,6 +641,7 @@
     "firstUse.backupExplanation": "बैकअप मूल फाइल रखेला, Sheets में बाद के बदलाव ना।\nबैकअप में इहाँ बहाल करीं… चुन के फाइल वापस पाईं।",
     "setup.importHeading": "3. शॉर्टकट आ फाइल के कॉपी के रूप में आयात",
     "tutorial.showAtStartup": "ऐप खोलत घरी ई ट्यूटोरियल देखाईं",
-    "setup.defaultsHelp": "Windows के डिफॉल्ट ऐप में ZagoSheetsWin चुनीं। वैकल्पिक बा, बाकिर सुझाव दिहल जाला। Windows डिफॉल्ट ऐप्स में ZagoSheetsWin चुनीं. ई वैकल्पिक बा: रउआ एकरा साथ खोलीं → ZagoSheetsWin भी इस्तेमाल कर सकत बानी."
+    "setup.defaultsHelp": "Windows के डिफॉल्ट ऐप में ZagoSheetsWin चुनीं। वैकल्पिक बा, बाकिर सुझाव दिहल जाला। Windows डिफॉल्ट ऐप्स में ZagoSheetsWin चुनीं. ई वैकल्पिक बा: रउआ एकरा साथ खोलीं → ZagoSheetsWin भी इस्तेमाल कर सकत बानी.",
+    "import.notice.partialConversion": "स्प्रेडशीट Google Sheets में खुल गइल बा। बदले के दौरान कुछ सूत्र भा डेटा बदल गइल हो सकेला। मूल फाइल के जगह शॉर्टकट बन गइल बा। मूल फाइल वापस पावे खातिर {backups} खोलीं।"
   }
 }

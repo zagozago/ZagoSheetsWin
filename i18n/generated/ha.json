@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Buɗe babban fayil na gajerun hanyoyin kwafi",
     "home.settings": "&Saituna",
     "import.notice.copyComplete": "An buɗe kwafi a Sheets. An kiyaye asali; akwai gajeriyar hanya a babban fayil na gajerun hanyoyin manhajar.",
-    "import.notice.formulaCopy": "An buɗe maƙunsarka a Google Sheets a matsayin kwafi. Tana ɗauke da formulas da ba za mu iya tabbatarwa ba tukuna don maye gurbin fayil. An kiyaye asali da ajiyar baya. Akwai gajeriyar hanyar kwafi a babban fayil na gajerun hanyoyin manhajar.",
     "import.notice.syncedCopy": "An buɗe fayil a matsayin kwafi: ana sync babban fayil ɗin ko yana kan network. An kiyaye asali don kauce wa share kwafin a wasu na'urori.",
     "legal.privacy": "Manufar Sirri",
     "legal.terms": "Sharuɗɗan Amfani",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Zaɓi asusunka → ba da izinin shiga → koma manhajar.|A Saituna, ✓ An haɗa Google yana tabbatar da izini. Maƙunsar bayananka suna zama a Google Drive na wannan asusun. Ba sai ka shigar da Google Drive for Windows ba.",
     "tutorial.googleTitle": "Haɗa asusun Google ɗinka",
     "tutorial.hide": "Kada a nuna wannan koyarwar lokacin buɗe manhajar",
-    "tutorial.importExplanation": "Buɗe fayil a kwamfutarka. ZagoSheetsWin yana shigo da maƙunsar sannan ya tabbatar da ita. Ci gaba a burauzarka.|Bayan tabbatarwa: ajiyar bayan asali + gajeriyar hanya zuwa Sheets. Idan ba a iya tabbatar da sauyawa ba, ana riƙe asali.",
+    "tutorial.importExplanation": "Buɗe fayil a kwamfutarka. ZagoSheetsWin yana shigo da maƙunsar sannan ya tabbatar da ita. Ci gaba a burauzarka.|Bayan shigo da aka tabbatar: ajiyar bayan asali + gajeriyar hanya zuwa Sheets. Ba a share manyan fayiloli. A manyan fayilolin sync da aka gano, ana riƙe asali.",
     "tutorial.importTitle": "Buɗe maƙunsar bayananka a Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Buɗe ajiyar baya…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "Ajiyar baya tana riƙe asalin fayil, ba canje-canjen da aka yi daga baya a Sheets ba.\nA Ajiyar baya, zaɓi Mayar zuwa… don dawo da fayil.",
     "setup.importHeading": "3. Gajerun hanyoyi da shigo da fayil a matsayin kwafi",
     "tutorial.showAtStartup": "Nuna wannan koyarwar lokacin buɗe manhajar",
-    "setup.defaultsHelp": "Zaɓi ZagoSheetsWin a Manhajojin asali na Windows. Ba dole ba, amma ana ba da shawara. Zaɓi ZagoSheetsWin a Windows Default apps. Wannan na zaɓi ne: za ka iya kuma amfani da Buɗe da → ZagoSheetsWin."
+    "setup.defaultsHelp": "Zaɓi ZagoSheetsWin a Manhajojin asali na Windows. Ba dole ba, amma ana ba da shawara. Zaɓi ZagoSheetsWin a Windows Default apps. Wannan na zaɓi ne: za ka iya kuma amfani da Buɗe da → ZagoSheetsWin.",
+    "import.notice.partialConversion": "An buɗe maƙunsar a Google Sheets. Wasu dabaru ko bayanai na iya canzawa yayin sauyawa. An maye gurbin fayil na asali da gajeriyar hanya. Don dawo da shi, buɗe {backups}."
   }
 }

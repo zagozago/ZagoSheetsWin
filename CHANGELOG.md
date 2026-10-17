@@ -1,5 +1,13 @@
 # Histórico de alterações
 
+## 0.9.33 — candidato de 2026-10-16
+
+- Importações confirmadas com equivalência parcial deixam de forçar cópia: fórmulas, dados ou recursos cuja preservação não pode ser confirmada geram aviso, mantendo backup e substituindo o original por atalho na pasta de origem conforme as preferências do usuário.
+- O aviso explica como recuperar o original e oferece acesso direto a Backups; seu título não indica incorretamente importação como cópia. Mensagem traduzida nos 51 idiomas.
+- A retomada respeita a preferência global de cópia e reutiliza o documento existente.
+- Mantidas as verificações de identidade local, hash, backup, publicação do atalho, vínculo remoto e importação nativa confirmada. Falhas de importação ou integridade impedem a retirada do original.
+- Regressões com os exemplos equivalentes XLS/ODS, restauração binária, configurações, retomada e falha de conversão remota.
+
 ## 0.9.32 — candidato de 2026-10-16
 
 - Corrigida a referência tipográfica: o tamanho original de 9 pt da navegação principal passa a ser o padrão dos botões de ação em todas as telas, incluindo ações principais e pop-ups de informação, com a família do idioma selecionado.

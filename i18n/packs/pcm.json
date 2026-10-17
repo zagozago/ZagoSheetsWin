@@ -2,8 +2,8 @@
   "language": "pcm",
   "locale": "pcm-NG",
   "direction": "ltr",
-  "catalogRevision": 7,
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "catalogRevision": 8,
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -351,7 +351,6 @@
     "home.openShortcutsFolder": "Open copy shortcuts folder",
     "home.settings": "&Settings",
     "import.notice.copyComplete": "Copy don open for Sheets. Dem keep di original; shortcut dey available for di app shortcuts folder.",
-    "import.notice.formulaCopy": "Your spreadsheet don open for Google Sheets as copy. E get formulas wey we never fit verify for file replacement yet. Dem keep di original and backup. Di copy shortcut dey available for di app shortcuts folder.",
     "import.notice.syncedCopy": "File open as copy: di folder dey synced or e dey network. Dem keep di original so e no go delete di copy for other devices.",
     "installer.associationConflict": "File association conflict dey. Remove portable version registration before you install, or repair dis installation before you uninstall. Dem keep existing data.",
     "installer.associationRunFailed": "No fit update file associations. Dem keep existing data.",
@@ -778,7 +777,7 @@
     "tutorial.googleExplanation": "Choose your account → authorize access → return to di app.|For Settings, ✓ Google connected dey confirm authorization. Your spreadsheets remain for dat account Google Drive. You no need install Google Drive for Windows.",
     "tutorial.googleTitle": "Connect your Google account",
     "tutorial.hide": "No show dis tutorial when you open di app",
-    "tutorial.importExplanation": "Open file for your computer. ZagoSheetsWin go import and verify di spreadsheet. Continue for your browser.|After verification: backup of original + shortcut to Sheets. If e no fit confirm conversion, dem keep di original.",
+    "tutorial.importExplanation": "Open file for your computer. ZagoSheetsWin go import and verify di spreadsheet. Continue for your browser.|After confirmed import: backup of original + shortcut to Sheets. Dem no dey delete folders. For folders wey dem identify say dem dey synced, dem keep di original.",
     "tutorial.importTitle": "Open your spreadsheets for Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Open backups…",
@@ -822,6 +821,7 @@
     "firstUse.backupExplanation": "Backup dey keep original file, e no include later changes for Sheets.\nFor Backups, choose Restore to… to get the file back.",
     "setup.importHeading": "3. Shortcuts and import file as copy",
     "tutorial.showAtStartup": "Show this tutorial when app open",
-    "setup.defaultsHelp": "Choose ZagoSheetsWin for Windows Default apps. Na optional, but we recommend am. Choose ZagoSheetsWin for Windows Default apps. Dis one optional: you fit also use Open with → ZagoSheetsWin."
+    "setup.defaultsHelp": "Choose ZagoSheetsWin for Windows Default apps. Na optional, but we recommend am. Choose ZagoSheetsWin for Windows Default apps. Dis one optional: you fit also use Open with → ZagoSheetsWin.",
+    "import.notice.partialConversion": "Spreadsheet don open for Google Sheets. Some formula or data fit don change during conversion. Shortcut don replace di original file. To recover am, open {backups}."
   }
 }

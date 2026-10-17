@@ -56,7 +56,8 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
         using (telemetry?.Begin(ProcessingPhase.Conversion)) payload = await Task.Run(() => SpreadsheetFormats.Prepare(op.Format, bytes, textOptions, ct), ct);
         telemetry?.Mark(ProcessingStep.Conversion);
         using var uploadTiming = telemetry?.Begin(ProcessingPhase.Upload);
-        var canReplace = op.Format == "xlsx" || payload.Expected is not null;
+        // Fidelity limitations are warnings after a verified Google import; replacement follows user settings.
+        var canReplace = true;
         var sheetKey = "sheet:" + op.Id.ToString("N");
         if (remote.Get(sheetKey) is { } pending)
         {

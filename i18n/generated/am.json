@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "የቅጂ አቋራጮች አቃፊን ክፈት",
     "home.settings": "&ቅንብሮች",
     "import.notice.copyComplete": "ቅጂው በSheets ውስጥ ተከፍቷል። ዋናው ተጠብቋል፤ አቋራጭ በመተግበሪያው የአቋራጮች አቃፊ ውስጥ ይገኛል።",
-    "import.notice.formulaCopy": "የተመን ሉህዎ እንደ ቅጂ በGoogle Sheets ውስጥ ተከፍቷል። ለፋይል መተካት እስካሁን ማረጋገጥ የማንችላቸው ቀመሮች አሉት። ዋናው እና ምትኬው ተጠብቀዋል። የቅጂ አቋራጩ በመተግበሪያው የአቋራጮች አቃፊ ውስጥ ይገኛል።",
     "import.notice.syncedCopy": "ፋይሉ እንደ ቅጂ ተከፍቷል፦ አቃፊው የተመሳሰለ ነው ወይም በአውታረ መረብ ላይ ነው። በሌሎች መሣሪያዎች ላይ ያለው ቅጂ እንዳይሰረዝ ዋናው ተቀምጧል።",
     "legal.privacy": "የግላዊነት ፖሊሲ",
     "legal.terms": "የአጠቃቀም ውሎች",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "መለያዎን ይምረጡ → መዳረሻን ፍቀድ → ወደ መተግበሪያው ተመለስ።|በቅንብሮች ውስጥ ✓ Google ተገናኝቷል የሚለው ፈቃድን ያረጋግጣል። የተመን ሉሆችዎ በዚያ መለያ Google Drive ውስጥ ይቆያሉ። Google Drive for Windowsን መጫን አያስፈልግም።",
     "tutorial.googleTitle": "የGoogle መለያዎን ያገናኙ",
     "tutorial.hide": "መተግበሪያውን ሲከፍቱ ይህን መማሪያ አታሳይ",
-    "tutorial.importExplanation": "በኮምፒውተርዎ ላይ ፋይል ይክፈቱ። ZagoSheetsWin የተመን ሉሁን ያስመጣል እና ያረጋግጣል። በአሳሽዎ ይቀጥሉ።|ከማረጋገጫ በኋላ፦ የዋናው ምትኬ + ወደ Sheets አቋራጭ። መቀየሩ ሊረጋገጥ ካልቻለ ዋናው ይቀመጣል።",
+    "tutorial.importExplanation": "በኮምፒውተርዎ ላይ ፋይል ይክፈቱ። ZagoSheetsWin የተመን ሉሁን ያስመጣል እና ያረጋግጣል። በአሳሽዎ ይቀጥሉ።|ከተረጋገጠ ማስመጣት በኋላ፦ የዋናው ምትኬ + ወደ Sheets አቋራጭ። አቃፊዎች አይሰረዙም። በታወቁ የተመሳሰሉ አቃፊዎች ውስጥ ዋናው ይቀመጣል።",
     "tutorial.importTitle": "የተመን ሉሆችዎን በGoogle Sheets ውስጥ ይክፈቱ",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "ምትኬዎችን ክፈት…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "ምትኬው ዋናውን ፋይል ያስቀምጣል፤ በSheets ውስጥ በኋላ የተደረጉ ለውጦችን አያካትትም።\nፋይሉን ለመመለስ በምትኬዎች ውስጥ ወደ… መመለስ ይምረጡ።",
     "setup.importHeading": "3. አቋራጮች እና ፋይሉን እንደ ቅጂ ማስገባት",
     "tutorial.showAtStartup": "መተግበሪያው ሲከፈት ይህን መመሪያ አሳይ",
-    "setup.defaultsHelp": "በWindows ነባሪ መተግበሪያዎች ውስጥ ZagoSheetsWin ይምረጡ። አማራጭ ነው፣ ግን ይመከራል። በWindows ነባሪ መተግበሪያዎች ውስጥ ZagoSheetsWinን ይምረጡ። ይህ አማራጭ ነው፦ በ… ክፈት → ZagoSheetsWin መጠቀምም ይችላሉ።"
+    "setup.defaultsHelp": "በWindows ነባሪ መተግበሪያዎች ውስጥ ZagoSheetsWin ይምረጡ። አማራጭ ነው፣ ግን ይመከራል። በWindows ነባሪ መተግበሪያዎች ውስጥ ZagoSheetsWinን ይምረጡ። ይህ አማራጭ ነው፦ በ… ክፈት → ZagoSheetsWin መጠቀምም ይችላሉ።",
+    "import.notice.partialConversion": "ሰንጠረዡ በGoogle Sheets ተከፍቷል። አንዳንድ ቀመሮች ወይም ውሂብ በልወጣው ጊዜ ተቀይረው ሊሆኑ ይችላሉ። የመጀመሪያው ፋይል በአቋራጭ ተተክቷል። ለመመለስ {backups} ይክፈቱ።"
   }
 }

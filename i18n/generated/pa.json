@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "ਕਾਪੀ ਸ਼ਾਰਟਕੱਟ ਫੋਲਡਰ ਖੋਲ੍ਹੋ",
     "home.settings": "&ਸੈਟਿੰਗਾਂ",
     "import.notice.copyComplete": "ਕਾਪੀ Sheets ਵਿੱਚ ਖੁੱਲ੍ਹ ਗਈ। ਅਸਲ ਫਾਈਲ ਸੁਰੱਖਿਅਤ ਰੱਖੀ ਗਈ; ਐਪ ਦੇ ਸ਼ਾਰਟਕੱਟ ਫੋਲਡਰ ਵਿੱਚ ਇੱਕ ਸ਼ਾਰਟਕੱਟ ਉਪਲਬਧ ਹੈ।",
-    "import.notice.formulaCopy": "ਤੁਹਾਡੀ ਸਪ੍ਰੈਡਸ਼ੀਟ Google Sheets ਵਿੱਚ ਕਾਪੀ ਵਜੋਂ ਖੁੱਲ੍ਹੀ। ਇਸ ਵਿੱਚ ਫਾਰਮੂਲੇ ਹਨ ਜਿਨ੍ਹਾਂ ਦੀ ਫਾਈਲ ਬਦਲਣ ਲਈ ਅਸੀਂ ਹਾਲੇ ਤਸਦੀਕ ਨਹੀਂ ਕਰ ਸਕਦੇ। ਅਸਲ ਫਾਈਲ ਅਤੇ ਬੈਕਅੱਪ ਰੱਖੇ ਗਏ। ਕਾਪੀ ਸ਼ਾਰਟਕੱਟ ਐਪ ਦੇ ਸ਼ਾਰਟਕੱਟ ਫੋਲਡਰ ਵਿੱਚ ਉਪਲਬਧ ਹੈ।",
     "import.notice.syncedCopy": "ਫਾਈਲ ਕਾਪੀ ਵਜੋਂ ਖੁੱਲ੍ਹੀ: ਫੋਲਡਰ ਸਿੰਕ ਕੀਤਾ ਹੋਇਆ ਹੈ ਜਾਂ network 'ਤੇ ਹੈ। ਹੋਰ ਡਿਵਾਈਸਾਂ ਤੋਂ ਕਾਪੀ ਮਿਟਣ ਤੋਂ ਬਚਾਉਣ ਲਈ ਅਸਲ ਫਾਈਲ ਰੱਖੀ ਗਈ।",
     "legal.privacy": "ਪਰਦੇਦਾਰੀ ਨੀਤੀ",
     "legal.terms": "ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "ਆਪਣਾ ਖਾਤਾ ਚੁਣੋ → ਪਹੁੰਚ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ → ਐਪ ਵਿੱਚ ਵਾਪਸ ਆਓ।|ਸੈਟਿੰਗਾਂ ਵਿੱਚ, ✓ Google ਕਨੈਕਟ ਹੈ ਅਧਿਕਾਰ ਦੀ ਪੁਸ਼ਟੀ ਕਰਦਾ ਹੈ। ਤੁਹਾਡੀਆਂ ਸਪ੍ਰੈਡਸ਼ੀਟਾਂ ਉਸ ਖਾਤੇ ਦੇ Google Drive ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ। ਤੁਹਾਨੂੰ Google Drive for Windows ਇੰਸਟਾਲ ਕਰਨ ਦੀ ਲੋੜ ਨਹੀਂ।",
     "tutorial.googleTitle": "ਆਪਣਾ Google ਖਾਤਾ ਕਨੈਕਟ ਕਰੋ",
     "tutorial.hide": "ਐਪ ਖੋਲ੍ਹਣ ਵੇਲੇ ਇਹ ਟਿਊਟੋਰਿਅਲ ਨਾ ਦਿਖਾਓ",
-    "tutorial.importExplanation": "ਆਪਣੇ ਕੰਪਿਊਟਰ 'ਤੇ ਇੱਕ ਫਾਈਲ ਖੋਲ੍ਹੋ। ZagoSheetsWin ਸਪ੍ਰੈਡਸ਼ੀਟ ਨੂੰ ਇੰਪੋਰਟ ਅਤੇ ਤਸਦੀਕ ਕਰਦਾ ਹੈ। ਆਪਣੇ ਬ੍ਰਾਊਜ਼ਰ ਵਿੱਚ ਜਾਰੀ ਰੱਖੋ।|ਤਸਦੀਕ ਤੋਂ ਬਾਅਦ: ਅਸਲ ਫਾਈਲ ਦਾ ਬੈਕਅੱਪ + Sheets ਲਈ ਸ਼ਾਰਟਕੱਟ। ਜੇ ਰੂਪਾਂਤਰਨ ਦੀ ਪੁਸ਼ਟੀ ਨਹੀਂ ਹੋ ਸਕਦੀ, ਅਸਲ ਫਾਈਲ ਰੱਖੀ ਜਾਂਦੀ ਹੈ।",
+    "tutorial.importExplanation": "ਆਪਣੇ ਕੰਪਿਊਟਰ 'ਤੇ ਇੱਕ ਫਾਈਲ ਖੋਲ੍ਹੋ। ZagoSheetsWin ਸਪ੍ਰੈਡਸ਼ੀਟ ਨੂੰ ਇੰਪੋਰਟ ਅਤੇ ਤਸਦੀਕ ਕਰਦਾ ਹੈ। ਆਪਣੇ ਬ੍ਰਾਊਜ਼ਰ ਵਿੱਚ ਜਾਰੀ ਰੱਖੋ।|ਪੁਸ਼ਟੀ ਕੀਤੇ ਇੰਪੋਰਟ ਤੋਂ ਬਾਅਦ: ਅਸਲ ਫਾਈਲ ਦਾ ਬੈਕਅੱਪ + Sheets ਲਈ ਸ਼ਾਰਟਕੱਟ। ਫੋਲਡਰ ਮਿਟਾਏ ਨਹੀਂ ਜਾਂਦੇ। ਪਛਾਣੇ ਸਿੰਕ ਫੋਲਡਰਾਂ ਵਿੱਚ ਅਸਲ ਫਾਈਲ ਰੱਖੀ ਜਾਂਦੀ ਹੈ।",
     "tutorial.importTitle": "ਆਪਣੀਆਂ ਸਪ੍ਰੈਡਸ਼ੀਟਾਂ Google Sheets ਵਿੱਚ ਖੋਲ੍ਹੋ",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "ਬੈਕਅੱਪ ਖੋਲ੍ਹੋ…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "ਬੈਕਅੱਪ ਅਸਲ ਫਾਈਲ ਰੱਖਦਾ ਹੈ, Sheets ਵਿੱਚ ਬਾਅਦ ਦੀਆਂ ਤਬਦੀਲੀਆਂ ਨਹੀਂ।\nਬੈਕਅੱਪ ਵਿੱਚ ਇੱਥੇ ਬਹਾਲ ਕਰੋ… ਚੁਣ ਕੇ ਫਾਈਲ ਵਾਪਸ ਲਵੋ।",
     "setup.importHeading": "3. ਸ਼ਾਰਟਕੱਟ ਅਤੇ ਫਾਈਲ ਨੂੰ ਨਕਲ ਵਜੋਂ ਆਯਾਤ ਕਰਨਾ",
     "tutorial.showAtStartup": "ਐਪ ਖੋਲ੍ਹਣ ਵੇਲੇ ਇਹ ਟਿਊਟੋਰਿਅਲ ਦਿਖਾਓ",
-    "setup.defaultsHelp": "Windows ਦੀਆਂ ਡਿਫੌਲਟ ਐਪਾਂ ਵਿੱਚ ZagoSheetsWin ਚੁਣੋ। ਵਿਕਲਪਿਕ, ਪਰ ਸਿਫਾਰਸ਼ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। Windows ਡਿਫੌਲਟ ਐਪਸ ਵਿੱਚ ZagoSheetsWin ਚੁਣੋ। ਇਹ ਵਿਕਲਪਿਕ ਹੈ: ਤੁਸੀਂ ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ → ZagoSheetsWin ਵੀ ਵਰਤ ਸਕਦੇ ਹੋ।"
+    "setup.defaultsHelp": "Windows ਦੀਆਂ ਡਿਫੌਲਟ ਐਪਾਂ ਵਿੱਚ ZagoSheetsWin ਚੁਣੋ। ਵਿਕਲਪਿਕ, ਪਰ ਸਿਫਾਰਸ਼ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। Windows ਡਿਫੌਲਟ ਐਪਸ ਵਿੱਚ ZagoSheetsWin ਚੁਣੋ। ਇਹ ਵਿਕਲਪਿਕ ਹੈ: ਤੁਸੀਂ ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ → ZagoSheetsWin ਵੀ ਵਰਤ ਸਕਦੇ ਹੋ।",
+    "import.notice.partialConversion": "ਸਪ੍ਰੈਡਸ਼ੀਟ Google Sheets ਵਿੱਚ ਖੁੱਲ੍ਹ ਗਈ ਹੈ। ਬਦਲਾਅ ਦੌਰਾਨ ਕੁਝ ਫਾਰਮੂਲੇ ਜਾਂ ਡਾਟਾ ਬਦਲਿਆ ਹੋ ਸਕਦਾ ਹੈ। ਅਸਲ ਫਾਈਲ ਦੀ ਥਾਂ ਸ਼ਾਰਟਕੱਟ ਬਣਾਇਆ ਗਿਆ ਹੈ। ਅਸਲ ਫਾਈਲ ਵਾਪਸ ਲੈਣ ਲਈ {backups} ਖੋਲ੍ਹੋ।"
   }
 }

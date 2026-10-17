@@ -2,7 +2,7 @@
 
 Abre planilhas locais no Google Sheets e, após confirmação, substitui o original por um atalho na mesma pasta, com backup recuperável.
 
-**Candidato atual: 0.9.32.** A publicação 1.0 depende do aceite final no Windows/Google real e das pendências externas de distribuição.
+**Candidato atual: 0.9.33.** A publicação 1.0 depende do aceite final no Windows/Google real e das pendências externas de distribuição.
 
 - [Alterações](CHANGELOG.md)
 - [Revisão de segurança, OAuth e pendências externas](docs/SECURITY_REVIEW_0930.md)
@@ -12,7 +12,7 @@ Para obter o pacote oficial, use o workflow **Protected alpha distribution**, na
 
 Os builds comuns de CI validam código e interface com respostas Google simuladas. O build protegido adiciona a configuração OAuth desktop oficial. O instalador é por usuário e preserva dados locais ao atualizar/desinstalar.
 
-Formatos: CSV, TSV, XLSX, XLS e ODS. O nome/extensão não prova o formato: HTML renomeado para ODS é recusado. Recursos sem verificação de fidelidade podem exigir importação como cópia, preservando o original. O produto não sincroniza edições do Sheets de volta ao arquivo local.
+Formatos: CSV, TSV, XLSX, XLS e ODS. O nome/extensão não prova o formato: HTML renomeado para ODS é recusado. Conversões parciais podem alterar fórmulas ou dados: após importação confirmada, o original é substituído pelo atalho conforme as preferências do usuário e pode ser recuperado em Backups. O produto não sincroniza edições do Sheets de volta ao arquivo local.
 
 Os scripts PowerShell herdados são referência histórica; o fluxo atual usa o aplicativo C#.
 

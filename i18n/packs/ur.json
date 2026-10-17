@@ -2,8 +2,8 @@
   "language": "ur",
   "locale": "ur",
   "direction": "rtl",
-  "catalogRevision": 7,
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "catalogRevision": 8,
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -171,7 +171,6 @@
     "home.openShortcutsFolder": "نقل کے شارٹ کٹس کا فولڈر کھولیں",
     "home.settings": "&ترتیبات",
     "import.notice.copyComplete": "نقل Sheets میں کھول دی گئی۔ اصل فائل محفوظ ہے؛ شارٹ کٹ ایپ کے شارٹ کٹس فولڈر میں دستیاب ہے۔",
-    "import.notice.formulaCopy": "آپ کی اسپریڈشیٹ Google Sheets میں نقل کے طور پر کھولی گئی۔ اس میں ایسے فارمولے ہیں جن کی فائل تبدیل کرنے کے لیے ہم ابھی توثیق نہیں کر سکتے۔ اصل فائل اور بیک اپ محفوظ رکھے گئے ہیں۔ نقل کا شارٹ کٹ ایپ کے شارٹ کٹس فولڈر میں دستیاب ہے۔",
     "import.notice.syncedCopy": "فائل نقل کے طور پر کھولی گئی: فولڈر ہم وقت ساز ہے یا نیٹ ورک پر ہے۔ دوسرے آلات پر نقل حذف ہونے سے بچانے کے لیے اصل فائل محفوظ رکھی گئی۔",
     "installer.associationConflict": "فائل وابستگی میں تضاد ہے۔ انسٹال کرنے سے پہلے پورٹیبل ورژن کی رجسٹریشن ہٹائیں، یا اَن انسٹال کرنے سے پہلے اس تنصیب کی مرمت کریں۔ موجودہ ڈیٹا محفوظ رکھا گیا۔",
     "installer.associationRunFailed": "فائل وابستگیاں اپ ڈیٹ نہیں ہو سکیں۔ موجودہ ڈیٹا محفوظ رکھا گیا۔",
@@ -598,7 +597,7 @@
     "tutorial.googleExplanation": "اپنا اکاؤنٹ منتخب کریں → رسائی کی اجازت دیں → ایپ پر واپس آئیں۔|ترتیبات میں ✓ Google منسلک اجازت کی تصدیق کرتا ہے۔ آپ کی اسپریڈشیٹس اسی اکاؤنٹ کے Google Drive میں رہتی ہیں۔ Google Drive for Windows نصب کرنے کی ضرورت نہیں۔",
     "tutorial.googleTitle": "اپنا Google اکاؤنٹ منسلک کریں",
     "tutorial.hide": "ایپ کھولتے وقت یہ ٹیوٹوریل نہ دکھائیں",
-    "tutorial.importExplanation": "اپنے کمپیوٹر پر فائل کھولیں۔ ZagoSheetsWin اسپریڈشیٹ درآمد اور تصدیق کرتا ہے۔ براؤزر میں کام جاری رکھیں۔|تصدیق کے بعد: اصل فائل کا بیک اپ + Sheets کا شارٹ کٹ۔ اگر تبدیلی کی تصدیق نہ ہو سکے تو اصل فائل محفوظ رہتی ہے۔",
+    "tutorial.importExplanation": "اپنے کمپیوٹر پر فائل کھولیں۔ ZagoSheetsWin اسپریڈشیٹ درآمد اور تصدیق کرتا ہے۔ براؤزر میں کام جاری رکھیں۔|تصدیق شدہ درآمد کے بعد: اصل فائل کا بیک اپ + Sheets کا شارٹ کٹ۔ فولڈرز حذف نہیں ہوتے۔ شناخت شدہ سنک فولڈرز میں اصل فائل محفوظ رہتی ہے۔",
     "tutorial.importTitle": "اپنی اسپریڈشیٹس Google Sheets میں کھولیں",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "بیک اپ کھولیں…",
@@ -642,6 +641,7 @@
     "firstUse.backupExplanation": "بیک اپ اصل فائل محفوظ رکھتا ہے، Sheets میں بعد کی تبدیلیاں نہیں۔\nبیک اپ میں بحال کریں… منتخب کرکے فائل واپس حاصل کریں۔",
     "setup.importHeading": "3. شارٹ کٹس اور فائل کو نقل کے طور پر درآمد کرنا",
     "tutorial.showAtStartup": "ایپ کھولتے وقت یہ رہنما دکھائیں",
-    "setup.defaultsHelp": "Windows کی ڈیفالٹ ایپس میں ZagoSheetsWin منتخب کریں۔ اختیاری، لیکن تجویز کردہ۔ Windows کی ڈیفالٹ ایپس میں ZagoSheetsWin منتخب کریں۔ یہ اختیاری ہے: آپ اس کے ساتھ کھولیں → ZagoSheetsWin بھی استعمال کر سکتے ہیں۔"
+    "setup.defaultsHelp": "Windows کی ڈیفالٹ ایپس میں ZagoSheetsWin منتخب کریں۔ اختیاری، لیکن تجویز کردہ۔ Windows کی ڈیفالٹ ایپس میں ZagoSheetsWin منتخب کریں۔ یہ اختیاری ہے: آپ اس کے ساتھ کھولیں → ZagoSheetsWin بھی استعمال کر سکتے ہیں۔",
+    "import.notice.partialConversion": "اسپریڈشیٹ Google Sheets میں کھول دی گئی ہے۔ تبدیلی کے دوران کچھ فارمولے یا ڈیٹا بدل گئے ہو سکتے ہیں۔ اصل فائل کی جگہ شارٹ کٹ بنایا گیا ہے۔ اصل فائل واپس حاصل کرنے کے لیے {backups} کھولیں۔"
   }
 }

@@ -2,8 +2,8 @@
   "language": "th",
   "locale": "th-TH",
   "direction": "ltr",
-  "catalogRevision": 7,
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "catalogRevision": 8,
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -170,7 +170,6 @@
     "home.openShortcutsFolder": "เปิดโฟลเดอร์ทางลัดของสำเนา",
     "home.settings": "&การตั้งค่า",
     "import.notice.copyComplete": "เปิดสำเนาใน Sheets แล้ว ต้นฉบับถูกเก็บไว้ และมีทางลัดอยู่ในโฟลเดอร์ทางลัดของแอป",
-    "import.notice.formulaCopy": "สเปรดชีตของคุณถูกเปิดใน Google Sheets เป็นสำเนา โดยมีสูตรที่เรายังไม่สามารถตรวจสอบเพื่อแทนที่ไฟล์ได้ ต้นฉบับและข้อมูลสำรองถูกเก็บไว้ ทางลัดของสำเนาอยู่ในโฟลเดอร์ทางลัดของแอป",
     "import.notice.syncedCopy": "เปิดไฟล์เป็นสำเนาแล้ว เนื่องจากโฟลเดอร์ถูกซิงค์หรืออยู่บนเครือข่าย จึงเก็บต้นฉบับไว้เพื่อหลีกเลี่ยงการลบสำเนาบนอุปกรณ์อื่น",
     "installer.associationConflict": "มีข้อขัดแย้งในการเชื่อมโยงไฟล์ ให้ลบการลงทะเบียนเวอร์ชันพกพาก่อนติดตั้ง หรือซ่อมการติดตั้งนี้ก่อนถอนการติดตั้ง ข้อมูลที่มีอยู่ถูกเก็บไว้",
     "installer.associationRunFailed": "ไม่สามารถอัปเดตการเชื่อมโยงไฟล์ได้ ข้อมูลที่มีอยู่ถูกเก็บไว้",
@@ -597,7 +596,7 @@
     "tutorial.googleExplanation": "เลือกบัญชีของคุณ → อนุญาตการเข้าถึง → กลับไปที่แอป|ใน การตั้งค่า ✓ เชื่อมต่อ Google แล้ว ยืนยันการอนุญาต สเปรดชีตของคุณจะอยู่ใน Google Drive ของบัญชีนั้น ไม่จำเป็นต้องติดตั้ง Google Drive for Windows",
     "tutorial.googleTitle": "เชื่อมต่อบัญชี Google ของคุณ",
     "tutorial.hide": "ไม่แสดงบทแนะนำนี้เมื่อเปิดแอป",
-    "tutorial.importExplanation": "เปิดไฟล์บนคอมพิวเตอร์ ZagoSheetsWin จะนำเข้าและตรวจสอบสเปรดชีต จากนั้นทำต่อในเบราว์เซอร์|หลังการตรวจสอบ: ข้อมูลสำรองของต้นฉบับ + ทางลัดไปยัง Sheets หากไม่สามารถยืนยันการแปลงได้ ระบบจะเก็บต้นฉบับไว้",
+    "tutorial.importExplanation": "เปิดไฟล์บนคอมพิวเตอร์ ZagoSheetsWin จะนำเข้าและตรวจสอบสเปรดชีต จากนั้นทำต่อในเบราว์เซอร์|หลังจากยืนยันการนำเข้า: ข้อมูลสำรองของต้นฉบับ + ทางลัดไปยัง Sheets โฟลเดอร์จะไม่ถูกลบ ในโฟลเดอร์ซิงค์ที่ตรวจพบจะเก็บต้นฉบับไว้",
     "tutorial.importTitle": "เปิดสเปรดชีตของคุณใน Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "เปิดข้อมูลสำรอง…",
@@ -641,6 +640,7 @@
     "firstUse.backupExplanation": "ข้อมูลสำรองเก็บต้นฉบับ ไม่รวมการเปลี่ยนแปลงภายหลังใน Sheets\nในข้อมูลสำรอง เลือกคืนค่าไปยัง… เพื่อกู้คืนไฟล์",
     "setup.importHeading": "3. ทางลัดและการนำเข้าไฟล์เป็นสำเนา",
     "tutorial.showAtStartup": "แสดงบทแนะนำนี้เมื่อเปิดแอป",
-    "setup.defaultsHelp": "เลือก ZagoSheetsWin ในแอปเริ่มต้นของ Windows ไม่บังคับ แต่แนะนำให้ใช้ เลือก ZagoSheetsWin ในแอปเริ่มต้นของ Windows ขั้นตอนนี้เป็นตัวเลือก คุณยังสามารถใช้ เปิดด้วย → ZagoSheetsWin ได้"
+    "setup.defaultsHelp": "เลือก ZagoSheetsWin ในแอปเริ่มต้นของ Windows ไม่บังคับ แต่แนะนำให้ใช้ เลือก ZagoSheetsWin ในแอปเริ่มต้นของ Windows ขั้นตอนนี้เป็นตัวเลือก คุณยังสามารถใช้ เปิดด้วย → ZagoSheetsWin ได้",
+    "import.notice.partialConversion": "เปิดสเปรดชีตใน Google Sheets แล้ว สูตรหรือข้อมูลบางส่วนอาจเปลี่ยนแปลงระหว่างการแปลง ไฟล์ต้นฉบับถูกแทนที่ด้วยทางลัด หากต้องการกู้คืนไฟล์ต้นฉบับ ให้เปิด {backups}"
   }
 }

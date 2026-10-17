@@ -2,8 +2,8 @@
   "language": "mai",
   "locale": "mai-IN",
   "direction": "ltr",
-  "catalogRevision": 7,
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "catalogRevision": 8,
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -171,7 +171,6 @@
     "home.openShortcutsFolder": "कॉपी शॉर्टकट फोल्डर खोलू",
     "home.settings": "&सेटिंग",
     "import.notice.copyComplete": "कॉपी Sheets मेँ खुलल। मूल फाइल सुरक्षित; शॉर्टकट ऐपक शॉर्टकट फोल्डर मेँ उपलब्ध अछि।",
-    "import.notice.formulaCopy": "अहाँक स्प्रेडशीट Google Sheets मेँ कॉपी रूप मेँ खुलल। एहिमेँ एहन फॉर्मूला अछि जे फाइल बदलाव लेल एखन सत्यापित नहि कएल जा सकैत अछि। मूल फाइल आ बैकअप सुरक्षित राखल गेल अछि। कॉपी शॉर्टकट ऐपक शॉर्टकट फोल्डर मेँ उपलब्ध अछि।",
     "import.notice.syncedCopy": "फाइल कॉपी रूप मेँ खुलल: फोल्डर सिंक कएल अछि वा नेटवर्क पर अछि। दोसर डिवाइस पर कॉपी नहि मेटाय, ताहि लेल मूल फाइल सुरक्षित राखल गेल।",
     "installer.associationConflict": "फाइल एसोसिएशन मेँ टकराव अछि। इन्स्टॉल करबाक पहिने पोर्टेबल संस्करणक रजिस्ट्रेशन हटाउ, वा अनइन्स्टॉल करबाक पहिने एहि इन्स्टॉलेशन केँ मरम्मत करू। मौजूदा डेटा सुरक्षित राखल गेल अछि।",
     "installer.associationRunFailed": "फाइल एसोसिएशन अपडेट नहि भ' सकल। मौजूदा डेटा सुरक्षित राखल गेल अछि।",
@@ -598,7 +597,7 @@
     "tutorial.googleExplanation": "अपन अकाउंट चुनू → पहुँच अधिकृत करू → ऐप पर वापस आउ।|सेटिंग मेँ ✓ Google कनेक्टेड प्राधिकरण पुष्ट करैत अछि। अहाँक स्प्रेडशीट ओहि अकाउंटक Google Drive मेँ रहैत अछि। Google Drive for Windows इन्स्टॉल करबाक जरूरत नहि।",
     "tutorial.googleTitle": "अपन Google अकाउंट कनेक्ट करू",
     "tutorial.hide": "ऐप खोलला पर ई ट्यूटोरियल नहि देखाउ",
-    "tutorial.importExplanation": "अपन कम्प्यूटर पर फाइल खोलू। ZagoSheetsWin स्प्रेडशीट इम्पोर्ट आ सत्यापित करैत अछि। ब्राउजर मेँ जारी राखू।|सत्यापनक बाद: मूल फाइलक बैकअप + Sheets क' शॉर्टकट। जँ रूपान्तरण पुष्ट नहि भ' सके, मूल फाइल सुरक्षित रहत।",
+    "tutorial.importExplanation": "अपन कम्प्यूटर पर फाइल खोलू। ZagoSheetsWin स्प्रेडशीट इम्पोर्ट आ सत्यापित करैत अछि। ब्राउजर मेँ जारी राखू।|पुष्ट इम्पोर्टक बाद: मूल फाइलक बैकअप + Sheets क' शॉर्टकट। फोल्डर नहि मेटाओल जाइत अछि। चिन्हल सिंक फोल्डर मेँ मूल फाइल सुरक्षित रहैत अछि।",
     "tutorial.importTitle": "अपन स्प्रेडशीट Google Sheets मेँ खोलू",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "बैकअप खोलू…",
@@ -642,6 +641,7 @@
     "firstUse.backupExplanation": "बैकअप मूल फाइल रखैत अछि, Sheets मे बादक बदलाव नहि।\nबैकअप मे एतय पुनर्स्थापित करू… चुनि फाइल वापस पाउ।",
     "setup.importHeading": "3. शॉर्टकट आ फाइलक कॉपी रूप मे आयात",
     "tutorial.showAtStartup": "ऐप खोलबाक समय ई मार्गदर्शन देखाउ",
-    "setup.defaultsHelp": "Windows क पूर्वनिर्धारित ऐप मे ZagoSheetsWin चुनू। वैकल्पिक, मुदा अनुशंसित। Windows डिफॉल्ट ऐप मेँ ZagoSheetsWin चुनू। ई वैकल्पिक अछि: अहाँ एकरासँ खोलू → ZagoSheetsWin सेहो उपयोग क' सकैत छी।"
+    "setup.defaultsHelp": "Windows क पूर्वनिर्धारित ऐप मे ZagoSheetsWin चुनू। वैकल्पिक, मुदा अनुशंसित। Windows डिफॉल्ट ऐप मेँ ZagoSheetsWin चुनू। ई वैकल्पिक अछि: अहाँ एकरासँ खोलू → ZagoSheetsWin सेहो उपयोग क' सकैत छी।",
+    "import.notice.partialConversion": "स्प्रेडशीट Google Sheets मे खुजि गेल अछि। रूपांतरणक समय किछु सूत्र वा डेटा बदलि गेल हो सकैत अछि। मूल फाइलक स्थान पर शॉर्टकट बनाओल गेल अछि। मूल फाइल वापस पाबय लेल {backups} खोलू।"
   }
 }

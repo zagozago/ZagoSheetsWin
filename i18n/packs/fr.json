@@ -2,8 +2,8 @@
   "language": "fr",
   "locale": "fr",
   "direction": "ltr",
-  "catalogRevision": 7,
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "catalogRevision": 8,
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -168,7 +168,6 @@
     "home.openShortcutsFolder": "Ouvrir le dossier des raccourcis de copies",
     "home.settings": "&Paramètres",
     "import.notice.copyComplete": "Copie ouverte dans Sheets. L’original a été conservé ; un raccourci est disponible dans le dossier de raccourcis de l’application.",
-    "import.notice.formulaCopy": "Votre feuille de calcul a été ouverte dans Google Sheets sous forme de copie. Elle contient des formules que nous ne pouvons pas encore vérifier pour le remplacement du fichier. L’original et la sauvegarde ont été conservés. Le raccourci de la copie est disponible dans le dossier de raccourcis de l’application.",
     "import.notice.syncedCopy": "Le fichier a été ouvert comme copie : le dossier est synchronisé ou se trouve sur un réseau. L’original a été conservé afin d’éviter de supprimer la copie sur d’autres appareils.",
     "installer.associationConflict": "Il existe un conflit d’association de fichiers. Supprimez l’enregistrement de la version portable avant l’installation, ou réparez cette installation avant la désinstallation. Les données existantes ont été conservées.",
     "installer.associationRunFailed": "Impossible de mettre à jour les associations de fichiers. Les données existantes ont été conservées.",
@@ -595,7 +594,7 @@
     "tutorial.googleExplanation": "Choisissez votre compte → autorisez l’accès → revenez dans l’application.|Dans Paramètres, ✓ Google connecté confirme l’autorisation. Vos feuilles de calcul restent dans le Google Drive de ce compte. Vous n’avez pas besoin d’installer Google Drive pour Windows.",
     "tutorial.googleTitle": "Connectez votre compte Google",
     "tutorial.hide": "Ne pas afficher ce tutoriel à l’ouverture de l’application",
-    "tutorial.importExplanation": "Ouvrez un fichier sur votre ordinateur. ZagoSheetsWin importe et vérifie la feuille de calcul. Poursuivez dans votre navigateur.|Après vérification : sauvegarde de l’original + raccourci vers Sheets. Si la conversion ne peut pas être confirmée, l’original est conservé.",
+    "tutorial.importExplanation": "Ouvrez un fichier sur votre ordinateur. ZagoSheetsWin importe et vérifie la feuille de calcul. Poursuivez dans votre navigateur.|Après l’importation confirmée : sauvegarde de l’original + raccourci vers Sheets. Les dossiers ne sont pas supprimés. Dans les dossiers synchronisés identifiés, l’original est conservé.",
     "tutorial.importTitle": "Ouvrez vos feuilles de calcul dans Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Ouvrir les sauvegardes…",
@@ -639,7 +638,8 @@
     "firstUse.backupExplanation": "La sauvegarde conserve l’original, sans les modifications ultérieures dans Sheets.\nDans Sauvegardes, choisissez Restaurer dans… pour récupérer le fichier.",
     "setup.importHeading": "3. Raccourcis et importation du fichier comme copie",
     "tutorial.showAtStartup": "Afficher ce tutoriel à l’ouverture de l’application",
-    "setup.defaultsHelp": "Choisissez ZagoSheetsWin dans les Applications par défaut de Windows. Facultatif, mais recommandé. Choisissez ZagoSheetsWin dans les Applications par défaut de Windows. C’est facultatif : vous pouvez aussi utiliser Ouvrir avec → ZagoSheetsWin."
+    "setup.defaultsHelp": "Choisissez ZagoSheetsWin dans les Applications par défaut de Windows. Facultatif, mais recommandé. Choisissez ZagoSheetsWin dans les Applications par défaut de Windows. C’est facultatif : vous pouvez aussi utiliser Ouvrir avec → ZagoSheetsWin.",
+    "import.notice.partialConversion": "La feuille a été ouverte dans Google Sheets. Certaines formules ou données peuvent avoir changé lors de la conversion. Le fichier original a été remplacé par un raccourci. Pour le récupérer, ouvrez {backups}."
   },
   "expandedNumericNotation": [
     "setup.formatLimits"

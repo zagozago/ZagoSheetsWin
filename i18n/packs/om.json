@@ -2,8 +2,8 @@
   "language": "om",
   "locale": "om-ET",
   "direction": "ltr",
-  "catalogRevision": 7,
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "catalogRevision": 8,
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -175,7 +175,6 @@
     "home.openShortcutsFolder": "Foldara shortcut koppii bani",
     "home.settings": "&Qindaa'ina",
     "import.notice.copyComplete": "Koppiin Sheets keessatti baname. Kan jalqabaa eegameera; shortcut foldara shortcut appii keessatti argama.",
-    "import.notice.formulaCopy": "Gabateen kee akka koppiitti Google Sheets keessatti baname. Foormulaa yeroo ammaa bakka bu'iinsa faayilaa mirkaneessuu hin dandeenye qaba. Kan jalqabaa fi kuusdeebiin eegamaniiru. Shortcut koppii foldara shortcut appii keessatti argama.",
     "import.notice.syncedCopy": "Faayilichi akka koppiitti baname: foldarichi walsimsiifamaa jira yookaan neetworkii irra jira. Meeshaalee biroo irraa koppii akka hin haqamne kan jalqabaa eegameera.",
     "installer.associationConflict": "Walitti bu'iinsi walqabsiisa faayilaa jira. Fe'uu dura galmee vershinii portable haqi, yookaan buqqisuu dura fe'iinsa kana suphu. Deetaan jiru eegameera.",
     "installer.associationRunFailed": "Walqabsiisa faayilaa haaromsuun hin danda'amne. Deetaan jiru eegameera.",
@@ -602,7 +601,7 @@
     "tutorial.googleExplanation": "Akkaawuntii kee filadhu → hayyama kenni → gara appii deebi'i.|Qindaa'ina keessatti ✓ Google wal qunneme hayyamni akka jiru mirkaneessa. Gabateewwan kee Google Drive akkaawuntii sanaa keessa turu. Google Drive for Windows fe'uun hin barbaachisu.",
     "tutorial.googleTitle": "Akkaawuntii Google kee wal qunnamsiisi",
     "tutorial.hide": "Appicha yeroo banu tutorial kana hin agarsiisin",
-    "tutorial.importExplanation": "Faayila kompiitara kee irraa bani. ZagoSheetsWin gabatee galchee mirkaneessa. Browser kee keessatti itti fufi.|Mirkaneessuun booda: kuusdeebii kan jalqabaa + shortcut gara Sheets. Jijjiiramni yoo mirkanaa'uu baate, kan jalqabaa ni eegama.",
+    "tutorial.importExplanation": "Faayila kompiitara kee irraa bani. ZagoSheetsWin gabatee galchee mirkaneessa. Browser kee keessatti itti fufi.|Galchiinsa mirkanaa'e booda: kuusdeebii kan jalqabaa + shortcut gara Sheets. Foldaroonni hin haqaman. Foldaroota walsimsiisoo adda baafaman keessatti kan jalqabaa ni eegama.",
     "tutorial.importTitle": "Gabateewwan kee Google Sheets keessatti bani",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Kuusdeebii bani…",
@@ -646,6 +645,7 @@
     "firstUse.backupExplanation": "Kuusaan deeggarsaa faayilii jalqabaa qaba, jijjiirama boodaa Sheets keessaa hin qabaatu.\nKuusaa deeggarsaa keessatti Asitti deebisi… filadhuutii faayilii deebisi.",
     "setup.importHeading": "3. Karaa gabaabaa fi faayilii akka garagalchaatti galchuu",
     "tutorial.showAtStartup": "Yeroo appii banattu qajeelfama kana agarsiisi",
-    "setup.defaultsHelp": "Appoota durtii Windows keessatti ZagoSheetsWin filadhu. Dirqama miti, garuu ni gorfama. Windows Default apps keessatti ZagoSheetsWin filadhu. Kun filannoo dha: Open with → ZagoSheetsWin fayyadamuus dandeessa."
+    "setup.defaultsHelp": "Appoota durtii Windows keessatti ZagoSheetsWin filadhu. Dirqama miti, garuu ni gorfama. Windows Default apps keessatti ZagoSheetsWin filadhu. Kun filannoo dha: Open with → ZagoSheetsWin fayyadamuus dandeessa.",
+    "import.notice.partialConversion": "Gabateen Google Sheets keessatti banameera. Foormulaawwan ykn deetaan tokko tokko yeroo jijjiirraa jijjiiramanii ta'uu danda'u. Faayiliin jalqabaa karaa gabaabaadhaan bakka buufameera. Deebisuuf {backups} bani."
   }
 }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "ڪاپي شارٽ ڪٽ فولڊر کوليو",
     "home.settings": "&سيٽنگون",
     "import.notice.copyComplete": "ڪاپي Sheets ۾ کلي وئي. اصل محفوظ رکيو ويو؛ شارٽ ڪٽ ايپ جي شارٽ ڪٽ فولڊر ۾ موجود آهي.",
-    "import.notice.formulaCopy": "توهان جي اسپريڊ شيٽ Google Sheets ۾ ڪاپي طور کلي. ان ۾ اهڙا فارمولا آهن جن جي فائل بدلي لاءِ اڃا تصديق نٿي ڪري سگهجي. اصل ۽ بيڪ اپ محفوظ رکيا ويا. ڪاپي شارٽ ڪٽ ايپ جي شارٽ ڪٽ فولڊر ۾ موجود آهي.",
     "import.notice.syncedCopy": "فائل ڪاپي طور کلي: فولڊر سنڪ ٿيل يا نيٽ ورڪ تي آهي. ٻين ڊوائيسن تي ڪاپي ختم ٿيڻ کان بچائڻ لاءِ اصل محفوظ رکيو ويو.",
     "legal.privacy": "پرائيويسي پاليسي",
     "legal.terms": "استعمال جا شرط",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "پنهنجو اڪائونٽ چونڊيو → رسائي جي اجازت ڏيو → ايپ ڏانهن واپس وڃو.|سيٽنگن ۾ ✓ Google ڳنڍيل اجازت جي تصديق ڪري ٿو. توهان جون اسپريڊ شيٽون ان اڪائونٽ جي Google Drive ۾ رهن ٿيون. Google Drive for Windows انسٽال ڪرڻ جي ضرورت ناهي.",
     "tutorial.googleTitle": "پنهنجو Google اڪائونٽ ڳنڍيو",
     "tutorial.hide": "ايپ کولڻ وقت هي tutorial نه ڏيکاريو",
-    "tutorial.importExplanation": "پنهنجي ڪمپيوٽر تي فائل کوليو. ZagoSheetsWin اسپريڊ شيٽ درآمد ۽ تصديق ڪري ٿو. برائوزر ۾ جاري رکو.|تصديق کان پوءِ: اصل جو بيڪ اپ + Sheets ڏانهن شارٽ ڪٽ. جيڪڏهن تبديلي جي تصديق نه ٿي سگهي ته اصل محفوظ رهي ٿو.",
+    "tutorial.importExplanation": "پنهنجي ڪمپيوٽر تي فائل کوليو. ZagoSheetsWin اسپريڊ شيٽ درآمد ۽ تصديق ڪري ٿو. برائوزر ۾ جاري رکو.|تصديق ٿيل درآمد کان پوءِ: اصل جو بيڪ اپ + Sheets ڏانهن شارٽ ڪٽ. فولڊر ختم نٿا ڪيا وڃن. سڃاتل سنڪ ٿيل فولڊرن ۾ اصل محفوظ رهي ٿو.",
     "tutorial.importTitle": "پنهنجون اسپريڊ شيٽون Google Sheets ۾ کوليو",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "بيڪ اپ کوليو…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "بيڪ اپ اصل فائل رکي ٿو، Sheets ۾ پوءِ ٿيندڙ تبديليون نه.\nبيڪ اپ ۾ هتي بحال ڪريو… چونڊي فائل واپس حاصل ڪريو.",
     "setup.importHeading": "3. شارٽ ڪٽ ۽ فائل کي ڪاپي طور درآمد ڪرڻ",
     "tutorial.showAtStartup": "ايپ کولڻ وقت هي رهنمائي ڏيکاريو",
-    "setup.defaultsHelp": "Windows جي ڊفالٽ ايپس ۾ ZagoSheetsWin چونڊيو. اختياري، پر سفارش ڪيل. Windows ڊفالٽ ايپس ۾ ZagoSheetsWin چونڊيو. هي اختياري آهي: هن سان کوليو → ZagoSheetsWin به استعمال ڪري سگهو ٿا."
+    "setup.defaultsHelp": "Windows جي ڊفالٽ ايپس ۾ ZagoSheetsWin چونڊيو. اختياري، پر سفارش ڪيل. Windows ڊفالٽ ايپس ۾ ZagoSheetsWin چونڊيو. هي اختياري آهي: هن سان کوليو → ZagoSheetsWin به استعمال ڪري سگهو ٿا.",
+    "import.notice.partialConversion": "اسپريڊ شيٽ Google Sheets ۾ کلي وئي آهي. تبديلي دوران ڪجهه فارمولا يا ڊيٽا بدلجي سگهيا آهن. اصل فائل جي جاءِ تي شارٽ ڪٽ ٺاهيو ويو آهي. اصل فائل واپس حاصل ڪرڻ لاءِ {backups} کوليو."
   }
 }

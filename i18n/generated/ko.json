@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "사본 바로 가기 폴더 열기",
     "home.settings": "&설정",
     "import.notice.copyComplete": "사본을 Sheets에서 열었습니다. 원본은 보존되었으며 앱의 바로 가기 폴더에서 바로 가기를 사용할 수 있습니다.",
-    "import.notice.formulaCopy": "스프레드시트가 Google Sheets에서 사본으로 열렸습니다. 파일 교체를 위해 아직 검증할 수 없는 수식이 포함되어 있습니다. 원본과 백업은 보존되었습니다. 사본 바로 가기는 앱의 바로 가기 폴더에서 사용할 수 있습니다.",
     "import.notice.syncedCopy": "파일을 사본으로 열었습니다. 폴더가 동기화 중이거나 네트워크에 있습니다. 다른 기기의 사본이 삭제되지 않도록 원본을 유지했습니다.",
     "legal.privacy": "개인정보 처리방침",
     "legal.terms": "이용 약관",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "계정 선택 → 접근 권한 승인 → 앱으로 돌아오기.|설정에서 ✓ Google 연결됨이 인증을 확인합니다. 스프레드시트는 해당 계정의 Google Drive에 유지됩니다. Google Drive for Windows를 설치할 필요는 없습니다.",
     "tutorial.googleTitle": "Google 계정 연결",
     "tutorial.hide": "앱을 열 때 이 튜토리얼을 표시하지 않음",
-    "tutorial.importExplanation": "컴퓨터에서 파일을 여세요. ZagoSheetsWin이 스프레드시트를 가져오고 검증합니다. 브라우저에서 계속하세요.|검증 후: 원본 백업 + Sheets 바로 가기. 변환을 확인할 수 없으면 원본을 유지합니다.",
+    "tutorial.importExplanation": "컴퓨터에서 파일을 여세요. ZagoSheetsWin이 스프레드시트를 가져오고 검증합니다. 브라우저에서 계속하세요.|확인된 가져오기 후: 원본 백업 + Sheets 바로 가기. 폴더는 삭제되지 않습니다. 확인된 동기화 폴더에서는 원본을 유지합니다.",
     "tutorial.importTitle": "Google Sheets에서 스프레드시트 열기",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "백업 열기…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "백업은 원본을 보관하며 이후 Sheets에서 한 변경은 포함하지 않습니다.\n백업에서 복원 위치…를 선택하여 파일을 복구하세요.",
     "setup.importHeading": "3. 바로가기 및 파일을 사본으로 가져오기",
     "tutorial.showAtStartup": "앱을 열 때 이 자습서 표시",
-    "setup.defaultsHelp": "Windows 기본 앱에서 ZagoSheetsWin을 선택하세요. 선택 사항이지만 권장합니다. Windows 기본 앱에서 ZagoSheetsWin을 선택하세요. 선택 사항이며 연결 프로그램 → ZagoSheetsWin을 사용할 수도 있습니다."
+    "setup.defaultsHelp": "Windows 기본 앱에서 ZagoSheetsWin을 선택하세요. 선택 사항이지만 권장합니다. Windows 기본 앱에서 ZagoSheetsWin을 선택하세요. 선택 사항이며 연결 프로그램 → ZagoSheetsWin을 사용할 수도 있습니다.",
+    "import.notice.partialConversion": "스프레드시트를 Google Sheets에서 열었습니다. 변환 중 일부 수식이나 데이터가 변경되었을 수 있습니다. 원본 파일은 바로가기로 대체되었습니다. 원본을 복구하려면 {backups}을(를) 여세요."
   }
 }

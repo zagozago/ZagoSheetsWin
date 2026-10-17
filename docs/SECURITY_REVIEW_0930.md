@@ -1,5 +1,7 @@
 # Revisão de segurança e distribuição — candidato 0.9.30
 
+Atualização de política em 0.9.33 (2026-10-16): por definição do produto, equivalência parcial deixa de impor cópia. Após importação nativa confirmada e backup verificado, fórmulas/dados cuja fidelidade não pode ser provada geram aviso e acesso a Backups, sem bloquear a substituição configurada pelo usuário. A equivalência de todas as células não é mais uma pré-condição para retirar o original. Permanecem obrigatórios vínculo remoto, hash/identidade local, backup íntegro, publicação do atalho e aceite do navegador. Os exemplos XLS/ODS P1-11 são usados em regressões automatizadas com Drive simulado e restauração binária; a revisão original abaixo descreve o estado 0.9.30.
+
 Data: 2026-10-15. Base revisada: f76ea12fe06d9c19a8ed035045d7df398ac16d69, branch feature/zagosheetswin. Este relatório cobre o aplicativo C# atual; docs/AUDIT.md registra a auditoria histórica do upstream PowerShell.
 
 ## Resultado e correções

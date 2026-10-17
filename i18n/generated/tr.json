@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.32",
+  "productVersion": "0.9.33",
   "sourceLocale": "pt-BR",
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Kopya kısayolları klasörünü aç",
     "home.settings": "&Ayarlar",
     "import.notice.copyComplete": "Kopya Sheets’te açıldı. Özgün dosya korundu; uygulamanın kısayollar klasöründe bir kısayol bulunuyor.",
-    "import.notice.formulaCopy": "Elektronik tablonuz Google Sheets’te bir kopya olarak açıldı. Dosya değiştirme için henüz doğrulayamadığımız formüller içeriyor. Özgün dosya ve yedek korundu. Kopya kısayolu uygulamanın kısayollar klasöründe bulunuyor.",
     "import.notice.syncedCopy": "Dosya bir kopya olarak açıldı: klasör eşitleniyor veya ağda bulunuyor. Diğer cihazlardaki kopyayı silmemek için özgün dosya korundu.",
     "legal.privacy": "Gizlilik Politikası",
     "legal.terms": "Kullanım Koşulları",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Hesabınızı seçin → erişimi yetkilendirin → uygulamaya dönün.|Ayarlar’da ✓ Google bağlı ifadesi yetkilendirmeyi doğrular. Elektronik tablolarınız bu hesabın Google Drive’ında kalır. Windows için Google Drive kurmanız gerekmez.",
     "tutorial.googleTitle": "Google hesabınızı bağlayın",
     "tutorial.hide": "Uygulama açılırken bu öğreticiyi gösterme",
-    "tutorial.importExplanation": "Bilgisayarınızdaki bir dosyayı açın. ZagoSheetsWin elektronik tabloyu içe aktarır ve doğrular. Tarayıcıda devam edin.|Doğrulamadan sonra: özgün dosyanın yedeği + Sheets kısayolu. Dönüştürme doğrulanamazsa özgün dosya korunur.",
+    "tutorial.importExplanation": "Bilgisayarınızdaki bir dosyayı açın. ZagoSheetsWin elektronik tabloyu içe aktarır ve doğrular. Tarayıcıda devam edin.|Onaylanmış içe aktarmadan sonra: özgün dosyanın yedeği + Sheets kısayolu. Klasörler silinmez. Belirlenen eşitlenmiş klasörlerde özgün dosya korunur.",
     "tutorial.importTitle": "Elektronik tablolarınızı Google Sheets’te açın",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Yedekleri aç…",
@@ -349,6 +348,7 @@
     "firstUse.backupExplanation": "Yedek, Sheets’teki sonraki değişiklikler olmadan özgün dosyayı saklar.\nDosyayı kurtarmak için Yedekler’de Şuraya geri yükle… seçeneğini seçin.",
     "setup.importHeading": "3. Kısayollar ve dosyayı kopya olarak içe aktarma",
     "tutorial.showAtStartup": "Uygulama açılırken bu öğreticiyi göster",
-    "setup.defaultsHelp": "Windows Varsayılan uygulamalarında ZagoSheetsWin’i seçin. İsteğe bağlı, ancak önerilir. Windows Varsayılan uygulamalar bölümünde ZagoSheetsWin’i seçin. Bu isteğe bağlıdır: Birlikte aç → ZagoSheetsWin de kullanabilirsiniz."
+    "setup.defaultsHelp": "Windows Varsayılan uygulamalarında ZagoSheetsWin’i seçin. İsteğe bağlı, ancak önerilir. Windows Varsayılan uygulamalar bölümünde ZagoSheetsWin’i seçin. Bu isteğe bağlıdır: Birlikte aç → ZagoSheetsWin de kullanabilirsiniz.",
+    "import.notice.partialConversion": "E-tablo Google Sheets'te açıldı. Dönüştürme sırasında bazı formüller veya veriler değişmiş olabilir. Asıl dosyanın yerine bir kısayol oluşturuldu. Dosyayı geri almak için {backups} bölümünü açın."
   }
 }

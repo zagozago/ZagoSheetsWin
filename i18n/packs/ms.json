@@ -2,8 +2,8 @@
   "language": "ms",
   "locale": "ms-MY",
   "direction": "ltr",
-  "catalogRevision": 7,
-  "sourceHash": "517ac56a9ca5b7658b8fa9a5d357ecdcba13645df8a2dca90659a868970565df",
+  "catalogRevision": 8,
+  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -172,7 +172,6 @@
     "home.openShortcutsFolder": "Buka folder pintasan salinan",
     "home.settings": "&Tetapan",
     "import.notice.copyComplete": "Salinan dibuka dalam Sheets. Fail asal dikekalkan; pintasan tersedia dalam folder pintasan aplikasi.",
-    "import.notice.formulaCopy": "Hamparan anda dibuka dalam Google Sheets sebagai salinan. Ia mengandungi formula yang belum dapat kami sahkan untuk penggantian fail. Fail asal dan sandaran dikekalkan. Pintasan salinan tersedia dalam folder pintasan aplikasi.",
     "import.notice.syncedCopy": "Fail dibuka sebagai salinan: folder disegerakkan atau berada pada rangkaian. Fail asal dikekalkan untuk mengelakkan salinan dipadam pada peranti lain.",
     "installer.associationConflict": "Terdapat konflik perkaitan fail. Buang pendaftaran versi mudah alih sebelum memasang, atau baiki pemasangan ini sebelum menyahpasang. Data sedia ada dikekalkan.",
     "installer.associationRunFailed": "Tidak dapat mengemas kini perkaitan fail. Data sedia ada dikekalkan.",
@@ -599,7 +598,7 @@
     "tutorial.googleExplanation": "Pilih akaun anda → benarkan akses → kembali ke aplikasi.|Dalam Tetapan, ✓ Google disambungkan mengesahkan kebenaran. Hamparan anda kekal dalam Google Drive akaun tersebut. Anda tidak perlu memasang Google Drive untuk Windows.",
     "tutorial.googleTitle": "Sambungkan akaun Google anda",
     "tutorial.hide": "Jangan tunjukkan tutorial ini apabila membuka aplikasi",
-    "tutorial.importExplanation": "Buka fail pada komputer anda. ZagoSheetsWin mengimport dan mengesahkan hamparan. Teruskan dalam pelayar anda.|Selepas pengesahan: sandaran fail asal + pintasan ke Sheets. Jika penukaran tidak dapat disahkan, fail asal dikekalkan.",
+    "tutorial.importExplanation": "Buka fail pada komputer anda. ZagoSheetsWin mengimport dan mengesahkan hamparan. Teruskan dalam pelayar anda.|Selepas import disahkan: sandaran fail asal + pintasan ke Sheets. Folder tidak dipadam. Dalam folder disegerakkan yang dikenal pasti, fail asal dikekalkan.",
     "tutorial.importTitle": "Buka hamparan anda dalam Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Buka sandaran…",
@@ -643,6 +642,7 @@
     "firstUse.backupExplanation": "Sandaran menyimpan fail asal tanpa perubahan kemudian dalam Sheets.\nDalam Sandaran, pilih Pulihkan ke… untuk mendapatkan semula fail.",
     "setup.importHeading": "3. Pintasan dan mengimport fail sebagai salinan",
     "tutorial.showAtStartup": "Paparkan tutorial ini semasa membuka aplikasi",
-    "setup.defaultsHelp": "Pilih ZagoSheetsWin dalam Aplikasi lalai Windows. Pilihan, tetapi disyorkan. Pilih ZagoSheetsWin dalam Aplikasi lalai Windows. Ini pilihan: anda juga boleh menggunakan Buka dengan → ZagoSheetsWin."
+    "setup.defaultsHelp": "Pilih ZagoSheetsWin dalam Aplikasi lalai Windows. Pilihan, tetapi disyorkan. Pilih ZagoSheetsWin dalam Aplikasi lalai Windows. Ini pilihan: anda juga boleh menggunakan Buka dengan → ZagoSheetsWin.",
+    "import.notice.partialConversion": "Hamparan dibuka dalam Google Sheets. Sesetengah formula atau data mungkin berubah semasa penukaran. Fail asal digantikan dengan pintasan. Untuk memulihkannya, buka {backups}."
   }
 }
