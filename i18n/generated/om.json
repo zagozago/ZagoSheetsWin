@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "Kuusdeebii haqame: {count}. Iddoo bilisa ta'e: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Qulqulleessuun ofumaan seerota kana kuusdeebii jiran irrattis hojiirra oolcha. Yeroo turtii booda yookaan iddoo bilisoomsuuf kuusdeebii xumuraman, kan duraa irraa eegalee haqa. Sana booda kan jalqabaa naannoo keessaa deebisuu hin dandeessu. Gabateewwan Google fi shortcut ni hafan. Dandeessisuu?",
     "recovery.enableCleanupTitle": "Qulqulleessuu ofumaa dandeessisi",
-    "recovery.instructions": "Deebisuuf: tarree tokko filadhuutii Gara… deebisi filadhu.\nKuusdeebii hedduu haquuf: sanduuqawwan mallatteessi yookaan Hunda filadhu filadhu.\nAdeemsi eegaa jiru ni eeggama. Gabateewwan Google fi shortcut ni eegamu.",
+    "recovery.instructions": "Deebisuuf: tarree tokko filadhuutii Gara… deebisi filadhu.\nAdeemsi eegaa jiru ni eeggama. Gabateewwan Google fi shortcut ni eegamu.",
     "recovery.limits": "Daangaa: 200 MB · guddaan: 1 GB. Adeemsi eegaa jiru ni eeggama.",
     "recovery.moreActions": "Gocha dabalataa ▾",
     "recovery.noBackups": "Fayyadamaa Windows kanaaf kuusdeebiin galmaa'e hin jiru.",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. Karaa gabaabaa fi faayilii akka garagalchaatti galchuu",
     "tutorial.showAtStartup": "Yeroo appii banattu qajeelfama kana agarsiisi",
     "setup.defaultsHelp": "Appoota durtii Windows keessatti ZagoSheetsWin filadhu. Dirqama miti, garuu ni gorfama. Windows Default apps keessatti ZagoSheetsWin filadhu. Kun filannoo dha: Open with → ZagoSheetsWin fayyadamuus dandeessa.",
-    "import.notice.partialConversion": "Gabateen Google Sheets keessatti banameera. Foormulaawwan ykn deetaan tokko tokko yeroo jijjiirraa jijjiiramanii ta'uu danda'u. Faayiliin jalqabaa karaa gabaabaadhaan bakka buufameera. Deebisuuf {backups} bani."
+    "import.notice.partialConversion": "Gabateen Google Sheets keessatti banameera. Faayiliin jalqabaa karaa gabaabaadhaan bakka buufameera. Deebisuuf {backups} bani.",
+    "import.notice.dontShowAgain": "Irra deebi'ee hin agarsiisin"
   }
 }

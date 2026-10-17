@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "Đã xóa bản sao lưu: {count}. Dung lượng đã giải phóng: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Tự động dọn dẹp cũng áp dụng các quy tắc này cho bản sao lưu hiện có. Nó xóa các bản sao lưu đã hoàn tất sau thời gian lưu giữ hoặc để giải phóng dung lượng, từ cũ nhất đến mới nhất. Sau đó, bạn sẽ không thể khôi phục tệp gốc cục bộ. Bảng tính Google và lối tắt sẽ được giữ lại. Bật?",
     "recovery.enableCleanupTitle": "Bật tự động dọn dẹp",
-    "recovery.instructions": "Để khôi phục: chọn một hàng rồi chọn Khôi phục đến…\nĐể xóa nhiều bản sao lưu: đánh dấu các ô hoặc chọn Chọn tất cả.\nCác thao tác đang chờ được bảo vệ. Bảng tính Google và lối tắt được giữ lại.",
+    "recovery.instructions": "Để khôi phục: chọn một hàng rồi chọn Khôi phục đến…\nCác thao tác đang chờ được bảo vệ. Bảng tính Google và lối tắt được giữ lại.",
     "recovery.limits": "Giới hạn: 200 MB · tối đa: 1 GB. Các thao tác đang chờ được bảo vệ.",
     "recovery.moreActions": "Thêm hành động ▾",
     "recovery.noBackups": "Không có bản sao lưu nào được ghi cho người dùng Windows này.",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. Lối tắt và nhập tệp dưới dạng bản sao",
     "tutorial.showAtStartup": "Hiện hướng dẫn này khi mở ứng dụng",
     "setup.defaultsHelp": "Chọn ZagoSheetsWin trong Ứng dụng mặc định của Windows. Không bắt buộc, nhưng nên chọn. Chọn ZagoSheetsWin trong Ứng dụng mặc định của Windows. Đây là tùy chọn: bạn cũng có thể dùng Mở bằng → ZagoSheetsWin.",
-    "import.notice.partialConversion": "Bảng tính đã được mở trong Google Sheets. Một số công thức hoặc dữ liệu có thể đã thay đổi khi chuyển đổi. Tệp gốc đã được thay bằng lối tắt. Để khôi phục tệp, hãy mở {backups}."
+    "import.notice.partialConversion": "Bảng tính đã được mở trong Google Sheets. Tệp gốc đã được thay bằng lối tắt. Để khôi phục tệp, hãy mở {backups}.",
+    "import.notice.dontShowAgain": "Không hiển thị lại"
   }
 }

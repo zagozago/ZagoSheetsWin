@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "Backups deleted: {count}. Space freed: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Automatic cleanup also applies these rules to existing backups. It deletes completed backups after the retention period or to free up space, from oldest to newest. Afterwards, you will not be able to restore the local original. Google spreadsheets and shortcuts will remain. Enable?",
     "recovery.enableCleanupTitle": "Enable automatic cleanup",
-    "recovery.instructions": "To recover: select a row and choose Restore to…\nTo delete multiple backups: check the boxes or choose Select all.\nPending operations are protected. Google spreadsheets and shortcuts are kept.",
+    "recovery.instructions": "To recover: select a row and choose Restore\nPending operations are protected. Google spreadsheets and shortcuts are kept.",
     "recovery.limits": "Limit: 200 MB · maximum: 1 GB. Pending operations are protected.",
     "recovery.moreActions": "More actions ▾",
     "recovery.noBackups": "No backups recorded for this Windows user.",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. Shortcuts and importing the file as a copy",
     "tutorial.showAtStartup": "Show this tutorial when opening the app",
     "setup.defaultsHelp": "Choose ZagoSheetsWin in Windows Default apps. Optional, but recommended. Choose ZagoSheetsWin in Windows Default apps. This is optional: you can also use Open with → ZagoSheetsWin.",
-    "import.notice.partialConversion": "Spreadsheet opened in Google Sheets. Some formulas or data may have changed during conversion. The original file was replaced by a shortcut. To recover it, open {backups}."
+    "import.notice.partialConversion": "Spreadsheet opened in Google Sheets. The original file was replaced by a shortcut. To recover it, open {backups}.",
+    "import.notice.dontShowAgain": "Don't show again"
   }
 }

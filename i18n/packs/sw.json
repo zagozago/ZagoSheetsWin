@@ -2,8 +2,8 @@
   "language": "sw",
   "locale": "sw-KE",
   "direction": "ltr",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -507,7 +507,7 @@
     "recovery.deleted": "Nakala rudufu zimefutwa: {count}. Nafasi iliyoachiliwa: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Usafishaji wa kiotomatiki pia hutumia kanuni hizi kwa nakala rudufu zilizopo. Hufuta nakala zilizokamilika baada ya muda wa kuhifadhi au ili kutoa nafasi, kutoka ya zamani hadi mpya. Baada ya hapo, hutaweza kurejesha faili ya asili ya ndani. Lahajedwali za Google na njia za mkato zitabaki. Washa?",
     "recovery.enableCleanupTitle": "Washa usafishaji wa kiotomatiki",
-    "recovery.instructions": "Ili kurejesha: chagua safu mlalo na uchague Rejesha kwenye…\nIli kufuta nakala rudufu nyingi: weka alama kwenye visanduku au uchague Chagua zote.\nOperesheni zinazosubiri zinalindwa. Lahajedwali za Google na njia za mkato zinahifadhiwa.",
+    "recovery.instructions": "Ili kurejesha: chagua safu mlalo na uchague Rejesha kwenye…\nOperesheni zinazosubiri zinalindwa. Lahajedwali za Google na njia za mkato zinahifadhiwa.",
     "recovery.limits": "Kikomo: 200 MB · kiwango cha juu: 1 GB. Operesheni zinazosubiri zinalindwa.",
     "recovery.moreActions": "Vitendo zaidi ▾",
     "recovery.noBackups": "Hakuna nakala rudufu zilizorekodiwa kwa mtumiaji huyu wa Windows.",
@@ -642,6 +642,7 @@
     "setup.importHeading": "3. Njia za mkato na kuleta faili kama nakala",
     "tutorial.showAtStartup": "Onyesha mafunzo haya unapofungua programu",
     "setup.defaultsHelp": "Chagua ZagoSheetsWin katika Programu chaguomsingi za Windows. Si lazima, lakini inapendekezwa. Chagua ZagoSheetsWin katika Programu chaguomsingi za Windows. Hii ni hiari: unaweza pia kutumia Fungua kwa → ZagoSheetsWin.",
-    "import.notice.partialConversion": "Lahajedwali limefunguliwa katika Google Sheets. Baadhi ya fomula au data huenda zimebadilika wakati wa ubadilishaji. Faili asili limebadilishwa na njia ya mkato. Ili kulirejesha, fungua {backups}."
+    "import.notice.partialConversion": "Lahajedwali limefunguliwa katika Google Sheets. Faili asili limebadilishwa na njia ya mkato. Ili kulirejesha, fungua {backups}.",
+    "import.notice.dontShowAgain": "Usionyeshe tena"
   }
 }

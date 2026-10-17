@@ -6,7 +6,34 @@ internal sealed class RecoveryForm : Form
 {
     private bool busy;
     private CancellationTokenSource? activeCancellation;
-    private readonly ListView entries = new ToggleListView() { Dock = DockStyle.Fill, View = View.Details, FullRowSelect = true, MultiSelect = true, CheckBoxes = true, HideSelection = false, AccessibleName = UiText.Get("accessibility.availableBackups") };
+    private int sortColumn = -1;
+    private bool sortAscending;
+    internal void SortByColumn(int column)
+    {
+        if (column is < 0 or > 3) return;
+        sortAscending = column != sortColumn || !sortAscending;
+        sortColumn = column;
+        entries.ListViewItemSorter = new BackupRowComparer(column, sortAscending);
+        entries.Sort();
+    }
+    private sealed class BackupRowComparer(int column, bool ascending) : System.Collections.IComparer
+    {
+        public int Compare(object? x, object? y)
+        {
+            var left = (ListViewItem)x!; var right = (ListViewItem)y!;
+            var a = (RecoveryEntry)left.Tag!; var b = (RecoveryEntry)right.Tag!;
+            var result = column switch
+            {
+                1 => Nullable.Compare(a.CapturedAt, b.CapturedAt),
+                2 => a.Bytes.CompareTo(b.Bytes),
+                _ => StringComparer.CurrentCultureIgnoreCase.Compare(left.SubItems[column].Text, right.SubItems[column].Text)
+            };
+            if (result == 0) result = StringComparer.CurrentCultureIgnoreCase.Compare(left.Text, right.Text);
+            if (result == 0) result = a.Id.CompareTo(b.Id);
+            return ascending ? result : -result;
+        }
+    }
+    private readonly ListView entries = new ListView() { Dock = DockStyle.Fill, View = View.Details, FullRowSelect = true, MultiSelect = true, CheckBoxes = false, HideSelection = false, AccessibleName = UiText.Get("accessibility.availableBackups") };
     private RecoveryEntry? Selected => entries.SelectedItems.Count != 1 ? null : entries.SelectedItems[0].Tag as RecoveryEntry;
     private void AddEntry(RecoveryEntry entry)
     {
@@ -25,6 +52,7 @@ internal sealed class RecoveryForm : Form
         status.TextChanged += (_, _) => FitStatus();
         Shown += (_, _) => FitStatus();
         entries.Columns.Add(UiText.Get("recovery.column.file"), 230); entries.Columns.Add(UiText.Get("recovery.column.date"), 140); entries.Columns.Add(UiText.Get("recovery.column.size"), 80); entries.Columns.Add(UiText.Get("recovery.column.state"), 180); entries.ShowItemToolTips = true;
+        entries.ColumnClick += (_, e) => SortByColumn(e.Column);
         var storage = LocalStorage.ForCurrentUser();
         var manager = new BackupManagement(storage);
         var service = new BackupRecovery(storage);
@@ -32,7 +60,6 @@ internal sealed class RecoveryForm : Form
         var days = new NumericUpDown { Minimum = 1, Maximum = 365, Value = 30, Width = 70, AccessibleName = UiText.Get("accessibility.retentionDays") };
         var quota = new NumericUpDown { Minimum = 1, Maximum = 1000, Value = 200, Width = 80, AccessibleName = UiText.Get("accessibility.quotaMb") };
         var automatic = new ToggleSwitch { Text = UiText.Get("recovery.autoCleanup"), AutoSize = true };
-        var save = new AdaptiveButton { Text = UiText.Get("recovery.savePolicy"), AutoSize = true };
         var usage = new EmphasisLabel { AutoSize = true, Text = UiText.Get("recovery.limits") };
         var limits = new TableLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, ColumnCount = 2, RowCount = 2, Margin = new Padding(0, 0, 0, 8) };
         limits.ColumnStyles.Add(new(SizeType.Percent, 50)); limits.ColumnStyles.Add(new(SizeType.Percent, 50));
@@ -49,10 +76,9 @@ internal sealed class RecoveryForm : Form
             daysLabel.MaximumSize = quotaLabel.MaximumSize = new Size(Math.Max(45, width/2-6), 0);
             days.Width = quota.Width = Math.Max(45, width/2-6);
             automatic.Height = TextRenderer.MeasureText(automatic.Text, automatic.Font, new Size(Math.Max(40, width-54), int.MaxValue), TextFormatFlags.WordBreak).Height + 14;
-            save.AutoSize = false; save.Width = width;
         }
         policyPanel.SizeChanged += (_, _) => FitPolicy(); automatic.TextChanged += (_, _) => FitPolicy(); automatic.FontChanged += (_, _) => FitPolicy();
-        policyPanel.Controls.AddRange([limits, automatic, usage, save]);
+        policyPanel.Controls.AddRange([limits, automatic, usage]);
         var restore = new AdaptiveButton { Text = UiText.Get("action.restore"), AutoSize = true };
         var copy = new MenuActionButton { Text = UiText.Get("recovery.resumeCopy"), AutoSize = true };
         var resume = new MenuActionButton { Text = UiText.Get("recovery.completeReplacement"), AutoSize = true };
@@ -72,7 +98,7 @@ internal sealed class RecoveryForm : Form
         more.Click += (_, _) => { var buttons = new[] { copy, resume, export, clean }; for (var i = 0; i < buttons.Length; i++) { menu.Items[i].Enabled = buttons[i].Enabled && !busy; menu.Items[i].Text = buttons[i].Text; } menu.Show(more, new Point(0, more.Height)); };
         var selectAll = new AdaptiveButton { Text = UiText.Get("recovery.selectAll"), AutoSize = true };
         var clearSelection = new AdaptiveButton { Text = UiText.Get("recovery.clearSelection"), AutoSize = true };
-        selectAll.Click += (_, _) => { foreach (ListViewItem item in entries.Items) item.Checked = (item.Tag as RecoveryEntry)?.CleanupState != 2; };
+        selectAll.Click += (_, _) => { foreach (ListViewItem item in entries.Items) item.Selected = (item.Tag as RecoveryEntry)?.CleanupState != 2; };
         clearSelection.Click += (_, _) => { foreach (ListViewItem item in entries.Items) { item.Checked = false; item.Selected = false; } };
         var actions = Ui.Columns(restore, selectAll, clearSelection, delete, more);
         actions.Dock = DockStyle.Top; actions.Padding = new Padding(8);
@@ -126,23 +152,41 @@ internal sealed class RecoveryForm : Form
             shownBytes = result.Summary.UsedBytes; shownCount = result.Rows.Count; shownProtected = result.Rows.Count(e => !e.CanClean && e.Available); RefreshUsage();
             if (entries.Items.Count == 0) status.Text = UiText.Get("recovery.noBackups");
         }
+        var loadingPolicy = !preview;
         if (!preview) Shown += async (_, _) =>
         {
             busy = true;
             try { var policy = BackupPolicy.Load(storage); days.Value = policy.RetentionDays; quota.Value = policy.QuotaMb; automatic.Checked = policy.AutomaticCleanup; await RefreshEntries(); }
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = LauncherErrors.Message(ex); }
-            finally { busy = false; }
+            finally { busy = false; loadingPolicy = false; }
         };
-        save.Click += async (_, _) =>
+        Task pendingPolicySave = Task.CompletedTask;
+        async Task PersistPolicy(Task previous, BackupPolicy policy)
         {
-            if (busy || preview) return;
-            if (automatic.Checked && MessageBox.Show(this, UiText.Get("recovery.enableCleanupPrompt"), UiText.Get("recovery.enableCleanupTitle"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
-            busy = true;
-            try { await BackupPolicy.SaveAsync(storage, new((int)days.Value, (int)quota.Value, automatic.Checked)); status.Text = UiText.Get("recovery.policySaved"); }
-            catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = LauncherErrors.Message(ex); }
-            finally { busy = false; }
+            await previous;
+            try
+            {
+                await BackupPolicy.SaveAsync(storage, policy);
+                if (!IsDisposed) status.Text = UiText.Get("recovery.policySaved");
+            }
+            catch (Exception ex) when (LauncherErrors.Expected(ex))
+            { if (!IsDisposed) status.Text = LauncherErrors.Message(ex); }
+        }
+        void SavePolicy(object? sender, EventArgs args)
+        {
+            if (loadingPolicy || preview) return;
+            // Capture every edit and write in order, including edits made while a save awaits its lock.
+            pendingPolicySave = PersistPolicy(pendingPolicySave, new((int)days.Value, (int)quota.Value, automatic.Checked));
+        }
+        days.ValueChanged += SavePolicy; quota.ValueChanged += SavePolicy; automatic.CheckedChanged += SavePolicy;
+        FormClosing += async (_, e) =>
+        {
+            if (pendingPolicySave.IsCompleted) return;
+            e.Cancel = true;
+            await pendingPolicySave;
+            if (!IsDisposed && !busy) Close();
         };
-        RecoveryEntry[] Marked() => (entries.CheckedItems.Count > 0 ? entries.CheckedItems.Cast<ListViewItem>() : entries.SelectedItems.Cast<ListViewItem>()).Select(item => (RecoveryEntry)item.Tag!).ToArray();
+        RecoveryEntry[] Marked() => entries.SelectedItems.Cast<ListViewItem>().Select(item => (RecoveryEntry)item.Tag!).ToArray();
         async Task DeleteBackups(bool selected)
         {
             if (busy || preview) return;
@@ -168,23 +212,7 @@ internal sealed class RecoveryForm : Form
             restore.Enabled = copy.Enabled = resume.Enabled = !busy && row?.Available == true;
             delete.Enabled = !busy && Marked().Any(entry => entry.CleanupState != 2);
         }
-        var synchronizingSelection = false;
-        entries.SelectedIndexChanged += (_, _) =>
-        {
-            if (synchronizingSelection) return;
-            synchronizingSelection = true;
-            try { foreach (ListViewItem item in entries.Items) item.Checked = item.Selected; }
-            finally { synchronizingSelection = false; }
-            UpdateSelection();
-        };
-        entries.ItemChecked += (_, e) =>
-        {
-            if (synchronizingSelection) return;
-            synchronizingSelection = true;
-            try { e.Item.Selected = e.Item.Checked; }
-            finally { synchronizingSelection = false; }
-            UpdateSelection();
-        };
+        entries.SelectedIndexChanged += (_, _) => UpdateSelection();
         restore.Click += async (_, _) =>
         {
             if (busy || Selected is not RecoveryEntry { Available: true } entry) { status.Text = UiText.Get("recovery.selectBackup"); return; }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "Sandaran dipadam: {count}. Ruang dibebaskan: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Pembersihan automatik juga menggunakan peraturan ini pada sandaran sedia ada. Ia memadam sandaran yang selesai selepas tempoh simpanan atau untuk mengosongkan ruang, dari yang tertua hingga yang terbaharu. Selepas itu, anda tidak akan dapat memulihkan fail asal setempat. Hamparan Google dan pintasan akan kekal. Dayakan?",
     "recovery.enableCleanupTitle": "Dayakan pembersihan automatik",
-    "recovery.instructions": "Untuk memulihkan: pilih satu baris dan pilih Pulihkan ke…\nUntuk memadam berbilang sandaran: tandai kotak atau pilih Pilih semua.\nOperasi tertunda dilindungi. Hamparan Google dan pintasan dikekalkan.",
+    "recovery.instructions": "Untuk memulihkan: pilih satu baris dan pilih Pulihkan ke…\nOperasi tertunda dilindungi. Hamparan Google dan pintasan dikekalkan.",
     "recovery.limits": "Had: 200 MB · maksimum: 1 GB. Operasi tertunda dilindungi.",
     "recovery.moreActions": "Lebih banyak tindakan ▾",
     "recovery.noBackups": "Tiada sandaran direkodkan untuk pengguna Windows ini.",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. Pintasan dan mengimport fail sebagai salinan",
     "tutorial.showAtStartup": "Paparkan tutorial ini semasa membuka aplikasi",
     "setup.defaultsHelp": "Pilih ZagoSheetsWin dalam Aplikasi lalai Windows. Pilihan, tetapi disyorkan. Pilih ZagoSheetsWin dalam Aplikasi lalai Windows. Ini pilihan: anda juga boleh menggunakan Buka dengan → ZagoSheetsWin.",
-    "import.notice.partialConversion": "Hamparan dibuka dalam Google Sheets. Sesetengah formula atau data mungkin berubah semasa penukaran. Fail asal digantikan dengan pintasan. Untuk memulihkannya, buka {backups}."
+    "import.notice.partialConversion": "Hamparan dibuka dalam Google Sheets. Fail asal digantikan dengan pintasan. Untuk memulihkannya, buka {backups}.",
+    "import.notice.dontShowAgain": "Jangan paparkan lagi"
   }
 }

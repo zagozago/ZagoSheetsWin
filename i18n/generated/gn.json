@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "Ñongatupyre joapy oñemboguéva: {count}. Pa'ũ oñemosãsóva: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Ñemopotĩ ijehegui avei omoĩ ko'ã tembiapoukapy ñongatupyre joapy oĩmavape. Ombogue oñemohu'ãmava ñongatu ára rire térã omosãso hag̃ua pa'ũ, itujavévagui ipyahuvévape. Upéi ndaikatumo'ãi rembojevy ypygua mohendaha ryepypegua. Google kuatia papapy ha mbopya'eha opytáta. Emyandy?",
     "recovery.enableCleanupTitle": "Ñemopotĩ ijehegui myandy",
-    "recovery.instructions": "Embojevy hag̃ua: eiporavo peteĩ tysýi ha eiporavo Embojevy ko'ápe…\nEmbogue hag̃ua heta ñongatupyre joapy: emarka umi pa'ũ térã eiporavo Poravopa.\nTembiapo oha'arõva oñemo'ã. Google kuatia papapy ha mbopya'eha oñeñongatu.",
+    "recovery.instructions": "Embojevy hag̃ua: eiporavo peteĩ tysýi ha eiporavo Embojevy ko'ápe…\nTembiapo oha'arõva oñemo'ã. Google kuatia papapy ha mbopya'eha oñeñongatu.",
     "recovery.limits": "Jeporu paha: 200 MB · tuichavéva: 1 GB. Tembiapo oha'arõva oñemo'ã.",
     "recovery.moreActions": "Tembiapo hetave ▾",
     "recovery.noBackups": "Ndaipóri ñongatupyre joapy oñembohaiguapýva ko Windows puruhárape.",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. Jeike pya’e ha kuatia jegueru peteĩ copia ramo",
     "tutorial.showAtStartup": "Ehechauka ko mbo’epy rembojehe’ávo aplicación",
     "setup.defaultsHelp": "Eiporavo ZagoSheetsWin Windows aplicación ypykuéra apytépe. Natekotevẽi, hákatu oñemoñe’ẽ eiporu hag̃ua. Eiporavo ZagoSheetsWin Windows Default apps-pe. Kóva ikatu reiporu térã nahániri: ikatu avei reiporu Jeike hendive → ZagoSheetsWin.",
-    "import.notice.partialConversion": "Pe kuatia renda ojepe'a Google Sheets-pe. Oĩ fórmula térã dato ikatúva oñemoambue oñembohasávo. Pe archivo ypykue rendaguépe oñemoĩ peteĩ jeike pya'e. Eguerujey hag̃ua, eipe'a {backups}."
+    "import.notice.partialConversion": "Pe kuatia renda ojepe'a Google Sheets-pe. Pe archivo ypykue rendaguépe oñemoĩ peteĩ jeike pya'e. Eguerujey hag̃ua, eipe'a {backups}.",
+    "import.notice.dontShowAgain": "Ani rehechauka jey"
   }
 }

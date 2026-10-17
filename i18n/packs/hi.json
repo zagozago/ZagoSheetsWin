@@ -2,8 +2,8 @@
   "language": "hi",
   "locale": "hi",
   "direction": "ltr",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -504,7 +504,7 @@
     "recovery.deleted": "हटाए गए बैकअप: {count}. खाली किया गया स्थान: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "स्वचालित सफ़ाई इन नियमों को मौजूदा बैकअप पर भी लागू करती है। यह रखरखाव अवधि के बाद या जगह खाली करने के लिए, सबसे पुराने से नए क्रम में पूर्ण बैकअप हटाती है। इसके बाद आप स्थानीय मूल फ़ाइल पुनर्स्थापित नहीं कर पाएँगे। Google स्प्रेडशीट और शॉर्टकट बने रहेंगे। सक्षम करें?",
     "recovery.enableCleanupTitle": "स्वचालित सफ़ाई सक्षम करें",
-    "recovery.instructions": "पुनर्प्राप्ति के लिए: एक पंक्ति चुनें और यहाँ पुनर्स्थापित करें… चुनें।\nएकाधिक बैकअप हटाने के लिए: चेकबॉक्स चुनें या सभी चुनें।\nलंबित कार्रवाइयाँ सुरक्षित हैं। Google स्प्रेडशीट और शॉर्टकट रखे जाते हैं।",
+    "recovery.instructions": "पुनर्प्राप्ति के लिए: एक पंक्ति चुनें और यहाँ पुनर्स्थापित करें… चुनें।\nलंबित कार्रवाइयाँ सुरक्षित हैं। Google स्प्रेडशीट और शॉर्टकट रखे जाते हैं।",
     "recovery.limits": "सीमा: 200 MB · अधिकतम: 1 GB. लंबित कार्रवाइयाँ सुरक्षित हैं।",
     "recovery.moreActions": "और कार्रवाइयाँ ▾",
     "recovery.noBackups": "इस Windows उपयोगकर्ता के लिए कोई बैकअप दर्ज नहीं है।",
@@ -639,7 +639,8 @@
     "setup.importHeading": "3. शॉर्टकट और फ़ाइल को कॉपी के रूप में आयात करना",
     "tutorial.showAtStartup": "ऐप खोलते समय यह ट्यूटोरियल दिखाएँ",
     "setup.defaultsHelp": "Windows के डिफ़ॉल्ट ऐप्स में ZagoSheetsWin चुनें। वैकल्पिक, लेकिन अनुशंसित। Windows के डिफ़ॉल्ट ऐप्स में ZagoSheetsWin चुनें। यह वैकल्पिक है: आप इसके साथ खोलें → ZagoSheetsWin का भी उपयोग कर सकते हैं।",
-    "import.notice.partialConversion": "स्प्रेडशीट Google Sheets में खुल गई है। रूपांतरण के दौरान कुछ फ़ॉर्मूले या डेटा बदल गए हो सकते हैं। मूल फ़ाइल की जगह शॉर्टकट बनाया गया है। मूल फ़ाइल वापस पाने के लिए {backups} खोलें।"
+    "import.notice.partialConversion": "स्प्रेडशीट Google Sheets में खुल गई है। मूल फ़ाइल की जगह शॉर्टकट बनाया गया है। मूल फ़ाइल वापस पाने के लिए {backups} खोलें।",
+    "import.notice.dontShowAgain": "दोबारा न दिखाएँ"
   },
   "expandedNumericNotation": [
     "setup.formatLimits"

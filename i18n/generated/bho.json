@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "बैकअप हटावल गइल: {count}. खाली भइल जगह: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "स्वचालित सफाई ई नियम मौजूद बैकअप परो लागू करेला. रखाव अवधि के बाद भा जगह खाली करे खातिर पूरा भइल बैकअप के पुरान से नया क्रम में हटावेला. ओकरा बाद स्थानीय मूल बहाल करीं ना हो पाई. Google स्प्रेडशीट आ शॉर्टकट बचल रही. Enable करीं?",
     "recovery.enableCleanupTitle": "स्वचालित सफाई enable करीं",
-    "recovery.instructions": "बहाल करीं करे खातिर: एगो पंक्ति चुनीं आ एहिजा बहाल करीं… चुनीं.\nकई बैकअप हटावे खातिर: चेकबॉक्स चिह्नित करीं करीं भा सभ चुनीं चुनीं.\nलंबित ऑपरेशन सुरक्षित बा. Google स्प्रेडशीट आ शॉर्टकट बचा के रखल जाला.",
+    "recovery.instructions": "बहाल करीं करे खातिर: एगो पंक्ति चुनीं आ एहिजा बहाल करीं… चुनीं.\nलंबित ऑपरेशन सुरक्षित बा. Google स्प्रेडशीट आ शॉर्टकट बचा के रखल जाला.",
     "recovery.limits": "सीमा: 200 MB · अधिकतम: 1 GB. लंबित ऑपरेशन सुरक्षित बा.",
     "recovery.moreActions": "आउर कार्रवाई ▾",
     "recovery.noBackups": "एह Windows उपयोगकर्ता खातिर कवनो बैकअप रिकॉर्ड नइखे.",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. शॉर्टकट आ फाइल के कॉपी के रूप में आयात",
     "tutorial.showAtStartup": "ऐप खोलत घरी ई ट्यूटोरियल देखाईं",
     "setup.defaultsHelp": "Windows के डिफॉल्ट ऐप में ZagoSheetsWin चुनीं। वैकल्पिक बा, बाकिर सुझाव दिहल जाला। Windows डिफॉल्ट ऐप्स में ZagoSheetsWin चुनीं. ई वैकल्पिक बा: रउआ एकरा साथ खोलीं → ZagoSheetsWin भी इस्तेमाल कर सकत बानी.",
-    "import.notice.partialConversion": "स्प्रेडशीट Google Sheets में खुल गइल बा। बदले के दौरान कुछ सूत्र भा डेटा बदल गइल हो सकेला। मूल फाइल के जगह शॉर्टकट बन गइल बा। मूल फाइल वापस पावे खातिर {backups} खोलीं।"
+    "import.notice.partialConversion": "स्प्रेडशीट Google Sheets में खुल गइल बा। मूल फाइल के जगह शॉर्टकट बन गइल बा। मूल फाइल वापस पावे खातिर {backups} खोलीं।",
+    "import.notice.dontShowAgain": "फेर मत देखाईं"
   }
 }

@@ -1,5 +1,11 @@
 # Histórico de alterações
 
+## 0.9.34
+
+- Confirm successful original replacement for every supported format, with persistent opt-out and one notice at a time per user session.
+- Hide backup row switches, auto-save retention/quota/cleanup preferences, and enable typed ascending/descending column sorting.
+- Render disabled button text legibly in dark mode.
+
 ## 0.9.33 — candidato de 2026-10-16
 
 - Importações confirmadas com equivalência parcial deixam de forçar cópia: fórmulas, dados ou recursos cuja preservação não pode ser confirmada geram aviso, mantendo backup e substituindo o original por atalho na pasta de origem conforme as preferências do usuário.

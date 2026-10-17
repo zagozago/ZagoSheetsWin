@@ -2,8 +2,8 @@
   "language": "yue",
   "locale": "yue-Hant-HK",
   "direction": "ltr",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -506,7 +506,7 @@
     "recovery.deleted": "已刪除備份：{count}。已釋放空間：{freedMb:N2} MB。",
     "recovery.enableCleanupPrompt": "自動清理亦會將呢啲規則套用到現有備份。完成嘅備份會喺保留期過後，或者需要騰出空間時，由最舊開始刪除。之後你將無法還原本機原檔。Google 試算表同捷徑會保留。要啟用嗎？",
     "recovery.enableCleanupTitle": "啟用自動清理",
-    "recovery.instructions": "要還原：揀一列，再揀「還原到…」。\n要刪除多個備份：勾選方格，或者揀「全部揀選」。\n待處理操作會受保護。Google 試算表同捷徑會保留。",
+    "recovery.instructions": "要還原：揀一列，再揀「還原到…」。\n待處理操作會受保護。Google 試算表同捷徑會保留。",
     "recovery.limits": "限額：200 MB · 最高：1 GB。待處理操作會受保護。",
     "recovery.moreActions": "更多動作 ▾",
     "recovery.noBackups": "呢個 Windows 使用者冇任何已記錄嘅備份。",
@@ -641,6 +641,7 @@
     "setup.importHeading": "3. 捷徑同以副本匯入檔案",
     "tutorial.showAtStartup": "開啟應用程式時顯示呢個教學",
     "setup.defaultsHelp": "喺 Windows 預設應用程式揀 ZagoSheetsWin。 可選，但建議設定。 喺 Windows 預設應用程式揀 ZagoSheetsWin。呢個步驟係可選嘅：你亦可以用「開啟方式 → ZagoSheetsWin」。",
-    "import.notice.partialConversion": "試算表已喺 Google Sheets 開啟。轉換時部分公式或資料可能有變。原始檔案已由捷徑取代。如要還原原始檔案，請開啟 {backups}。"
+    "import.notice.partialConversion": "試算表已喺 Google Sheets 開啟。原始檔案已由捷徑取代。如要還原原始檔案，請開啟 {backups}。",
+    "import.notice.dontShowAgain": "唔好再顯示"
   }
 }

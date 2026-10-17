@@ -2,8 +2,8 @@
   "language": "pa",
   "locale": "pa-Guru-IN",
   "direction": "ltr",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -507,7 +507,7 @@
     "recovery.deleted": "ਮਿਟਾਏ ਬੈਕਅੱਪ: {count}. ਖਾਲੀ ਕੀਤੀ ਜਗ੍ਹਾ: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "ਆਟੋਮੈਟਿਕ ਸਫਾਈ ਇਹ ਨਿਯਮ ਮੌਜੂਦਾ ਬੈਕਅੱਪਾਂ 'ਤੇ ਵੀ ਲਾਗੂ ਕਰਦੀ ਹੈ। ਇਹ ਰੱਖਣ ਦੀ ਮਿਆਦ ਤੋਂ ਬਾਅਦ ਜਾਂ ਜਗ੍ਹਾ ਖਾਲੀ ਕਰਨ ਲਈ ਪੂਰੇ ਹੋਏ ਬੈਕਅੱਪ ਸਭ ਤੋਂ ਪੁਰਾਣੇ ਤੋਂ ਨਵੇਂ ਕ੍ਰਮ ਵਿੱਚ ਮਿਟਾਉਂਦੀ ਹੈ। ਇਸ ਤੋਂ ਬਾਅਦ ਤੁਸੀਂ ਲੋਕਲ ਅਸਲ ਫਾਈਲ ਰੀਸਟੋਰ ਨਹੀਂ ਕਰ ਸਕੋਗੇ। Google ਸਪ੍ਰੈਡਸ਼ੀਟਾਂ ਅਤੇ ਸ਼ਾਰਟਕੱਟ ਰਹਿਣਗੇ। ਚਾਲੂ ਕਰਨਾ ਹੈ?",
     "recovery.enableCleanupTitle": "ਆਟੋਮੈਟਿਕ ਸਫਾਈ ਚਾਲੂ ਕਰੋ",
-    "recovery.instructions": "ਰੀਸਟੋਰ ਕਰਨ ਲਈ: ਇੱਕ ਕਤਾਰ ਚੁਣੋ ਅਤੇ ਇੱਥੇ ਰੀਸਟੋਰ ਕਰੋ… ਚੁਣੋ।\nਕਈ ਬੈਕਅੱਪ ਮਿਟਾਉਣ ਲਈ: ਚੈੱਕਬਾਕਸ ਚੁਣੋ ਜਾਂ ਸਭ ਚੁਣੋ ਵਰਤੋ।\nਬਕਾਇਆ ਕਾਰਵਾਈਆਂ ਸੁਰੱਖਿਅਤ ਹਨ। Google ਸਪ੍ਰੈਡਸ਼ੀਟਾਂ ਅਤੇ ਸ਼ਾਰਟਕੱਟ ਰੱਖੇ ਜਾਂਦੇ ਹਨ।",
+    "recovery.instructions": "ਰੀਸਟੋਰ ਕਰਨ ਲਈ: ਇੱਕ ਕਤਾਰ ਚੁਣੋ ਅਤੇ ਇੱਥੇ ਰੀਸਟੋਰ ਕਰੋ… ਚੁਣੋ।\nਬਕਾਇਆ ਕਾਰਵਾਈਆਂ ਸੁਰੱਖਿਅਤ ਹਨ। Google ਸਪ੍ਰੈਡਸ਼ੀਟਾਂ ਅਤੇ ਸ਼ਾਰਟਕੱਟ ਰੱਖੇ ਜਾਂਦੇ ਹਨ।",
     "recovery.limits": "ਸੀਮਾ: 200 MB · ਵੱਧ ਤੋਂ ਵੱਧ: 1 GB. ਬਕਾਇਆ ਕਾਰਵਾਈਆਂ ਸੁਰੱਖਿਅਤ ਹਨ।",
     "recovery.moreActions": "ਹੋਰ ਕਾਰਵਾਈਆਂ ▾",
     "recovery.noBackups": "ਇਸ Windows ਯੂਜ਼ਰ ਲਈ ਕੋਈ ਬੈਕਅੱਪ ਦਰਜ ਨਹੀਂ।",
@@ -642,6 +642,7 @@
     "setup.importHeading": "3. ਸ਼ਾਰਟਕੱਟ ਅਤੇ ਫਾਈਲ ਨੂੰ ਨਕਲ ਵਜੋਂ ਆਯਾਤ ਕਰਨਾ",
     "tutorial.showAtStartup": "ਐਪ ਖੋਲ੍ਹਣ ਵੇਲੇ ਇਹ ਟਿਊਟੋਰਿਅਲ ਦਿਖਾਓ",
     "setup.defaultsHelp": "Windows ਦੀਆਂ ਡਿਫੌਲਟ ਐਪਾਂ ਵਿੱਚ ZagoSheetsWin ਚੁਣੋ। ਵਿਕਲਪਿਕ, ਪਰ ਸਿਫਾਰਸ਼ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। Windows ਡਿਫੌਲਟ ਐਪਸ ਵਿੱਚ ZagoSheetsWin ਚੁਣੋ। ਇਹ ਵਿਕਲਪਿਕ ਹੈ: ਤੁਸੀਂ ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ → ZagoSheetsWin ਵੀ ਵਰਤ ਸਕਦੇ ਹੋ।",
-    "import.notice.partialConversion": "ਸਪ੍ਰੈਡਸ਼ੀਟ Google Sheets ਵਿੱਚ ਖੁੱਲ੍ਹ ਗਈ ਹੈ। ਬਦਲਾਅ ਦੌਰਾਨ ਕੁਝ ਫਾਰਮੂਲੇ ਜਾਂ ਡਾਟਾ ਬਦਲਿਆ ਹੋ ਸਕਦਾ ਹੈ। ਅਸਲ ਫਾਈਲ ਦੀ ਥਾਂ ਸ਼ਾਰਟਕੱਟ ਬਣਾਇਆ ਗਿਆ ਹੈ। ਅਸਲ ਫਾਈਲ ਵਾਪਸ ਲੈਣ ਲਈ {backups} ਖੋਲ੍ਹੋ।"
+    "import.notice.partialConversion": "ਸਪ੍ਰੈਡਸ਼ੀਟ Google Sheets ਵਿੱਚ ਖੁੱਲ੍ਹ ਗਈ ਹੈ। ਅਸਲ ਫਾਈਲ ਦੀ ਥਾਂ ਸ਼ਾਰਟਕੱਟ ਬਣਾਇਆ ਗਿਆ ਹੈ। ਅਸਲ ਫਾਈਲ ਵਾਪਸ ਲੈਣ ਲਈ {backups} ਖੋਲ੍ਹੋ।",
+    "import.notice.dontShowAgain": "ਮੁੜ ਨਾ ਦਿਖਾਓ"
   }
 }

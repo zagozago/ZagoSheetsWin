@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "Backup eliminati: {count}. Spazio liberato: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "La pulizia automatica applica queste regole anche ai backup esistenti. Elimina i backup completati dopo il periodo di conservazione o per liberare spazio, dal più vecchio al più recente. In seguito non potrai ripristinare l'originale locale. I fogli di calcolo Google e i collegamenti rimarranno. Abilitare?",
     "recovery.enableCleanupTitle": "Abilita pulizia automatica",
-    "recovery.instructions": "Per recuperare: seleziona una riga e scegli Ripristina in…\nPer eliminare più backup: seleziona le caselle o scegli Seleziona tutto.\nLe operazioni in sospeso sono protette. I fogli di calcolo Google e i collegamenti vengono mantenuti.",
+    "recovery.instructions": "Per recuperare: seleziona una riga e scegli Ripristina in…\nLe operazioni in sospeso sono protette. I fogli di calcolo Google e i collegamenti vengono mantenuti.",
     "recovery.limits": "Limite: 200 MB · massimo: 1 GB. Le operazioni in sospeso sono protette.",
     "recovery.moreActions": "Altre azioni ▾",
     "recovery.noBackups": "Nessun backup registrato per questo utente Windows.",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. Collegamenti e importazione del file come copia",
     "tutorial.showAtStartup": "Mostra questo tutorial all’apertura dell’app",
     "setup.defaultsHelp": "Scegli ZagoSheetsWin nelle App predefinite di Windows. Facoltativo, ma consigliato. Scegli ZagoSheetsWin nelle App predefinite di Windows. È facoltativo: puoi anche usare Apri con → ZagoSheetsWin.",
-    "import.notice.partialConversion": "Il foglio è stato aperto in Google Sheets. Alcune formule o dati potrebbero essere cambiati durante la conversione. Il file originale è stato sostituito da un collegamento. Per recuperarlo, apri {backups}."
+    "import.notice.partialConversion": "Il foglio è stato aperto in Google Sheets. Il file originale è stato sostituito da un collegamento. Per recuperarlo, apri {backups}.",
+    "import.notice.dontShowAgain": "Non mostrare più"
   }
 }

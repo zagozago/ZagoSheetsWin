@@ -2,8 +2,8 @@
   "language": "es",
   "locale": "es",
   "direction": "ltr",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -507,7 +507,7 @@
     "recovery.deleted": "Copias de seguridad eliminadas: {count}. Espacio liberado: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "La limpieza automática también aplica estas reglas a las copias de seguridad existentes. Elimina las copias completadas después del período de retención o para liberar espacio, de la más antigua a la más reciente. Después no podrás restaurar el original local. Las hojas de cálculo y los accesos directos de Google se conservarán. ¿Habilitar?",
     "recovery.enableCleanupTitle": "Habilitar limpieza automática",
-    "recovery.instructions": "Para recuperar: selecciona una fila y elige Restaurar en…\nPara eliminar varias copias de seguridad: marca las casillas o elige Seleccionar todo.\nLas operaciones pendientes están protegidas. Las hojas de cálculo y los accesos directos de Google se conservan.",
+    "recovery.instructions": "Para recuperar: selecciona una fila y elige Restaurar en…\nLas operaciones pendientes están protegidas. Las hojas de cálculo y los accesos directos de Google se conservan.",
     "recovery.limits": "Límite: 200 MB · máximo: 1 GB. Las operaciones pendientes están protegidas.",
     "recovery.moreActions": "Más acciones ▾",
     "recovery.noBackups": "No hay copias de seguridad registradas para este usuario de Windows.",
@@ -642,6 +642,7 @@
     "setup.importHeading": "3. Accesos directos e importación del archivo como copia",
     "tutorial.showAtStartup": "Mostrar este tutorial al abrir la aplicación",
     "setup.defaultsHelp": "Elige ZagoSheetsWin en las Aplicaciones predeterminadas de Windows. Opcional, pero recomendado. Elige ZagoSheetsWin en Aplicaciones predeterminadas de Windows. Es opcional: también puedes usar Abrir con → ZagoSheetsWin.",
-    "import.notice.partialConversion": "La hoja se abrió en Google Sheets. Algunas fórmulas o datos pueden haber cambiado durante la conversión. El archivo original se sustituyó por un acceso directo. Para recuperarlo, abre {backups}."
+    "import.notice.partialConversion": "La hoja se abrió en Google Sheets. El archivo original se sustituyó por un acceso directo. Para recuperarlo, abre {backups}.",
+    "import.notice.dontShowAgain": "No volver a mostrar"
   }
 }

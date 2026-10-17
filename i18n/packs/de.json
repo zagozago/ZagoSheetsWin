@@ -2,8 +2,8 @@
   "language": "de",
   "locale": "de",
   "direction": "ltr",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -514,7 +514,7 @@
     "recovery.deleted": "Sicherungen gelöscht: {count}. Freigegebener Speicherplatz: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Die automatische Bereinigung wendet diese Regeln auch auf vorhandene Sicherungen an. Abgeschlossene Sicherungen werden nach Ablauf der Aufbewahrungsfrist oder zum Freigeben von Speicherplatz von den ältesten zu den neuesten gelöscht. Danach kann das lokale Original nicht mehr wiederhergestellt werden. Google-Tabellen und Verknüpfungen bleiben erhalten. Aktivieren?",
     "recovery.enableCleanupTitle": "Automatische Bereinigung aktivieren",
-    "recovery.instructions": "Wiederherstellen: Wählen Sie eine Zeile und anschließend „Wiederherstellen nach…“.\nMehrere Sicherungen löschen: Aktivieren Sie die Kontrollkästchen oder wählen Sie „Alle auswählen“.\nAusstehende Vorgänge sind geschützt. Google-Tabellen und Verknüpfungen bleiben erhalten.",
+    "recovery.instructions": "Wiederherstellen: Wählen Sie eine Zeile und anschließend „Wiederherstellen nach…“.\nAusstehende Vorgänge sind geschützt. Google-Tabellen und Verknüpfungen bleiben erhalten.",
     "recovery.limits": "Limit: 200 MB · Maximum: 1 GB. Ausstehende Vorgänge sind geschützt.",
     "recovery.moreActions": "Weitere Aktionen ▾",
     "recovery.noBackups": "Für diesen Windows-Benutzer wurden keine Sicherungen aufgezeichnet.",
@@ -649,6 +649,7 @@
     "setup.importHeading": "3. Verknüpfungen und Datei als Kopie importieren",
     "tutorial.showAtStartup": "Dieses Tutorial beim Öffnen der App anzeigen",
     "setup.defaultsHelp": "Wählen Sie ZagoSheetsWin in den Windows-Standard-Apps. Optional, aber empfohlen. Wählen Sie ZagoSheetsWin in den Windows-Standard-Apps. Dies ist optional: Sie können auch „Öffnen mit → ZagoSheetsWin“ verwenden.",
-    "import.notice.partialConversion": "Die Tabelle wurde in Google Sheets geöffnet. Einige Formeln oder Daten könnten bei der Konvertierung verändert worden sein. Die Originaldatei wurde durch eine Verknüpfung ersetzt. Öffnen Sie zum Wiederherstellen {backups}."
+    "import.notice.partialConversion": "Die Tabelle wurde in Google Sheets geöffnet. Die Originaldatei wurde durch eine Verknüpfung ersetzt. Öffnen Sie zum Wiederherstellen {backups}.",
+    "import.notice.dontShowAgain": "Nicht mehr anzeigen"
   }
 }

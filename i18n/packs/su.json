@@ -2,8 +2,8 @@
   "language": "su",
   "locale": "su-ID",
   "direction": "ltr",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -509,7 +509,7 @@
     "recovery.deleted": "Cadangan dipupus: {count}. Rohangan dibébaskeun: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Bersih otomatis ogé nerapkeun aturan ieu ka cadangan nu geus aya. Cadangan nu geus réngsé dipupus sanggeus mangsa panyimpenan atawa pikeun ngabébaskeun rohangan, ti nu pangheubeulna ka nu panganyarna. Sanggeus éta, file asli lokal moal bisa dipulihkeun. Spreadsheet Google jeung shortcut bakal tetep aya. Aktipkeun?",
     "recovery.enableCleanupTitle": "Aktipkeun bersih otomatis",
-    "recovery.instructions": "Pikeun mulihkeun: pilih hiji baris tuluy pilih Pulihkeun ka…\nPikeun mupus sababaraha cadangan: centang kotak atawa pilih Pilih sadayana.\nOperasi nu keur nungguan ditangtayungan. Spreadsheet Google jeung shortcut tetep disimpen.",
+    "recovery.instructions": "Pikeun mulihkeun: pilih hiji baris tuluy pilih Pulihkeun ka…\nOperasi nu keur nungguan ditangtayungan. Spreadsheet Google jeung shortcut tetep disimpen.",
     "recovery.limits": "Wates: 200 MB · maksimum: 1 GB. Operasi nu keur nungguan ditangtayungan.",
     "recovery.moreActions": "Aksi séjén ▾",
     "recovery.noBackups": "Teu aya cadangan nu kacatet pikeun pamaké Windows ieu.",
@@ -644,6 +644,7 @@
     "setup.importHeading": "3. Potong kompas sareng ngimpor berkas minangka salinan",
     "tutorial.showAtStartup": "Témbongkeun tutorial ieu nalika muka aplikasi",
     "setup.defaultsHelp": "Pilih ZagoSheetsWin dina Aplikasi standar Windows. Pilihan, tapi disarankeun. Pilih ZagoSheetsWin dina Aplikasi standar Windows. Ieu opsional: anjeun ogé bisa maké Buka ku → ZagoSheetsWin.",
-    "import.notice.partialConversion": "Spreadsheet parantos dibuka dina Google Sheets. Sababaraha rumus atanapi data tiasa robih nalika konversi. Berkas asli diganti ku potong kompas. Pikeun mulangkeunana, buka {backups}."
+    "import.notice.partialConversion": "Spreadsheet parantos dibuka dina Google Sheets. Berkas asli diganti ku potong kompas. Pikeun mulangkeunana, buka {backups}.",
+    "import.notice.dontShowAgain": "Ulah témbongkeun deui"
   }
 }

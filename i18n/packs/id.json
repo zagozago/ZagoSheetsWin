@@ -2,8 +2,8 @@
   "language": "id",
   "locale": "id",
   "direction": "ltr",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -508,7 +508,7 @@
     "recovery.deleted": "Cadangan dihapus: {count}. Ruang dibebaskan: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Pembersihan otomatis juga menerapkan aturan ini pada cadangan yang sudah ada. Cadangan operasi selesai dihapus setelah masa simpan berakhir atau untuk membebaskan ruang, dari yang paling lama. Setelah itu, berkas asli lokal tidak dapat dipulihkan. Spreadsheet Google dan pintasan akan tetap ada. Aktifkan?",
     "recovery.enableCleanupTitle": "Aktifkan pembersihan otomatis",
-    "recovery.instructions": "Untuk memulihkan: pilih satu baris lalu pilih Pulihkan ke…\nUntuk menghapus beberapa cadangan: centang kotak atau pilih Pilih semua.\nOperasi tertunda dilindungi. Spreadsheet Google dan pintasan tetap disimpan.",
+    "recovery.instructions": "Untuk memulihkan: pilih satu baris lalu pilih Pulihkan ke…\nOperasi tertunda dilindungi. Spreadsheet Google dan pintasan tetap disimpan.",
     "recovery.limits": "Batas: 200 MB · maksimum: 1 GB. Operasi tertunda dilindungi.",
     "recovery.moreActions": "Tindakan lainnya ▾",
     "recovery.noBackups": "Tidak ada cadangan yang tercatat untuk pengguna Windows ini.",
@@ -643,6 +643,7 @@
     "setup.importHeading": "3. Pintasan dan mengimpor file sebagai salinan",
     "tutorial.showAtStartup": "Tampilkan tutorial ini saat membuka aplikasi",
     "setup.defaultsHelp": "Pilih ZagoSheetsWin di Aplikasi default Windows. Opsional, tetapi disarankan. Pilih ZagoSheetsWin di Aplikasi default Windows. Ini opsional: Anda juga dapat menggunakan Buka dengan → ZagoSheetsWin.",
-    "import.notice.partialConversion": "Spreadsheet dibuka di Google Sheets. Beberapa rumus atau data mungkin berubah selama konversi. File asli diganti dengan pintasan. Untuk memulihkannya, buka {backups}."
+    "import.notice.partialConversion": "Spreadsheet dibuka di Google Sheets. File asli diganti dengan pintasan. Untuk memulihkannya, buka {backups}.",
+    "import.notice.dontShowAgain": "Jangan tampilkan lagi"
   }
 }

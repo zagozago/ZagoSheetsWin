@@ -2,8 +2,8 @@
   "language": "ko",
   "locale": "ko-KR",
   "direction": "ltr",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -504,7 +504,7 @@
     "recovery.deleted": "백업 삭제됨: {count}개. 확보된 공간: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "자동 정리는 기존 백업에도 이 규칙을 적용합니다. 보관 기간이 지난 완료된 백업을 삭제하거나 공간 확보를 위해 오래된 것부터 삭제합니다. 이후에는 로컬 원본을 복원할 수 없습니다. Google 스프레드시트와 바로 가기는 유지됩니다. 활성화하시겠습니까?",
     "recovery.enableCleanupTitle": "자동 정리 활성화",
-    "recovery.instructions": "복구하려면: 행을 선택하고 다음 위치에 복원…을 선택하세요.\n여러 백업을 삭제하려면: 확인란을 선택하거나 모두 선택을 사용하세요.\n대기 중인 작업은 보호됩니다. Google 스프레드시트와 바로 가기는 유지됩니다.",
+    "recovery.instructions": "복구하려면: 행을 선택하고 다음 위치에 복원…을 선택하세요.\n대기 중인 작업은 보호됩니다. Google 스프레드시트와 바로 가기는 유지됩니다.",
     "recovery.limits": "한도: 200 MB · 최대: 1 GB. 대기 중인 작업은 보호됩니다.",
     "recovery.moreActions": "추가 작업 ▾",
     "recovery.noBackups": "이 Windows 사용자에 대해 기록된 백업이 없습니다.",
@@ -639,7 +639,8 @@
     "setup.importHeading": "3. 바로가기 및 파일을 사본으로 가져오기",
     "tutorial.showAtStartup": "앱을 열 때 이 자습서 표시",
     "setup.defaultsHelp": "Windows 기본 앱에서 ZagoSheetsWin을 선택하세요. 선택 사항이지만 권장합니다. Windows 기본 앱에서 ZagoSheetsWin을 선택하세요. 선택 사항이며 연결 프로그램 → ZagoSheetsWin을 사용할 수도 있습니다.",
-    "import.notice.partialConversion": "스프레드시트를 Google Sheets에서 열었습니다. 변환 중 일부 수식이나 데이터가 변경되었을 수 있습니다. 원본 파일은 바로가기로 대체되었습니다. 원본을 복구하려면 {backups}을(를) 여세요."
+    "import.notice.partialConversion": "스프레드시트를 Google Sheets에서 열었습니다. 원본 파일은 바로가기로 대체되었습니다. 원본을 복구하려면 {backups}을(를) 여세요.",
+    "import.notice.dontShowAgain": "다시 표시하지 않음"
   },
   "expandedNumericNotation": [
     "setup.formatLimits"

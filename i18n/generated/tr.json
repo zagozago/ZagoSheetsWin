@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "Silinen yedekler: {count}. Boşaltılan alan: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Otomatik temizleme bu kuralları mevcut yedeklere de uygular. Tamamlanmış yedekleri saklama süresi dolduğunda veya alan açmak gerektiğinde en eskiden en yeniye doğru siler. Daha sonra yerel özgün dosyayı geri yükleyemezsiniz. Google elektronik tabloları ve kısayollar korunur. Etkinleştirilsin mi?",
     "recovery.enableCleanupTitle": "Otomatik temizlemeyi etkinleştir",
-    "recovery.instructions": "Kurtarmak için: bir satır seçip Şuraya geri yükle… seçeneğini kullanın.\nBirden çok yedeği silmek için: kutuları işaretleyin veya Tümünü seç seçeneğini kullanın.\nBekleyen işlemler korunur. Google elektronik tabloları ve kısayollar korunur.",
+    "recovery.instructions": "Kurtarmak için: bir satır seçip Şuraya geri yükle… seçeneğini kullanın.\nBekleyen işlemler korunur. Google elektronik tabloları ve kısayollar korunur.",
     "recovery.limits": "Sınır: 200 MB · en fazla: 1 GB. Bekleyen işlemler korunur.",
     "recovery.moreActions": "Diğer işlemler ▾",
     "recovery.noBackups": "Bu Windows kullanıcısı için kayıtlı yedek yok.",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. Kısayollar ve dosyayı kopya olarak içe aktarma",
     "tutorial.showAtStartup": "Uygulama açılırken bu öğreticiyi göster",
     "setup.defaultsHelp": "Windows Varsayılan uygulamalarında ZagoSheetsWin’i seçin. İsteğe bağlı, ancak önerilir. Windows Varsayılan uygulamalar bölümünde ZagoSheetsWin’i seçin. Bu isteğe bağlıdır: Birlikte aç → ZagoSheetsWin de kullanabilirsiniz.",
-    "import.notice.partialConversion": "E-tablo Google Sheets'te açıldı. Dönüştürme sırasında bazı formüller veya veriler değişmiş olabilir. Asıl dosyanın yerine bir kısayol oluşturuldu. Dosyayı geri almak için {backups} bölümünü açın."
+    "import.notice.partialConversion": "E-tablo Google Sheets'te açıldı. Asıl dosyanın yerine bir kısayol oluşturuldu. Dosyayı geri almak için {backups} bölümünü açın.",
+    "import.notice.dontShowAgain": "Bir daha gösterme"
   }
 }

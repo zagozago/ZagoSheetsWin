@@ -2,8 +2,8 @@
   "language": "ha",
   "locale": "ha-NG",
   "direction": "ltr",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -507,7 +507,7 @@
     "recovery.deleted": "Ajiyar baya da aka share: {count}. Sararin da aka 'yanta: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Tsaftacewa ta atomatik tana amfani da waɗannan dokoki ga ajiyar baya da ake da su ma. Tana share ajiyar da aka kammala bayan lokacin riƙewa ko don 'yantar da sarari, daga mafi tsufa zuwa mafi sabo. Bayan haka, ba za ka iya maido da asalin na cikin gida ba. Maƙunsar Google da gajerun hanyoyi za su kasance. A kunna?",
     "recovery.enableCleanupTitle": "Kunna tsaftacewa ta atomatik",
-    "recovery.instructions": "Don maidowa: zaɓi layi sannan ka zaɓi Mayar zuwa…\nDon share ajiyar baya da yawa: yi alama a akwatuna ko zaɓi Zaɓi duka.\nAyyukan da ke jira suna da kariya. Ana riƙe maƙunsar Google da gajerun hanyoyi.",
+    "recovery.instructions": "Don maidowa: zaɓi layi sannan ka zaɓi Mayar zuwa…\nAyyukan da ke jira suna da kariya. Ana riƙe maƙunsar Google da gajerun hanyoyi.",
     "recovery.limits": "Iyaka: 200 MB · mafi yawa: 1 GB. Ayyukan da ke jira suna da kariya.",
     "recovery.moreActions": "Ƙarin ayyuka ▾",
     "recovery.noBackups": "Babu ajiyar baya da aka rubuta wa wannan mai amfani da Windows.",
@@ -642,6 +642,7 @@
     "setup.importHeading": "3. Gajerun hanyoyi da shigo da fayil a matsayin kwafi",
     "tutorial.showAtStartup": "Nuna wannan koyarwar lokacin buɗe manhajar",
     "setup.defaultsHelp": "Zaɓi ZagoSheetsWin a Manhajojin asali na Windows. Ba dole ba, amma ana ba da shawara. Zaɓi ZagoSheetsWin a Windows Default apps. Wannan na zaɓi ne: za ka iya kuma amfani da Buɗe da → ZagoSheetsWin.",
-    "import.notice.partialConversion": "An buɗe maƙunsar a Google Sheets. Wasu dabaru ko bayanai na iya canzawa yayin sauyawa. An maye gurbin fayil na asali da gajeriyar hanya. Don dawo da shi, buɗe {backups}."
+    "import.notice.partialConversion": "An buɗe maƙunsar a Google Sheets. An maye gurbin fayil na asali da gajeriyar hanya. Don dawo da shi, buɗe {backups}.",
+    "import.notice.dontShowAgain": "Kar a sake nunawa"
   }
 }

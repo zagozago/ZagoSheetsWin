@@ -190,7 +190,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         var coordinator = new ReplacementCoordinator(local, remote, new ManagedBackupStore(storage), locks,
             new ReplacementJournal(System.IO.Path.Combine(storage.Root, "replacement.db")), sources, browser, conversion, ShortcutIcon.Ensure(storage), telemetry);
         var shortcut = await coordinator.ReplaceAsync(receipt, ct);
-        SetConversionNotice(conversion);
+        SetReplacementNotice();
         return shortcut;
     }
 
@@ -264,14 +264,13 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         var conversion = new ConversionVerifier(drive, options, telemetry);
         var shortcut = await new ReplacementCoordinator(local, remote, new ManagedBackupStore(storage), locks, journal,
             new WindowsRetirementReader(opening.RestrictToFolder ? opening.Folder : null), browser, conversion, ShortcutIcon.Ensure(storage), telemetry).ReplaceAsync(receipt, ct);
-        SetConversionNotice(conversion);
+        SetReplacementNotice();
         return shortcut;
     }
 
-    private void SetConversionNotice(ConversionVerifier conversion)
+    private void SetReplacementNotice()
     {
-        if (conversion.HasWarnings)
-            ImportNotice = UiText.Format("import.notice.partialConversion", ("backups", UiText.Get("home.backups").Replace("&", "", StringComparison.Ordinal)));
+        ImportNotice = UiText.Format("import.notice.partialConversion", ("backups", UiText.Get("home.backups").Replace("&", "", StringComparison.Ordinal)));
     }
 
     private async Task<string> PublishCopyAsync(ImportReceipt receipt, IProgress<string>? progress, CancellationToken ct)

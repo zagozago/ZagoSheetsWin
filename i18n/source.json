@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 8,
+  "catalogRevision": 9,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -5966,7 +5966,7 @@
       "notes": []
     },
     "recovery.instructions": {
-      "text": "Para recuperar: selecione uma linha e use Restaurar em…\nPara apagar vários backups: marque as caixas ou use Selecionar todos.\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos.",
+      "text": "Para recuperar: selecione uma linha e use Restaurar\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos.",
       "context": "src/SheetsWindows.Windows/RecoveryForm.cs - private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Top, Height = 85, Padding = new Padding(12), Text = \"Para recuperar: selecione uma linha e use Restaurar em…\\nPara apagar vários backups: marque as caixas ou use Selecionar todos.\\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos.\" };",
       "scope": "app",
       "placeholders": [],
@@ -7367,8 +7367,8 @@
       "notes": []
     },
     "import.notice.partialConversion": {
-      "text": "Planilha aberta no Google Sheets. Algumas fórmulas ou dados podem ter mudado na conversão. O original foi substituído por um atalho. Para recuperá-lo, abra {backups}.",
-      "context": "Confirmed partial conversion after successful backup and local shortcut replacement. Backups button restores the original.",
+      "text": "Planilha aberta no Google Sheets. O original foi substituído por um atalho. Para recuperá-lo, abra {backups}.",
+      "context": "Successful spreadsheet replacement confirmation. Shown until dismissed permanently; not a conversion warning.",
       "scope": "app",
       "placeholders": [
         "backups"
@@ -7377,6 +7377,15 @@
         "Google Sheets",
         "Google"
       ],
+      "markup": [],
+      "notes": []
+    },
+    "import.notice.dontShowAgain": {
+      "text": "Não mostrar novamente",
+      "context": "Unchecked checkbox above the import confirmation buttons. Saves a persistent preference.",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
       "markup": [],
       "notes": []
     }

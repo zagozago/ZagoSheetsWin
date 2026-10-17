@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "حذف شوي بیک‌اپونه: {count}. ازاد شوی ځای: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "اتومات پاکول دا قواعد پر شته بیک‌اپونو هم پلي کوي. بشپړ شوي بیک‌اپونه د ساتلو مودې له تېرېدو وروسته یا د ځای خالي کولو لپاره، له تر ټولو زړو څخه تر نویو، حذف کوي. وروسته به تاسو ځايي اصلي فایل بیا رغولی نه شئ. د Google سپرېډشیټونه او شارټ‌کټونه به پاتې شي. فعال یې کړئ؟",
     "recovery.enableCleanupTitle": "اتومات پاکول فعالول",
-    "recovery.instructions": "د بیا رغولو لپاره: یو قطار وټاکئ او بیا رغول په… غوره کړئ.\nد څو بیک‌اپونو د حذف لپاره: بکسونه وټاکئ یا ټول ټاکل غوره کړئ.\nځنډېدلي عملیات خوندي دي. د Google سپرېډشیټونه او شارټ‌کټونه ساتل کېږي.",
+    "recovery.instructions": "د بیا رغولو لپاره: یو قطار وټاکئ او بیا رغول په… غوره کړئ.\nځنډېدلي عملیات خوندي دي. د Google سپرېډشیټونه او شارټ‌کټونه ساتل کېږي.",
     "recovery.limits": "حد: 200 MB · اعظمي: 1 GB. ځنډېدلي عملیات خوندي دي.",
     "recovery.moreActions": "نورې کړنې ▾",
     "recovery.noBackups": "د دې Windows کارن لپاره هېڅ بیک‌اپ ثبت شوی نه دی.",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. لنډلارې او د فایل د نقل په توګه واردول",
     "tutorial.showAtStartup": "د کاریال پرانیستلو پر مهال دا لارښود ښکاره کړئ",
     "setup.defaultsHelp": "د Windows په اصلي کاریالونو کې ZagoSheetsWin غوره کړئ. اختیاري، خو سپارښتنه کېږي. په Windows ډیفالټ اپونه کې ZagoSheetsWin وټاکئ. دا اختیاري ده: تاسو له دې سره پرانیزئ → ZagoSheetsWin هم کارولی شئ.",
-    "import.notice.partialConversion": "سپریډشیټ په Google Sheets کې پرانیستل شو. ښايي ځینې فورمولونه یا معلومات د بدلولو پر مهال بدل شوي وي. اصلي فایل په لنډلار بدل شو. د بېرته ترلاسه کولو لپاره یې {backups} پرانیزئ."
+    "import.notice.partialConversion": "سپریډشیټ په Google Sheets کې پرانیستل شو. اصلي فایل په لنډلار بدل شو. د بېرته ترلاسه کولو لپاره یې {backups} پرانیزئ.",
+    "import.notice.dontShowAgain": "بیا یې مه ښایئ"
   }
 }

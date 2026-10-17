@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "बैकअप मेटाओल गेल: {count}. खाली भेल जगह: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "स्वचालित सफाई ई नियम मौजूदा बैकअप पर सेहो लागू करैत अछि। ई रखबाक अवधि पूरा भेलाक बाद वा जगह खाली करबाक लेल, सबसँ पुरान सँ नवीन धरि, पूरा बैकअप मेटबैत अछि। एकर बाद स्थानीय मूल फाइल पुनर्स्थापित नहि क' सकब। Google स्प्रेडशीट आ शॉर्टकट रहत। सक्षम करू?",
     "recovery.enableCleanupTitle": "स्वचालित सफाई सक्षम करू",
-    "recovery.instructions": "पुनर्प्राप्ति लेल: एकटा पंक्ति चुनू आ एतय पुनर्स्थापित करू… चुनू।\nकतेको बैकअप मेटाबाक लेल: बॉक्स चुनू वा सभ चुनू।\nलम्बित ऑपरेशन सुरक्षित अछि। Google स्प्रेडशीट आ शॉर्टकट राखल जाइत अछि।",
+    "recovery.instructions": "पुनर्प्राप्ति लेल: एकटा पंक्ति चुनू आ एतय पुनर्स्थापित करू… चुनू।\nलम्बित ऑपरेशन सुरक्षित अछि। Google स्प्रेडशीट आ शॉर्टकट राखल जाइत अछि।",
     "recovery.limits": "सीमा: 200 MB · अधिकतम: 1 GB. लम्बित ऑपरेशन सुरक्षित अछि।",
     "recovery.moreActions": "आओर क्रिया ▾",
     "recovery.noBackups": "एहि Windows उपयोगकर्ताक लेल कोनो बैकअप दर्ज नहि अछि।",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. शॉर्टकट आ फाइलक कॉपी रूप मे आयात",
     "tutorial.showAtStartup": "ऐप खोलबाक समय ई मार्गदर्शन देखाउ",
     "setup.defaultsHelp": "Windows क पूर्वनिर्धारित ऐप मे ZagoSheetsWin चुनू। वैकल्पिक, मुदा अनुशंसित। Windows डिफॉल्ट ऐप मेँ ZagoSheetsWin चुनू। ई वैकल्पिक अछि: अहाँ एकरासँ खोलू → ZagoSheetsWin सेहो उपयोग क' सकैत छी।",
-    "import.notice.partialConversion": "स्प्रेडशीट Google Sheets मे खुजि गेल अछि। रूपांतरणक समय किछु सूत्र वा डेटा बदलि गेल हो सकैत अछि। मूल फाइलक स्थान पर शॉर्टकट बनाओल गेल अछि। मूल फाइल वापस पाबय लेल {backups} खोलू।"
+    "import.notice.partialConversion": "स्प्रेडशीट Google Sheets मे खुजि गेल अछि। मूल फाइलक स्थान पर शॉर्टकट बनाओल गेल अछि। मूल फाइल वापस पाबय लेल {backups} खोलू।",
+    "import.notice.dontShowAgain": "फेर सँ नहि देखाउ"
   }
 }

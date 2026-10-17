@@ -48,9 +48,10 @@ internal static class Branding
             }
             if (control is Button disabled && !disabled.Enabled)
             {
+                if (dark && !highContrast) disabled.BackColor = Color.FromArgb(26, 43, 33);
                 // Blend with the actual surface, including primary buttons. High contrast follows Windows.
                 var surface = disabled.BackColor; var text = disabled.ForeColor;
-                disabled.ForeColor = highContrast ? SystemColors.GrayText : Color.FromArgb(
+                disabled.ForeColor = highContrast ? SystemColors.GrayText : dark ? Color.FromArgb(178, 195, 184) : Color.FromArgb(
                     (text.R + surface.R) / 2, (text.G + surface.G) / 2, (text.B + surface.B) / 2);
                 disabled.FlatAppearance.BorderColor = highContrast ? SystemColors.GrayText : Color.FromArgb(
                     (green.R + surface.R) / 2, (green.G + surface.G) / 2, (green.B + surface.B) / 2);

@@ -2,8 +2,8 @@
   "language": "nl",
   "locale": "nl-NL",
   "direction": "ltr",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -510,7 +510,7 @@
     "recovery.deleted": "Back-ups verwijderd: {count}. Vrijgemaakte ruimte: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Automatische opschoning past deze regels ook toe op bestaande back-ups. Voltooide back-ups worden na de bewaartermijn verwijderd, of van oud naar nieuw om ruimte vrij te maken. Daarna kunt u het lokale origineel niet meer herstellen. Google-werkbladen en snelkoppelingen blijven behouden. Inschakelen?",
     "recovery.enableCleanupTitle": "Automatische opschoning inschakelen",
-    "recovery.instructions": "Om te herstellen: selecteer een rij en kies Herstellen naar…\nOm meerdere back-ups te verwijderen: vink de vakjes aan of kies Alles selecteren.\nOpenstaande bewerkingen zijn beschermd. Google-werkbladen en snelkoppelingen blijven behouden.",
+    "recovery.instructions": "Om te herstellen: selecteer een rij en kies Herstellen naar…\nOpenstaande bewerkingen zijn beschermd. Google-werkbladen en snelkoppelingen blijven behouden.",
     "recovery.limits": "Limiet: 200 MB · maximum: 1 GB. Openstaande bewerkingen zijn beschermd.",
     "recovery.moreActions": "Meer acties ▾",
     "recovery.noBackups": "Geen back-ups geregistreerd voor deze Windows-gebruiker.",
@@ -645,6 +645,7 @@
     "setup.importHeading": "3. Snelkoppelingen en bestand als kopie importeren",
     "tutorial.showAtStartup": "Deze uitleg tonen bij het openen van de app",
     "setup.defaultsHelp": "Kies ZagoSheetsWin in de Standaard-apps van Windows. Optioneel, maar aanbevolen. Kies ZagoSheetsWin in Standaard-apps van Windows. Dit is optioneel: u kunt ook Openen met → ZagoSheetsWin gebruiken.",
-    "import.notice.partialConversion": "Het werkblad is geopend in Google Sheets. Sommige formules of gegevens kunnen tijdens de conversie zijn gewijzigd. Het oorspronkelijke bestand is vervangen door een snelkoppeling. Open {backups} om het te herstellen."
+    "import.notice.partialConversion": "Het werkblad is geopend in Google Sheets. Het oorspronkelijke bestand is vervangen door een snelkoppeling. Open {backups} om het te herstellen.",
+    "import.notice.dontShowAgain": "Niet meer weergeven"
   }
 }

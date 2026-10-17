@@ -65,6 +65,7 @@ internal static class InterfaceVerification
         {
             partial.ShowImportNotice(UiText.Format("import.notice.partialConversion", ("backups", UiText.Get("home.backups").Replace("&", "", StringComparison.Ordinal))));
             partial.Show(); Application.DoEvents();
+            Require(!Descendants(partial).OfType<CheckBox>().Single(b => b.Name == "importNoticeDontShowAgain").Checked, "Import confirmation opt-out must start unchecked.");
             Require(partial.Text == Branding.Name && Descendants(partial).OfType<Button>().Any(b => b.Name == "importNoticeBackups" && b.Enabled),
                 "A successful partial import must offer backup recovery without a copy-only title.");
             partial.Hide();
@@ -158,6 +159,14 @@ internal static class InterfaceVerification
         }
         var about = Descendants(home).OfType<LinkLabel>().Single(l => l.Text == "Sobre / Licenças");
         Require(about.Width >= TextRenderer.MeasureText(about.Text, about.Font, Size.Empty, TextFormatFlags.NoPadding).Width, "MIT credit link must not be clipped.");
+        using (var firstNotice = new ProcessingForm(new(LauncherAction.Open, "first.xlsx"), preview: true))
+        using (var nextNotice = new ProcessingForm(new(LauncherAction.Open, "next.csv"), preview: true))
+        {
+            Require(firstNotice.AcquireNotice(), "First import notice must acquire the per-session gate.");
+            Require(!nextNotice.AcquireNotice(), "Concurrent imports must not stack confirmation notices.");
+            firstNotice.Dispose();
+            Require(nextNotice.AcquireNotice(), "Closing a notice must allow a later import notice.");
+        }
         Console.Error.WriteLine("VERIFY: backup selection");
         using (var recovery = new RecoveryForm(preview: true, previewBusy: true))
         {
@@ -175,12 +184,23 @@ internal static class InterfaceVerification
             Require(!Descendants(recovery).OfType<CheckBox>().Single().Checked, "Automatic cleanup requires informed opt-in.");
             Require(list.Columns.Count == 4 && list.Items.Cast<ListViewItem>().All(i => i.Tag is RecoveryEntry), "Backup table must preserve recovery identity and expose four readable columns.");
             Require(list.Items.Count == 3 && list.Items.Cast<ListViewItem>().All(i => ((RecoveryEntry)i.Tag!).CleanupState != 2), "Deleted backup history must be absent from the recovery list.");
-            Require(list.MultiSelect && list.CheckBoxes, "Backups must support multiple selection.");
+            Require(list.MultiSelect && !list.CheckBoxes, "Backups must support multiple selection.");
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Selecionar todos").PerformClick();
-            Require(list.CheckedItems.Count == 3 && list.SelectedItems.Count == 3, "Select all must include pending backups for explicit confirmed discard.");
+            Require(list.CheckedItems.Count == 0 && list.SelectedItems.Count == 3, "Select all must include pending backups for explicit confirmed discard.");
             Require(Descendants(recovery).OfType<Button>().Single(b => b.Text == UiText.Get("recovery.deleteSelected")).Enabled, "Pending backups must allow the confirmed manual delete action.");
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Limpar seleção").PerformClick();
-            Require(list.CheckedItems.Count == 0, "Clear selection must remove all marks.");
+            Require(list.SelectedItems.Count == 0, "Clear selection must remove all marks.");
+            Require(!Descendants(recovery).OfType<Button>().Any(b => b.Text == UiText.Get("recovery.savePolicy")), "Backup policy must auto-save without a save button.");
+            for (var column = 0; column < 4; column++)
+            {
+                recovery.SortByColumn(column);
+                var ascending = list.Items.Cast<ListViewItem>().Select(i => ((RecoveryEntry)i.Tag!).Id).ToArray();
+                recovery.SortByColumn(column);
+                var descending = list.Items.Cast<ListViewItem>().Select(i => ((RecoveryEntry)i.Tag!).Id).ToArray();
+                Require(ascending.SequenceEqual(descending.Reverse()), "Each backup header must reverse its sorting direction.");
+            }
+            recovery.SortByColumn(2);
+            Require(list.Items.Cast<ListViewItem>().Select(i => ((RecoveryEntry)i.Tag!).Bytes).SequenceEqual(list.Items.Cast<ListViewItem>().Select(i => ((RecoveryEntry)i.Tag!).Bytes).Order()), "Backup sizes must sort numerically.");
             list.Items[0].Selected = list.Items[1].Selected = true; Application.DoEvents();
             Require(!Descendants(recovery).OfType<Button>().Single(b => b.Text == UiText.Get("action.restore")).Enabled, "Restoring must require exactly one selected file.");
             foreach (var size in new[] { new Size(980, 680), new Size(760, 560) })

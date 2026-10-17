@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "የተሰረዙ ምትኬዎች: {count}. የተለቀቀ ቦታ: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "ራስ-ሰር ማጽዳት እነዚህን ሕጎች በነባር ምትኬዎች ላይም ይተገብራል። የተጠናቀቁ ምትኬዎችን የማቆያ ጊዜው ካለፈ በኋላ ወይም ቦታ ለማስለቀቅ ከአሮጌው ወደ አዲሱ ይሰርዛል። ከዚያ በኋላ የአካባቢ ዋናውን መመለስ አይችሉም። የGoogle የተመን ሉሆች እና አቋራጮች ይቀራሉ። ይንቃ?",
     "recovery.enableCleanupTitle": "ራስ-ሰር ማጽዳትን አንቃ",
-    "recovery.instructions": "ለመመለስ፦ ረድፍ ይምረጡ እና ወደ… መልስ ይምረጡ።\nብዙ ምትኬዎችን ለመሰረዝ፦ ሳጥኖቹን ምልክት ያድርጉ ወይም ሁሉን ምረጥ ይምረጡ።\nበመጠባበቅ ላይ ያሉ ሂደቶች የተጠበቁ ናቸው። የGoogle የተመን ሉሆች እና አቋራጮች ይቀመጣሉ።",
+    "recovery.instructions": "ለመመለስ፦ ረድፍ ይምረጡ እና ወደ… መልስ ይምረጡ።\nበመጠባበቅ ላይ ያሉ ሂደቶች የተጠበቁ ናቸው። የGoogle የተመን ሉሆች እና አቋራጮች ይቀመጣሉ።",
     "recovery.limits": "ገደብ: 200 MB · ከፍተኛ: 1 GB. በመጠባበቅ ላይ ያሉ ሂደቶች የተጠበቁ ናቸው።",
     "recovery.moreActions": "ተጨማሪ እርምጃዎች ▾",
     "recovery.noBackups": "ለዚህ የWindows ተጠቃሚ ምንም ምትኬ አልተመዘገበም።",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. አቋራጮች እና ፋይሉን እንደ ቅጂ ማስገባት",
     "tutorial.showAtStartup": "መተግበሪያው ሲከፈት ይህን መመሪያ አሳይ",
     "setup.defaultsHelp": "በWindows ነባሪ መተግበሪያዎች ውስጥ ZagoSheetsWin ይምረጡ። አማራጭ ነው፣ ግን ይመከራል። በWindows ነባሪ መተግበሪያዎች ውስጥ ZagoSheetsWinን ይምረጡ። ይህ አማራጭ ነው፦ በ… ክፈት → ZagoSheetsWin መጠቀምም ይችላሉ።",
-    "import.notice.partialConversion": "ሰንጠረዡ በGoogle Sheets ተከፍቷል። አንዳንድ ቀመሮች ወይም ውሂብ በልወጣው ጊዜ ተቀይረው ሊሆኑ ይችላሉ። የመጀመሪያው ፋይል በአቋራጭ ተተክቷል። ለመመለስ {backups} ይክፈቱ።"
+    "import.notice.partialConversion": "ሰንጠረዡ በGoogle Sheets ተከፍቷል። የመጀመሪያው ፋይል በአቋራጭ ተተክቷል። ለመመለስ {backups} ይክፈቱ።",
+    "import.notice.dontShowAgain": "ዳግም አታሳይ"
   }
 }

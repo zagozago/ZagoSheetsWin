@@ -2,8 +2,8 @@
   "language": "sd",
   "locale": "sd-Arab-PK",
   "direction": "rtl",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -507,7 +507,7 @@
     "recovery.deleted": "بيڪ اپ ختم ٿيا: {count}. خالي ٿيل جاءِ: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "پاڻمرادو صفائي اهي قاعدا موجود بيڪ اپ تي به لاڳو ڪري ٿي. رکڻ جي مدي کان پوءِ يا جاءِ خالي ڪرڻ لاءِ مڪمل بيڪ اپ، سڀ کان پراڻي کان شروع ڪري، ختم ڪري ٿي. پوءِ مقامي اصل بحال نه ڪري سگهندا. Google اسپريڊ شيٽ ۽ شارٽ ڪٽ رهندا. فعال ڪجي؟",
     "recovery.enableCleanupTitle": "پاڻمرادو صفائي فعال ڪريو",
-    "recovery.instructions": "بحال ڪرڻ لاءِ: قطار چونڊيو ۽ هتي بحال ڪريو… چونڊيو.\nگهڻا بيڪ اپ ختم ڪرڻ لاءِ: باڪس نشان لڳايو يا سڀ چونڊيو.\nزير انتظار آپريشن محفوظ آهن. Google اسپريڊ شيٽ ۽ شارٽ ڪٽ محفوظ رهن ٿا.",
+    "recovery.instructions": "بحال ڪرڻ لاءِ: قطار چونڊيو ۽ هتي بحال ڪريو… چونڊيو.\nزير انتظار آپريشن محفوظ آهن. Google اسپريڊ شيٽ ۽ شارٽ ڪٽ محفوظ رهن ٿا.",
     "recovery.limits": "حد: 200 MB · وڌ ۾ وڌ: 1 GB. زير انتظار آپريشن محفوظ آهن.",
     "recovery.moreActions": "وڌيڪ عمل ▾",
     "recovery.noBackups": "هن Windows يوزر لاءِ ڪو بيڪ اپ رڪارڊ ٿيل ناهي.",
@@ -642,6 +642,7 @@
     "setup.importHeading": "3. شارٽ ڪٽ ۽ فائل کي ڪاپي طور درآمد ڪرڻ",
     "tutorial.showAtStartup": "ايپ کولڻ وقت هي رهنمائي ڏيکاريو",
     "setup.defaultsHelp": "Windows جي ڊفالٽ ايپس ۾ ZagoSheetsWin چونڊيو. اختياري، پر سفارش ڪيل. Windows ڊفالٽ ايپس ۾ ZagoSheetsWin چونڊيو. هي اختياري آهي: هن سان کوليو → ZagoSheetsWin به استعمال ڪري سگهو ٿا.",
-    "import.notice.partialConversion": "اسپريڊ شيٽ Google Sheets ۾ کلي وئي آهي. تبديلي دوران ڪجهه فارمولا يا ڊيٽا بدلجي سگهيا آهن. اصل فائل جي جاءِ تي شارٽ ڪٽ ٺاهيو ويو آهي. اصل فائل واپس حاصل ڪرڻ لاءِ {backups} کوليو."
+    "import.notice.partialConversion": "اسپريڊ شيٽ Google Sheets ۾ کلي وئي آهي. اصل فائل جي جاءِ تي شارٽ ڪٽ ٺاهيو ويو آهي. اصل فائل واپس حاصل ڪرڻ لاءِ {backups} کوليو.",
+    "import.notice.dontShowAgain": "ٻيهر نه ڏيکاريو"
   }
 }

@@ -7,6 +7,20 @@ namespace SheetsWindows.Tests;
 public sealed class InterfaceSettingsTests
 {
     [Fact]
+    public async Task ImportNoticeStartsVisibleAndOptOutSurvivesRestartWithoutChangingOtherPreferences()
+    {
+        using var w = new Workspace(); var storage = new LocalStorage(Path.Combine(w.Root, "notice-preferences"));
+        Assert.False(ImportNoticeSettings.Load(storage)); Assert.False(Directory.Exists(storage.Root));
+        await CopyImportSettings.SaveAsync(storage, true);
+        await ImportNoticeSettings.SaveAsync(storage, true);
+        Assert.True(ImportNoticeSettings.Load(new LocalStorage(storage.Root)));
+        Assert.True(CopyImportSettings.Load(storage));
+        await ImportNoticeSettings.SaveAsync(storage, false);
+        Assert.False(ImportNoticeSettings.Load(storage));
+        Assert.Empty(Directory.GetFiles(storage.Root, "*.tmp"));
+    }
+
+    [Fact]
     public async Task CopyPreferenceDefaultsOffAndPreservesOtherPreferencesWhenToggled()
     {
         using var w = new Workspace(); var storage = new LocalStorage(Path.Combine(w.Root, "copy-settings"));

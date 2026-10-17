@@ -2,8 +2,8 @@
   "language": "zh",
   "locale": "zh-CN",
   "direction": "ltr",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -502,7 +502,7 @@
     "recovery.deleted": "已删除的备份：{count}。已释放空间：{freedMb:N2} MB。",
     "recovery.enableCleanupPrompt": "自动清理规则也适用于现有备份。超过保留期限或需要释放空间时，会从最旧的备份开始删除已完成操作的备份。删除后将无法恢复本地原文件。Google 中的电子表格和快捷方式将被保留。是否启用？",
     "recovery.enableCleanupTitle": "启用自动清理",
-    "recovery.instructions": "恢复文件：选择一行，再点击“恢复到…”。\n删除多个备份：勾选复选框或点击“全选”。\n待处理操作受到保护。Google 中的电子表格和快捷方式将被保留。",
+    "recovery.instructions": "恢复文件：选择一行，再点击“恢复到…”。\n待处理操作受到保护。Google 中的电子表格和快捷方式将被保留。",
     "recovery.limits": "容量上限：200 MB · 最大：1 GB。待处理操作受到保护。",
     "recovery.moreActions": "更多操作 ▾",
     "recovery.noBackups": "当前 Windows 用户尚无备份记录。",
@@ -637,7 +637,8 @@
     "setup.importHeading": "3. 快捷方式及将文件作为副本导入",
     "tutorial.showAtStartup": "打开应用时显示本教程",
     "setup.defaultsHelp": "在 Windows 默认应用中选择 ZagoSheetsWin。 可选，但建议设置。 请在 Windows 的默认应用中选择 ZagoSheetsWin。此设置为可选项：您也可以使用“打开方式 → ZagoSheetsWin”。",
-    "import.notice.partialConversion": "电子表格已在 Google Sheets 中打开。转换时部分公式或数据可能发生了变化。原始文件已替换为快捷方式。要恢复原始文件，请打开 {backups}。"
+    "import.notice.partialConversion": "电子表格已在 Google Sheets 中打开。原始文件已替换为快捷方式。要恢复原始文件，请打开 {backups}。",
+    "import.notice.dontShowAgain": "不再显示"
   },
   "expandedNumericNotation": [
     "setup.formatLimits"

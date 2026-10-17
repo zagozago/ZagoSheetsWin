@@ -59,6 +59,20 @@ internal class AdaptiveButton : Button
 {
     private bool fitting;
     public AdaptiveButton(){Padding=new Padding(12,6,12,6);AutoEllipsis=false;}
+    protected override void OnPaint(PaintEventArgs e)
+    {
+        if (Enabled || SystemInformation.HighContrast) { base.OnPaint(e); return; }
+        // WinForms draws disabled text with a system grey regardless of ForeColor.
+        // Paint the disabled surface explicitly so both themes retain readable text.
+        e.Graphics.Clear(BackColor);
+        using var border = new Pen(FlatAppearance.BorderColor);
+        e.Graphics.DrawRectangle(border, 0, 0, Math.Max(0, Width - 1), Math.Max(0, Height - 1));
+        var bounds = Rectangle.FromLTRB(Padding.Left + 3, Padding.Top, Width - Padding.Right - 3, Height - Padding.Bottom);
+        var flags = TextFormatFlags.WordBreak | TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter;
+        if (RightToLeft == RightToLeft.Yes) flags |= TextFormatFlags.RightToLeft;
+        if (!ShowKeyboardCues) flags |= TextFormatFlags.HidePrefix;
+        TextRenderer.DrawText(e.Graphics, Text, Font, bounds, ForeColor, flags);
+    }
     public override Size GetPreferredSize(Size proposedSize)
     {
         var max=Parent is FlowLayoutPanel flow ? Math.Max(80,flow.ClientSize.Width-flow.Padding.Horizontal-Margin.Horizontal) : proposedSize.Width;

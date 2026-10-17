@@ -2,8 +2,8 @@
   "language": "or",
   "locale": "or-IN",
   "direction": "ltr",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -507,7 +507,7 @@
     "recovery.deleted": "ଡିଲିଟ୍ ହୋଇଥିବା ବ୍ୟାକଅପ୍: {count}. ଖାଲି ହୋଇଥିବା ସ୍ଥାନ: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "ସ୍ୱୟଂଚାଳିତ ସଫା ଏହି ନିୟମଗୁଡ଼ିକୁ ଥିବା ବ୍ୟାକଅପ୍‌ରେ ମଧ୍ୟ ଲାଗୁ କରେ। ସଂରକ୍ଷଣ ଅବଧି ପରେ କିମ୍ବା ସ୍ଥାନ ଖାଲି କରିବାକୁ, ପୁରୁଣାରୁ ନୂତନ କ୍ରମରେ, ସମାପ୍ତ ବ୍ୟାକଅପ୍ ଡିଲିଟ୍ କରେ। ପରେ ଆପଣ ସ୍ଥାନୀୟ ମୂଳଟି ପୁନରୁଦ୍ଧାର କରିପାରିବେ ନାହିଁ। Google ସ୍ପ୍ରେଡ୍‌ଶିଟ୍ ଏବଂ ଶର୍ଟକଟ୍ ରହିବ। ସକ୍ରିୟ କରିବେ?",
     "recovery.enableCleanupTitle": "ସ୍ୱୟଂଚାଳିତ ସଫା ସକ୍ରିୟ କରନ୍ତୁ",
-    "recovery.instructions": "ପୁନରୁଦ୍ଧାର ପାଇଁ: ଗୋଟିଏ ଧାଡ଼ି ବାଛି ଏଠାକୁ ପୁନରୁଦ୍ଧାର… ବାଛନ୍ତୁ।\nଏକାଧିକ ବ୍ୟାକଅପ୍ ଡିଲିଟ୍ ପାଇଁ: ଚେକ୍‌ବକ୍ସଗୁଡ଼ିକ ବାଛନ୍ତୁ କିମ୍ବା ସବୁ ବାଛନ୍ତୁ।\nବକେୟା ଅପରେସନ୍ ସୁରକ୍ଷିତ। Google ସ୍ପ୍ରେଡ୍‌ଶିଟ୍ ଏବଂ ଶର୍ଟକଟ୍ ରଖାଯାଏ।",
+    "recovery.instructions": "ପୁନରୁଦ୍ଧାର ପାଇଁ: ଗୋଟିଏ ଧାଡ଼ି ବାଛି ଏଠାକୁ ପୁନରୁଦ୍ଧାର… ବାଛନ୍ତୁ।\nବକେୟା ଅପରେସନ୍ ସୁରକ୍ଷିତ। Google ସ୍ପ୍ରେଡ୍‌ଶିଟ୍ ଏବଂ ଶର୍ଟକଟ୍ ରଖାଯାଏ।",
     "recovery.limits": "ସୀମା: 200 MB · ସର୍ବାଧିକ: 1 GB. ବକେୟା ଅପରେସନ୍ ସୁରକ୍ଷିତ।",
     "recovery.moreActions": "ଅଧିକ କାର୍ଯ୍ୟ ▾",
     "recovery.noBackups": "ଏହି Windows ବ୍ୟବହାରକାରୀ ପାଇଁ କୌଣସି ବ୍ୟାକଅପ୍ ରେକର୍ଡ ହୋଇନାହିଁ।",
@@ -642,6 +642,7 @@
     "setup.importHeading": "3. ସର୍ଟକଟ୍ ଓ ଫାଇଲ୍‌କୁ ନକଲ ଭାବେ ଆମଦାନୀ",
     "tutorial.showAtStartup": "ଆପ୍ ଖୋଲିବାବେଳେ ଏହି ମାର୍ଗଦର୍ଶିକା ଦେଖାନ୍ତୁ",
     "setup.defaultsHelp": "Windowsର ଡିଫଲ୍ଟ ଆପ୍‌ରେ ZagoSheetsWin ବାଛନ୍ତୁ। ଇଚ୍ଛାଧୀନ, କିନ୍ତୁ ସୁପାରିଶ କରାଯାଏ। Windows ଡିଫଲ୍ଟ ଆପ୍‌ଗୁଡ଼ିକ ରେ ZagoSheetsWin ବାଛନ୍ତୁ। ଏହା ବୈକଳ୍ପିକ: ଏହା ସହ ଖୋଲନ୍ତୁ → ZagoSheetsWin ମଧ୍ୟ ବ୍ୟବହାର କରିପାରିବେ।",
-    "import.notice.partialConversion": "ସ୍ପ୍ରେଡ୍‌ଶିଟ୍ Google Sheets ରେ ଖୋଲାଯାଇଛି। ରୂପାନ୍ତର ସମୟରେ କିଛି ସୂତ୍ର କିମ୍ବା ତଥ୍ୟ ବଦଳିଥାଇପାରେ। ମୂଳ ଫାଇଲ ସ୍ଥାନରେ ଏକ ସର୍ଟକଟ୍ ତିଆରି ହୋଇଛି। ମୂଳ ଫାଇଲ ଫେରି ପାଇବା ପାଇଁ {backups} ଖୋଲନ୍ତୁ।"
+    "import.notice.partialConversion": "ସ୍ପ୍ରେଡ୍‌ଶିଟ୍ Google Sheets ରେ ଖୋଲାଯାଇଛି। ମୂଳ ଫାଇଲ ସ୍ଥାନରେ ଏକ ସର୍ଟକଟ୍ ତିଆରି ହୋଇଛି। ମୂଳ ଫାଇଲ ଫେରି ପାଇବା ପାଇଁ {backups} ଖୋଲନ୍ତୁ।",
+    "import.notice.dontShowAgain": "ପୁଣି ଦେଖାନ୍ତୁ ନାହିଁ"
   }
 }

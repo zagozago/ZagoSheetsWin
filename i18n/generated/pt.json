@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "Backups apagados: {count}. Espaço liberado: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "A limpeza automática aplica estas regras também aos backups já existentes. Apaga backups concluídos após o prazo ou para liberar espaço, dos mais antigos para os recentes. Depois não será possível restaurar o original local. Planilhas no Google e atalhos permanecem. Ativar?",
     "recovery.enableCleanupTitle": "Ativar limpeza automática",
-    "recovery.instructions": "Para recuperar: selecione uma linha e use Restaurar em…\nPara apagar vários backups: marque as caixas ou use Selecionar todos.\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos.",
+    "recovery.instructions": "Para recuperar: selecione uma linha e use Restaurar\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos.",
     "recovery.limits": "Teto: 200 MB · máximo: 1 GB. Operações pendentes são protegidas.",
     "recovery.moreActions": "Mais ações ▾",
     "recovery.noBackups": "Nenhum backup registrado neste usuário do Windows.",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. Atalhos e importação do arquivo como cópia",
     "tutorial.showAtStartup": "Mostrar este tutorial ao abrir o aplicativo",
     "setup.defaultsHelp": "Escolha ZagoSheetsWin nos Aplicativos padrão do Windows. Opcional, mas recomendado. Escolha ZagoSheetsWin nos Aplicativos padrão do Windows. É opcional: você também pode usar Abrir com → ZagoSheetsWin.",
-    "import.notice.partialConversion": "Planilha aberta no Google Sheets. Algumas fórmulas ou dados podem ter mudado na conversão. O original foi substituído por um atalho. Para recuperá-lo, abra {backups}."
+    "import.notice.partialConversion": "Planilha aberta no Google Sheets. O original foi substituído por um atalho. Para recuperá-lo, abra {backups}.",
+    "import.notice.dontShowAgain": "Não mostrar novamente"
   }
 }

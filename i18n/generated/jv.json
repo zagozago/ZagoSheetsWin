@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "Cadangan dibusak: {count}. Papan sing dibebasake: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Reresik otomatis uga ngetrapake aturan iki marang cadangan sing wis ana. Cadangan sing wis rampung dibusak sawisé wektu panyimpenan utawa kanggo mbebasake papan, saka sing paling lawas nganti paling anyar. Sawisé iku, sampeyan ora bisa mulihake berkas asli lokal. Spreadsheet Google lan trabasan tetep ana. Aktifake?",
     "recovery.enableCleanupTitle": "Aktifake reresik otomatis",
-    "recovery.instructions": "Kanggo mulihake: pilih baris banjur pilih Pulihake menyang…\nKanggo mbusak sawetara cadangan: centhang kothak utawa pilih Pilih kabeh.\nOperasi sing durung rampung dilindhungi. Spreadsheet Google lan trabasan tetep disimpen.",
+    "recovery.instructions": "Kanggo mulihake: pilih baris banjur pilih Pulihake menyang…\nOperasi sing durung rampung dilindhungi. Spreadsheet Google lan trabasan tetep disimpen.",
     "recovery.limits": "Wates: 200 MB · maksimum: 1 GB. Operasi sing durung rampung dilindhungi.",
     "recovery.moreActions": "Tumindak liyane ▾",
     "recovery.noBackups": "Ora ana cadangan sing kacathet kanggo pangguna Windows iki.",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. Trabasan lan ngimpor berkas minangka salinan",
     "tutorial.showAtStartup": "Tampilake tutorial iki nalika mbukak aplikasi",
     "setup.defaultsHelp": "Pilih ZagoSheetsWin ing Aplikasi gawan Windows. Opsional, nanging dianjurake. Pilih ZagoSheetsWin ing Aplikasi baku Windows. Iki opsional: sampeyan uga bisa nggunakake Bukak nganggo → ZagoSheetsWin.",
-    "import.notice.partialConversion": "Spreadsheet wis dibukak ing Google Sheets. Sawetara rumus utawa data bisa uga owah nalika konversi. File asli diganti nganggo trabasan. Kanggo mulihake, bukak {backups}."
+    "import.notice.partialConversion": "Spreadsheet wis dibukak ing Google Sheets. File asli diganti nganggo trabasan. Kanggo mulihake, bukak {backups}.",
+    "import.notice.dontShowAgain": "Aja ditampilake maneh"
   }
 }

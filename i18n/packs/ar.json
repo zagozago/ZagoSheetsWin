@@ -2,8 +2,8 @@
   "language": "ar",
   "locale": "ar",
   "direction": "rtl",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -502,7 +502,7 @@
     "recovery.deleted": "النسخ الاحتياطية المحذوفة: {count}. المساحة المحررة: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "يطبق التنظيف التلقائي هذه القواعد أيضًا على النسخ الاحتياطية الموجودة. يحذف النسخ المكتملة بعد مدة الاحتفاظ أو لتوفير مساحة، من الأقدم إلى الأحدث. بعد ذلك لن تتمكن من استعادة الأصل المحلي. ستظل جداول بيانات Google والاختصارات محفوظة. هل تريد التمكين؟",
     "recovery.enableCleanupTitle": "تمكين التنظيف التلقائي",
-    "recovery.instructions": "للاسترداد: حدد صفًا واختر «استعادة إلى…».\nلحذف عدة نسخ احتياطية: حدد مربعات الاختيار أو اختر «تحديد الكل».\nالعمليات المعلّقة محمية. يتم الاحتفاظ بجداول بيانات Google والاختصارات.",
+    "recovery.instructions": "للاسترداد: حدد صفًا واختر «استعادة إلى…».\nالعمليات المعلّقة محمية. يتم الاحتفاظ بجداول بيانات Google والاختصارات.",
     "recovery.limits": "الحد: 200 MB · الحد الأقصى: 1 GB. العمليات المعلّقة محمية.",
     "recovery.moreActions": "إجراءات إضافية ▾",
     "recovery.noBackups": "لا توجد نسخ احتياطية مسجلة لمستخدم Windows هذا.",
@@ -637,6 +637,7 @@
     "setup.importHeading": "3. الاختصارات واستيراد الملف كنسخة",
     "tutorial.showAtStartup": "إظهار هذا الدليل عند فتح التطبيق",
     "setup.defaultsHelp": "اختر ZagoSheetsWin في التطبيقات الافتراضية لنظام Windows. اختياري، لكنه موصى به. اختر ZagoSheetsWin ضمن التطبيقات الافتراضية في Windows. هذا اختياري: يمكنك أيضًا استخدام «فتح باستخدام → ZagoSheetsWin».",
-    "import.notice.partialConversion": "فُتح جدول البيانات في Google Sheets. ربما تغيرت بعض الصيغ أو البيانات أثناء التحويل. استُبدل الملف الأصلي باختصار. لاستعادته، افتح {backups}."
+    "import.notice.partialConversion": "فُتح جدول البيانات في Google Sheets. استُبدل الملف الأصلي باختصار. لاستعادته، افتح {backups}.",
+    "import.notice.dontShowAgain": "عدم الإظهار مرة أخرى"
   }
 }

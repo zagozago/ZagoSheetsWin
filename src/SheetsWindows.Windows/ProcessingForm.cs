@@ -14,6 +14,9 @@ internal sealed class ProcessingForm : Form
     private readonly long? startedAt;
     private readonly Func<TimeSpan, CancellationToken, Task>? retryDelay;
     private bool busy;
+    private Mutex? noticeMutex;
+    private static bool noticeActive;
+    private Task noticeSave = Task.CompletedTask;
     public int ExitCode { get; private set; }
     internal bool IsBusy => busy;
     internal ProcessingMetrics? LastMetrics { get; private set; }
@@ -114,25 +117,66 @@ internal sealed class ProcessingForm : Form
             if (recordDiagnostics) await diagnostics.RecordAsync(outcome, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase, trace: telemetry.CaptureTrace());
             busy = false;
         }
-        if (ExitCode == 0 && importNotice is not null)
+        if (ExitCode == 0 && !cancellation.IsCancellationRequested && importNotice is not null)
         {
-            ShowImportNotice(importNotice);
+            var replacement = importNotice == UiText.Format("import.notice.partialConversion", ("backups", UiText.Get("home.backups").Replace("&", "", StringComparison.Ordinal)));
+            if (replacement && !AcquireNotice()) { Close(); return; }
+            ShowImportNotice(importNotice, replacement);
         }
         else if (ExitCode == 0 || cancellation.IsCancellationRequested) Close();
     }
-    internal void ShowImportNotice(string notice)
+    internal bool AcquireNotice()
+    {
+        if (noticeActive) return false;
+        var storage = LocalStorage.ForCurrentUser();
+        if (ImportNoticeSettings.Load(storage)) return false;
+        var key = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(storage.Root)));
+        var gate = new Mutex(false, @"Local\ZSW-import-notice-" + key);
+        bool acquired;
+        try { acquired = gate.WaitOne(0); }
+        catch (AbandonedMutexException) { acquired = true; }
+        if (!acquired) { gate.Dispose(); return false; }
+        if (ImportNoticeSettings.Load(storage)) { gate.ReleaseMutex(); gate.Dispose(); return false; }
+        noticeMutex = gate;
+        noticeActive = true;
+        return true;
+    }
+    internal void ShowImportNotice(string notice, bool replacement = true)
     {
         Text = Branding.Name; status.Text = notice;
         cancel.Text = UiText.Get("action.close"); cancel.Enabled = true;
         var recovery = new AdaptiveButton { Text = UiText.Get("home.backups"), AutoSize = true, Name = "importNoticeBackups" };
         recovery.Click += (_, _) => { using var form = new RecoveryForm(); form.ShowDialog(this); };
         actions.Controls.Add(recovery);
+        if (replacement)
+        {
+            var hide = new CheckBox { Name = "importNoticeDontShowAgain", Text = UiText.Get("import.notice.dontShowAgain"), Checked = false,
+                AutoSize = true, Dock = DockStyle.Bottom, Padding = new Padding(18, 6, 18, 6) };
+            Controls.Add(hide);
+            Controls.SetChildIndex(hide, Controls.GetChildIndex(actions));
+            async Task SaveNoticePreference(Task previous, bool hidden)
+            {
+                await previous;
+                try { await ImportNoticeSettings.SaveAsync(LocalStorage.ForCurrentUser(), hidden); }
+                catch (Exception ex) when (LauncherErrors.Expected(ex)) { if (!IsDisposed) status.Text = LauncherErrors.Message(ex); }
+            }
+            hide.CheckedChanged += (_, _) => noticeSave = SaveNoticePreference(noticeSave, hide.Checked);
+            FormClosing += async (_, e) =>
+            {
+                if (noticeSave.IsCompleted) return;
+                e.Cancel = true; await noticeSave; if (!IsDisposed) Close();
+            };
+        }
         PerformLayout();
         var needed = TextRenderer.MeasureText(notice, status.Font,
             new Size(Math.Max(100, status.ClientSize.Width - status.Padding.Horizontal), int.MaxValue), TextFormatFlags.WordBreak).Height + status.Padding.Vertical + 8;
         if (status.ClientSize.Height < needed) ClientSize = new Size(ClientSize.Width, ClientSize.Height + needed - status.ClientSize.Height);
         MinimumSize = Size;
     }
-    protected override void Dispose(bool disposing) { if (disposing) cancellation.Dispose(); base.Dispose(disposing); }
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing) { cancellation.Dispose(); if (noticeMutex is not null) { noticeMutex.ReleaseMutex(); noticeMutex.Dispose(); noticeMutex = null; noticeActive = false; } }
+        base.Dispose(disposing);
+    }
 }
 

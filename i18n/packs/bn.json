@@ -2,8 +2,8 @@
   "language": "bn",
   "locale": "bn",
   "direction": "ltr",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -504,7 +504,7 @@
     "recovery.deleted": "মুছে ফেলা ব্যাকআপ: {count}. খালি হয়েছে: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "স্বয়ংক্রিয় পরিষ্কার বিদ্যমান ব্যাকআপেও এই নিয়মগুলো প্রয়োগ করে। সংরক্ষণকাল শেষ হলে বা জায়গা খালি করতে সম্পূর্ণ ব্যাকআপগুলো পুরোনো থেকে নতুন ক্রমে মুছে দেয়। এরপর স্থানীয় মূল ফাইল পুনরুদ্ধার করা যাবে না। Google স্প্রেডশিট ও শর্টকাট থাকবে। চালু করবেন?",
     "recovery.enableCleanupTitle": "স্বয়ংক্রিয় পরিষ্কার চালু করুন",
-    "recovery.instructions": "পুনরুদ্ধার করতে: একটি সারি নির্বাচন করে পুনরুদ্ধার করুন… বেছে নিন।\nএকাধিক ব্যাকআপ মুছতে: চেকবক্সগুলো টিক দিন বা সব নির্বাচন করুন বেছে নিন।\nঅপেক্ষমাণ কাজ সুরক্ষিত। Google স্প্রেডশিট ও শর্টকাট রাখা হয়।",
+    "recovery.instructions": "পুনরুদ্ধার করতে: একটি সারি নির্বাচন করে পুনরুদ্ধার করুন… বেছে নিন।\nঅপেক্ষমাণ কাজ সুরক্ষিত। Google স্প্রেডশিট ও শর্টকাট রাখা হয়।",
     "recovery.limits": "সীমা: 200 MB · সর্বোচ্চ: 1 GB. অপেক্ষমাণ কাজ সুরক্ষিত।",
     "recovery.moreActions": "আরও কাজ ▾",
     "recovery.noBackups": "এই Windows ব্যবহারকারীর জন্য কোনো ব্যাকআপ নথিভুক্ত নেই।",
@@ -639,6 +639,7 @@
     "setup.importHeading": "3. শর্টকাট ও ফাইলকে কপি হিসেবে আমদানি",
     "tutorial.showAtStartup": "অ্যাপ খোলার সময় এই টিউটোরিয়াল দেখান",
     "setup.defaultsHelp": "Windows-এর ডিফল্ট অ্যাপে ZagoSheetsWin বেছে নিন। ঐচ্ছিক, তবে প্রস্তাবিত। Windows-এর ডিফল্ট অ্যাপসে ZagoSheetsWin নির্বাচন করুন। এটি ঐচ্ছিক: খুলুন এর মাধ্যমে → ZagoSheetsWin-ও ব্যবহার করতে পারেন।",
-    "import.notice.partialConversion": "স্প্রেডশিটটি Google Sheets-এ খোলা হয়েছে। রূপান্তরের সময় কিছু সূত্র বা তথ্য বদলে যেতে পারে। মূল ফাইলের বদলে একটি শর্টকাট তৈরি হয়েছে। মূল ফাইল ফিরিয়ে পেতে {backups} খুলুন।"
+    "import.notice.partialConversion": "স্প্রেডশিটটি Google Sheets-এ খোলা হয়েছে। মূল ফাইলের বদলে একটি শর্টকাট তৈরি হয়েছে। মূল ফাইল ফিরিয়ে পেতে {backups} খুলুন।",
+    "import.notice.dontShowAgain": "আর দেখাবেন না"
   }
 }

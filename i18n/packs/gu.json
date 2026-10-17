@@ -2,8 +2,8 @@
   "language": "gu",
   "locale": "gu-IN",
   "direction": "ltr",
-  "catalogRevision": 8,
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "catalogRevision": 9,
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -507,7 +507,7 @@
     "recovery.deleted": "બેકઅપ્સ કાઢી નાખ્યા: {count}. ખાલી કરેલી જગ્યા: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "આપમેળે સફાઈ આ નિયમો હાલના બેકઅપ્સ પર પણ લાગુ કરે છે. જાળવણી અવધિ પછી અથવા જગ્યા ખાલી કરવા માટે, સૌથી જૂના થી નવા ક્રમમાં, પૂર્ણ બેકઅપ્સ કાઢી નાખે છે. ત્યારબાદ તમે સ્થાનિક મૂળ પુનઃસ્થાપિત કરી શકશો નહીં. Google સ્પ્રેડશીટ્સ અને શૉર્ટકટ્સ રહેશે. સક્ષમ કરવું છે?",
     "recovery.enableCleanupTitle": "આપમેળે સફાઈ સક્ષમ કરો",
-    "recovery.instructions": "પુનઃપ્રાપ્ત કરવા: એક પંક્તિ પસંદ કરો અને આમાં પુનઃસ્થાપિત કરો… પસંદ કરો.\nએકથી વધુ બેકઅપ્સ કાઢવા: ચેકબોક્સ પસંદ કરો અથવા બધું પસંદ કરો પસંદ કરો.\nબાકી કામગીરી સુરક્ષિત છે. Google સ્પ્રેડશીટ્સ અને શૉર્ટકટ્સ રાખવામાં આવે છે.",
+    "recovery.instructions": "પુનઃપ્રાપ્ત કરવા: એક પંક્તિ પસંદ કરો અને આમાં પુનઃસ્થાપિત કરો… પસંદ કરો.\nબાકી કામગીરી સુરક્ષિત છે. Google સ્પ્રેડશીટ્સ અને શૉર્ટકટ્સ રાખવામાં આવે છે.",
     "recovery.limits": "મર્યાદા: 200 MB · મહત્તમ: 1 GB. બાકી કામગીરી સુરક્ષિત છે.",
     "recovery.moreActions": "વધુ ક્રિયાઓ ▾",
     "recovery.noBackups": "આ Windows વપરાશકર્તા માટે કોઈ બેકઅપ નોંધાયેલ નથી.",
@@ -642,6 +642,7 @@
     "setup.importHeading": "3. શૉર્ટકટ અને ફાઇલને નકલ તરીકે આયાત કરવી",
     "tutorial.showAtStartup": "ઍપ ખોલતી વખતે આ માર્ગદર્શિકા બતાવો",
     "setup.defaultsHelp": "Windowsની ડિફૉલ્ટ ઍપમાં ZagoSheetsWin પસંદ કરો. વૈકલ્પિક, પરંતુ ભલામણ કરેલ. Windows ડિફૉલ્ટ એપ્સ માં ZagoSheetsWin પસંદ કરો. આ વૈકલ્પિક છે: તમે આ સાથે ખોલો → ZagoSheetsWin પણ વાપરી શકો છો.",
-    "import.notice.partialConversion": "સ્પ્રેડશીટ Google Sheets માં ખુલી ગઈ છે. રૂપાંતર દરમિયાન કેટલાક સૂત્રો અથવા ડેટા બદલાયા હોઈ શકે છે. મૂળ ફાઇલની જગ્યાએ શૉર્ટકટ બનાવાયો છે. મૂળ ફાઇલ પાછી મેળવવા {backups} ખોલો."
+    "import.notice.partialConversion": "સ્પ્રેડશીટ Google Sheets માં ખુલી ગઈ છે. મૂળ ફાઇલની જગ્યાએ શૉર્ટકટ બનાવાયો છે. મૂળ ફાઇલ પાછી મેળવવા {backups} ખોલો.",
+    "import.notice.dontShowAgain": "ફરીથી બતાવશો નહીં"
   }
 }

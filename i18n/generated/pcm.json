@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "Backups don delete: {count}. Space wey free: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Automatic cleanup go also use dis rules for backups wey dey already. E dey delete completed backups after retention period or to free space, from oldest to newest. After dat, you no go fit restore di local original. Google spreadsheets and shortcuts go remain. Enable am?",
     "recovery.enableCleanupTitle": "Enable automatic cleanup",
-    "recovery.instructions": "To recover: choose one row and choose Restore to…\nTo delete plenty backups: tick di boxes or choose Select all.\nPending operations dey protected. Google spreadsheets and shortcuts go remain.",
+    "recovery.instructions": "To recover: choose one row and choose Restore to…\nPending operations dey protected. Google spreadsheets and shortcuts go remain.",
     "recovery.limits": "Limit: 200 MB · maximum: 1 GB. Pending operations dey protected.",
     "recovery.moreActions": "More actions ▾",
     "recovery.noBackups": "No backup record dey for dis Windows user.",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. Shortcuts and import file as copy",
     "tutorial.showAtStartup": "Show this tutorial when app open",
     "setup.defaultsHelp": "Choose ZagoSheetsWin for Windows Default apps. Na optional, but we recommend am. Choose ZagoSheetsWin for Windows Default apps. Dis one optional: you fit also use Open with → ZagoSheetsWin.",
-    "import.notice.partialConversion": "Spreadsheet don open for Google Sheets. Some formula or data fit don change during conversion. Shortcut don replace di original file. To recover am, open {backups}."
+    "import.notice.partialConversion": "Spreadsheet don open for Google Sheets. Shortcut don replace di original file. To recover am, open {backups}.",
+    "import.notice.dontShowAgain": "No show am again"
   }
 }

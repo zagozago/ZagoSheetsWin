@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "Na-delete ang backups: {count}. Nabakanteng espasyo: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Ilalapat din ng automatic cleanup ang mga rule na ito sa kasalukuyang backups. Dine-delete nito ang completed backups pagkatapos ng retention period o para magbakante ng espasyo, mula pinakaluma hanggang pinakabago. Pagkatapos nito, hindi mo na maibabalik ang lokal na orihinal. Mananatili ang Google spreadsheets at shortcuts. I-enable?",
     "recovery.enableCleanupTitle": "I-enable ang automatic cleanup",
-    "recovery.instructions": "Para mag-recover: pumili ng row at piliin ang I-restore sa…\nPara mag-delete ng maraming backup: i-check ang mga kahon o piliin ang Piliin lahat.\nProtektado ang mga pending operation. Pinananatili ang Google spreadsheets at shortcuts.",
+    "recovery.instructions": "Para mag-recover: pumili ng row at piliin ang I-restore sa…\nProtektado ang mga pending operation. Pinananatili ang Google spreadsheets at shortcuts.",
     "recovery.limits": "Limit: 200 MB · maximum: 1 GB. Protektado ang mga pending operation.",
     "recovery.moreActions": "Higit pang action ▾",
     "recovery.noBackups": "Walang backup na naka-record para sa Windows user na ito.",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. Mga shortcut at pag-import ng file bilang kopya",
     "tutorial.showAtStartup": "Ipakita ang tutorial na ito kapag binubuksan ang app",
     "setup.defaultsHelp": "Piliin ang ZagoSheetsWin sa Default apps ng Windows. Opsyonal, ngunit inirerekomenda. Piliin ang ZagoSheetsWin sa Windows Default apps. Optional ito: maaari mo ring gamitin ang Open with → ZagoSheetsWin.",
-    "import.notice.partialConversion": "Binuksan ang spreadsheet sa Google Sheets. Maaaring nagbago ang ilang formula o data sa conversion. Pinalitan ng shortcut ang orihinal na file. Para mabawi ito, buksan ang {backups}."
+    "import.notice.partialConversion": "Binuksan ang spreadsheet sa Google Sheets. Pinalitan ng shortcut ang orihinal na file. Para mabawi ito, buksan ang {backups}.",
+    "import.notice.dontShowAgain": "Huwag nang ipakita muli"
   }
 }

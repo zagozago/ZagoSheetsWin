@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "A pa backups rẹ́: {count}. Àyè tí a tú sílẹ̀: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Automatic cleanup tún máa lo àwọn òfin wọ̀nyí fún backups tó ti wà. Ó máa pa completed backups rẹ́ lẹ́yìn retention period tàbí láti dá àyè sílẹ̀, láti èyí tó dàgbà jù sí tuntun. Lẹ́yìn náà, o kò ní lè mú local original padà. Google spreadsheets àti shortcuts yóò dúró. Enable?",
     "recovery.enableCleanupTitle": "Mu ìmọ́tótó aládàáṣiṣẹ́ ṣiṣẹ́",
-    "recovery.instructions": "Láti recover: yan row kan, kí o sì yan Restore to…\nLáti pa backups púpọ̀: fi àmì sí boxes tàbí yan Select all.\nÀwọn iṣẹ́ tó ń dúró de ìparí ni a dáàbò bo. A pa Google spreadsheets àti shortcuts mọ́.",
+    "recovery.instructions": "Láti recover: yan row kan, kí o sì yan Restore to…\nÀwọn iṣẹ́ tó ń dúró de ìparí ni a dáàbò bo. A pa Google spreadsheets àti shortcuts mọ́.",
     "recovery.limits": "Ààlà: 200 MB · maximum: 1 GB. Àwọn iṣẹ́ tó ń dúró de ìparí ni a dáàbò bo.",
     "recovery.moreActions": "Àwọn ìṣe míì ▾",
     "recovery.noBackups": "Kò sí backups tí a forúkọ sílẹ̀ fún olumulo Windows yìí.",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. Ọ̀nà abuja àti gbígbé fáìlì wọlé gẹ́gẹ́ bí ẹ̀dà",
     "tutorial.showAtStartup": "Fi ẹ̀kọ́ yìí hàn nígbà tí ìṣàfilọ́lẹ̀ bá ṣí",
     "setup.defaultsHelp": "Yan ZagoSheetsWin nínú àwọn ìṣàfilọ́lẹ̀ àiyipada Windows. Kì í ṣe dandan, ṣùgbọ́n a dámọ̀ràn rẹ̀. Yan ZagoSheetsWin nínú Windows Default apps. Èyí jẹ́ aṣayan: o tún lè lo Open with → ZagoSheetsWin.",
-    "import.notice.partialConversion": "A ti ṣí ìwé ìṣirò náà ní Google Sheets. Àwọn àgbékalẹ̀ ìṣirò tàbí dátà kan lè ti yí padà nígbà ìyípadà. A ti fi ọ̀nà abuja rọ́pò fáìlì ìpilẹ̀ṣẹ̀. Láti mú un padà, ṣí {backups}."
+    "import.notice.partialConversion": "A ti ṣí ìwé ìṣirò náà ní Google Sheets. A ti fi ọ̀nà abuja rọ́pò fáìlì ìpilẹ̀ṣẹ̀. Láti mú un padà, ṣí {backups}.",
+    "import.notice.dontShowAgain": "Má ṣe fi hàn mọ́"
   }
 }

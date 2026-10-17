@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.33",
+  "productVersion": "0.9.34",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f266028860a4aa33ca9f8b717aaf9c2c2f73b011a67196976d74d8dd3885c89a",
+  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "削除したバックアップ: {count}。解放した容量: {freedMb:N2} MB。",
     "recovery.enableCleanupPrompt": "自動クリーンアップは既存のバックアップにもこれらのルールを適用します。完了したバックアップを保持期間後、または容量確保のために古いものから削除します。その後、ローカルの元ファイルは復元できません。Google のスプレッドシートとショートカットは保持されます。有効にしますか？",
     "recovery.enableCleanupTitle": "自動クリーンアップを有効にする",
-    "recovery.instructions": "復元するには、行を選択して「復元先…」を選びます。\n複数のバックアップを削除するには、チェックボックスをオンにするか「すべて選択」を選びます。\n保留中の処理は保護されています。Google のスプレッドシートとショートカットは保持されます。",
+    "recovery.instructions": "復元するには、行を選択して「復元先…」を選びます。\n保留中の処理は保護されています。Google のスプレッドシートとショートカットは保持されます。",
     "recovery.limits": "上限: 200 MB · 最大: 1 GB。保留中の処理は保護されています。",
     "recovery.moreActions": "その他の操作 ▾",
     "recovery.noBackups": "この Windows ユーザーのバックアップ記録はありません。",
@@ -349,6 +349,7 @@
     "setup.importHeading": "3. ショートカットとファイルのコピーとしてのインポート",
     "tutorial.showAtStartup": "アプリを開くときにこのチュートリアルを表示",
     "setup.defaultsHelp": "Windows の既定のアプリで ZagoSheetsWin を選択してください。 任意ですが、推奨します。 Windows の既定のアプリで ZagoSheetsWin を選択してください。これは任意です。「プログラムから開く → ZagoSheetsWin」も使用できます。",
-    "import.notice.partialConversion": "スプレッドシートを Google Sheets で開きました。変換時に一部の数式やデータが変更された可能性があります。元のファイルはショートカットに置き換えられました。元のファイルを復元するには、{backups} を開いてください。"
+    "import.notice.partialConversion": "スプレッドシートを Google Sheets で開きました。元のファイルはショートカットに置き換えられました。元のファイルを復元するには、{backups} を開いてください。",
+    "import.notice.dontShowAgain": "今後表示しない"
   }
 }
