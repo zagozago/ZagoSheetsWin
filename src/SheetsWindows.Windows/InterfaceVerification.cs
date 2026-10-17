@@ -168,6 +168,25 @@ internal static class InterfaceVerification
             Require(nextNotice.AcquireNotice(), "Closing a notice must allow a later import notice.");
         }
         Console.Error.WriteLine("VERIFY: backup selection");
+        var policyRoot = Path.Combine(Path.GetTempPath(), "zsw-policy-ui-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            var policyStorage = new LocalStorage(policyRoot);
+            using (var autosave = new RecoveryForm(preview: true, policyStorage: policyStorage))
+            {
+                autosave.Shown += (_, _) =>
+                {
+                    var fields = Descendants(autosave).OfType<NumericUpDown>().ToArray();
+                    fields.Single(n => n.Maximum == 365).Value = 45;
+                    fields.Single(n => n.Maximum == 1000).Value = 321;
+                    Descendants(autosave).OfType<CheckBox>().Single().Checked = true;
+                    autosave.Close();
+                };
+                autosave.ShowDialog();
+            }
+            Require(BackupPolicy.Load(policyStorage) == new BackupPolicy(45, 321, true), "Every backup rule edit must auto-save and survive immediate close.");
+        }
+        finally { if (Directory.Exists(policyRoot)) Directory.Delete(policyRoot, true); }
         using (var recovery = new RecoveryForm(preview: true, previewBusy: true))
         {
             recovery.Show(); Application.DoEvents();

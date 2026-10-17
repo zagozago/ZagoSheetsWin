@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.33: confirmed partial imports follow backup and source shortcut policy.
+# Distribution candidate 0.9.34: import confirmation opt-out, backup auto-save and sorting, readable disabled buttons.
 name: Protected alpha distribution
 on:
   workflow_dispatch:

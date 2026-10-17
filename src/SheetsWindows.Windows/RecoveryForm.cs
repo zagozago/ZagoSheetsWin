@@ -44,7 +44,7 @@ internal sealed class RecoveryForm : Form
         item.SubItems.Add(entry.CleanupState == 2 ? UiText.Get("recovery.state.cleaned") : entry.CleanupState == 1 ? UiText.Get("recovery.state.cleaning") : !entry.Available ? UiText.Get("recovery.state.unavailable") : entry.CanClean ? UiText.Get("recovery.state.completed") : UiText.Get("recovery.state.protected")); entries.Items.Add(item);
     }
     private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Top, Height = 85, Padding = new Padding(12), Text = UiText.Get("recovery.instructions") };
-    public RecoveryForm(bool preview = false, bool previewBusy = false)
+    public RecoveryForm(bool preview = false, bool previewBusy = false, LocalStorage? policyStorage = null)
     {
         Text = UiText.Get("recovery.title"); ClientSize = new Size(980, 680); MinimumSize = new Size(760, 560); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterScreen;
         void FitStatus() { var width = status.Parent?.ClientSize.Width ?? ClientSize.Width; status.MaximumSize = new Size(Math.Max(120, width), 0); status.Height = status.GetPreferredSize(new Size(width, 0)).Height; }
@@ -53,7 +53,7 @@ internal sealed class RecoveryForm : Form
         Shown += (_, _) => FitStatus();
         entries.Columns.Add(UiText.Get("recovery.column.file"), 230); entries.Columns.Add(UiText.Get("recovery.column.date"), 140); entries.Columns.Add(UiText.Get("recovery.column.size"), 80); entries.Columns.Add(UiText.Get("recovery.column.state"), 180); entries.ShowItemToolTips = true;
         entries.ColumnClick += (_, e) => SortByColumn(e.Column);
-        var storage = LocalStorage.ForCurrentUser();
+        var storage = policyStorage ?? LocalStorage.ForCurrentUser();
         var manager = new BackupManagement(storage);
         var service = new BackupRecovery(storage);
         var policyPanel = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoScroll = true, FlowDirection = FlowDirection.TopDown, WrapContents = false, Padding = new Padding(12) };
@@ -174,7 +174,7 @@ internal sealed class RecoveryForm : Form
         }
         void SavePolicy(object? sender, EventArgs args)
         {
-            if (loadingPolicy || preview) return;
+            if (loadingPolicy || preview && policyStorage is null) return;
             // Capture every edit and write in order, including edits made while a save awaits its lock.
             pendingPolicySave = PersistPolicy(pendingPolicySave, new((int)days.Value, (int)quota.Value, automatic.Checked));
         }
