@@ -1,15 +1,66 @@
 # Changelog — ZagoSheetsWin
 
-As alterações significativas são registradas aqui em ordem cronológica inversa, seguindo as categorias **Added**, **Changed**, **Fixed**, **Security** e **Known limitations** do [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). As versões anteriores a 1.0.0 são **marcos do desenvolvimento alfa**, não GitHub Releases. Este histórico foi revisado em **15/10/2026** usando commits, código, documentos de fase e metadados do repositório.
+As alterações significativas são registradas aqui em ordem cronológica inversa, seguindo as categorias **Added**, **Changed**, **Fixed**, **Security** e **Known limitations** do [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). As versões anteriores a 1.0.0 são **marcos do desenvolvimento alfa**, não GitHub Releases. Este histórico foi revisado em **17/10/2026** usando commits, código, documentos de fase e metadados do repositório.
 
-**Não há tags de versão nem Releases publicadas no GitHub nesta data.** GitHub Actions produz candidatos e artefatos temporários, mas uma execução bem-sucedida não constitui lançamento público nem aceite com Google real. Não confundir versão declarada no código com Release publicada.
+**Não há tags de versão nem Releases publicadas no GitHub em 17/10/2026.** GitHub Actions produz candidatos e artefatos temporários, mas uma execução bem-sucedida não constitui lançamento público nem aceite com Google real. Não confundir versão declarada no código com Release publicada.
 
 ## [Unreleased] — preparação para 1.0.0
 
 - **Documentation:** consolidar README internacional, guias atuais, histórico, formatos, recuperação, segurança e checklist de homologação.
-- **Pending:** homologar fluxos reais de OAuth/Drive no Windows, comportamento de ODS complexos, critérios de fidelidade, revisão editorial dos idiomas, configuração de distribuição pública, elegibilidade de licenças e eventual assinatura do instalador.
+- **Pending:** homologar fluxos reais de OAuth/Drive no Windows, comportamento de ODS complexos, **aceitar explicitamente a política de substituição sem fidelidade integral**, revisão editorial dos idiomas, distribuição no commit definitivo, elegibilidade de licenças e eventual assinatura do instalador.
 - **Not done:** publicar 1.0.0, criar tag ou Release, certificar segurança, afirmar suporte universal a ODS.
 - Alterações de documentação **não** aumentam a versão do aplicativo.
+
+## [0.9.35] — candidato alfa, 17/10/2026
+
+Commit de produto: [70377cb](https://github.com/zagozago/ZagoSheetsWin/commit/70377cb17cd515149c03777aae1bb4fd87a2a11b), com verificação de layout adicional em [9929524](https://github.com/zagozago/ZagoSheetsWin/commit/9929524e67fea42c8940ae27b41f80963479c490).
+
+### Fixed
+- Mensagem genérica em **51 idiomas** inclui a possibilidade de arquivo marcado como **somente leitura**. O Windows pode negar a retirada nessa condição; a operação falha de forma recuperável, mantendo o original e o backup.
+- Novo teste Windows verifica erro nativo de acesso negado, preservação de bytes/atributo de somente leitura e retomada segura **depois que o atributo é removido pelo usuário**.
+- Verificação nativa de layout garante que a mensagem ampliada caiba na tela de erro nos 51 idiomas.
+
+### Verification status
+- [Local core 0.9.35 / commit 9929524](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39059144987): Windows e Ubuntu **concluídos com sucesso**.
+- [Protected alpha distribution 0.9.35 / commit 70377cb](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39059101337): execução protegida **concluída com sucesso**, anterior ao commit de verificação visual 9929524.
+- A execução protegida e o HEAD da branch **não são o mesmo SHA**; produzir pacote no commit definitivo antes da futura Release. Esses testes automatizados não substituem a homologação com Google real.
+
+## [0.9.34] — candidato alfa, 17/10/2026
+
+Commits: [961a180](https://github.com/zagozago/ZagoSheetsWin/commit/961a180ceda24cc9a54df7c91a7f37cf43f8563f) e [eb9c137](https://github.com/zagozago/ZagoSheetsWin/commit/eb9c1371ecfad1271c7f738f01bd2935de4d41cd).
+
+### Changed
+- Depois de **cada substituição concluída**, exibir confirmação em vez de um alerta exclusivo para conversão parcial: a mensagem informa que o original foi substituído por atalho e oferece acesso a **Backups**.
+- Adicionar **Não mostrar novamente**, persistido por usuário; impedir sobreposição de múltiplas confirmações simultâneas.
+- Salvar automaticamente retenção, quota e limpeza na tela de backups, inclusive edições feitas antes de um salvamento anterior terminar.
+- Remover caixas de seleção das linhas de backup; seleção múltipla direta e **ordenação ascendente/descendente por Arquivo, Data, Tamanho e Estado**, com data/tamanho comparados pelo tipo.
+- Melhorar contraste de textos de botões desativados no tema escuro; validação de salvamento automático em interface nativa.
+
+## [0.9.33] — candidato alfa, 16/10/2026
+
+Commit: [6754b70](https://github.com/zagozago/ZagoSheetsWin/commit/6754b70150a5582574239e7c7f9120afe291ebc9).
+
+### Changed
+- **Mudança importante de política de dados:** após criação nativa do Google Sheets, vínculo remoto confirmado e **backup íntegro**, falhas de equivalência de valores/fórmulas e ausência de verificação integral deixam de impor importação como cópia. O original **pode ser substituído** por `.url` conforme consentimento e preferências existentes.
+- O código `ConversionVerifier` marca diferença de valores suportados ou impossibilidade de comparação como advertência, mas continua rejeitando falhas graves de integridade, importação remota e associação.
+- Retomada passa a respeitar preferência global de cópia, mantendo associação ao documento já criado.
+- Fluxos e testes automatizados de XLS/ODS, restauração binária e erros remotos foram atualizados. **Não representam equivalência garantida nem homologação de todos os documentos reais**.
+
+## [0.9.32] — candidato alfa, 16/10/2026
+
+Commit: [a3b1f9c](https://github.com/zagozago/ZagoSheetsWin/commit/a3b1f9ca0d504dee193553bd879fb364e910edf5).
+
+- Restaurar padrão de **9 pt** para botões de ação, com a família de fontes selecionada para o idioma.
+- Remover da janela de Opções avançadas a seção **Formatos e texto**, inclusive seletores de codificação/delimitador; **preservar as preferências previamente gravadas e os cinco formatos suportados**.
+- Ajustar altura da janela avançada ao conteúdo restante.
+
+## [0.9.31] — candidato alfa, 16/10/2026
+
+Commit: [d37c419](https://github.com/zagozago/ZagoSheetsWin/commit/d37c419364e24ddab598a245c28120d62ad3d020).
+
+- Adicionar ODS à ilustração do tutorial e à descrição de integração de Windows, nos 51 idiomas.
+- Remover o antigo controle de habilitação de formatos; suporte aos cinco formatos passa a ser sempre oferecido.
+- Alteração tipográfica intermediária de 10 pt, **substituída pelo padrão de 9 pt na 0.9.32**.
 
 ## [0.9.30] — candidato alfa, 15/10/2026
 

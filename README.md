@@ -59,7 +59,7 @@
 
 **Open local spreadsheet files in Google Sheets from Windows.** ZagoSheetsWin is a free, open-source Windows application developed by **Zagotools** and derived from [Open in Google](https://github.com/SwatiK425/open-in-google).
 
-**Status: alpha — current development candidate 0.9.30. Version 1.0.0 has not been released.** The active application code is on `feature/zagosheetswin`; `main` has historically hosted multilingual documentation and is not the authoritative code branch for alpha builds.
+**Status: alpha — current development candidate 0.9.35. Version 1.0.0 has not been released.** The active application code is on `feature/zagosheetswin`; `main` has historically hosted multilingual documentation and is not the authoritative code branch for alpha builds.
 
 > Documentation translations are retained as snapshots. For up-to-date behavior, limits and safety restrictions, use this English README and the [current documentation index](docs/README.md). Availability of 51 interfaces does not imply that every translation has completed native editorial review.
 
@@ -72,7 +72,7 @@ With a Google account authorized and a supported file type associated in Windows
 3. When replacement is allowed and verified, the app creates a `.url` Internet shortcut **in the original folder** and retires the original file there. The recoverable backup remains in the app's private local storage.
 4. The browser opens the Google Sheets document. Later opening that same shortcut goes straight to the remote document without another upload.
 
-Replacement is **not unconditional**. Import-as-copy keeps the source file and can create a shortcut in the app's private shortcut folder. Protected or synchronized locations, unverifiable workbook features and conversion failures can force copy-only behavior or stop the operation.
+Replacement depends on **user preferences and safety checks**, but **full spreadsheet fidelity is not required for a verified Google import**. Since alpha 0.9.33, even when formulas, values or complex spreadsheet features cannot be proven equivalent, an otherwise successful import may replace the original file with a shortcut. The **verified local backup** is how you recover the original bytes. **Check the result in Google Sheets**, especially when using XLS or ODS. Choose **Import as copy** before opening the file if you want to keep the original in place. Synchronization/network protections or fatal validation failures may still preserve the original or block the operation. A Windows file marked **read-only** may block removal: the app reports an error and preserves the source and existing backup.
 
 There is **no bidirectional synchronization**: subsequent online edits are not copied back into the original Excel/ODS/CSV/TSV file or its original backup. ZagoSheetsWin does not silently overwrite a remote Google Sheets document after the local file changes.
 
@@ -81,8 +81,8 @@ There is **no bidirectional synchronization**: subsequent online edits are not c
 | Input | Current alpha behavior | Important limitations |
 |---|---|---|
 | `.xlsx` | Native Sheets import; eligible local files may be replaced by a shortcut | VBA/macros are not supported; native import does not guarantee visual/functional equivalence |
-| `.xls` | Binary Excel is converted locally to XLSX; some HTML exports named `.xls` are read as tables | Formulas, VBA, drawings and other advanced features can require copy-only import; original backup is retained |
-| `.ods` | Real OpenDocument packages are parsed and imported using the ODS media type | Complex formulas, dates, styles, merges or unsupported structures may require copy-only import; malformed/renamed HTML `.ods` is rejected; real-world coverage remains under validation |
+| `.xls` | Binary Excel is converted locally to XLSX; some HTML exports named `.xls` are read as tables | Some formulas, values and advanced features can change: successful imports may replace the original; use the backup to recover the original bytes; VBA/macros are not preserved |
+| `.ods` | Real OpenDocument packages are checked and imported using the ODS media type | Some formulas, values, dates, styles or merges may change, **even when replacement succeeds**; invalid/renamed HTML `.ods` is rejected; real-world compatibility remains under validation |
 | `.csv` | Parsed and normalized to XLSX with literal text cells | Encoding and delimiter must be unambiguous; text is not automatically converted to dates/numbers/formulas |
 | `.tsv` | Tab-separated input normalized with literal text cells | Strict parsing and encoding checks apply |
 
@@ -96,13 +96,13 @@ The file input limit is **20 MiB**. Table processing limits include **500,000 ce
 4. Use **Windows Settings → Apps → Default apps** to select ZagoSheetsWin for the supported extensions you want to open by double-click. The app registers as an option but does not silently change your defaults.
 5. Start with a disposable test spreadsheet and verify the resulting Sheets file, local shortcut, backup and restoration.
 
-The application also has a native four-page **Help/tutorial** dialog. It is distinct from the three-page first-use assistant. The default appearance is **light theme**; dark theme can be selected.
+The application has a native four-page tutorial separate from the three-page first-use assistant. The **Help** button on the home screen opens a language-specific URL on Zagotools; **availability of that web page has not been verified**. For dependable instructions, use the versioned GitHub guides. The default appearance is **light theme**; dark theme can be selected.
 
 For current procedures use the [user guide](docs/USER_GUIDE.md) and [troubleshooting](docs/TROUBLESHOOTING.md). **Do not follow `SETUP.md` for installation of this application:** that file documents the legacy upstream PowerShell tool.
 
 ## Backups and recovery
 
-A snapshot of the original bytes is kept before replacement. The default policy is **30 days of retention** with a **200 MB storage quota**, configurable up to **1,000 MB (1 GB)**. **Automatic cleanup is opt-in** and is performed during application operations, not by a resident background service. Deleting a completed backup prevents restoring those original bytes; completed backups can be selected and deleted only with confirmation. Pending or uncertain operations have additional safeguards.
+A snapshot of the original bytes is kept before replacement, including after conversions with uncertain fidelity. The default policy is **30 days of retention** with a **200 MB storage quota**, configurable up to **1,000 MB (1 GB)**. **Automatic cleanup is opt-in**, during application operations rather than via a background service. Backup retention/quota/cleanup settings **save automatically**. The list has **File, Date, Size, Status** headers that sort ascending/descending when clicked; multiple rows are selected directly, without checkboxes. Deleting selected backups requires confirmation, with stronger safeguards for pending operations. After a successful replacement, the app shows a local confirmation with a **Backups** button and a persistent **Don't show again** option (only one confirmation is shown at a time).
 
 From **Backups/Recovery**, users can restore to a new local destination, continue an existing operation as a copy, conclude an eligible replacement, and export privacy-filtered diagnostics. Do not delete `%LOCALAPPDATA%\SheetsWindows` as a troubleshooting step: it contains recovery state. The uninstaller intentionally preserves local state and Google documents.
 
@@ -114,6 +114,10 @@ The source is available under the **MIT license**, preserving copyright and attr
 
 Privacy and terms: [Privacy](https://zagotools.top/legal.html#privacidade), [Terms](https://zagotools.top/legal.html#termos), [Licenses](https://zagotools.top/legal.html#licencas). A future web help center is **planned, not currently declared live**; for now use the versioned [documentation index](docs/README.md).
 
+## Current interface preferences
+
+Advanced Options now contains Google client setup, folder/synchronization and replacement consent, plus the specific XLS replacement preference. **The Formats and Text settings section was removed in 0.9.32**; all five formats remain supported. Previously persisted CSV/TSV text-interpretation preferences are retained, but the removed selectors are **not available in the current UI**.
+
 ## Languages and accessibility
 
 The Windows application and installer provide **51 language selections**, following the canonical T51 ordering in `i18n/locales.json`. Selected languages are preserved; automatic selection follows Windows preferences. The UI supports right-to-left layouts for relevant languages, Windows font fallback, native UI controls and light/dark themes. Localization packaging and automated checks do not certify every translation's editorial quality.
@@ -123,6 +127,7 @@ The Windows application and installer provide **51 language selections**, follow
 - [Documentation index: current vs. historical](docs/README.md)
 - [User guide](docs/USER_GUIDE.md)
 - [Current architecture](docs/ARCHITECTURE_CURRENT.md)
+- [Current alpha baseline and CI evidence](docs/RELEASE_STATUS.md)
 - [Formats and limits](docs/FORMATS_AND_LIMITS.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
 - [Stable-release readiness checklist](docs/PRE_RELEASE_CHECKLIST.md)
