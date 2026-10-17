@@ -1,5 +1,12 @@
 # ZagoSheetsWin
 
+> ⚠️ **0.9.35 — Important safety update (English notice; full translation review pending).**
+>
+> 电子表格已在 Google Sheets 中打开。原始文件已替换为快捷方式。要恢复原始文件，请打开 备份(B)。
+>
+> **Conversion fidelity:** After a confirmed Google import, the original local file **may be replaced with a `.url` shortcut even when formulas, values or formatting differ**. The original bytes remain in Backups. Choose **Import as copy BEFORE opening** if you need the original to stay in the source folder. Windows **read-only** files may block replacement; in that case, the original is preserved. Some text below describes an older alpha policy; use the [current English README](../../../README.md) or [Portuguese user guide](../../USER_GUIDE.md) for complete 0.9.35 behavior.
+
+
 <details>
 <summary>🌐 文档语言 · 选择语言</summary>
 
