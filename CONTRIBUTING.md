@@ -4,7 +4,7 @@ ZagoSheetsWin is free and open-source software under the MIT license. It is deve
 
 ## Which branch?
 
-As of 15 October 2026, **`feature/zagosheetswin`** contains the current C#/.NET application; the default `main` historically carries the international README and 50 translations, not this application. **Choose your PR base deliberately.** Do not assume `main` contains a stable release. Version 1.0.0 has not been published.
+As of 17 October 2026, **`feature/zagosheetswin`** contains the current C#/.NET application (alpha 0.9.35); the default `main` historically carries the international README and 50 translations, not this application. **Choose your PR base deliberately.** Do not assume `main` contains a stable release. Version 1.0.0 has not been published.
 
 For software changes, branch from the current application branch; for documentation changes, prefer the current documentation consolidation branch while it is under review. Avoid mixing source refactors and documentation cleanup in the same commit.
 
@@ -46,8 +46,8 @@ For any change touching import, schema, conversion, remote association, snapshot
 2. Do not repeat a remote **create POST** blindly after uncertain network completion.
 3. Keep account, source identity, hash and operation marker consistent.
 4. Test concurrent opens, failed uploads, suspended sessions, interrupted retirement and recovery.
-5. Respect the copy-only rule for synchronized/network locations and formats lacking verified fidelity.
-6. Do not automatically overwrite remote Sheets after local changes.
+5. Respect the copy-only rule for synchronized/network locations and user preferences. **Do not automatically force copy-only for partial formula/value fidelity:** since 0.9.33, verified Google imports may replace sources even when conversion equality cannot be proved. Preserve the original backup and explain this risk.
+6. Do not automatically overwrite remote Sheets after local changes. Preserve the read-only file attribute on failed retirement and allow safe resume after the user changes it.
 7. Do not break recovery compatibility or discard local state without a migration plan.
 
 Files under `%LOCALAPPDATA%\SheetsWindows` contain user state; never ask users to erase them as a routine update step.
@@ -71,6 +71,7 @@ A passing dependency audit, a SHA-256 checksum, and a signed binary are differen
 - Identify any migration, backward-compatibility or translation impact.
 - Include screenshots if WinForms UI changes, with high-DPI/RTL considerations.
 - Maintain upstream credits and license notices.
+- Check native UI recovery/backups column sorting, auto-save policy, conversion confirmation and 51-language read-only error rendering when changing related code.
 - Update the [CHANGELOG](CHANGELOG.md) under **Unreleased** for meaningful implemented changes; do not fabricate a GitHub Release.
 - Update [current documentation](docs/README.md) and [stable readiness checklist](docs/PRE_RELEASE_CHECKLIST.md) when applicable.
 

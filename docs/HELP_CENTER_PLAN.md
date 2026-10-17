@@ -1,6 +1,6 @@
 # Endereços da futura central de ajuda Zagotools
 
-**Estado:** planejamento de documentação e navegação. Este arquivo **não afirma que a página de ajuda do ZagoSheetsWin já está publicada**.
+**Estado na 0.9.35:** o aplicativo já contém código para abrir a URL de ajuda no navegador, porém **a publicação e disponibilidade da página não foram comprovadas**. Este arquivo não apresenta a URL como central de ajuda já disponível. [Base do produto e CI](RELEASE_STATUS.md).
 
 ## Links existentes usados pelo aplicativo
 
@@ -13,15 +13,15 @@
 
 Os links legais estão no código atual. A disponibilidade HTTP, texto publicado e requisitos do Google Cloud devem ser conferidos antes da distribuição ampla.
 
-## Endereço de ajuda em discussão
+## Endereço implementado no aplicativo, publicação ainda não comprovada
 
-O [PR #12](https://github.com/zagozago/ZagoSheetsWin/pull/12), **ainda não incorporado à branch de produto durante esta revisão**, propõe que o botão de Ajuda abra a URL:
+O código **atual** de `LauncherForm.cs` na `feature/zagosheetswin` já usa o botão **Ajuda** para tentar abrir a URL abaixo e acrescenta o código do idioma selecionado. O [PR #12](https://github.com/zagozago/ZagoSheetsWin/pull/12) também permanece aberto e deve ser conciliado; seu estado não significa que a integração esteja ausente do código principal:
 
 ```text
 https://zagotools.top/apps/zagosheetswin/ajuda/?lang=<codigo-do-idioma>
 ```
 
-Esse caminho é **proposta de integração**, não confirmação de página publicada. Não incluí-lo como link ativo de suporte nos READMEs até que a hospedagem exista, o conteúdo esteja revisado e o comportamento do idioma tenha sido testado.
+**O endereço está codificado no aplicativo**, mas não foi possível verificar seu funcionamento pelo acesso web desta revisão. Não promovê-lo como link garantido de suporte nos READMEs até que a hospedagem exista, o conteúdo esteja revisado e o comportamento do idioma seja testado. Se o navegador falhar ao abrir, o aplicativo pode exibir o endereço para consulta manual, mas isso não prova que a página responda.
 
 ## Checklist de publicação do site
 

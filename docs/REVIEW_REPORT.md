@@ -1,6 +1,6 @@
 # Auditoria e consolidação documental — preparação 1.0.0
 
-**Revisão:** 15/10/2026. **Base de código:** `feature/zagosheetswin` commit `6a019318f64c1068ebd5ece4932320535b24f629`. **README internacional:** `main` commit `057ef77e0e79af197bb2c6c3f7b28fee1b8c0b02`. **Forma de entrega:** branch isolada e PR para a branch de desenvolvimento; **sem publicar tag/Release 1.0.0**.
+**Revisão inicial:** 15/10/2026; **atualização:** 17/10/2026. **Base de código inicial:** `feature/zagosheetswin` commit `6a019318f64c1068ebd5ece4932320535b24f629`. **Base da atualização 0.9.35:** `9929524e67fea42c8940ae27b41f80963479c490`. **README internacional:** `main` commit `057ef77e0e79af197bb2c6c3f7b28fee1b8c0b02`. **Forma de entrega:** branch isolada e PR para a branch de desenvolvimento; **sem publicar tag/Release 1.0.0**.
 
 ## Constatações e decisões
 
@@ -12,17 +12,27 @@
 | `docs/ARCHITECTURE.md` descreve arquitetura proposta, não o programa já implementado | Criar `ARCHITECTURE_CURRENT.md` e identificar `ARCHITECTURE.md` como histórico |
 | `docs/ROADMAP.md`, `ALPHA_NEXT.md`, `DEVELOPMENT.md` contêm estados históricos | Manter rastreabilidade, adicionar cabeçalho de histórico e indexação `HISTORY.md` |
 | `SETUP.md` é instrução do upstream PowerShell (Word/Docs/Slides) | Sinalizar como legado; indicar instalador C# e manual vigente |
-| ODS está parcialmente coberto; documento HTML renomeado `.ods` não é ODS | Registrar validação de pacote, política de cópia e regressões pendentes; sem alegar compatibilidade universal |
+| ODS está parcialmente coberto; documento HTML renomeado `.ods` não é ODS | Registrar validação de pacote e **mudança 0.9.33 de substituição mesmo quando há equivalência parcial**; não alegar compatibilidade universal |
 | Versões anteriores tinham deriva 0.9.29/0.9.28 entre produto e instalador | Registrar correção do candidato 0.9.30 e exigir validação do artefato exato |
 | 51 línguas da interface ≠ 50 READMEs atuais editorialmente revisados | Preservar recursos e avisar que traduções documentais ainda precisam de sincronização antes da estabilidade |
-| Guia futuro no domínio Zagotools aparece no PR #12 | Separar URL proposta de link confirmado; não publicar hiperlink como manual existente |
+| O botão Ajuda da branch de produto já abre URL Zagotools com idioma, e PR #12 permanece aberto | Descrever a implementação real sem presumir que a página web exista; conciliar PR paralelo |
 | Há PR aberto #11 de estrutura de contribuição e documentação | Incorporar conteúdo compatível com base atual e registrar sobreposição para conciliação antes do merge |
+
+## Constatações complementares de 0.9.35
+
+- **0.9.31:** cinco formatos sempre disponíveis; ODS no tutorial e registro Windows.
+- **0.9.32:** retirada da seção Formatos e texto nas Opções avançadas. Catálogos legados ainda contêm mensagens dessa seção, mas isso não significa que os controles continuem visíveis.
+- **0.9.33:** diferença de valores/fórmulas e verificação incompleta deixam de impedir a substituição após importação Google confirmada e validações obrigatórias. A documentação antiga que prometia cópia automática estava **incorreta para esta versão**.
+- **0.9.34:** confirmação pós-substituição com Backups e opção persistente; backups com ordenação Arquivo/Data/Tamanho/Estado e regras salvas automaticamente; contraste em tema escuro.
+- **0.9.35:** mensagem sobre atributo somente leitura e regressão Windows que preserva original/backup, com retomada após retirar o atributo.
+- **Automação:** [Protected alpha distribution](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39059101337) aprovada para `70377cb`; [Local core](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39059144987) aprovado para `9929524`. A distribuição protegida **não foi provada neste levantamento** para o commit mais novo.
+- **Limites:** não houve testes adicionais de conta Google real nesta revisão. O futuro `1.0.0` segue pendente de aceite, sem publicação.
 
 ## Checagens e limites da auditoria
 
 - Fonte principal: código e documentação do GitHub, branches citadas. Estrutura de arquivos lida a partir das árvores Git e fontes relevantes.
 - Foram consultados registros de commits, releases e tags. **Releases: vazio; tags: vazio** durante esta consulta.
-- Este trabalho é **documental**. Não modifica fluxo de importação, OAuth, autorização, empacotamento, versão do programa nem catálogos de interface.
+- Este trabalho é **documental**. Não modifica fluxo de importação, OAuth, autorização, empacotamento, versão do programa nem catálogos de interface. **A atualização 0.9.35 incorpora a revisão do comportamento implementado em commits da 0.9.31 à 0.9.35; alterações em código vieram da branch do produto, não deste PR.**
 - Não foram executados testes locais adicionais nem homologação Google real nesta revisão.
 - Uma tradução importada de `main` pode estar menos atualizada que o README canônico. É necessário processo futuro de tradução/revisão e não apenas conservar links.
 - Não houve validação da publicação do futuro caminho de ajuda no domínio; links legais existentes permanecem identificados como configurados no código.

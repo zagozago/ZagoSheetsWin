@@ -1,3 +1,7 @@
+> **Nota para a 0.9.35 (17/10/2026): documento histórico de conversão.** Desde a 0.9.33, divergência de fórmulas/dados ou verificação incompleta **não impõe automaticamente a importação como cópia**. Uma importação Google confirmada pode substituir o XLS por atalho se a política do usuário permitir e as verificações de integridade passarem. O backup continua recuperável. Antes de usar instruções abaixo, consulte [matriz vigente](FORMATS_AND_LIMITS.md) e [estado da versão](RELEASE_STATUS.md). Este aviso não altera o código de conversão.
+
+---
+
 # Local XLS conversion — 0.9.13
 
 New XLS imports use ExcelDataReader to validate dimensions and read cached
