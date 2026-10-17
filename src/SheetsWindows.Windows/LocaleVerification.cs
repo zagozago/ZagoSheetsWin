@@ -65,7 +65,14 @@ internal static class LocaleVerification
                     if (page < FirstUseWizard.PageCount)
                     { using var wizard = new FirstUseWizard(preview:true, initialPage:page); Check(wizard,$"first-use-{page+1}",true); }
                 }
-                using (var error = new ProcessingForm(new(LauncherAction.Open,"preview.xlsx"),preview:true,previewError:true)) Check(error,"error");
+                using (var error = new ProcessingForm(new(LauncherAction.Open,"preview.xlsx"),preview:true,previewError:true))
+                {
+                    var status = Descendants(error).OfType<Label>().Single(l => l.AccessibleName == UiText.Get("accessibility.processingStatus"));
+                    status.Text = UiText.Get("error.generic");
+                    Check(error,"error",true);
+                    var text = TextRenderer.MeasureText(status.Text,status.Font,new Size(Math.Max(100,status.ClientSize.Width-status.Padding.Horizontal),int.MaxValue),TextFormatFlags.WordBreak);
+                    if(text.Height+status.Padding.Vertical>status.ClientSize.Height+2)throw new InvalidOperationException($"{language.Code}: generic failure message is clipped.");
+                }
                 using (var partial = new ProcessingForm(new(LauncherAction.Open,"preview.ods"),preview:true))
                 {
                     partial.ShowImportNotice(UiText.Format("import.notice.partialConversion", ("backups", UiText.Get("home.backups").Replace("&", "", StringComparison.Ordinal))));
