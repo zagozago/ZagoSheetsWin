@@ -1,5 +1,12 @@
 # ZagoSheetsWin
 
+> ⚠️ **0.9.35 — Important safety update (English notice; full translation review pending).**
+>
+> স্প্রেডশিটটি Google Sheets-এ খোলা হয়েছে। মূল ফাইলের বদলে একটি শর্টকাট তৈরি হয়েছে। মূল ফাইল ফিরিয়ে পেতে ব্যাকআপ(B) খুলুন।
+>
+> **Conversion fidelity:** After a confirmed Google import, the original local file **may be replaced with a `.url` shortcut even when formulas, values or formatting differ**. The original bytes remain in Backups. Choose **Import as copy BEFORE opening** if you need the original to stay in the source folder. Windows **read-only** files may block replacement; in that case, the original is preserved. Some text below describes an older alpha policy; use the [current English README](../../../README.md) or [Portuguese user guide](../../USER_GUIDE.md) for complete 0.9.35 behavior.
+
+
 <details>
 <summary>🌐 নথির ভাষা নির্বাচন করুন</summary>
 
