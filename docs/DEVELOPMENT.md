@@ -1,3 +1,7 @@
+> **REGISTRO HISTÓRICO DE BRANCHES E DESENVOLVIMENTO.** Comandos, estados e versões desta página refletem etapas anteriores. Para compilar e contribuir com o código atual, use [CONTRIBUTING.md](../CONTRIBUTING.md) e [arquitetura vigente](ARCHITECTURE_CURRENT.md).
+
+---
+
 # Desenvolvimento e preparação do fork
 
 Base upstream e histórico preservados. Branch atual docs/foundation; main permanece na revisão original. Não criar develop antes de precisar de uma linha de integração adicional. Feature branches saem da linha do produto; upstream/* devem partir do upstream ou conter somente mudanças independentes.
