@@ -1,6 +1,6 @@
 # Arquitetura atual do ZagoSheetsWin
 
-**Base:** `feature/zagosheetswin`, candidato 0.9.30, em 15/10/2026. Descrição da **implementação**, não do arquivo histórico [ARCHITECTURE.md](ARCHITECTURE.md), que nasceu como arquitetura-alvo. Diagramas e regras abaixo foram verificados nos projetos C# e scripts do repositório. Não representam auditoria formal de segurança.
+**Base:** `feature/zagosheetswin`, candidato **0.9.35** em 17/10/2026 ([commit e evidências](RELEASE_STATUS.md)). Descrição da **implementação**, não do arquivo histórico [ARCHITECTURE.md](ARCHITECTURE.md), que nasceu como arquitetura-alvo. Não representa auditoria formal de segurança.
 
 ## Organização do código
 
@@ -49,9 +49,11 @@ LocalPreparation --> GoogleImport --> GoogleDriveClient --> Google Drive API
 3. Preparar um snapshot consistente, salvar backup e SHA-256, com lock da identidade de origem.
 4. Normalizar o formato quando exigido e registrar a **intenção remota** antes de criar o documento.
 5. Fazer upload/retomada de sessão; confirmar ID, tipo Google Sheets, permissão, estado da lixeira e marcadores `sw_operation` / `sw_hash`. Associação não é escolhida por nome.
-6. Para substituição elegível: verificar backup, publicar o atalho sem sobrescrever outro arquivo, solicitar abertura do navegador e só então retirar o arquivo original sob handle Windows que evita corrida por nome/caminho.
-7. Persistir cada transição no journal. Se uma etapa falhar, preservar representação recuperável; uma criação remota incerta exige reconciliação, não repetição cega.
-8. Se a importação exigir cópia: manter a fonte. Com atalhos habilitados, publicar atalho na pasta privada do aplicativo.
+6. Conferir as células suportadas, quando possível. **Desde 0.9.33, diferença de valores ou verificação incompleta é advertência, não veto automático**. Falhas de integridade, importação ou vínculo continuam bloqueando.
+7. Para substituição elegível: verificar backup, publicar o atalho sem sobrescrever outro arquivo, solicitar abertura do navegador e só então retirar o arquivo original sob handle Windows que evita corrida por nome/caminho.
+8. Persistir cada transição no journal. Se uma etapa falhar, preservar representação recuperável; uma criação remota incerta exige reconciliação, não repetição cega.
+9. Se a importação for em modo de cópia: manter a fonte. Com atalhos habilitados, publicar atalho na pasta privada do aplicativo.
+10. Após substituição concluída, a interface apresenta confirmação com acesso a Backups e opção persistente de ocultação. Uma proteção por mutex impede avisos simultâneos; a confirmação **ocorre após a retirada**, não antes.
 
 **Reabrir `.url` não chama o importador**: o Windows abre diretamente a URL HTTPS gravada. Não há sincronização reversa nem atualização remota silenciosa de arquivo conhecido alterado.
 
@@ -80,13 +82,13 @@ O banco SQLite registra operações locais e remotas em estruturas separadas. **
 - Tokens de acesso/atualização e URLs de sessão protegidos por DPAPI. Backup local usa ACL e não tem criptografia própria de conteúdo.
 - Snapshot e verificação de hash SHA-256, bloqueio por identidade local e validação do destino HTTPS Google Sheets para atalhos.
 - Upload resumable com offsets validados, limite por prazo de operação e reconciliação por marcador. POST de criação não é repetido cegamente.
-- Fonte de rede/sincronizada não é retirada; fórmulas e recursos de planilha sem prova de fidelidade forçam cópia ou bloqueiam o fluxo.
+- Fonte de rede/sincronizada não é retirada. **Conversão com equivalência parcial deixa de forçar cópia** após importação confirmada; o backup deve permanecer íntegro. Falhas estruturais, remotas, de hash e de retirada continuam bloqueando. Atributo Windows somente leitura pode impedir a retirada e exige recuperação sem alterar o original.
 - Diagnósticos sanitizados, no máximo quatro arquivos de 64 KiB e até 96 checkpoints por tentativa; nome sugerido de exportação pode conter basename sanitizado, mas os campos do JSONL não contêm nomes de documentos.
 - Nenhuma afirmação de certificação de segurança, assinatura Authenticode ou Google OAuth publicamente verificado sem evidência externa.
 
 ## Interface e internacionalização
 
-`FirstUseWizard` tem três páginas. `TutorialForm` tem quatro páginas. `SetupForm` contém conexão Google, padrões Windows e opções usuais; `AdvancedPreferencesForm` contém escopo de pasta, formatos e XLS. Temas claro (padrão)/escuro. Catálogo de 51 idiomas gerado a partir de fonte e ordem T51; RTL e fontes alternativas dependem também das fontes instaladas no Windows.
+`FirstUseWizard` tem três páginas. `TutorialForm` tem quatro páginas. `SetupForm` contém conexão Google, padrões Windows e opções usuais; `AdvancedPreferencesForm` contém cliente Google, escopo de pasta/sincronização, consentimento de substituição e regra XLS. **A seção Formatos e texto foi retirada em 0.9.32**, mantendo configurações existentes. `RecoveryForm` salva políticas sem botão Salvar, usa seleção direta de linhas e ordena Arquivo/Data/Tamanho/Estado. `ProcessingForm` exibe a confirmação após substituição e a opção persistente **Não mostrar novamente**. O botão Ajuda inicial abre uma URL Zagotools ainda não comprovada como publicada. Temas claro (padrão)/escuro. Catálogo de 51 idiomas gerado a partir de fonte e ordem T51; RTL e fontes alternativas dependem também das fontes instaladas no Windows.
 
 ## Arquitetura herdada
 

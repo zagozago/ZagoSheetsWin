@@ -1,6 +1,6 @@
 # Solução de problemas e recuperação
 
-**Escopo:** ZagoSheetsWin alpha 0.9.30 em Windows. Antes de repetir operações, confirme a presença do arquivo original, atalho e backup. **Não exclua `%LOCALAPPDATA%\SheetsWindows` para tentar resolver problemas.** Isso pode eliminar associações ou material necessário à recuperação.
+**Escopo:** ZagoSheetsWin alpha **0.9.35** ([evidências](RELEASE_STATUS.md)) em Windows. Antes de repetir operações, confirme a presença do arquivo original, atalho e backup. **Não exclua `%LOCALAPPDATA%\SheetsWindows` para tentar resolver problemas.** Isso pode eliminar associações ou material necessário à recuperação.
 
 ## 1. A planilha não abre por duplo clique
 
@@ -25,13 +25,13 @@ Se o aviso vier do Google Auth Platform (modo Testing, revisão de marca, conta 
 
 1. Confirme que o documento é de fato OpenDocument Spreadsheet e não HTML/ZIP diferente com extensão `.ods`.
 2. Abra o arquivo em seu aplicativo de origem e, se possível, exporte uma cópia XLSX simples para testar.
-3. Para ODS com fórmulas, objetos, scripts ou estrutura não verificável, escolha importação como cópia quando disponível. Não force a retirada do original.
-4. Exporte diagnóstico se o erro persistir. **ODS ainda não possui promessa de compatibilidade universal.**
+3. **Antes de abrir**, selecione **Importar como cópia** se for essencial conservar o original no mesmo diretório. Uma importação confirmada pode substituir o original mesmo quando fórmulas/valores não se mantêm equivalentes. O backup permite restaurar os bytes originais.
+4. Arquivo inválido ou contendo scripts pode ser recusado, sem upload. Exporte diagnóstico se o erro persistir. **ODS ainda não possui promessa de compatibilidade universal.**
 
 ## 4. CSV/TSV com colunas incorretas, caracteres inválidos ou limite
 
-1. Confira a codificação do arquivo: UTF-8, UTF-16 com BOM ou Windows-1252 selecionado explicitamente.
-2. Para CSV, escolha delimitador **vírgula** ou **ponto e vírgula** se a detecção for ambígua; TSV usa tabulação.
+1. Confira a codificação do arquivo: UTF-8, UTF-16 com BOM ou Windows-1252 **se essa preferência já estava persistida em uma instalação anterior**. Os seletores de formato, codificação e delimitador foram retirados da interface na 0.9.32.
+2. Para CSV ambíguo, **normalize o arquivo antes da importação** para UTF-8 e um delimitador consistente; TSV usa tabulação. Não procure o antigo seletor nas Opções avançadas nem edite arquivos internos.
 3. Verifique o limite de **20 MiB**, **500.000 células**, **50.000 linhas** e **1.000 colunas**.
 4. O programa mantém CSV/TSV como **texto literal**, inclusive zeros à esquerda e fórmulas escritas como texto. Isso é comportamento intencional.
 5. Se a interpretação já foi fixada para operações anteriores, não apague `formats.json` ou o banco; prepare nova fonte ou migração suportada.
@@ -42,11 +42,29 @@ Isso pode ser **resultado correto**, não falha:
 
 - A opção “Importar como cópia” está habilitada.
 - O arquivo está em pasta sincronizada ou rede.
-- O documento contém recursos não verificados.
+- Ocorreu uma falha efetiva de importação, integridade, verificação remota ou acesso; **simples falta de equivalência de fórmulas/valores não força mais a cópia**.
 - A importação, validação, backup, atalho ou abertura do navegador falhou.
 - O programa detectou mudança da fonte entre leitura e retirada.
 
 Procure o atalho em **Pasta de atalhos das cópias** quando aplicável. Não exclua o original antes de confirmar o Google Sheets e o backup.
+
+### Depois da substituição, a planilha no Google ficou diferente
+
+Desde a 0.9.33, a conversão pode ser **parcial** e ainda concluir a substituição. A confirmação da 0.9.34 informa onde recuperar o original; **não** significa que todas as fórmulas ou dados foram preservados.
+
+1. Abra o documento no Google Sheets e confira os dados.
+2. Abra **Backups**, selecione a operação e use **Restaurar em…** para recuperar os bytes originais em um local livre.
+3. Para a próxima importação sensível a fidelidade, use **Importar como cópia** antes da abertura e mantenha o arquivo de origem.
+4. Se marcou **Não mostrar novamente**, isso oculta confirmações futuras, **não altera a política de backup nem a substituição**.
+
+### Arquivo original marcado como somente leitura (0.9.35)
+
+O Windows pode impedir a retirada do arquivo marcado **Somente leitura**. A interface inclui essa hipótese na mensagem genérica de erro em 51 idiomas. O arquivo original e os backups existentes **devem permanecer preservados**.
+
+1. Confira o atributo do arquivo em **Propriedades** no Windows.
+2. Se for adequado, desmarque **Somente leitura**. Não faça isso em arquivo de terceiros sem autorização.
+3. Retome a **operação já existente** pela janela Backups/Recuperação; não force reupload apagando registros.
+4. Caso queira manter a origem, use importação como cópia. Se houver restrições de acesso, trate-as na própria pasta.
 
 ## 6. O upload parou ou a internet caiu
 
