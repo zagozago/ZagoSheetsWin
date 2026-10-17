@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "CSV bisa nggunakake koma utawa titik koma. Pilih pamisah ing pilihan teks. Berkas asli tetep dijaga.",
     "error.exportSize": "Ekspor ngluwihi wates verifikasi. Berkas asli lan cadangan tetep dijaga; priksa pamulihan sadurunge ngimpor maneh.",
     "error.formulaVerification": "Spreadsheet asil konversi ngemot rumus sing durung bisa diverifikasi dening aplikasi. Berkas asli lan cadangan tetep dijaga. Ing Pamulihan / cadangan, pilih operasi iki lan pilih Terusake minangka salinan kanggo mbukak spreadsheet ing Google tanpa ngunggah maneh.",
-    "error.generic": "Operasi ora bisa dirampungake. Priksa setelan, sambungan, lan apa berkas lagi dibukak ing aplikasi liyane. Cadangan sing ana tetep kasedhiya.",
+    "error.generic": "Operasi ora bisa dirampungake. Priksa setelan, sambungan, lan apa berkas lagi dibukak ing aplikasi liyane. Cadangan sing ana tetep kasedhiya. Priksa uga apa file ditandhani mung bisa diwaca.",
     "error.googleAccess": "Google nolak akses. Priksa wewenang lan ijin akun/folder. Berkas asli tetep dijaga.",
     "error.googleConversion": "Google nolak impor utawa ekspor verifikasi. Berkas asli tetep dijaga. Priksa diagnostik lan pamulihan sadurunge nyoba maneh.",
     "error.googleUnavailable": "Google sauntara ora kasedhiya utawa mbatesi panjaluk. Berkas asli tetep dijaga. Enteni banjur terusake liwat pamulihan supaya ora ngunggah maneh.",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Bukak folder trabasan salinan",
     "home.settings": "&Setelan",
     "import.notice.copyComplete": "Salinan wis dibukak ing Sheets. Berkas asli dijaga; trabasan kasedhiya ing folder trabasan aplikasi.",
-    "import.notice.formulaCopy": "Spreadsheet sampeyan wis dibukak ing Google Sheets minangka salinan. Ana rumus sing durung bisa diverifikasi kanggo panggantos berkas. Berkas asli lan cadangan tetep disimpen. Trabasan salinan kasedhiya ing folder trabasan aplikasi.",
     "import.notice.syncedCopy": "Berkas dibukak minangka salinan: folder disinkronake utawa ana ing jaringan. Berkas asli tetep disimpen supaya salinan ing piranti liyane ora kapusak.",
     "legal.privacy": "Kabijakan Privasi",
     "legal.terms": "Syarat Panggunaan",
@@ -215,7 +214,7 @@
     "recovery.deleted": "Cadangan dibusak: {count}. Papan sing dibebasake: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Reresik otomatis uga ngetrapake aturan iki marang cadangan sing wis ana. Cadangan sing wis rampung dibusak sawisé wektu panyimpenan utawa kanggo mbebasake papan, saka sing paling lawas nganti paling anyar. Sawisé iku, sampeyan ora bisa mulihake berkas asli lokal. Spreadsheet Google lan trabasan tetep ana. Aktifake?",
     "recovery.enableCleanupTitle": "Aktifake reresik otomatis",
-    "recovery.instructions": "Kanggo mulihake: pilih baris banjur pilih Pulihake menyang…\nKanggo mbusak sawetara cadangan: centhang kothak utawa pilih Pilih kabeh.\nOperasi sing durung rampung dilindhungi. Spreadsheet Google lan trabasan tetep disimpen.",
+    "recovery.instructions": "Kanggo mulihake: pilih baris banjur pilih Pulihake menyang…\nOperasi sing durung rampung dilindhungi. Spreadsheet Google lan trabasan tetep disimpen.",
     "recovery.limits": "Wates: 200 MB · maksimum: 1 GB. Operasi sing durung rampung dilindhungi.",
     "recovery.moreActions": "Tumindak liyane ▾",
     "recovery.noBackups": "Ora ana cadangan sing kacathet kanggo pangguna Windows iki.",
@@ -266,7 +265,7 @@
     "setup.description": "Bukak spreadsheet sampeyan ing Google Sheets nganggo akun Google sampeyan. Berkas asli digawe cadangan sadurunge diganti nganggo trabasan.",
     "setup.encodingLegacy": "Teks: Windows-1252",
     "setup.encodingUnicode": "Teks: UTF-8 / UTF-16 nganggo BOM",
-    "setup.extendedFormats": "Aktifake CSV, TSV, XLS lan ODS (eksperimental).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Panggunaan pisanan - ZagoSheetsWin",
     "setup.formatLimits": "Nganti 20 MiB saben berkas.\nCSV/TSV: 500 ewu sel, 50 ewu baris lan sewu kolom.\n\nIsi dianggep minangka teks literal. Yen konversi ODS ora bisa diverifikasi, berkas asli tetep disimpen. Pilihan teks sampeyan tetep dijaga.",
     "setup.formatsHeading": "Format lan teks",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Pilih akun sampeyan → wenehi idin akses → bali menyang aplikasi.|Ing Setelan, ✓ Google wis nyambung negesake wewenang. Spreadsheet sampeyan tetep ana ing Google Drive akun kasebut. Sampeyan ora perlu nginstal Google Drive for Windows.",
     "tutorial.googleTitle": "Sambungake akun Google sampeyan",
     "tutorial.hide": "Aja nuduhake tutorial iki nalika mbukak aplikasi",
-    "tutorial.importExplanation": "Bukak berkas ing komputer sampeyan. ZagoSheetsWin ngimpor lan verifikasi spreadsheet. Terusake ing browser.|Sawisé verifikasi: cadangan berkas asli + trabasan menyang Sheets. Yen konversi ora bisa dikonfirmasi, berkas asli tetep disimpen.",
+    "tutorial.importExplanation": "Bukak berkas ing komputer sampeyan. ZagoSheetsWin ngimpor lan verifikasi spreadsheet. Terusake ing browser.|Sawisé impor sing dikonfirmasi: cadangan berkas asli + trabasan menyang Sheets. Folder ora dibusak. Ing folder sinkron sing dingerteni, berkas asli tetep disimpen.",
     "tutorial.importTitle": "Bukak spreadsheet sampeyan ing Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Bukak cadangan…",
@@ -329,7 +328,7 @@
     "tutorial.start": "Miwiti",
     "tutorial.title": "Cara kerjane - ZagoSheetsWin",
     "windows.fileTypeDescription": "Spreadsheet ing Google Sheets",
-    "windows.registrationDescription": "Ngimpor XLSX menyang Google Sheets lan ngganti nganggo trabasan, kanthi tetep nyimpen cadangan pribadi.",
+    "windows.registrationDescription": "Ngimpor XLSX, CSV, TSV, XLS, ODS menyang Google Sheets lan ngganti nganggo trabasan, kanthi tetep nyimpen cadangan pribadi.",
     "language.title": "Basa - ZagoSheetsWin",
     "language.choose": "Pilih basa aplikasi",
     "language.search": "Goleki miturut jeneng utawa kode",
@@ -349,6 +348,8 @@
     "firstUse.backupExplanation": "Serep nyimpen berkas asli, tanpa owah-owahan sabanjure ing Sheets.\nIng Serep, pilih Pulihake menyang… kanggo mbalekake berkas.",
     "setup.importHeading": "3. Trabasan lan ngimpor berkas minangka salinan",
     "tutorial.showAtStartup": "Tampilake tutorial iki nalika mbukak aplikasi",
-    "setup.defaultsHelp": "Pilih ZagoSheetsWin ing Aplikasi gawan Windows. Opsional, nanging dianjurake. Pilih ZagoSheetsWin ing Aplikasi baku Windows. Iki opsional: sampeyan uga bisa nggunakake Bukak nganggo → ZagoSheetsWin."
+    "setup.defaultsHelp": "Pilih ZagoSheetsWin ing Aplikasi gawan Windows. Opsional, nanging dianjurake. Pilih ZagoSheetsWin ing Aplikasi baku Windows. Iki opsional: sampeyan uga bisa nggunakake Bukak nganggo → ZagoSheetsWin.",
+    "import.notice.partialConversion": "Spreadsheet wis dibukak ing Google Sheets. File asli diganti nganggo trabasan. Kanggo mulihake, bukak {backups}.",
+    "import.notice.dontShowAgain": "Aja ditampilake maneh"
   }
 }

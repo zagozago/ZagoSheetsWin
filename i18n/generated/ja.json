@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "CSV はカンマまたはセミコロンを使用している可能性があります。テキストオプションで区切り文字を選択してください。元ファイルは保持されました。",
     "error.exportSize": "エクスポートが検証上限を超えました。元ファイルとバックアップは保持されています。再インポートする前に復元記録を確認してください。",
     "error.formulaVerification": "変換後のスプレッドシートに、アプリがまだ検証できない数式が含まれています。元ファイルとバックアップは保持されています。「復元 / バックアップ」でこの処理を選択し、「コピーとして再開」を選ぶと、再アップロードせずに Google でスプレッドシートを開けます。",
-    "error.generic": "処理を完了できませんでした。設定、接続、およびファイルが別のアプリで開かれていないか確認してください。既存のバックアップは引き続き利用できます。",
+    "error.generic": "処理を完了できませんでした。設定、接続、およびファイルが別のアプリで開かれていないか確認してください。既存のバックアップは引き続き利用できます。 ファイルが読み取り専用になっていないかも確認してください。",
     "error.googleAccess": "Google がアクセスを拒否しました。認証とアカウント/フォルダーの権限を確認してください。元ファイルは保持されました。",
     "error.googleConversion": "Google がインポートまたは検証用エクスポートを拒否しました。元ファイルは保持されました。再試行する前に診断情報と復元記録を確認してください。",
     "error.googleUnavailable": "Google は一時的に利用できないか、リクエストを制限しています。元ファイルは保持されました。再アップロードを避けるため、待ってから復元機能で再開してください。",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "コピーのショートカットフォルダーを開く",
     "home.settings": "設定(&S)",
     "import.notice.copyComplete": "コピーを Sheets で開きました。元ファイルは保持され、ショートカットはアプリのショートカットフォルダーにあります。",
-    "import.notice.formulaCopy": "スプレッドシートをコピーとして Google Sheets で開きました。ファイル置換のためにまだ検証できない数式が含まれています。元ファイルとバックアップは保持されています。コピーのショートカットはアプリのショートカットフォルダーにあります。",
     "import.notice.syncedCopy": "ファイルをコピーとして開きました。フォルダーが同期されているかネットワーク上にあります。他のデバイスのコピーを削除しないよう、元ファイルは保持されました。",
     "legal.privacy": "プライバシーポリシー",
     "legal.terms": "利用規約",
@@ -215,7 +214,7 @@
     "recovery.deleted": "削除したバックアップ: {count}。解放した容量: {freedMb:N2} MB。",
     "recovery.enableCleanupPrompt": "自動クリーンアップは既存のバックアップにもこれらのルールを適用します。完了したバックアップを保持期間後、または容量確保のために古いものから削除します。その後、ローカルの元ファイルは復元できません。Google のスプレッドシートとショートカットは保持されます。有効にしますか？",
     "recovery.enableCleanupTitle": "自動クリーンアップを有効にする",
-    "recovery.instructions": "復元するには、行を選択して「復元先…」を選びます。\n複数のバックアップを削除するには、チェックボックスをオンにするか「すべて選択」を選びます。\n保留中の処理は保護されています。Google のスプレッドシートとショートカットは保持されます。",
+    "recovery.instructions": "復元するには、行を選択して「復元先…」を選びます。\n保留中の処理は保護されています。Google のスプレッドシートとショートカットは保持されます。",
     "recovery.limits": "上限: 200 MB · 最大: 1 GB。保留中の処理は保護されています。",
     "recovery.moreActions": "その他の操作 ▾",
     "recovery.noBackups": "この Windows ユーザーのバックアップ記録はありません。",
@@ -266,7 +265,7 @@
     "setup.description": "Google アカウントを使ってスプレッドシートを Google Sheets で開きます。元ファイルはショートカットに置き換える前にバックアップされます。",
     "setup.encodingLegacy": "テキスト: Windows-1252",
     "setup.encodingUnicode": "テキスト: UTF-8 / BOM 付き UTF-16",
-    "setup.extendedFormats": "CSV、TSV、XLS、ODS を有効にする（試験的）。",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "初回使用 - ZagoSheetsWin",
     "setup.formatLimits": "ファイルごとに最大 20 MiB。\nCSV/TSV: 500 千セル、50 千行、千列。\n\n内容はリテラルテキストとして扱われます。ODS の変換を検証できない場合、元ファイルは保持されます。テキスト設定は保持されます。",
     "setup.formatsHeading": "形式とテキスト",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "アカウントを選択 → アクセスを認証 → アプリに戻る。|設定で「✓ Google 接続済み」と表示されれば認証済みです。スプレッドシートはそのアカウントの Google Drive に保存されます。Google Drive for Windows をインストールする必要はありません。",
     "tutorial.googleTitle": "Google アカウントを接続",
     "tutorial.hide": "アプリを開くときにこのチュートリアルを表示しない",
-    "tutorial.importExplanation": "コンピューター上のファイルを開きます。ZagoSheetsWin がスプレッドシートをインポートして検証します。ブラウザーで作業を続けます。|検証後: 元ファイルのバックアップ + Sheets へのショートカット。変換を確認できない場合は元ファイルが保持されます。",
+    "tutorial.importExplanation": "コンピューター上のファイルを開きます。ZagoSheetsWin がスプレッドシートをインポートして検証します。ブラウザーで作業を続けます。|確認済みインポート後: 元ファイルのバックアップ + Sheets へのショートカット。フォルダーは削除されません。同期フォルダーとして識別された場所では元ファイルが保持されます。",
     "tutorial.importTitle": "スプレッドシートを Google Sheets で開く",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "バックアップを開く…",
@@ -329,7 +328,7 @@
     "tutorial.start": "開始",
     "tutorial.title": "使い方 - ZagoSheetsWin",
     "windows.fileTypeDescription": "Google Sheets のスプレッドシート",
-    "windows.registrationDescription": "XLSX を Google Sheets にインポートし、非公開バックアップを保持しながらショートカットに置き換えます。",
+    "windows.registrationDescription": "XLSX, CSV, TSV, XLS, ODS を Google Sheets にインポートし、非公開バックアップを保持しながらショートカットに置き換えます。",
     "language.title": "言語 - ZagoSheetsWin",
     "language.choose": "アプリの言語を選択",
     "language.search": "名前またはコードで検索",
@@ -349,6 +348,8 @@
     "firstUse.backupExplanation": "バックアップは元のファイルを保存し、その後の Sheets の変更は含みません。\n「バックアップ」で「復元先…」を選ぶとファイルを復元できます。",
     "setup.importHeading": "3. ショートカットとファイルのコピーとしてのインポート",
     "tutorial.showAtStartup": "アプリを開くときにこのチュートリアルを表示",
-    "setup.defaultsHelp": "Windows の既定のアプリで ZagoSheetsWin を選択してください。 任意ですが、推奨します。 Windows の既定のアプリで ZagoSheetsWin を選択してください。これは任意です。「プログラムから開く → ZagoSheetsWin」も使用できます。"
+    "setup.defaultsHelp": "Windows の既定のアプリで ZagoSheetsWin を選択してください。 任意ですが、推奨します。 Windows の既定のアプリで ZagoSheetsWin を選択してください。これは任意です。「プログラムから開く → ZagoSheetsWin」も使用できます。",
+    "import.notice.partialConversion": "スプレッドシートを Google Sheets で開きました。元のファイルはショートカットに置き換えられました。元のファイルを復元するには、{backups} を開いてください。",
+    "import.notice.dontShowAgain": "今後表示しない"
   }
 }

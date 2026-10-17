@@ -83,9 +83,12 @@ try
             receipt = new ImportReceipt(operation, GoogleDriveClient.Editor(mapping.FileId), new ReplacementJournal(Path.Combine(storage.Root, "replacement.db")).Get(operation.Id)?.SourcePath ?? operation.SourcePath);
         }
         Console.WriteLine("Operação: " + receipt.Operation.Id);
+        var conversion = new ConversionVerifier(new GoogleDriveClient(http, auth), textOptions ?? (receipt.Operation.Format == "xlsx" ? null : ExtendedConfiguration.Load(storage)));
         var replacement = new ReplacementCoordinator(new SqliteOperationRegistry(storage.DatabasePath), new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")),
-            new BackupStore(storage.BackupsPath), locks, new ReplacementJournal(Path.Combine(storage.Root, "replacement.db")), reader, new BrowserLauncher(), new ConversionVerifier(new GoogleDriveClient(http, auth), textOptions ?? (receipt.Operation.Format == "xlsx" ? null : ExtendedConfiguration.Load(storage))));
-        Console.WriteLine(await replacement.ReplaceAsync(receipt)); return 0;
+            new BackupStore(storage.BackupsPath), locks, new ReplacementJournal(Path.Combine(storage.Root, "replacement.db")), reader, new BrowserLauncher(), conversion);
+        Console.WriteLine(await replacement.ReplaceAsync(receipt));
+        if (conversion.HasWarnings) Console.WriteLine(UiText.Format("import.notice.partialConversion", ("backups", UiText.Get("home.backups").Replace("&", "", StringComparison.Ordinal))));
+        return 0;
     }
     var url = await importer.ImportAsync(args[2]); Process.Start(new ProcessStartInfo(url.AbsoluteUri) { UseShellExecute = true }); Console.WriteLine(url.AbsoluteUri); return 0;
 }

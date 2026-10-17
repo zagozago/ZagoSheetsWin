@@ -42,13 +42,13 @@ public sealed class LegacyConversionTests
         Assert.Equal(name.RefersToFormula, converted.GetName("Valor").RefersToFormula);
         Assert.Equal(1, actual.NumMergedRegions); Assert.Equal(24 * 256, actual.GetColumnWidth(0));
         Assert.True(actual.IsColumnHidden(6)); Assert.Equal(500, cells.Height);
-        // A failed fidelity check cannot retire the XLS when formulas are present.
+        // The strict comparison still detects formulas; the replacement policy presents that as a warning.
         Assert.Throws<FormulaVerificationException>(() => SpreadsheetFormats.VerifyValues(payload.Expected!, payload.Bytes));
         Assert.Equal(bytes, input.ToArray());
     }
 
     [Fact]
-    public void ConditionalFormattingImportsAsCopyBecauseValueChecksCannotProveFeatureFidelity()
+    public void ConditionalFormattingRequiresFidelityWarningBecauseValueChecksCannotProveFeatureFidelity()
     {
         using var old = new HSSFWorkbook(); var sheet = old.CreateSheet("Dados");
         sheet.CreateRow(0).CreateCell(0).SetCellValue(1);

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "CSV ڪاما يا سيمي ڪولن استعمال ڪري سگهي ٿي. ٽيڪسٽ آپشن ۾ جدا ڪندڙ چونڊيو. اصل محفوظ رکيو ويو.",
     "error.exportSize": "برآمد تصديق حد کان وڌي وئي. اصل ۽ بيڪ اپ محفوظ رکيا ويا؛ ٻيهر درآمد کان اڳ بحالي چيڪ ڪريو.",
     "error.formulaVerification": "بدليل اسپريڊ شيٽ ۾ اهڙا فارمولا آهن جن جي ايپ اڃا تصديق نٿي ڪري سگهي. اصل ۽ بيڪ اپ محفوظ رکيا ويا. بحالي / بيڪ اپ ۾ هي آپريشن چونڊيو ۽ بغير ٻيهر اپلوڊ جي Google ۾ اسپريڊ شيٽ کولڻ لاءِ ڪاپي طور جاري رکو چونڊيو.",
-    "error.generic": "آپريشن مڪمل نه ٿي سگهيو. سيٽنگون، ڪنيڪشن ۽ اهو چيڪ ڪريو ته فائل ٻي ايپ ۾ کليل ته ناهي. موجود بيڪ اپ دستياب رهندا.",
+    "error.generic": "آپريشن مڪمل نه ٿي سگهيو. سيٽنگون، ڪنيڪشن ۽ اهو چيڪ ڪريو ته فائل ٻي ايپ ۾ کليل ته ناهي. موجود بيڪ اپ دستياب رهندا. اهو به ڏسو ته فائل رڳو پڙهڻ لاءِ نشان لڳل ته ناهي.",
     "error.googleAccess": "Google رسائي رد ڪئي. اجازت ۽ اڪائونٽ/فولڊر اجازتون چيڪ ڪريو. اصل محفوظ رکيو ويو.",
     "error.googleConversion": "Google درآمد يا تصديق برآمد رد ڪئي. اصل محفوظ رکيو ويو. ٻيهر ڪوشش کان اڳ ڊائگناسٽڪس ۽ بحالي چيڪ ڪريو.",
     "error.googleUnavailable": "Google عارضي طور دستياب ناهي يا درخواستون محدود ڪيون آهن. اصل محفوظ رکيو ويو. ٻيهر اپلوڊ کان بچڻ لاءِ انتظار ڪريو ۽ بحالي ذريعي جاري رکو.",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "ڪاپي شارٽ ڪٽ فولڊر کوليو",
     "home.settings": "&سيٽنگون",
     "import.notice.copyComplete": "ڪاپي Sheets ۾ کلي وئي. اصل محفوظ رکيو ويو؛ شارٽ ڪٽ ايپ جي شارٽ ڪٽ فولڊر ۾ موجود آهي.",
-    "import.notice.formulaCopy": "توهان جي اسپريڊ شيٽ Google Sheets ۾ ڪاپي طور کلي. ان ۾ اهڙا فارمولا آهن جن جي فائل بدلي لاءِ اڃا تصديق نٿي ڪري سگهجي. اصل ۽ بيڪ اپ محفوظ رکيا ويا. ڪاپي شارٽ ڪٽ ايپ جي شارٽ ڪٽ فولڊر ۾ موجود آهي.",
     "import.notice.syncedCopy": "فائل ڪاپي طور کلي: فولڊر سنڪ ٿيل يا نيٽ ورڪ تي آهي. ٻين ڊوائيسن تي ڪاپي ختم ٿيڻ کان بچائڻ لاءِ اصل محفوظ رکيو ويو.",
     "legal.privacy": "پرائيويسي پاليسي",
     "legal.terms": "استعمال جا شرط",
@@ -215,7 +214,7 @@
     "recovery.deleted": "بيڪ اپ ختم ٿيا: {count}. خالي ٿيل جاءِ: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "پاڻمرادو صفائي اهي قاعدا موجود بيڪ اپ تي به لاڳو ڪري ٿي. رکڻ جي مدي کان پوءِ يا جاءِ خالي ڪرڻ لاءِ مڪمل بيڪ اپ، سڀ کان پراڻي کان شروع ڪري، ختم ڪري ٿي. پوءِ مقامي اصل بحال نه ڪري سگهندا. Google اسپريڊ شيٽ ۽ شارٽ ڪٽ رهندا. فعال ڪجي؟",
     "recovery.enableCleanupTitle": "پاڻمرادو صفائي فعال ڪريو",
-    "recovery.instructions": "بحال ڪرڻ لاءِ: قطار چونڊيو ۽ هتي بحال ڪريو… چونڊيو.\nگهڻا بيڪ اپ ختم ڪرڻ لاءِ: باڪس نشان لڳايو يا سڀ چونڊيو.\nزير انتظار آپريشن محفوظ آهن. Google اسپريڊ شيٽ ۽ شارٽ ڪٽ محفوظ رهن ٿا.",
+    "recovery.instructions": "بحال ڪرڻ لاءِ: قطار چونڊيو ۽ هتي بحال ڪريو… چونڊيو.\nزير انتظار آپريشن محفوظ آهن. Google اسپريڊ شيٽ ۽ شارٽ ڪٽ محفوظ رهن ٿا.",
     "recovery.limits": "حد: 200 MB · وڌ ۾ وڌ: 1 GB. زير انتظار آپريشن محفوظ آهن.",
     "recovery.moreActions": "وڌيڪ عمل ▾",
     "recovery.noBackups": "هن Windows يوزر لاءِ ڪو بيڪ اپ رڪارڊ ٿيل ناهي.",
@@ -266,7 +265,7 @@
     "setup.description": "پنهنجي Google اڪائونٽ سان اسپريڊ شيٽون Google Sheets ۾ کوليو. اصل کي شارٽ ڪٽ سان بدلائڻ کان اڳ بيڪ اپ ڪيو وڃي ٿو.",
     "setup.encodingLegacy": "ٽيڪسٽ: Windows-1252",
     "setup.encodingUnicode": "ٽيڪسٽ: UTF-8 / UTF-16 BOM سان",
-    "setup.extendedFormats": "CSV، TSV، XLS ۽ ODS فعال ڪريو (تجرباتي).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "پهريون استعمال - ZagoSheetsWin",
     "setup.formatLimits": "هر فائل لاءِ 20 MiB تائين.\nCSV/TSV: 500 هزار سيل، 50 هزار قطارون ۽ هڪ هزار ڪالم.\n\nمواد کي لفظي ٽيڪسٽ طور ورتو وڃي ٿو. جيڪڏهن ODS تبديلي جي تصديق نه ٿي سگهي ته اصل محفوظ رهي ٿو. توهان جون ٽيڪسٽ پسندون محفوظ رهن ٿيون.",
     "setup.formatsHeading": "فارميٽ ۽ ٽيڪسٽ",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "پنهنجو اڪائونٽ چونڊيو → رسائي جي اجازت ڏيو → ايپ ڏانهن واپس وڃو.|سيٽنگن ۾ ✓ Google ڳنڍيل اجازت جي تصديق ڪري ٿو. توهان جون اسپريڊ شيٽون ان اڪائونٽ جي Google Drive ۾ رهن ٿيون. Google Drive for Windows انسٽال ڪرڻ جي ضرورت ناهي.",
     "tutorial.googleTitle": "پنهنجو Google اڪائونٽ ڳنڍيو",
     "tutorial.hide": "ايپ کولڻ وقت هي tutorial نه ڏيکاريو",
-    "tutorial.importExplanation": "پنهنجي ڪمپيوٽر تي فائل کوليو. ZagoSheetsWin اسپريڊ شيٽ درآمد ۽ تصديق ڪري ٿو. برائوزر ۾ جاري رکو.|تصديق کان پوءِ: اصل جو بيڪ اپ + Sheets ڏانهن شارٽ ڪٽ. جيڪڏهن تبديلي جي تصديق نه ٿي سگهي ته اصل محفوظ رهي ٿو.",
+    "tutorial.importExplanation": "پنهنجي ڪمپيوٽر تي فائل کوليو. ZagoSheetsWin اسپريڊ شيٽ درآمد ۽ تصديق ڪري ٿو. برائوزر ۾ جاري رکو.|تصديق ٿيل درآمد کان پوءِ: اصل جو بيڪ اپ + Sheets ڏانهن شارٽ ڪٽ. فولڊر ختم نٿا ڪيا وڃن. سڃاتل سنڪ ٿيل فولڊرن ۾ اصل محفوظ رهي ٿو.",
     "tutorial.importTitle": "پنهنجون اسپريڊ شيٽون Google Sheets ۾ کوليو",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "بيڪ اپ کوليو…",
@@ -329,7 +328,7 @@
     "tutorial.start": "شروع ڪريو",
     "tutorial.title": "اهو ڪيئن ڪم ڪري ٿو - ZagoSheetsWin",
     "windows.fileTypeDescription": "Google Sheets ۾ اسپريڊ شيٽ",
-    "windows.registrationDescription": "XLSX کي Google Sheets ۾ درآمد ڪري ٿو ۽ خانگي بيڪ اپ رکندي ان کي شارٽ ڪٽ سان بدلائي ٿو.",
+    "windows.registrationDescription": "XLSX, CSV, TSV, XLS, ODS کي Google Sheets ۾ درآمد ڪري ٿو ۽ خانگي بيڪ اپ رکندي ان کي شارٽ ڪٽ سان بدلائي ٿو.",
     "language.title": "ٻولي - ZagoSheetsWin",
     "language.choose": "ايپ جي ٻولي چونڊيو",
     "language.search": "نالي يا ڪوڊ سان ڳوليو",
@@ -349,6 +348,8 @@
     "firstUse.backupExplanation": "بيڪ اپ اصل فائل رکي ٿو، Sheets ۾ پوءِ ٿيندڙ تبديليون نه.\nبيڪ اپ ۾ هتي بحال ڪريو… چونڊي فائل واپس حاصل ڪريو.",
     "setup.importHeading": "3. شارٽ ڪٽ ۽ فائل کي ڪاپي طور درآمد ڪرڻ",
     "tutorial.showAtStartup": "ايپ کولڻ وقت هي رهنمائي ڏيکاريو",
-    "setup.defaultsHelp": "Windows جي ڊفالٽ ايپس ۾ ZagoSheetsWin چونڊيو. اختياري، پر سفارش ڪيل. Windows ڊفالٽ ايپس ۾ ZagoSheetsWin چونڊيو. هي اختياري آهي: هن سان کوليو → ZagoSheetsWin به استعمال ڪري سگهو ٿا."
+    "setup.defaultsHelp": "Windows جي ڊفالٽ ايپس ۾ ZagoSheetsWin چونڊيو. اختياري، پر سفارش ڪيل. Windows ڊفالٽ ايپس ۾ ZagoSheetsWin چونڊيو. هي اختياري آهي: هن سان کوليو → ZagoSheetsWin به استعمال ڪري سگهو ٿا.",
+    "import.notice.partialConversion": "اسپريڊ شيٽ Google Sheets ۾ کلي وئي آهي. اصل فائل جي جاءِ تي شارٽ ڪٽ ٺاهيو ويو آهي. اصل فائل واپس حاصل ڪرڻ لاءِ {backups} کوليو.",
+    "import.notice.dontShowAgain": "ٻيهر نه ڏيکاريو"
   }
 }

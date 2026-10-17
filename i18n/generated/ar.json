@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "قد يستخدم CSV فاصلة أو فاصلة منقوطة. اختر الفاصل في خيارات النص. تم الاحتفاظ بالأصل.",
     "error.exportSize": "تجاوز التصدير حد التحقق. تم الاحتفاظ بالأصل والنسخة الاحتياطية؛ تحقق من الاسترداد قبل الاستيراد مرة أخرى.",
     "error.formulaVerification": "يحتوي جدول البيانات المحوَّل على صيغ لا يستطيع التطبيق التحقق منها بعد. تم الاحتفاظ بالأصل والنسخة الاحتياطية. في الاسترداد / النسخ الاحتياطية، حدد هذه العملية واختر «الاستئناف كنسخة» لفتح جدول البيانات في Google من دون رفعه مرة أخرى.",
-    "error.generic": "تعذر إكمال العملية. تحقق من الإعدادات والاتصال وما إذا كان الملف مفتوحًا في تطبيق آخر. تظل النسخ الاحتياطية الموجودة متاحة.",
+    "error.generic": "تعذر إكمال العملية. تحقق من الإعدادات والاتصال وما إذا كان الملف مفتوحًا في تطبيق آخر. تظل النسخ الاحتياطية الموجودة متاحة. تحقق أيضًا مما إذا كان الملف معيّنًا للقراءة فقط.",
     "error.googleAccess": "رفض Google الوصول. تحقق من التفويض وأذونات الحساب أو المجلد. تم الاحتفاظ بالأصل.",
     "error.googleConversion": "رفض Google الاستيراد أو تصدير التحقق. تم الاحتفاظ بالأصل. تحقق من التشخيص والاسترداد قبل المحاولة مرة أخرى.",
     "error.googleUnavailable": "Google غير متاح مؤقتًا أو قام بتقييد الطلبات. تم الاحتفاظ بالأصل. انتظر ثم استأنف عبر الاسترداد لتجنب الرفع مرة أخرى.",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "فتح مجلد اختصارات النسخ",
     "home.settings": "الإ&عدادات",
     "import.notice.copyComplete": "فُتحت النسخة في Sheets. تم الاحتفاظ بالأصل؛ ويوجد اختصار في مجلد اختصارات التطبيق.",
-    "import.notice.formulaCopy": "فُتح جدول البيانات في Google Sheets كنسخة. يحتوي على صيغ لا يمكننا التحقق منها بعد لاستبدال الملف. تم الاحتفاظ بالأصل والنسخة الاحتياطية. يوجد اختصار النسخة في مجلد اختصارات التطبيق.",
     "import.notice.syncedCopy": "فُتح الملف كنسخة: المجلد متزامن أو موجود على شبكة. تم الاحتفاظ بالأصل لتجنب حذف النسخة على الأجهزة الأخرى.",
     "legal.privacy": "سياسة الخصوصية",
     "legal.terms": "شروط الاستخدام",
@@ -215,7 +214,7 @@
     "recovery.deleted": "النسخ الاحتياطية المحذوفة: {count}. المساحة المحررة: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "يطبق التنظيف التلقائي هذه القواعد أيضًا على النسخ الاحتياطية الموجودة. يحذف النسخ المكتملة بعد مدة الاحتفاظ أو لتوفير مساحة، من الأقدم إلى الأحدث. بعد ذلك لن تتمكن من استعادة الأصل المحلي. ستظل جداول بيانات Google والاختصارات محفوظة. هل تريد التمكين؟",
     "recovery.enableCleanupTitle": "تمكين التنظيف التلقائي",
-    "recovery.instructions": "للاسترداد: حدد صفًا واختر «استعادة إلى…».\nلحذف عدة نسخ احتياطية: حدد مربعات الاختيار أو اختر «تحديد الكل».\nالعمليات المعلّقة محمية. يتم الاحتفاظ بجداول بيانات Google والاختصارات.",
+    "recovery.instructions": "للاسترداد: حدد صفًا واختر «استعادة إلى…».\nالعمليات المعلّقة محمية. يتم الاحتفاظ بجداول بيانات Google والاختصارات.",
     "recovery.limits": "الحد: 200 MB · الحد الأقصى: 1 GB. العمليات المعلّقة محمية.",
     "recovery.moreActions": "إجراءات إضافية ▾",
     "recovery.noBackups": "لا توجد نسخ احتياطية مسجلة لمستخدم Windows هذا.",
@@ -266,7 +265,7 @@
     "setup.description": "افتح جداول بياناتك في Google Sheets باستخدام حساب Google الخاص بك. يُنشأ احتياطي للأصل قبل استبداله باختصار.",
     "setup.encodingLegacy": "نص: Windows-1252",
     "setup.encodingUnicode": "نص: UTF-8 / UTF-16 مع BOM",
-    "setup.extendedFormats": "تمكين CSV وTSV وXLS وODS (تجريبي).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "الاستخدام الأول - ZagoSheetsWin",
     "setup.formatLimits": "حتى 20 MiB لكل ملف.\nCSV/TSV: ‏500 ألف خلية و50 ألف صف وألف عمود.\n\nيُعامل المحتوى كنص حرفي. إذا تعذر التحقق من تحويل ODS، يتم الاحتفاظ بالأصل. يتم حفظ تفضيلات النص.",
     "setup.formatsHeading": "التنسيقات والنص",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "اختر حسابك → فوّض الوصول → ارجع إلى التطبيق.|في الإعدادات، تؤكد عبارة ✓ Google متصل التفويض. تبقى جداول بياناتك في Google Drive لذلك الحساب. لا تحتاج إلى تثبيت Google Drive for Windows.",
     "tutorial.googleTitle": "ربط حساب Google",
     "tutorial.hide": "عدم إظهار هذا البرنامج التعليمي عند فتح التطبيق",
-    "tutorial.importExplanation": "افتح ملفًا على جهازك. يستورد ZagoSheetsWin جدول البيانات ويتحقق منه. تابع في متصفحك.|بعد التحقق: نسخة احتياطية من الأصل + اختصار إلى Sheets. إذا تعذر تأكيد التحويل، يتم الاحتفاظ بالأصل.",
+    "tutorial.importExplanation": "افتح ملفًا على جهازك. يستورد ZagoSheetsWin جدول البيانات ويتحقق منه. تابع في متصفحك.|بعد الاستيراد المؤكد: نسخة احتياطية من الأصل + اختصار إلى Sheets. لا تُحذف المجلدات. في المجلدات المتزامنة التي يتم التعرف عليها، يُحتفظ بالأصل.",
     "tutorial.importTitle": "افتح جداول بياناتك في Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "فتح النسخ الاحتياطية…",
@@ -329,7 +328,7 @@
     "tutorial.start": "ابدأ",
     "tutorial.title": "كيفية العمل - ZagoSheetsWin",
     "windows.fileTypeDescription": "جدول بيانات في Google Sheets",
-    "windows.registrationDescription": "يستورد XLSX إلى Google Sheets ويستبدله باختصار مع الاحتفاظ بنسخة احتياطية خاصة.",
+    "windows.registrationDescription": "يستورد XLSX, CSV, TSV, XLS, ODS إلى Google Sheets ويستبدله باختصار مع الاحتفاظ بنسخة احتياطية خاصة.",
     "language.title": "اللغة - ZagoSheetsWin",
     "language.choose": "اختر لغة التطبيق",
     "language.search": "البحث بالاسم أو الرمز",
@@ -349,6 +348,8 @@
     "firstUse.backupExplanation": "تحفظ النسخة الاحتياطية الأصل دون التغييرات اللاحقة في Sheets.\nفي النسخ الاحتياطية، اختر استعادة إلى… لاسترجاع الملف.",
     "setup.importHeading": "3. الاختصارات واستيراد الملف كنسخة",
     "tutorial.showAtStartup": "إظهار هذا الدليل عند فتح التطبيق",
-    "setup.defaultsHelp": "اختر ZagoSheetsWin في التطبيقات الافتراضية لنظام Windows. اختياري، لكنه موصى به. اختر ZagoSheetsWin ضمن التطبيقات الافتراضية في Windows. هذا اختياري: يمكنك أيضًا استخدام «فتح باستخدام → ZagoSheetsWin»."
+    "setup.defaultsHelp": "اختر ZagoSheetsWin في التطبيقات الافتراضية لنظام Windows. اختياري، لكنه موصى به. اختر ZagoSheetsWin ضمن التطبيقات الافتراضية في Windows. هذا اختياري: يمكنك أيضًا استخدام «فتح باستخدام → ZagoSheetsWin».",
+    "import.notice.partialConversion": "فُتح جدول البيانات في Google Sheets. استُبدل الملف الأصلي باختصار. لاستعادته، افتح {backups}.",
+    "import.notice.dontShowAgain": "عدم الإظهار مرة أخرى"
   }
 }

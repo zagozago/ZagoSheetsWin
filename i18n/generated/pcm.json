@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "CSV fit use comma or semicolon. Choose di delimiter for text options. Dem keep di original.",
     "error.exportSize": "Di export pass di verification limit. Dem keep di original and backup; check recovery before you import again.",
     "error.formulaVerification": "Di converted spreadsheet get formulas wey di app never fit verify yet. Dem keep di original and backup. For Recovery / backups, choose dis operation and choose Resume as copy to open di spreadsheet for Google without uploading again.",
-    "error.generic": "No fit complete di operation. Check settings, connection and whether another app open di file. Backups wey dey already still dey available.",
+    "error.generic": "No fit complete di operation. Check settings, connection and whether another app open di file. Backups wey dey already still dey available. Check too whether dem mark di file as read-only.",
     "error.googleAccess": "Google deny access. Check authorization and account/folder permissions. Dem keep di original.",
     "error.googleConversion": "Google reject di import or verification export. Dem keep di original. Check diagnostics and recovery before you try again.",
     "error.googleUnavailable": "Google no dey available for now or e don limit requests. Dem keep di original. Wait and resume through recovery so you no go upload again.",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Open copy shortcuts folder",
     "home.settings": "&Settings",
     "import.notice.copyComplete": "Copy don open for Sheets. Dem keep di original; shortcut dey available for di app shortcuts folder.",
-    "import.notice.formulaCopy": "Your spreadsheet don open for Google Sheets as copy. E get formulas wey we never fit verify for file replacement yet. Dem keep di original and backup. Di copy shortcut dey available for di app shortcuts folder.",
     "import.notice.syncedCopy": "File open as copy: di folder dey synced or e dey network. Dem keep di original so e no go delete di copy for other devices.",
     "legal.privacy": "Privacy Policy",
     "legal.terms": "Terms of Use",
@@ -215,7 +214,7 @@
     "recovery.deleted": "Backups don delete: {count}. Space wey free: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Automatic cleanup go also use dis rules for backups wey dey already. E dey delete completed backups after retention period or to free space, from oldest to newest. After dat, you no go fit restore di local original. Google spreadsheets and shortcuts go remain. Enable am?",
     "recovery.enableCleanupTitle": "Enable automatic cleanup",
-    "recovery.instructions": "To recover: choose one row and choose Restore to…\nTo delete plenty backups: tick di boxes or choose Select all.\nPending operations dey protected. Google spreadsheets and shortcuts go remain.",
+    "recovery.instructions": "To recover: choose one row and choose Restore to…\nPending operations dey protected. Google spreadsheets and shortcuts go remain.",
     "recovery.limits": "Limit: 200 MB · maximum: 1 GB. Pending operations dey protected.",
     "recovery.moreActions": "More actions ▾",
     "recovery.noBackups": "No backup record dey for dis Windows user.",
@@ -266,7 +265,7 @@
     "setup.description": "Open your spreadsheets for Google Sheets with your Google account. Di app go backup di original before shortcut replace am.",
     "setup.encodingLegacy": "Text: Windows-1252",
     "setup.encodingUnicode": "Text: UTF-8 / UTF-16 with BOM",
-    "setup.extendedFormats": "Enable CSV, TSV, XLS and ODS (experimental one).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "First use - ZagoSheetsWin",
     "setup.formatLimits": "Up to 20 MiB per file.\nCSV/TSV: 500 thousand cells, 50 thousand rows and one thousand columns.\n\nDi app dey treat content as literal text. If e no fit verify ODS conversion, e go keep di original. Your text preferences go remain.",
     "setup.formatsHeading": "Formats and text",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Choose your account → authorize access → return to di app.|For Settings, ✓ Google connected dey confirm authorization. Your spreadsheets remain for dat account Google Drive. You no need install Google Drive for Windows.",
     "tutorial.googleTitle": "Connect your Google account",
     "tutorial.hide": "No show dis tutorial when you open di app",
-    "tutorial.importExplanation": "Open file for your computer. ZagoSheetsWin go import and verify di spreadsheet. Continue for your browser.|After verification: backup of original + shortcut to Sheets. If e no fit confirm conversion, dem keep di original.",
+    "tutorial.importExplanation": "Open file for your computer. ZagoSheetsWin go import and verify di spreadsheet. Continue for your browser.|After confirmed import: backup of original + shortcut to Sheets. Dem no dey delete folders. For folders wey dem identify say dem dey synced, dem keep di original.",
     "tutorial.importTitle": "Open your spreadsheets for Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Open backups…",
@@ -329,7 +328,7 @@
     "tutorial.start": "Start",
     "tutorial.title": "How e dey work - ZagoSheetsWin",
     "windows.fileTypeDescription": "Spreadsheet for Google Sheets",
-    "windows.registrationDescription": "E dey import XLSX go Google Sheets and replace am with shortcut while e keep private backup.",
+    "windows.registrationDescription": "E dey import XLSX, CSV, TSV, XLS, ODS go Google Sheets and replace am with shortcut while e keep private backup.",
     "language.title": "Language - ZagoSheetsWin",
     "language.choose": "Choose di app language",
     "language.search": "Search by name or code",
@@ -349,6 +348,8 @@
     "firstUse.backupExplanation": "Backup dey keep original file, e no include later changes for Sheets.\nFor Backups, choose Restore to… to get the file back.",
     "setup.importHeading": "3. Shortcuts and import file as copy",
     "tutorial.showAtStartup": "Show this tutorial when app open",
-    "setup.defaultsHelp": "Choose ZagoSheetsWin for Windows Default apps. Na optional, but we recommend am. Choose ZagoSheetsWin for Windows Default apps. Dis one optional: you fit also use Open with → ZagoSheetsWin."
+    "setup.defaultsHelp": "Choose ZagoSheetsWin for Windows Default apps. Na optional, but we recommend am. Choose ZagoSheetsWin for Windows Default apps. Dis one optional: you fit also use Open with → ZagoSheetsWin.",
+    "import.notice.partialConversion": "Spreadsheet don open for Google Sheets. Shortcut don replace di original file. To recover am, open {backups}.",
+    "import.notice.dontShowAgain": "No show am again"
   }
 }

@@ -26,6 +26,10 @@ internal static class InterfaceVerification
                 Require(languageOwner.Visible && languageOwner.WindowState != FormWindowState.Minimized,
                     $"Language change to {code} must restore the existing window.");
                 Require(languageOwner.RightToLeftLayout == UiText.RightToLeft, "Restored window must use the selected text direction.");
+                var actionCaptions = new[] { "home.open", "home.settings", "home.backups", "home.help" }.Select(UiText.Get).ToHashSet();
+                foreach (var action in Descendants(languageOwner).OfType<Button>().Where(b => actionCaptions.Contains(b.Text)))
+                    Require(Math.Abs(action.Font.SizeInPoints - 9f) < 0.01f && action.Font.FontFamily.Name == languageOwner.Font.FontFamily.Name,
+                        "Home actions must use the original 9-point font and the selected language family.");
             }
             languageOwner.Hide();
         }
@@ -56,6 +60,15 @@ internal static class InterfaceVerification
             var invoked = 0; action.Click += (_, _) => invoked++;
             action.InvokeAction(); action.Enabled = false; action.InvokeAction();
             Require(invoked == 1, "Recovery menu must invoke enabled handlers and refuse disabled actions.");
+        }
+        using (var partial = new ProcessingForm(new(LauncherAction.Open, "partial.ods"), preview: true))
+        {
+            partial.ShowImportNotice(UiText.Format("import.notice.partialConversion", ("backups", UiText.Get("home.backups").Replace("&", "", StringComparison.Ordinal))));
+            partial.Show(); Application.DoEvents();
+            Require(!Descendants(partial).OfType<CheckBox>().Single(b => b.Name == "importNoticeDontShowAgain").Checked, "Import confirmation opt-out must start unchecked.");
+            Require(partial.Text == Branding.Name && Descendants(partial).OfType<Button>().Any(b => b.Name == "importNoticeBackups" && b.Enabled),
+                "A successful partial import must offer backup recovery without a copy-only title.");
+            partial.Hide();
         }
         Console.Error.WriteLine("VERIFY: disconnected file startup and disabled buttons");
         foreach (var extension in new[] { "csv", "tsv", "xlsx", "xls", "ods" })
@@ -146,7 +159,34 @@ internal static class InterfaceVerification
         }
         var about = Descendants(home).OfType<LinkLabel>().Single(l => l.Text == "Sobre / Licenças");
         Require(about.Width >= TextRenderer.MeasureText(about.Text, about.Font, Size.Empty, TextFormatFlags.NoPadding).Width, "MIT credit link must not be clipped.");
+        using (var firstNotice = new ProcessingForm(new(LauncherAction.Open, "first.xlsx"), preview: true))
+        using (var nextNotice = new ProcessingForm(new(LauncherAction.Open, "next.csv"), preview: true))
+        {
+            Require(firstNotice.AcquireNotice(), "First import notice must acquire the per-session gate.");
+            Require(!nextNotice.AcquireNotice(), "Concurrent imports must not stack confirmation notices.");
+            firstNotice.Dispose();
+            Require(nextNotice.AcquireNotice(), "Closing a notice must allow a later import notice.");
+        }
         Console.Error.WriteLine("VERIFY: backup selection");
+        var policyRoot = Path.Combine(Path.GetTempPath(), "zsw-policy-ui-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            var policyStorage = new LocalStorage(policyRoot);
+            using (var autosave = new RecoveryForm(preview: true, policyStorage: policyStorage))
+            {
+                autosave.Shown += (_, _) =>
+                {
+                    var fields = Descendants(autosave).OfType<NumericUpDown>().ToArray();
+                    fields.Single(n => n.Maximum == 365).Value = 45;
+                    fields.Single(n => n.Maximum == 1000).Value = 321;
+                    Descendants(autosave).OfType<CheckBox>().Single().Checked = true;
+                    autosave.Close();
+                };
+                autosave.ShowDialog();
+            }
+            Require(BackupPolicy.Load(policyStorage) == new BackupPolicy(45, 321, true), "Every backup rule edit must auto-save and survive immediate close.");
+        }
+        finally { if (Directory.Exists(policyRoot)) Directory.Delete(policyRoot, true); }
         using (var recovery = new RecoveryForm(preview: true, previewBusy: true))
         {
             recovery.Show(); Application.DoEvents();
@@ -163,12 +203,23 @@ internal static class InterfaceVerification
             Require(!Descendants(recovery).OfType<CheckBox>().Single().Checked, "Automatic cleanup requires informed opt-in.");
             Require(list.Columns.Count == 4 && list.Items.Cast<ListViewItem>().All(i => i.Tag is RecoveryEntry), "Backup table must preserve recovery identity and expose four readable columns.");
             Require(list.Items.Count == 3 && list.Items.Cast<ListViewItem>().All(i => ((RecoveryEntry)i.Tag!).CleanupState != 2), "Deleted backup history must be absent from the recovery list.");
-            Require(list.MultiSelect && list.CheckBoxes, "Backups must support multiple selection.");
+            Require(list.MultiSelect && !list.CheckBoxes, "Backups must support multiple selection.");
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Selecionar todos").PerformClick();
-            Require(list.CheckedItems.Count == 3 && list.SelectedItems.Count == 3, "Select all must include pending backups for explicit confirmed discard.");
+            Require(list.CheckedItems.Count == 0 && list.SelectedItems.Count == 3, "Select all must include pending backups for explicit confirmed discard.");
             Require(Descendants(recovery).OfType<Button>().Single(b => b.Text == UiText.Get("recovery.deleteSelected")).Enabled, "Pending backups must allow the confirmed manual delete action.");
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Limpar seleção").PerformClick();
-            Require(list.CheckedItems.Count == 0, "Clear selection must remove all marks.");
+            Require(list.SelectedItems.Count == 0, "Clear selection must remove all marks.");
+            Require(!Descendants(recovery).OfType<Button>().Any(b => b.Text == UiText.Get("recovery.savePolicy")), "Backup policy must auto-save without a save button.");
+            for (var column = 0; column < 4; column++)
+            {
+                recovery.SortByColumn(column);
+                var ascending = list.Items.Cast<ListViewItem>().Select(i => ((RecoveryEntry)i.Tag!).Id).ToArray();
+                recovery.SortByColumn(column);
+                var descending = list.Items.Cast<ListViewItem>().Select(i => ((RecoveryEntry)i.Tag!).Id).ToArray();
+                Require(ascending.SequenceEqual(descending.Reverse()), "Each backup header must reverse its sorting direction.");
+            }
+            recovery.SortByColumn(2);
+            Require(list.Items.Cast<ListViewItem>().Select(i => ((RecoveryEntry)i.Tag!).Bytes).SequenceEqual(list.Items.Cast<ListViewItem>().Select(i => ((RecoveryEntry)i.Tag!).Bytes).Order()), "Backup sizes must sort numerically.");
             list.Items[0].Selected = list.Items[1].Selected = true; Application.DoEvents();
             Require(!Descendants(recovery).OfType<Button>().Single(b => b.Text == UiText.Get("action.restore")).Enabled, "Restoring must require exactly one selected file.");
             foreach (var size in new[] { new Size(980, 680), new Size(760, 560) })
@@ -192,11 +243,11 @@ internal static class InterfaceVerification
                 var sync = Descendants(advanced).OfType<CheckBox>().Single(b => b.Text == UiText.Get("setup.noSync"));
                 Require(sync.Checked, "Default folder policy must be preserved.");
                 Require(Descendants(advanced).OfType<CheckBox>().Any(b => b.Text == UiText.Get("setup.replaceXls")), "Advanced options must preserve XLS preferences.");
-                Require(Descendants(advanced).OfType<InformationButton>().Count() == 4, "Advanced help is divided into three groups plus header information.");
+                Require(Descendants(advanced).OfType<InformationButton>().Count() == 3, "Advanced help covers the two remaining groups plus header information.");
                 Require(Descendants(advanced).OfType<Button>().Count(b => b.Text == UiText.Get("setup.chooseClient")) == 1, "Advanced options must provide the only JSON selector.");
-                var selectors = Descendants(advanced).OfType<ComboBox>().ToArray();
-                Require(selectors.Length == 2 && selectors[0].Parent == selectors[1].Parent && selectors[0].Top == selectors[1].Top,
-                    "Encoding and delimiter selectors must be side by side.");
+                Require(!Descendants(advanced).OfType<ComboBox>().Any()
+                    && !Descendants(advanced).OfType<Label>().Any(l => l.Text == UiText.Get("setup.formatsHeading") || l.Text == UiText.Get("setup.extendedFormats")),
+                    "Advanced options must omit the read-only formats section and its unavailable selectors.");
                 Require(Descendants(advanced).OfType<FlowLayoutPanel>().Where(p => p.Dock == DockStyle.Fill).All(p => !p.VerticalScroll.Visible),
                     "Portuguese advanced options must fit without vertical scrolling at the reference size.");
                 advanced.Close();

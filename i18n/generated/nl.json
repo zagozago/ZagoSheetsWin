@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "De CSV kan komma's of puntkomma's gebruiken. Kies het scheidingsteken in de tekstopties. Het origineel is behouden.",
     "error.exportSize": "De export overschreed de verificatielimiet. Het origineel en de back-up zijn behouden; controleer herstel voordat u opnieuw importeert.",
     "error.formulaVerification": "Het geconverteerde werkblad bevat formules die de app nog niet kan verifiëren. Het origineel en de back-up zijn behouden. Selecteer in Herstel / back-ups deze bewerking en kies Hervatten als kopie om het werkblad in Google te openen zonder opnieuw te uploaden.",
-    "error.generic": "De bewerking kon niet worden voltooid. Controleer de instellingen, de verbinding en of het bestand in een andere app geopend is. Bestaande back-ups blijven beschikbaar.",
+    "error.generic": "De bewerking kon niet worden voltooid. Controleer de instellingen, de verbinding en of het bestand in een andere app geopend is. Bestaande back-ups blijven beschikbaar. Controleer ook of het bestand als alleen-lezen is ingesteld.",
     "error.googleAccess": "Google heeft de toegang geweigerd. Controleer autorisatie en account-/maprechten. Het origineel is behouden.",
     "error.googleConversion": "Google heeft de import of verificatie-export geweigerd. Het origineel is behouden. Controleer diagnostiek en herstel voordat u het opnieuw probeert.",
     "error.googleUnavailable": "Google is tijdelijk niet beschikbaar of beperkt verzoeken. Het origineel is behouden. Wacht en hervat via herstel om opnieuw uploaden te voorkomen.",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Map met kopiesnelkoppelingen openen",
     "home.settings": "&Instellingen",
     "import.notice.copyComplete": "Kopie geopend in Sheets. Origineel behouden; er is een snelkoppeling beschikbaar in de map met snelkoppelingen van de app.",
-    "import.notice.formulaCopy": "Uw werkblad is als kopie geopend in Google Sheets. Het bevat formules die we nog niet kunnen verifiëren voor bestandsvervanging. Het origineel en de back-up zijn behouden. De snelkoppeling naar de kopie is beschikbaar in de map met snelkoppelingen van de app.",
     "import.notice.syncedCopy": "Bestand als kopie geopend: de map wordt gesynchroniseerd of staat op een netwerk. Het origineel is behouden om te voorkomen dat de kopie op andere apparaten wordt verwijderd.",
     "legal.privacy": "Privacybeleid",
     "legal.terms": "Gebruiksvoorwaarden",
@@ -215,7 +214,7 @@
     "recovery.deleted": "Back-ups verwijderd: {count}. Vrijgemaakte ruimte: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Automatische opschoning past deze regels ook toe op bestaande back-ups. Voltooide back-ups worden na de bewaartermijn verwijderd, of van oud naar nieuw om ruimte vrij te maken. Daarna kunt u het lokale origineel niet meer herstellen. Google-werkbladen en snelkoppelingen blijven behouden. Inschakelen?",
     "recovery.enableCleanupTitle": "Automatische opschoning inschakelen",
-    "recovery.instructions": "Om te herstellen: selecteer een rij en kies Herstellen naar…\nOm meerdere back-ups te verwijderen: vink de vakjes aan of kies Alles selecteren.\nOpenstaande bewerkingen zijn beschermd. Google-werkbladen en snelkoppelingen blijven behouden.",
+    "recovery.instructions": "Om te herstellen: selecteer een rij en kies Herstellen naar…\nOpenstaande bewerkingen zijn beschermd. Google-werkbladen en snelkoppelingen blijven behouden.",
     "recovery.limits": "Limiet: 200 MB · maximum: 1 GB. Openstaande bewerkingen zijn beschermd.",
     "recovery.moreActions": "Meer acties ▾",
     "recovery.noBackups": "Geen back-ups geregistreerd voor deze Windows-gebruiker.",
@@ -266,7 +265,7 @@
     "setup.description": "Open uw werkbladen in Google Sheets met uw Google-account. Van het origineel wordt een back-up gemaakt voordat het door een snelkoppeling wordt vervangen.",
     "setup.encodingLegacy": "Tekst: Windows-1252",
     "setup.encodingUnicode": "Tekst: UTF-8 / UTF-16 met BOM",
-    "setup.extendedFormats": "CSV, TSV, XLS en ODS inschakelen (experimenteel).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Eerste gebruik - ZagoSheetsWin",
     "setup.formatLimits": "Maximaal 20 MiB per bestand.\nCSV/TSV: 500 duizend cellen, 50 duizend rijen en duizend kolommen.\n\nInhoud wordt als letterlijke tekst behandeld. Als ODS-conversie niet kan worden geverifieerd, blijft het origineel behouden. Uw tekstvoorkeuren worden bewaard.",
     "setup.formatsHeading": "Indelingen en tekst",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Kies uw account → autoriseer toegang → keer terug naar de app.|In Instellingen bevestigt ✓ Google verbonden de autorisatie. Uw werkbladen blijven in de Google Drive van dat account. U hoeft Google Drive voor Windows niet te installeren.",
     "tutorial.googleTitle": "Uw Google-account verbinden",
     "tutorial.hide": "Deze handleiding niet tonen bij het openen van de app",
-    "tutorial.importExplanation": "Open een bestand op uw computer. ZagoSheetsWin importeert en verifieert het werkblad. Ga verder in uw browser.|Na verificatie: back-up van het origineel + snelkoppeling naar Sheets. Als de conversie niet kan worden bevestigd, blijft het origineel behouden.",
+    "tutorial.importExplanation": "Open een bestand op uw computer. ZagoSheetsWin importeert en verifieert het werkblad. Ga verder in uw browser.|Na de bevestigde import: back-up van het origineel + snelkoppeling naar Sheets. Mappen worden niet verwijderd. In herkende gesynchroniseerde mappen blijft het origineel behouden.",
     "tutorial.importTitle": "Uw werkbladen openen in Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Back-ups openen…",
@@ -329,7 +328,7 @@
     "tutorial.start": "Start",
     "tutorial.title": "Hoe het werkt - ZagoSheetsWin",
     "windows.fileTypeDescription": "Werkblad in Google Sheets",
-    "windows.registrationDescription": "Importeert XLSX naar Google Sheets en vervangt het door een snelkoppeling, met behoud van een privéback-up.",
+    "windows.registrationDescription": "Importeert XLSX, CSV, TSV, XLS, ODS naar Google Sheets en vervangt het door een snelkoppeling, met behoud van een privéback-up.",
     "language.title": "Taal - ZagoSheetsWin",
     "language.choose": "Kies de taal van de app",
     "language.search": "Zoeken op naam of code",
@@ -349,6 +348,8 @@
     "firstUse.backupExplanation": "De back-up bewaart het origineel, zonder latere wijzigingen in Sheets.\nKies bij Back-ups Herstellen naar… om het bestand terug te halen.",
     "setup.importHeading": "3. Snelkoppelingen en bestand als kopie importeren",
     "tutorial.showAtStartup": "Deze uitleg tonen bij het openen van de app",
-    "setup.defaultsHelp": "Kies ZagoSheetsWin in de Standaard-apps van Windows. Optioneel, maar aanbevolen. Kies ZagoSheetsWin in Standaard-apps van Windows. Dit is optioneel: u kunt ook Openen met → ZagoSheetsWin gebruiken."
+    "setup.defaultsHelp": "Kies ZagoSheetsWin in de Standaard-apps van Windows. Optioneel, maar aanbevolen. Kies ZagoSheetsWin in Standaard-apps van Windows. Dit is optioneel: u kunt ook Openen met → ZagoSheetsWin gebruiken.",
+    "import.notice.partialConversion": "Het werkblad is geopend in Google Sheets. Het oorspronkelijke bestand is vervangen door een snelkoppeling. Open {backups} om het te herstellen.",
+    "import.notice.dontShowAgain": "Niet meer weergeven"
   }
 }

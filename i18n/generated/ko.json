@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "CSV는 쉼표 또는 세미콜론을 사용할 수 있습니다. 텍스트 옵션에서 구분 기호를 선택하세요. 원본은 보존되었습니다.",
     "error.exportSize": "내보내기가 검증 제한을 초과했습니다. 원본과 백업은 보존되었습니다. 다시 가져오기 전에 복구를 확인하세요.",
     "error.formulaVerification": "변환된 스프레드시트에 앱이 아직 검증할 수 없는 수식이 있습니다. 원본과 백업은 보존되었습니다. 복구 / 백업에서 이 작업을 선택하고 사본으로 다시 시작을 선택하면 다시 업로드하지 않고 Google에서 스프레드시트를 열 수 있습니다.",
-    "error.generic": "작업을 완료할 수 없습니다. 설정과 연결 상태를 확인하고 파일이 다른 앱에서 열려 있는지 확인하세요. 기존 백업은 계속 사용할 수 있습니다.",
+    "error.generic": "작업을 완료할 수 없습니다. 설정과 연결 상태를 확인하고 파일이 다른 앱에서 열려 있는지 확인하세요. 기존 백업은 계속 사용할 수 있습니다. 파일이 읽기 전용으로 설정되어 있는지도 확인하세요.",
     "error.googleAccess": "Google에서 접근을 거부했습니다. 인증 상태와 계정/폴더 권한을 확인하세요. 원본은 보존되었습니다.",
     "error.googleConversion": "Google에서 가져오기 또는 검증 내보내기를 거부했습니다. 원본은 보존되었습니다. 다시 시도하기 전에 진단 및 복구를 확인하세요.",
     "error.googleUnavailable": "Google을 일시적으로 사용할 수 없거나 요청이 제한되었습니다. 원본은 보존되었습니다. 재업로드를 피하려면 기다린 뒤 복구에서 다시 시작하세요.",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "사본 바로 가기 폴더 열기",
     "home.settings": "&설정",
     "import.notice.copyComplete": "사본을 Sheets에서 열었습니다. 원본은 보존되었으며 앱의 바로 가기 폴더에서 바로 가기를 사용할 수 있습니다.",
-    "import.notice.formulaCopy": "스프레드시트가 Google Sheets에서 사본으로 열렸습니다. 파일 교체를 위해 아직 검증할 수 없는 수식이 포함되어 있습니다. 원본과 백업은 보존되었습니다. 사본 바로 가기는 앱의 바로 가기 폴더에서 사용할 수 있습니다.",
     "import.notice.syncedCopy": "파일을 사본으로 열었습니다. 폴더가 동기화 중이거나 네트워크에 있습니다. 다른 기기의 사본이 삭제되지 않도록 원본을 유지했습니다.",
     "legal.privacy": "개인정보 처리방침",
     "legal.terms": "이용 약관",
@@ -215,7 +214,7 @@
     "recovery.deleted": "백업 삭제됨: {count}개. 확보된 공간: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "자동 정리는 기존 백업에도 이 규칙을 적용합니다. 보관 기간이 지난 완료된 백업을 삭제하거나 공간 확보를 위해 오래된 것부터 삭제합니다. 이후에는 로컬 원본을 복원할 수 없습니다. Google 스프레드시트와 바로 가기는 유지됩니다. 활성화하시겠습니까?",
     "recovery.enableCleanupTitle": "자동 정리 활성화",
-    "recovery.instructions": "복구하려면: 행을 선택하고 다음 위치에 복원…을 선택하세요.\n여러 백업을 삭제하려면: 확인란을 선택하거나 모두 선택을 사용하세요.\n대기 중인 작업은 보호됩니다. Google 스프레드시트와 바로 가기는 유지됩니다.",
+    "recovery.instructions": "복구하려면: 행을 선택하고 다음 위치에 복원…을 선택하세요.\n대기 중인 작업은 보호됩니다. Google 스프레드시트와 바로 가기는 유지됩니다.",
     "recovery.limits": "한도: 200 MB · 최대: 1 GB. 대기 중인 작업은 보호됩니다.",
     "recovery.moreActions": "추가 작업 ▾",
     "recovery.noBackups": "이 Windows 사용자에 대해 기록된 백업이 없습니다.",
@@ -266,7 +265,7 @@
     "setup.description": "Google 계정으로 Google Sheets에서 스프레드시트를 여세요. 원본은 바로 가기로 교체되기 전에 백업됩니다.",
     "setup.encodingLegacy": "텍스트: Windows-1252",
     "setup.encodingUnicode": "텍스트: BOM이 포함된 UTF-8 / UTF-16",
-    "setup.extendedFormats": "CSV, TSV, XLS 및 ODS 사용(실험적).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "최초 사용 - ZagoSheetsWin",
     "setup.formatLimits": "파일당 최대 20 MiB.\nCSV/TSV: 셀 500,000 개, 행 50,000 개, 열 1,000 개.\n\n콘텐츠는 리터럴 텍스트로 처리됩니다. ODS 변환을 검증할 수 없으면 원본을 유지합니다. 텍스트 설정은 보존됩니다.",
     "setup.formatsHeading": "형식 및 텍스트",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "계정 선택 → 접근 권한 승인 → 앱으로 돌아오기.|설정에서 ✓ Google 연결됨이 인증을 확인합니다. 스프레드시트는 해당 계정의 Google Drive에 유지됩니다. Google Drive for Windows를 설치할 필요는 없습니다.",
     "tutorial.googleTitle": "Google 계정 연결",
     "tutorial.hide": "앱을 열 때 이 튜토리얼을 표시하지 않음",
-    "tutorial.importExplanation": "컴퓨터에서 파일을 여세요. ZagoSheetsWin이 스프레드시트를 가져오고 검증합니다. 브라우저에서 계속하세요.|검증 후: 원본 백업 + Sheets 바로 가기. 변환을 확인할 수 없으면 원본을 유지합니다.",
+    "tutorial.importExplanation": "컴퓨터에서 파일을 여세요. ZagoSheetsWin이 스프레드시트를 가져오고 검증합니다. 브라우저에서 계속하세요.|확인된 가져오기 후: 원본 백업 + Sheets 바로 가기. 폴더는 삭제되지 않습니다. 확인된 동기화 폴더에서는 원본을 유지합니다.",
     "tutorial.importTitle": "Google Sheets에서 스프레드시트 열기",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "백업 열기…",
@@ -329,7 +328,7 @@
     "tutorial.start": "시작",
     "tutorial.title": "작동 방식 - ZagoSheetsWin",
     "windows.fileTypeDescription": "Google Sheets의 스프레드시트",
-    "windows.registrationDescription": "XLSX를 Google Sheets로 가져온 뒤 비공개 백업을 유지하면서 바로 가기로 교체합니다.",
+    "windows.registrationDescription": "XLSX, CSV, TSV, XLS, ODS를 Google Sheets로 가져온 뒤 비공개 백업을 유지하면서 바로 가기로 교체합니다.",
     "language.title": "언어 - ZagoSheetsWin",
     "language.choose": "앱 언어 선택",
     "language.search": "이름 또는 코드로 검색",
@@ -349,6 +348,8 @@
     "firstUse.backupExplanation": "백업은 원본을 보관하며 이후 Sheets에서 한 변경은 포함하지 않습니다.\n백업에서 복원 위치…를 선택하여 파일을 복구하세요.",
     "setup.importHeading": "3. 바로가기 및 파일을 사본으로 가져오기",
     "tutorial.showAtStartup": "앱을 열 때 이 자습서 표시",
-    "setup.defaultsHelp": "Windows 기본 앱에서 ZagoSheetsWin을 선택하세요. 선택 사항이지만 권장합니다. Windows 기본 앱에서 ZagoSheetsWin을 선택하세요. 선택 사항이며 연결 프로그램 → ZagoSheetsWin을 사용할 수도 있습니다."
+    "setup.defaultsHelp": "Windows 기본 앱에서 ZagoSheetsWin을 선택하세요. 선택 사항이지만 권장합니다. Windows 기본 앱에서 ZagoSheetsWin을 선택하세요. 선택 사항이며 연결 프로그램 → ZagoSheetsWin을 사용할 수도 있습니다.",
+    "import.notice.partialConversion": "스프레드시트를 Google Sheets에서 열었습니다. 원본 파일은 바로가기로 대체되었습니다. 원본을 복구하려면 {backups}을(를) 여세요.",
+    "import.notice.dontShowAgain": "다시 표시하지 않음"
   }
 }

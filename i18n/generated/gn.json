@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "CSV ikatu oiporu kyguái térã kyta ha kóma. Eiporavo mopa'ũha jehaipy jeporavorãme. Ypygua oñeñongatu.",
     "error.exportSize": "Ñeguenohẽ ohasa ñemboaje paha. Ypygua ha ñongatupyre joapy oñeñongatu; ehechajey mbojevy regueru jey mboyve.",
     "error.formulaVerification": "Kuatia papapy oñemoambuéva oguereko formula tembipuru'i ndaikatúiva gueteri omboaje. Ypygua ha ñongatupyre joapy oñeñongatu. Mbojevy / ñongatupyre joapýpe, eiporavo ko tembiapo ha eiporavo Eho hese mbohasapyre ramo eike hag̃ua kuatia papapýpe Google-pe rehupi jey'ỹre.",
-    "error.generic": "Ndaikatúi oñemohu'ã tembiapo. Ehechajey ñemboheko, jeikekatu ha marandurenda oĩpa ambue tembipuru'ípe jepe'a. Ñongatupyre joapy oĩmava opyta oĩ guive.",
+    "error.generic": "Ndaikatúi oñemohu'ã tembiapo. Ehechajey ñemboheko, jeikekatu ha marandurenda oĩpa ambue tembipuru'ípe jepe'a. Ñongatupyre joapy oĩmava opyta oĩ guive. Ehecha avei pe archivo oĩpa oñemoñeʼẽ hag̃ua añónte.",
     "error.googleAccess": "Google ombotove jeike. Ehechajey moneĩ ha mba'ete/ñongatuha moneĩ. Ypygua oñeñongatu.",
     "error.googleConversion": "Google ombotove jegueru térã ñemboaje ñeguenohẽ. Ypygua oñeñongatu. Ehechajey apañuãi jehechajey ha mbojevy reñeha'ã jey mboyve.",
     "error.googleUnavailable": "Google ndojepurukuaái sapy'ami térã omomichĩ porandu. Ypygua oñeñongatu. Eha'arõ ha ehorei hese mbojevy rupive ani hag̃ua rehupi jey.",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Eike mbohasapyre mbopya'eha ñongatuhápe",
     "home.settings": "&Ñemboheko",
     "import.notice.copyComplete": "Mbohasapyre ojeike Sheets-pe. Ypygua oñeñongatu; mbopya'eha oĩ tembipuru'i mbopya'eha ñongatuhápe.",
-    "import.notice.formulaCopy": "Ne kuatia papapy ojeike Google Sheets-pe mbohasapyre ramo. Oguereko formula ndaikatúiva gueteri romboaje marandurenda myengoviarã. Ypygua ha ñongatupyre joapy oñeñongatu. Mbohasapyre mbopya'eha oĩ tembipuru'i mbopya'eha ñongatuhápe.",
     "import.notice.syncedCopy": "Marandurenda ojeike mbohasapyre ramo: ñongatuha oñembojuehe térã oĩ red-pe. Ypygua oñeñongatu ani hag̃ua mbohasapyre oñembogue ambue mba'eokápe.",
     "legal.privacy": "Temiñemi purureko",
     "legal.terms": "Jeporu rembiapoukapy",
@@ -215,7 +214,7 @@
     "recovery.deleted": "Ñongatupyre joapy oñemboguéva: {count}. Pa'ũ oñemosãsóva: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Ñemopotĩ ijehegui avei omoĩ ko'ã tembiapoukapy ñongatupyre joapy oĩmavape. Ombogue oñemohu'ãmava ñongatu ára rire térã omosãso hag̃ua pa'ũ, itujavévagui ipyahuvévape. Upéi ndaikatumo'ãi rembojevy ypygua mohendaha ryepypegua. Google kuatia papapy ha mbopya'eha opytáta. Emyandy?",
     "recovery.enableCleanupTitle": "Ñemopotĩ ijehegui myandy",
-    "recovery.instructions": "Embojevy hag̃ua: eiporavo peteĩ tysýi ha eiporavo Embojevy ko'ápe…\nEmbogue hag̃ua heta ñongatupyre joapy: emarka umi pa'ũ térã eiporavo Poravopa.\nTembiapo oha'arõva oñemo'ã. Google kuatia papapy ha mbopya'eha oñeñongatu.",
+    "recovery.instructions": "Embojevy hag̃ua: eiporavo peteĩ tysýi ha eiporavo Embojevy ko'ápe…\nTembiapo oha'arõva oñemo'ã. Google kuatia papapy ha mbopya'eha oñeñongatu.",
     "recovery.limits": "Jeporu paha: 200 MB · tuichavéva: 1 GB. Tembiapo oha'arõva oñemo'ã.",
     "recovery.moreActions": "Tembiapo hetave ▾",
     "recovery.noBackups": "Ndaipóri ñongatupyre joapy oñembohaiguapýva ko Windows puruhárape.",
@@ -266,7 +265,7 @@
     "setup.description": "Eike ne kuatia papapýpe Google Sheets-pe ne Google mba'ete rupive. Ypygua ñongatupyre joapy ojejapo oñemyengovia mboyve mbopya'eháre.",
     "setup.encodingLegacy": "Jehaipy: Windows-1252",
     "setup.encodingUnicode": "Jehaipy: UTF-8 / UTF-16 BOM reheve",
-    "setup.extendedFormats": "CSV, TSV, XLS ha ODS myandy (ñeha'ã).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Jeporu ypygua - ZagoSheetsWin",
     "setup.formatLimits": "20 MiB peve marandurenda peteĩteĩ.\nCSV/TSV: 500 sua koty'i, 50 sua tysýi ha peteĩ sua yta.\n\nPypegua ojeporu jehaipy tee ramo. ODS ñemoambue ndaikatúirõ oñemboaje, ypygua oñeñongatu. Ne jehaipy jeporavorã oñeñongatu.",
     "setup.formatsHeading": "Mba'eichagua ha jehaipy",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Eiporavo ne mba'ete → emoneĩ jeike → ejevy tembipuru'ípe.|Ñembohekópe, ✓ Google jeikekatu omboaje moneĩ. Ne kuatia papapy opyta upe mba'ete Google Drive-pe. Natekotevẽi remohenda Google Drive for Windows.",
     "tutorial.googleTitle": "Embojoaju ne Google mba'ete",
     "tutorial.hide": "Ani ehechauka ko pytyvõha reike jave tembipuru'ípe",
-    "tutorial.importExplanation": "Eike marandurendápe ne mohendahágui. ZagoSheetsWin ogueru ha omboaje kuatia papapy. Ehorei hese ne kundahárape.|Ñemboaje rire: ypygua ñongatupyre joapy + Sheets mbopya'eha. Ñemoambue ndaikatúirõ oñemboaje, ypygua oñeñongatu.",
+    "tutorial.importExplanation": "Eike marandurendápe ne mohendahágui. ZagoSheetsWin ogueru ha omboaje kuatia papapy. Ehorei hese ne kundahárape.|Jegueru oñemboaje rire: ypygua ñongatupyre joapy + Sheets mbopya'eha. Ñongatuha noñemboguéi. Ñongatuha mbojuehe ojehechakuaávape, ypygua oñeñongatu.",
     "tutorial.importTitle": "Eike ne kuatia papapýpe Google Sheets-pe",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Ñongatupyre joapy jeike…",
@@ -329,7 +328,7 @@
     "tutorial.start": "Ñepyrũ",
     "tutorial.title": "Mba'éichapa omba'apo - ZagoSheetsWin",
     "windows.fileTypeDescription": "Kuatia papapy Google Sheets-pe",
-    "windows.registrationDescription": "Ogueru XLSX Google Sheets-pe ha omyengovia mbopya'eháre, oñongatúvo ñongatupyre joapy ñemíva.",
+    "windows.registrationDescription": "Ogueru XLSX, CSV, TSV, XLS, ODS Google Sheets-pe ha omyengovia mbopya'eháre, oñongatúvo ñongatupyre joapy ñemíva.",
     "language.title": "Ñe'ẽ - ZagoSheetsWin",
     "language.choose": "Eiporavo tembipuru'i ñe'ẽ",
     "language.search": "Eheka téra térã ayvu rupive",
@@ -349,6 +348,8 @@
     "firstUse.backupExplanation": "Pe ñongatu oñongatu kuatia ypy, ndaha’éi umi ñemoambue ojejapóva upe rire Sheets-pe.\nÑongatukuérape, eiporavo Embojevy ápe… egueru jey hag̃ua kuatia.",
     "setup.importHeading": "3. Jeike pya’e ha kuatia jegueru peteĩ copia ramo",
     "tutorial.showAtStartup": "Ehechauka ko mbo’epy rembojehe’ávo aplicación",
-    "setup.defaultsHelp": "Eiporavo ZagoSheetsWin Windows aplicación ypykuéra apytépe. Natekotevẽi, hákatu oñemoñe’ẽ eiporu hag̃ua. Eiporavo ZagoSheetsWin Windows Default apps-pe. Kóva ikatu reiporu térã nahániri: ikatu avei reiporu Jeike hendive → ZagoSheetsWin."
+    "setup.defaultsHelp": "Eiporavo ZagoSheetsWin Windows aplicación ypykuéra apytépe. Natekotevẽi, hákatu oñemoñe’ẽ eiporu hag̃ua. Eiporavo ZagoSheetsWin Windows Default apps-pe. Kóva ikatu reiporu térã nahániri: ikatu avei reiporu Jeike hendive → ZagoSheetsWin.",
+    "import.notice.partialConversion": "Pe kuatia renda ojepe'a Google Sheets-pe. Pe archivo ypykue rendaguépe oñemoĩ peteĩ jeike pya'e. Eguerujey hag̃ua, eipe'a {backups}.",
+    "import.notice.dontShowAgain": "Ani rehechauka jey"
   }
 }

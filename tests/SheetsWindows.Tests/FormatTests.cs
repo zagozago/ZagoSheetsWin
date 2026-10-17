@@ -211,7 +211,7 @@ public sealed class FormatTests
         SpreadsheetFormats.VerifyValues(payload.Expected!, SpreadsheetFormats.WriteXlsx(payload.Expected!));
     }
     [Fact]
-    public void OdsFormulasDatesAndMergesAreCopyOnlyAndScriptsAreBlocked()
+    public void OdsFormulasDatesAndMergesRequireFidelityWarningAndScriptsAreBlocked()
     {
         Assert.Null(SpreadsheetFormats.Prepare("ods", Ods("<table:table-row><table:table-cell table:formula='of:=1+1' office:value-type='float' office:value='2'/></table:table-row>")).Expected);
         Assert.Null(SpreadsheetFormats.Prepare("ods", Ods("<table:table-row><table:table-cell office:value-type='date' office:date-value='2026-10-01'/></table:table-row>")).Expected);

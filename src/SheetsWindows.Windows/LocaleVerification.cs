@@ -24,6 +24,8 @@ internal static class LocaleVerification
                     if (form.RightToLeftLayout != UiText.RightToLeft) throw new InvalidOperationException($"{language.Code}/{name}: RTL not applied.");
                     foreach (var button in Descendants(form).OfType<Button>().Where(b => b.Visible && b is not ThemeToggle))
                     {
+                        if (button is AdaptiveButton && Math.Abs(button.Font.SizeInPoints - Ui.ButtonFontSize) > 0.01f)
+                            throw new InvalidOperationException($"{language.Code}/{name}: action button must use the standard 9-point font.");
                         var flags = TextFormatFlags.WordBreak;
                         var text = TextRenderer.MeasureText(button.Text, button.Font, new Size(Math.Max(20,button.Width-button.Padding.Horizontal-8),int.MaxValue),flags);
                         if (text.Height > button.Height-button.Padding.Vertical+2)
@@ -63,13 +65,28 @@ internal static class LocaleVerification
                     if (page < FirstUseWizard.PageCount)
                     { using var wizard = new FirstUseWizard(preview:true, initialPage:page); Check(wizard,$"first-use-{page+1}",true); }
                 }
-                using (var error = new ProcessingForm(new(LauncherAction.Open,"preview.xlsx"),preview:true,previewError:true)) Check(error,"error");
+                using (var error = new ProcessingForm(new(LauncherAction.Open,"preview.xlsx"),preview:true,previewError:true))
+                {
+                    var status = Descendants(error).OfType<Label>().Single(l => l.AccessibleName == UiText.Get("accessibility.processingStatus"));
+                    status.Text = UiText.Get("error.generic");
+                    Check(error,"error",true);
+                    var text = TextRenderer.MeasureText(status.Text,status.Font,new Size(Math.Max(100,status.ClientSize.Width-status.Padding.Horizontal),int.MaxValue),TextFormatFlags.WordBreak);
+                    if(text.Height+status.Padding.Vertical>status.ClientSize.Height+2)throw new InvalidOperationException($"{language.Code}: generic failure message is clipped.");
+                }
+                using (var partial = new ProcessingForm(new(LauncherAction.Open,"preview.ods"),preview:true))
+                {
+                    partial.ShowImportNotice(UiText.Format("import.notice.partialConversion", ("backups", UiText.Get("home.backups").Replace("&", "", StringComparison.Ordinal))));
+                    Check(partial,"partial-import",true);
+                    var status = Descendants(partial).OfType<Label>().Single(l => l.AccessibleName == UiText.Get("accessibility.processingStatus"));
+                    var text = TextRenderer.MeasureText(status.Text,status.Font,new Size(Math.Max(100,status.ClientSize.Width-status.Padding.Horizontal),int.MaxValue),TextFormatFlags.WordBreak);
+                    if(text.Height+status.Padding.Vertical>status.ClientSize.Height+2)throw new InvalidOperationException($"{language.Code}: partial import notice is clipped.");
+                }
                 // Font-size stress at the four requested scales, with native GDI measurement.
                 foreach (var scale in new[] {1f,1.25f,1.5f,2f})
                 foreach (var key in new[] {"tutorial.skip","tutorial.start","tutorial.defineDefaults","action.next","language.apply","language.button"})
                 {
                     using var panel = new FlowLayoutPanel { Width = (int)(360*scale) };
-                    using var button = new AdaptiveButton { Text=UiText.Get(key), AutoSize=true, Font=new Font(LanguageVisuals.Family,10*scale) };
+                    using var button = new AdaptiveButton { Text=UiText.Get(key), AutoSize=true, Font=new Font(LanguageVisuals.Family,Ui.ButtonFontSize*scale) };
                     panel.Controls.Add(button);panel.PerformLayout();
                     var preferred=button.GetPreferredSize(new Size(panel.Width,0));
                     var needed=TextRenderer.MeasureText(button.Text,button.Font,new Size(Math.Max(20,preferred.Width-button.Padding.Horizontal-12),int.MaxValue),TextFormatFlags.WordBreak);

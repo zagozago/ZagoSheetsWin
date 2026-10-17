@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "O CSV pode usar vírgula ou ponto e vírgula. Escolha o separador nas opções de texto. O original foi preservado.",
     "error.exportSize": "A exportação excedeu o limite da conferência. O original e o backup foram preservados; consulte a recuperação antes de repetir a importação.",
     "error.formulaVerification": "A planilha convertida contém fórmulas que o aplicativo ainda não consegue conferir. O original e o backup foram preservados. Em Recuperação / backups, selecione esta operação e use Retomar como cópia para abrir a planilha no Google sem repetir o envio.",
-    "error.generic": "Não foi possível concluir. Confira a configuração, a conexão e se o arquivo está aberto em outro aplicativo. Backups já criados permanecem disponíveis.",
+    "error.generic": "Não foi possível concluir. Confira a configuração, a conexão e se o arquivo está aberto em outro aplicativo ou marcado como somente leitura. Backups já criados permanecem disponíveis.",
     "error.googleAccess": "O Google recusou o acesso. Confira a autorização e as permissões da conta/pasta. O original foi preservado.",
     "error.googleConversion": "O Google recusou a importação ou a exportação para conferência. O original foi preservado. Consulte o diagnóstico e a recuperação antes de repetir.",
     "error.googleUnavailable": "O Google está temporariamente indisponível ou limitou as requisições. O original foi preservado. Aguarde e retome pela recuperação, evitando repetir o envio.",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Abrir pasta de atalhos das cópias",
     "home.settings": "&Configurações",
     "import.notice.copyComplete": "Cópia aberta no Sheets. Original preservado; atalho disponível na pasta de atalhos do aplicativo.",
-    "import.notice.formulaCopy": "Sua planilha foi aberta no Google Sheets como cópia. Ela contém fórmulas que ainda não conseguimos conferir para substituir o arquivo. O original e o backup foram mantidos. O atalho da cópia está disponível na pasta de atalhos do aplicativo.",
     "import.notice.syncedCopy": "Arquivo aberto como cópia: a pasta é sincronizada ou de rede. O original foi mantido para evitar excluir a cópia em outros dispositivos.",
     "legal.privacy": "Política de Privacidade",
     "legal.terms": "Termos de Uso",
@@ -215,7 +214,7 @@
     "recovery.deleted": "Backups apagados: {count}. Espaço liberado: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "A limpeza automática aplica estas regras também aos backups já existentes. Apaga backups concluídos após o prazo ou para liberar espaço, dos mais antigos para os recentes. Depois não será possível restaurar o original local. Planilhas no Google e atalhos permanecem. Ativar?",
     "recovery.enableCleanupTitle": "Ativar limpeza automática",
-    "recovery.instructions": "Para recuperar: selecione uma linha e use Restaurar em…\nPara apagar vários backups: marque as caixas ou use Selecionar todos.\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos.",
+    "recovery.instructions": "Para recuperar: selecione uma linha e use Restaurar\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos.",
     "recovery.limits": "Teto: 200 MB · máximo: 1 GB. Operações pendentes são protegidas.",
     "recovery.moreActions": "Mais ações ▾",
     "recovery.noBackups": "Nenhum backup registrado neste usuário do Windows.",
@@ -266,7 +265,7 @@
     "setup.description": "Abra suas planilhas no Google Sheets com sua conta Google. O original é guardado em backup antes da substituição por um atalho.",
     "setup.encodingLegacy": "Texto: Windows-1252",
     "setup.encodingUnicode": "Texto: UTF-8 / UTF-16 com BOM",
-    "setup.extendedFormats": "Habilitar CSV, TSV, XLS e ODS (experimental).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Primeiro uso - ZagoSheetsWin",
     "setup.formatLimits": "Até 20 MiB por arquivo.\nCSV/TSV: 500 mil células, 50 mil linhas e mil colunas.\n\nO conteúdo é tratado como texto literal. Se a conversão de ODS não puder ser conferida, o original é mantido. Suas preferências de texto são preservadas.",
     "setup.formatsHeading": "Formatos e texto",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Escolha sua conta → autorize o acesso → volte ao aplicativo.|Nas configurações, ✓ Google conectado confirma a autorização. Suas planilhas ficam no Google Drive dessa conta. Não precisa instalar o Google Drive para Windows.",
     "tutorial.googleTitle": "Conecte sua conta Google",
     "tutorial.hide": "Não mostrar este tutorial ao abrir o aplicativo",
-    "tutorial.importExplanation": "Abra um arquivo no computador. O ZagoSheetsWin importa e confere a planilha. Continue no navegador.|Após a conferência: backup do original + atalho para o Sheets. Se a conversão não puder ser confirmada, o original é mantido.",
+    "tutorial.importExplanation": "Abra um arquivo no computador. O ZagoSheetsWin importa e confere a planilha. Continue no navegador.|Depois da importação confirmada: backup do original + atalho para o Sheets. Pastas não são apagadas. Em pastas sincronizadas identificadas, o original é mantido.",
     "tutorial.importTitle": "Abra suas planilhas no Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Abrir backups…",
@@ -329,7 +328,7 @@
     "tutorial.start": "Começar",
     "tutorial.title": "Como funciona - ZagoSheetsWin",
     "windows.fileTypeDescription": "Planilha no Google Sheets",
-    "windows.registrationDescription": "Importa XLSX para Google Sheets e substitui por atalho, mantendo backup privado.",
+    "windows.registrationDescription": "Importa XLSX, CSV, TSV, XLS, ODS para Google Sheets e substitui por atalho, mantendo backup privado.",
     "language.title": "Idioma - ZagoSheetsWin",
     "language.choose": "Escolha o idioma do aplicativo",
     "language.search": "Buscar por nome ou código",
@@ -349,6 +348,8 @@
     "firstUse.backupExplanation": "O backup guarda o original, sem alterações posteriores no Sheets.\nEm Backups, escolha Restaurar em… para recuperar o arquivo.",
     "setup.importHeading": "3. Atalhos e importação do arquivo como cópia",
     "tutorial.showAtStartup": "Mostrar este tutorial ao abrir o aplicativo",
-    "setup.defaultsHelp": "Escolha ZagoSheetsWin nos Aplicativos padrão do Windows. Opcional, mas recomendado. Escolha ZagoSheetsWin nos Aplicativos padrão do Windows. É opcional: você também pode usar Abrir com → ZagoSheetsWin."
+    "setup.defaultsHelp": "Escolha ZagoSheetsWin nos Aplicativos padrão do Windows. Opcional, mas recomendado. Escolha ZagoSheetsWin nos Aplicativos padrão do Windows. É opcional: você também pode usar Abrir com → ZagoSheetsWin.",
+    "import.notice.partialConversion": "Planilha aberta no Google Sheets. O original foi substituído por um atalho. Para recuperá-lo, abra {backups}.",
+    "import.notice.dontShowAgain": "Não mostrar novamente"
   }
 }

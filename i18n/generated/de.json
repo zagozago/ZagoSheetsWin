@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "Die CSV-Datei verwendet möglicherweise Kommas oder Semikolons. Wählen Sie das Trennzeichen in den Textoptionen. Das Original wurde beibehalten.",
     "error.exportSize": "Der Export hat das Prüflimit überschritten. Original und Sicherung wurden beibehalten; prüfen Sie die Wiederherstellung, bevor Sie erneut importieren.",
     "error.formulaVerification": "Die konvertierte Tabelle enthält Formeln, die die App noch nicht prüfen kann. Original und Sicherung wurden beibehalten. Wählen Sie unter „Wiederherstellung / Sicherungen“ diesen Vorgang und anschließend „Als Kopie fortsetzen“, um die Tabelle in Google zu öffnen, ohne sie erneut hochzuladen.",
-    "error.generic": "Der Vorgang konnte nicht abgeschlossen werden. Prüfen Sie Einstellungen, Verbindung und ob die Datei in einer anderen App geöffnet ist. Vorhandene Sicherungen bleiben verfügbar.",
+    "error.generic": "Der Vorgang konnte nicht abgeschlossen werden. Prüfen Sie Einstellungen, Verbindung und ob die Datei in einer anderen App geöffnet ist. Vorhandene Sicherungen bleiben verfügbar. Prüfen Sie auch, ob die Datei schreibgeschützt ist.",
     "error.googleAccess": "Google hat den Zugriff verweigert. Prüfen Sie Autorisierung sowie Konto-/Ordnerberechtigungen. Das Original wurde beibehalten.",
     "error.googleConversion": "Google hat den Import oder den Export zur Prüfung abgelehnt. Das Original wurde beibehalten. Prüfen Sie Diagnose und Wiederherstellung, bevor Sie es erneut versuchen.",
     "error.googleUnavailable": "Google ist vorübergehend nicht verfügbar oder hat Anfragen begrenzt. Das Original wurde beibehalten. Warten Sie und setzen Sie den Vorgang über die Wiederherstellung fort, um einen erneuten Upload zu vermeiden.",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Ordner mit Kopie-Verknüpfungen öffnen",
     "home.settings": "&Einstellungen",
     "import.notice.copyComplete": "Kopie in Sheets geöffnet. Original beibehalten; eine Verknüpfung ist im Verknüpfungsordner der App verfügbar.",
-    "import.notice.formulaCopy": "Ihre Tabelle wurde als Kopie in Google Sheets geöffnet. Sie enthält Formeln, die wir für das Ersetzen der Datei noch nicht prüfen können. Original und Sicherung wurden beibehalten. Die Verknüpfung zur Kopie befindet sich im Verknüpfungsordner der App.",
     "import.notice.syncedCopy": "Datei als Kopie geöffnet: Der Ordner wird synchronisiert oder befindet sich im Netzwerk. Das Original wurde beibehalten, damit die Kopie auf anderen Geräten nicht gelöscht wird.",
     "legal.privacy": "Datenschutzerklärung",
     "legal.terms": "Nutzungsbedingungen",
@@ -215,7 +214,7 @@
     "recovery.deleted": "Sicherungen gelöscht: {count}. Freigegebener Speicherplatz: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Die automatische Bereinigung wendet diese Regeln auch auf vorhandene Sicherungen an. Abgeschlossene Sicherungen werden nach Ablauf der Aufbewahrungsfrist oder zum Freigeben von Speicherplatz von den ältesten zu den neuesten gelöscht. Danach kann das lokale Original nicht mehr wiederhergestellt werden. Google-Tabellen und Verknüpfungen bleiben erhalten. Aktivieren?",
     "recovery.enableCleanupTitle": "Automatische Bereinigung aktivieren",
-    "recovery.instructions": "Wiederherstellen: Wählen Sie eine Zeile und anschließend „Wiederherstellen nach…“.\nMehrere Sicherungen löschen: Aktivieren Sie die Kontrollkästchen oder wählen Sie „Alle auswählen“.\nAusstehende Vorgänge sind geschützt. Google-Tabellen und Verknüpfungen bleiben erhalten.",
+    "recovery.instructions": "Wiederherstellen: Wählen Sie eine Zeile und anschließend „Wiederherstellen nach…“.\nAusstehende Vorgänge sind geschützt. Google-Tabellen und Verknüpfungen bleiben erhalten.",
     "recovery.limits": "Limit: 200 MB · Maximum: 1 GB. Ausstehende Vorgänge sind geschützt.",
     "recovery.moreActions": "Weitere Aktionen ▾",
     "recovery.noBackups": "Für diesen Windows-Benutzer wurden keine Sicherungen aufgezeichnet.",
@@ -266,7 +265,7 @@
     "setup.description": "Öffnen Sie Ihre Tabellen mit Ihrem Google-Konto in Google Sheets. Das Original wird gesichert, bevor es durch eine Verknüpfung ersetzt wird.",
     "setup.encodingLegacy": "Text: Windows-1252",
     "setup.encodingUnicode": "Text: UTF-8 / UTF-16 mit BOM",
-    "setup.extendedFormats": "CSV, TSV, XLS und ODS aktivieren (experimentell).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Erste Verwendung - ZagoSheetsWin",
     "setup.formatLimits": "Bis zu 20 MiB pro Datei.\nCSV/TSV: 500 Tausend Zellen, 50 Tausend Zeilen und eintausend Spalten.\n\nInhalt wird als reiner Text behandelt. Wenn die ODS-Konvertierung nicht verifiziert werden kann, bleibt das Original erhalten. Ihre Texteinstellungen werden beibehalten.",
     "setup.formatsHeading": "Formate und Text",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Konto auswählen → Zugriff autorisieren → zur App zurückkehren.|In den Einstellungen bestätigt ✓ Google verbunden die Autorisierung. Ihre Tabellen bleiben im Google Drive dieses Kontos. Google Drive für Windows muss nicht installiert werden.",
     "tutorial.googleTitle": "Google-Konto verbinden",
     "tutorial.hide": "Dieses Tutorial beim Öffnen der App nicht anzeigen",
-    "tutorial.importExplanation": "Öffnen Sie eine Datei auf Ihrem Computer. ZagoSheetsWin importiert und prüft die Tabelle. Arbeiten Sie im Browser weiter.|Nach der Prüfung: Sicherung des Originals + Verknüpfung zu Sheets. Wenn die Konvertierung nicht bestätigt werden kann, bleibt das Original erhalten.",
+    "tutorial.importExplanation": "Öffnen Sie eine Datei auf Ihrem Computer. ZagoSheetsWin importiert und prüft die Tabelle. Arbeiten Sie im Browser weiter.|Nach dem bestätigten Import: Sicherung des Originals + Verknüpfung zu Sheets. Ordner werden nicht gelöscht. In erkannten synchronisierten Ordnern bleibt das Original erhalten.",
     "tutorial.importTitle": "Tabellen in Google Sheets öffnen",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Sicherungen öffnen…",
@@ -329,7 +328,7 @@
     "tutorial.start": "Start",
     "tutorial.title": "So funktioniert es - ZagoSheetsWin",
     "windows.fileTypeDescription": "Tabelle in Google Sheets",
-    "windows.registrationDescription": "Importiert XLSX in Google Sheets und ersetzt die Datei durch eine Verknüpfung; eine private Sicherung bleibt erhalten.",
+    "windows.registrationDescription": "Importiert XLSX, CSV, TSV, XLS, ODS in Google Sheets und ersetzt die Datei durch eine Verknüpfung; eine private Sicherung bleibt erhalten.",
     "language.title": "Sprache - ZagoSheetsWin",
     "language.choose": "App-Sprache auswählen",
     "language.search": "Nach Name oder Code suchen",
@@ -349,6 +348,8 @@
     "firstUse.backupExplanation": "Die Sicherung bewahrt das Original ohne spätere Änderungen in Sheets.\nWählen Sie unter Sicherungen Wiederherstellen nach…, um die Datei wiederherzustellen.",
     "setup.importHeading": "3. Verknüpfungen und Datei als Kopie importieren",
     "tutorial.showAtStartup": "Dieses Tutorial beim Öffnen der App anzeigen",
-    "setup.defaultsHelp": "Wählen Sie ZagoSheetsWin in den Windows-Standard-Apps. Optional, aber empfohlen. Wählen Sie ZagoSheetsWin in den Windows-Standard-Apps. Dies ist optional: Sie können auch „Öffnen mit → ZagoSheetsWin“ verwenden."
+    "setup.defaultsHelp": "Wählen Sie ZagoSheetsWin in den Windows-Standard-Apps. Optional, aber empfohlen. Wählen Sie ZagoSheetsWin in den Windows-Standard-Apps. Dies ist optional: Sie können auch „Öffnen mit → ZagoSheetsWin“ verwenden.",
+    "import.notice.partialConversion": "Die Tabelle wurde in Google Sheets geöffnet. Die Originaldatei wurde durch eine Verknüpfung ersetzt. Öffnen Sie zum Wiederherstellen {backups}.",
+    "import.notice.dontShowAgain": "Nicht mehr anzeigen"
   }
 }

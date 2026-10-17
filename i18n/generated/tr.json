@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "CSV virgül veya noktalı virgül kullanıyor olabilir. Metin seçeneklerinden ayırıcıyı seçin. Özgün dosya korundu.",
     "error.exportSize": "Dışa aktarılan veri doğrulama sınırını aştı. Özgün dosya ve yedek korundu; yeniden içe aktarmadan önce kurtarmayı denetleyin.",
     "error.formulaVerification": "Dönüştürülen elektronik tablo, uygulamanın henüz doğrulayamadığı formüller içeriyor. Özgün dosya ve yedek korundu. Kurtarma / yedekler bölümünde bu işlemi seçip “Kopya olarak sürdür” seçeneğini kullanarak elektronik tabloyu yeniden yüklemeden Google’da açabilirsiniz.",
-    "error.generic": "İşlem tamamlanamadı. Ayarları, bağlantıyı ve dosyanın başka bir uygulamada açık olup olmadığını denetleyin. Mevcut yedekler kullanılabilir durumda kalır.",
+    "error.generic": "İşlem tamamlanamadı. Ayarları, bağlantıyı ve dosyanın başka bir uygulamada açık olup olmadığını denetleyin. Mevcut yedekler kullanılabilir durumda kalır. Dosyanın salt okunur olarak işaretlenip işaretlenmediğini de kontrol edin.",
     "error.googleAccess": "Google erişimi reddetti. Yetkilendirmeyi ve hesap/klasör izinlerini denetleyin. Özgün dosya korundu.",
     "error.googleConversion": "Google içe aktarmayı veya doğrulama dışa aktarmasını reddetti. Özgün dosya korundu. Yeniden denemeden önce tanılamayı ve kurtarmayı denetleyin.",
     "error.googleUnavailable": "Google geçici olarak kullanılamıyor veya istekleri sınırladı. Özgün dosya korundu. Yeniden yüklemeyi önlemek için bekleyin ve kurtarma üzerinden sürdürün.",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Kopya kısayolları klasörünü aç",
     "home.settings": "&Ayarlar",
     "import.notice.copyComplete": "Kopya Sheets’te açıldı. Özgün dosya korundu; uygulamanın kısayollar klasöründe bir kısayol bulunuyor.",
-    "import.notice.formulaCopy": "Elektronik tablonuz Google Sheets’te bir kopya olarak açıldı. Dosya değiştirme için henüz doğrulayamadığımız formüller içeriyor. Özgün dosya ve yedek korundu. Kopya kısayolu uygulamanın kısayollar klasöründe bulunuyor.",
     "import.notice.syncedCopy": "Dosya bir kopya olarak açıldı: klasör eşitleniyor veya ağda bulunuyor. Diğer cihazlardaki kopyayı silmemek için özgün dosya korundu.",
     "legal.privacy": "Gizlilik Politikası",
     "legal.terms": "Kullanım Koşulları",
@@ -215,7 +214,7 @@
     "recovery.deleted": "Silinen yedekler: {count}. Boşaltılan alan: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Otomatik temizleme bu kuralları mevcut yedeklere de uygular. Tamamlanmış yedekleri saklama süresi dolduğunda veya alan açmak gerektiğinde en eskiden en yeniye doğru siler. Daha sonra yerel özgün dosyayı geri yükleyemezsiniz. Google elektronik tabloları ve kısayollar korunur. Etkinleştirilsin mi?",
     "recovery.enableCleanupTitle": "Otomatik temizlemeyi etkinleştir",
-    "recovery.instructions": "Kurtarmak için: bir satır seçip Şuraya geri yükle… seçeneğini kullanın.\nBirden çok yedeği silmek için: kutuları işaretleyin veya Tümünü seç seçeneğini kullanın.\nBekleyen işlemler korunur. Google elektronik tabloları ve kısayollar korunur.",
+    "recovery.instructions": "Kurtarmak için: bir satır seçip Şuraya geri yükle… seçeneğini kullanın.\nBekleyen işlemler korunur. Google elektronik tabloları ve kısayollar korunur.",
     "recovery.limits": "Sınır: 200 MB · en fazla: 1 GB. Bekleyen işlemler korunur.",
     "recovery.moreActions": "Diğer işlemler ▾",
     "recovery.noBackups": "Bu Windows kullanıcısı için kayıtlı yedek yok.",
@@ -266,7 +265,7 @@
     "setup.description": "Elektronik tablolarınızı Google hesabınızla Google Sheets’te açın. Özgün dosya bir kısayolla değiştirilmeden önce yedeklenir.",
     "setup.encodingLegacy": "Metin: Windows-1252",
     "setup.encodingUnicode": "Metin: BOM içeren UTF-8 / UTF-16",
-    "setup.extendedFormats": "CSV, TSV, XLS ve ODS biçimlerini etkinleştir (deneysel).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "İlk kullanım - ZagoSheetsWin",
     "setup.formatLimits": "Dosya başına en fazla 20 MiB.\nCSV/TSV: 500 bin hücre, 50 bin satır ve bin sütun.\n\nİçerik düz metin olarak işlenir. ODS dönüştürmesi doğrulanamazsa özgün dosya korunur. Metin tercihleriniz korunur.",
     "setup.formatsHeading": "Biçimler ve metin",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Hesabınızı seçin → erişimi yetkilendirin → uygulamaya dönün.|Ayarlar’da ✓ Google bağlı ifadesi yetkilendirmeyi doğrular. Elektronik tablolarınız bu hesabın Google Drive’ında kalır. Windows için Google Drive kurmanız gerekmez.",
     "tutorial.googleTitle": "Google hesabınızı bağlayın",
     "tutorial.hide": "Uygulama açılırken bu öğreticiyi gösterme",
-    "tutorial.importExplanation": "Bilgisayarınızdaki bir dosyayı açın. ZagoSheetsWin elektronik tabloyu içe aktarır ve doğrular. Tarayıcıda devam edin.|Doğrulamadan sonra: özgün dosyanın yedeği + Sheets kısayolu. Dönüştürme doğrulanamazsa özgün dosya korunur.",
+    "tutorial.importExplanation": "Bilgisayarınızdaki bir dosyayı açın. ZagoSheetsWin elektronik tabloyu içe aktarır ve doğrular. Tarayıcıda devam edin.|Onaylanmış içe aktarmadan sonra: özgün dosyanın yedeği + Sheets kısayolu. Klasörler silinmez. Belirlenen eşitlenmiş klasörlerde özgün dosya korunur.",
     "tutorial.importTitle": "Elektronik tablolarınızı Google Sheets’te açın",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Yedekleri aç…",
@@ -329,7 +328,7 @@
     "tutorial.start": "Başlat",
     "tutorial.title": "Nasıl çalışır - ZagoSheetsWin",
     "windows.fileTypeDescription": "Google Sheets elektronik tablosu",
-    "windows.registrationDescription": "XLSX dosyasını Google Sheets’e içe aktarır ve özel bir yedeği koruyarak dosyayı bir kısayolla değiştirir.",
+    "windows.registrationDescription": "XLSX, CSV, TSV, XLS, ODS dosyasını Google Sheets’e içe aktarır ve özel bir yedeği koruyarak dosyayı bir kısayolla değiştirir.",
     "language.title": "Dil - ZagoSheetsWin",
     "language.choose": "Uygulama dilini seçin",
     "language.search": "Ada veya koda göre ara",
@@ -349,6 +348,8 @@
     "firstUse.backupExplanation": "Yedek, Sheets’teki sonraki değişiklikler olmadan özgün dosyayı saklar.\nDosyayı kurtarmak için Yedekler’de Şuraya geri yükle… seçeneğini seçin.",
     "setup.importHeading": "3. Kısayollar ve dosyayı kopya olarak içe aktarma",
     "tutorial.showAtStartup": "Uygulama açılırken bu öğreticiyi göster",
-    "setup.defaultsHelp": "Windows Varsayılan uygulamalarında ZagoSheetsWin’i seçin. İsteğe bağlı, ancak önerilir. Windows Varsayılan uygulamalar bölümünde ZagoSheetsWin’i seçin. Bu isteğe bağlıdır: Birlikte aç → ZagoSheetsWin de kullanabilirsiniz."
+    "setup.defaultsHelp": "Windows Varsayılan uygulamalarında ZagoSheetsWin’i seçin. İsteğe bağlı, ancak önerilir. Windows Varsayılan uygulamalar bölümünde ZagoSheetsWin’i seçin. Bu isteğe bağlıdır: Birlikte aç → ZagoSheetsWin de kullanabilirsiniz.",
+    "import.notice.partialConversion": "E-tablo Google Sheets'te açıldı. Asıl dosyanın yerine bir kısayol oluşturuldu. Dosyayı geri almak için {backups} bölümünü açın.",
+    "import.notice.dontShowAgain": "Bir daha gösterme"
   }
 }

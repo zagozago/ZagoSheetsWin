@@ -157,6 +157,27 @@ public sealed class ReplacementTests
         var migrated = new ReplacementJournal(path).Get(f.Op.Id)!; Assert.Equal(3, migrated.Step); Assert.Equal(f.Url.AbsoluteUri, migrated.Url); Assert.Null(migrated.SourcePath);
     }
     [WindowsFact]
+    public async Task ReadOnlyOriginalRemainsProtectedAndReplacementCanResumeAfterAttributeIsRemoved()
+    {
+        using var f = new Fixture(); var native = new WindowsRetirementReader(f.Root);
+        var original = File.ReadAllBytes(f.Source); var attributes = File.GetAttributes(f.Source);
+        File.SetAttributes(f.Source, attributes | FileAttributes.ReadOnly);
+        try
+        {
+            var error = await Assert.ThrowsAsync<System.ComponentModel.Win32Exception>(() => f.Coordinator(native).ReplaceAsync(new(f.Op, f.Url)));
+            Assert.Equal(5, error.NativeErrorCode);
+            Assert.Equal(original, File.ReadAllBytes(f.Source));
+            Assert.True((File.GetAttributes(f.Source) & FileAttributes.ReadOnly) != 0);
+            Assert.Equal(original, File.ReadAllBytes(f.Op.Snapshot!.BackupPath));
+            Assert.Equal(UiText.Get("error.generic"), LauncherErrors.Message(error));
+            File.SetAttributes(f.Source, attributes);
+            var shortcut = await f.Coordinator(native).ReplaceAsync(new(f.Op, f.Url));
+            Assert.False(File.Exists(f.Source)); Assert.True(File.Exists(shortcut));
+            Assert.Equal(original, File.ReadAllBytes(f.Op.Snapshot.BackupPath));
+        }
+        finally { if (File.Exists(f.Source)) File.SetAttributes(f.Source, attributes); }
+    }
+    [WindowsFact]
     public async Task NativeHandleRetiresOnlyVerifiedOriginal()
     {
         using var f = new Fixture(); var native = new WindowsRetirementReader(f.Root);

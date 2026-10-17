@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e8320e84e330fa09f531e356f8e83a3dd5eb19ea79f146a19b0576697eab106e",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "CSV bisa maké koma atawa titik koma. Pilih pamisah dina pilihan téks. File asli tetep disimpen.",
     "error.exportSize": "Ékspor ngaleuwihan wates verifikasi. File asli jeung cadangan tetep disimpen; pariksa pamulihan saméméh ngimpor deui.",
     "error.formulaVerification": "Spreadsheet hasil konvérsi ngandung rumus nu can bisa diverifikasi ku aplikasi. File asli jeung cadangan tetep disimpen. Dina Pamulihan / cadangan, pilih operasi ieu tuluy pilih Teruskeun salaku salinan pikeun muka spreadsheet di Google tanpa unggah deui.",
-    "error.generic": "Operasi teu bisa diréngsékeun. Pariksa setélan, sambungan, jeung naha file keur dibuka ku aplikasi séjén. Cadangan nu geus aya tetep sadia.",
+    "error.generic": "Operasi teu bisa diréngsékeun. Pariksa setélan, sambungan, jeung naha file keur dibuka ku aplikasi séjén. Cadangan nu geus aya tetep sadia. Pariksa ogé naha berkas disetel ngan ukur bisa dibaca.",
     "error.googleAccess": "Google nampik aksés. Pariksa otorisasi jeung idin akun/folder. File asli tetep disimpen.",
     "error.googleConversion": "Google nampik impor atawa ékspor verifikasi. File asli tetep disimpen. Pariksa diagnostik jeung pamulihan saméméh nyobaan deui.",
     "error.googleUnavailable": "Google keur teu sadia samentara atawa ngawatesan paménta. File asli tetep disimpen. Antosan tuluy teruskeun deui ngaliwatan pamulihan supaya teu kudu unggah deui.",
@@ -180,7 +180,6 @@
     "home.openShortcutsFolder": "Buka folder shortcut salinan",
     "home.settings": "&Setélan",
     "import.notice.copyComplete": "Salinan geus dibuka dina Sheets. File asli tetep disimpen; shortcut sadia dina folder shortcut aplikasi.",
-    "import.notice.formulaCopy": "Spreadsheet dibuka dina Google Sheets salaku salinan. Eusina aya rumus nu can bisa diverifikasi pikeun ngaganti file. File asli jeung cadangan tetep disimpen. Shortcut salinan sadia dina folder shortcut aplikasi.",
     "import.notice.syncedCopy": "File dibuka salaku salinan: folder keur disinkronkeun atawa aya dina jaringan. File asli tetep disimpen supaya salinan dina alat séjén teu kapupus.",
     "legal.privacy": "Kawijakan Privasi",
     "legal.terms": "Sarat Pamakean",
@@ -215,7 +214,7 @@
     "recovery.deleted": "Cadangan dipupus: {count}. Rohangan dibébaskeun: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Bersih otomatis ogé nerapkeun aturan ieu ka cadangan nu geus aya. Cadangan nu geus réngsé dipupus sanggeus mangsa panyimpenan atawa pikeun ngabébaskeun rohangan, ti nu pangheubeulna ka nu panganyarna. Sanggeus éta, file asli lokal moal bisa dipulihkeun. Spreadsheet Google jeung shortcut bakal tetep aya. Aktipkeun?",
     "recovery.enableCleanupTitle": "Aktipkeun bersih otomatis",
-    "recovery.instructions": "Pikeun mulihkeun: pilih hiji baris tuluy pilih Pulihkeun ka…\nPikeun mupus sababaraha cadangan: centang kotak atawa pilih Pilih sadayana.\nOperasi nu keur nungguan ditangtayungan. Spreadsheet Google jeung shortcut tetep disimpen.",
+    "recovery.instructions": "Pikeun mulihkeun: pilih hiji baris tuluy pilih Pulihkeun ka…\nOperasi nu keur nungguan ditangtayungan. Spreadsheet Google jeung shortcut tetep disimpen.",
     "recovery.limits": "Wates: 200 MB · maksimum: 1 GB. Operasi nu keur nungguan ditangtayungan.",
     "recovery.moreActions": "Aksi séjén ▾",
     "recovery.noBackups": "Teu aya cadangan nu kacatet pikeun pamaké Windows ieu.",
@@ -266,7 +265,7 @@
     "setup.description": "Buka spreadsheet anjeun dina Google Sheets nganggo akun Google anjeun. File asli dicadangkeun saméméh diganti ku shortcut.",
     "setup.encodingLegacy": "Téks: Windows-1252",
     "setup.encodingUnicode": "Téks: UTF-8 / UTF-16 kalayan BOM",
-    "setup.extendedFormats": "Aktipkeun CSV, TSV, XLS jeung ODS (ékspériméntal).",
+    "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Pamakean munggaran - ZagoSheetsWin",
     "setup.formatLimits": "Nepi ka 20 MiB per file.\nCSV/TSV: 500 rébu sél, 50 rébu baris jeung sarébu kolom.\n\nEusi diperlakukeun salaku téks literal. Lamun konvérsi ODS teu bisa diverifikasi, file asli tetep disimpen. Pilihan téks anjeun tetep disimpen.",
     "setup.formatsHeading": "Format jeung téks",
@@ -305,7 +304,7 @@
     "tutorial.googleExplanation": "Pilih akun anjeun → otorisasikeun aksés → balik ka aplikasi.|Dina Setélan, ✓ Google geus nyambung mastikeun otorisasi. Spreadsheet tetep aya dina Google Drive akun éta. Anjeun teu kudu masang Google Drive for Windows.",
     "tutorial.googleTitle": "Sambungkeun akun Google anjeun",
     "tutorial.hide": "Ulah témbongkeun tutorial ieu nalika muka aplikasi",
-    "tutorial.importExplanation": "Buka file dina komputer. ZagoSheetsWin ngimpor jeung mariksa spreadsheet. Teruskeun dina browser.|Sanggeus verifikasi: cadangan file asli + shortcut ka Sheets. Lamun konvérsi teu bisa dikonfirmasi, file asli tetep disimpen.",
+    "tutorial.importExplanation": "Buka file dina komputer. ZagoSheetsWin ngimpor jeung mariksa spreadsheet. Teruskeun dina browser.|Sanggeus impor dikonfirmasi: cadangan file asli + shortcut ka Sheets. Folder teu dipupus. Dina folder sinkronisasi nu kaciri, file asli tetep disimpen.",
     "tutorial.importTitle": "Buka spreadsheet dina Google Sheets",
     "tutorial.numberedTitle": "{number}. {title}",
     "tutorial.openBackups": "Buka cadangan…",
@@ -329,7 +328,7 @@
     "tutorial.start": "Mimitian",
     "tutorial.title": "Kumaha jalanna - ZagoSheetsWin",
     "windows.fileTypeDescription": "Spreadsheet dina Google Sheets",
-    "windows.registrationDescription": "Ngimpor XLSX ka Google Sheets sarta ngagantina ku shortcut, bari nyimpen cadangan pribadi.",
+    "windows.registrationDescription": "Ngimpor XLSX, CSV, TSV, XLS, ODS ka Google Sheets sarta ngagantina ku shortcut, bari nyimpen cadangan pribadi.",
     "language.title": "Basa - ZagoSheetsWin",
     "language.choose": "Pilih basa aplikasi",
     "language.search": "Téangan dumasar ngaran atawa kode",
@@ -349,6 +348,8 @@
     "firstUse.backupExplanation": "Cadangan nyimpen berkas aslina, tanpa parobahan saterusna dina Sheets.\nDina Cadangan, pilih Pulihkeun ka… pikeun mulangkeun berkas.",
     "setup.importHeading": "3. Potong kompas sareng ngimpor berkas minangka salinan",
     "tutorial.showAtStartup": "Témbongkeun tutorial ieu nalika muka aplikasi",
-    "setup.defaultsHelp": "Pilih ZagoSheetsWin dina Aplikasi standar Windows. Pilihan, tapi disarankeun. Pilih ZagoSheetsWin dina Aplikasi standar Windows. Ieu opsional: anjeun ogé bisa maké Buka ku → ZagoSheetsWin."
+    "setup.defaultsHelp": "Pilih ZagoSheetsWin dina Aplikasi standar Windows. Pilihan, tapi disarankeun. Pilih ZagoSheetsWin dina Aplikasi standar Windows. Ieu opsional: anjeun ogé bisa maké Buka ku → ZagoSheetsWin.",
+    "import.notice.partialConversion": "Spreadsheet parantos dibuka dina Google Sheets. Berkas asli diganti ku potong kompas. Pikeun mulangkeunana, buka {backups}.",
+    "import.notice.dontShowAgain": "Ulah témbongkeun deui"
   }
 }

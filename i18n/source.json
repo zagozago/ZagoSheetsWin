@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.30",
+  "productVersion": "0.9.35",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 6,
+  "catalogRevision": 10,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -2330,8 +2330,8 @@
       "notes": []
     },
     "error.generic": {
-      "text": "Não foi possível concluir. Confira a configuração, a conexão e se o arquivo está aberto em outro aplicativo. Backups já criados permanecem disponíveis.",
-      "context": "src/SheetsWindows.Infrastructure/Launcher.cs - public static string Message(Exception ex) => ex switch",
+      "text": "Não foi possível concluir. Confira a configuração, a conexão e se o arquivo está aberto em outro aplicativo ou marcado como somente leitura. Backups já criados permanecem disponíveis.",
+      "context": "Generic failure: configuration, connection, another application or the read-only file attribute may prevent completion. Existing backups remain available.",
       "scope": "app",
       "placeholders": [],
       "invariants": [],
@@ -2607,18 +2607,6 @@
       "scope": "app",
       "placeholders": [],
       "invariants": [],
-      "markup": [],
-      "notes": []
-    },
-    "import.notice.formulaCopy": {
-      "text": "Sua planilha foi aberta no Google Sheets como cópia. Ela contém fórmulas que ainda não conseguimos conferir para substituir o arquivo. O original e o backup foram mantidos. O atalho da cópia está disponível na pasta de atalhos do aplicativo.",
-      "context": "src/SheetsWindows.Infrastructure/Launcher.cs - public async Task<string> OpenAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default)",
-      "scope": "app",
-      "placeholders": [],
-      "invariants": [
-        "Google Sheets",
-        "Google"
-      ],
       "markup": [],
       "notes": []
     },
@@ -5978,7 +5966,7 @@
       "notes": []
     },
     "recovery.instructions": {
-      "text": "Para recuperar: selecione uma linha e use Restaurar em…\nPara apagar vários backups: marque as caixas ou use Selecionar todos.\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos.",
+      "text": "Para recuperar: selecione uma linha e use Restaurar\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos.",
       "context": "src/SheetsWindows.Windows/RecoveryForm.cs - private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Top, Height = 85, Padding = new Padding(12), Text = \"Para recuperar: selecione uma linha e use Restaurar em…\\nPara apagar vários backups: marque as caixas ou use Selecionar todos.\\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos.\" };",
       "scope": "app",
       "placeholders": [],
@@ -6508,14 +6496,15 @@
       "notes": []
     },
     "setup.extendedFormats": {
-      "text": "Habilitar CSV, TSV, XLS e ODS (experimental).",
-      "context": "src/SheetsWindows.Windows/SetupForm.cs - public SetupForm(bool firstUse = false, bool preview = false)",
+      "text": "XLSX · CSV · TSV · XLS · ODS",
+      "context": "Supported file types; informational label in AdvancedPreferencesForm, not a setting.",
       "scope": "app",
       "placeholders": [],
       "invariants": [
-        "XLS",
+        "XLSX",
         "CSV",
         "TSV",
+        "XLS",
         "ODS"
       ],
       "markup": [],
@@ -6924,7 +6913,7 @@
       "notes": []
     },
     "tutorial.importExplanation": {
-      "text": "Abra um arquivo no computador. O ZagoSheetsWin importa e confere a planilha. Continue no navegador.|Após a conferência: backup do original + atalho para o Sheets. Se a conversão não puder ser confirmada, o original é mantido.",
+      "text": "Abra um arquivo no computador. O ZagoSheetsWin importa e confere a planilha. Continue no navegador.|Depois da importação confirmada: backup do original + atalho para o Sheets. Pastas não são apagadas. Em pastas sincronizadas identificadas, o original é mantido.",
       "context": "src/SheetsWindows.Windows/TutorialForm.cs - private static readonly (string Title, string Text)[] Pages =",
       "scope": "app",
       "placeholders": [],
@@ -7162,15 +7151,17 @@
       "notes": []
     },
     "windows.registrationDescription": {
-      "text": "Importa XLSX para Google Sheets e substitui por atalho, mantendo backup privado.",
+      "text": "Importa XLSX, CSV, TSV, XLS, ODS para Google Sheets e substitui por atalho, mantendo backup privado.",
       "context": "src/SheetsWindows.Infrastructure/WindowsAssociations.cs - public static IReadOnlyList<Value> Values(string exe, bool legacy = false, bool legacyIcon = false)",
       "scope": "app",
       "placeholders": [],
       "invariants": [
-        "Google Sheets",
-        "Google",
         "XLSX",
-        "XLS"
+        "CSV",
+        "TSV",
+        "XLS",
+        "ODS",
+        "Google Sheets"
       ],
       "markup": [],
       "notes": []
@@ -7372,6 +7363,29 @@
         "ZagoSheetsWin",
         "Windows"
       ],
+      "markup": [],
+      "notes": []
+    },
+    "import.notice.partialConversion": {
+      "text": "Planilha aberta no Google Sheets. O original foi substituído por um atalho. Para recuperá-lo, abra {backups}.",
+      "context": "Successful spreadsheet replacement confirmation. Shown until dismissed permanently; not a conversion warning.",
+      "scope": "app",
+      "placeholders": [
+        "backups"
+      ],
+      "invariants": [
+        "Google Sheets",
+        "Google"
+      ],
+      "markup": [],
+      "notes": []
+    },
+    "import.notice.dontShowAgain": {
+      "text": "Não mostrar novamente",
+      "context": "Unchecked checkbox above the import confirmation buttons. Saves a persistent preference.",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
       "markup": [],
       "notes": []
     }
