@@ -1,5 +1,12 @@
 # ZagoSheetsWin
 
+> ⚠️ **0.9.35 — Important safety update (English notice; full translation review pending).**
+>
+> സ്പ്രെഡ്‌ഷീറ്റ് Google Sheets ൽ തുറന്നു. യഥാർത്ഥ ഫയലിന് പകരം ഒരു കുറുക്കുവഴി സൃഷ്ടിച്ചു. യഥാർത്ഥ ഫയൽ വീണ്ടെടുക്കാൻ ബാക്കപ്പുകൾ തുറക്കുക.
+>
+> **Conversion fidelity:** After a confirmed Google import, the original local file **may be replaced with a `.url` shortcut even when formulas, values or formatting differ**. The original bytes remain in Backups. Choose **Import as copy BEFORE opening** if you need the original to stay in the source folder. Windows **read-only** files may block replacement; in that case, the original is preserved. Some text below describes an older alpha policy; use the [current English README](../../../README.md) or [Portuguese user guide](../../USER_GUIDE.md) for complete 0.9.35 behavior.
+
+
 <details>
 <summary>🌐 ഡോക്യുമെന്റേഷൻ ഭാഷ · ഭാഷ തിരഞ്ഞെടുക്കുക</summary>
 
