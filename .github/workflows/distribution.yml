@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.34: import confirmation opt-out, backup auto-save and sorting, readable disabled buttons.
+# Distribution candidate 0.9.35: clarify read-only file failures in all 51 languages.
 name: Protected alpha distribution
 on:
   workflow_dispatch:

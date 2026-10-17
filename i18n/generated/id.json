@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.34",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "CSV mungkin menggunakan koma atau titik koma. Pilih pemisah di opsi teks. Berkas asli dipertahankan.",
     "error.exportSize": "Ekspor melebihi batas verifikasi. Berkas asli dan cadangan dipertahankan; periksa pemulihan sebelum mengimpor lagi.",
     "error.formulaVerification": "Spreadsheet hasil konversi berisi rumus yang belum dapat diverifikasi oleh aplikasi. Berkas asli dan cadangan dipertahankan. Di Pemulihan / cadangan, pilih operasi ini lalu pilih Lanjutkan sebagai salinan untuk membuka spreadsheet di Google tanpa mengunggah lagi.",
-    "error.generic": "Operasi tidak dapat diselesaikan. Periksa pengaturan, koneksi, dan apakah berkas sedang dibuka di aplikasi lain. Cadangan yang ada tetap tersedia.",
+    "error.generic": "Operasi tidak dapat diselesaikan. Periksa pengaturan, koneksi, dan apakah berkas sedang dibuka di aplikasi lain. Cadangan yang ada tetap tersedia. Periksa juga apakah file ditandai hanya-baca.",
     "error.googleAccess": "Google menolak akses. Periksa otorisasi serta izin akun/folder. Berkas asli dipertahankan.",
     "error.googleConversion": "Google menolak impor atau ekspor verifikasi. Berkas asli dipertahankan. Periksa diagnostik dan pemulihan sebelum mencoba lagi.",
     "error.googleUnavailable": "Google untuk sementara tidak tersedia atau membatasi permintaan. Berkas asli dipertahankan. Tunggu lalu lanjutkan melalui pemulihan agar tidak mengunggah ulang.",

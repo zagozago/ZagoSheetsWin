@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.34",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "CSV có thể dùng dấu phẩy hoặc dấu chấm phẩy. Chọn dấu phân cách trong tùy chọn văn bản. Tệp gốc đã được giữ lại.",
     "error.exportSize": "Dữ liệu xuất vượt quá giới hạn xác minh. Tệp gốc và bản sao lưu đã được giữ lại; hãy kiểm tra khôi phục trước khi nhập lại.",
     "error.formulaVerification": "Bảng tính đã chuyển đổi chứa công thức mà ứng dụng chưa thể xác minh. Tệp gốc và bản sao lưu đã được giữ lại. Trong Khôi phục / sao lưu, chọn thao tác này rồi chọn “Tiếp tục dưới dạng bản sao” để mở bảng tính trên Google mà không phải tải lên lại.",
-    "error.generic": "Không thể hoàn tất thao tác. Kiểm tra cài đặt, kết nối và xem tệp có đang mở trong ứng dụng khác không. Các bản sao lưu hiện có vẫn khả dụng.",
+    "error.generic": "Không thể hoàn tất thao tác. Kiểm tra cài đặt, kết nối và xem tệp có đang mở trong ứng dụng khác không. Các bản sao lưu hiện có vẫn khả dụng. Cũng kiểm tra xem tệp có được đặt ở chế độ chỉ đọc không.",
     "error.googleAccess": "Google từ chối quyền truy cập. Kiểm tra ủy quyền và quyền của tài khoản/thư mục. Tệp gốc đã được giữ lại.",
     "error.googleConversion": "Google từ chối lần nhập hoặc lần xuất dùng để xác minh. Tệp gốc đã được giữ lại. Hãy kiểm tra chẩn đoán và khôi phục trước khi thử lại.",
     "error.googleUnavailable": "Google tạm thời không khả dụng hoặc đã giới hạn yêu cầu. Tệp gốc đã được giữ lại. Hãy chờ rồi tiếp tục qua khôi phục để tránh tải lên lại.",

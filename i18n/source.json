@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.34",
+  "productVersion": "0.9.35",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 9,
+  "catalogRevision": 10,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -2330,8 +2330,8 @@
       "notes": []
     },
     "error.generic": {
-      "text": "Não foi possível concluir. Confira a configuração, a conexão e se o arquivo está aberto em outro aplicativo. Backups já criados permanecem disponíveis.",
-      "context": "src/SheetsWindows.Infrastructure/Launcher.cs - public static string Message(Exception ex) => ex switch",
+      "text": "Não foi possível concluir. Confira a configuração, a conexão e se o arquivo está aberto em outro aplicativo ou marcado como somente leitura. Backups já criados permanecem disponíveis.",
+      "context": "Generic failure: configuration, connection, another application or the read-only file attribute may prevent completion. Existing backups remain available.",
       "scope": "app",
       "placeholders": [],
       "invariants": [],

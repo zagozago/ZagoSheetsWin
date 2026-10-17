@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.34",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "De CSV kan komma's of puntkomma's gebruiken. Kies het scheidingsteken in de tekstopties. Het origineel is behouden.",
     "error.exportSize": "De export overschreed de verificatielimiet. Het origineel en de back-up zijn behouden; controleer herstel voordat u opnieuw importeert.",
     "error.formulaVerification": "Het geconverteerde werkblad bevat formules die de app nog niet kan verifiëren. Het origineel en de back-up zijn behouden. Selecteer in Herstel / back-ups deze bewerking en kies Hervatten als kopie om het werkblad in Google te openen zonder opnieuw te uploaden.",
-    "error.generic": "De bewerking kon niet worden voltooid. Controleer de instellingen, de verbinding en of het bestand in een andere app geopend is. Bestaande back-ups blijven beschikbaar.",
+    "error.generic": "De bewerking kon niet worden voltooid. Controleer de instellingen, de verbinding en of het bestand in een andere app geopend is. Bestaande back-ups blijven beschikbaar. Controleer ook of het bestand als alleen-lezen is ingesteld.",
     "error.googleAccess": "Google heeft de toegang geweigerd. Controleer autorisatie en account-/maprechten. Het origineel is behouden.",
     "error.googleConversion": "Google heeft de import of verificatie-export geweigerd. Het origineel is behouden. Controleer diagnostiek en herstel voordat u het opnieuw probeert.",
     "error.googleUnavailable": "Google is tijdelijk niet beschikbaar of beperkt verzoeken. Het origineel is behouden. Wacht en hervat via herstel om opnieuw uploaden te voorkomen.",

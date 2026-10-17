@@ -1,5 +1,10 @@
 # Histórico de alterações
 
+## 0.9.35
+
+- Clarify that the Windows read-only file attribute can prevent completion; keep the original protected.
+- Add native Windows regression coverage for read-only retirement failure and recovery without changing the original.
+
 ## 0.9.34
 
 - Confirm successful original replacement for every supported format, with persistent opt-out and one notice at a time per user session.

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.34",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "CSV vergul yoki nuqtali verguldan foydalanishi mumkin. Matn parametrlarida ajratgichni tanlang. Asl fayl saqlandi.",
     "error.exportSize": "Eksport tekshirish limitidan oshib ketdi. Asl fayl va zaxira nusxa saqlandi; qayta import qilishdan oldin tiklashni tekshiring.",
     "error.formulaVerification": "Aylantirilgan jadvalda ilova hali tekshira olmaydigan formulalar bor. Asl fayl va zaxira nusxa saqlandi. Tiklash / zaxira nusxalar bo‘limida ushbu amalni tanlang va jadvalni qayta yuklamasdan Google’da ochish uchun Nusxa sifatida davom ettirishni tanlang.",
-    "error.generic": "Amalni tugatib bo‘lmadi. Sozlamalar, ulanish va fayl boshqa ilovada ochiq yoki yo‘qligini tekshiring. Mavjud zaxira nusxalar saqlanadi.",
+    "error.generic": "Amalni tugatib bo‘lmadi. Sozlamalar, ulanish va fayl boshqa ilovada ochiq yoki yo‘qligini tekshiring. Mavjud zaxira nusxalar saqlanadi. Fayl faqat o‘qish uchun belgilanganligini ham tekshiring.",
     "error.googleAccess": "Google kirishni rad etdi. Avtorizatsiya va hisob/jild ruxsatlarini tekshiring. Asl fayl saqlandi.",
     "error.googleConversion": "Google import yoki tekshiruv eksportini rad etdi. Asl fayl saqlandi. Qayta urinishdan oldin diagnostika va tiklashni tekshiring.",
     "error.googleUnavailable": "Google vaqtincha ishlamayapti yoki so‘rovlarni cheklagan. Asl fayl saqlandi. Qayta yuklamaslik uchun kuting va tiklash orqali davom ettiring.",

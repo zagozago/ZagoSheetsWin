@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.34",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "CSV inaweza kutumia koma au nuktakoma. Chagua kitenganishi katika chaguo za maandishi. Faili ya asili ilihifadhiwa.",
     "error.exportSize": "Uhamishaji umezidi kikomo cha uthibitishaji. Faili ya asili na nakala rudufu zilihifadhiwa; kagua urejeshaji kabla ya kuingiza tena.",
     "error.formulaVerification": "Lahajedwali iliyobadilishwa ina fomula ambazo programu bado haiwezi kuthibitisha. Faili ya asili na nakala rudufu zilihifadhiwa. Katika Urejeshaji / nakala rudufu, chagua operesheni hii na uchague Endelea kama nakala ili kufungua lahajedwali Google bila kupakia tena.",
-    "error.generic": "Haikuwezekana kukamilisha operesheni. Kagua mipangilio, muunganisho na kama faili imefunguliwa katika programu nyingine. Nakala rudufu zilizopo bado zinapatikana.",
+    "error.generic": "Haikuwezekana kukamilisha operesheni. Kagua mipangilio, muunganisho na kama faili imefunguliwa katika programu nyingine. Nakala rudufu zilizopo bado zinapatikana. Angalia pia ikiwa faili limewekwa kwa kusoma tu.",
     "error.googleAccess": "Google imekataa ufikiaji. Kagua idhini na ruhusa za akaunti/folda. Faili ya asili ilihifadhiwa.",
     "error.googleConversion": "Google imekataa uingizaji au uhamishaji wa uthibitishaji. Faili ya asili ilihifadhiwa. Kagua uchunguzi na urejeshaji kabla ya kujaribu tena.",
     "error.googleUnavailable": "Google haipatikani kwa muda au imeweka kikomo cha maombi. Faili ya asili ilihifadhiwa. Subiri na uendelee kupitia urejeshaji ili kuepuka kupakia tena.",

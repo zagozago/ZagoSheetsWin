@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.34",
+  "productVersion": "0.9.35",
   "sourceLocale": "pt-BR",
-  "sourceHash": "e4d34aa66dd766cba01e411622ffdf8e07dfa692a5105a688f67474ce54a6880",
+  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -154,7 +154,7 @@
     "error.csvDelimiter": "CSV na iya amfani da waƙafi ko semicolon. Zaɓi mai rarrabawa a zaɓuɓɓukan rubutu. An kiyaye asali.",
     "error.exportSize": "Fitarwar ta wuce iyakar tabbatarwa. An kiyaye asali da ajiyar baya; duba maidowa kafin ka sake shigo da shi.",
     "error.formulaVerification": "Maƙunsar da aka sauya tana ɗauke da formulas da manhajar ba za ta iya tabbatarwa ba tukuna. An kiyaye asali da ajiyar baya. A Maidowa / ajiyar baya, zaɓi wannan aikin sannan ka zaɓi Ci gaba a matsayin kwafi don buɗe maƙunsar a Google ba tare da sake lodawa ba.",
-    "error.generic": "Ba a iya kammala aikin ba. Duba saituna, haɗi da ko fayil ɗin yana buɗe a wata manhaja. Ajiyar baya da ke akwai suna nan.",
+    "error.generic": "Ba a iya kammala aikin ba. Duba saituna, haɗi da ko fayil ɗin yana buɗe a wata manhaja. Ajiyar baya da ke akwai suna nan. A kuma duba ko an saita fayil ɗin don karantawa kawai.",
     "error.googleAccess": "Google ya hana shiga. Duba izini da izinin asusu/babban fayil. An kiyaye asali.",
     "error.googleConversion": "Google ya ƙi shigo da bayanan ko fitarwar tabbatarwa. An kiyaye asali. Duba bayanan ganowa da maidowa kafin ka sake gwadawa.",
     "error.googleUnavailable": "Google ba ya samuwa na ɗan lokaci ko ya takaita buƙatu. An kiyaye asali. Jira sannan ka ci gaba ta maidowa don kauce wa sake lodawa.",
