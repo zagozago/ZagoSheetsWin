@@ -34,4 +34,12 @@ Incluídos testes de lotes de 12 e 20 solicitações com cota de 1 MB e arquivos
 
 Os testes são locais/simulados, sem Google real. O lote real de 12/20 arquivos permanece critério de aceite no dispositivo do usuário após instalar o candidato. Se falhar, exportar o novo diagnóstico para obter motivo/endpoint/tentativas; não renomear arquivos nem apagar estado para forçar novo envio.
 
-Validação local Release: compilação sem avisos/erros; 345 testes aprovados, 43 exclusivos do Windows ignorados, total 388, nenhuma falha. Contrato de localização: 14 testes aprovados; 619 chaves em 51 idiomas; auditoria estática de segurança aprovada. Validação nativa Windows e ciclo do instalador serão registrados após o Actions.
+Validação local Release: compilação sem avisos/erros; 345 testes aprovados, 43 exclusivos do Windows ignorados, total 388, nenhuma falha. Contrato de localização: 14 testes aprovados; 619 chaves em 51 idiomas; auditoria estática de segurança aprovada.
+
+## Resultados do Actions
+
+Código validado: `49b0a42872512b605b14baa5bee541a74bf482f8`. [Execução de validação](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39172166238). Windows: 387 aprovados e 1 ignorado; Linux: 345 aprovados e 43 ignorados; total 388, nenhuma falha. Valores conferidos nos TRX dos dois jobs. A interface nativa e os 51 idiomas passaram, e as capturas de Backups em modo claro e escuro foram inspecionadas: descrição preservada, sem toggle, estatísticas com margem, borda e fonte em negrito.
+
+A revisão também removeu uma asserção antiga que ainda procurava o toggle e protegeu a camada externa de retry contra antecipar um Retry-After longo.
+
+Instalador: compilação, transições nos 51 idiomas, instalação, atualização e preservação na desinstalação aprovadas na mesma execução. O aceite com Google real em lote continua pendente no dispositivo.

@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.39: explicit separator choice, rolling backup quota and safe quoted/multiline recovery.
+# Distribution candidate 0.9.40: serialized batch imports, automatic backup cleanup and bounded Google read retries.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
