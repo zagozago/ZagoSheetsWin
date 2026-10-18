@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.41: two million CSV/TSV cells with matching bounded verification and all 0.9.40 fixes.
+# Distribution candidate 0.9.41: validated final uninstall cleanup before immediate CI reinstalls.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
