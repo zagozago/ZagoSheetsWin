@@ -155,7 +155,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
             new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")), new SourceReader(), locks, auth, new GoogleDriveClient(http, auth))
             .EnsureFolderAsync(ct);
     }
-    public async Task<string> OpenAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default)
+    public async Task<string> OpenAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default, TextImportOptions? interpretation = null)
     {
         ImportNotice = null;
         // Optional folder scope; fixed-local-file and sync protections still apply.
@@ -165,28 +165,28 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         telemetry?.Mark(ProcessingStep.Configuration);
         if (!OpeningPolicy.IsConfigured(storage)) throw new LauncherNotConfiguredException();
         var opening = OpeningPolicy.Load(storage);
-        if (CopyImportSettings.Load(storage) || !ShortcutSettings.Load(storage)) return await CopyAsync(path, progress, ct);
+        if (CopyImportSettings.Load(storage) || !ShortcutSettings.Load(storage)) return await CopyAsync(path, progress, ct, interpretation);
         if (!opening.RestrictToFolder && SourceEnvironment.RequiresCopy(path))
         {
-            var copied = await CopyAsync(path, progress, ct);
+            var copied = await CopyAsync(path, progress, ct, interpretation);
             ImportNotice = UiText.Get("import.notice.syncedCopy");
             return copied;
         }
-        if (SpreadsheetFormats.Format(path) == "xls" && !XlsReplacementSettings.Load(storage)) return await CopyAsync(path, progress, ct);
+        if (SpreadsheetFormats.Format(path) == "xls" && !XlsReplacementSettings.Load(storage)) return await CopyAsync(path, progress, ct, interpretation);
         var sources = new WindowsRetirementReader(opening.RestrictToFolder ? opening.Folder : null);
         telemetry?.Mark(ProcessingStep.SourceOpening, CheckpointOutcome.Started);
         await using (var eligibility = sources.Open(request.Path!)) { }
         telemetry?.Mark(ProcessingStep.SourceOpening);
         progress?.Report(UiText.Get("progress.fileAndBackup"));
-        var textOptions = SpreadsheetFormats.Format(path) == "xlsx" ? null : ExtendedConfiguration.Load(storage);
+        var textOptions = interpretation ?? (SpreadsheetFormats.Format(path) == "xlsx" ? null : ExtendedConfiguration.Load(storage));
         var preparation = storage.CreatePreparation(); var local = new SqliteOperationRegistry(storage.DatabasePath);
         var remote = new GoogleRemoteRegistry(System.IO.Path.Combine(storage.Root, "google.db")); var locks = new FileOperationLock(storage.LocksPath);
         var auth = Auth(client, locks);
-        var importer = new GoogleImport(preparation, local, remote, new SourceReader(), locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads"))), textOptions, telemetry, new BackupManagement(storage));
+        var importer = new GoogleImport(preparation, local, remote, new SourceReader(), locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads"))), textOptions, telemetry, new BackupManagement(storage), new ImportInterpretations(storage));
         progress?.Report(UiText.Get("progress.openingSheets"));
         var receipt = await importer.ImportReceiptAsync(request.Path!, ct);
         progress?.Report(UiText.Get("progress.publishingShortcut"));
-        var conversion = new ConversionVerifier(new GoogleDriveClient(http, auth), textOptions, telemetry);
+        var conversion = new ConversionVerifier(new GoogleDriveClient(http, auth), textOptions, telemetry, new ImportInterpretations(storage));
         var coordinator = new ReplacementCoordinator(local, remote, new ManagedBackupStore(storage), locks,
             new ReplacementJournal(System.IO.Path.Combine(storage.Root, "replacement.db")), sources, browser, conversion, ShortcutIcon.Ensure(storage), telemetry);
         var shortcut = await coordinator.ReplaceAsync(receipt, ct);
@@ -194,14 +194,14 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         return shortcut;
     }
 
-    public async Task<string> CopyAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default)
+    public async Task<string> CopyAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default, TextImportOptions? interpretation = null)
     {
         ImportNotice = null;
         _ = LauncherRequest.Parse(["--copy", path]);
         telemetry?.Mark(ProcessingStep.Configuration, CheckpointOutcome.Started);
         var client = await LauncherConfiguration.LoadClientAsync(storage, ct);
         telemetry?.Mark(ProcessingStep.Configuration);
-        var options = SpreadsheetFormats.Format(path) == "xlsx" ? null : ExtendedConfiguration.Load(storage);
+        var options = interpretation ?? (SpreadsheetFormats.Format(path) == "xlsx" ? null : ExtendedConfiguration.Load(storage));
         var sources = new SourceReader(copyEnvironments: true);
         // Preflight is read-only, does not hydrate online-only placeholders and precedes OAuth/network.
         telemetry?.Mark(ProcessingStep.SourceOpening, CheckpointOutcome.Started);
@@ -209,10 +209,36 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         telemetry?.Mark(ProcessingStep.SourceOpening);
         var locks = new FileOperationLock(storage.LocksPath); var auth = Auth(client, locks);
         var importer = new GoogleImport(storage.CreatePreparation(sources), new SqliteOperationRegistry(storage.DatabasePath),
-            new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")), sources, locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads"))), options, telemetry, new BackupManagement(storage));
+            new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")), sources, locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads"))), options, telemetry, new BackupManagement(storage), new ImportInterpretations(storage));
         progress?.Report(UiText.Get("progress.importingCopy"));
         return await PublishCopyAsync(await importer.ImportReceiptAsync(path, ct), progress, ct);
     }
+    public async Task<string> RepairAsync(Guid id, TextImportOptions? interpretation = null, CancellationToken ct = default)
+    {
+        ImportNotice = null;
+        var local = new SqliteOperationRegistry(storage.DatabasePath);
+        var original = local.Get(id) ?? throw new InvalidOperationException("Unknown operation.");
+        new BackupManagement(storage).RequireAvailable(id);
+        var client = await LauncherConfiguration.LoadClientAsync(storage, ct);
+        var locks = new FileOperationLock(storage.LocksPath); var auth = Auth(client, locks);
+        var access = await auth.AccessAsync(cancellationToken: ct);
+        if (access.AccountId != original.AccountId) throw new LocalConflictException("Account changed.");
+        var manager = new BackupManagement(storage); manager.RequireAvailable(id);
+        await manager.MaintainAsync(ct, id); await manager.MakeRoomAsync(original.Snapshot!.Length, ct, id);
+        await using var originalLock = await locks.AcquireAsync(original.SourceKey, ct); manager.RequireAvailable(id);
+        await new ManagedBackupStore(storage).VerifyAsync(id, original.Snapshot!, ct);
+        var repairId = Guid.NewGuid();
+        var sources = new BackupRepairSource(original, repairId);
+        var importer = new GoogleImport(storage.CreatePreparation(sources), local,
+            new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")), sources, locks, auth,
+            new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads"))),
+            interpretation ?? new(), telemetry, null, new ImportInterpretations(storage));
+        // Automatic network retries stay inside this invocation, using one stable repair identity.
+        ImportReceipt? receipt = null;
+        await ImportRetry.ExecuteAsync(async token => receipt = await importer.ImportReceiptAsync(original.SourcePath, token, renewTrashed: false), ct: ct);
+        return await PublishCopyAsync(receipt!, null, ct);
+    }
+
     public async Task<string> ResumeAsync(Guid id, bool replace, IProgress<string>? progress = null, CancellationToken ct = default)
     {
         ImportNotice = null;
@@ -236,13 +262,15 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         var drive = new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads")));
         var options = operation.Format == "xlsx" ? null : ExtendedConfiguration.Load(storage);
         ImportReceipt receipt;
-        if (File.Exists(path))
+        var repairOperation = operation.SourceKey.StartsWith("repair:", StringComparison.Ordinal);
+        if (repairOperation && replace) throw new CopyRequiredException();
+        if (repairOperation || File.Exists(path))
         {
-            var sources = new SourceReader(copyEnvironments: !replace);
+            ISourceReader sources = repairOperation ? new BackupRepairSource(operation, Guid.ParseExact(operation.SourceKey[7..], "N")) : new SourceReader(copyEnvironments: !replace);
             await using (var source = sources.Open(path))
             {
                 if (source.Source.IdentityKey != operation.SourceKey || source.Source.Format != operation.Format) throw new LocalConflictException("Source changed.");
-                var importer = new GoogleImport(storage.CreatePreparation(sources), local, remote, sources, locks, auth, drive, options, telemetry, new BackupManagement(storage));
+                var importer = new GoogleImport(storage.CreatePreparation(sources), local, remote, sources, locks, auth, drive, options, telemetry, new BackupManagement(storage), new ImportInterpretations(storage));
                 receipt = await importer.ImportReceiptAsync(path, ct, renewTrashed: false);
                 if (receipt.Operation.Id != id) throw new LocalConflictException("Operation changed.");
             }
@@ -261,7 +289,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         if (!receipt.CanReplace || operation.Format == "xls" && !XlsReplacementSettings.Load(storage)) throw new CopyRequiredException();
         if (!OpeningPolicy.IsConfigured(storage)) throw new LauncherNotConfiguredException();
         var opening = OpeningPolicy.Load(storage);
-        var conversion = new ConversionVerifier(drive, options, telemetry);
+        var conversion = new ConversionVerifier(drive, options, telemetry, new ImportInterpretations(storage));
         var shortcut = await new ReplacementCoordinator(local, remote, new ManagedBackupStore(storage), locks, journal,
             new WindowsRetirementReader(opening.RestrictToFolder ? opening.Folder : null), browser, conversion, ShortcutIcon.Ensure(storage), telemetry).ReplaceAsync(receipt, ct);
         SetReplacementNotice();

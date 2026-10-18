@@ -17,6 +17,7 @@ public interface IOperationRegistry
     IReadOnlyList<ImportOperation> Pending();
     IReadOnlyList<JournalEvent> Events(Guid id);
     // Caller holds the source lock and has confirmed the bound remote is trashed.
+    void RetireUnsentAssociation(Guid id, long expectedVersion) => throw new NotSupportedException("Local revalidation is unavailable.");
     void RetireTrashedAssociation(Guid id, long expectedVersion) => throw new NotSupportedException("Association retirement is unavailable.");
 }
 public interface ISourceLease : IAsyncDisposable

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.35",
+  "productVersion": "0.9.37",
   "sourceLocale": "pt-BR",
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -151,7 +151,7 @@
     "error.connectionTimeout": "Jeikekatu ipukueterei. Ehechajey ne ñanduti jeikekatu ha ehorei hese mbojevy rupive; ñongatupyre joapy oĩmava oñeñongatu.",
     "error.conversionMismatch": "Ñemboaje ojuhu ojoavyha mba'ekuaarã oñemoambuévape. Ypygua ha ñongatupyre joapy oñeñongatu. Ikatu oĩ mbohasapyre Google-pe; ehechajey mbojevy reñeha'ã jey mboyve.",
     "error.copyRequired": "Ko kuatia papapy ojegueruva'erã mbohasapyre ramo; ypygua oñeñongatuva'erã.",
-    "error.csvDelimiter": "CSV ikatu oiporu kyguái térã kyta ha kóma. Eiporavo mopa'ũha jehaipy jeporavorãme. Ypygua oñeñongatu.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Eiporavo pe omboja’óva reñeha’ã jeývo.",
     "error.exportSize": "Ñeguenohẽ ohasa ñemboaje paha. Ypygua ha ñongatupyre joapy oñeñongatu; ehechajey mbojevy regueru jey mboyve.",
     "error.formulaVerification": "Kuatia papapy oñemoambuéva oguereko formula tembipuru'i ndaikatúiva gueteri omboaje. Ypygua ha ñongatupyre joapy oñeñongatu. Mbojevy / ñongatupyre joapýpe, eiporavo ko tembiapo ha eiporavo Eho hese mbohasapyre ramo eike hag̃ua kuatia papapýpe Google-pe rehupi jey'ỹre.",
     "error.generic": "Ndaikatúi oñemohu'ã tembiapo. Ehechajey ñemboheko, jeikekatu ha marandurenda oĩpa ambue tembipuru'ípe jepe'a. Ñongatupyre joapy oĩmava opyta oĩ guive. Ehecha avei pe archivo oĩpa oñemoñeʼẽ hag̃ua añónte.",
@@ -163,7 +163,7 @@
     "error.network": "Ndaikatúi oñemongeta Google ndive. Ehechajey jeikekatu ha ehorei hese tembipuru'i rupive; ypygua oñeñongatu ha tembiapo oha'arõva ikatu oikotevẽ mbojevy.",
     "error.reconciliationRequired": "Jegueru oha'arõ oñembojoja. Ani rehupi jey nde po rupive. Ehecha mbojevy mbohapeha.",
     "error.setupRequired": "Emohu'ã ñemboheko jeporu ypygua eike mboyve kuatia papapýpe. Eike ZagoSheetsWin térã Ñembohekópe embojoaju hag̃ua Google ha eñongatu ne poravopyre.",
-    "error.textEncoding": "Ndaikatúi oñemoñe'ẽ CSV/TSV encoding. Eipuru UTF-8 térã UTF-16 BOM reheve; marandurenda itujavévape, eiporavo Windows-1252 jehaipy jeporavorãme. Ypygua oñeñongatu.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Eñongatu archivo UTF-8 ramo ha eñeha’ã jey. Archivo ypykue oñeñongatu.",
     "error.textStructure": "CSV/TSV nandi térã oguereko tysýi, mopa'ũha térã ñe'ẽmboty ojoavy'ỹva. Ehechajey mopa'ũha ha marandurenda reko. Ypygua oñeñongatu.",
     "error.xlsConversion": "Ndaikatúi oñemoambue ko XLS XLSX-pe. Ypygua ha ñongatupyre joapy oñeñongatu.",
     "error.xlsxContentType": "Ndaikatúi oñemboaje hekorosãme XLSX pypegua reko. Ypygua oñeñongatu. Eñongatu XLSX mbohasapyre pyahu Excel térã LibreOffice-pe ha eñeha'ã upe mbohasapyre reheve.",
@@ -350,6 +350,10 @@
     "tutorial.showAtStartup": "Ehechauka ko mbo’epy rembojehe’ávo aplicación",
     "setup.defaultsHelp": "Eiporavo ZagoSheetsWin Windows aplicación ypykuéra apytépe. Natekotevẽi, hákatu oñemoñe’ẽ eiporu hag̃ua. Eiporavo ZagoSheetsWin Windows Default apps-pe. Kóva ikatu reiporu térã nahániri: ikatu avei reiporu Jeike hendive → ZagoSheetsWin.",
     "import.notice.partialConversion": "Pe kuatia renda ojepe'a Google Sheets-pe. Pe archivo ypykue rendaguépe oñemoĩ peteĩ jeike pya'e. Eguerujey hag̃ua, eipe'a {backups}.",
-    "import.notice.dontShowAgain": "Ani rehechauka jey"
+    "import.notice.dontShowAgain": "Ani rehechauka jey",
+    "recovery.repairNew": "Egueru jey kuatia pyahúpe…",
+    "recovery.repairExplanation": "Ojapo kuatia cálculo pyahu ko ñongatupyrégui. Kuatia ymaguare, ijysã mbyky ha archivo ypykue opyta oĩháicha.",
+    "action.exportDiagnosticHistory": "Egueraha tembiasakue jehechajey rehegua…",
+    "retry.editInput": "Emyatyrõ archivo reñeha’ã jey mboyve."
   }
 }

@@ -5,8 +5,8 @@ using System.Text.Json;
 namespace SheetsWindows.Infrastructure;
 
 public enum DiagnosticEvent { Started, Completed, Cancelled, AuthorizationRequired, ReconciliationRequired, LocalConflict, ConversionMismatch, Failed, Exported }
-public enum DiagnosticFailure { WorkbookContentType, FormulaVerification, ConversionDifference, GoogleApi, Network, FileAccess, InvalidData, UnsupportedFormat, Other }
-public enum DiagnosticCode { SnapshotIntegrity, RemoteAssociation, SourceIdentity, SourceChanged, AssociationBinding, TextEncoding, TextStructure, CsvDelimiter, WorkbookContentType, FileAccess, Database, GoogleApi, Network, Other, FileMissing, FileBusy, OdsPackage }
+public enum DiagnosticFailure { WorkbookContentType, FormulaVerification, ConversionDifference, GoogleApi, Network, FileAccess, InvalidData, UnsupportedFormat, Other, Capacity }
+public enum DiagnosticCode { SnapshotIntegrity, RemoteAssociation, SourceIdentity, SourceChanged, AssociationBinding, TextEncoding, TextStructure, CsvDelimiter, WorkbookContentType, FileAccess, Database, GoogleApi, Network, Other, FileMissing, FileBusy, OdsPackage, TextRows, TextCells, TextColumns, CellCharacters, ImportBytes, NormalizedBytes, OdsContentBounds, OdsRepeat, RemoteExportBytes, TextRowWidth }
 public sealed record RemoteValidationContext(bool IsFolder, bool IsTrashed, bool CanEdit, bool MimeMatches,
     bool MarkerPresent, bool MarkerMatches, bool HashPresent, bool HashMatches, bool PreviouslyVerified);
 public sealed record DiagnosticEntry(DateTimeOffset Time, DiagnosticEvent Event, Guid? Operation, ProcessingMetrics? Metrics = null, DiagnosticFailure? Failure = null, string? Version = null, Guid? AttemptId = null, ProcessingPhase? Stage = null, DiagnosticCode? Code = null, int? NativeError = null, int? GoogleStatus = null, int? SqliteCode = null, RemoteValidationContext? RemoteValidation = null, IReadOnlyList<ProcessingCheckpoint>? Trace = null, string? Revision = null, int? Win32Code = null);
@@ -82,6 +82,7 @@ public sealed class DiagnosticLog(LocalStorage storage)
         DiagnosticFailure? reason = failure switch
         {
             null => null,
+            SpreadsheetCapacityException => DiagnosticFailure.Capacity,
             FormulaVerificationException => DiagnosticFailure.FormulaVerification,
             ConversionMismatchException => DiagnosticFailure.ConversionDifference,
             InvalidDataException data when data.Message is "Unsupported workbook content type." or "Ambiguous workbook content type." or "Invalid content types XML." => DiagnosticFailure.WorkbookContentType,
@@ -94,6 +95,11 @@ public sealed class DiagnosticLog(LocalStorage storage)
         };
         DiagnosticCode? code = failure is null ? null : failure switch
         {
+            SpreadsheetCapacityException capacity => capacity.Code,
+            InvalidDataException data when data.Message == "Export too large." => DiagnosticCode.RemoteExportBytes,
+            InvalidDataException data when data.Message == "Irregular delimited table." => DiagnosticCode.TextRowWidth,
+            InvalidDataException data when data.Message is "ODS content dimensions exceed limits." or "ODS columns too large." or "ODS rows too large." => DiagnosticCode.OdsContentBounds,
+            InvalidDataException data when data.Message == "Unbounded repetition." => DiagnosticCode.OdsRepeat,
             InvalidDataException data when data.Message is "Not an ODS package." or "ODS mimetype missing." or "Invalid ODS mimetype." or "Invalid ODS workbook." => DiagnosticCode.OdsPackage,
             FileNotFoundException or DirectoryNotFoundException => DiagnosticCode.FileMissing,
             System.ComponentModel.Win32Exception win32 when win32.NativeErrorCode is 32 or 33 => DiagnosticCode.FileBusy,
@@ -135,7 +141,10 @@ public sealed class DiagnosticLog(LocalStorage storage)
             if ((File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0 || new FileInfo(path).Length > MaxFileBytes) throw new InvalidDataException("Invalid diagnostic file.");
             foreach (var line in await File.ReadAllLinesAsync(path))
             {
-                var entry = JsonSerializer.Deserialize<DiagnosticEntry>(line) ?? throw new InvalidDataException("Invalid diagnostic entry.");
+                DiagnosticEntry entry;
+                try { entry = JsonSerializer.Deserialize<DiagnosticEntry>(line) ?? throw new InvalidDataException("Invalid diagnostic entry."); }
+                catch (JsonException) when (currentAttempt?.AttemptId is not null) { continue; } // The window snapshot remains exportable even if disposable history is damaged.
+                if (currentAttempt?.AttemptId is { } requested && entry.AttemptId != requested) continue;
                 ValidateTrace(entry.Trace); ValidateRevision(entry.Revision);
                 if (entry.Metrics is { IsValid: false }) throw new InvalidDataException("Invalid processing metrics.");
                 if (entry.Failure is { } reason && !Enum.IsDefined(reason)) throw new InvalidDataException("Invalid diagnostic failure category.");
@@ -158,7 +167,7 @@ public sealed class DiagnosticLog(LocalStorage storage)
                 throw new InvalidDataException("Invalid current diagnostic context.");
             output.AppendLine(JsonSerializer.Serialize(currentAttempt));
         }
-        output.AppendLine(JsonSerializer.Serialize(new DiagnosticEntry(DateTimeOffset.UtcNow, DiagnosticEvent.Exported, null, Version: UiText.ProductVersion, Revision: BuildRevision)));
+        output.AppendLine(JsonSerializer.Serialize(new DiagnosticEntry(DateTimeOffset.UtcNow, DiagnosticEvent.Exported, null, Version: UiText.ProductVersion, AttemptId: currentAttempt?.AttemptId, Revision: BuildRevision)));
         var target = Path.GetFullPath(destination);
         if (File.Exists(target) && (File.GetAttributes(target) & FileAttributes.ReparsePoint) != 0) throw new InvalidDataException("Invalid diagnostic destination.");
         var temporary = target + "." + Guid.NewGuid().ToString("N") + ".tmp";

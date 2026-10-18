@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.35",
+  "productVersion": "0.9.37",
   "sourceLocale": "pt-BR",
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -151,7 +151,7 @@
     "error.connectionTimeout": "Die Verbindung hat zu lange gedauert. Prüfen Sie Ihre Internetverbindung und setzen Sie den Vorgang über die Wiederherstellung fort; vorhandene Sicherungen wurden beibehalten.",
     "error.conversionMismatch": "Bei der Prüfung wurden Unterschiede in den konvertierten Daten festgestellt. Original und Sicherung wurden beibehalten. Möglicherweise existiert bereits eine Kopie bei Google; prüfen Sie die Wiederherstellung, bevor Sie es erneut versuchen.",
     "error.copyRequired": "Diese Tabelle muss als Kopie importiert werden; das Original muss beibehalten werden.",
-    "error.csvDelimiter": "Die CSV-Datei verwendet möglicherweise Kommas oder Semikolons. Wählen Sie das Trennzeichen in den Textoptionen. Das Original wurde beibehalten.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Wählen Sie beim erneuten Versuch das Trennzeichen.",
     "error.exportSize": "Der Export hat das Prüflimit überschritten. Original und Sicherung wurden beibehalten; prüfen Sie die Wiederherstellung, bevor Sie erneut importieren.",
     "error.formulaVerification": "Die konvertierte Tabelle enthält Formeln, die die App noch nicht prüfen kann. Original und Sicherung wurden beibehalten. Wählen Sie unter „Wiederherstellung / Sicherungen“ diesen Vorgang und anschließend „Als Kopie fortsetzen“, um die Tabelle in Google zu öffnen, ohne sie erneut hochzuladen.",
     "error.generic": "Der Vorgang konnte nicht abgeschlossen werden. Prüfen Sie Einstellungen, Verbindung und ob die Datei in einer anderen App geöffnet ist. Vorhandene Sicherungen bleiben verfügbar. Prüfen Sie auch, ob die Datei schreibgeschützt ist.",
@@ -163,7 +163,7 @@
     "error.network": "Kommunikation mit Google nicht möglich. Prüfen Sie die Verbindung und setzen Sie den Vorgang über die App fort; das Original wurde beibehalten und ein ausstehender Vorgang muss möglicherweise wiederhergestellt werden.",
     "error.reconciliationRequired": "Der Import wartet auf einen Statusabgleich. Laden Sie ihn nicht erneut manuell hoch. Prüfen Sie den Wiederherstellungsleitfaden.",
     "error.setupRequired": "Schließen Sie die Ersteinrichtung ab, bevor Sie Tabellen öffnen. Öffnen Sie ZagoSheetsWin oder die Einstellungen, verbinden Sie Google und speichern Sie Ihre Einstellungen.",
-    "error.textEncoding": "Die Kodierung der CSV/TSV-Datei konnte nicht gelesen werden. Verwenden Sie UTF-8 oder UTF-16 mit BOM; wählen Sie bei älteren Dateien Windows-1252 in den Textoptionen. Das Original wurde beibehalten.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Speichern Sie die Datei als UTF-8 und versuchen Sie es erneut. Das Original wurde erhalten.",
     "error.textStructure": "Die CSV/TSV-Datei ist leer oder enthält uneinheitliche Zeilen, Trennzeichen oder Anführungszeichen. Prüfen Sie Trennzeichen und Dateistruktur. Das Original wurde beibehalten.",
     "error.xlsConversion": "Diese XLS-Datei konnte nicht nach XLSX konvertiert werden. Original und Sicherung wurden beibehalten.",
     "error.xlsxContentType": "Das interne XLSX-Format konnte nicht zuverlässig erkannt werden. Das Original wurde beibehalten. Speichern Sie in Excel oder LibreOffice eine neue XLSX-Kopie und versuchen Sie es mit dieser Kopie.",
@@ -350,6 +350,10 @@
     "tutorial.showAtStartup": "Dieses Tutorial beim Öffnen der App anzeigen",
     "setup.defaultsHelp": "Wählen Sie ZagoSheetsWin in den Windows-Standard-Apps. Optional, aber empfohlen. Wählen Sie ZagoSheetsWin in den Windows-Standard-Apps. Dies ist optional: Sie können auch „Öffnen mit → ZagoSheetsWin“ verwenden.",
     "import.notice.partialConversion": "Die Tabelle wurde in Google Sheets geöffnet. Die Originaldatei wurde durch eine Verknüpfung ersetzt. Öffnen Sie zum Wiederherstellen {backups}.",
-    "import.notice.dontShowAgain": "Nicht mehr anzeigen"
+    "import.notice.dontShowAgain": "Nicht mehr anzeigen",
+    "recovery.repairNew": "In ein neues Dokument importieren…",
+    "recovery.repairExplanation": "Erstellt eine neue Tabelle aus dieser Sicherung. Die bisherige Tabelle, ihre Verknüpfung und das Original bleiben unverändert.",
+    "action.exportDiagnosticHistory": "Diagnoseverlauf exportieren…",
+    "retry.editInput": "Bearbeiten Sie die Datei vor dem erneuten Versuch."
   }
 }

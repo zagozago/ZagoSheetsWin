@@ -2,8 +2,8 @@
   "language": "zh",
   "locale": "zh-CN",
   "direction": "ltr",
-  "catalogRevision": 10,
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "catalogRevision": 11,
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -137,7 +137,7 @@
     "error.connectionTimeout": "连接超时。请检查网络，并通过恢复功能继续；已创建的备份均已保留。",
     "error.conversionMismatch": "验证发现转换后的数据存在差异。原文件和备份均已保留。Google 中可能已有副本；请先检查恢复记录再重试。",
     "error.copyRequired": "此电子表格必须以副本形式导入；需要保留原文件。",
-    "error.csvDelimiter": "CSV 可能使用逗号或分号。请在文本选项中选择分隔符。原文件已保留。",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. 重试时选择分隔符。",
     "error.exportSize": "导出的数据超过了验证上限。原文件和备份均已保留；请先检查恢复记录再重新导入。",
     "error.formulaVerification": "转换后的电子表格包含本应用尚无法验证的公式。原文件和备份均已保留。请在“恢复 / 备份”中选择此操作，再点击“以副本方式继续”，即可在 Google 中打开电子表格，而无需再次上传。",
     "error.generic": "无法完成操作。请检查设置、网络连接以及文件是否被其他应用打开。已创建的备份仍然可用。 另请检查文件是否设为只读。",
@@ -149,7 +149,7 @@
     "error.network": "无法与 Google 通信。请检查网络连接，并通过应用继续；原文件已保留，待处理的操作可能需要恢复。",
     "error.reconciliationRequired": "导入正在等待状态核对。请勿手动重复上传。请查看恢复指南。",
     "error.setupRequired": "打开电子表格前，请先完成首次使用设置。打开 ZagoSheetsWin 或其设置，连接 Google 并保存您的偏好设置。",
-    "error.textEncoding": "无法读取 CSV/TSV 的编码。请使用 UTF-8 或带 BOM 的 UTF-16；对于旧文件，请在文本选项中选择 Windows-1252。原文件已保留。",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. 请将文件保存为 UTF-8 后重试。原文件已保留。",
     "error.textStructure": "CSV/TSV 为空，或包含不一致的行、分隔符或引号。请检查分隔符和文件结构。原文件已保留。",
     "error.xlsConversion": "无法将此 XLS 转换为 XLSX。原文件和备份均已保留。",
     "error.xlsxContentType": "无法可靠地识别 XLSX 的内部格式。原文件已保留。请使用 Excel 或 LibreOffice 另存为新的 XLSX 副本，并尝试打开该副本。",
@@ -638,7 +638,11 @@
     "tutorial.showAtStartup": "打开应用时显示本教程",
     "setup.defaultsHelp": "在 Windows 默认应用中选择 ZagoSheetsWin。 可选，但建议设置。 请在 Windows 的默认应用中选择 ZagoSheetsWin。此设置为可选项：您也可以使用“打开方式 → ZagoSheetsWin”。",
     "import.notice.partialConversion": "电子表格已在 Google Sheets 中打开。原始文件已替换为快捷方式。要恢复原始文件，请打开 {backups}。",
-    "import.notice.dontShowAgain": "不再显示"
+    "import.notice.dontShowAgain": "不再显示",
+    "recovery.repairNew": "重新导入为新文档…",
+    "recovery.repairExplanation": "从此备份创建新电子表格。之前的电子表格、其快捷方式和原文件均保持不变。",
+    "action.exportDiagnosticHistory": "导出诊断历史…",
+    "retry.editInput": "请先修改文件再重试。"
   },
   "expandedNumericNotation": [
     "setup.formatLimits"

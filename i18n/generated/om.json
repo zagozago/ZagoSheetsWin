@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.35",
+  "productVersion": "0.9.37",
   "sourceLocale": "pt-BR",
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -151,7 +151,7 @@
     "error.connectionTimeout": "Walqunnamtiin yeroo dheeraa fudhate. Intarneetii kee ilaaliitii karaa deebisuu itti fufi; kuusdeebiin jiran eegamaniiru.",
     "error.conversionMismatch": "Mirkaneessuun deetaa jijjiirame keessatti garaagarummaa arge. Kan jalqabaa fi kuusdeebiin eegamaniiru. Koppiin Google keessa jiraachuu danda'a; irra deebi'ii yaaluu dura deebisuu ilaali.",
     "error.copyRequired": "Gabateen kun akka koppiitti galfamuu qaba; kan jalqabaa eegamuu qaba.",
-    "error.csvDelimiter": "CSV komma yookaan semikoolonii fayyadamuu danda'a. Filannoo barruu keessatti addaan baasaa filadhu. Kan jalqabaa eegameera.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Yeroo irra deebi'ii yaaltu addaan baastuu filadhu.",
     "error.exportSize": "Ergiinsi daangaa mirkaneessaa caale. Kan jalqabaa fi kuusdeebiin eegamaniiru; irra deebi'ii galchuu dura deebisuu ilaali.",
     "error.formulaVerification": "Gabateen jijjiirame foormulaa appichi amma mirkaneessuu hin dandeenye qaba. Kan jalqabaa fi kuusdeebiin eegamaniiru. Deebisuu / kuusdeebii keessatti adeemsa kana filadhuutii, osoo irra deebi'ii ol hin kaa'in Google keessatti banuuf Akka koppiitti itti fufi filadhu.",
     "error.generic": "Adeemsa xumuruun hin danda'amne. Qindaa'ina, walqunnamtii fi faayilichi app biraa keessatti banamee jiraachuu isaa ilaali. Kuusdeebiin jiran ni argamu. Faayiliin dubbisuuf qofa akka mallatteeffamees ilaali.",
@@ -163,7 +163,7 @@
     "error.network": "Google waliin wal qunnamsiisuu hin dandeenye. Walqunnamtii ilaaliitii karaa appii itti fufi; kan jalqabaa eegameera, adeemsi eegaa jiru deebisuu barbaaduu danda'a.",
     "error.reconciliationRequired": "Galchiinsi araara eeggachaa jira. Harkaan irra deebi'ii hin olkaa'in. Qajeelfama deebisuu ilaali.",
     "error.setupRequired": "Gabateewwan banuu dura qindaa'ina yeroo jalqabaa xumuri. Google waliin wal qunnamsiisuuf fi filannoo kee kuusuuf ZagoSheetsWin yookaan Qindaa'ina isaa bani.",
-    "error.textEncoding": "Encoding CSV/TSV dubbisuun hin danda'amne. UTF-8 yookaan UTF-16 BOM waliin fayyadami; faayiloota duriif filannoo barruu keessatti Windows-1252 filadhu. Kan jalqabaa eegameera.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Faayilicha akka UTF-8 tti olkaa'iitii irra deebi'ii yaali. Faayiliin jalqabaa eegameera.",
     "error.textStructure": "CSV/TSV duwwaa dha yookaan tarreewwan, addaan baasaa yookaan mallattoo waraabbii wal hin simne qaba. Addaan baasaa fi caasaa faayilaa ilaali. Kan jalqabaa eegameera.",
     "error.xlsConversion": "XLS kana gara XLSXtti jijjiiruun hin danda'amne. Kan jalqabaa fi kuusdeebiin eegamaniiru.",
     "error.xlsxContentType": "Bifa keessaa XLSX nageenyaan adda baasuun hin danda'amne. Kan jalqabaa eegameera. Excel yookaan LibreOffice keessatti koppii XLSX haaraa kuusiitii koppii sana yaali.",
@@ -350,6 +350,10 @@
     "tutorial.showAtStartup": "Yeroo appii banattu qajeelfama kana agarsiisi",
     "setup.defaultsHelp": "Appoota durtii Windows keessatti ZagoSheetsWin filadhu. Dirqama miti, garuu ni gorfama. Windows Default apps keessatti ZagoSheetsWin filadhu. Kun filannoo dha: Open with → ZagoSheetsWin fayyadamuus dandeessa.",
     "import.notice.partialConversion": "Gabateen Google Sheets keessatti banameera. Faayiliin jalqabaa karaa gabaabaadhaan bakka buufameera. Deebisuuf {backups} bani.",
-    "import.notice.dontShowAgain": "Irra deebi'ee hin agarsiisin"
+    "import.notice.dontShowAgain": "Irra deebi'ee hin agarsiisin",
+    "recovery.repairNew": "Gara galmee haaraatti irra deebi'ii galchi…",
+    "recovery.repairExplanation": "Deebisa kana irraa gabatee haaraa uuma. Gabateen duraa, karaa gabaabaa isaa fi faayiliin jalqabaa akkuma jiranitti hafu.",
+    "action.exportDiagnosticHistory": "Seenaa qorannoo alatti ergi…",
+    "retry.editInput": "Irra deebi'ii yaaluu dura faayilicha gulaali."
   }
 }

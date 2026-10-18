@@ -80,22 +80,23 @@ internal sealed class RecoveryForm : Form
         policyPanel.SizeChanged += (_, _) => FitPolicy(); automatic.TextChanged += (_, _) => FitPolicy(); automatic.FontChanged += (_, _) => FitPolicy();
         policyPanel.Controls.AddRange([limits, automatic, usage]);
         var restore = new AdaptiveButton { Text = UiText.Get("action.restore"), AutoSize = true };
+        var repair = new MenuActionButton { Text = UiText.Get("recovery.repairNew"), AutoSize = true };
         var copy = new MenuActionButton { Text = UiText.Get("recovery.resumeCopy"), AutoSize = true };
         var resume = new MenuActionButton { Text = UiText.Get("recovery.completeReplacement"), AutoSize = true };
-        var export = new MenuActionButton { Text = UiText.Get("action.exportDiagnostics"), AutoSize = true };
+        var export = new MenuActionButton { Text = UiText.Get("action.exportDiagnosticHistory"), AutoSize = true };
         var cancel = new AdaptiveButton { Text = UiText.Get("recovery.cancelResume"), AutoSize = true, Enabled = previewBusy, Visible = previewBusy };
         cancel.Click += (_, _) => activeCancellation?.Cancel();
         var delete = new MenuActionButton { Text = UiText.Get("recovery.deleteSelected"), AutoSize = true };
         var clean = new MenuActionButton { Text = UiText.Get("recovery.cleanExpired"), AutoSize = true };
         var more = new AdaptiveButton { Text = UiText.Get("recovery.moreActions"), AutoSize = true, Height = 34 };
         var menu = new ContextMenuStrip();
-        foreach (var action in new[] { copy, resume, export, clean })
+        foreach (var action in new[] { copy, resume, repair, export, clean })
         {
             var item = new ToolStripMenuItem(action.Text);
             item.Click += (_, _) => action.InvokeAction();
             menu.Items.Add(item);
         }
-        more.Click += (_, _) => { var buttons = new[] { copy, resume, export, clean }; for (var i = 0; i < buttons.Length; i++) { menu.Items[i].Enabled = buttons[i].Enabled && !busy; menu.Items[i].Text = buttons[i].Text; } menu.Show(more, new Point(0, more.Height)); };
+        more.Click += (_, _) => { var buttons = new[] { copy, resume, repair, export, clean }; for (var i = 0; i < buttons.Length; i++) { menu.Items[i].Enabled = buttons[i].Enabled && !busy; menu.Items[i].Text = buttons[i].Text; } menu.Show(more, new Point(0, more.Height)); };
         var selectAll = new AdaptiveButton { Text = UiText.Get("recovery.selectAll"), AutoSize = true };
         var clearSelection = new AdaptiveButton { Text = UiText.Get("recovery.clearSelection"), AutoSize = true };
         selectAll.Click += (_, _) => { foreach (ListViewItem item in entries.Items) item.Selected = (item.Tag as RecoveryEntry)?.CleanupState != 2; };
@@ -103,7 +104,7 @@ internal sealed class RecoveryForm : Form
         var actions = Ui.Columns(restore, selectAll, clearSelection, delete, more);
         actions.Dock = DockStyle.Top; actions.Padding = new Padding(8);
         // Keep action buttons parented so native PerformClick executes their existing handlers.
-        var hiddenActions = new Panel { Visible = false }; hiddenActions.Controls.AddRange([copy, resume, export, clean]); Controls.Add(hiddenActions);
+        var hiddenActions = new Panel { Visible = false }; hiddenActions.Controls.AddRange([copy, resume, repair, export, clean]); Controls.Add(hiddenActions);
         Disposed += (_, _) => menu.Dispose(); Ui.Primary(restore);
         var main = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 1 };
         main.ColumnStyles.Add(new(SizeType.Percent, 75)); main.ColumnStyles.Add(new(SizeType.Percent, 25)); main.RowStyles.Add(new(SizeType.Percent, 100));
@@ -114,7 +115,7 @@ internal sealed class RecoveryForm : Form
         void RefreshUsage() { usage.Text = UiText.Format("recovery.usage", ("usedMb", shownBytes / 1_000_000d), ("limitMb", quota.Value), ("backupCount", shownCount), ("protectedCount", shownProtected)).Replace(" · ", "\n"); FitPolicy(); }
         UiText.Changed += RefreshUsage; Disposed += (_, _) => UiText.Changed -= RefreshUsage;
         quota.ValueChanged += (_, _) => RefreshUsage();
-        async Task Resume(bool replace)
+        async Task Resume(bool replace, TextImportOptions? repairOptions = null)
         {
             if (busy || Selected is not RecoveryEntry { Available: true } entry) return;
             busy = true; actions.Enabled = false; restore.Enabled = false; entries.Enabled = false;
@@ -126,7 +127,7 @@ internal sealed class RecoveryForm : Form
                 using var handler = new HttpClientHandler { AllowAutoRedirect = false };
                 using var http = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(90) };
                 var launcher = new WindowsLauncher(LocalStorage.ForCurrentUser(), http, new BrowserLauncher());
-                await Task.Run(() => launcher.ResumeAsync(entry.Id, replace, ct: cancellation.Token));
+                await Task.Run(() => repairOptions is null ? launcher.ResumeAsync(entry.Id, replace, ct: cancellation.Token) : launcher.RepairAsync(entry.Id, repairOptions, cancellation.Token));
                 await diagnostics.RecordAsync(DiagnosticEvent.Completed, entry.Id);
                 await RefreshEntries();
                 status.Text = replace ? UiText.Get("recovery.replacementCompleted") : UiText.Get("recovery.copyCompleted");
@@ -134,12 +135,18 @@ internal sealed class RecoveryForm : Form
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { await diagnostics.RecordAsync(DiagnosticLog.Failure(ex), entry.Id, failure: ex); status.Text = LauncherErrors.Message(ex); }
             finally { activeCancellation = null; cancel.Enabled = false; cancel.Visible = false; busy = false; actions.Enabled = true; entries.Enabled = true; UpdateSelection(); }
         }
+        repair.Click += async (_, _) =>
+        {
+            if (busy || Selected is not { Available: true }) return;
+            using var choice = new TextInterpretationForm(repair: true);
+            if (choice.ShowDialog(this) == DialogResult.OK) await Resume(false, choice.Options);
+        };
         copy.Click += async (_, _) => await Resume(false);
         resume.Click += async (_, _) => await Resume(true);
         export.Click += async (_, _) =>
         {
             if (busy) return;
-            using var dialog = new SaveFileDialog { Filter = UiText.Get("dialog.diagnosticFilter"), FileName = DiagnosticLog.SuggestedFileName(Selected?.OriginalPath), OverwritePrompt = true };
+            using var dialog = new SaveFileDialog { Filter = UiText.Get("dialog.diagnosticFilter"), FileName = "ZSW-history.jsonl", OverwritePrompt = true };
             if (dialog.ShowDialog(this) != DialogResult.OK) return;
             try { await new DiagnosticLog(LocalStorage.ForCurrentUser()).ExportAsync(dialog.FileName, overwrite: true); status.Text = UiText.Get("diagnostics.exported"); }
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = UiText.Get("diagnostics.fileExists"); }
@@ -209,7 +216,7 @@ internal sealed class RecoveryForm : Form
         void UpdateSelection()
         {
             var row = Selected;
-            restore.Enabled = copy.Enabled = resume.Enabled = !busy && row?.Available == true;
+            repair.Enabled = restore.Enabled = copy.Enabled = resume.Enabled = !busy && row?.Available == true;
             delete.Enabled = !busy && Marked().Any(entry => entry.CleanupState != 2);
         }
         entries.SelectedIndexChanged += (_, _) => UpdateSelection();

@@ -104,6 +104,46 @@ public sealed class GoogleTests
         }
     }
     private static HttpResponseMessage Json(object value) => new(HttpStatusCode.OK) { Content = new StringContent(JsonSerializer.Serialize(value), Encoding.UTF8, "application/json") };
+    [Fact]
+    public async Task LegacyMisparsedRemoteIsRetainedAndRepairCreatesOneNewDocument()
+    {
+        using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".csv");
+        var bytes = Encoding.UTF8.GetBytes("a\tb\n1\t2"); File.WriteAllBytes(path, bytes);
+        using var server = new DriveServer(); using var http = new HttpClient(server, false);
+        var auth = new FixedAuth(); var local = w.Registry(); var remote = new GoogleRemoteRegistry(Path.Combine(w.Root, "state", "google.db"));
+        var locks = new FileOperationLock(w.Locks); var storage = new LocalStorage(Path.Combine(w.Root, "state"));
+        var oldImporter = new GoogleImport(w.Coordinator(), local, remote, new SourceReader(), locks, auth, new GoogleDriveClient(http, auth), new(InterpretationVersion: 1));
+        var old = await oldImporter.ImportReceiptAsync(path); var oldMapping = remote.Get("sheet:" + old.Operation.Id.ToString("N"));
+        var oldBytes = server.Uploaded[oldMapping!.FileId!].ToArray(); var posts = server.Posts;
+        var current = new GoogleImport(w.Coordinator(), local, remote, new SourceReader(), locks, auth, new GoogleDriveClient(http, auth), interpretations: new ImportInterpretations(storage));
+        Assert.Equal(old.Url, (await current.ImportReceiptAsync(path)).Url); Assert.Equal(posts, server.Posts);
+        Assert.Equal(1, new ImportInterpretations(storage).Load(old.Operation, new()).InterpretationVersion);
+        var reader = new BackupRepairSource(old.Operation, Guid.NewGuid());
+        var preparation = new LocalPreparation(local, reader, locks, new BackupStore(storage.BackupsPath));
+        var repair = new GoogleImport(preparation, local, remote, reader, locks, auth, new GoogleDriveClient(http, auth), interpretations: new ImportInterpretations(storage));
+        var repaired = await repair.ImportReceiptAsync(path, renewTrashed: false);
+        Assert.NotEqual(old.Operation.Id, repaired.Operation.Id); Assert.NotEqual(old.Url, repaired.Url);
+        Assert.Equal(posts + 1, server.Posts); Assert.Equal(oldMapping, remote.Get("sheet:" + old.Operation.Id.ToString("N")));
+        Assert.Equal(oldBytes, server.Uploaded[oldMapping.FileId!]); Assert.Equal(bytes, File.ReadAllBytes(path));
+        Assert.Equal(bytes, File.ReadAllBytes(old.Operation.Snapshot!.BackupPath));
+        var repairedMapping = remote.Get("sheet:" + repaired.Operation.Id.ToString("N"))!;
+        Assert.Equal(2, SpreadsheetFormats.ReadExcel(server.Uploaded[repairedMapping.FileId!])[0].Rows[0].Count);
+        Assert.Equal(repaired.Url, (await repair.ImportReceiptAsync(path, renewTrashed: false)).Url); Assert.Equal(posts + 1, server.Posts);
+    }
+
+    [Fact]
+    public async Task CorrectedInputCanRetryBeforeRemoteIntentButNeverReplacesAnExistingRemoteBinding()
+    {
+        using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".csv");
+        File.WriteAllText(path, "a|b\n1|2|3"); using var server = new DriveServer(); var importer = Importer(w, server);
+        await Assert.ThrowsAsync<InvalidDataException>(() => importer.ImportReceiptAsync(path)); Assert.Equal(0, server.Posts);
+        var old = Assert.Single(w.Registry().Pending()); var oldBytes = File.ReadAllBytes(old.Snapshot!.BackupPath);
+        File.WriteAllText(path, "a|b\n1|2"); var receipt = await importer.ImportReceiptAsync(path);
+        Assert.NotEqual(old.Id, receipt.Operation.Id); Assert.Equal(oldBytes, File.ReadAllBytes(old.Snapshot.BackupPath));
+        var posts = server.Posts; File.WriteAllText(path, "a|b\n3|4");
+        await Assert.ThrowsAsync<LocalConflictException>(() => importer.ImportReceiptAsync(path)); Assert.Equal(posts, server.Posts);
+    }
+
     private static GoogleImport Importer(Workspace w, DriveServer server, FixedAuth? auth = null, IRemoteRegistry? registry = null, ProcessingTelemetry? telemetry = null)
     {
         auth ??= new FixedAuth(); var http = new HttpClient(server, false) { Timeout = TimeSpan.FromSeconds(10) };

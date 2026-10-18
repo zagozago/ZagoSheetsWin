@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.35",
+  "productVersion": "0.9.37",
   "sourceLocale": "pt-BR",
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -151,7 +151,7 @@
     "error.connectionTimeout": "Muunganisho umechukua muda mrefu sana. Kagua muunganisho wako wa intaneti na uendelee kupitia urejeshaji; nakala rudufu zilizopo zilihifadhiwa.",
     "error.conversionMismatch": "Uthibitishaji uligundua tofauti katika data iliyobadilishwa. Faili ya asili na nakala rudufu zilihifadhiwa. Nakala inaweza kuwepo Google; kagua urejeshaji kabla ya kujaribu tena.",
     "error.copyRequired": "Lahajedwali hili lazima liingizwe kama nakala; faili ya asili lazima ihifadhiwe.",
-    "error.csvDelimiter": "CSV inaweza kutumia koma au nuktakoma. Chagua kitenganishi katika chaguo za maandishi. Faili ya asili ilihifadhiwa.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Chagua kitenganishi unapojaribu tena.",
     "error.exportSize": "Uhamishaji umezidi kikomo cha uthibitishaji. Faili ya asili na nakala rudufu zilihifadhiwa; kagua urejeshaji kabla ya kuingiza tena.",
     "error.formulaVerification": "Lahajedwali iliyobadilishwa ina fomula ambazo programu bado haiwezi kuthibitisha. Faili ya asili na nakala rudufu zilihifadhiwa. Katika Urejeshaji / nakala rudufu, chagua operesheni hii na uchague Endelea kama nakala ili kufungua lahajedwali Google bila kupakia tena.",
     "error.generic": "Haikuwezekana kukamilisha operesheni. Kagua mipangilio, muunganisho na kama faili imefunguliwa katika programu nyingine. Nakala rudufu zilizopo bado zinapatikana. Angalia pia ikiwa faili limewekwa kwa kusoma tu.",
@@ -163,7 +163,7 @@
     "error.network": "Haikuwezekana kuwasiliana na Google. Kagua muunganisho na uendelee kupitia programu; faili ya asili ilihifadhiwa na operesheni inayosubiri inaweza kuhitaji urejeshaji.",
     "error.reconciliationRequired": "Uingizaji unasubiri upatanisho. Usiupakie tena mwenyewe. Kagua mwongozo wa urejeshaji.",
     "error.setupRequired": "Kamilisha usanidi wa matumizi ya kwanza kabla ya kufungua lahajedwali. Fungua ZagoSheetsWin au Mipangilio yake kuunganisha Google na kuhifadhi mapendeleo yako.",
-    "error.textEncoding": "Haikuwezekana kusoma usimbaji wa CSV/TSV. Tumia UTF-8 au UTF-16 yenye BOM; kwa faili za zamani, chagua Windows-1252 katika chaguo za maandishi. Faili ya asili ilihifadhiwa.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Hifadhi faili kama UTF-8 na ujaribu tena. Faili asili imehifadhiwa.",
     "error.textStructure": "CSV/TSV ni tupu au ina safu mlalo, vitenganishi au alama za kunukuu zisizolingana. Kagua kitenganishi na muundo wa faili. Faili ya asili ilihifadhiwa.",
     "error.xlsConversion": "Haikuwezekana kubadilisha XLS hii kuwa XLSX. Faili ya asili na nakala rudufu zilihifadhiwa.",
     "error.xlsxContentType": "Haikuwezekana kutambua kwa usalama muundo wa ndani wa XLSX. Faili ya asili ilihifadhiwa. Hifadhi nakala mpya ya XLSX katika Excel au LibreOffice na ujaribu nakala hiyo.",
@@ -350,6 +350,10 @@
     "tutorial.showAtStartup": "Onyesha mafunzo haya unapofungua programu",
     "setup.defaultsHelp": "Chagua ZagoSheetsWin katika Programu chaguomsingi za Windows. Si lazima, lakini inapendekezwa. Chagua ZagoSheetsWin katika Programu chaguomsingi za Windows. Hii ni hiari: unaweza pia kutumia Fungua kwa → ZagoSheetsWin.",
     "import.notice.partialConversion": "Lahajedwali limefunguliwa katika Google Sheets. Faili asili limebadilishwa na njia ya mkato. Ili kulirejesha, fungua {backups}.",
-    "import.notice.dontShowAgain": "Usionyeshe tena"
+    "import.notice.dontShowAgain": "Usionyeshe tena",
+    "recovery.repairNew": "Ingiza tena kwenye hati mpya…",
+    "recovery.repairExplanation": "Huunda lahajedwali jipya kutoka kwa nakala hii. Lahajedwali la awali, njia yake ya mkato na faili asili hubaki salama.",
+    "action.exportDiagnosticHistory": "Hamisha historia ya uchunguzi…",
+    "retry.editInput": "Hariri faili kabla ya kujaribu tena."
   }
 }

@@ -4,10 +4,23 @@ if ([string]::IsNullOrEmpty($ExpectedVersion)) {
     $ExpectedVersion = [string]$project.Project.PropertyGroup.Version
 }
 $ErrorActionPreference = 'Stop'
+$script:LifecycleRun = 0
+$lifecycleLogs = Join-Path (Get-Location) 'artifacts/installer-verification/lifecycle'
+New-Item -ItemType Directory -Force $lifecycleLogs | Out-Null
 function Run-Checked($file, $arguments) {
+    $script:LifecycleRun++
+    $log = $null
+    $name = [IO.Path]::GetFileName($file)
+    if ($name -like '*Setup*.exe' -or $name -like 'unins*.exe') {
+        $log = Join-Path $lifecycleLogs ('{0:d2}-{1}.log' -f $script:LifecycleRun, [IO.Path]::GetFileNameWithoutExtension($file))
+        $arguments += " /LOG=`"$log`""
+    }
     $process = Start-Process -FilePath $file -ArgumentList $arguments -PassThru
     if (!$process.WaitForExit(120000)) { $process.Kill(); throw "Timeout: $file" }
-    if ($process.ExitCode -ne 0) { throw "Nonzero exit: $file" }
+    if ($process.ExitCode -ne 0) {
+        if ($log -and (Test-Path -LiteralPath $log)) { Get-Content -LiteralPath $log -Tail 100 | Write-Host }
+        throw "Nonzero exit $($process.ExitCode): $file"
+    }
 }
 # Disposable Windows CI account only. Never run against a user's existing installation.
 $state = Join-Path $env:LOCALAPPDATA 'SheetsWindows'

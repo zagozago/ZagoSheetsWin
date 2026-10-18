@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.35",
+  "productVersion": "0.9.37",
   "sourceLocale": "pt-BR",
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -151,7 +151,7 @@
     "error.connectionTimeout": "Di connection take too long. Check your internet connection and resume through recovery; dem keep di backups wey dey already.",
     "error.conversionMismatch": "Verification see differences for di converted data. Dem keep di original and backup. Copy fit dey Google; check recovery before you try again.",
     "error.copyRequired": "You must import dis spreadsheet as copy; make di original remain.",
-    "error.csvDelimiter": "CSV fit use comma or semicolon. Choose di delimiter for text options. Dem keep di original.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Choose separator when you try again.",
     "error.exportSize": "Di export pass di verification limit. Dem keep di original and backup; check recovery before you import again.",
     "error.formulaVerification": "Di converted spreadsheet get formulas wey di app never fit verify yet. Dem keep di original and backup. For Recovery / backups, choose dis operation and choose Resume as copy to open di spreadsheet for Google without uploading again.",
     "error.generic": "No fit complete di operation. Check settings, connection and whether another app open di file. Backups wey dey already still dey available. Check too whether dem mark di file as read-only.",
@@ -163,7 +163,7 @@
     "error.network": "No fit communicate with Google. Check di connection and resume through di app; dem keep di original and one pending operation fit need recovery.",
     "error.reconciliationRequired": "Di import dey wait for reconciliation. No upload am again by hand. Check di recovery guide.",
     "error.setupRequired": "Complete first-use setup before you open spreadsheets. Open ZagoSheetsWin or im Settings to connect Google and save your preferences.",
-    "error.textEncoding": "No fit read di CSV/TSV encoding. Use UTF-8 or UTF-16 with BOM; for older files, choose Windows-1252 for text options. Dem keep di original.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Save the file as UTF-8 and try again. The original still dey safe.",
     "error.textStructure": "Di CSV/TSV empty or e get rows, delimiters or quotes wey no match. Check di delimiter and file structure. Dem keep di original.",
     "error.xlsConversion": "No fit convert dis XLS to XLSX. Dem keep di original and backup.",
     "error.xlsxContentType": "No fit safely know di internal format of di XLSX. Dem keep di original. Save new XLSX copy for Excel or LibreOffice and try dat copy.",
@@ -350,6 +350,10 @@
     "tutorial.showAtStartup": "Show this tutorial when app open",
     "setup.defaultsHelp": "Choose ZagoSheetsWin for Windows Default apps. Na optional, but we recommend am. Choose ZagoSheetsWin for Windows Default apps. Dis one optional: you fit also use Open with → ZagoSheetsWin.",
     "import.notice.partialConversion": "Spreadsheet don open for Google Sheets. Shortcut don replace di original file. To recover am, open {backups}.",
-    "import.notice.dontShowAgain": "No show am again"
+    "import.notice.dontShowAgain": "No show am again",
+    "recovery.repairNew": "Import again enter new document…",
+    "recovery.repairExplanation": "E go create new spreadsheet from this backup. The old spreadsheet, im shortcut and original file go remain as dem be.",
+    "action.exportDiagnosticHistory": "Export diagnostic history…",
+    "retry.editInput": "Edit the file before you try again."
   }
 }

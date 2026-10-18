@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.35",
+  "productVersion": "0.9.37",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 10,
+  "catalogRevision": 11,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -2299,12 +2299,14 @@
       "notes": []
     },
     "error.csvDelimiter": {
-      "text": "O CSV pode usar vírgula ou ponto e vírgula. Escolha o separador nas opções de texto. O original foi preservado.",
+      "text": "CSV/TSV: , ; TAB |. Escolha o separador ao tentar novamente.",
       "context": "src/SheetsWindows.Infrastructure/Launcher.cs - public static string Message(Exception ex) => ex switch",
       "scope": "app",
       "placeholders": [],
       "invariants": [
-        "CSV"
+        "CSV",
+        "TSV",
+        "TAB"
       ],
       "markup": [],
       "notes": []
@@ -2426,18 +2428,17 @@
       "notes": []
     },
     "error.textEncoding": {
-      "text": "Não foi possível ler a codificação do CSV/TSV. Use UTF-8 ou UTF-16 com BOM; para arquivos antigos, selecione Windows-1252 nas opções de texto. O original foi preservado.",
+      "text": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Salve o arquivo como UTF-8 e tente novamente. O original foi preservado.",
       "context": "src/SheetsWindows.Infrastructure/Launcher.cs - public static string Message(Exception ex) => ex switch",
       "scope": "app",
       "placeholders": [],
       "invariants": [
-        "Windows",
         "CSV",
         "TSV",
         "UTF-8",
         "UTF-16",
-        "Windows-1252",
-        "BOM"
+        "BOM",
+        "Windows-1252"
       ],
       "markup": [],
       "notes": []
@@ -7383,6 +7384,42 @@
     "import.notice.dontShowAgain": {
       "text": "Não mostrar novamente",
       "context": "Unchecked checkbox above the import confirmation buttons. Saves a persistent preference.",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "recovery.repairNew": {
+      "text": "Reimportar em novo documento…",
+      "context": "Explicit new-document repair from a verified backup; original association remains unchanged.",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "recovery.repairExplanation": {
+      "text": "Cria uma nova planilha a partir deste backup. A planilha anterior, seu atalho e o original permanecem intactos.",
+      "context": "Explicit new-document repair from a verified backup; original association remains unchanged.",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "action.exportDiagnosticHistory": {
+      "text": "Exportar histórico de diagnósticos…",
+      "context": "Explicit export of all rotated diagnostic history, separate from the current-attempt export.",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "retry.editInput": {
+      "text": "Edite o arquivo para tentar novamente.",
+      "context": "Permanent input failure; retry becomes available after the file is edited.",
       "scope": "app",
       "placeholders": [],
       "invariants": [],

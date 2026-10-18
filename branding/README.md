@@ -5,3 +5,5 @@ Logos zfull.png e zonly.png fornecidas no template universal Zagotools do usuár
 Marca da evolução: Zagotools. Código-base: Open in Google, de Swati K (SwatiK425), https://github.com/SwatiK425/open-in-google/. Preservar a licença MIT e o copyright original; a marca Zagotools não substitui a atribuição da base.
 
 0.9.15: o ícone do aplicativo/instalador utiliza fundo transparente e Z ampliado, com frames ICO de 16 a 256 px. app-icon-source.png é a fonte raster editada; zonly.png continua como logo do cabeçalho. O ícone de planilha dos atalhos permanece separado.
+
+0.9.37: aplicativo, janelas e instalador usam o ICO de planilha fornecido pelo usuário (16, 24, 32, 48, 64, 128 e 256 px). app-icon-source.png preserva o PNG correspondente. O ICO recebido é idêntico ao sheet-shortcut.ico já usado pelos arquivos associados e atalhos; estes mantêm o mesmo ícone. Logos do cabeçalho preservadas.

@@ -2,8 +2,8 @@
   "language": "ms",
   "locale": "ms-MY",
   "direction": "ltr",
-  "catalogRevision": 10,
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "catalogRevision": 11,
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -143,7 +143,7 @@
     "error.connectionTimeout": "Sambungan mengambil masa terlalu lama. Semak sambungan internet anda dan sambung semula melalui pemulihan; sandaran sedia ada dikekalkan.",
     "error.conversionMismatch": "Pengesahan menemui perbezaan dalam data yang ditukar. Fail asal dan sandaran dikekalkan. Satu salinan mungkin wujud di Google; semak pemulihan sebelum mencuba lagi.",
     "error.copyRequired": "Hamparan ini mesti diimport sebagai salinan; fail asal mesti dikekalkan.",
-    "error.csvDelimiter": "CSV mungkin menggunakan koma atau koma bertitik. Pilih pembatas dalam pilihan teks. Fail asal dikekalkan.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Pilih pemisah apabila mencuba semula.",
     "error.exportSize": "Eksport melebihi had pengesahan. Fail asal dan sandaran dikekalkan; semak pemulihan sebelum mengimport semula.",
     "error.formulaVerification": "Hamparan yang ditukar mengandungi formula yang belum dapat disahkan oleh aplikasi. Fail asal dan sandaran dikekalkan. Dalam Pemulihan / sandaran, pilih operasi ini dan pilih Sambung semula sebagai salinan untuk membuka hamparan di Google tanpa memuat naik semula.",
     "error.generic": "Operasi tidak dapat diselesaikan. Semak tetapan, sambungan dan sama ada fail dibuka dalam aplikasi lain. Sandaran sedia ada masih tersedia. Semak juga sama ada fail ditandakan sebagai baca sahaja.",
@@ -155,7 +155,7 @@
     "error.network": "Tidak dapat berkomunikasi dengan Google. Semak sambungan dan sambung semula melalui aplikasi; fail asal dikekalkan dan operasi tertunda mungkin memerlukan pemulihan.",
     "error.reconciliationRequired": "Import sedang menunggu penyelarasan. Jangan muat naik semula secara manual. Semak panduan pemulihan.",
     "error.setupRequired": "Lengkapkan persediaan penggunaan pertama sebelum membuka hamparan. Buka ZagoSheetsWin atau Tetapannya untuk menyambung ke Google dan menyimpan pilihan anda.",
-    "error.textEncoding": "Tidak dapat membaca pengekodan CSV/TSV. Gunakan UTF-8 atau UTF-16 dengan BOM; untuk fail lama, pilih Windows-1252 dalam pilihan teks. Fail asal dikekalkan.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Simpan fail sebagai UTF-8 dan cuba semula. Fail asal dikekalkan.",
     "error.textStructure": "CSV/TSV kosong atau mengandungi baris, pembatas atau tanda petik yang tidak konsisten. Semak pembatas dan struktur fail. Fail asal dikekalkan.",
     "error.xlsConversion": "Tidak dapat menukar XLS ini kepada XLSX. Fail asal dan sandaran dikekalkan.",
     "error.xlsxContentType": "Tidak dapat mengenal pasti format dalaman XLSX dengan selamat. Fail asal dikekalkan. Simpan salinan XLSX baharu dalam Excel atau LibreOffice dan cuba salinan itu.",
@@ -644,6 +644,10 @@
     "tutorial.showAtStartup": "Paparkan tutorial ini semasa membuka aplikasi",
     "setup.defaultsHelp": "Pilih ZagoSheetsWin dalam Aplikasi lalai Windows. Pilihan, tetapi disyorkan. Pilih ZagoSheetsWin dalam Aplikasi lalai Windows. Ini pilihan: anda juga boleh menggunakan Buka dengan → ZagoSheetsWin.",
     "import.notice.partialConversion": "Hamparan dibuka dalam Google Sheets. Fail asal digantikan dengan pintasan. Untuk memulihkannya, buka {backups}.",
-    "import.notice.dontShowAgain": "Jangan paparkan lagi"
+    "import.notice.dontShowAgain": "Jangan paparkan lagi",
+    "recovery.repairNew": "Import semula ke dokumen baharu…",
+    "recovery.repairExplanation": "Mencipta hamparan baharu daripada sandaran ini. Hamparan terdahulu, pintasannya dan fail asal kekal utuh.",
+    "action.exportDiagnosticHistory": "Eksport sejarah diagnostik…",
+    "retry.editInput": "Edit fail sebelum mencuba semula."
   }
 }

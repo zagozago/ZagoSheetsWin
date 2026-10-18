@@ -14,11 +14,18 @@ public sealed class SpreadsheetCapacityException : NotSupportedException
     public SpreadsheetCapacityException(string message) : base(message) { }
     public SpreadsheetCapacityException(LocalizedMessage message) : base(message.SourceText) { descriptor = message; }
     public string UserMessage => descriptor?.Text ?? Message;
+    public DiagnosticCode Code => descriptor?.Key switch
+    {
+        "capacity.tableRows" => DiagnosticCode.TextRows, "capacity.tableCells" => DiagnosticCode.TextCells,
+        "capacity.tableColumns" => DiagnosticCode.TextColumns, "capacity.cellCharacters" => DiagnosticCode.CellCharacters,
+        "capacity.importSize" => DiagnosticCode.ImportBytes, "capacity.normalizedSize" => DiagnosticCode.NormalizedBytes,
+        _ => DiagnosticCode.Other
+    };
 }
 public class ConversionMismatchException() : IOException("Converted cell values differ; source preserved.");
 public sealed class FormulaVerificationException : ConversionMismatchException;
 public sealed class CopyRequiredException() : NotSupportedException("This workbook requires copy-only import.");
-public sealed record TextImportOptions(string Encoding = "auto", string Delimiter = "auto");
+public sealed record TextImportOptions(string Encoding = "auto", string Delimiter = "auto", int InterpretationVersion = 2);
 public sealed record SheetValues(string Name, IReadOnlyList<IReadOnlyList<object?>> Rows);
 public sealed record SpreadsheetPayload(byte[] Bytes, string MimeType, IReadOnlyList<SheetValues>? Expected);
 
@@ -26,6 +33,7 @@ public static class SpreadsheetFormats
 {
     public const string XlsxMime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
     public const int MaxCells = 500000, MaxRows = 50000, MaxColumns = 1000;
+    public const int MaxTextCells = 600000, MaxTextRows = 60000;
     public static readonly string[] Extensions = [".xlsx", ".ods", ".xls", ".csv", ".tsv"];
     public static string Format(string path)
     {
@@ -60,7 +68,7 @@ public static class SpreadsheetFormats
             default: throw new NotSupportedException("Unsupported spreadsheet format.");
         }
     }
-    private static string Decode(byte[] bytes, string mode)
+    private static string Decode(byte[] bytes, string mode, int version)
     {
         Encoding encoding; var offset = 0;
         if (mode == "auto")
@@ -78,22 +86,34 @@ public static class SpreadsheetFormats
         }
         else throw new ArgumentException("Unsupported text encoding.");
         try { return encoding.GetString(bytes, offset, bytes.Length - offset); }
+        catch (DecoderFallbackException) when (mode == "auto" && version >= 2 && offset == 0)
+        {
+            // No BOM: strict UTF-8 first, then the explicitly bounded legacy fallback.
+            // Reject undefined CP1252 bytes and binary-like control streams.
+            if (bytes.Any(b => b is 0 or 0x81 or 0x8D or 0x8F or 0x90 or 0x9D)) throw new InvalidDataException("Invalid text encoding or characters.");
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            var decoded = Encoding.GetEncoding(1252, EncoderFallback.ExceptionFallback, DecoderFallback.ExceptionFallback).GetString(bytes);
+            if (decoded.Any(c => char.IsControl(c) && c is not ('\t' or '\r' or '\n'))) throw new InvalidDataException("Invalid text encoding or characters.");
+            return decoded;
+        }
         catch (DecoderFallbackException) { throw new InvalidDataException("Invalid text encoding or characters."); }
     }
     public static IReadOnlyList<IReadOnlyList<object?>> ReadText(byte[] bytes, string format, TextImportOptions options, CancellationToken ct = default)
     {
         ct.ThrowIfCancellationRequested();
         if (bytes.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException(UiText.Message("capacity.importSize"));
-        var text = Decode(bytes, options.Encoding);
+        var text = Decode(bytes, options.Encoding, options.InterpretationVersion);
+        if (options.InterpretationVersion is not (1 or 2)) throw new InvalidDataException("Unsupported interpretation version.");
         if (text.Length == 0 || text.All(c => c < ' ' && c is not ('\t' or '\n' or '\r'))) throw new InvalidDataException("Empty text spreadsheet.");
-        if (format == "tsv") return ParseDelimited(text, '\t', ct);
-        if (options.Delimiter is "comma" or "semicolon") return ParseDelimited(text, options.Delimiter == "comma" ? ',' : ';', ct);
+        if (format == "tsv" && options.InterpretationVersion == 1) return ParseDelimited(text, '\t', ct, 1);
+        if (options.Delimiter is "comma" or "semicolon" or "tab" or "pipe")
+            return ParseDelimited(text, options.Delimiter switch { "comma" => ',', "semicolon" => ';', "tab" => '\t', _ => '|' }, ct, options.InterpretationVersion);
         if (options.Delimiter != "auto") throw new ArgumentException("Unsupported delimiter.");
         var candidates = new List<IReadOnlyList<IReadOnlyList<object?>>>();
         SpreadsheetCapacityException? capacity = null;
-        foreach (var separator in new[] { ',', ';' })
+        foreach (var separator in options.InterpretationVersion == 1 ? new[] { ',', ';' } : new[] { ',', ';', '\t', '|' })
         {
-            try { var rows = ParseDelimited(text, separator, ct); if (rows[0].Count > 1) candidates.Add(rows); }
+            try { var rows = ParseDelimited(text, separator, ct, options.InterpretationVersion); if (rows[0].Count > 1) candidates.Add(rows); }
             catch (SpreadsheetCapacityException ex) { capacity ??= ex; }
             catch (InvalidDataException) { }
         }
@@ -105,24 +125,25 @@ public static class SpreadsheetFormats
         for (var i = 0; i < text.Length; i++)
         {
             if (text[i] == '"') { if (quoted && i + 1 < text.Length && text[i + 1] == '"') i++; else quoted = !quoted; }
-            else if (!quoted && text[i] is ',' or ';') throw new InvalidDataException("Irregular delimited table.");
+            else if (!quoted && (text[i] is ',' or ';' || options.InterpretationVersion >= 2 && text[i] is '\t' or '|')) throw new InvalidDataException("Irregular delimited table.");
         }
-        return ParseDelimited(text, ',', ct);
+        return ParseDelimited(text, ',', ct, options.InterpretationVersion);
     }
-    private static IReadOnlyList<IReadOnlyList<object?>> ParseDelimited(string text, char separator, CancellationToken ct)
+    private static IReadOnlyList<IReadOnlyList<object?>> ParseDelimited(string text, char separator, CancellationToken ct, int version)
     {
         var rows = new List<IReadOnlyList<object?>>(); var row = new List<object?>(); var field = new StringBuilder();
         var quoted = false; var closed = false; var cells = 0;
+        var maxCells = version >= 2 ? MaxTextCells : MaxCells; var maxRows = version >= 2 ? MaxTextRows : MaxRows;
         void Field()
         {
-            if (++cells > MaxCells) throw new SpreadsheetCapacityException(UiText.Message("capacity.tableCells", ("limit", MaxCells)));
+            if (++cells > maxCells) throw new SpreadsheetCapacityException(UiText.Message("capacity.tableCells", ("limit", maxCells)));
             if (row.Count >= MaxColumns) throw new SpreadsheetCapacityException(UiText.Message("capacity.tableColumns", ("limit", MaxColumns)));
             if (field.Length > 32767) throw new SpreadsheetCapacityException(UiText.Message("capacity.cellCharacters"));
             row.Add(field.ToString()); field.Clear(); closed = false;
         }
         void Row()
         {
-            Field(); if (rows.Count >= MaxRows) throw new SpreadsheetCapacityException(UiText.Message("capacity.tableRows", ("limit", MaxRows)));
+            Field(); if (rows.Count >= maxRows) throw new SpreadsheetCapacityException(UiText.Message("capacity.tableRows", ("limit", maxRows)));
             if (rows.Count > 0 && row.Count != rows[0].Count) throw new InvalidDataException("Irregular delimited table.");
             rows.Add(row); row = [];
         }
@@ -189,14 +210,14 @@ public static class SpreadsheetFormats
             ct.ThrowIfCancellationRequested();
             if (sheets.Count >= 100) throw new InvalidDataException("Too many sheets.");
             var name = (string?)sheet.Attribute(table + "name") ?? throw new InvalidDataException("ODS sheet name missing.");
-            var rows = new List<IReadOnlyList<object?>>();
+            var rows = new List<IReadOnlyList<object?>>(); long rowPosition = 0;
             foreach (var r in sheet.Descendants(table + "table-row"))
             {
                 ct.ThrowIfCancellationRequested();
-                var row = new List<object?>();
+                var row = new List<object?>(); long columnPosition = 0;
                 foreach (var c in r.Elements().Where(e => e.Name == table + "table-cell" || e.Name == table + "covered-table-cell"))
                 {
-                    var repeated = Repeat(c, table + "number-columns-repeated", MaxColumns);
+                    var repeated = Repeat(c, table + "number-columns-repeated", 16384);
                     object? value = null; var type = (string?)c.Attribute(office + "value-type");
                     switch (type)
                     {
@@ -212,12 +233,24 @@ public static class SpreadsheetFormats
                         case "boolean": value = (string?)c.Attribute(office + "boolean-value") switch { "true" => true, "false" => false, _ => throw new InvalidDataException("Invalid ODS boolean.") }; break;
                         default: simple = false; break;
                     }
-                    if (row.Count + repeated > MaxColumns) throw new InvalidDataException("ODS columns too large.");
+                    var content = type is not null || value is not null || c.Attribute(table + "formula") is not null
+                        || c.Name == table + "covered-table-cell" || c.HasElements || c.Attributes().Any(a => a.Name.LocalName == "href")
+                        || c.Attribute(table + "number-columns-spanned") is not null || c.Attribute(table + "number-rows-spanned") is not null;
+                    columnPosition = checked(columnPosition + repeated);
+                    if (columnPosition > 16384) throw new InvalidDataException("ODS columns too large.");
+                    if (!content) continue;
+                    if (columnPosition > MaxColumns) throw new InvalidDataException("ODS content dimensions exceed limits.");
+                    while (row.Count < columnPosition - repeated) row.Add(null);
                     for (var i = 0; i < repeated; i++) row.Add(value);
                 }
-                var copies = Repeat(r, table + "number-rows-repeated", MaxRows);
-                if (rows.Count + copies > MaxRows || (long)cells + (long)row.Count * copies > MaxCells) throw new InvalidDataException("ODS repeated cells too large.");
-                cells += row.Count * copies; for (var i = 0; i < copies; i++) rows.Add(row.ToArray());
+                var copies = Repeat(r, table + "number-rows-repeated", 1048576);
+                rowPosition = checked(rowPosition + copies);
+                if (rowPosition > 1048576) throw new InvalidDataException("ODS rows too large.");
+                if (row.Count == 0) continue;
+                if (rowPosition > MaxRows || (long)cells + (long)row.Count * copies > MaxCells) throw new InvalidDataException("ODS content dimensions exceed limits.");
+                while (rows.Count < rowPosition - copies) rows.Add(Array.Empty<object?>());
+                cells += row.Count * copies; var values = row.ToArray();
+                for (var i = 0; i < copies; i++) rows.Add(values);
             }
             sheets.Add(new(name, rows));
         }
@@ -229,7 +262,7 @@ public static class SpreadsheetFormats
         var attr = element.Attribute(name); if (attr is null) return 1;
         if (!int.TryParse(attr.Value, out var value) || value < 1 || value > max) throw new InvalidDataException("Unbounded repetition."); return value;
     }
-    public static IReadOnlyList<SheetValues> ReadExcel(byte[] bytes, bool binary = false, CancellationToken ct = default)
+    public static IReadOnlyList<SheetValues> ReadExcel(byte[] bytes, bool binary = false, CancellationToken ct = default, bool textImport = false)
     {
         if (!binary)
         {
@@ -251,23 +284,24 @@ public static class SpreadsheetFormats
         using var stream = new MemoryStream(bytes);
         using var reader = binary ? ExcelReaderFactory.CreateBinaryReader(stream) : ExcelReaderFactory.CreateOpenXmlReader(stream);
         var sheets = new List<SheetValues>(); var cells = 0;
+        var maxRows = textImport ? MaxTextRows : MaxRows; var maxCells = textImport ? MaxTextCells : MaxCells;
         do
         {
-            if (sheets.Count >= 100 || reader.FieldCount > MaxColumns || reader.RowCount > MaxRows) throw new InvalidDataException("Workbook dimensions exceed limits.");
+            if (sheets.Count >= 100 || reader.FieldCount > MaxColumns || reader.RowCount > maxRows) throw new InvalidDataException("Workbook dimensions exceed limits.");
             var rows = new List<IReadOnlyList<object?>>();
             while (reader.Read())
             {
                 ct.ThrowIfCancellationRequested();
-                if (rows.Count >= MaxRows || (long)cells + reader.FieldCount > MaxCells) throw new InvalidDataException("Workbook cell limit exceeded.");
+                if (rows.Count >= maxRows || (long)cells + reader.FieldCount > maxCells) throw new InvalidDataException("Workbook cell limit exceeded.");
                 var row = new object?[reader.FieldCount]; for (var i = 0; i < row.Length; i++) row[i] = reader.GetValue(i); cells += row.Length; rows.Add(row);
             }
             sheets.Add(new(reader.Name, rows));
         } while (reader.NextResult());
         return sheets;
     }
-    public static void VerifyValues(IReadOnlyList<SheetValues> expected, byte[] exported, CancellationToken ct = default)
+    public static void VerifyValues(IReadOnlyList<SheetValues> expected, byte[] exported, CancellationToken ct = default, bool textImport = false)
     {
-        var actual = ReadExcel(exported, ct: ct);
+        var actual = ReadExcel(exported, ct: ct, textImport: textImport);
         if (actual.Count != expected.Count) throw new ConversionMismatchException();
         for (var s = 0; s < expected.Count; s++)
         {

@@ -2,8 +2,8 @@
   "language": "fr",
   "locale": "fr",
   "direction": "ltr",
-  "catalogRevision": 10,
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "catalogRevision": 11,
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -139,7 +139,7 @@
     "error.connectionTimeout": "La connexion a pris trop de temps. Vérifiez votre connexion Internet et reprenez depuis la récupération ; les sauvegardes existantes ont été conservées.",
     "error.conversionMismatch": "La vérification a détecté des différences dans les données converties. L’original et la sauvegarde ont été conservés. Une copie peut exister dans Google ; vérifiez la récupération avant de réessayer.",
     "error.copyRequired": "Cette feuille de calcul doit être importée comme copie ; l’original doit être conservé.",
-    "error.csvDelimiter": "Le CSV peut utiliser des virgules ou des points-virgules. Choisissez le séparateur dans les options de texte. L’original a été conservé.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Choisissez le séparateur lors du nouvel essai.",
     "error.exportSize": "L’exportation a dépassé la limite de vérification. L’original et la sauvegarde ont été conservés ; vérifiez la récupération avant d’importer de nouveau.",
     "error.formulaVerification": "La feuille de calcul convertie contient des formules que l’application ne peut pas encore vérifier. L’original et la sauvegarde ont été conservés. Dans Récupération / sauvegardes, sélectionnez cette opération puis Reprendre comme copie pour ouvrir la feuille dans Google sans la téléverser de nouveau.",
     "error.generic": "Impossible de terminer l’opération. Vérifiez les paramètres, la connexion et si le fichier est ouvert dans une autre application. Les sauvegardes existantes restent disponibles. Vérifiez aussi si le fichier est en lecture seule.",
@@ -151,7 +151,7 @@
     "error.network": "Impossible de communiquer avec Google. Vérifiez la connexion et reprenez depuis l’application ; l’original a été conservé et une opération en attente peut nécessiter une récupération.",
     "error.reconciliationRequired": "L’importation est en attente de rapprochement. Ne la téléversez pas de nouveau manuellement. Consultez le guide de récupération.",
     "error.setupRequired": "Terminez la configuration de première utilisation avant d’ouvrir des feuilles de calcul. Ouvrez ZagoSheetsWin ou ses Paramètres pour connecter Google et enregistrer vos préférences.",
-    "error.textEncoding": "Impossible de lire l’encodage du CSV/TSV. Utilisez UTF-8 ou UTF-16 avec BOM ; pour les anciens fichiers, sélectionnez Windows-1252 dans les options de texte. L’original a été conservé.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Enregistrez le fichier en UTF-8 et réessayez. L’original a été conservé.",
     "error.textStructure": "Le CSV/TSV est vide ou contient des lignes, séparateurs ou guillemets incohérents. Vérifiez le séparateur et la structure du fichier. L’original a été conservé.",
     "error.xlsConversion": "Impossible de convertir ce fichier XLS en XLSX. L’original et la sauvegarde ont été conservés.",
     "error.xlsxContentType": "Impossible d’identifier de façon fiable le format interne du XLSX. L’original a été conservé. Enregistrez une nouvelle copie XLSX dans Excel ou LibreOffice et essayez d’ouvrir cette copie.",
@@ -640,7 +640,11 @@
     "tutorial.showAtStartup": "Afficher ce tutoriel à l’ouverture de l’application",
     "setup.defaultsHelp": "Choisissez ZagoSheetsWin dans les Applications par défaut de Windows. Facultatif, mais recommandé. Choisissez ZagoSheetsWin dans les Applications par défaut de Windows. C’est facultatif : vous pouvez aussi utiliser Ouvrir avec → ZagoSheetsWin.",
     "import.notice.partialConversion": "La feuille a été ouverte dans Google Sheets. Le fichier original a été remplacé par un raccourci. Pour le récupérer, ouvrez {backups}.",
-    "import.notice.dontShowAgain": "Ne plus afficher"
+    "import.notice.dontShowAgain": "Ne plus afficher",
+    "recovery.repairNew": "Réimporter dans un nouveau document…",
+    "recovery.repairExplanation": "Crée une nouvelle feuille depuis cette sauvegarde. La feuille précédente, son raccourci et l’original restent intacts.",
+    "action.exportDiagnosticHistory": "Exporter l’historique des diagnostics…",
+    "retry.editInput": "Modifiez le fichier avant de réessayer."
   },
   "expandedNumericNotation": [
     "setup.formatLimits"

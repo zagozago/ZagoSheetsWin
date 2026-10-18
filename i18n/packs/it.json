@@ -2,8 +2,8 @@
   "language": "it",
   "locale": "it-IT",
   "direction": "ltr",
-  "catalogRevision": 10,
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "catalogRevision": 11,
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -145,7 +145,7 @@
     "error.connectionTimeout": "La connessione ha impiegato troppo tempo. Controlla la connessione Internet e riprendi dal ripristino; i backup esistenti sono stati conservati.",
     "error.conversionMismatch": "La verifica ha rilevato differenze nei dati convertiti. L'originale e il backup sono stati conservati. Potrebbe esistere una copia su Google; controlla il ripristino prima di riprovare.",
     "error.copyRequired": "Questo foglio di calcolo deve essere importato come copia; l'originale deve essere conservato.",
-    "error.csvDelimiter": "Il CSV può usare virgole o punti e virgola. Scegli il separatore nelle opzioni di testo. L'originale è stato conservato.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Scegli il separatore quando riprovi.",
     "error.exportSize": "L'esportazione ha superato il limite di verifica. L'originale e il backup sono stati conservati; controlla il ripristino prima di importare di nuovo.",
     "error.formulaVerification": "Il foglio di calcolo convertito contiene formule che l'app non può ancora verificare. L'originale e il backup sono stati conservati. In Ripristino / backup, seleziona questa operazione e scegli Riprendi come copia per aprire il foglio di calcolo su Google senza caricarlo di nuovo.",
     "error.generic": "Impossibile completare l'operazione. Controlla le impostazioni, la connessione e se il file è aperto in un'altra app. I backup esistenti restano disponibili. Verifica anche se il file è impostato in sola lettura.",
@@ -157,7 +157,7 @@
     "error.network": "Impossibile comunicare con Google. Controlla la connessione e riprendi tramite l'app; l'originale è stato conservato e un'operazione in sospeso potrebbe richiedere il ripristino.",
     "error.reconciliationRequired": "L'importazione è in attesa di riconciliazione. Non caricarla di nuovo manualmente. Consulta la guida al ripristino.",
     "error.setupRequired": "Completa la configurazione iniziale prima di aprire i fogli di calcolo. Apri ZagoSheetsWin o le sue Impostazioni per connetterti a Google e salvare le preferenze.",
-    "error.textEncoding": "Impossibile leggere la codifica CSV/TSV. Usa UTF-8 o UTF-16 con BOM; per i file meno recenti, seleziona Windows-1252 nelle opzioni di testo. L'originale è stato conservato.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Salva il file come UTF-8 e riprova. L’originale è stato conservato.",
     "error.textStructure": "Il CSV/TSV è vuoto o contiene righe, separatori o virgolette incoerenti. Controlla il separatore e la struttura del file. L'originale è stato conservato.",
     "error.xlsConversion": "Impossibile convertire questo XLS in XLSX. L'originale e il backup sono stati conservati.",
     "error.xlsxContentType": "Impossibile identificare in modo sicuro il formato interno XLSX. L'originale è stato conservato. Salva una nuova copia XLSX in Excel o LibreOffice e prova con quella copia.",
@@ -646,6 +646,10 @@
     "tutorial.showAtStartup": "Mostra questo tutorial all’apertura dell’app",
     "setup.defaultsHelp": "Scegli ZagoSheetsWin nelle App predefinite di Windows. Facoltativo, ma consigliato. Scegli ZagoSheetsWin nelle App predefinite di Windows. È facoltativo: puoi anche usare Apri con → ZagoSheetsWin.",
     "import.notice.partialConversion": "Il foglio è stato aperto in Google Sheets. Il file originale è stato sostituito da un collegamento. Per recuperarlo, apri {backups}.",
-    "import.notice.dontShowAgain": "Non mostrare più"
+    "import.notice.dontShowAgain": "Non mostrare più",
+    "recovery.repairNew": "Reimporta in un nuovo documento…",
+    "recovery.repairExplanation": "Crea un nuovo foglio da questo backup. Il foglio precedente, il suo collegamento e l’originale rimangono intatti.",
+    "action.exportDiagnosticHistory": "Esporta cronologia diagnostica…",
+    "retry.editInput": "Modifica il file prima di riprovare."
   }
 }
