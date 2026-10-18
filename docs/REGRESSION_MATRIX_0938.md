@@ -1,4 +1,4 @@
-# Matriz de regressão 0.9.38 — catálogo B (78 casos)
+# Matriz de regressão 0.9.38 — 26 + 78 casos
 
 Especificação revisada; não equivale a execução de todos os binários. Os arquivos mestres permanecem intactos. Testes locais sintéticos por forma e gramática não substituem o smoke no Google.
 
@@ -82,3 +82,36 @@ Especificação revisada; não equivale a execução de todos os binários. Os a
 | X001 | 01_controle_basico.xlsx | controle: preservar funcionamento anterior | Pendente: binário mestre e Google real. |
 | X002 | 02_controle_formulas.xlsx | controle: preservar funcionamento anterior | Pendente: binário mestre e Google real. |
 | X003 | 03_controle_multiplas_abas.xlsx | controle: preservar funcionamento anterior | Pendente: binário mestre e Google real. |
+
+## Catálogo anterior — 26 controles
+
+Os 26 foram informados como aprovados pelo usuário antes do novo lote. A tabela preserva os controles, sem declarar uma nova execução dos respectivos binários.
+
+| Arquivo | Forma indicada no catálogo | Critério nesta iteração | Evidência atual |
+|---|---|---|---|
+| 01_anagrams_pontovirgula.csv | 20 × 5 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 02_anscombe_pontovirgula.csv | 44 × 3 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 03_flights_pontovirgula.csv | 24 × 3 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 04_attention_pontovirgula.csv | 20 × 5 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 05_catalogo50_pontovirgula.csv | 50 × 8 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 06_ptbr_pontovirgula.csv | 5 × 5 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 07_anscombe_decimal_virgula.csv | 44 × 3 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 08_catalogo50_pontovirgula_bom.csv | 50 × 8 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 09_anscombe_pontovirgula_lf.csv | 44 × 3 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 10_ptbr_pontovirgula_cp1252.csv | 5 × 5 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 11_aspas_multilinhas_pontovirgula.csv | 3 × 4 | Manter gramática multiline válida e reconciliar a operação existente sem novo upload cego. | Gramática sintética e falhas remotas simuladas; estado real A-01 pendente. |
+| 12_anagrams_pontovirgula_sem_cabecalho.csv | 20 × 5 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 13_anscombe_pontovirgula_bom.csv | 44 × 3 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 14_catalogo50_pontovirgula_lf.csv | 50 × 8 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 15_ptbr_pontovirgula_lf.csv | 5 × 5 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 16_anagrams_controle_virgula.csv | 20 × 5 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 17_anscombe_controle_virgula.csv | 44 × 3 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 18_ptbr_virgula_com_aspas.csv | 5 × 5 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 19_anagrams_tab_em_csv.csv | 20 × 5 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 20_catalogo50_tab_em_csv.csv | 50 × 8 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 21_flights_tab_em_csv_bom.csv | 24 × 3 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 22_catalogo50_pipe.csv | 50 × 8 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 23_aspas_multilinhas_pipe.csv | 3 × 4 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 24_ptbr_pipe.csv | 5 × 5 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
+| 25_anagrams_pontovirgula_grande_1mb.csv | 90,000 × 5 | 90.001×5: positivo experimental com limites v3; Google real pendente. | Forma sintética completa verificada. |
+| 26_anagrams_pontovirgula_medio.csv | 32,000 × 5 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Forma 53.941×10 coberta por teste automático; não reprocessado o binário mestre. |

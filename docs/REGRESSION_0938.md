@@ -36,3 +36,17 @@ Hashes SHA-256 das evidências recebidas:
 - `ZSW-diagn-26e78.zip`: `185b244d5936d962bcc3acceb9e6f5c4b50507e07b4be5dddc6305b1e16fa8e9`
 
 Validação local Release final: 323 testes aprovados, 42 específicos do Windows ignorados, 0 falhas (365 casos). Solução Windows/Linux compilada sem avisos. Contrato de localização: 14 testes aprovados; catálogo de 617 chaves/51 idiomas validado; auditoria estática de segurança aprovada. A validação nativa Windows e o ciclo de instalador são executados separadamente pelo Actions; seus resultados não são inferidos do build local.
+
+## Validação do candidato no Windows e Linux
+
+Revisão de código validada: `d12844d7a6d6223840dc236056c469828246a492`.
+[GitHub Actions — validação completa](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39145165210).
+Windows: 364 aprovados/1 ignorado; Linux: 323 aprovados/42 ignorados; total 365 em cada plataforma, nenhuma falha.
+Interface nativa, 51 layouts, minimizar/restaurar, tema/idioma, exportação e prévia de interpretação em EN/PT/AR aprovados. Transições do instalador nos 51 idiomas aprovadas.
+Benchmark nativo Windows offline de 100.000×10: 1.437 ms de conversão +1.566 ms de conferência, 3.005 ms totais, CPU 3.187 ms, pico de processo 277.012.480 bytes (~264 MiB), abaixo do orçamento de 512 MiB. GoogleNetwork=false: não é um teste cloud.
+
+Cinco binários reais também foram conferidos em processo local: CSVs 13/14 retornam CsvDelimiter, CSV 17 retorna TextEncoding, ODS 03/06 retornam OdsRepeat. Os cinco arquivos permaneceram byte a byte intactos. Os novos positivos T023/T034/T027 foram cobertos por equivalentes de gramática; os respectivos mestres não foram enviados neste anexo. Não confundir essa evidência com o aceite dos 104 arquivos no Google real.
+
+Commits do pacote: `21ba191705ee671750fdded120ee9ddae167b8a5` (parser/capacidade/localização), `67d1986f6d90891d05c638df894dacec002f89ed` (reconciliação/diagnóstico/UI/testes), `fab5d7b8bde0b13cd36786b7e885bc86693eb37d` (decisões/matriz), `d12844d7a6d6223840dc236056c469828246a492` (writer compacto mantendo XML em 64 MiB e rejeição CP1252 explícita). Versões de interpretação e novos códigos são aditivos; v1/v2 e seus payloads permanecem compatíveis.
+
+Ciclo do instalador aprovado na execução acima: instalação, upgrade, rejeição de downgrade, desinstalação/reinstalação e sentinelas de preservação de dados. A distribuição protegida é um candidato de teste e continua dependendo da aprovação do ambiente zagosheets-distribution; não há merge em main nem release pública.

@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.37: user-supplied unified application and spreadsheet icon.
+# Distribution candidate 0.9.38: safe reconciliation and bounded text interpretation; cloud acceptance pending.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
