@@ -1,6 +1,6 @@
 # Auditoria e consolidação documental — preparação 1.0.0
 
-**Revisão inicial:** 15/10/2026; **atualização:** 17/10/2026. **Base de código inicial:** `feature/zagosheetswin` commit `6a019318f64c1068ebd5ece4932320535b24f629`. **Base da atualização 0.9.35:** `9929524e67fea42c8940ae27b41f80963479c490`. **README internacional:** `main` commit `057ef77e0e79af197bb2c6c3f7b28fee1b8c0b02`. **Forma de entrega:** branch isolada e PR para a branch de desenvolvimento; **sem publicar tag/Release 1.0.0**.
+**Revisão inicial:** 15/10/2026; **atualização:** 17/10/2026. **Base de código inicial:** `feature/zagosheetswin` commit `6a019318f64c1068ebd5ece4932320535b24f629`. **Base da atualização 0.9.35:** `9929524e67fea42c8940ae27b41f80963479c490`. **Base verificada 0.9.37 (18/10/2026):** `f58b630263cdee07e473a54ee40ff6d3beafe4f6`. **README internacional:** `main` commit `057ef77e0e79af197bb2c6c3f7b28fee1b8c0b02`. **Forma de entrega:** branch isolada e PR para a branch de desenvolvimento; **sem publicar tag/Release 1.0.0**.
 
 ## Constatações e decisões
 
@@ -27,6 +27,17 @@
 - **0.9.35:** mensagem sobre atributo somente leitura e regressão Windows que preserva original/backup, com retomada após retirar o atributo.
 - **Automação:** [Protected alpha distribution](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39059101337) aprovada para `70377cb`; [Local core](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39059144987) aprovado para `9929524`. A distribuição protegida **não foi provada neste levantamento** para o commit mais novo.
 - **Limites:** não houve testes adicionais de conta Google real nesta revisão. O futuro `1.0.0` segue pendente de aceite, sem publicação.
+
+## Constatações complementares 0.9.36 e 0.9.37
+
+- **Parser texto 0.9.36:** CSV/TSV detecta separador por conteúdo em `,`, `;`, TAB e `|`. Em ambiguidade oferece escolha **por tentativa**. Fallback CP1252 controlado sem BOM, literalidade das células e 60.000 registros/600.000 células são restritos à semântica de interpretação v2.
+- **Compatibilidade e reparo:** operações com intenção remota antiga mantêm interpretador v1; `ImportInterpretations` grava opções imutáveis por operação. `BackupRepairSource` permite criar **outra planilha** sem tocar documento/atalho anterior.
+- **ODS esparso:** trata caudas vazias repetidas sem expandir desnecessariamente, mantendo coordenadas/bytes do arquivo original. **Não provar conversão real Google** a partir de um parser local.
+- **Erro e diagnóstico:** estado terminal persiste após minimizar/restaurar, ignora progresso atrasado, diagnóstico de tentativa separado do histórico; erros permanentes aguardam alteração do arquivo em vez de repetição automática.
+- **Identidade 0.9.37:** arquivo `zagosheetswin.ico` substituído pelo ICO de planilha igual ao dos atalhos, mantendo logos Zagotools e créditos MIT.
+- **CI e empacotamento:** [Local core](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39099713350) e [Protected alpha distribution](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39099713370) aprovados **no mesmo SHA f58b630**; não equivale a aceite Google real.
+- **Relatório de Escopo B:** `docs/IMPORT_REVIEW_0936.md` contém evidências e limitações datadas da versão 0.9.36. Este PR apenas registra e referencia esse arquivo, que veio da branch do software.
+- **Tags/Releases:** ainda inexistentes na consulta de 18/10/2026; 1.0.0 permanece futuro.
 
 ## Checagens e limites da auditoria
 

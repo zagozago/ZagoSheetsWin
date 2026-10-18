@@ -32,6 +32,8 @@
 - [ALPHA_7_OAUTH](ALPHA_7_OAUTH.md) — cliente OAuth de distribuição.
 - [ALPHA_0_9_23](ALPHA_0_9_23.md) — seletor de idiomas e política de retries.
 - [XLS_CONVERSION](XLS_CONVERSION.md) — evolução da conversão de XLS binário e HTML com extensão XLS.
+- [IMPORT_REVIEW_0936](IMPORT_REVIEW_0936.md) — aceitação técnica do Escopo B: CSV/TSV, ODS esparso, reparo versionado, interface, diagnósticos e limites; **o teste real Google está pendente**.
+- [Branding/README](../branding/README.md) — evolução dos ícones incluindo a unificação da 0.9.37.
 
 ## Interface, traduções e dependências — registros de trabalho
 
