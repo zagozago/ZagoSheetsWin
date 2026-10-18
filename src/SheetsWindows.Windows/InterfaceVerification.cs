@@ -506,6 +506,12 @@ internal static class InterfaceVerification
                 Console.Error.WriteLine($"FAILURE UI: beforeInk={beforeInk}; afterInk={afterInk}; retained={failure.StatusText == before}; message={before == LauncherErrors.Message(new ConversionMismatchException())}; visible={failure.Visible}; label={failureLabel.Bounds}; foreground={failureLabel.ForeColor}; background={failureLabel.BackColor}; export={Descendants(failure).OfType<Button>().Any(b => b.Text == UiText.Get("action.exportDiagnostics"))}; recovery={Descendants(failure).OfType<Button>().Any(b => b.Text == UiText.Get("action.recovery"))}");
                 failureVisible = beforeInk && afterInk && failure.StatusText == before && before == LauncherErrors.Message(new ConversionMismatchException()) && failure.Visible && Descendants(failure).OfType<Button>().Any(b => b.Text == "Exportar diagnóstico…")
                     && Descendants(failure).OfType<Button>().Any(b => b.Text == "Recuperação / backups");
+                var previousTheme = Branding.Current;
+                UiText.Select("en"); Application.DoEvents();
+                var switched = failure.StatusText == LauncherErrors.Message(new ConversionMismatchException()) && HasTextInk(failureLabel);
+                Branding.PreviewTheme(ApplicationTheme.Dark); Application.DoEvents(); switched &= HasTextInk(failureLabel);
+                UiText.Select("pt"); Branding.PreviewTheme(previousTheme); Application.DoEvents();
+                failureVisible &= switched && failure.StatusText == before;
                 failure.SetDiagnosticFeedback("diagnostics.exported");
                 Console.Error.WriteLine($"FAILURE UI feedback: retained={failure.StatusText.StartsWith(before, StringComparison.Ordinal)}; feedback={failure.StatusText.Contains(UiText.Get("diagnostics.exported"), StringComparison.Ordinal)}");
                 failureVisible &= failure.StatusText.StartsWith(before, StringComparison.Ordinal) && failure.StatusText.Contains(UiText.Get("diagnostics.exported"), StringComparison.Ordinal);

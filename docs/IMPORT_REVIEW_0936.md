@@ -8,7 +8,7 @@ Implementação autorizada após a auditoria de 17/10/2026. Este documento disti
 | IMP-03 | BOM respeitado; UTF-8 estrito; fallback CP1252 sem BOM rejeita bytes indefinidos e controles de aparência binária | CP1252 do ZIP, acentos e decimais preservados; BOM conflitante e bytes inválidos recusados |
 | IMP-04 | Posições ODS calculadas sem materializar caudas vazias; lacunas internas preservadas, conteúdo e repetições limitados; bytes enviados continuam originais | ODS fornecido aceito na preparação; testes de coordenadas, caudas e abuso; conversão real ainda pendente |
 | MIG-01 | Opções e versão do interpretador imutáveis por operação; intenções remotas antigas mantêm versão 1; ação explícita cria novo documento/identidade a partir de backup verificado | Teste com servidor Google simulado confirma documento antigo e associação intactos, duas colunas no novo e retomada sem novo upload |
-| UI-01 | Estado terminal separado do texto do controle; geração impede progresso atrasado; exportar diagnóstico mantém a causa da falha | Regressão nativa de minimizar/restaurar e mensagens atrasadas; confirmar no Windows real que apresentou o sintoma |
+| UI-01 | Estado terminal separado do texto do controle; geração impede progresso atrasado; mínimo e layout recalculados na restauração; exportar diagnóstico mantém a causa da falha | Regressão nativa de minimizar/restaurar e mensagens atrasadas; confirmar no Windows real que apresentou o sintoma |
 | DIAG-01 / DIAG-02 | Exportação da janela filtra AttemptId; histórico completo tem ação e nome próprios; códigos específicos para linhas/células/bytes, estrutura, ODS e exportação remota | Testes de correlação, privacidade, persistência e exportação; esquema anterior continua legível |
 | RETRY-01 | Sem repetição automática de erro permanente; repetição manual de entrada inválida aguarda edição; ambiguidade abre escolha; entrada corrigida sem intenção remota inicia operação nova | Testes de preservação dos dois snapshots, bloqueio após intenção remota e revalidação nativa |
 | CAP-01 | Somente CSV/TSV: 60.000 registros e 600.000 células; allowance explícito na conferência XLSX | Testes de 53.941×10 e 60.000×10; outro formato continua no limite anterior; diamonds real conferido localmente |
@@ -30,6 +30,8 @@ Leitura de referência produzida com `csv.reader` Python, encoding e delimitador
 | ODS com caudas vazias | Quatro abas | Preparação passou; bytes preservados; verificação tipada indisponível por recursos complexos |
 
 Diamonds no processo de conferência local: XLSX de 2.440.988 bytes; aproximadamente 460 MB de alocações acumuladas (não memória residente) e pico residente do processo de aproximadamente 196 MB. São medidas de uma execução, sem rede; não são garantia de tempo/memória em todo computador.
+
+A reprodução nativa no Windows confirmou a causa visual de UI-01: após minimizar/restaurar o modal, o controle de mensagem ficava com apenas 31 pixels de altura, menos que seu padding vertical de 36 pixels. O texto permanecia no estado, mas não era desenhado. A correção mantém o tamanho mínimo compatível com mensagem/cabeçalho/ações e recalcula o layout ao restaurar. O teste mede a presença de texto renderizado antes e depois, além do estado textual.
 
 ## Invariantes preservados
 

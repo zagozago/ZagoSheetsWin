@@ -28,20 +28,35 @@ internal sealed class ProcessingForm : Form
     private Exception? displayedFailure;
     private string? diagnosticFeedback;
     private TextImportOptions? interpretation;
+    private bool renderingFailure;
     private void RenderFailure()
     {
-        if (displayedFailure is null) return;
-        status.Text = (displayedFailure is OperationCanceledException && !cancellation.IsCancellationRequested
-            ? UiText.Get("error.connectionTimeout") : LauncherErrors.Message(displayedFailure))
-            + (needsInputChange ? "\n\n" + UiText.Get("retry.editInput") : "")
-            + (diagnosticFeedback is null ? "" : "\n\n" + UiText.Get(diagnosticFeedback));
-        if (IsHandleCreated)
+        if (displayedFailure is null || renderingFailure) return;
+        renderingFailure = true;
+        try
         {
-            var needed = TextRenderer.MeasureText(status.Text, status.Font,
-                new Size(Math.Max(100, status.ClientSize.Width - status.Padding.Horizontal), int.MaxValue), TextFormatFlags.WordBreak).Height + status.Padding.Vertical + 8;
-            if (status.ClientSize.Height < needed) ClientSize = new Size(ClientSize.Width, ClientSize.Height + needed - status.ClientSize.Height);
+            status.Text = (displayedFailure is OperationCanceledException && !cancellation.IsCancellationRequested
+                ? UiText.Get("error.connectionTimeout") : LauncherErrors.Message(displayedFailure))
+                + (needsInputChange ? "\n\n" + UiText.Get("retry.editInput") : "")
+                + (diagnosticFeedback is null ? "" : "\n\n" + UiText.Get(diagnosticFeedback));
+            if (IsHandleCreated && WindowState == FormWindowState.Normal && ClientSize.Width > 0 && ClientSize.Height > 0)
+            {
+                PerformLayout();
+                var needed = TextRenderer.MeasureText(status.Text, status.Font,
+                    new Size(Math.Max(100, status.ClientSize.Width - status.Padding.Horizontal), int.MaxValue), TextFormatFlags.WordBreak).Height + status.Padding.Vertical + 8;
+                if (status.ClientSize.Height < needed) ClientSize = new Size(ClientSize.Width, ClientSize.Height + needed - status.ClientSize.Height);
+                // Windows may restore to the old minimum after minimizing a modal.
+                // Keep enough room for the complete message, header and wrapped actions.
+                MinimumSize = new Size(Math.Max(MinimumSize.Width, Width), Math.Max(MinimumSize.Height, Height));
+            }
+            status.Invalidate();
         }
-        status.Invalidate();
+        finally { renderingFailure = false; }
+    }
+    protected override void OnResize(EventArgs e)
+    {
+        base.OnResize(e);
+        if (WindowState == FormWindowState.Normal) RenderFailure();
     }
     internal string StatusText => status.Text;
     internal void SetDiagnosticFeedback(string key) { diagnosticFeedback = key; RenderFailure(); }
