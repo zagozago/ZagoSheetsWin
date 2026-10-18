@@ -1,5 +1,7 @@
 # Matriz de regressão 0.9.38 — 26 + 78 casos
 
+Atualização 0.9.39: T012 aceito após correção de coluna única citada; T027 real anexado tem largura inválida e deve ser rejeitado, enquanto a variante corrigida sem aspas ao redor da linha inteira deve passar; T031 tem correção de CRLF e retomada. Ver REGRESSION_0939.md.
+
 Especificação revisada; não equivale a execução de todos os binários. Os arquivos mestres permanecem intactos. Testes locais sintéticos por forma e gramática não substituem o smoke no Google.
 
 | ID | Arquivo | Critério nesta versão | Evidência desta iteração |
@@ -114,4 +116,4 @@ Os 26 foram informados como aprovados pelo usuário antes do novo lote. A tabela
 | 23_aspas_multilinhas_pipe.csv | 3 × 4 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
 | 24_ptbr_pipe.csv | 5 × 5 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; não reexecutado aqui. |
 | 25_anagrams_pontovirgula_grande_1mb.csv | 90,000 × 5 | 90.001×5: positivo experimental com limites v3; Google real pendente. | Forma sintética completa verificada. |
-| 26_anagrams_pontovirgula_medio.csv | 32,000 × 5 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Forma 53.941×10 coberta por teste automático; não reprocessado o binário mestre. |
+| 26_anagrams_pontovirgula_medio.csv | 32,000 × 5 | Preservar dimensões e valores; repetir smoke em cópia no Google real. | Aceite anterior informado pelo usuário; o catálogo descreve 32.000 registros ×5, e o mestre não foi reprocessado aqui. |
