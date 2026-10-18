@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.35",
+  "productVersion": "0.9.36",
   "sourceLocale": "pt-BR",
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -151,7 +151,7 @@
     "error.connectionTimeout": "Połączenie trwało zbyt długo. Sprawdź połączenie z internetem i wznów przez odzyskiwanie; istniejące kopie zapasowe zostały zachowane.",
     "error.conversionMismatch": "Weryfikacja wykryła różnice w przekonwertowanych danych. Oryginał i kopia zapasowa zostały zachowane. Kopia może istnieć w Google; sprawdź odzyskiwanie przed ponowną próbą.",
     "error.copyRequired": "Ten arkusz musi zostać zaimportowany jako kopia; oryginał musi zostać zachowany.",
-    "error.csvDelimiter": "CSV może używać przecinków lub średników. Wybierz separator w opcjach tekstu. Oryginał został zachowany.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Wybierz separator przy ponownej próbie.",
     "error.exportSize": "Eksport przekroczył limit weryfikacji. Oryginał i kopia zapasowa zostały zachowane; sprawdź odzyskiwanie przed ponownym importem.",
     "error.formulaVerification": "Przekonwertowany arkusz zawiera formuły, których aplikacja nie potrafi jeszcze zweryfikować. Oryginał i kopia zapasowa zostały zachowane. W Odzyskiwanie / kopie zapasowe wybierz tę operację i opcję Wznów jako kopię, aby otworzyć arkusz w Google bez ponownego wysyłania.",
     "error.generic": "Nie udało się zakończyć operacji. Sprawdź ustawienia, połączenie i czy plik nie jest otwarty w innej aplikacji. Istniejące kopie zapasowe pozostają dostępne. Sprawdź też, czy plik ma ustawiony atrybut „Tylko do odczytu”.",
@@ -163,7 +163,7 @@
     "error.network": "Nie udało się połączyć z Google. Sprawdź połączenie i wznów przez aplikację; oryginał został zachowany, a operacja oczekująca może wymagać odzyskania.",
     "error.reconciliationRequired": "Import oczekuje na uzgodnienie. Nie wysyłaj go ponownie ręcznie. Sprawdź przewodnik odzyskiwania.",
     "error.setupRequired": "Przed otwieraniem arkuszy dokończ konfigurację pierwszego uruchomienia. Otwórz ZagoSheetsWin lub jego Ustawienia, aby połączyć się z Google i zapisać preferencje.",
-    "error.textEncoding": "Nie udało się odczytać kodowania CSV/TSV. Użyj UTF-8 lub UTF-16 z BOM; dla starszych plików wybierz Windows-1252 w opcjach tekstu. Oryginał został zachowany.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Zapisz plik jako UTF-8 i spróbuj ponownie. Oryginał został zachowany.",
     "error.textStructure": "CSV/TSV jest pusty lub zawiera niespójne wiersze, separatory albo cudzysłowy. Sprawdź separator i strukturę pliku. Oryginał został zachowany.",
     "error.xlsConversion": "Nie udało się przekonwertować tego XLS do XLSX. Oryginał i kopia zapasowa zostały zachowane.",
     "error.xlsxContentType": "Nie udało się bezpiecznie rozpoznać wewnętrznego formatu XLSX. Oryginał został zachowany. Zapisz nową kopię XLSX w Excelu lub LibreOffice i spróbuj użyć tej kopii.",
@@ -350,6 +350,10 @@
     "tutorial.showAtStartup": "Pokazuj ten samouczek przy otwieraniu aplikacji",
     "setup.defaultsHelp": "Wybierz ZagoSheetsWin w Aplikacjach domyślnych Windows. Opcjonalne, ale zalecane. Wybierz ZagoSheetsWin w domyślnych aplikacjach Windows. To opcjonalne: możesz też użyć Otwórz za pomocą → ZagoSheetsWin.",
     "import.notice.partialConversion": "Arkusz został otwarty w Google Sheets. Oryginalny plik zastąpiono skrótem. Aby go odzyskać, otwórz {backups}.",
-    "import.notice.dontShowAgain": "Nie pokazuj ponownie"
+    "import.notice.dontShowAgain": "Nie pokazuj ponownie",
+    "recovery.repairNew": "Importuj ponownie do nowego dokumentu…",
+    "recovery.repairExplanation": "Tworzy nowy arkusz z tej kopii. Poprzedni arkusz, jego skrót i oryginał pozostają bez zmian.",
+    "action.exportDiagnosticHistory": "Eksportuj historię diagnostyki…",
+    "retry.editInput": "Edytuj plik przed ponowną próbą."
   }
 }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.35",
+  "productVersion": "0.9.36",
   "sourceLocale": "pt-BR",
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -151,7 +151,7 @@
     "error.connectionTimeout": "The connection took too long. Check your internet connection and resume through recovery; existing backups were preserved.",
     "error.conversionMismatch": "Verification found differences in the converted data. The original and backup were preserved. A copy may exist in Google; check recovery before trying again.",
     "error.copyRequired": "This spreadsheet must be imported as a copy; the original must be preserved.",
-    "error.csvDelimiter": "The CSV may use commas or semicolons. Choose the delimiter in the text options. The original was preserved.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Choose the separator when retrying.",
     "error.exportSize": "The export exceeded the verification limit. The original and backup were preserved; check recovery before importing again.",
     "error.formulaVerification": "The converted spreadsheet contains formulas the app cannot yet verify. The original and backup were preserved. In Recovery / backups, select this operation and choose Resume as copy to open the spreadsheet in Google without uploading again.",
     "error.generic": "Could not complete the operation. Check the settings, connection and whether the file is open in another app. Existing backups remain available. Also check whether the file is marked read-only.",
@@ -163,7 +163,7 @@
     "error.network": "Could not communicate with Google. Check the connection and resume through the app; the original was preserved and a pending operation may need recovery.",
     "error.reconciliationRequired": "The import is awaiting reconciliation. Do not upload it again manually. Check the recovery guide.",
     "error.setupRequired": "Complete first-use setup before opening spreadsheets. Open ZagoSheetsWin or its Settings to connect to Google and save your preferences.",
-    "error.textEncoding": "Could not read the CSV/TSV encoding. Use UTF-8 or UTF-16 with BOM; for older files, select Windows-1252 in the text options. The original was preserved.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Save the file as UTF-8 and retry. The original was preserved.",
     "error.textStructure": "The CSV/TSV is empty or contains inconsistent rows, delimiters or quotes. Check the delimiter and file structure. The original was preserved.",
     "error.xlsConversion": "Could not convert this XLS to XLSX. The original and backup were preserved.",
     "error.xlsxContentType": "Could not safely identify the XLSX internal format. The original was preserved. Save a new XLSX copy in Excel or LibreOffice and try that copy.",
@@ -350,6 +350,10 @@
     "tutorial.showAtStartup": "Show this tutorial when opening the app",
     "setup.defaultsHelp": "Choose ZagoSheetsWin in Windows Default apps. Optional, but recommended. Choose ZagoSheetsWin in Windows Default apps. This is optional: you can also use Open with → ZagoSheetsWin.",
     "import.notice.partialConversion": "Spreadsheet opened in Google Sheets. The original file was replaced by a shortcut. To recover it, open {backups}.",
-    "import.notice.dontShowAgain": "Don't show again"
+    "import.notice.dontShowAgain": "Don't show again",
+    "recovery.repairNew": "Reimport into a new document…",
+    "recovery.repairExplanation": "Creates a new spreadsheet from this backup. The previous spreadsheet, its shortcut and the original remain intact.",
+    "action.exportDiagnosticHistory": "Export diagnostic history…",
+    "retry.editInput": "Edit the file before retrying."
   }
 }

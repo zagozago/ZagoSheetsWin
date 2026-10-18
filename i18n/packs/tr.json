@@ -2,8 +2,8 @@
   "language": "tr",
   "locale": "tr-TR",
   "direction": "ltr",
-  "catalogRevision": 10,
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "catalogRevision": 11,
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -141,7 +141,7 @@
     "error.connectionTimeout": "Bağlantı çok uzun sürdü. İnternet bağlantınızı denetleyin ve kurtarma üzerinden sürdürün; mevcut yedekler korundu.",
     "error.conversionMismatch": "Doğrulama, dönüştürülen verilerde farklılıklar buldu. Özgün dosya ve yedek korundu. Google’da bir kopya bulunabilir; yeniden denemeden önce kurtarmayı denetleyin.",
     "error.copyRequired": "Bu elektronik tablo bir kopya olarak içe aktarılmalıdır; özgün dosya korunmalıdır.",
-    "error.csvDelimiter": "CSV virgül veya noktalı virgül kullanıyor olabilir. Metin seçeneklerinden ayırıcıyı seçin. Özgün dosya korundu.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Yeniden denerken ayırıcıyı seçin.",
     "error.exportSize": "Dışa aktarılan veri doğrulama sınırını aştı. Özgün dosya ve yedek korundu; yeniden içe aktarmadan önce kurtarmayı denetleyin.",
     "error.formulaVerification": "Dönüştürülen elektronik tablo, uygulamanın henüz doğrulayamadığı formüller içeriyor. Özgün dosya ve yedek korundu. Kurtarma / yedekler bölümünde bu işlemi seçip “Kopya olarak sürdür” seçeneğini kullanarak elektronik tabloyu yeniden yüklemeden Google’da açabilirsiniz.",
     "error.generic": "İşlem tamamlanamadı. Ayarları, bağlantıyı ve dosyanın başka bir uygulamada açık olup olmadığını denetleyin. Mevcut yedekler kullanılabilir durumda kalır. Dosyanın salt okunur olarak işaretlenip işaretlenmediğini de kontrol edin.",
@@ -153,7 +153,7 @@
     "error.network": "Google ile iletişim kurulamadı. Bağlantıyı denetleyin ve uygulama üzerinden sürdürün; özgün dosya korundu ve bekleyen bir işlem kurtarma gerektirebilir.",
     "error.reconciliationRequired": "İçe aktarma durum uzlaştırmasını bekliyor. El ile yeniden yüklemeyin. Kurtarma kılavuzunu inceleyin.",
     "error.setupRequired": "Elektronik tabloları açmadan önce ilk kullanım kurulumunu tamamlayın. ZagoSheetsWin’i veya Ayarlar’ı açın, Google’a bağlanın ve tercihlerinizi kaydedin.",
-    "error.textEncoding": "CSV/TSV kodlaması okunamadı. UTF-8 veya BOM içeren UTF-16 kullanın; eski dosyalar için metin seçeneklerinden Windows-1252 seçin. Özgün dosya korundu.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Dosyayı UTF-8 olarak kaydedip yeniden deneyin. Özgün dosya korundu.",
     "error.textStructure": "CSV/TSV boş veya tutarsız satırlar, ayırıcılar ya da tırnak işaretleri içeriyor. Ayırıcıyı ve dosya yapısını denetleyin. Özgün dosya korundu.",
     "error.xlsConversion": "Bu XLS, XLSX biçimine dönüştürülemedi. Özgün dosya ve yedek korundu.",
     "error.xlsxContentType": "XLSX iç biçimi güvenli biçimde tanımlanamadı. Özgün dosya korundu. Excel veya LibreOffice’te yeni bir XLSX kopyası kaydedip bu kopyayı açmayı deneyin.",
@@ -642,6 +642,10 @@
     "tutorial.showAtStartup": "Uygulama açılırken bu öğreticiyi göster",
     "setup.defaultsHelp": "Windows Varsayılan uygulamalarında ZagoSheetsWin’i seçin. İsteğe bağlı, ancak önerilir. Windows Varsayılan uygulamalar bölümünde ZagoSheetsWin’i seçin. Bu isteğe bağlıdır: Birlikte aç → ZagoSheetsWin de kullanabilirsiniz.",
     "import.notice.partialConversion": "E-tablo Google Sheets'te açıldı. Asıl dosyanın yerine bir kısayol oluşturuldu. Dosyayı geri almak için {backups} bölümünü açın.",
-    "import.notice.dontShowAgain": "Bir daha gösterme"
+    "import.notice.dontShowAgain": "Bir daha gösterme",
+    "recovery.repairNew": "Yeni belgeye yeniden aktar…",
+    "recovery.repairExplanation": "Bu yedekten yeni bir e-tablo oluşturur. Önceki e-tablo, kısayolu ve özgün dosya korunur.",
+    "action.exportDiagnosticHistory": "Tanılama geçmişini dışa aktar…",
+    "retry.editInput": "Yeniden denemeden önce dosyayı düzenleyin."
   }
 }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.35",
+  "productVersion": "0.9.36",
   "sourceLocale": "pt-BR",
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -151,7 +151,7 @@
     "error.connectionTimeout": "Masyadong matagal ang connection. Suriin ang internet connection at ipagpatuloy sa recovery; napanatili ang mga kasalukuyang backup.",
     "error.conversionMismatch": "May nakitang pagkakaiba ang verification sa na-convert na data. Napanatili ang orihinal at backup. Maaaring may kopya sa Google; tingnan ang recovery bago subukan ulit.",
     "error.copyRequired": "Kailangang i-import ang spreadsheet na ito bilang kopya; kailangang panatilihin ang orihinal.",
-    "error.csvDelimiter": "Maaaring gumamit ang CSV ng comma o semicolon. Piliin ang delimiter sa text options. Napanatili ang orihinal.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Piliin ang separator kapag sumusubok muli.",
     "error.exportSize": "Lumampas ang export sa verification limit. Napanatili ang orihinal at backup; tingnan ang recovery bago mag-import ulit.",
     "error.formulaVerification": "May mga formula ang na-convert na spreadsheet na hindi pa kayang i-verify ng app. Napanatili ang orihinal at backup. Sa Recovery / backups, piliin ang operation na ito at piliin ang Resume as copy para buksan ang spreadsheet sa Google nang hindi nag-a-upload ulit.",
     "error.generic": "Hindi makumpleto ang operation. Suriin ang settings, connection at kung bukas ang file sa ibang app. Available pa rin ang mga kasalukuyang backup. Tingnan din kung nakatakda ang file bilang read-only.",
@@ -163,7 +163,7 @@
     "error.network": "Hindi makipag-ugnayan sa Google. Suriin ang connection at ipagpatuloy sa app; napanatili ang orihinal at maaaring kailanganin ng recovery ang isang pending operation.",
     "error.reconciliationRequired": "Naghihintay ng reconciliation ang import. Huwag itong i-upload ulit nang manu-mano. Tingnan ang recovery guide.",
     "error.setupRequired": "Kumpletuhin ang first-use setup bago magbukas ng mga spreadsheet. Buksan ang ZagoSheetsWin o ang Mga Setting nito para kumonekta sa Google at i-save ang preferences.",
-    "error.textEncoding": "Hindi mabasa ang CSV/TSV encoding. Gumamit ng UTF-8 o UTF-16 na may BOM; para sa mas lumang file, piliin ang Windows-1252 sa text options. Napanatili ang orihinal.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. I-save ang file bilang UTF-8 at subukan muli. Napanatili ang orihinal.",
     "error.textStructure": "Walang laman ang CSV/TSV o may hindi magkakatugmang row, delimiter o quote. Suriin ang delimiter at file structure. Napanatili ang orihinal.",
     "error.xlsConversion": "Hindi ma-convert ang XLS na ito sa XLSX. Napanatili ang orihinal at backup.",
     "error.xlsxContentType": "Hindi ligtas na matukoy ang internal format ng XLSX. Napanatili ang orihinal. Mag-save ng bagong XLSX copy sa Excel o LibreOffice at subukan ang kopyang iyon.",
@@ -350,6 +350,10 @@
     "tutorial.showAtStartup": "Ipakita ang tutorial na ito kapag binubuksan ang app",
     "setup.defaultsHelp": "Piliin ang ZagoSheetsWin sa Default apps ng Windows. Opsyonal, ngunit inirerekomenda. Piliin ang ZagoSheetsWin sa Windows Default apps. Optional ito: maaari mo ring gamitin ang Open with → ZagoSheetsWin.",
     "import.notice.partialConversion": "Binuksan ang spreadsheet sa Google Sheets. Pinalitan ng shortcut ang orihinal na file. Para mabawi ito, buksan ang {backups}.",
-    "import.notice.dontShowAgain": "Huwag nang ipakita muli"
+    "import.notice.dontShowAgain": "Huwag nang ipakita muli",
+    "recovery.repairNew": "I-import muli sa bagong dokumento…",
+    "recovery.repairExplanation": "Gumagawa ng bagong spreadsheet mula sa backup na ito. Mananatiling buo ang dating spreadsheet, shortcut nito, at orihinal.",
+    "action.exportDiagnosticHistory": "I-export ang kasaysayan ng diagnostic…",
+    "retry.editInput": "I-edit ang file bago subukang muli."
   }
 }

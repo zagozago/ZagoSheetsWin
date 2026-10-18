@@ -2,8 +2,8 @@
   "language": "am",
   "locale": "am-ET",
   "direction": "ltr",
-  "catalogRevision": 10,
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "catalogRevision": 11,
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -141,7 +141,7 @@
     "error.connectionTimeout": "ግንኙነቱ በጣም ረጅም ጊዜ ወሰደ። የኢንተርኔት ግንኙነትዎን ያረጋግጡ እና በመልሶ ማግኛ በኩል ይቀጥሉ፤ ያሉ ምትኬዎች ተጠብቀዋል።",
     "error.conversionMismatch": "ማረጋገጫው በተቀየረው ውሂብ ውስጥ ልዩነቶችን አግኝቷል። ዋናው እና ምትኬው ተጠብቀዋል። በGoogle ውስጥ ቅጂ ሊኖር ይችላል፤ እንደገና ከመሞከርዎ በፊት መልሶ ማግኛን ያረጋግጡ።",
     "error.copyRequired": "ይህ የተመን ሉህ እንደ ቅጂ መግባት አለበት፤ ዋናው መጠበቅ አለበት።",
-    "error.csvDelimiter": "CSV ኮማ ወይም ሰሚኮሎን ሊጠቀም ይችላል። በጽሑፍ አማራጮች ውስጥ መለያያውን ይምረጡ። ዋናው ተጠብቋል።",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. እንደገና ሲሞክሩ መለያውን ይምረጡ።",
     "error.exportSize": "የተላከው ውጤት ከማረጋገጫ ገደቡ በላይ ነው። ዋናው እና ምትኬው ተጠብቀዋል፤ እንደገና ከማስመጣትዎ በፊት መልሶ ማግኛን ያረጋግጡ።",
     "error.formulaVerification": "የተቀየረው የተመን ሉህ መተግበሪያው እስካሁን ማረጋገጥ የማይችላቸውን ቀመሮች ይዟል። ዋናው እና ምትኬው ተጠብቀዋል። በመልሶ ማግኛ / ምትኬዎች ውስጥ ይህን ሂደት ይምረጡ እና እንደ ቅጂ ቀጥል የሚለውን ይምረጡ እንዲሁም እንደገና ሳይሰቀል በGoogle ውስጥ የተመን ሉሁን ይክፈቱ።",
     "error.generic": "ሂደቱን ማጠናቀቅ አልተቻለም። ቅንብሮችን፣ ግንኙነቱን እና ፋይሉ በሌላ መተግበሪያ ውስጥ ክፍት መሆኑን ያረጋግጡ። ያሉ ምትኬዎች እንደተገኙ ይቆያሉ። ፋይሉ ለማንበብ ብቻ እንደተዘጋጀም ያረጋግጡ።",
@@ -153,7 +153,7 @@
     "error.network": "ከGoogle ጋር መገናኘት አልተቻለም። ግንኙነቱን ያረጋግጡ እና በመተግበሪያው በኩል ይቀጥሉ፤ ዋናው ተጠብቋል እና በመጠባበቅ ላይ ያለ ሂደት መልሶ ማግኛ ሊፈልግ ይችላል።",
     "error.reconciliationRequired": "ማስመጣቱ መጣጣም እየጠበቀ ነው። እንደገና በእጅ አይስቀሉት። የመልሶ ማግኛ መመሪያውን ያረጋግጡ።",
     "error.setupRequired": "የተመን ሉሆችን ከመክፈትዎ በፊት የመጀመሪያ አጠቃቀም ቅንብርን ያጠናቅቁ። ZagoSheetsWinን ወይም ቅንብሮቹን ይክፈቱ ከGoogle ጋር ለመገናኘት እና ምርጫዎችዎን ለማስቀመጥ።",
-    "error.textEncoding": "የCSV/TSV ኢንኮዲንግን ማንበብ አልተቻለም። UTF-8 ወይም UTF-16 ከBOM ጋር ይጠቀሙ፤ ለድሮ ፋይሎች Windows-1252 የሚለውን በጽሑፍ አማራጮች ውስጥ ይምረጡ። ዋናው ተጠብቋል።",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. ፋይሉን እንደ UTF-8 ያስቀምጡና እንደገና ይሞክሩ። ዋናው ፋይል ተጠብቋል።",
     "error.textStructure": "CSV/TSV ባዶ ነው ወይም የማይጣጣሙ ረድፎች፣ መለያያዎች ወይም ጥቅሶች አሉት። መለያያውን እና የፋይል መዋቅሩን ያረጋግጡ። ዋናው ተጠብቋል።",
     "error.xlsConversion": "ይህን XLS ወደ XLSX መቀየር አልተቻለም። ዋናው እና ምትኬው ተጠብቀዋል።",
     "error.xlsxContentType": "የXLSX ውስጣዊ ቅርጸትን በደህና መለየት አልተቻለም። ዋናው ተጠብቋል። አዲስ XLSX ቅጂ በExcel ወይም LibreOffice ውስጥ ያስቀምጡ እና ያንን ቅጂ ይሞክሩ።",
@@ -642,6 +642,10 @@
     "tutorial.showAtStartup": "መተግበሪያው ሲከፈት ይህን መመሪያ አሳይ",
     "setup.defaultsHelp": "በWindows ነባሪ መተግበሪያዎች ውስጥ ZagoSheetsWin ይምረጡ። አማራጭ ነው፣ ግን ይመከራል። በWindows ነባሪ መተግበሪያዎች ውስጥ ZagoSheetsWinን ይምረጡ። ይህ አማራጭ ነው፦ በ… ክፈት → ZagoSheetsWin መጠቀምም ይችላሉ።",
     "import.notice.partialConversion": "ሰንጠረዡ በGoogle Sheets ተከፍቷል። የመጀመሪያው ፋይል በአቋራጭ ተተክቷል። ለመመለስ {backups} ይክፈቱ።",
-    "import.notice.dontShowAgain": "ዳግም አታሳይ"
+    "import.notice.dontShowAgain": "ዳግም አታሳይ",
+    "recovery.repairNew": "ወደ አዲስ ሰነድ እንደገና አስገባ…",
+    "recovery.repairExplanation": "ከዚህ ምትኬ አዲስ የተመን ሉህ ይፈጥራል። የቀድሞው ሉህ፣ አቋራጩ እና ዋናው ፋይል ሳይቀየሩ ይቆያሉ።",
+    "action.exportDiagnosticHistory": "የምርመራ ታሪክ ላክ…",
+    "retry.editInput": "እንደገና ከመሞከርዎ በፊት ፋይሉን ያርትዑ።"
   }
 }

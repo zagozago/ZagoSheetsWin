@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.35",
+  "productVersion": "0.9.36",
   "sourceLocale": "pt-BR",
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -151,7 +151,7 @@
     "error.connectionTimeout": "Ulanish juda uzoq davom etdi. Internet ulanishini tekshiring va tiklash orqali davom ettiring; mavjud zaxira nusxalar saqlandi.",
     "error.conversionMismatch": "Tekshiruv aylantirilgan ma’lumotlarda farqlarni aniqladi. Asl fayl va zaxira nusxa saqlandi. Google’da nusxa mavjud bo‘lishi mumkin; qayta urinishdan oldin tiklashni tekshiring.",
     "error.copyRequired": "Bu jadval nusxa sifatida import qilinishi kerak; asl fayl saqlanishi shart.",
-    "error.csvDelimiter": "CSV vergul yoki nuqtali verguldan foydalanishi mumkin. Matn parametrlarida ajratgichni tanlang. Asl fayl saqlandi.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Qayta urinishda ajratgichni tanlang.",
     "error.exportSize": "Eksport tekshirish limitidan oshib ketdi. Asl fayl va zaxira nusxa saqlandi; qayta import qilishdan oldin tiklashni tekshiring.",
     "error.formulaVerification": "Aylantirilgan jadvalda ilova hali tekshira olmaydigan formulalar bor. Asl fayl va zaxira nusxa saqlandi. Tiklash / zaxira nusxalar bo‘limida ushbu amalni tanlang va jadvalni qayta yuklamasdan Google’da ochish uchun Nusxa sifatida davom ettirishni tanlang.",
     "error.generic": "Amalni tugatib bo‘lmadi. Sozlamalar, ulanish va fayl boshqa ilovada ochiq yoki yo‘qligini tekshiring. Mavjud zaxira nusxalar saqlanadi. Fayl faqat o‘qish uchun belgilanganligini ham tekshiring.",
@@ -163,7 +163,7 @@
     "error.network": "Google bilan aloqa o‘rnatib bo‘lmadi. Ulanishni tekshiring va ilova orqali davom ettiring; asl fayl saqlandi va kutilayotgan amal tiklashni talab qilishi mumkin.",
     "error.reconciliationRequired": "Import kelishtirishni kutmoqda. Uni qo‘lda qayta yuklamang. Tiklash qo‘llanmasini tekshiring.",
     "error.setupRequired": "Jadvallarni ochishdan oldin birinchi foydalanish sozlamalarini yakunlang. Google’ga ulanish va tanlovlaringizni saqlash uchun ZagoSheetsWin yoki uning Sozlamalarini oching.",
-    "error.textEncoding": "CSV/TSV kodlashini o‘qib bo‘lmadi. BOM bilan UTF-8 yoki UTF-16’dan foydalaning; eski fayllar uchun matn parametrlarida Windows-1252’ni tanlang. Asl fayl saqlandi.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Faylni UTF-8 sifatida saqlang va qayta urinib ko‘ring. Asl fayl saqlandi.",
     "error.textStructure": "CSV/TSV bo‘sh yoki unda mos kelmaydigan qatorlar, ajratgichlar yoki qo‘shtirnoqlar mavjud. Ajratgich va fayl tuzilishini tekshiring. Asl fayl saqlandi.",
     "error.xlsConversion": "Bu XLS faylini XLSX ga aylantirib bo‘lmadi. Asl fayl va zaxira nusxa saqlandi.",
     "error.xlsxContentType": "XLSX ichki formatini xavfsiz aniqlab bo‘lmadi. Asl fayl saqlandi. Excel yoki LibreOffice’da yangi XLSX nusxasini saqlang va shu nusxani sinab ko‘ring.",
@@ -350,6 +350,10 @@
     "tutorial.showAtStartup": "Ilova ochilganda ushbu qo‘llanmani ko‘rsatish",
     "setup.defaultsHelp": "Windows standart ilovalarida ZagoSheetsWin’ni tanlang. Ixtiyoriy, ammo tavsiya etiladi. Windows Default apps’da ZagoSheetsWin’ni tanlang. Bu ixtiyoriy: Open with → ZagoSheetsWin’dan ham foydalanishingiz mumkin.",
     "import.notice.partialConversion": "Jadval Google Sheets’da ochildi. Asl fayl yorliq bilan almashtirildi. Uni tiklash uchun {backups} boʻlimini oching.",
-    "import.notice.dontShowAgain": "Qayta ko‘rsatmang"
+    "import.notice.dontShowAgain": "Qayta ko‘rsatmang",
+    "recovery.repairNew": "Yangi hujjatga qayta import qilish…",
+    "recovery.repairExplanation": "Ushbu zaxiradan yangi jadval yaratadi. Avvalgi jadval, uning yorlig‘i va asl fayl o‘zgarishsiz qoladi.",
+    "action.exportDiagnosticHistory": "Diagnostika tarixini eksport qilish…",
+    "retry.editInput": "Qayta urinishdan oldin faylni tahrirlang."
   }
 }

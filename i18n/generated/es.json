@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.35",
+  "productVersion": "0.9.36",
   "sourceLocale": "pt-BR",
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -151,7 +151,7 @@
     "error.connectionTimeout": "La conexión tardó demasiado. Comprueba tu conexión a Internet y reanuda desde Recuperación; las copias de seguridad existentes se conservaron.",
     "error.conversionMismatch": "La verificación encontró diferencias en los datos convertidos. Se conservaron el original y la copia de seguridad. Puede existir una copia en Google; revisa Recuperación antes de intentarlo de nuevo.",
     "error.copyRequired": "Esta hoja de cálculo debe importarse como copia; el original debe conservarse.",
-    "error.csvDelimiter": "El CSV puede usar comas o puntos y coma. Elige el delimitador en las opciones de texto. Se conservó el original.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Elija el separador al reintentar.",
     "error.exportSize": "La exportación superó el límite de verificación. Se conservaron el original y la copia de seguridad; revisa Recuperación antes de volver a importar.",
     "error.formulaVerification": "La hoja de cálculo convertida contiene fórmulas que la aplicación todavía no puede verificar. Se conservaron el original y la copia de seguridad. En Recuperación / copias de seguridad, selecciona esta operación y elige Reanudar como copia para abrir la hoja de cálculo en Google sin volver a cargarla.",
     "error.generic": "No se pudo completar la operación. Comprueba la configuración, la conexión y si el archivo está abierto en otra aplicación. Las copias de seguridad existentes siguen disponibles. Comprueba también si el archivo está marcado como solo lectura.",
@@ -163,7 +163,7 @@
     "error.network": "No se pudo comunicar con Google. Comprueba la conexión y reanuda desde la aplicación; se conservó el original y es posible que una operación pendiente necesite recuperación.",
     "error.reconciliationRequired": "La importación está pendiente de conciliación. No la vuelvas a cargar manualmente. Consulta la guía de recuperación.",
     "error.setupRequired": "Completa la configuración del primer uso antes de abrir hojas de cálculo. Abre ZagoSheetsWin o su Configuración para conectar Google y guardar tus preferencias.",
-    "error.textEncoding": "No se pudo leer la codificación del CSV/TSV. Usa UTF-8 o UTF-16 con BOM; para archivos antiguos, selecciona Windows-1252 en las opciones de texto. Se conservó el original.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Guarde el archivo como UTF-8 y reintente. Se conservó el original.",
     "error.textStructure": "El CSV/TSV está vacío o contiene filas, delimitadores o comillas inconsistentes. Comprueba el delimitador y la estructura del archivo. Se conservó el original.",
     "error.xlsConversion": "No se pudo convertir este XLS a XLSX. Se conservaron el original y la copia de seguridad.",
     "error.xlsxContentType": "No se pudo identificar de forma segura el formato interno del XLSX. Se conservó el original. Guarda una copia nueva como XLSX en Excel o LibreOffice e intenta abrir esa copia.",
@@ -350,6 +350,10 @@
     "tutorial.showAtStartup": "Mostrar este tutorial al abrir la aplicación",
     "setup.defaultsHelp": "Elige ZagoSheetsWin en las Aplicaciones predeterminadas de Windows. Opcional, pero recomendado. Elige ZagoSheetsWin en Aplicaciones predeterminadas de Windows. Es opcional: también puedes usar Abrir con → ZagoSheetsWin.",
     "import.notice.partialConversion": "La hoja se abrió en Google Sheets. El archivo original se sustituyó por un acceso directo. Para recuperarlo, abre {backups}.",
-    "import.notice.dontShowAgain": "No volver a mostrar"
+    "import.notice.dontShowAgain": "No volver a mostrar",
+    "recovery.repairNew": "Reimportar en un documento nuevo…",
+    "recovery.repairExplanation": "Crea una hoja de cálculo nueva desde esta copia. La hoja anterior, su acceso directo y el original permanecen intactos.",
+    "action.exportDiagnosticHistory": "Exportar historial de diagnósticos…",
+    "retry.editInput": "Edite el archivo antes de reintentar."
   }
 }

@@ -443,6 +443,27 @@ internal static class InterfaceVerification
             timer.Tick += (_, _) => { if (manualRetry.IsBusy) return; var retry = Descendants(manualRetry).OfType<Button>().SingleOrDefault(b => b.Text == UiText.Get("action.retry")); if (retry is null) return; timer.Stop(); retry.PerformClick(); };
             timer.Start(); manualRetry.ShowDialog(); Require(manualAttempts == 2 && manualRetry.ExitCode == 0, "Manual retry must rerun the same request and close after success.");
         }
+        var retryInput = Path.Combine(Path.GetTempPath(), "zsw-retry-" + Guid.NewGuid().ToString("N") + ".csv");
+        File.WriteAllText(retryInput, "invalid");
+        try
+        {
+            var count = 0; var blocked = false; var changed = false; var watch = System.Diagnostics.Stopwatch.StartNew();
+            using var permanent = new ProcessingForm(new(LauncherAction.Open, retryInput), execute: (_, _) =>
+                ++count == 1 ? Task.FromException(new InvalidDataException("Irregular delimited table.")) : Task.CompletedTask, recordDiagnostics: false);
+            using var gateTimer = new System.Windows.Forms.Timer { Interval = 100 };
+            gateTimer.Tick += (_, _) =>
+            {
+                if (permanent.IsBusy) return;
+                if (watch.Elapsed > TimeSpan.FromSeconds(8)) { gateTimer.Stop(); permanent.Close(); return; }
+                var retry = Descendants(permanent).OfType<Button>().SingleOrDefault(b => b.Text == UiText.Get("action.retry"));
+                if (retry is null) return;
+                if (!changed) { blocked = !retry.Enabled && permanent.StatusText.Contains(UiText.Get("retry.editInput"), StringComparison.Ordinal); File.AppendAllText(retryInput, " corrected"); changed = true; }
+                else if (retry.Enabled) { gateTimer.Stop(); retry.PerformClick(); }
+            };
+            gateTimer.Start(); permanent.ShowDialog();
+            Require(blocked && count == 2 && permanent.ExitCode == 0, "Permanent input failures must wait for an edit and then allow revalidation.");
+        }
+        finally { File.Delete(retryInput); }
         using (var success = new ProcessingForm(new(LauncherAction.Open, "preview.xlsx"), execute: async (_, _) => await Task.Yield(), recordDiagnostics: false))
         {
             success.ShowDialog(); measurements["OfflineSuccessUi"] = success.LastMetrics!; Require(success.ExitCode == 0 && !success.IsBusy, "Successful processing must close automatically.");
@@ -462,15 +483,27 @@ internal static class InterfaceVerification
             timer.Tick += (_, _) => { if (cancel.IsBusy) { timer.Stop(); cancel.Close(); } }; timer.Start();
             cancel.ShowDialog(); measurements["OfflineCancelledUi"] = cancel.LastMetrics!; Require(cancelled && cancel.ExitCode == 1 && !cancel.IsBusy, "Closing busy processing must cancel and await the worker.");
         }
-        using (var failure = new ProcessingForm(new(LauncherAction.Copy, "preview.csv"), execute: (_, _) => Task.FromException(new ConversionMismatchException()), recordDiagnostics: false))
+        IProgress<string>? oldProgress = null;
+        using (var failure = new ProcessingForm(new(LauncherAction.Copy, "preview.csv"), execute: (progress, _) =>
+        { oldProgress = progress; return Task.FromException(new ConversionMismatchException()); }, recordDiagnostics: false))
         using (var timer = new System.Windows.Forms.Timer { Interval = 25 })
         {
             var failureVisible = false;
             timer.Tick += (_, _) =>
             {
                 if (failure.IsBusy || failure.ExitCode != 1) return;
-                failureVisible = failure.Visible && Descendants(failure).OfType<Button>().Any(b => b.Text == "Exportar diagnóstico…")
+                timer.Stop();
+                var before = failure.StatusText;
+                var failureLabel = Descendants(failure).OfType<Label>().Single(l => l.AccessibleName == UiText.Get("accessibility.processingStatus"));
+                var beforeInk = HasTextInk(failureLabel);
+                oldProgress!.Report("STALE PROGRESS MUST NOT HIDE THE ERROR");
+                Application.DoEvents();
+                failure.WindowState = FormWindowState.Minimized; Application.DoEvents();
+                failure.WindowState = FormWindowState.Normal; failure.Invalidate(true); Application.DoEvents();
+                failureVisible = beforeInk && HasTextInk(failureLabel) && failure.StatusText == before && before == LauncherErrors.Message(new ConversionMismatchException()) && failure.Visible && Descendants(failure).OfType<Button>().Any(b => b.Text == "Exportar diagnóstico…")
                     && Descendants(failure).OfType<Button>().Any(b => b.Text == "Recuperação / backups");
+                failure.SetDiagnosticFeedback("diagnostics.exported");
+                failureVisible &= failure.StatusText.StartsWith(before, StringComparison.Ordinal) && failure.StatusText.Contains(UiText.Get("diagnostics.exported"), StringComparison.Ordinal);
                 timer.Stop(); failure.Close();
             };
             timer.Start(); failure.ShowDialog(); measurements["OfflineFailureUi"] = failure.LastMetrics!; Require(failureVisible, "Failure must stay visible with diagnosis and recovery actions.");
@@ -483,11 +516,32 @@ internal static class InterfaceVerification
         using (benchmark.Begin(ProcessingPhase.Conversion)) payload = SpreadsheetFormats.Prepare("csv", bytes, new("auto", "semicolon"));
         using (benchmark.Begin(ProcessingPhase.Verification)) SpreadsheetFormats.VerifyValues(payload.Expected!, payload.Bytes);
         measurements["OfflineCsv5000x40RoundTrip"] = benchmark.Capture();
+        var largeCsv = new System.Text.StringBuilder();
+        for (var row = 0; row < 60000; row++) { for (var column = 0; column < 10; column++) { if (column > 0) largeCsv.Append('|'); largeCsv.Append(row).Append('_').Append(column); } largeCsv.Append('\n'); }
+        var expanded = new ProcessingTelemetry();
+        using (expanded.Begin(ProcessingPhase.Conversion)) payload = SpreadsheetFormats.Prepare("csv", System.Text.Encoding.UTF8.GetBytes(largeCsv.ToString()));
+        using (expanded.Begin(ProcessingPhase.Verification)) SpreadsheetFormats.VerifyValues(payload.Expected!, payload.Bytes, textImport: true);
+        measurements["OfflineCsv60000x10RoundTrip"] = expanded.Capture();
+        using (var interpretation = new TextInterpretationForm(repair: true))
+        { interpretation.Show(); Application.DoEvents(); Require(interpretation.Options == new TextImportOptions(), "Repair defaults must use the current automatic interpretation."); interpretation.Close(); }
         Console.Error.WriteLine("VERIFY: 51 locale layouts");
         LocaleVerification.Run(output);
         Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(output))!);
         File.WriteAllText(output, System.Text.Json.JsonSerializer.Serialize(new { Measurements = measurements, InputBytes = bytes.Length, Rows = 5000, Columns = 40, GoogleNetwork = false }));
         return 0;
+    }
+    private static bool HasTextInk(Label label)
+    {
+        using var bitmap = new Bitmap(label.Width, label.Height);
+        label.DrawToBitmap(bitmap, new Rectangle(Point.Empty, bitmap.Size));
+        var background = label.BackColor; var ink = 0;
+        for (var y = label.Padding.Top; y < bitmap.Height - label.Padding.Bottom; y += 2)
+        for (var x = label.Padding.Left; x < bitmap.Width - label.Padding.Right; x += 2)
+        {
+            var pixel = bitmap.GetPixel(x, y);
+            if (Math.Abs(pixel.R - background.R) + Math.Abs(pixel.G - background.G) + Math.Abs(pixel.B - background.B) > 80) ink++;
+        }
+        return ink > 20;
     }
     private static IEnumerable<Control> Descendants(Control parent)
     {

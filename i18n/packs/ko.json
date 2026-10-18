@@ -2,8 +2,8 @@
   "language": "ko",
   "locale": "ko-KR",
   "direction": "ltr",
-  "catalogRevision": 10,
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "catalogRevision": 11,
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -139,7 +139,7 @@
     "error.connectionTimeout": "연결 시간이 너무 오래 걸렸습니다. 인터넷 연결을 확인하고 복구에서 다시 시작하세요. 기존 백업은 보존되었습니다.",
     "error.conversionMismatch": "검증 과정에서 변환된 데이터의 차이가 발견되었습니다. 원본과 백업은 보존되었습니다. Google에 사본이 있을 수 있으므로 다시 시도하기 전에 복구를 확인하세요.",
     "error.copyRequired": "이 스프레드시트는 사본으로 가져와야 하며 원본을 보존해야 합니다.",
-    "error.csvDelimiter": "CSV는 쉼표 또는 세미콜론을 사용할 수 있습니다. 텍스트 옵션에서 구분 기호를 선택하세요. 원본은 보존되었습니다.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. 다시 시도할 때 구분 기호를 선택하세요.",
     "error.exportSize": "내보내기가 검증 제한을 초과했습니다. 원본과 백업은 보존되었습니다. 다시 가져오기 전에 복구를 확인하세요.",
     "error.formulaVerification": "변환된 스프레드시트에 앱이 아직 검증할 수 없는 수식이 있습니다. 원본과 백업은 보존되었습니다. 복구 / 백업에서 이 작업을 선택하고 사본으로 다시 시작을 선택하면 다시 업로드하지 않고 Google에서 스프레드시트를 열 수 있습니다.",
     "error.generic": "작업을 완료할 수 없습니다. 설정과 연결 상태를 확인하고 파일이 다른 앱에서 열려 있는지 확인하세요. 기존 백업은 계속 사용할 수 있습니다. 파일이 읽기 전용으로 설정되어 있는지도 확인하세요.",
@@ -151,7 +151,7 @@
     "error.network": "Google과 통신할 수 없습니다. 연결을 확인하고 앱에서 다시 시작하세요. 원본은 보존되었으며 대기 중인 작업은 복구가 필요할 수 있습니다.",
     "error.reconciliationRequired": "가져오기가 조정을 기다리는 중입니다. 수동으로 다시 업로드하지 마세요. 복구 안내를 확인하세요.",
     "error.setupRequired": "스프레드시트를 열기 전에 최초 사용 설정을 완료하세요. ZagoSheetsWin 또는 설정을 열어 Google에 연결하고 기본 설정을 저장하세요.",
-    "error.textEncoding": "CSV/TSV 인코딩을 읽을 수 없습니다. UTF-8 또는 BOM이 포함된 UTF-16을 사용하세요. 오래된 파일은 텍스트 옵션에서 Windows-1252를 선택하세요. 원본은 보존되었습니다.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. 파일을 UTF-8로 저장한 후 다시 시도하세요. 원본은 보존되었습니다.",
     "error.textStructure": "CSV/TSV가 비어 있거나 행, 구분 기호 또는 따옴표가 일관되지 않습니다. 구분 기호와 파일 구조를 확인하세요. 원본은 보존되었습니다.",
     "error.xlsConversion": "이 XLS를 XLSX로 변환할 수 없습니다. 원본과 백업은 보존되었습니다.",
     "error.xlsxContentType": "XLSX 내부 형식을 안전하게 식별할 수 없습니다. 원본은 보존되었습니다. Excel 또는 LibreOffice에서 새 XLSX 사본을 저장한 다음 그 사본으로 다시 시도하세요.",
@@ -640,7 +640,11 @@
     "tutorial.showAtStartup": "앱을 열 때 이 자습서 표시",
     "setup.defaultsHelp": "Windows 기본 앱에서 ZagoSheetsWin을 선택하세요. 선택 사항이지만 권장합니다. Windows 기본 앱에서 ZagoSheetsWin을 선택하세요. 선택 사항이며 연결 프로그램 → ZagoSheetsWin을 사용할 수도 있습니다.",
     "import.notice.partialConversion": "스프레드시트를 Google Sheets에서 열었습니다. 원본 파일은 바로가기로 대체되었습니다. 원본을 복구하려면 {backups}을(를) 여세요.",
-    "import.notice.dontShowAgain": "다시 표시하지 않음"
+    "import.notice.dontShowAgain": "다시 표시하지 않음",
+    "recovery.repairNew": "새 문서로 다시 가져오기…",
+    "recovery.repairExplanation": "이 백업에서 새 스프레드시트를 만듭니다. 이전 스프레드시트, 바로가기 및 원본 파일은 그대로 유지됩니다.",
+    "action.exportDiagnosticHistory": "진단 기록 내보내기…",
+    "retry.editInput": "파일을 수정한 후 다시 시도하세요."
   },
   "expandedNumericNotation": [
     "setup.formatLimits"

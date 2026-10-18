@@ -1,5 +1,16 @@
 # Histórico de alterações
 
+## 0.9.36 — correções do escopo B
+
+- Detecção de CSV/TSV por conteúdo: vírgula, ponto e vírgula, tabulação e barra vertical, com escolha por importação quando houver ambiguidade.
+- Fallback controlado de UTF-8 estrito para Windows-1252 sem BOM; valores permanecem texto literal.
+- ODS passa a ignorar a materialização de caudas vazias repetidas, mantendo coordenadas e os bytes originais de envio.
+- Interpretação versionada por operação; reparo explícito em novo documento a partir de backup, preservando a planilha anterior.
+- Estado de erro persistente, proteção contra progresso atrasado, diagnóstico da tentativa atual e exportação separada do histórico.
+- Repetição de falhas permanentes de entrada aguarda edição do arquivo; arquivos corrigidos sem intenção remota podem iniciar nova operação com o backup anterior preservado.
+- Limites exclusivos de CSV/TSV: 60.000 registros lógicos e 600.000 células, incluindo a releitura de conferência. Demais limites e políticas de backup/substituição preservados.
+- Mensagens novas nos 51 idiomas e regressões automatizadas de leitura, histórico, reparo e interface nativa.
+
 ## 0.9.35
 
 - Clarify that the Windows read-only file attribute can prevent completion; keep the original protected.

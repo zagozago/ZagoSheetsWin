@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.35",
+  "productVersion": "0.9.36",
   "sourceLocale": "pt-BR",
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -151,7 +151,7 @@
     "error.connectionTimeout": "A conexão demorou demais. Confira a internet e retome pela recuperação; backups já criados foram conservados.",
     "error.conversionMismatch": "A conferência encontrou diferença nos dados convertidos. O original e o backup foram preservados. Pode existir uma cópia no Google; consulte a recuperação antes de repetir.",
     "error.copyRequired": "Esta planilha requer importação de cópia; o original deve ser preservado.",
-    "error.csvDelimiter": "O CSV pode usar vírgula ou ponto e vírgula. Escolha o separador nas opções de texto. O original foi preservado.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Escolha o separador ao tentar novamente.",
     "error.exportSize": "A exportação excedeu o limite da conferência. O original e o backup foram preservados; consulte a recuperação antes de repetir a importação.",
     "error.formulaVerification": "A planilha convertida contém fórmulas que o aplicativo ainda não consegue conferir. O original e o backup foram preservados. Em Recuperação / backups, selecione esta operação e use Retomar como cópia para abrir a planilha no Google sem repetir o envio.",
     "error.generic": "Não foi possível concluir. Confira a configuração, a conexão e se o arquivo está aberto em outro aplicativo ou marcado como somente leitura. Backups já criados permanecem disponíveis.",
@@ -163,7 +163,7 @@
     "error.network": "Falha ao comunicar com o Google. Confira a conexão e retome pelo aplicativo; o original foi preservado e uma operação pendente pode precisar de recuperação.",
     "error.reconciliationRequired": "A importação aguarda reconciliação. Não repita o envio manualmente. Consulte o guia de recuperação.",
     "error.setupRequired": "Conclua o primeiro uso antes de abrir planilhas. Abra o ZagoSheetsWin ou suas Configurações para conectar ao Google e salvar suas preferências.",
-    "error.textEncoding": "Não foi possível ler a codificação do CSV/TSV. Use UTF-8 ou UTF-16 com BOM; para arquivos antigos, selecione Windows-1252 nas opções de texto. O original foi preservado.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Salve o arquivo como UTF-8 e tente novamente. O original foi preservado.",
     "error.textStructure": "O CSV/TSV está vazio ou contém linhas, separadores ou aspas inconsistentes. Confira o separador e a estrutura do arquivo. O original foi preservado.",
     "error.xlsConversion": "Não foi possível converter este XLS para XLSX. O original e o backup foram preservados.",
     "error.xlsxContentType": "Não foi possível identificar com segurança o formato interno do XLSX. O original foi preservado. Salve uma nova cópia como XLSX no Excel ou LibreOffice e tente essa cópia.",
@@ -350,6 +350,10 @@
     "tutorial.showAtStartup": "Mostrar este tutorial ao abrir o aplicativo",
     "setup.defaultsHelp": "Escolha ZagoSheetsWin nos Aplicativos padrão do Windows. Opcional, mas recomendado. Escolha ZagoSheetsWin nos Aplicativos padrão do Windows. É opcional: você também pode usar Abrir com → ZagoSheetsWin.",
     "import.notice.partialConversion": "Planilha aberta no Google Sheets. O original foi substituído por um atalho. Para recuperá-lo, abra {backups}.",
-    "import.notice.dontShowAgain": "Não mostrar novamente"
+    "import.notice.dontShowAgain": "Não mostrar novamente",
+    "recovery.repairNew": "Reimportar em novo documento…",
+    "recovery.repairExplanation": "Cria uma nova planilha a partir deste backup. A planilha anterior, seu atalho e o original permanecem intactos.",
+    "action.exportDiagnosticHistory": "Exportar histórico de diagnósticos…",
+    "retry.editInput": "Edite o arquivo para tentar novamente."
   }
 }

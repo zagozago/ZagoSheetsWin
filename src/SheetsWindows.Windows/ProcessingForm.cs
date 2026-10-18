@@ -14,6 +14,38 @@ internal sealed class ProcessingForm : Form
     private readonly long? startedAt;
     private readonly Func<TimeSpan, CancellationToken, Task>? retryDelay;
     private bool busy;
+    private int generation;
+    private readonly System.Windows.Forms.Timer retryWatcher = new() { Interval = 500 };
+    private (long Length, long Written)? inputStamp;
+    private bool needsInputChange;
+    private Action? updateRetry;
+    private (long Length, long Written)? InputStamp()
+    {
+        try { var file = new FileInfo(request.Path!); return file.Exists ? (file.Length, file.LastWriteTimeUtc.Ticks) : null; }
+        catch (Exception ex) when (LauncherErrors.Expected(ex)) { return null; }
+    }
+    private bool terminal;
+    private Exception? displayedFailure;
+    private string? diagnosticFeedback;
+    private TextImportOptions? interpretation;
+    private void RenderFailure()
+    {
+        if (displayedFailure is null) return;
+        status.Text = (displayedFailure is OperationCanceledException && !cancellation.IsCancellationRequested
+            ? UiText.Get("error.connectionTimeout") : LauncherErrors.Message(displayedFailure))
+            + (needsInputChange ? "\n\n" + UiText.Get("retry.editInput") : "")
+            + (diagnosticFeedback is null ? "" : "\n\n" + UiText.Get(diagnosticFeedback));
+        if (IsHandleCreated)
+        {
+            var needed = TextRenderer.MeasureText(status.Text, status.Font,
+                new Size(Math.Max(100, status.ClientSize.Width - status.Padding.Horizontal), int.MaxValue), TextFormatFlags.WordBreak).Height + status.Padding.Vertical + 8;
+            if (status.ClientSize.Height < needed) ClientSize = new Size(ClientSize.Width, ClientSize.Height + needed - status.ClientSize.Height);
+        }
+        status.Invalidate();
+    }
+    internal string StatusText => status.Text;
+    internal void SetDiagnosticFeedback(string key) { diagnosticFeedback = key; RenderFailure(); }
+
     private Mutex? noticeMutex;
     private static bool noticeActive;
     private Task noticeSave = Task.CompletedTask;
@@ -28,12 +60,14 @@ internal sealed class ProcessingForm : Form
         if (request.Action is not (LauncherAction.Open or LauncherAction.Copy or LauncherAction.Login)) throw new ArgumentException("Processing request required.");
         this.request = request; this.execute = execute; this.recordDiagnostics = recordDiagnostics; this.startedAt = startedAt ?? System.Diagnostics.Stopwatch.GetTimestamp();
         this.retryDelay = retryDelay;
+        retryWatcher.Tick += (_, _) => updateRetry?.Invoke();
         Text = UiText.Get("processing.title"); ClientSize = new Size(620, 240); MinimumSize = new Size(620, 240);
         StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
         cancel.Click += (_, _) => { if (busy) { cancellation.Cancel(); cancel.Enabled = false; status.Text = UiText.Get("progress.stopping"); } else Close(); };
         actions.Controls.Add(cancel); Controls.Add(status); Controls.Add(actions);
         FormClosing += (_, e) => { if (busy) { e.Cancel = true; cancellation.Cancel(); cancel.Enabled = false; status.Text = UiText.Get("progress.stopping"); } };
         Branding.Apply(this, aboutButton: false, compact: true);
+        UiText.Changed += RenderFailure;
         if (preview) { status.Text = UiText.Get("progress.verification"); if (previewError) ShowFailure(new ConversionMismatchException()); }
         // Start after the modal/native message loop installs its UI synchronization context.
         else Shown += (_, _) => BeginInvoke((Action)(async () => await RunAsync()));
@@ -41,7 +75,7 @@ internal sealed class ProcessingForm : Form
     private void ShowFailure(Exception ex)
     {
         Text = UiText.Get("processing.failureTitle");
-        status.Text = ex is OperationCanceledException && !cancellation.IsCancellationRequested ? UiText.Get("error.connectionTimeout") : LauncherErrors.Message(ex);
+        displayedFailure = ex; diagnosticFeedback = null; terminal = true; needsInputChange = ImportRetry.RequiresInputChange(ex); RenderFailure();
         var recovery = new AdaptiveButton { Text = UiText.Get("action.recovery"), AutoSize = true };
         recovery.Click += (_, _) => { using var form = new RecoveryForm(); form.ShowDialog(this); };
         var export = new AdaptiveButton { Text = UiText.Get("action.exportDiagnostics"), AutoSize = true };
@@ -49,8 +83,8 @@ internal sealed class ProcessingForm : Form
         {
             using var dialog = new SaveFileDialog { Filter = UiText.Get("dialog.diagnosticFilter"), FileName = DiagnosticLog.SuggestedFileName(request.Path), OverwritePrompt = true };
             if (dialog.ShowDialog(this) != DialogResult.OK) return;
-            try { await new DiagnosticLog(LocalStorage.ForCurrentUser()).ExportAsync(dialog.FileName, overwrite: true, currentAttempt: latestDiagnostic); status.Text = UiText.Get("diagnostics.exported"); }
-            catch (Exception failure) when (LauncherErrors.Expected(failure)) { status.Text = UiText.Get("diagnostics.destinationInvalid"); }
+            try { await new DiagnosticLog(LocalStorage.ForCurrentUser()).ExportAsync(dialog.FileName, overwrite: true, currentAttempt: latestDiagnostic); SetDiagnosticFeedback("diagnostics.exported"); }
+            catch (Exception failure) when (LauncherErrors.Expected(failure)) { SetDiagnosticFeedback("diagnostics.destinationInvalid"); }
         };
         var setup = new AdaptiveButton { Text = UiText.Get("action.settings"), AutoSize = true };
         setup.Click += (_, _) => { using var form = new SetupForm(); form.ShowDialog(this); };
@@ -58,10 +92,26 @@ internal sealed class ProcessingForm : Form
         if (request.Action is LauncherAction.Open or LauncherAction.Copy)
         {
             var retry = new AdaptiveButton { Text = UiText.Get("action.retry"), AutoSize = true };
-            retry.Click += async (_, _) => { if (!busy) await RunAsync(); };
+            if (needsInputChange)
+            {
+                retry.Enabled = InputStamp() != inputStamp;
+                updateRetry = () => { if (!retry.IsDisposed && !busy) retry.Enabled = InputStamp() != inputStamp; };
+                retryWatcher.Start();
+            }
+            retry.Click += async (_, _) =>
+            {
+                if (busy) return;
+                if (ex is InvalidDataException data && data.Message == "Ambiguous CSV delimiter; configure it explicitly.")
+                {
+                    using var choice = new TextInterpretationForm();
+                    if (choice.ShowDialog(this) != DialogResult.OK) return;
+                    interpretation = choice.Options;
+                }
+                await RunAsync();
+            };
             actions.Controls.Add(retry);
         }
-        ClientSize = new Size((int)(620 * DeviceDpi / 96.0), (int)(330 * DeviceDpi / 96.0)); Branding.Refresh(this);
+        ClientSize = new Size((int)(620 * DeviceDpi / 96.0), (int)(330 * DeviceDpi / 96.0)); Branding.Refresh(this); RenderFailure();
     }
     private async Task RunAsync()
     {
@@ -69,12 +119,14 @@ internal sealed class ProcessingForm : Form
         // Successive modal loops can restore an empty ambient context. All awaits
         // below must return to this window's thread, including error-button creation.
         SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());
-        busy = true;
+        retryWatcher.Stop(); updateRetry = null; inputStamp = InputStamp(); needsInputChange = false;
+        busy = true; terminal = false; displayedFailure = null; diagnosticFeedback = null; latestDiagnostic = null;
+        var currentGeneration = ++generation;
         ExitCode = 0;
         foreach (Control control in actions.Controls.Cast<Control>().Where(control => control != cancel).ToArray()) { actions.Controls.Remove(control); control.Dispose(); }
         cancel.Text = UiText.Get("action.cancel"); cancel.Enabled = true;
         Text = UiText.Get("processing.title");
-        IProgress<string> progress = new Progress<string>(text => { if (!IsDisposed && !Disposing && busy && !cancellation.IsCancellationRequested) status.Text = text; });
+        IProgress<string> progress = new Progress<string>(text => { if (!IsDisposed && !Disposing && busy && !terminal && generation == currentGeneration && !cancellation.IsCancellationRequested) status.Text = text; });
         var telemetry = new ProcessingTelemetry(startedAt, progress); telemetry.MarkReady(); telemetry.SampleCpu();
         using var cpuSampler = new System.Windows.Forms.Timer { Interval = 100 };
         cpuSampler.Tick += (_, _) => telemetry.SampleCpu(); cpuSampler.Start();
@@ -96,8 +148,8 @@ internal sealed class ProcessingForm : Form
                 await Task.Run(async () =>
                 {
                     if (request.Action == LauncherAction.Login) await launcher.LoginAsync(ct);
-                    else if (request.Action == LauncherAction.Copy) await launcher.CopyAsync(request.Path!, progress, ct);
-                    else await launcher.OpenAsync(request.Path!, progress, ct);
+                    else if (request.Action == LauncherAction.Copy) await launcher.CopyAsync(request.Path!, progress, ct, interpretation);
+                    else await launcher.OpenAsync(request.Path!, progress, ct, interpretation);
                 });
                 importNotice = launcher.ImportNotice;
             }
@@ -107,7 +159,7 @@ internal sealed class ProcessingForm : Form
         catch (Exception ex) when (LauncherErrors.Expected(ex))
         {
             failure = ex; ExitCode = 1; outcome = DiagnosticLog.Failure(ex);
-            if (ex is not OperationCanceledException || !cancellation.IsCancellationRequested) ShowFailure(ex);
+            terminal = true;
         }
         finally
         {
@@ -117,6 +169,7 @@ internal sealed class ProcessingForm : Form
             if (recordDiagnostics) await diagnostics.RecordAsync(outcome, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase, trace: telemetry.CaptureTrace());
             busy = false;
         }
+        if (failure is not null && (failure is not OperationCanceledException || !cancellation.IsCancellationRequested)) ShowFailure(failure);
         if (ExitCode == 0 && !cancellation.IsCancellationRequested && importNotice is not null)
         {
             var replacement = importNotice == UiText.Format("import.notice.partialConversion", ("backups", UiText.Get("home.backups").Replace("&", "", StringComparison.Ordinal)));
@@ -175,7 +228,7 @@ internal sealed class ProcessingForm : Form
     }
     protected override void Dispose(bool disposing)
     {
-        if (disposing) { cancellation.Dispose(); if (noticeMutex is not null) { noticeMutex.ReleaseMutex(); noticeMutex.Dispose(); noticeMutex = null; noticeActive = false; } }
+        if (disposing) { UiText.Changed -= RenderFailure; retryWatcher.Dispose(); cancellation.Dispose(); if (noticeMutex is not null) { noticeMutex.ReleaseMutex(); noticeMutex.Dispose(); noticeMutex = null; noticeActive = false; } }
         base.Dispose(disposing);
     }
 }

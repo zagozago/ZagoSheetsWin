@@ -53,6 +53,7 @@ internal static class LocaleVerification
                 using (var advanced = new AdvancedPreferencesForm(LocalStorage.ForCurrentUser(), preview:true)) { Check(advanced,"advanced",true); foreach (var info in Descendants(advanced).OfType<InformationButton>()) { info.OpenInformation(); Application.DoEvents(); } }
                 using (var settings = new SetupForm(preview:true)) { Check(settings,"setup",true); foreach (var info in Descendants(settings).OfType<InformationButton>()) { info.OpenInformation(); Application.DoEvents(); } }
                 using (var recovery = new RecoveryForm(preview:true)) Check(recovery,"backups");
+                using (var repair = new TextInterpretationForm(repair:true)) Check(repair,"repair",true);
                 using (var picker = new LanguagePicker())
                 {
                     Check(picker,"language");

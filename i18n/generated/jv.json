@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.35",
+  "productVersion": "0.9.36",
   "sourceLocale": "pt-BR",
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -151,7 +151,7 @@
     "error.connectionTimeout": "Sambungan suwe banget. Priksa sambungan internet lan terusake liwat pamulihan; cadangan sing ana tetep dijaga.",
     "error.conversionMismatch": "Verifikasi nemokake bedane ing data asil konversi. Berkas asli lan cadangan tetep dijaga. Bisa wae ana salinan ing Google; priksa pamulihan sadurunge nyoba maneh.",
     "error.copyRequired": "Spreadsheet iki kudu diimpor minangka salinan; berkas asli kudu tetep dijaga.",
-    "error.csvDelimiter": "CSV bisa nggunakake koma utawa titik koma. Pilih pamisah ing pilihan teks. Berkas asli tetep dijaga.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Pilih pamisah nalika nyoba maneh.",
     "error.exportSize": "Ekspor ngluwihi wates verifikasi. Berkas asli lan cadangan tetep dijaga; priksa pamulihan sadurunge ngimpor maneh.",
     "error.formulaVerification": "Spreadsheet asil konversi ngemot rumus sing durung bisa diverifikasi dening aplikasi. Berkas asli lan cadangan tetep dijaga. Ing Pamulihan / cadangan, pilih operasi iki lan pilih Terusake minangka salinan kanggo mbukak spreadsheet ing Google tanpa ngunggah maneh.",
     "error.generic": "Operasi ora bisa dirampungake. Priksa setelan, sambungan, lan apa berkas lagi dibukak ing aplikasi liyane. Cadangan sing ana tetep kasedhiya. Priksa uga apa file ditandhani mung bisa diwaca.",
@@ -163,7 +163,7 @@
     "error.network": "Ora bisa komunikasi karo Google. Priksa sambungan lan terusake liwat aplikasi; berkas asli tetep dijaga lan operasi sing durung rampung bisa mbutuhake pamulihan.",
     "error.reconciliationRequired": "Impor lagi ngenteni rekonsiliasi. Aja unggah maneh kanthi manual. Priksa pandhuan pamulihan.",
     "error.setupRequired": "Rampungake setelan panggunaan pisanan sadurunge mbukak spreadsheet. Bukak ZagoSheetsWin utawa Setelane kanggo nyambung menyang Google lan nyimpen pilihan sampeyan.",
-    "error.textEncoding": "Encoding CSV/TSV ora bisa diwaca. Gunakake UTF-8 utawa UTF-16 nganggo BOM; kanggo berkas lawas, pilih Windows-1252 ing pilihan teks. Berkas asli tetep dijaga.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Simpen berkas dadi UTF-8 lan coba maneh. Berkas asli tetep disimpen.",
     "error.textStructure": "CSV/TSV kosong utawa ngemot baris, pamisah, utawa tandha petik sing ora konsisten. Priksa pamisah lan struktur berkas. Berkas asli tetep dijaga.",
     "error.xlsConversion": "XLS iki ora bisa dikonversi dadi XLSX. Berkas asli lan cadangan tetep dijaga.",
     "error.xlsxContentType": "Format internal XLSX ora bisa dingerteni kanthi aman. Berkas asli tetep dijaga. Simpen salinan XLSX anyar ing Excel utawa LibreOffice banjur coba salinan kasebut.",
@@ -350,6 +350,10 @@
     "tutorial.showAtStartup": "Tampilake tutorial iki nalika mbukak aplikasi",
     "setup.defaultsHelp": "Pilih ZagoSheetsWin ing Aplikasi gawan Windows. Opsional, nanging dianjurake. Pilih ZagoSheetsWin ing Aplikasi baku Windows. Iki opsional: sampeyan uga bisa nggunakake Bukak nganggo → ZagoSheetsWin.",
     "import.notice.partialConversion": "Spreadsheet wis dibukak ing Google Sheets. File asli diganti nganggo trabasan. Kanggo mulihake, bukak {backups}.",
-    "import.notice.dontShowAgain": "Aja ditampilake maneh"
+    "import.notice.dontShowAgain": "Aja ditampilake maneh",
+    "recovery.repairNew": "Impor maneh menyang dokumen anyar…",
+    "recovery.repairExplanation": "Nggawe spreadsheet anyar saka serep iki. Spreadsheet sadurunge, trabasan lan berkas asli tetep wutuh.",
+    "action.exportDiagnosticHistory": "Ekspor riwayat diagnostik…",
+    "retry.editInput": "Sunting berkas sadurunge nyoba maneh."
   }
 }

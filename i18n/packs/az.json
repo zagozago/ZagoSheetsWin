@@ -2,8 +2,8 @@
   "language": "az",
   "locale": "az-Latn-AZ",
   "direction": "ltr",
-  "catalogRevision": 10,
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "catalogRevision": 11,
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -142,7 +142,7 @@
     "error.connectionTimeout": "Bağlantı çox uzun çəkdi. İnternet bağlantınızı yoxlayın və bərpa vasitəsilə davam edin; mövcud ehtiyat nüsxələr saxlanılıb.",
     "error.conversionMismatch": "Yoxlama çevrilmiş məlumatlarda fərqlər aşkar etdi. Orijinal və ehtiyat nüsxə saxlanılıb. Google-da bir nüsxə ola bilər; yenidən cəhd etməzdən əvvəl bərpanı yoxlayın.",
     "error.copyRequired": "Bu elektron cədvəl nüsxə kimi idxal edilməlidir; orijinal saxlanılmalıdır.",
-    "error.csvDelimiter": "CSV vergül və ya nöqtəli vergüldən istifadə edə bilər. Mətn seçimlərində ayırıcını seçin. Orijinal saxlanıldı.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Yenidən cəhd edərkən ayırıcını seçin.",
     "error.exportSize": "İxrac yoxlama limitini aşdı. Orijinal və ehtiyat nüsxə saxlanılıb; yenidən idxal etməzdən əvvəl bərpanı yoxlayın.",
     "error.formulaVerification": "Çevrilmiş elektron cədvəldə tətbiqin hələ yoxlaya bilmədiyi düsturlar var. Orijinal və ehtiyat nüsxə saxlanılıb. Bərpa / ehtiyat nüsxələr bölməsində bu əməliyyatı seçin və elektron cədvəli yenidən yükləmədən Google-da açmaq üçün Nüsxə kimi davam et seçin.",
     "error.generic": "Əməliyyatı tamamlamaq mümkün olmadı. Parametrləri, bağlantını və faylın başqa tətbiqdə açıq olub-olmadığını yoxlayın. Mövcud ehtiyat nüsxələr əlçatan qalır. Faylın yalnız oxumaq üçün işarələnib-işarələnmədiyini də yoxlayın.",
@@ -154,7 +154,7 @@
     "error.network": "Google ilə əlaqə qurmaq mümkün olmadı. Bağlantını yoxlayın və tətbiq vasitəsilə davam edin; orijinal saxlanılıb və gözləyən əməliyyatın bərpası lazım ola bilər.",
     "error.reconciliationRequired": "İdxal uyğunlaşdırmanı gözləyir. Onu yenidən əl ilə yükləməyin. Bərpa təlimatını yoxlayın.",
     "error.setupRequired": "Elektron cədvəlləri açmazdan əvvəl ilk istifadə quraşdırmasını tamamlayın. Google-a qoşulmaq və seçimlərinizi saxlamaq üçün ZagoSheetsWin və ya onun Parametrlərini açın.",
-    "error.textEncoding": "CSV/TSV kodlamasını oxumaq mümkün olmadı. BOM ilə UTF-8 və ya UTF-16 istifadə edin; köhnə fayllar üçün mətn seçimlərində Windows-1252 seçin. Orijinal saxlanıldı.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Faylı UTF-8 kimi saxlayın və yenidən cəhd edin. Orijinal qorunub.",
     "error.textStructure": "CSV/TSV boşdur və ya uyğunsuz sətirlər, ayırıcılar və ya dırnaqlar ehtiva edir. Ayırıcını və fayl quruluşunu yoxlayın. Orijinal saxlanıldı.",
     "error.xlsConversion": "Bu XLS-i XLSX-ə çevirmək mümkün olmadı. Orijinal və ehtiyat nüsxə saxlanılıb.",
     "error.xlsxContentType": "XLSX daxili formatını təhlükəsiz müəyyən etmək mümkün olmadı. Orijinal saxlanıldı. Excel və ya LibreOffice-də yeni XLSX nüsxəsi saxlayın və həmin nüsxəni sınayın.",
@@ -643,6 +643,10 @@
     "tutorial.showAtStartup": "Tətbiq açılarkən bu təlimatı göstər",
     "setup.defaultsHelp": "Windows standart tətbiqlərində ZagoSheetsWin seçin. İstəyə bağlıdır, lakin tövsiyə olunur. Windows Standart tətbiqlərində ZagoSheetsWin-i seçin. Bu istəyə bağlıdır: Birlikdə aç → ZagoSheetsWin istifadə edə bilərsiniz.",
     "import.notice.partialConversion": "Cədvəl Google Sheets-də açıldı. Orijinal fayl qısayolla əvəz edildi. Onu bərpa etmək üçün {backups} bölməsini açın.",
-    "import.notice.dontShowAgain": "Bir daha göstərməyin"
+    "import.notice.dontShowAgain": "Bir daha göstərməyin",
+    "recovery.repairNew": "Yeni sənədə yenidən idxal et…",
+    "recovery.repairExplanation": "Bu ehtiyat nüsxədən yeni cədvəl yaradır. Əvvəlki cədvəl, onun qısayolu və orijinal fayl dəyişməz qalır.",
+    "action.exportDiagnosticHistory": "Diaqnostika tarixçəsini ixrac et…",
+    "retry.editInput": "Yenidən cəhd etməzdən əvvəl faylı redaktə edin."
   }
 }

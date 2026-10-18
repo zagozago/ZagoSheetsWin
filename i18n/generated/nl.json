@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.35",
+  "productVersion": "0.9.36",
   "sourceLocale": "pt-BR",
-  "sourceHash": "71b7b05461d87ec98a44bb73da3205f0a157fac7b344b466dcc8abce15546be1",
+  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -151,7 +151,7 @@
     "error.connectionTimeout": "De verbinding duurde te lang. Controleer uw internetverbinding en hervat via herstel; bestaande back-ups zijn behouden.",
     "error.conversionMismatch": "Bij verificatie zijn verschillen in de geconverteerde gegevens gevonden. Het origineel en de back-up zijn behouden. Mogelijk bestaat er een kopie in Google; controleer herstel voordat u het opnieuw probeert.",
     "error.copyRequired": "Dit werkblad moet als kopie worden geïmporteerd; het origineel moet behouden blijven.",
-    "error.csvDelimiter": "De CSV kan komma's of puntkomma's gebruiken. Kies het scheidingsteken in de tekstopties. Het origineel is behouden.",
+    "error.csvDelimiter": "CSV/TSV: , ; TAB |. Kies het scheidingsteken bij een nieuwe poging.",
     "error.exportSize": "De export overschreed de verificatielimiet. Het origineel en de back-up zijn behouden; controleer herstel voordat u opnieuw importeert.",
     "error.formulaVerification": "Het geconverteerde werkblad bevat formules die de app nog niet kan verifiëren. Het origineel en de back-up zijn behouden. Selecteer in Herstel / back-ups deze bewerking en kies Hervatten als kopie om het werkblad in Google te openen zonder opnieuw te uploaden.",
     "error.generic": "De bewerking kon niet worden voltooid. Controleer de instellingen, de verbinding en of het bestand in een andere app geopend is. Bestaande back-ups blijven beschikbaar. Controleer ook of het bestand als alleen-lezen is ingesteld.",
@@ -163,7 +163,7 @@
     "error.network": "Er kon niet met Google worden gecommuniceerd. Controleer de verbinding en hervat via de app; het origineel is behouden en mogelijk moet een openstaande bewerking worden hersteld.",
     "error.reconciliationRequired": "De import wacht op afstemming. Upload deze niet opnieuw handmatig. Raadpleeg de herstelgids.",
     "error.setupRequired": "Voltooi de eerste configuratie voordat u werkbladen opent. Open ZagoSheetsWin of Instellingen om met Google te verbinden en uw voorkeuren op te slaan.",
-    "error.textEncoding": "De codering van CSV/TSV kon niet worden gelezen. Gebruik UTF-8 of UTF-16 met BOM; selecteer voor oudere bestanden Windows-1252 in de tekstopties. Het origineel is behouden.",
+    "error.textEncoding": "CSV/TSV: UTF-8, UTF-16 (BOM), Windows-1252. Sla het bestand op als UTF-8 en probeer opnieuw. Het origineel is behouden.",
     "error.textStructure": "De CSV/TSV is leeg of bevat inconsistente rijen, scheidingstekens of aanhalingstekens. Controleer het scheidingsteken en de bestandsstructuur. Het origineel is behouden.",
     "error.xlsConversion": "Deze XLS kon niet naar XLSX worden geconverteerd. Het origineel en de back-up zijn behouden.",
     "error.xlsxContentType": "De interne XLSX-indeling kon niet veilig worden vastgesteld. Het origineel is behouden. Sla een nieuwe XLSX-kopie op in Excel of LibreOffice en probeer die kopie.",
@@ -350,6 +350,10 @@
     "tutorial.showAtStartup": "Deze uitleg tonen bij het openen van de app",
     "setup.defaultsHelp": "Kies ZagoSheetsWin in de Standaard-apps van Windows. Optioneel, maar aanbevolen. Kies ZagoSheetsWin in Standaard-apps van Windows. Dit is optioneel: u kunt ook Openen met → ZagoSheetsWin gebruiken.",
     "import.notice.partialConversion": "Het werkblad is geopend in Google Sheets. Het oorspronkelijke bestand is vervangen door een snelkoppeling. Open {backups} om het te herstellen.",
-    "import.notice.dontShowAgain": "Niet meer weergeven"
+    "import.notice.dontShowAgain": "Niet meer weergeven",
+    "recovery.repairNew": "Opnieuw importeren in nieuw document…",
+    "recovery.repairExplanation": "Maakt een nieuw werkblad van deze back-up. Het vorige werkblad, de snelkoppeling en het origineel blijven intact.",
+    "action.exportDiagnosticHistory": "Diagnosegeschiedenis exporteren…",
+    "retry.editInput": "Bewerk het bestand voordat u opnieuw probeert."
   }
 }
