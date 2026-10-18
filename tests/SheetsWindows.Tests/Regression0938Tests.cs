@@ -75,7 +75,13 @@ public sealed class Regression0938Tests
         var row = Enumerable.Repeat<object?>("v", 11).ToArray();
         var tooMany = new SheetValues("Dados", Enumerable.Repeat<IReadOnlyList<object?>>(row, 90910).ToArray());
         Assert.Throws<SpreadsheetCapacityException>(() => SpreadsheetFormats.WriteXlsx([tooMany], textImport: true));
-        Assert.Throws<SpreadsheetCapacityException>(() => SpreadsheetFormats.ReadExcel(payload.Bytes));
+        Assert.Throws<InvalidDataException>(() => SpreadsheetFormats.ReadExcel(payload.Bytes));
+    }
+    [Fact]
+    public void ExplicitLegacyEncodingCannotBypassUndefinedByteRejection()
+    {
+        byte[] bytes = [105, 100, 59, 116, 10, 49, 59, 0x81];
+        Assert.Throws<InvalidDataException>(() => SpreadsheetFormats.Prepare("csv", bytes, new(Encoding: "windows-1252")));
     }
     [Fact]
     public void OdsOutsideDeclaredGridIsAnExplicitRejectionWithUnchangedPayload()

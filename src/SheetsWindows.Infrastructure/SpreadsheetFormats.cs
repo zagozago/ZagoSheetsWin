@@ -52,7 +52,7 @@ public static class SpreadsheetFormats
             case "tsv":
                 var effective = options ?? new(); string? delimiter = null;
                 var table = new SheetValues("Dados", ReadTextCore(bytes, format, effective, ct, value => delimiter = value));
-                return new(WriteXlsx([table], ct, textImport: effective.InterpretationVersion != 1), XlsxMime, [table], effective with { Delimiter = delimiter ?? effective.Delimiter });
+                return new(WriteXlsx([table], ct, textImport: effective.InterpretationVersion != 1, compactText: effective.InterpretationVersion >= 3), XlsxMime, [table], effective with { Delimiter = delimiter ?? effective.Delimiter });
             case "ods":
                 IReadOnlyList<SheetValues>? expected;
                 try { expected = ReadOds(bytes, ct); }
@@ -84,6 +84,7 @@ public static class SpreadsheetFormats
         }
         else if (mode == "windows-1252")
         {
+            if (bytes.Any(b => b is 0x81 or 0x8D or 0x8F or 0x90 or 0x9D)) throw new InvalidDataException("Invalid text encoding or characters.");
             if (bytes.AsSpan().StartsWith(new byte[] { 0xEF, 0xBB, 0xBF }) || bytes.AsSpan().StartsWith(new byte[] { 0xFF, 0xFE }) || bytes.AsSpan().StartsWith(new byte[] { 0xFE, 0xFF })) throw new InvalidDataException("Encoding conflicts with BOM.");
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             encoding = Encoding.GetEncoding(1252, EncoderFallback.ExceptionFallback, DecoderFallback.ExceptionFallback);
@@ -357,7 +358,7 @@ public static class SpreadsheetFormats
             using var zip = OpenPackage(bytes); _ = Xml(zip, "xl/workbook.xml");
             foreach (var entry in zip.Entries.Where(e => e.FullName.StartsWith("xl/worksheets/", StringComparison.Ordinal) && e.FullName.EndsWith(".xml", StringComparison.Ordinal)))
             {
-                var xmlLimit = (textImport ? 96L : 64L) * 1024 * 1024;
+                const long xmlLimit = 64L * 1024 * 1024;
                 if (entry.Length > xmlLimit) throw new SpreadsheetCapacityException(UiText.Message("capacity.uncompressedSheet"));
                 using var xmlStream = entry.Open();
                 using var xmlReader = XmlReader.Create(xmlStream, new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null, MaxCharactersInDocument = xmlLimit });
@@ -408,7 +409,7 @@ public static class SpreadsheetFormats
             }
         }
     }
-    public static byte[] WriteXlsx(IReadOnlyList<SheetValues> sheets, CancellationToken ct = default, bool textImport = false)
+    public static byte[] WriteXlsx(IReadOnlyList<SheetValues> sheets, CancellationToken ct = default, bool textImport = false, bool compactText = false)
     {
         long total = 0;
         foreach (var sheet in sheets)
@@ -454,7 +455,7 @@ public static class SpreadsheetFormats
                         else
                         {
                             writer.WriteAttributeString("t", "inlineStr"); writer.WriteStartElement("is", main.NamespaceName); writer.WriteStartElement("t", main.NamespaceName);
-                            writer.WriteAttributeString("xml", "space", XNamespace.Xml.NamespaceName, "preserve");
+                            if (!compactText || value.ToString()!.Any(char.IsWhiteSpace)) writer.WriteAttributeString("xml", "space", XNamespace.Xml.NamespaceName, "preserve");
                             writer.WriteString(EscapeSpreadsheetText(value.ToString()!));
                             writer.WriteEndElement(); writer.WriteEndElement();
                         }
