@@ -59,8 +59,9 @@ internal sealed class RecoveryForm : Form
         var policyPanel = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoScroll = true, FlowDirection = FlowDirection.TopDown, WrapContents = false, Padding = new Padding(12) };
         var days = new NumericUpDown { Minimum = 1, Maximum = 365, Value = 30, Width = 70, AccessibleName = UiText.Get("accessibility.retentionDays") };
         var quota = new NumericUpDown { Minimum = 1, Maximum = 1000, Value = 200, Width = 80, AccessibleName = UiText.Get("accessibility.quotaMb") };
-        var automatic = new ToggleSwitch { Text = UiText.Get("recovery.autoCleanup"), AutoSize = true };
-        var usage = new EmphasisLabel { AutoSize = true, Text = UiText.Get("recovery.limits") };
+        var usage = new EmphasisLabel { AutoSize = true, Text = UiText.Get("recovery.limits"), Font = new Font("Segoe UI", 9, FontStyle.Bold), Margin = new Padding(10), AccessibleName = "Backup statistics" };
+        var statistics = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, BorderStyle = BorderStyle.FixedSingle, FlowDirection = FlowDirection.TopDown, WrapContents = false, Margin = new Padding(0, 18, 0, 0) };
+        statistics.Controls.Add(usage);
         var limits = new TableLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, ColumnCount = 2, RowCount = 2, Margin = new Padding(0, 0, 0, 8) };
         limits.ColumnStyles.Add(new(SizeType.Percent, 50)); limits.ColumnStyles.Add(new(SizeType.Percent, 50));
         limits.RowStyles.Add(new(SizeType.AutoSize)); limits.RowStyles.Add(new(SizeType.AutoSize));
@@ -70,15 +71,15 @@ internal sealed class RecoveryForm : Form
         void FitPolicy()
         {
             var width = Math.Max(120, policyPanel.ClientSize.Width - policyPanel.Padding.Horizontal - 22);
-            usage.MaximumSize = new Size(width, 0); automatic.AutoSize = false; automatic.Width = width;
+            usage.MaximumSize = new Size(Math.Max(80, width - 24), 0);
+            statistics.MinimumSize = new Size(width, 0); statistics.MaximumSize = new Size(width, 0);
             foreach (var label in policyPanel.Controls.OfType<Label>()) label.MaximumSize = new Size(width, 0);
             limits.MinimumSize = new Size(width, 0); limits.MaximumSize = new Size(width, 0); limits.Width = width;
             daysLabel.MaximumSize = quotaLabel.MaximumSize = new Size(Math.Max(45, width/2-6), 0);
             days.Width = quota.Width = Math.Max(45, width/2-6);
-            automatic.Height = TextRenderer.MeasureText(automatic.Text, automatic.Font, new Size(Math.Max(40, width-54), int.MaxValue), TextFormatFlags.WordBreak).Height + 14;
         }
-        policyPanel.SizeChanged += (_, _) => FitPolicy(); automatic.TextChanged += (_, _) => FitPolicy(); automatic.FontChanged += (_, _) => FitPolicy();
-        policyPanel.Controls.AddRange([limits, automatic, new Label { AutoSize = true, Text = UiText.Get("recovery.quotaRotation") }, usage]);
+        policyPanel.SizeChanged += (_, _) => FitPolicy();
+        policyPanel.Controls.AddRange([limits, new Label { AutoSize = true, Text = UiText.Get("recovery.quotaRotation") }, statistics]);
         var restore = new AdaptiveButton { Text = UiText.Get("action.restore"), AutoSize = true };
         var repair = new MenuActionButton { Text = UiText.Get("recovery.repairNew"), AutoSize = true };
         var copy = new MenuActionButton { Text = UiText.Get("recovery.resumeCopy"), AutoSize = true };
@@ -163,7 +164,7 @@ internal sealed class RecoveryForm : Form
         if (!preview) Shown += async (_, _) =>
         {
             busy = true;
-            try { var policy = BackupPolicy.Load(storage); days.Value = policy.RetentionDays; quota.Value = policy.QuotaMb; automatic.Checked = policy.AutomaticCleanup; await RefreshEntries(); }
+            try { var policy = BackupPolicy.Load(storage); days.Value = policy.RetentionDays; quota.Value = policy.QuotaMb; await RefreshEntries(); }
             catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = LauncherErrors.Message(ex); }
             finally { busy = false; loadingPolicy = false; }
         };
@@ -183,9 +184,9 @@ internal sealed class RecoveryForm : Form
         {
             if (loadingPolicy || preview && policyStorage is null) return;
             // Capture every edit and write in order, including edits made while a save awaits its lock.
-            pendingPolicySave = PersistPolicy(pendingPolicySave, new((int)days.Value, (int)quota.Value, automatic.Checked));
+            pendingPolicySave = PersistPolicy(pendingPolicySave, new((int)days.Value, (int)quota.Value, true));
         }
-        days.ValueChanged += SavePolicy; quota.ValueChanged += SavePolicy; automatic.CheckedChanged += SavePolicy;
+        days.ValueChanged += SavePolicy; quota.ValueChanged += SavePolicy;
         FormClosing += async (_, e) =>
         {
             if (pendingPolicySave.IsCompleted) return;

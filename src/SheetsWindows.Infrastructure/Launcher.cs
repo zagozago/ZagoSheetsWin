@@ -113,6 +113,7 @@ public static class LauncherErrors
         InvalidDataException data when data.Message is "Irregular delimited table." or "Invalid quoted field." or "Unclosed quoted field." or "Empty text spreadsheet." or "Empty table." => UiText.Get("error.textStructure"),
         InvalidDataException data when data.Message == "Export too large." => UiText.Get("error.exportSize"),
         GoogleApiException api when api.Status == 429 || api.Status >= 500 => UiText.Get("error.googleUnavailable"),
+        GoogleApiException api when api.IsRateLimited => UiText.Get("error.googleUnavailable"),
         GoogleApiException api when api.Status is 401 or 403 => UiText.Get("error.googleAccess"),
         GoogleApiException => UiText.Get("error.googleConversion"),
         HttpRequestException => UiText.Get("error.network"),
@@ -164,6 +165,11 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
     }
     public async Task<string> OpenAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default, TextImportOptions? interpretation = null)
     {
+        await using var turn = await new ImportQueue(storage, telemetry).EnterAsync(ct);
+        return await OpenCoreAsync(path, progress, ct, interpretation);
+    }
+    private async Task<string> OpenCoreAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default, TextImportOptions? interpretation = null)
+    {
         ImportNotice = null;
         // Optional folder scope; fixed-local-file and sync protections still apply.
         var request = LauncherRequest.Parse(["--open", path]);
@@ -172,14 +178,14 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         telemetry?.Mark(ProcessingStep.Configuration);
         if (!OpeningPolicy.IsConfigured(storage)) throw new LauncherNotConfiguredException();
         var opening = OpeningPolicy.Load(storage);
-        if (CopyImportSettings.Load(storage) || !ShortcutSettings.Load(storage)) return await CopyAsync(path, progress, ct, interpretation);
+        if (CopyImportSettings.Load(storage) || !ShortcutSettings.Load(storage)) return await CopyCoreAsync(path, progress, ct, interpretation);
         if (!opening.RestrictToFolder && SourceEnvironment.RequiresCopy(path))
         {
-            var copied = await CopyAsync(path, progress, ct, interpretation);
+            var copied = await CopyCoreAsync(path, progress, ct, interpretation);
             ImportNotice = UiText.Get("import.notice.syncedCopy");
             return copied;
         }
-        if (SpreadsheetFormats.Format(path) == "xls" && !XlsReplacementSettings.Load(storage)) return await CopyAsync(path, progress, ct, interpretation);
+        if (SpreadsheetFormats.Format(path) == "xls" && !XlsReplacementSettings.Load(storage)) return await CopyCoreAsync(path, progress, ct, interpretation);
         var sources = new WindowsRetirementReader(opening.RestrictToFolder ? opening.Folder : null);
         telemetry?.Mark(ProcessingStep.SourceOpening, CheckpointOutcome.Started);
         await using (var eligibility = sources.Open(request.Path!)) { }
@@ -193,7 +199,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         progress?.Report(UiText.Get("progress.openingSheets"));
         var receipt = await importer.ImportReceiptAsync(request.Path!, ct);
         progress?.Report(UiText.Get("progress.publishingShortcut"));
-        var conversion = new ConversionVerifier(new GoogleDriveClient(http, auth), textOptions, telemetry, new ImportInterpretations(storage));
+        var conversion = new ConversionVerifier(new GoogleDriveClient(http, auth, telemetry: telemetry), textOptions, telemetry, new ImportInterpretations(storage));
         var coordinator = new ReplacementCoordinator(local, remote, new ManagedBackupStore(storage), locks,
             new ReplacementJournal(System.IO.Path.Combine(storage.Root, "replacement.db")), sources, browser, conversion, ShortcutIcon.Ensure(storage), telemetry);
         var shortcut = await coordinator.ReplaceAsync(receipt, ct);
@@ -202,6 +208,11 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
     }
 
     public async Task<string> CopyAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default, TextImportOptions? interpretation = null)
+    {
+        await using var turn = await new ImportQueue(storage, telemetry).EnterAsync(ct);
+        return await CopyCoreAsync(path, progress, ct, interpretation);
+    }
+    private async Task<string> CopyCoreAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default, TextImportOptions? interpretation = null)
     {
         ImportNotice = null;
         _ = LauncherRequest.Parse(["--copy", path]);
@@ -221,6 +232,11 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         return await PublishCopyAsync(await importer.ImportReceiptAsync(path, ct), progress, ct);
     }
     public async Task<string> RepairAsync(Guid id, TextImportOptions? interpretation = null, CancellationToken ct = default)
+    {
+        await using var turn = await new ImportQueue(storage, telemetry).EnterAsync(ct);
+        return await RepairCoreAsync(id, interpretation, ct);
+    }
+    private async Task<string> RepairCoreAsync(Guid id, TextImportOptions? interpretation = null, CancellationToken ct = default)
     {
         ImportNotice = null;
         var local = new SqliteOperationRegistry(storage.DatabasePath);
@@ -247,6 +263,11 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
     }
 
     public async Task<string> ResumeAsync(Guid id, bool replace, IProgress<string>? progress = null, CancellationToken ct = default)
+    {
+        await using var turn = await new ImportQueue(storage, telemetry).EnterAsync(ct);
+        return await ResumeCoreAsync(id, replace, progress, ct);
+    }
+    private async Task<string> ResumeCoreAsync(Guid id, bool replace, IProgress<string>? progress = null, CancellationToken ct = default)
     {
         ImportNotice = null;
         var local = new SqliteOperationRegistry(storage.DatabasePath);

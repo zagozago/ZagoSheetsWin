@@ -24,7 +24,7 @@ public sealed class BackupManagementTests
     [Fact] public void DefaultsAreNonDestructiveAndReadOnly()
     {
         using var w = new Workspace(); var storage = Storage(w); var policy = BackupPolicy.Load(storage);
-        Assert.Equal(30, policy.RetentionDays); Assert.Equal(200_000_000, policy.QuotaBytes); Assert.False(policy.AutomaticCleanup);
+        Assert.Equal(30, policy.RetentionDays); Assert.Equal(200_000_000, policy.QuotaBytes); Assert.True(policy.AutomaticCleanup);
         Assert.Empty(new BackupManagement(storage).Inspect().Entries); Assert.False(Directory.Exists(storage.Root));
     }
     [Theory] [InlineData(0,200)] [InlineData(366,200)] [InlineData(30,0)] [InlineData(30,1001)]
@@ -123,10 +123,10 @@ public sealed class BackupManagementTests
         using var w=new Workspace();var op=await Completed(w);var journal=new ReplacementJournal(Path.Combine(Storage(w).Root,"replacement.db"));journal.Begin(op.Id,w.Source+".url",GoogleDriveClient.Editor("sheet-id"),w.Source);
         Assert.False(Assert.Single(new BackupManagement(Storage(w)).Inspect().Entries).CanClean);
     }
-    [Fact] public async Task AutomaticCleanupRequiresOptInAndExcludesCurrentOperation()
+    [Fact] public async Task AutomaticCleanupMigratesLegacyPolicyAndExcludesCurrentOperation()
     {
         using var w=new Workspace();var op=await Completed(w,DateTimeOffset.UtcNow.AddDays(-31));var manager=new BackupManagement(Storage(w));
-        Assert.Equal(0,(await manager.MaintainAsync()).Count);Assert.True(File.Exists(op.Snapshot!.BackupPath));
+        await BackupPolicy.SaveAsync(Storage(w),new(30,200,false)); Assert.True(BackupPolicy.Load(Storage(w)).AutomaticCleanup); Assert.True(File.Exists(op.Snapshot!.BackupPath));
         await BackupPolicy.SaveAsync(Storage(w),new(30,200,true));Assert.Empty(manager.Plan(excludeId:op.Id));Assert.Equal(0,(await manager.MaintainAsync(excludeId:op.Id)).Count);
         Assert.Equal(1,(await manager.MaintainAsync()).Count);Assert.False(File.Exists(op.Snapshot.BackupPath));
     }

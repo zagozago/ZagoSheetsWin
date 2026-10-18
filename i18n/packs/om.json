@@ -3,7 +3,7 @@
   "locale": "om-ET",
   "direction": "ltr",
   "catalogRevision": 13,
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -138,7 +138,7 @@
     "emphasis.usesSync": "Walsimsiisuu fayyadamtaa?",
     "emphasis.verify": "Walqunnamtii Google ilaali",
     "error.authorizationRequired": "Google hayyama barbaada. Qindaa'ina bani, Google hayyami cuqaasi, achiis gabatee irra deebi'ii bani.",
-    "error.backupQuota": "Daangaa kuusdeebii keessatti iddoon hin jiru. Kan jalqabaa eegameera, gara Google hin ergamne. Kuusdeebii baniitii kuusdeebii xumuraman haqi yookaan daangaa sirreessi (guddaan 1 GB).",
+    "error.backupQuota": "Qulqulleessuu ofumaan booda iddoo gahaan hin jiru: duwwaawwan eegaa jiran ni eegamu ykn faayilli daangaa caala. Faayilli jalqabaa fi walitti dhufeenyi Google ni kuufamu. Duwwaawwan ilaali ykn daangaa dabali (hanga 1 GB).",
     "error.backupRemoved": "Kuusdeebiin kun akka qulqullaa'eetti mallatteeffameera; deebisuuf yookaan itti fufuuf hin argamu. Galmeen Google fi shortcut isaa eegamaniiru. Gabatee onlaayinii banuuf shortcut fayyadami.",
     "error.busy": "Adeemsi biraa ammallee faayila yookaan registry fayyadamaa jira. Eegiitii itti fufi; kan jalqabaa fi kuusdeebiin eegamaniiru.",
     "error.cancelled": "Adeemsi dhaabbate. Kuusdeebiin fi galmeen deebisuu, yoo uumaman, eegamaniiru.",
@@ -534,7 +534,7 @@
     "recovery.state.protected": "Eegame / eegaa jira",
     "recovery.state.unavailable": "Hin argamu",
     "recovery.title": "Faayiloota deebisi fi kuusdeebii bulchi - ZagoSheetsWin",
-    "recovery.usage": "Iddoo fayyadame: {usedMb:N2} MB · daangaa: {limitMb} MB · kuusdeebii: {backupCount} · eegame: {protectedCount}",
+    "recovery.usage": "Iddoo Fayyadame: {usedMb:N2} MB · Daangaa: {limitMb} MB · Kuusdeebii: {backupCount} · Eegame: {protectedCount}",
     "setup.advanced": "Filannoowwan sadarkaa olaanaa…",
     "setup.advancedTitle": "Filannoowwan sadarkaa olaanaa - ZagoSheetsWin",
     "setup.authChecking": "◉ Walqunnamtii Google ilaalaa jira…",
@@ -593,7 +593,7 @@
     "theme.dark": "Dukkana",
     "theme.light": "Ifa",
     "theme.saveFailed": "Tema kuusuun hin danda'amne. Filannoon kee duraa eegameera.",
-    "tutorial.backupExplanation": "Kan jalqabaa → kuusdeebii naannoo keessaa → Google Sheets. Kuusdeebii keessatti faayila deebisuuf Gara… deebisi filadhu.|30 days · 200 MB (hanga 1 GBtti sirreeffamuu danda'a). Qulqulleessuun ofumaan yeroo dandeessifame qofa; adeemsi eegaa jiru ni eeggama.|Kuusdeebiin kan jalqabaa eega, jijjiirama booda Sheets keessatti godhame osoo hin dabalatin. Foormulaan fi bifa qindaa'inaa jijjiiramuu danda'u; makroon XLS Sheets keessatti hin hojjetu. Daangaan iddoo yoo guute, filannoon kun cufamus duwwaawwan xumuraman keessaa kan durii haqamu. Kan eeggachaa jiran ni kuufamu.",
+    "tutorial.backupExplanation": "Kan jalqabaa → kuusdeebii naannoo keessaa → Google Sheets. Kuusdeebii keessatti faayila deebisuuf Gara… deebisi filadhu.|30 days · 200 MB (hanga 1 GBtti sirreeffamuu danda'a).|Kuusdeebiin kan jalqabaa eega, jijjiirama booda Sheets keessatti godhame osoo hin dabalatin. Foormulaan fi bifa qindaa'inaa jijjiiramuu danda'u; makroon XLS Sheets keessatti hin hojjetu. Daangaan iddoo yoo guute, duwwaawwan xumuraman keessaa kan durii haqamu. Kan eeggachaa jiran ni kuufamu.",
     "tutorial.backupTitle": "Kan jalqabaa eegi. Akkaataa itti deebiftu beeki.",
     "tutorial.defaultsExplanation": "Cuqaasa lamaa yookaan menu Windows keessatti Open with → ZagoSheetsWin fayyadami.|ZagoSheetsWin akka appii gabatee durtii keetti qindeessi (filannoo):",
     "tutorial.defaultsTitle": "Akkaataa gabateewwan kee banuu filadhu",
@@ -660,6 +660,6 @@
     "error.odsBounds": "ODS: irra deddeebii sirrii hin taane yookaan hamma daangaa deeggaramu caalu.",
     "error.odsStructure": "Caasaan faayilii ODS guutuu miti yookaan sirrii miti.",
     "action.chooseSeparator": "Mallattoo addaan baasuu fili",
-    "recovery.quotaRotation": "Daangaan iddoo yoo guute, filannoon kun cufamus duwwaawwan xumuraman keessaa kan durii haqamu. Kan eeggachaa jiran ni kuufamu."
+    "recovery.quotaRotation": "Daangaan iddoo yoo guute, duwwaawwan xumuraman keessaa kan durii haqamu. Kan eeggachaa jiran ni kuufamu."
   }
 }

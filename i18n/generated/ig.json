@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.39",
+  "productVersion": "0.9.40",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Ị na-eji mmekọrịta faịlụ?",
     "emphasis.verify": "Lelee njikọ Google",
     "error.authorizationRequired": "Google chọrọ ikike. Mepee Ntọala wee pịa Nye Google ikike, mgbe ahụ mepee spreadsheet ọzọ.",
-    "error.backupQuota": "Enweghị ohere n'ime oke nnomi ndabere. E chekwara nke mbụ ma ezigaghị ya Google. Mepee Nnomi ndabere ka ihichapụ ndị emechara ma ọ bụ gbanwee oke (kacha 1 GB).",
+    "error.backupQuota": "Oghere ezughị mgbe nhicha akpaka gasịrị: a na-echebe ndabere na-eche ma ọ bụ faịlụ karịrị oke. E chekwara faịlụ mbụ na njikọ Google. Lelee ndabere ma ọ bụ bulie oke (ruo 1 GB).",
     "error.backupRemoved": "Akara nnomi ndabere a dịka nke ehichachara ma ọ dịghịzi maka iweghachi ma ọ bụ ịga n'ihu. E chekwara akwụkwọ Google na ụzọ mkpirisi ya. Jiri ụzọ mkpirisi ahụ mepee spreadsheet dị n'ịntanetị.",
     "error.busy": "Ọrụ ọzọ ka na-eji faịlụ ma ọ bụ registry. Chere wee gaa n'ihu; e chekwara nke mbụ na nnomi ndabere.",
     "error.cancelled": "Akwụsịrị ọrụ. E chekwara nnomi ndabere na ndekọ mweghachi, ma ọ bụrụ na emepụtara ha.",
@@ -237,7 +237,7 @@
     "recovery.state.protected": "Echekwara / na-echere",
     "recovery.state.unavailable": "Adịghị",
     "recovery.title": "Weghachite faịlụ ma jikwaa nnomi ndabere - ZagoSheetsWin",
-    "recovery.usage": "Oghere ejiri: {usedMb:N2} MB · oke: {limitMb} MB · nnomi ndabere: {backupCount} · echekwara: {protectedCount}",
+    "recovery.usage": "Oghere Ejiri: {usedMb:N2} MB · Oke: {limitMb} MB · Nnomi Ndabere: {backupCount} · Echekwara: {protectedCount}",
     "setup.advanced": "Nhọrọ dị elu…",
     "setup.advancedTitle": "Nhọrọ dị elu - ZagoSheetsWin",
     "setup.authChecking": "◉ Na-enyocha njikọ Google…",
@@ -296,7 +296,7 @@
     "theme.dark": "Ọchịchịrị",
     "theme.light": "Ìhè",
     "theme.saveFailed": "Enweghị ike ichekwa isiokwu. E chekwara nhọrọ mbụ gị.",
-    "tutorial.backupExplanation": "Nke mbụ → nnomi ndabere n'ime kọmputa → Google Sheets. Na Nnomi ndabere, họrọ Weghachite gaa… iji weghachite faịlụ.|30 ụbọchị · 200 MB (enwere ike ịgbanwe ruo 1 GB). Nhicha akpaka naanị mgbe agbanyere ya; a na-echekwa ọrụ ndị na-echere.|Nnomi ndabere na-edobe nke mbụ, n'enweghị mgbanwe emechara na Sheets. Formulas na nhazi nwere ike ịgbanwe; macros XLS anaghị arụ ọrụ na Sheets. Mgbe oke ohere juru, a na-ehichapụ ndabere emechara kacha ochie ọbụna ma nhọrọ a gbanyụọ. A na-edobe ndabere na-eche.",
+    "tutorial.backupExplanation": "Nke mbụ → nnomi ndabere n'ime kọmputa → Google Sheets. Na Nnomi ndabere, họrọ Weghachite gaa… iji weghachite faịlụ.|30 ụbọchị · 200 MB (enwere ike ịgbanwe ruo 1 GB).|Nnomi ndabere na-edobe nke mbụ, n'enweghị mgbanwe emechara na Sheets. Formulas na nhazi nwere ike ịgbanwe; macros XLS anaghị arụ ọrụ na Sheets. Mgbe oke ohere juru, a na-ehichapụ ndabere emechara kacha ochie. A na-edobe ndabere na-eche.",
     "tutorial.backupTitle": "Debe nke mbụ. Mara otu esi eweghachi ya.",
     "tutorial.defaultsExplanation": "Pịa ugboro abụọ ma ọ bụ jiri Mepee na → ZagoSheetsWin na menu Windows.|Tọọ ZagoSheetsWin dịka ngwa spreadsheet ndabara gị (nhọrọ):",
     "tutorial.defaultsTitle": "Họrọ otu esi emepee spreadsheets gị",
@@ -363,6 +363,6 @@
     "error.odsBounds": "ODS: nkwughachi na-ezighi ezi ma ọ bụ nha gafere oke a na-akwado.",
     "error.odsStructure": "Nhazi faịlụ ODS ezughị ezu ma ọ bụ na-ezighi ezi.",
     "action.chooseSeparator": "Họrọ ihe nkewa",
-    "recovery.quotaRotation": "Mgbe oke ohere juru, a na-ehichapụ ndabere emechara kacha ochie ọbụna ma nhọrọ a gbanyụọ. A na-edobe ndabere na-eche."
+    "recovery.quotaRotation": "Mgbe oke ohere juru, a na-ehichapụ ndabere emechara kacha ochie. A na-edobe ndabere na-eche."
   }
 }

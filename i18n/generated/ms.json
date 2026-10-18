@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.39",
+  "productVersion": "0.9.40",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Adakah anda menggunakan penyegerakan?",
     "emphasis.verify": "Semak sambungan Google",
     "error.authorizationRequired": "Google memerlukan kebenaran. Buka Tetapan dan klik Benarkan Google, kemudian buka hamparan sekali lagi.",
-    "error.backupQuota": "Tiada ruang dalam had sandaran. Fail asal dikekalkan dan tidak dihantar ke Google. Buka Sandaran untuk memadam sandaran yang selesai atau laraskan had (maksimum 1 GB).",
+    "error.backupQuota": "Ruang tidak cukup selepas pembersihan automatik: sandaran tertunda dilindungi atau fail melebihi kuota. Fail asal dan pautan Google dikekalkan. Semak sandaran atau naikkan had (maksimum 1 GB).",
     "error.backupRemoved": "Sandaran ini telah ditandai sebagai dibersihkan dan tidak lagi tersedia untuk pemulihan atau menyambung semula. Dokumen Google dan pintasannya dikekalkan. Gunakan pintasan untuk membuka hamparan dalam talian.",
     "error.busy": "Operasi lain masih menggunakan fail atau registri. Tunggu dan sambung semula; fail asal dan sandaran dikekalkan.",
     "error.cancelled": "Operasi dihentikan. Sandaran dan rekod pemulihan, jika telah dibuat, dikekalkan.",
@@ -237,7 +237,7 @@
     "recovery.state.protected": "Dilindungi / tertunda",
     "recovery.state.unavailable": "Tidak tersedia",
     "recovery.title": "Pulihkan fail dan urus sandaran - ZagoSheetsWin",
-    "recovery.usage": "Ruang digunakan: {usedMb:N2} MB · had: {limitMb} MB · sandaran: {backupCount} · dilindungi: {protectedCount}",
+    "recovery.usage": "Ruang Digunakan: {usedMb:N2} MB · Had: {limitMb} MB · Sandaran: {backupCount} · Dilindungi: {protectedCount}",
     "setup.advanced": "Pilihan lanjutan…",
     "setup.advancedTitle": "Pilihan lanjutan - ZagoSheetsWin",
     "setup.authChecking": "◉ Memeriksa sambungan Google…",
@@ -296,7 +296,7 @@
     "theme.dark": "Gelap",
     "theme.light": "Cerah",
     "theme.saveFailed": "Tidak dapat menyimpan tema. Pilihan anda sebelum ini dikekalkan.",
-    "tutorial.backupExplanation": "Asal → sandaran setempat → Google Sheets. Dalam Sandaran, pilih Pulihkan ke… untuk memulihkan fail.|30 hari · 200 MB (boleh dilaraskan sehingga 1 GB). Pembersihan automatik hanya apabila didayakan; operasi tertunda dilindungi.|Sandaran mengekalkan fail asal tanpa perubahan kemudian dalam Sheets. Formula dan pemformatan mungkin berubah; makro XLS tidak berfungsi dalam Sheets. Apabila kuota dicapai, sandaran selesai paling lama dipadam walaupun pilihan ini dimatikan. Sandaran tertunda dikekalkan.",
+    "tutorial.backupExplanation": "Asal → sandaran setempat → Google Sheets. Dalam Sandaran, pilih Pulihkan ke… untuk memulihkan fail.|30 hari · 200 MB (boleh dilaraskan sehingga 1 GB).|Sandaran mengekalkan fail asal tanpa perubahan kemudian dalam Sheets. Formula dan pemformatan mungkin berubah; makro XLS tidak berfungsi dalam Sheets. Apabila kuota dicapai, sandaran selesai paling lama dipadam. Sandaran tertunda dikekalkan.",
     "tutorial.backupTitle": "Kekalkan fail asal. Ketahui cara memulihkannya.",
     "tutorial.defaultsExplanation": "Dwiklik atau gunakan Buka dengan → ZagoSheetsWin dalam menu Windows.|Tetapkan ZagoSheetsWin sebagai aplikasi hamparan lalai anda (pilihan):",
     "tutorial.defaultsTitle": "Pilih cara membuka hamparan anda",
@@ -363,6 +363,6 @@
     "error.odsBounds": "ODS: pengulangan tidak sah atau dimensi melebihi had yang disokong.",
     "error.odsStructure": "Struktur fail ODS tidak lengkap atau tidak sah.",
     "action.chooseSeparator": "Pilih pemisah",
-    "recovery.quotaRotation": "Apabila kuota dicapai, sandaran selesai paling lama dipadam walaupun pilihan ini dimatikan. Sandaran tertunda dikekalkan."
+    "recovery.quotaRotation": "Apabila kuota dicapai, sandaran selesai paling lama dipadam. Sandaran tertunda dikekalkan."
   }
 }

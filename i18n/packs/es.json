@@ -3,7 +3,7 @@
   "locale": "es",
   "direction": "ltr",
   "catalogRevision": 13,
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -134,7 +134,7 @@
     "emphasis.usesSync": "¿Usas sincronización?",
     "emphasis.verify": "Comprobar conexión con Google",
     "error.authorizationRequired": "Google necesita autorización. Abre Configuración y haz clic en Autorizar Google; después vuelve a abrir la hoja de cálculo.",
-    "error.backupQuota": "No hay espacio dentro del límite de copias de seguridad. Se conservó el original y no se envió a Google. Abre Copias de seguridad para eliminar copias completadas o ajustar el límite (máximo 1 GB).",
+    "error.backupQuota": "No hay espacio suficiente tras la limpieza automática. Hay copias pendientes protegidas o el archivo supera la cuota. El original y la asociación con Google se conservan. Revisa las copias o aumenta el límite (máximo 1 GB).",
     "error.backupRemoved": "Esta copia de seguridad ya se marcó como limpiada y no está disponible para restaurar ni reanudar. Se conservaron el documento de Google y su acceso directo. Usa el acceso directo para abrir la hoja de cálculo en línea.",
     "error.busy": "Otra operación sigue usando el archivo o el registro. Espera y reanuda; se conservaron el original y las copias de seguridad.",
     "error.cancelled": "La operación se detuvo. Se conservaron la copia de seguridad y el registro de recuperación, si se habían creado.",
@@ -530,7 +530,7 @@
     "recovery.state.protected": "Protegida / pendiente",
     "recovery.state.unavailable": "No disponible",
     "recovery.title": "Recuperar archivos y administrar copias de seguridad - ZagoSheetsWin",
-    "recovery.usage": "Espacio usado: {usedMb:N2} MB · límite: {limitMb} MB · copias: {backupCount} · protegidas: {protectedCount}",
+    "recovery.usage": "Espacio Usado: {usedMb:N2} MB · Límite: {limitMb} MB · Copias: {backupCount} · Protegidas: {protectedCount}",
     "setup.advanced": "Opciones avanzadas…",
     "setup.advancedTitle": "Opciones avanzadas - ZagoSheetsWin",
     "setup.authChecking": "◉ Comprobando conexión con Google…",
@@ -589,7 +589,7 @@
     "theme.dark": "Oscuro",
     "theme.light": "Claro",
     "theme.saveFailed": "No se pudo guardar el tema. Se conservó tu preferencia anterior.",
-    "tutorial.backupExplanation": "Original → copia de seguridad local → Google Sheets. En Copias de seguridad, elige Restaurar en… para recuperar el archivo.|30 días · 200 MB (ajustable hasta 1 GB). Limpieza automática solo cuando está habilitada; las operaciones pendientes están protegidas.|La copia de seguridad conserva el original, sin los cambios posteriores hechos en Sheets. Las fórmulas y el formato pueden cambiar; las macros de XLS no funcionan en Sheets. Al alcanzar la cuota, se eliminan las copias completadas más antiguas, aunque esta opción esté desactivada. Las pendientes se conservan.",
+    "tutorial.backupExplanation": "Original → copia de seguridad local → Google Sheets. En Copias de seguridad, elige Restaurar en… para recuperar el archivo.|30 días · 200 MB (ajustable hasta 1 GB).|La copia de seguridad conserva el original, sin los cambios posteriores hechos en Sheets. Las fórmulas y el formato pueden cambiar; las macros de XLS no funcionan en Sheets. Al alcanzar la cuota, se eliminan las copias completadas más antiguas. Las pendientes se conservan.",
     "tutorial.backupTitle": "Conserva el original. Aprende a recuperarlo.",
     "tutorial.defaultsExplanation": "Haz doble clic o usa Abrir con → ZagoSheetsWin en el menú de Windows.|Configura ZagoSheetsWin como aplicación predeterminada para hojas de cálculo (opcional):",
     "tutorial.defaultsTitle": "Elige cómo abrir tus hojas de cálculo",
@@ -656,6 +656,6 @@
     "error.odsBounds": "ODS: repetición no válida o dimensiones superiores al límite admitido.",
     "error.odsStructure": "La estructura del archivo ODS está incompleta o no es válida.",
     "action.chooseSeparator": "Elegir separador",
-    "recovery.quotaRotation": "Al alcanzar la cuota, se eliminan las copias completadas más antiguas, aunque esta opción esté desactivada. Las pendientes se conservan."
+    "recovery.quotaRotation": "Al alcanzar la cuota, se eliminan las copias completadas más antiguas. Las pendientes se conservan."
   }
 }

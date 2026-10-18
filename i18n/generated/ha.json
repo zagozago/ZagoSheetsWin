@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.39",
+  "productVersion": "0.9.40",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Kana amfani da sync?",
     "emphasis.verify": "Duba haɗin Google",
     "error.authorizationRequired": "Google na buƙatar izini. Buɗe Saituna ka danna Ba Google izini, sannan ka sake buɗe maƙunsar bayanan.",
-    "error.backupQuota": "Babu sarari a cikin iyakar ajiyar baya. An kiyaye asali kuma ba a aika shi zuwa Google ba. Buɗe Ajiyar baya don share ajiyar da aka kammala ko daidaita iyakar (mafi yawa 1 GB).",
+    "error.backupQuota": "Babu isasshen sarari bayan tsaftacewa ta atomatik: madadin da ke jira suna da kariya ko fayil ya wuce iyaka. Asali da haɗin Google suna nan. Duba madadin ko ƙara iyaka (har 1 GB).",
     "error.backupRemoved": "An riga an yi wa wannan ajiyar baya alamar an tsaftace, kuma ba ta samuwa don maidowa ko ci gaba. An kiyaye takardar Google da gajeriyar hanyarta. Yi amfani da gajeriyar hanyar don buɗe maƙunsar ta intanet.",
     "error.busy": "Wani aiki har yanzu yana amfani da fayil ko registry. Jira sannan ka ci gaba; an kiyaye asali da ajiyar baya.",
     "error.cancelled": "An dakatar da aiki. An kiyaye ajiyar baya da rikodin maidowa, idan an ƙirƙire su.",
@@ -237,7 +237,7 @@
     "recovery.state.protected": "Mai kariya / na jira",
     "recovery.state.unavailable": "Ba ya samuwa",
     "recovery.title": "Maido da fayiloli da sarrafa ajiyar baya - ZagoSheetsWin",
-    "recovery.usage": "Sararin da aka yi amfani da shi: {usedMb:N2} MB · iyaka: {limitMb} MB · ajiyar baya: {backupCount} · masu kariya: {protectedCount}",
+    "recovery.usage": "Sararin Da Aka Yi Amfani Da Shi: {usedMb:N2} MB · Iyaka: {limitMb} MB · Ajiyar Baya: {backupCount} · Masu Kariya: {protectedCount}",
     "setup.advanced": "Zaɓuɓɓukan ci gaba…",
     "setup.advancedTitle": "Zaɓuɓɓukan ci gaba - ZagoSheetsWin",
     "setup.authChecking": "◉ Ana duba haɗin Google…",
@@ -296,7 +296,7 @@
     "theme.dark": "Duhu",
     "theme.light": "Haske",
     "theme.saveFailed": "Ba a iya adana jigon ba. An kiyaye zaɓinka na baya.",
-    "tutorial.backupExplanation": "Asali → ajiyar baya ta cikin gida → Google Sheets. A Ajiyar baya, zaɓi Mayar zuwa… don dawo da fayil.|Kwanaki 30 · 200 MB (ana iya daidaita har zuwa 1 GB). Tsaftacewa ta atomatik sai idan an kunna; ayyukan da ke jira suna da kariya.|Ajiyar baya tana riƙe asali, ba tare da sauye-sauyen da aka yi daga baya a Sheets ba. Formulas da formatting na iya canzawa; XLS macros ba sa aiki a Sheets. Idan an kai iyakar sarari, ana goge tsofaffin madadin da aka kammala ko da an kashe wannan zaɓin. Ana kiyaye waɗanda suke jira.",
+    "tutorial.backupExplanation": "Asali → ajiyar baya ta cikin gida → Google Sheets. A Ajiyar baya, zaɓi Mayar zuwa… don dawo da fayil.|Kwanaki 30 · 200 MB (ana iya daidaita har zuwa 1 GB).|Ajiyar baya tana riƙe asali, ba tare da sauye-sauyen da aka yi daga baya a Sheets ba. Formulas da formatting na iya canzawa; XLS macros ba sa aiki a Sheets. Idan an kai iyakar sarari, ana goge tsofaffin madadin da aka kammala. Ana kiyaye waɗanda suke jira.",
     "tutorial.backupTitle": "Riƙe asali. San yadda za ka dawo da shi.",
     "tutorial.defaultsExplanation": "Danna sau biyu ko amfani da Buɗe da → ZagoSheetsWin a menu na Windows.|Saita ZagoSheetsWin a matsayin tsohuwar manhajar maƙunsar bayananka (na zaɓi):",
     "tutorial.defaultsTitle": "Zaɓi yadda za ka buɗe maƙunsar bayananka",
@@ -363,6 +363,6 @@
     "error.odsBounds": "ODS: maimaitawa mara inganci ko girma ya wuce iyakar tallafi.",
     "error.odsStructure": "Tsarin fayil ɗin ODS bai cika ba ko ba shi da inganci.",
     "action.chooseSeparator": "Zaɓi mai raba bayanai",
-    "recovery.quotaRotation": "Idan an kai iyakar sarari, ana goge tsofaffin madadin da aka kammala ko da an kashe wannan zaɓin. Ana kiyaye waɗanda suke jira."
+    "recovery.quotaRotation": "Idan an kai iyakar sarari, ana goge tsofaffin madadin da aka kammala. Ana kiyaye waɗanda suke jira."
   }
 }

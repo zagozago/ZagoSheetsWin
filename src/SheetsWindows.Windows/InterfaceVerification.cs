@@ -179,7 +179,7 @@ internal static class InterfaceVerification
                     var fields = Descendants(autosave).OfType<NumericUpDown>().ToArray();
                     fields.Single(n => n.Maximum == 365).Value = 45;
                     fields.Single(n => n.Maximum == 1000).Value = 321;
-                    Descendants(autosave).OfType<CheckBox>().Single().Checked = true;
+                    Require(!Descendants(autosave).OfType<CheckBox>().Any(), "Backup cleanup is automatic and has no toggle.");
                     autosave.Close();
                 };
                 autosave.ShowDialog();
@@ -210,6 +210,9 @@ internal static class InterfaceVerification
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Limpar seleção").PerformClick();
             Require(list.SelectedItems.Count == 0, "Clear selection must remove all marks.");
             Require(!Descendants(recovery).OfType<Button>().Any(b => b.Text == UiText.Get("recovery.savePolicy")), "Backup policy must auto-save without a save button.");
+            Require(!Descendants(recovery).OfType<CheckBox>().Any(), "Automatic backup cleanup must not expose a switch.");
+            var statistics = Descendants(recovery).OfType<Label>().Single(l => l.AccessibleName == "Backup statistics");
+            Require(statistics.Font.Bold && statistics.Parent is FlowLayoutPanel { BorderStyle: BorderStyle.FixedSingle, Margin.Top: >= 16 }, "Backup statistics must have bold text, a border and vertical separation.");
             for (var column = 0; column < 4; column++)
             {
                 recovery.SortByColumn(column);

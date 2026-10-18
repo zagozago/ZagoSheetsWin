@@ -104,7 +104,7 @@ public sealed class BackupManagement(LocalStorage storage, Func<DateTimeOffset>?
     }
     public async Task<CleanupResult> MaintainAsync(CancellationToken ct=default,Guid? excludeId=null)
     {
-        var policy=BackupPolicy.Load(storage);var ids=policy.AutomaticCleanup?Plan(excludeId:excludeId):Inspect().Entries.Where(e=>e.Id!=excludeId&&e.CleanupState==1&&e.CanClean).Select(e=>e.Id).ToArray();
+        var ids=Plan(excludeId:excludeId);
         return await CleanAsync(ids,ct);
     }
     public async Task<CleanupResult> CleanAsync(IEnumerable<Guid> ids,CancellationToken ct=default)
@@ -117,7 +117,7 @@ public sealed class BackupManagement(LocalStorage storage, Func<DateTimeOffset>?
         if (incomingBytes > policy.QuotaBytes) throw new BackupQuotaException();
         // Quota is a rolling capacity budget, independent of age-based expiration.
         // Only verified completed entries are eligible; pending/unknown files stay protected.
-        await CleanAsync(Plan(incomingBytes,includeExpired:policy.AutomaticCleanup,excludeId:excludeId),ct);
+        await CleanAsync(Plan(incomingBytes,includeExpired:true,excludeId:excludeId),ct);
     }
 }
 public sealed class ManagedBackupStore(LocalStorage storage):IBackupStore

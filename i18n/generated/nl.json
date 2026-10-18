@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.39",
+  "productVersion": "0.9.40",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Gebruikt u synchronisatie?",
     "emphasis.verify": "Google-verbinding controleren",
     "error.authorizationRequired": "Google vereist autorisatie. Open Instellingen en klik op Google autoriseren; open daarna het werkblad opnieuw.",
-    "error.backupQuota": "Er is geen ruimte binnen de back-uplimiet. Het origineel is behouden en niet naar Google verzonden. Open Back-ups om voltooide back-ups te verwijderen of pas de limiet aan (maximaal 1 GB).",
+    "error.backupQuota": "Onvoldoende ruimte na automatisch opschonen: beschermde openstaande back-ups of een bestand boven het quotum. Het origineel en de Google-koppeling blijven behouden. Controleer back-ups of verhoog de limiet (maximaal 1 GB).",
     "error.backupRemoved": "Deze back-up is al als opgeschoond gemarkeerd en is niet beschikbaar voor herstel of hervatten. Het Google-document en de snelkoppeling zijn behouden. Gebruik de snelkoppeling om het online werkblad te openen.",
     "error.busy": "Een andere bewerking gebruikt het bestand of register nog. Wacht en hervat; het origineel en de back-ups zijn behouden.",
     "error.cancelled": "Bewerking gestopt. De back-up en herstelregistratie, indien aangemaakt, zijn behouden.",
@@ -237,7 +237,7 @@
     "recovery.state.protected": "Beschermd / openstaand",
     "recovery.state.unavailable": "Niet beschikbaar",
     "recovery.title": "Bestanden herstellen en back-ups beheren - ZagoSheetsWin",
-    "recovery.usage": "Gebruikte ruimte: {usedMb:N2} MB · limiet: {limitMb} MB · back-ups: {backupCount} · beschermd: {protectedCount}",
+    "recovery.usage": "Gebruikte Ruimte: {usedMb:N2} MB · Limiet: {limitMb} MB · Back-Ups: {backupCount} · Beschermd: {protectedCount}",
     "setup.advanced": "Geavanceerde opties…",
     "setup.advancedTitle": "Geavanceerde opties - ZagoSheetsWin",
     "setup.authChecking": "◉ Google-verbinding controleren…",
@@ -296,7 +296,7 @@
     "theme.dark": "Donker",
     "theme.light": "Licht",
     "theme.saveFailed": "Het thema kon niet worden opgeslagen. Uw vorige voorkeur is behouden.",
-    "tutorial.backupExplanation": "Origineel → lokale back-up → Google Sheets. Kies in Back-ups Herstellen naar… om het bestand terug te zetten.|30 dagen · 200 MB (aanpasbaar tot 1 GB). Automatische opschoning alleen wanneer ingeschakeld; openstaande bewerkingen zijn beschermd.|De back-up bewaart het origineel, zonder latere wijzigingen in Sheets. Formules en opmaak kunnen veranderen; XLS-macro's werken niet in Sheets. Als het quotum bereikt is, worden de oudste voltooide back-ups verwijderd, ook als deze optie uitstaat. Wachtende back-ups blijven behouden.",
+    "tutorial.backupExplanation": "Origineel → lokale back-up → Google Sheets. Kies in Back-ups Herstellen naar… om het bestand terug te zetten.|30 dagen · 200 MB (aanpasbaar tot 1 GB).|De back-up bewaart het origineel, zonder latere wijzigingen in Sheets. Formules en opmaak kunnen veranderen; XLS-macro's werken niet in Sheets. Als het quotum bereikt is, worden de oudste voltooide back-ups verwijderd. Wachtende back-ups blijven behouden.",
     "tutorial.backupTitle": "Bewaar het origineel. Weet hoe u het herstelt.",
     "tutorial.defaultsExplanation": "Dubbelklik of gebruik Openen met → ZagoSheetsWin in het Windows-menu.|Stel ZagoSheetsWin in als uw standaardapp voor werkbladen (optioneel):",
     "tutorial.defaultsTitle": "Kies hoe u uw werkbladen opent",
@@ -363,6 +363,6 @@
     "error.odsBounds": "ODS: ongeldige herhaling of afmetingen boven de ondersteunde limiet.",
     "error.odsStructure": "De structuur van het ODS-bestand is onvolledig of ongeldig.",
     "action.chooseSeparator": "Scheidingsteken kiezen",
-    "recovery.quotaRotation": "Als het quotum bereikt is, worden de oudste voltooide back-ups verwijderd, ook als deze optie uitstaat. Wachtende back-ups blijven behouden."
+    "recovery.quotaRotation": "Als het quotum bereikt is, worden de oudste voltooide back-ups verwijderd. Wachtende back-ups blijven behouden."
   }
 }

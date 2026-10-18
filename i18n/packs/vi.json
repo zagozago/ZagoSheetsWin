@@ -3,7 +3,7 @@
   "locale": "vi-VN",
   "direction": "ltr",
   "catalogRevision": 13,
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -134,7 +134,7 @@
     "emphasis.usesSync": "Bạn có dùng đồng bộ không?",
     "emphasis.verify": "Kiểm tra kết nối Google",
     "error.authorizationRequired": "Google cần được ủy quyền. Mở Cài đặt, nhấp “Ủy quyền Google”, rồi mở lại bảng tính.",
-    "error.backupQuota": "Không còn dung lượng trong giới hạn sao lưu. Tệp gốc đã được giữ lại và chưa gửi đến Google. Mở Sao lưu để xóa các bản sao lưu đã hoàn tất hoặc điều chỉnh giới hạn (tối đa 1 GB).",
+    "error.backupQuota": "Không đủ chỗ sau khi dọn tự động: bản sao đang chờ được bảo vệ hoặc tệp vượt hạn mức. Bản gốc và liên kết Google được giữ lại. Kiểm tra bản sao hoặc tăng giới hạn (tối đa 1 GB).",
     "error.backupRemoved": "Bản sao lưu này đã được đánh dấu là đã dọn dẹp và không còn dùng được để khôi phục hoặc tiếp tục. Tài liệu Google và lối tắt của nó đã được giữ lại. Hãy dùng lối tắt để mở bảng tính trực tuyến.",
     "error.busy": "Một thao tác khác vẫn đang sử dụng tệp hoặc bản ghi. Hãy chờ rồi tiếp tục; tệp gốc và các bản sao lưu đã được giữ lại.",
     "error.cancelled": "Đã dừng thao tác. Bản sao lưu và bản ghi khôi phục, nếu đã tạo, đều được giữ lại.",
@@ -530,7 +530,7 @@
     "recovery.state.protected": "Được bảo vệ / đang chờ",
     "recovery.state.unavailable": "Không khả dụng",
     "recovery.title": "Khôi phục tệp và quản lý bản sao lưu - ZagoSheetsWin",
-    "recovery.usage": "Đã dùng: {usedMb:N2} MB · giới hạn: {limitMb} MB · bản sao lưu: {backupCount} · được bảo vệ: {protectedCount}",
+    "recovery.usage": "Đã Dùng: {usedMb:N2} MB · Giới Hạn: {limitMb} MB · Bản Sao Lưu: {backupCount} · Được Bảo Vệ: {protectedCount}",
     "setup.advanced": "Tùy chọn nâng cao…",
     "setup.advancedTitle": "Tùy chọn nâng cao - ZagoSheetsWin",
     "setup.authChecking": "◉ Đang kiểm tra kết nối Google…",
@@ -589,7 +589,7 @@
     "theme.dark": "Tối",
     "theme.light": "Sáng",
     "theme.saveFailed": "Không thể lưu giao diện. Tùy chọn trước đó của bạn đã được giữ lại.",
-    "tutorial.backupExplanation": "Tệp gốc → bản sao lưu cục bộ → Google Sheets. Trong Sao lưu, chọn Khôi phục đến… để khôi phục tệp.|30 ngày · 200 MB (có thể điều chỉnh đến 1 GB). Chỉ tự động dọn dẹp khi được bật; các thao tác đang chờ được bảo vệ.|Bản sao lưu giữ tệp gốc, không gồm các thay đổi sau này trong Sheets. Công thức và định dạng có thể thay đổi; macro XLS không hoạt động trong Sheets. Khi đạt hạn mức, các bản sao lưu hoàn tất cũ nhất bị xóa ngay cả khi tắt tùy chọn này. Bản sao lưu đang chờ được giữ lại.",
+    "tutorial.backupExplanation": "Tệp gốc → bản sao lưu cục bộ → Google Sheets. Trong Sao lưu, chọn Khôi phục đến… để khôi phục tệp.|30 ngày · 200 MB (có thể điều chỉnh đến 1 GB).|Bản sao lưu giữ tệp gốc, không gồm các thay đổi sau này trong Sheets. Công thức và định dạng có thể thay đổi; macro XLS không hoạt động trong Sheets. Khi đạt hạn mức, các bản sao lưu hoàn tất cũ nhất bị xóa. Bản sao lưu đang chờ được giữ lại.",
     "tutorial.backupTitle": "Giữ tệp gốc. Biết cách khôi phục.",
     "tutorial.defaultsExplanation": "Nhấp đúp hoặc dùng Mở bằng → ZagoSheetsWin trong menu Windows.|Đặt ZagoSheetsWin làm ứng dụng bảng tính mặc định (tùy chọn):",
     "tutorial.defaultsTitle": "Chọn cách mở bảng tính",
@@ -656,6 +656,6 @@
     "error.odsBounds": "ODS: lặp không hợp lệ hoặc kích thước vượt giới hạn hỗ trợ.",
     "error.odsStructure": "Cấu trúc tệp ODS không đầy đủ hoặc không hợp lệ.",
     "action.chooseSeparator": "Chọn dấu phân cách",
-    "recovery.quotaRotation": "Khi đạt hạn mức, các bản sao lưu hoàn tất cũ nhất bị xóa ngay cả khi tắt tùy chọn này. Bản sao lưu đang chờ được giữ lại."
+    "recovery.quotaRotation": "Khi đạt hạn mức, các bản sao lưu hoàn tất cũ nhất bị xóa. Bản sao lưu đang chờ được giữ lại."
   }
 }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.39",
+  "productVersion": "0.9.40",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Verwenden Sie eine Synchronisierung?",
     "emphasis.verify": "Google-Verbindung prüfen",
     "error.authorizationRequired": "Google benötigt eine Autorisierung. Öffnen Sie die Einstellungen, klicken Sie auf „Google autorisieren“ und öffnen Sie die Tabelle anschließend erneut.",
-    "error.backupQuota": "Innerhalb des Sicherungslimits ist kein Speicherplatz mehr verfügbar. Das Original wurde beibehalten und nicht an Google gesendet. Öffnen Sie „Sicherungen“, um abgeschlossene Sicherungen zu löschen oder das Limit anzupassen (maximal 1 GB).",
+    "error.backupQuota": "Nach automatischer Bereinigung fehlt Platz: geschützte ausstehende Sicherungen oder Datei größer als das Kontingent. Original und Google-Zuordnung bleiben erhalten. Sicherungen prüfen oder Limit erhöhen (maximal 1 GB).",
     "error.backupRemoved": "Diese Sicherung wurde bereits als bereinigt markiert und kann weder wiederhergestellt noch fortgesetzt werden. Das Google-Dokument und seine Verknüpfung wurden beibehalten. Verwenden Sie die Verknüpfung, um die Online-Tabelle zu öffnen.",
     "error.busy": "Ein anderer Vorgang verwendet die Datei oder den Registrierungseintrag noch. Warten Sie und setzen Sie den Vorgang fort; Original und Sicherungen wurden beibehalten.",
     "error.cancelled": "Vorgang gestoppt. Die Sicherung und der Wiederherstellungseintrag wurden, sofern erstellt, beibehalten.",
@@ -237,7 +237,7 @@
     "recovery.state.protected": "Geschützt / ausstehend",
     "recovery.state.unavailable": "Nicht verfügbar",
     "recovery.title": "Dateien wiederherstellen und Sicherungen verwalten - ZagoSheetsWin",
-    "recovery.usage": "Belegter Speicher: {usedMb:N2} MB · Limit: {limitMb} MB · Sicherungen: {backupCount} · geschützt: {protectedCount}",
+    "recovery.usage": "Belegter Speicher: {usedMb:N2} MB · Limit: {limitMb} MB · Sicherungen: {backupCount} · Geschützt: {protectedCount}",
     "setup.advanced": "Erweiterte Optionen…",
     "setup.advancedTitle": "Erweiterte Optionen - ZagoSheetsWin",
     "setup.authChecking": "◉ Google-Verbindung wird geprüft…",
@@ -296,7 +296,7 @@
     "theme.dark": "Dunkel",
     "theme.light": "Hell",
     "theme.saveFailed": "Das Design konnte nicht gespeichert werden. Ihre vorherige Einstellung wurde beibehalten.",
-    "tutorial.backupExplanation": "Original → lokale Sicherung → Google Sheets. Wählen Sie unter „Sicherungen“ „Wiederherstellen nach…“, um die Datei wiederherzustellen.|30 Tage · 200 MB (anpassbar bis 1 GB). Automatische Bereinigung nur bei Aktivierung; ausstehende Vorgänge sind geschützt.|Die Sicherung enthält das Original ohne spätere Änderungen in Sheets. Formeln und Formatierungen können sich ändern; XLS-Makros funktionieren in Sheets nicht. Bei Erreichen des Kontingents werden die ältesten abgeschlossenen Sicherungen auch bei deaktivierter Option gelöscht. Ausstehende Sicherungen bleiben erhalten.",
+    "tutorial.backupExplanation": "Original → lokale Sicherung → Google Sheets. Wählen Sie unter „Sicherungen“ „Wiederherstellen nach…“, um die Datei wiederherzustellen.|30 Tage · 200 MB (anpassbar bis 1 GB).|Die Sicherung enthält das Original ohne spätere Änderungen in Sheets. Formeln und Formatierungen können sich ändern; XLS-Makros funktionieren in Sheets nicht. Bei Erreichen des Kontingents werden die ältesten abgeschlossenen Sicherungen gelöscht. Ausstehende Sicherungen bleiben erhalten.",
     "tutorial.backupTitle": "Original behalten. Wissen, wie es wiederhergestellt wird.",
     "tutorial.defaultsExplanation": "Doppelklicken oder im Windows-Menü „Öffnen mit → ZagoSheetsWin“ verwenden.|ZagoSheetsWin als Standard-App für Tabellen festlegen (optional):",
     "tutorial.defaultsTitle": "Auswählen, wie Tabellen geöffnet werden",
@@ -363,6 +363,6 @@
     "error.odsBounds": "ODS: ungültige Wiederholung oder Abmessungen über der unterstützten Grenze.",
     "error.odsStructure": "Die Struktur der ODS-Datei ist unvollständig oder ungültig.",
     "action.chooseSeparator": "Trennzeichen wählen",
-    "recovery.quotaRotation": "Bei Erreichen des Kontingents werden die ältesten abgeschlossenen Sicherungen auch bei deaktivierter Option gelöscht. Ausstehende Sicherungen bleiben erhalten."
+    "recovery.quotaRotation": "Bei Erreichen des Kontingents werden die ältesten abgeschlossenen Sicherungen gelöscht. Ausstehende Sicherungen bleiben erhalten."
   }
 }

@@ -3,7 +3,7 @@
   "locale": "it-IT",
   "direction": "ltr",
   "catalogRevision": 13,
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -137,7 +137,7 @@
     "emphasis.usesSync": "Usi la sincronizzazione?",
     "emphasis.verify": "Verifica connessione Google",
     "error.authorizationRequired": "Google richiede l'autorizzazione. Apri Impostazioni e fai clic su Autorizza Google, quindi riapri il foglio di calcolo.",
-    "error.backupQuota": "Non c'è spazio entro il limite dei backup. L'originale è stato conservato e non è stato inviato a Google. Apri Backup per eliminare i backup completati o modificare il limite (massimo 1 GB).",
+    "error.backupQuota": "Spazio insufficiente dopo la pulizia automatica: backup in sospeso protetti o file oltre la quota. Originale e associazione Google conservati. Controlla i backup o aumenta il limite (massimo 1 GB).",
     "error.backupRemoved": "Questo backup è già stato contrassegnato come pulito e non è disponibile per il ripristino o la ripresa. Il documento Google e il relativo collegamento sono stati conservati. Usa il collegamento per aprire il foglio di calcolo online.",
     "error.busy": "Un'altra operazione sta ancora usando il file o il registro. Attendi e riprendi; l'originale e i backup sono stati conservati.",
     "error.cancelled": "Operazione interrotta. Il backup e il record di ripristino, se creati, sono stati conservati.",
@@ -533,7 +533,7 @@
     "recovery.state.protected": "Protetto / in sospeso",
     "recovery.state.unavailable": "Non disponibile",
     "recovery.title": "Recupera file e gestisci backup - ZagoSheetsWin",
-    "recovery.usage": "Spazio usato: {usedMb:N2} MB · limite: {limitMb} MB · backup: {backupCount} · protetti: {protectedCount}",
+    "recovery.usage": "Spazio Usato: {usedMb:N2} MB · Limite: {limitMb} MB · Backup: {backupCount} · Protetti: {protectedCount}",
     "setup.advanced": "Opzioni avanzate…",
     "setup.advancedTitle": "Opzioni avanzate - ZagoSheetsWin",
     "setup.authChecking": "◉ Verifica della connessione Google…",
@@ -592,7 +592,7 @@
     "theme.dark": "Scuro",
     "theme.light": "Chiaro",
     "theme.saveFailed": "Impossibile salvare il tema. La preferenza precedente è stata conservata.",
-    "tutorial.backupExplanation": "Originale → backup locale → Google Sheets. In Backup, scegli Ripristina in… per recuperare il file.|30 giorni · 200 MB (regolabile fino a 1 GB). Pulizia automatica solo quando abilitata; le operazioni in sospeso sono protette.|Il backup conserva l'originale, senza le modifiche successive in Sheets. Formule e formattazione possono cambiare; le macro XLS non funzionano in Sheets. Al raggiungimento della quota, i backup completati più vecchi vengono eliminati anche con questa opzione disattivata. Quelli in sospeso vengono conservati.",
+    "tutorial.backupExplanation": "Originale → backup locale → Google Sheets. In Backup, scegli Ripristina in… per recuperare il file.|30 giorni · 200 MB (regolabile fino a 1 GB).|Il backup conserva l'originale, senza le modifiche successive in Sheets. Formule e formattazione possono cambiare; le macro XLS non funzionano in Sheets. Al raggiungimento della quota, i backup completati più vecchi vengono eliminati. Quelli in sospeso vengono conservati.",
     "tutorial.backupTitle": "Conserva l'originale. Scopri come recuperarlo.",
     "tutorial.defaultsExplanation": "Fai doppio clic o usa Apri con → ZagoSheetsWin nel menu di Windows.|Imposta ZagoSheetsWin come app predefinita per i fogli di calcolo (facoltativo):",
     "tutorial.defaultsTitle": "Scegli come aprire i tuoi fogli di calcolo",
@@ -659,6 +659,6 @@
     "error.odsBounds": "ODS: ripetizione non valida o dimensioni oltre il limite supportato.",
     "error.odsStructure": "La struttura del file ODS è incompleta o non valida.",
     "action.chooseSeparator": "Scegli separatore",
-    "recovery.quotaRotation": "Al raggiungimento della quota, i backup completati più vecchi vengono eliminati anche con questa opzione disattivata. Quelli in sospeso vengono conservati."
+    "recovery.quotaRotation": "Al raggiungimento della quota, i backup completati più vecchi vengono eliminati. Quelli in sospeso vengono conservati."
   }
 }

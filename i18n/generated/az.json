@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.39",
+  "productVersion": "0.9.40",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Sinxronizasiyadan istifadə edirsiniz?",
     "emphasis.verify": "Google bağlantısını yoxla",
     "error.authorizationRequired": "Google icazə tələb edir. Parametrləri açın və Google-a icazə ver düyməsinə klikləyin, sonra elektron cədvəli yenidən açın.",
-    "error.backupQuota": "Ehtiyat nüsxə limiti daxilində yer yoxdur. Orijinal saxlanıldı və Google-a göndərilmədi. Tamamlanmış ehtiyat nüsxələri silmək və ya limiti tənzimləmək üçün Ehtiyat nüsxələri açın (maksimum 1 GB).",
+    "error.backupQuota": "Avtomatik təmizləmədən sonra yer kifayət etmir: gözləyən nüsxələr qorunur və ya fayl kvotanı aşır. Orijinal və Google əlaqəsi saxlanılıb. Nüsxələri yoxlayın və ya limiti artırın (maksimum 1 GB).",
     "error.backupRemoved": "Bu ehtiyat nüsxə artıq təmizlənmiş kimi işarələnib və bərpa və ya davam etdirmə üçün mövcud deyil. Google sənədi və onun qısayolu saxlanılıb. Onlayn elektron cədvəli açmaq üçün qısayoldan istifadə edin.",
     "error.busy": "Başqa əməliyyat hələ də fayldan və ya reyestrdən istifadə edir. Gözləyin və davam etdirin; orijinal və ehtiyat nüsxələr saxlanılıb.",
     "error.cancelled": "Əməliyyat dayandırıldı. Ehtiyat nüsxə və bərpa qeydi yaradılıbsa, saxlanılıb.",
@@ -237,7 +237,7 @@
     "recovery.state.protected": "Qorunan / gözləyən",
     "recovery.state.unavailable": "Əlçatan deyil",
     "recovery.title": "Faylları bərpa et və ehtiyat nüsxələri idarə et - ZagoSheetsWin",
-    "recovery.usage": "İstifadə olunan yer: {usedMb:N2} MB · limit: {limitMb} MB · ehtiyat nüsxələr: {backupCount} · qorunan: {protectedCount}",
+    "recovery.usage": "İstifadə Olunan Yer: {usedMb:N2} MB · Limit: {limitMb} MB · Ehtiyat Nüsxələr: {backupCount} · Qorunan: {protectedCount}",
     "setup.advanced": "Qabaqcıl seçimlər…",
     "setup.advancedTitle": "Qabaqcıl seçimlər - ZagoSheetsWin",
     "setup.authChecking": "◉ Google bağlantısı yoxlanılır…",
@@ -296,7 +296,7 @@
     "theme.dark": "Tünd",
     "theme.light": "Açıq",
     "theme.saveFailed": "Mövzunu saxlamaq mümkün olmadı. Əvvəlki seçiminiz saxlanıldı.",
-    "tutorial.backupExplanation": "Orijinal → yerli ehtiyat nüsxə → Google Sheets. Faylı bərpa etmək üçün Ehtiyat nüsxələrdə Bura bərpa et… seçin.|30 gün · 200 MB (1 GB-dək tənzimlənə bilər). Avtomatik təmizləmə yalnız aktiv olduqda; gözləyən əməliyyatlar qorunur.|Ehtiyat nüsxə Sheets-də sonrakı dəyişikliklər olmadan orijinalı saxlayır. Düsturlar və formatlama dəyişə bilər; XLS makrosları Sheets-də işləmir. Kvota dolduqda bu seçim söndürülsə belə ən köhnə tamamlanmış nüsxələr silinir. Gözləyən nüsxələr saxlanılır.",
+    "tutorial.backupExplanation": "Orijinal → yerli ehtiyat nüsxə → Google Sheets. Faylı bərpa etmək üçün Ehtiyat nüsxələrdə Bura bərpa et… seçin.|30 gün · 200 MB (1 GB-dək tənzimlənə bilər).|Ehtiyat nüsxə Sheets-də sonrakı dəyişikliklər olmadan orijinalı saxlayır. Düsturlar və formatlama dəyişə bilər; XLS makrosları Sheets-də işləmir. Kvota dolduqda ən köhnə tamamlanmış nüsxələr silinir. Gözləyən nüsxələr saxlanılır.",
     "tutorial.backupTitle": "Orijinalı saxlayın. Onu necə bərpa edəcəyinizi bilin.",
     "tutorial.defaultsExplanation": "Windows menyusunda iki dəfə klikləyin və ya Birlikdə aç → ZagoSheetsWin istifadə edin.|ZagoSheetsWin-i standart elektron cədvəl tətbiqi kimi təyin edin (istəyə bağlı):",
     "tutorial.defaultsTitle": "Elektron cədvəllərinizi necə açacağınızı seçin",
@@ -363,6 +363,6 @@
     "error.odsBounds": "ODS: etibarsız təkrarlama və ya dəstəklənən həddi aşan ölçülər.",
     "error.odsStructure": "ODS faylının quruluşu natamam və ya etibarsızdır.",
     "action.chooseSeparator": "Ayırıcı seçin",
-    "recovery.quotaRotation": "Kvota dolduqda bu seçim söndürülsə belə ən köhnə tamamlanmış nüsxələr silinir. Gözləyən nüsxələr saxlanılır."
+    "recovery.quotaRotation": "Kvota dolduqda ən köhnə tamamlanmış nüsxələr silinir. Gözləyən nüsxələr saxlanılır."
   }
 }

@@ -18,7 +18,16 @@ public interface IRemoteRegistry
     void RetireTrashedAssociation(string key, string expectedFileId) => throw new NotSupportedException("Association retirement is unavailable.");
 }
 public sealed class ReconciliationRequiredException() : IOException("Remote creation outcome is uncertain; reconciliation required. No new upload was attempted.");
-public sealed class GoogleApiException(int status) : IOException($"Google request failed (HTTP {status}).") { public int Status { get; } = status; }
+public sealed class GoogleApiException(int status, string? reason = null, string? endpoint = null) : IOException($"Google request failed (HTTP {status}).")
+{
+    public int Status { get; } = status;
+    public string? Reason { get; } = SafeReason(reason);
+    public string? Endpoint { get; } = endpoint is "drive.read" or "drive.export" or "drive.create" ? endpoint : null;
+    public static string? SafeReason(string? reason) => reason is "rateLimitExceeded" or "userRateLimitExceeded" or "sharingRateLimitExceeded"
+        or "dailyLimitExceeded" or "storageQuotaExceeded" or "insufficientFilePermissions" or "appNotAuthorizedToFile"
+        or "forbidden" or "insufficientPermissions" or "downloadQuotaExceeded" or "exportSizeLimitExceeded" ? reason : null;
+    public bool IsRateLimited => Status == 403 && Reason is "rateLimitExceeded" or "userRateLimitExceeded";
+}
 public sealed class AuthorizationRequiredException() : IOException("Google sign-in is required.");
 
 

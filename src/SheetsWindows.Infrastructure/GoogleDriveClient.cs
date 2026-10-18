@@ -36,9 +36,10 @@ public sealed class GoogleDriveClient(HttpClient http, IGoogleAuth auth, UploadS
             {
                 if (response.StatusCode == HttpStatusCode.Unauthorized && req.Method == HttpMethod.Get && !refreshed)
                 { refreshed = true; refresh = true; continue; }
-                if (req.Method == HttpMethod.Get && GoogleRetry.Transient((int)response.StatusCode) && ++retries <= 3)
-                { await GoogleRetry.DelayAsync(retries, response, ct); continue; }
-                if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode);
+                var reason = await GoogleRetry.ReasonAsync(response, ct);
+                if (req.Method == HttpMethod.Get && GoogleRetry.Transient((int)response.StatusCode, reason) && GoogleRetry.WithinRetryWindow(response) && ++retries <= 3)
+                { await GoogleRetry.DelayAsync(retries, response, ct, ms => telemetry?.MarkGoogleRetry("drive.read", (int)response.StatusCode, reason, retries, ms)); continue; }
+                if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode, reason, req.Method == HttpMethod.Get ? "drive.read" : "drive.create");
                 const int max = 1024 * 1024;
                 if (response.Content.Headers.ContentLength > max) throw new InvalidDataException("Google response too large.");
                 await using var stream = await response.Content.ReadAsStreamAsync(ct); using var buffer = new MemoryStream(); var chunk = new byte[81920]; int count;
@@ -94,9 +95,10 @@ public sealed class GoogleDriveClient(HttpClient http, IGoogleAuth auth, UploadS
                 using var response = await http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, ct);
                 if (response.StatusCode == HttpStatusCode.Unauthorized && !refreshed)
                 { refreshed = true; refresh = true; continue; }
-                if (GoogleRetry.Transient((int)response.StatusCode) && ++retries <= 3)
-                { await GoogleRetry.DelayAsync(retries, response, ct); continue; }
-                if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode);
+                var reason = await GoogleRetry.ReasonAsync(response, ct);
+                if (GoogleRetry.Transient((int)response.StatusCode, reason) && GoogleRetry.WithinRetryWindow(response) && ++retries <= 3)
+                { await GoogleRetry.DelayAsync(retries, response, ct, ms => telemetry?.MarkGoogleRetry("drive.export", (int)response.StatusCode, reason, retries, ms)); continue; }
+                if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode, reason, "drive.export");
                 const int max = 10 * 1024 * 1024;
                 if (response.Content.Headers.ContentLength > max) throw new InvalidDataException("Export too large.");
                 await using var stream = await response.Content.ReadAsStreamAsync(ct); using var buffer = new MemoryStream();

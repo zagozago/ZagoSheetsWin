@@ -3,7 +3,7 @@
   "locale": "gn-PY",
   "direction": "ltr",
   "catalogRevision": 13,
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -134,7 +134,7 @@
     "emphasis.usesSync": "Reiporúpa mbojuehe?",
     "emphasis.verify": "Google jeikekatu jehechajey",
     "error.authorizationRequired": "Google oikotevẽ moneĩ. Eike Ñembohekópe ha eikutu Google moneĩ, upéi eike jey kuatia papapýpe.",
-    "error.backupQuota": "Ndaipóri pa'ũ ñongatupyre joapy jeporu paha ryepýpe. Ypygua oñeñongatu ha noñemondói Google-pe. Eike Ñongatupyre joapýpe embogue hag̃ua oñemohu'ãmava térã emoambue jeporu paha (katuete 1 GB).",
+    "error.backupQuota": "Ndaipóri tenda suficiente ñemopotĩ ijehegui rire: ñeñongatu oha’arõva oñemo’ã térã marandurenda tuichave pe límitegui. Oñongatu original ha Google joaju. Ehecha ñeñongatu térã embotuichave límite (1 GB peve).",
     "error.backupRemoved": "Ko ñongatupyre joapy oñemarka oñemopotĩmava ha ndaikatúi oñembojevy térã oñembojoapy. Google kuatia ha imbopya'eha oñeñongatu. Eipuru mbopya'eha eike hag̃ua kuatia papapy ñandutípe.",
     "error.busy": "Ambue tembiapo oiporu gueteri marandurenda térã registry. Eha'arõ ha ehorei hese; ypygua ha ñongatupyre joapy oñeñongatu.",
     "error.cancelled": "Tembiapo oñemombyta. Ñongatupyre joapy ha mbojevy rapykuere, ojejapórõ, oñeñongatu.",
@@ -530,7 +530,7 @@
     "recovery.state.protected": "Ñemo'ãpyre / oha'arõva",
     "recovery.state.unavailable": "Ndojepurukuaái",
     "recovery.title": "Marandurenda mbojevy ha ñongatupyre joapy ñangareko - ZagoSheetsWin",
-    "recovery.usage": "Pa'ũ ojeporúva: {usedMb:N2} MB · jeporu paha: {limitMb} MB · ñongatupyre joapy: {backupCount} · ñemo'ãpyre: {protectedCount}",
+    "recovery.usage": "Pa'Ũ Ojeporúva: {usedMb:N2} MB · Jeporu Paha: {limitMb} MB · Ñongatupyre Joapy: {backupCount} · Ñemo'Ãpyre: {protectedCount}",
     "setup.advanced": "Jeporavorã ipypukuvéva…",
     "setup.advancedTitle": "Jeporavorã ipypukuvéva - ZagoSheetsWin",
     "setup.authChecking": "◉ Google jeikekatu ojehechajey…",
@@ -589,7 +589,7 @@
     "theme.dark": "Pytũ",
     "theme.light": "Hesakãva",
     "theme.saveFailed": "Ndaikatúi oñeñongatu jehecha reko. Ne poravopyre mboyvegua oñeñongatu.",
-    "tutorial.backupExplanation": "Ypygua → ñongatupyre joapy mohendaha ryepypegua → Google Sheets. Ñongatupyre joapýpe, eiporavo Embojevy ko'ápe… embojevy hag̃ua marandurenda.|30 ára · 200 MB (ikatúva oñemoambue 1 GB peve). Ñemopotĩ ijehegui oñemyandy jave año; tembiapo oha'arõva oñemo'ã.|Ñongatupyre joapy oñongatu ypygua, umi ñemoambue ojejapóva upe rire Sheets-pe'ỹre. Formula ha mboheko ikatu oñemoambue; XLS macros nomba'apói Sheets-pe. Henyhẽvo pe tenda, oñembogue ñeñongatu oĩmbáva itujavéva, ko poravopy oñemboguéramo jepe. Oñongatu umi neʼĩrava opa.",
+    "tutorial.backupExplanation": "Ypygua → ñongatupyre joapy mohendaha ryepypegua → Google Sheets. Ñongatupyre joapýpe, eiporavo Embojevy ko'ápe… embojevy hag̃ua marandurenda.|30 ára · 200 MB (ikatúva oñemoambue 1 GB peve).|Ñongatupyre joapy oñongatu ypygua, umi ñemoambue ojejapóva upe rire Sheets-pe'ỹre. Formula ha mboheko ikatu oñemoambue; XLS macros nomba'apói Sheets-pe. Henyhẽvo pe tenda, oñembogue ñeñongatu oĩmbáva itujavéva. Oñongatu umi neʼĩrava opa.",
     "tutorial.backupTitle": "Eñongatu ypygua. Eikuaa mba'éichapa rembojevýta.",
     "tutorial.defaultsExplanation": "Eikutu mokõi jey térã eiporu Jeike hendive → ZagoSheetsWin Windows poravorãme.|Emoĩ ZagoSheetsWin ne kuatia papapy tembipuru'i ijypykue ramo (ikatu ojeporu):",
     "tutorial.defaultsTitle": "Eiporavo mba'éichapa reikéta ne kuatia papapýpe",
@@ -656,6 +656,6 @@
     "error.odsBounds": "ODS: jejey ndoikóiva térã tuichakue ohasáva límite oñemoneĩva.",
     "error.odsStructure": "ODS vore rete noĩmbái térã ndoikói.",
     "action.chooseSeparator": "Eiporavo pe joajuha",
-    "recovery.quotaRotation": "Henyhẽvo pe tenda, oñembogue ñeñongatu oĩmbáva itujavéva, ko poravopy oñemboguéramo jepe. Oñongatu umi neʼĩrava opa."
+    "recovery.quotaRotation": "Henyhẽvo pe tenda, oñembogue ñeñongatu oĩmbáva itujavéva. Oñongatu umi neʼĩrava opa."
   }
 }

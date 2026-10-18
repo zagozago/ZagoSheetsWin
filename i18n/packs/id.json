@@ -3,7 +3,7 @@
   "locale": "id",
   "direction": "ltr",
   "catalogRevision": 13,
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -135,7 +135,7 @@
     "emphasis.usesSync": "Apakah Anda menggunakan sinkronisasi?",
     "emphasis.verify": "Periksa koneksi Google",
     "error.authorizationRequired": "Google memerlukan otorisasi. Buka Pengaturan dan klik Otorisasi Google, lalu buka kembali spreadsheet.",
-    "error.backupQuota": "Tidak ada ruang dalam batas cadangan. Berkas asli dipertahankan dan tidak dikirim ke Google. Buka Cadangan untuk menghapus cadangan yang sudah selesai atau sesuaikan batas (maksimum 1 GB).",
+    "error.backupQuota": "Ruang tidak cukup setelah pembersihan otomatis: cadangan tertunda dilindungi atau berkas melebihi kuota. Berkas asli dan hubungan Google dipertahankan. Periksa cadangan atau naikkan batas (maksimum 1 GB).",
     "error.backupRemoved": "Cadangan ini sudah ditandai sebagai telah dibersihkan dan tidak tersedia untuk dipulihkan atau dilanjutkan. Dokumen Google dan pintasannya dipertahankan. Gunakan pintasan untuk membuka spreadsheet daring.",
     "error.busy": "Operasi lain masih menggunakan berkas atau registri. Tunggu lalu lanjutkan; berkas asli dan cadangan dipertahankan.",
     "error.cancelled": "Operasi dihentikan. Cadangan dan catatan pemulihan, jika dibuat, dipertahankan.",
@@ -531,7 +531,7 @@
     "recovery.state.protected": "Terlindungi / tertunda",
     "recovery.state.unavailable": "Tidak tersedia",
     "recovery.title": "Pulihkan berkas dan kelola cadangan - ZagoSheetsWin",
-    "recovery.usage": "Ruang terpakai: {usedMb:N2} MB · batas: {limitMb} MB · cadangan: {backupCount} · terlindungi: {protectedCount}",
+    "recovery.usage": "Ruang Terpakai: {usedMb:N2} MB · Batas: {limitMb} MB · Cadangan: {backupCount} · Terlindungi: {protectedCount}",
     "setup.advanced": "Opsi lanjutan…",
     "setup.advancedTitle": "Opsi lanjutan - ZagoSheetsWin",
     "setup.authChecking": "◉ Memeriksa koneksi Google…",
@@ -590,7 +590,7 @@
     "theme.dark": "Gelap",
     "theme.light": "Terang",
     "theme.saveFailed": "Tema tidak dapat disimpan. Preferensi sebelumnya dipertahankan.",
-    "tutorial.backupExplanation": "Asli → cadangan lokal → Google Sheets. Di Cadangan, pilih Pulihkan ke… untuk memulihkan berkas.|30 hari · 200 MB (dapat disesuaikan hingga 1 GB). Pembersihan otomatis hanya saat diaktifkan; operasi tertunda dilindungi.|Cadangan menyimpan berkas asli, tanpa perubahan berikutnya di Sheets. Rumus dan pemformatan dapat berubah; makro XLS tidak berfungsi di Sheets. Saat kuota tercapai, cadangan selesai yang paling lama dihapus meski opsi ini nonaktif. Cadangan tertunda tetap disimpan.",
+    "tutorial.backupExplanation": "Asli → cadangan lokal → Google Sheets. Di Cadangan, pilih Pulihkan ke… untuk memulihkan berkas.|30 hari · 200 MB (dapat disesuaikan hingga 1 GB).|Cadangan menyimpan berkas asli, tanpa perubahan berikutnya di Sheets. Rumus dan pemformatan dapat berubah; makro XLS tidak berfungsi di Sheets. Saat kuota tercapai, cadangan selesai yang paling lama dihapus. Cadangan tertunda tetap disimpan.",
     "tutorial.backupTitle": "Simpan berkas asli. Ketahui cara memulihkannya.",
     "tutorial.defaultsExplanation": "Klik dua kali atau gunakan Buka dengan → ZagoSheetsWin di menu Windows.|Jadikan ZagoSheetsWin aplikasi spreadsheet default Anda (opsional):",
     "tutorial.defaultsTitle": "Pilih cara membuka spreadsheet Anda",
@@ -657,6 +657,6 @@
     "error.odsBounds": "ODS: pengulangan tidak valid atau dimensi melebihi batas yang didukung.",
     "error.odsStructure": "Struktur file ODS tidak lengkap atau tidak valid.",
     "action.chooseSeparator": "Pilih pemisah",
-    "recovery.quotaRotation": "Saat kuota tercapai, cadangan selesai yang paling lama dihapus meski opsi ini nonaktif. Cadangan tertunda tetap disimpan."
+    "recovery.quotaRotation": "Saat kuota tercapai, cadangan selesai yang paling lama dihapus. Cadangan tertunda tetap disimpan."
   }
 }

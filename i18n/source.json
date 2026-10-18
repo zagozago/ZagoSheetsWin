@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.39",
+  "productVersion": "0.9.40",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
@@ -2218,7 +2218,7 @@
       "notes": []
     },
     "error.backupQuota": {
-      "text": "Não há espaço dentro do limite de backups. O original foi preservado e não foi enviado ao Google. Abra Backups para limpar backups concluídos ou ajustar o limite (máximo 1 GB).",
+      "text": "Não há espaço suficiente após a limpeza automática. O original foi preservado. Backups pendentes ou protegidos não são apagados automaticamente; este arquivo também pode exceder a cota. Em Backups, revise as operações ou aumente o limite (máximo 1 GB). A associação existente no Google é mantida.",
       "context": "src/SheetsWindows.Infrastructure/Launcher.cs - public static string Message(Exception ex) => ex switch",
       "scope": "app",
       "placeholders": [],
@@ -6191,7 +6191,7 @@
       "notes": []
     },
     "recovery.usage": {
-      "text": "Espaço usado: {usedMb:N2} MB · limite: {limitMb} MB · backups: {backupCount} · protegidos: {protectedCount}",
+      "text": "Espaço Usado: {usedMb:N2} MB · Limite: {limitMb} MB · Backups: {backupCount} · Protegido: {protectedCount}",
       "context": "src/SheetsWindows.Windows/RecoveryForm.cs - public RecoveryForm(bool preview = false, bool previewBusy = false)",
       "scope": "app",
       "placeholders": [
@@ -6821,7 +6821,7 @@
       "notes": []
     },
     "tutorial.backupExplanation": {
-      "text": "Original → backup local → Google Sheets. Em Backups, escolha Restaurar em… para recuperar o arquivo.|30 dias · 200 MB (ajustável até 1 GB). Limpeza automática só quando ativada; operações pendentes são protegidas.|O backup guarda o original, sem alterações posteriores no Sheets. Fórmulas e formatação podem mudar; macros XLS não funcionam no Sheets. Ao atingir a cota, os backups concluídos mais antigos são excluídos, mesmo com esta opção desligada. Pendentes são preservados.",
+      "text": "Original → backup local → Google Sheets. Em Backups, escolha Restaurar em… para recuperar o arquivo.|30 dias · 200 MB (ajustável até 1 GB). A limpeza por prazo e por cota é automática; operações pendentes são protegidas.|O backup guarda o original, sem alterações posteriores no Sheets. Fórmulas e formatação podem mudar; macros XLS não funcionam no Sheets. Ao atingir a cota, os backups concluídos mais antigos são excluídos. Pendentes são preservados.",
       "context": "src/SheetsWindows.Windows/TutorialForm.cs - private static readonly (string Title, string Text)[] Pages =",
       "scope": "app",
       "placeholders": [],
@@ -7499,7 +7499,7 @@
       "notes": []
     },
     "recovery.quotaRotation": {
-      "text": "Ao atingir a cota, os backups concluídos mais antigos são excluídos, mesmo com esta opção desligada. Pendentes são preservados.",
+      "text": "Ao atingir a cota, os backups concluídos mais antigos são excluídos. Pendentes são preservados.",
       "context": "Ambiguous import action / completed backup quota rotation",
       "scope": "app",
       "placeholders": [],

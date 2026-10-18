@@ -3,7 +3,7 @@
   "locale": "en",
   "direction": "ltr",
   "catalogRevision": 13,
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "status": "complete",
   "editorialQa": "passed",
   "layoutQa": "passed",
@@ -133,7 +133,7 @@
     "emphasis.usesSync": "Do you use sync?",
     "emphasis.verify": "Check Google connection",
     "error.authorizationRequired": "Google needs authorization. Open Settings and click Authorize Google, then open the spreadsheet again.",
-    "error.backupQuota": "There is no space within the backup limit. The original was preserved and was not sent to Google. Open Backups to delete completed backups or adjust the limit (maximum 1 GB).",
+    "error.backupQuota": "Not enough space after automatic cleanup. Pending backups are protected, or this file exceeds the quota. The original and existing Google association were preserved. Review Backups or increase the limit (maximum 1 GB).",
     "error.backupRemoved": "This backup has already been marked as cleaned and is not available for restoration or resuming. The Google document and its shortcut were preserved. Use the shortcut to open the online spreadsheet.",
     "error.busy": "Another operation is still using the file or registry. Wait and resume; the original and backups were preserved.",
     "error.cancelled": "Operation stopped. The backup and recovery record, if created, were preserved.",
@@ -529,7 +529,7 @@
     "recovery.state.protected": "Protected / pending",
     "recovery.state.unavailable": "Unavailable",
     "recovery.title": "Recover files and manage backups - ZagoSheetsWin",
-    "recovery.usage": "Space used: {usedMb:N2} MB · limit: {limitMb} MB · backups: {backupCount} · protected: {protectedCount}",
+    "recovery.usage": "Space Used: {usedMb:N2} MB · Limit: {limitMb} MB · Backups: {backupCount} · Protected: {protectedCount}",
     "setup.advanced": "Advanced options…",
     "setup.advancedTitle": "Advanced options - ZagoSheetsWin",
     "setup.authChecking": "◉ Checking Google connection…",
@@ -588,7 +588,7 @@
     "theme.dark": "Dark",
     "theme.light": "Light",
     "theme.saveFailed": "Could not save the theme. Your previous preference was preserved.",
-    "tutorial.backupExplanation": "Original → local backup → Google Sheets. In Backups, choose Restore to… to recover the file.|30 days · 200 MB (adjustable up to 1 GB). Automatic cleanup only when enabled; pending operations are protected.|The backup keeps the original, without later changes in Sheets. Formulas and formatting may change; XLS macros do not work in Sheets. When the quota is reached, the oldest completed backups are deleted even with this option off. Pending backups are preserved.",
+    "tutorial.backupExplanation": "Original → local backup → Google Sheets. In Backups, choose Restore to… to recover the file.|30 days · 200 MB (adjustable up to 1 GB).|The backup keeps the original, without later changes in Sheets. Formulas and formatting may change; XLS macros do not work in Sheets. When the quota is reached, the oldest completed backups are deleted. Pending backups are preserved.",
     "tutorial.backupTitle": "Keep the original. Know how to recover it.",
     "tutorial.defaultsExplanation": "Double-click or use Open with → ZagoSheetsWin in the Windows menu.|Set ZagoSheetsWin as your default spreadsheet app (optional):",
     "tutorial.defaultsTitle": "Choose how to open your spreadsheets",
@@ -655,6 +655,6 @@
     "error.odsBounds": "ODS: invalid repetition or dimensions beyond the supported limit.",
     "error.odsStructure": "The ODS file structure is incomplete or invalid.",
     "action.chooseSeparator": "Choose separator",
-    "recovery.quotaRotation": "When the quota is reached, the oldest completed backups are deleted even with this option off. Pending backups are preserved."
+    "recovery.quotaRotation": "When the quota is reached, the oldest completed backups are deleted. Pending backups are preserved."
   }
 }

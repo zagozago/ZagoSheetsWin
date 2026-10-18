@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.39",
+  "productVersion": "0.9.40",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Usa sincronização?",
     "emphasis.verify": "Verificar conexão Google",
     "error.authorizationRequired": "O Google precisa de autorização. Abra Configurações e clique em Autorizar Google; depois abra a planilha novamente.",
-    "error.backupQuota": "Não há espaço dentro do limite de backups. O original foi preservado e não foi enviado ao Google. Abra Backups para limpar backups concluídos ou ajustar o limite (máximo 1 GB).",
+    "error.backupQuota": "Não há espaço suficiente após a limpeza automática. O original foi preservado. Backups pendentes ou protegidos não são apagados automaticamente; este arquivo também pode exceder a cota. Em Backups, revise as operações ou aumente o limite (máximo 1 GB). A associação existente no Google é mantida.",
     "error.backupRemoved": "Este backup já teve limpeza registrada e não está disponível para restauração ou retomada. O documento Google e seu atalho foram preservados. Use o atalho para abrir a planilha online.",
     "error.busy": "Outra operação ainda está usando o arquivo ou o registro. Aguarde e retome; o original e os backups foram conservados.",
     "error.cancelled": "Operação interrompida. O backup e o registro de recuperação, quando criados, foram conservados.",
@@ -237,7 +237,7 @@
     "recovery.state.protected": "Protegido / pendente",
     "recovery.state.unavailable": "Indisponível",
     "recovery.title": "Recuperar arquivos e gerenciar backups - ZagoSheetsWin",
-    "recovery.usage": "Espaço usado: {usedMb:N2} MB · limite: {limitMb} MB · backups: {backupCount} · protegidos: {protectedCount}",
+    "recovery.usage": "Espaço Usado: {usedMb:N2} MB · Limite: {limitMb} MB · Backups: {backupCount} · Protegido: {protectedCount}",
     "setup.advanced": "Opções avançadas…",
     "setup.advancedTitle": "Opções avançadas - ZagoSheetsWin",
     "setup.authChecking": "◉ Verificando conexão Google…",
@@ -296,7 +296,7 @@
     "theme.dark": "Escuro",
     "theme.light": "Claro",
     "theme.saveFailed": "Não foi possível salvar o tema. A preferência anterior foi preservada.",
-    "tutorial.backupExplanation": "Original → backup local → Google Sheets. Em Backups, escolha Restaurar em… para recuperar o arquivo.|30 dias · 200 MB (ajustável até 1 GB). Limpeza automática só quando ativada; operações pendentes são protegidas.|O backup guarda o original, sem alterações posteriores no Sheets. Fórmulas e formatação podem mudar; macros XLS não funcionam no Sheets. Ao atingir a cota, os backups concluídos mais antigos são excluídos, mesmo com esta opção desligada. Pendentes são preservados.",
+    "tutorial.backupExplanation": "Original → backup local → Google Sheets. Em Backups, escolha Restaurar em… para recuperar o arquivo.|30 dias · 200 MB (ajustável até 1 GB). A limpeza por prazo e por cota é automática; operações pendentes são protegidas.|O backup guarda o original, sem alterações posteriores no Sheets. Fórmulas e formatação podem mudar; macros XLS não funcionam no Sheets. Ao atingir a cota, os backups concluídos mais antigos são excluídos. Pendentes são preservados.",
     "tutorial.backupTitle": "Guarde o original. Saiba como recuperar.",
     "tutorial.defaultsExplanation": "Dê dois cliques ou use Abrir com → ZagoSheetsWin no menu do Windows.|Defina o ZagoSheetsWin como aplicativo padrão de planilhas (opcional):",
     "tutorial.defaultsTitle": "Escolha como abrir suas planilhas",
@@ -363,6 +363,6 @@
     "error.odsBounds": "ODS: repetição inválida ou dimensão além do limite suportado.",
     "error.odsStructure": "A estrutura do arquivo ODS está incompleta ou inválida.",
     "action.chooseSeparator": "Escolher separador",
-    "recovery.quotaRotation": "Ao atingir a cota, os backups concluídos mais antigos são excluídos, mesmo com esta opção desligada. Pendentes são preservados."
+    "recovery.quotaRotation": "Ao atingir a cota, os backups concluídos mais antigos são excluídos. Pendentes são preservados."
   }
 }

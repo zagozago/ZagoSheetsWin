@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.39",
+  "productVersion": "0.9.40",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Apa sampeyan nggunakake sinkronisasi?",
     "emphasis.verify": "Priksa sambungan Google",
     "error.authorizationRequired": "Google mbutuhake wewenang. Bukak Setelan lan klik Wenehi wewenang Google, banjur bukak maneh spreadsheet.",
-    "error.backupQuota": "Ora ana papan ing wates cadangan. Berkas asli dijaga lan ora dikirim menyang Google. Bukak Cadangan kanggo mbusak cadangan sing wis rampung utawa ngatur wates (maksimum 1 GB).",
+    "error.backupQuota": "Papan ora cukup sawise reresik otomatis: serep sing ngenteni dilindhungi utawa berkas ngluwihi kuota. Berkas asli lan sesambungan Google tetep disimpen. Priksa serep utawa tambah wates (maksimal 1 GB).",
     "error.backupRemoved": "Cadangan iki wis diwenehi tandha wis diresiki lan ora kasedhiya kanggo dipulihake utawa diterusake. Dokumen Google lan trabasane tetep dijaga. Gunakake trabasan kanggo mbukak spreadsheet online.",
     "error.busy": "Operasi liyane isih nggunakake berkas utawa registry. Enteni banjur terusake; berkas asli lan cadangan tetep dijaga.",
     "error.cancelled": "Operasi mandheg. Cadangan lan cathetan pamulihan, yen digawe, tetep dijaga.",
@@ -237,7 +237,7 @@
     "recovery.state.protected": "Dilindhungi / durung rampung",
     "recovery.state.unavailable": "Ora kasedhiya",
     "recovery.title": "Pulihake berkas lan atur cadangan - ZagoSheetsWin",
-    "recovery.usage": "Papan sing digunakake: {usedMb:N2} MB · wates: {limitMb} MB · cadangan: {backupCount} · dilindhungi: {protectedCount}",
+    "recovery.usage": "Papan Sing Digunakake: {usedMb:N2} MB · Wates: {limitMb} MB · Cadangan: {backupCount} · Dilindhungi: {protectedCount}",
     "setup.advanced": "Pilihan lanjut…",
     "setup.advancedTitle": "Pilihan lanjut - ZagoSheetsWin",
     "setup.authChecking": "◉ Mriksa sambungan Google…",
@@ -296,7 +296,7 @@
     "theme.dark": "Peteng",
     "theme.light": "Padhang",
     "theme.saveFailed": "Tema ora bisa disimpen. Pilihan sadurunge tetep dijaga.",
-    "tutorial.backupExplanation": "Berkas asli → cadangan lokal → Google Sheets. Ing Cadangan, pilih Pulihake menyang… kanggo mulihake berkas.|30 dina · 200 MB (bisa diatur nganti 1 GB). Reresik otomatis mung nalika diaktifake; operasi sing durung rampung dilindhungi.|Cadangan njaga berkas asli, tanpa owah-owahan sabanjure ing Sheets. Rumus lan format bisa owah; makro XLS ora bisa digunakake ing Sheets. Nalika kuota kebak, serep rampung sing paling lawas dibusak sanajan pilihan iki dipateni. Serep sing isih ngenteni tetep disimpen.",
+    "tutorial.backupExplanation": "Berkas asli → cadangan lokal → Google Sheets. Ing Cadangan, pilih Pulihake menyang… kanggo mulihake berkas.|30 dina · 200 MB (bisa diatur nganti 1 GB).|Cadangan njaga berkas asli, tanpa owah-owahan sabanjure ing Sheets. Rumus lan format bisa owah; makro XLS ora bisa digunakake ing Sheets. Nalika kuota kebak, serep rampung sing paling lawas dibusak. Serep sing isih ngenteni tetep disimpen.",
     "tutorial.backupTitle": "Simpen berkas asli. Ngerteni carane mulihake.",
     "tutorial.defaultsExplanation": "Klik kaping pindho utawa gunakake Bukak nganggo → ZagoSheetsWin ing menu Windows.|Setel ZagoSheetsWin minangka aplikasi spreadsheet baku (opsional):",
     "tutorial.defaultsTitle": "Pilih cara mbukak spreadsheet sampeyan",
@@ -363,6 +363,6 @@
     "error.odsBounds": "ODS: pengulangan ora sah utawa ukuran ngluwihi wates sing didhukung.",
     "error.odsStructure": "Struktur berkas ODS ora pepak utawa ora sah.",
     "action.chooseSeparator": "Pilih pamisah",
-    "recovery.quotaRotation": "Nalika kuota kebak, serep rampung sing paling lawas dibusak sanajan pilihan iki dipateni. Serep sing isih ngenteni tetep disimpen."
+    "recovery.quotaRotation": "Nalika kuota kebak, serep rampung sing paling lawas dibusak. Serep sing isih ngenteni tetep disimpen."
   }
 }

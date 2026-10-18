@@ -3,7 +3,7 @@
   "locale": "pcm-NG",
   "direction": "ltr",
   "catalogRevision": 13,
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -314,7 +314,7 @@
     "emphasis.usesSync": "You dey use sync?",
     "emphasis.verify": "Check Google connection",
     "error.authorizationRequired": "Google need authorization. Open Settings and click Authorize Google, then open di spreadsheet again.",
-    "error.backupQuota": "Space no dey inside di backup limit. Dem keep di original and dem no send am go Google. Open Backups to delete completed backups or adjust di limit (maximum 1 GB).",
+    "error.backupQuota": "Space no reach after automatic cleanup: pending backups dey protected or dis file pass quota. Original and Google link still dey safe. Check backups or increase limit (maximum 1 GB).",
     "error.backupRemoved": "Dem don already mark dis backup as cleaned, so e no dey available for restore or resume again. Dem keep di Google document and im shortcut. Use di shortcut open di online spreadsheet.",
     "error.busy": "Another operation still dey use di file or registry. Wait and resume; dem keep di original and backups.",
     "error.cancelled": "Operation stop. If backup and recovery record don create, dem keep dem.",
@@ -710,7 +710,7 @@
     "recovery.state.protected": "Protected / pending",
     "recovery.state.unavailable": "Unavailable",
     "recovery.title": "Recover files and manage backups dem - ZagoSheetsWin",
-    "recovery.usage": "Space wey don use: {usedMb:N2} MB · limit: {limitMb} MB · backups: {backupCount} · protected: {protectedCount}",
+    "recovery.usage": "Space Wey Don Use: {usedMb:N2} MB · Limit: {limitMb} MB · Backups: {backupCount} · Protected: {protectedCount}",
     "setup.advanced": "Advanced options…",
     "setup.advancedTitle": "Advanced options dem - ZagoSheetsWin",
     "setup.authChecking": "◉ Dey check Google connection…",
@@ -769,7 +769,7 @@
     "theme.dark": "Dark",
     "theme.light": "Light",
     "theme.saveFailed": "No fit save theme. Dem keep your previous preference.",
-    "tutorial.backupExplanation": "Original → local backup → Google Sheets. For Backups, choose Restore to… to recover di file.|30 days · 200 MB (you fit adjust am reach 1 GB). Automatic cleanup only when e dey enabled; pending operations dey protected.|Di backup keep di original without later changes for Sheets. Formulas and formatting fit change; XLS macros no dey work for Sheets. When quota full, di oldest completed backups go delete even if dis option off. Pending backups go remain.",
+    "tutorial.backupExplanation": "Original → local backup → Google Sheets. For Backups, choose Restore to… to recover di file.|30 days · 200 MB (you fit adjust am reach 1 GB).|Di backup keep di original without later changes for Sheets. Formulas and formatting fit change; XLS macros no dey work for Sheets. When quota full, di oldest completed backups go delete. Pending backups go remain.",
     "tutorial.backupTitle": "Keep di original. Know how to recover am.",
     "tutorial.defaultsExplanation": "Double-click or use Open with → ZagoSheetsWin for Windows menu.|Set ZagoSheetsWin as your default spreadsheet app (optional):",
     "tutorial.defaultsTitle": "Choose how you wan open your spreadsheets",
@@ -836,6 +836,6 @@
     "error.odsBounds": "ODS: repeat no valid or size pass di limit we support.",
     "error.odsStructure": "Di ODS file structure no complete or no valid.",
     "action.chooseSeparator": "Choose separator",
-    "recovery.quotaRotation": "When quota full, di oldest completed backups go delete even if dis option off. Pending backups go remain."
+    "recovery.quotaRotation": "When quota full, di oldest completed backups go delete. Pending backups go remain."
   }
 }

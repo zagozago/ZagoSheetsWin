@@ -3,7 +3,7 @@
   "locale": "fil-PH",
   "direction": "ltr",
   "catalogRevision": 13,
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -167,7 +167,7 @@
     "emphasis.usesSync": "Gumagamit ka ba ng sync?",
     "emphasis.verify": "Suriin ang Google connection",
     "error.authorizationRequired": "Kailangan ng Google ng authorization. Buksan ang Mga Setting at i-click ang I-authorize ang Google, pagkatapos ay buksan ulit ang spreadsheet.",
-    "error.backupQuota": "Walang sapat na espasyo sa loob ng backup limit. Napanatili ang orihinal at hindi ito ipinadala sa Google. Buksan ang Backups para mag-delete ng completed backups o ayusin ang limit (maximum 1 GB).",
+    "error.backupQuota": "Kulang ang espasyo matapos ang awtomatikong paglilinis: protektado ang nakabinbing backup o lampas sa quota ang file. Napanatili ang orihinal at ugnayan sa Google. Suriin ang backup o taasan ang limitasyon (hanggang 1 GB).",
     "error.backupRemoved": "Namarkahan nang nalinis ang backup na ito at hindi na ito available para sa restoration o pagpapatuloy. Napanatili ang Google document at shortcut nito. Gamitin ang shortcut para buksan ang online spreadsheet.",
     "error.busy": "May isa pang operation na gumagamit pa ng file o registry. Maghintay at ipagpatuloy; napanatili ang orihinal at mga backup.",
     "error.cancelled": "Huminto ang operation. Kung nagawa na, napanatili ang backup at recovery record.",
@@ -563,7 +563,7 @@
     "recovery.state.protected": "Protektado / pending",
     "recovery.state.unavailable": "Hindi available",
     "recovery.title": "I-recover ang mga file at pamahalaan ang backups - ZagoSheetsWin",
-    "recovery.usage": "Nagamit na espasyo: {usedMb:N2} MB · limit: {limitMb} MB · backups: {backupCount} · protected: {protectedCount}",
+    "recovery.usage": "Nagamit Na Espasyo: {usedMb:N2} MB · Limit: {limitMb} MB · Backups: {backupCount} · Protected: {protectedCount}",
     "setup.advanced": "Advanced options…",
     "setup.advancedTitle": "Advanced options - ZagoSheetsWin",
     "setup.authChecking": "◉ Sinusuri ang Google connection…",
@@ -622,7 +622,7 @@
     "theme.dark": "Dark",
     "theme.light": "Light",
     "theme.saveFailed": "Hindi ma-save ang theme. Napanatili ang dati mong preference.",
-    "tutorial.backupExplanation": "Orihinal → lokal na backup → Google Sheets. Sa Backups, piliin ang I-restore sa… para mabawi ang file.|30 araw · 200 MB (maa-adjust hanggang 1 GB). Automatic cleanup kapag naka-enable lang; protektado ang mga pending operation.|Pinapanatili ng backup ang orihinal, nang walang mga susunod na pagbabago sa Sheets. Maaaring magbago ang formulas at formatting; hindi gumagana ang XLS macros sa Sheets. Kapag naabot ang quota, binubura ang pinakalumang tapos na backup kahit naka-off ito. Pinapanatili ang mga nakabinbing backup.",
+    "tutorial.backupExplanation": "Orihinal → lokal na backup → Google Sheets. Sa Backups, piliin ang I-restore sa… para mabawi ang file.|30 araw · 200 MB (maa-adjust hanggang 1 GB).|Pinapanatili ng backup ang orihinal, nang walang mga susunod na pagbabago sa Sheets. Maaaring magbago ang formulas at formatting; hindi gumagana ang XLS macros sa Sheets. Kapag naabot ang quota, binubura ang pinakalumang tapos na backup. Pinapanatili ang mga nakabinbing backup.",
     "tutorial.backupTitle": "Panatilihin ang orihinal. Alamin kung paano ito i-recover.",
     "tutorial.defaultsExplanation": "Mag-double-click o gamitin ang Open with → ZagoSheetsWin sa Windows menu.|Itakda ang ZagoSheetsWin bilang default spreadsheet app (optional):",
     "tutorial.defaultsTitle": "Piliin kung paano bubuksan ang iyong spreadsheets",
@@ -689,6 +689,6 @@
     "error.odsBounds": "ODS: maling pag-uulit o sukat na lampas sa suportadong limitasyon.",
     "error.odsStructure": "Hindi kumpleto o hindi wasto ang istruktura ng ODS file.",
     "action.chooseSeparator": "Pumili ng separator",
-    "recovery.quotaRotation": "Kapag naabot ang quota, binubura ang pinakalumang tapos na backup kahit naka-off ito. Pinapanatili ang mga nakabinbing backup."
+    "recovery.quotaRotation": "Kapag naabot ang quota, binubura ang pinakalumang tapos na backup. Pinapanatili ang mga nakabinbing backup."
   }
 }

@@ -6,10 +6,10 @@ namespace SheetsWindows.Infrastructure;
 
 public enum DiagnosticEvent { Started, Completed, Cancelled, AuthorizationRequired, ReconciliationRequired, LocalConflict, ConversionMismatch, Failed, Exported }
 public enum DiagnosticFailure { WorkbookContentType, FormulaVerification, ConversionDifference, GoogleApi, Network, FileAccess, InvalidData, UnsupportedFormat, Other, Capacity }
-public enum DiagnosticCode { SnapshotIntegrity, RemoteAssociation, SourceIdentity, SourceChanged, AssociationBinding, TextEncoding, TextStructure, CsvDelimiter, WorkbookContentType, FileAccess, Database, GoogleApi, Network, Other, FileMissing, FileBusy, OdsPackage, TextRows, TextCells, TextColumns, CellCharacters, ImportBytes, NormalizedBytes, OdsContentBounds, OdsRepeat, RemoteExportBytes, TextRowWidth, RemoteReconciliation, TextUnclosedQuote, TextMisplacedQuote, TextEmpty, TextInconsistentColumns, TextSeparatorHint, OdsMissingPart, OdsXml, ConversionValues }
+public enum DiagnosticCode { SnapshotIntegrity, RemoteAssociation, SourceIdentity, SourceChanged, AssociationBinding, TextEncoding, TextStructure, CsvDelimiter, WorkbookContentType, FileAccess, Database, GoogleApi, Network, Other, FileMissing, FileBusy, OdsPackage, TextRows, TextCells, TextColumns, CellCharacters, ImportBytes, NormalizedBytes, OdsContentBounds, OdsRepeat, RemoteExportBytes, TextRowWidth, RemoteReconciliation, TextUnclosedQuote, TextMisplacedQuote, TextEmpty, TextInconsistentColumns, TextSeparatorHint, OdsMissingPart, OdsXml, ConversionValues, BackupQuota }
 public sealed record RemoteValidationContext(bool IsFolder, bool IsTrashed, bool CanEdit, bool MimeMatches,
     bool MarkerPresent, bool MarkerMatches, bool HashPresent, bool HashMatches, bool PreviouslyVerified);
-public sealed record DiagnosticEntry(DateTimeOffset Time, DiagnosticEvent Event, Guid? Operation, ProcessingMetrics? Metrics = null, DiagnosticFailure? Failure = null, string? Version = null, Guid? AttemptId = null, ProcessingPhase? Stage = null, DiagnosticCode? Code = null, int? NativeError = null, int? GoogleStatus = null, int? SqliteCode = null, RemoteValidationContext? RemoteValidation = null, IReadOnlyList<ProcessingCheckpoint>? Trace = null, string? Revision = null, int? Win32Code = null, int? LogicalRow = null);
+public sealed record DiagnosticEntry(DateTimeOffset Time, DiagnosticEvent Event, Guid? Operation, ProcessingMetrics? Metrics = null, DiagnosticFailure? Failure = null, string? Version = null, Guid? AttemptId = null, ProcessingPhase? Stage = null, DiagnosticCode? Code = null, int? NativeError = null, int? GoogleStatus = null, int? SqliteCode = null, RemoteValidationContext? RemoteValidation = null, IReadOnlyList<ProcessingCheckpoint>? Trace = null, string? Revision = null, int? Win32Code = null, int? LogicalRow = null, string? GoogleReason = null, string? GoogleEndpoint = null);
 // Diagnostic files are disposable; durable operation journals and backups are never pruned.
 public sealed class DiagnosticLog(LocalStorage storage)
 {
@@ -95,6 +95,7 @@ public sealed class DiagnosticLog(LocalStorage storage)
         };
         DiagnosticCode? code = failure is null ? null : failure switch
         {
+            BackupQuotaException => DiagnosticCode.BackupQuota,
             ReconciliationRequiredException => DiagnosticCode.RemoteReconciliation,
             ConversionMismatchException => DiagnosticCode.ConversionValues,
             InvalidDataException data when data.Message == "Unclosed quoted field." => DiagnosticCode.TextUnclosedQuote,
@@ -129,12 +130,12 @@ public sealed class DiagnosticLog(LocalStorage storage)
             _ => DiagnosticCode.Other
         };
         return new DiagnosticEntry(DateTimeOffset.UtcNow, kind, operation, metrics, reason, UiText.ProductVersion, attemptId, stage, code,
-            failure?.HResult, (failure as GoogleApiException)?.Status, (failure as Microsoft.Data.Sqlite.SqliteException)?.SqliteErrorCode, failure?.Data["RemoteValidation"] as RemoteValidationContext, trace, BuildRevision, (failure as System.ComponentModel.Win32Exception)?.NativeErrorCode, failure?.Data["LogicalRow"] is int logicalRow && logicalRow > 0 ? logicalRow : null);
+            failure?.HResult, (failure as GoogleApiException)?.Status, (failure as Microsoft.Data.Sqlite.SqliteException)?.SqliteErrorCode, failure?.Data["RemoteValidation"] as RemoteValidationContext, trace, BuildRevision, (failure as System.ComponentModel.Win32Exception)?.NativeErrorCode, failure?.Data["LogicalRow"] is int logicalRow && logicalRow > 0 ? logicalRow : null, (failure as GoogleApiException)?.Reason, (failure as GoogleApiException)?.Endpoint);
     }
     private static void ValidateTrace(IReadOnlyList<ProcessingCheckpoint>? trace)
     {
         if (trace is null) return;
-        if (trace.Count > ProcessingTelemetry.MaxCheckpoints || trace.Any(p => p is null || !Enum.IsDefined(p.Step) || !Enum.IsDefined(p.Outcome) || p.ElapsedMs < 0))
+        if (trace.Count > ProcessingTelemetry.MaxCheckpoints || trace.Any(p => p is null || !Enum.IsDefined(p.Step) || !Enum.IsDefined(p.Outcome) || p.ElapsedMs < 0 || p.GoogleRequest is { IsValid: false }))
             throw new InvalidDataException("Invalid diagnostic trace.");
     }
     public async Task ExportAsync(string destination, bool overwrite = false, DiagnosticEntry? currentAttempt = null)
@@ -154,6 +155,7 @@ public sealed class DiagnosticLog(LocalStorage storage)
                 catch (JsonException) when (currentAttempt?.AttemptId is not null) { continue; } // The window snapshot remains exportable even if disposable history is damaged.
                 if (currentAttempt?.AttemptId is { } requested && entry.AttemptId != requested) continue;
                 ValidateTrace(entry.Trace); ValidateRevision(entry.Revision);
+                if (entry.GoogleReason != GoogleApiException.SafeReason(entry.GoogleReason) || entry.GoogleEndpoint is not (null or "drive.read" or "drive.export" or "drive.create")) throw new InvalidDataException("Invalid Google diagnostic context.");
                 if (entry.Metrics is { IsValid: false }) throw new InvalidDataException("Invalid processing metrics.");
                 if (entry.Failure is { } reason && !Enum.IsDefined(reason)) throw new InvalidDataException("Invalid diagnostic failure category.");
                 if (!Enum.IsDefined(entry.Event)) throw new InvalidDataException("Invalid diagnostic event.");
@@ -168,6 +170,7 @@ public sealed class DiagnosticLog(LocalStorage storage)
         if (currentAttempt is { AttemptId: { } currentId } && !included.Contains((currentId, currentAttempt.Event)))
         {
             ValidateTrace(currentAttempt.Trace); ValidateRevision(currentAttempt.Revision);
+            if (currentAttempt.GoogleReason != GoogleApiException.SafeReason(currentAttempt.GoogleReason) || currentAttempt.GoogleEndpoint is not (null or "drive.read" or "drive.export" or "drive.create")) throw new InvalidDataException("Invalid Google diagnostic context.");
             if (currentAttempt.Version != UiText.ProductVersion || currentAttempt.Metrics is { IsValid: false }
                 || !Enum.IsDefined(currentAttempt.Event) || currentAttempt.Stage is { } currentStage && !Enum.IsDefined(currentStage)
                 || currentAttempt.Code is { } currentCode && !Enum.IsDefined(currentCode)

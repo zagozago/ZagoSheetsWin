@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.39",
+  "productVersion": "0.9.40",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "同期を使用していますか？",
     "emphasis.verify": "Google 接続を確認",
     "error.authorizationRequired": "Google の認証が必要です。設定を開いて「Google を認証」をクリックし、もう一度スプレッドシートを開いてください。",
-    "error.backupQuota": "バックアップ上限内に空き容量がありません。元ファイルは保持され、Google には送信されていません。「バックアップ」を開き、完了済みバックアップを削除するか、上限を調整してください（最大 1 GB）。",
+    "error.backupQuota": "自動整理後も容量が不足しています。保留中のバックアップは保護されているか、ファイルが上限を超えています。元のファイルと Google の関連付けは保持されます。バックアップを確認するか、上限を増やしてください（最大 1 GB）。",
     "error.backupRemoved": "このバックアップは既にクリーンアップ済みとして記録されており、復元や処理の再開には使用できません。Google ドキュメントとショートカットは保持されています。ショートカットからオンラインのスプレッドシートを開いてください。",
     "error.busy": "別の処理がまだファイルまたはレコードを使用しています。待ってから再開してください。元ファイルとバックアップは保持されています。",
     "error.cancelled": "処理を停止しました。作成済みの場合、バックアップと復元記録は保持されています。",
@@ -296,7 +296,7 @@
     "theme.dark": "ダーク",
     "theme.light": "ライト",
     "theme.saveFailed": "テーマを保存できませんでした。以前の設定は保持されています。",
-    "tutorial.backupExplanation": "元ファイル → ローカルバックアップ → Google Sheets。「バックアップ」で「復元先…」を選ぶとファイルを復元できます。|30 日 · 200 MB（最大 1 GB まで調整可能）。自動クリーンアップは有効時のみ。保留中の処理は保護されます。|バックアップには、Sheets での後の変更を含まない元ファイルが保存されます。数式や書式が変わる場合があります。XLS マクロは Sheets では動作しません。 上限に達すると、この設定がオフでも古い完了済みバックアップから削除されます。保留中のバックアップは保持されます。",
+    "tutorial.backupExplanation": "元ファイル → ローカルバックアップ → Google Sheets。「バックアップ」で「復元先…」を選ぶとファイルを復元できます。|30 日 · 200 MB（最大 1 GB まで調整可能）。|バックアップには、Sheets での後の変更を含まない元ファイルが保存されます。数式や書式が変わる場合があります。XLS マクロは Sheets では動作しません。 上限に達すると、古い完了済みバックアップから削除されます。保留中のバックアップは保持されます。",
     "tutorial.backupTitle": "元ファイルを保持し、復元方法を確認",
     "tutorial.defaultsExplanation": "ダブルクリックするか、Windows メニューの「プログラムから開く → ZagoSheetsWin」を使用します。|ZagoSheetsWin を既定のスプレッドシートアプリに設定します（任意）:",
     "tutorial.defaultsTitle": "スプレッドシートの開き方を選択",
@@ -363,6 +363,6 @@
     "error.odsBounds": "ODS：繰り返しが無効か、対応する寸法の上限を超えています。",
     "error.odsStructure": "ODS ファイルの構造が不完全か無効です。",
     "action.chooseSeparator": "区切り文字を選択",
-    "recovery.quotaRotation": "上限に達すると、この設定がオフでも古い完了済みバックアップから削除されます。保留中のバックアップは保持されます。"
+    "recovery.quotaRotation": "上限に達すると、古い完了済みバックアップから削除されます。保留中のバックアップは保持されます。"
   }
 }

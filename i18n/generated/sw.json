@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.39",
+  "productVersion": "0.9.40",
   "sourceLocale": "pt-BR",
-  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
+  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Je, unatumia ulandanishi?",
     "emphasis.verify": "Kagua muunganisho wa Google",
     "error.authorizationRequired": "Google inahitaji idhini. Fungua Mipangilio na ubofye Idhinisha Google, kisha fungua lahajedwali tena.",
-    "error.backupQuota": "Hakuna nafasi ndani ya kikomo cha nakala rudufu. Faili ya asili ilihifadhiwa na haikutumwa Google. Fungua Nakala rudufu ili kufuta nakala zilizokamilika au kurekebisha kikomo (kiwango cha juu 1 GB).",
+    "error.backupQuota": "Nafasi haitoshi baada ya usafishaji wa kiotomatiki: nakala zinazosubiri zinalindwa au faili imezidi kiwango. Faili asili na uhusiano wa Google zimehifadhiwa. Kagua nakala au ongeza kiwango (hadi 1 GB).",
     "error.backupRemoved": "Nakala hii rudufu tayari imewekwa alama kuwa imesafishwa na haipatikani kwa kurejesha au kuendelea. Hati ya Google na njia yake ya mkato zilihifadhiwa. Tumia njia ya mkato kufungua lahajedwali mtandaoni.",
     "error.busy": "Operesheni nyingine bado inatumia faili au rejista. Subiri kisha uendelee; faili ya asili na nakala rudufu zilihifadhiwa.",
     "error.cancelled": "Operesheni ilisimamishwa. Nakala rudufu na rekodi ya urejeshaji, ikiwa ziliundwa, zilihifadhiwa.",
@@ -237,7 +237,7 @@
     "recovery.state.protected": "Imelindwa / inasubiri",
     "recovery.state.unavailable": "Haipatikani",
     "recovery.title": "Rejesha faili na udhibiti nakala rudufu - ZagoSheetsWin",
-    "recovery.usage": "Nafasi iliyotumika: {usedMb:N2} MB · kikomo: {limitMb} MB · nakala rudufu: {backupCount} · zinazolindwa: {protectedCount}",
+    "recovery.usage": "Nafasi Iliyotumika: {usedMb:N2} MB · Kikomo: {limitMb} MB · Nakala Rudufu: {backupCount} · Zinazolindwa: {protectedCount}",
     "setup.advanced": "Chaguo za kina…",
     "setup.advancedTitle": "Chaguo za kina - ZagoSheetsWin",
     "setup.authChecking": "◉ Inakagua muunganisho wa Google…",
@@ -296,7 +296,7 @@
     "theme.dark": "Nyeusi",
     "theme.light": "Angavu",
     "theme.saveFailed": "Haikuwezekana kuhifadhi mandhari. Mapendeleo yako ya awali yalihifadhiwa.",
-    "tutorial.backupExplanation": "Faili ya asili → nakala rudufu ya ndani → Google Sheets. Katika Nakala rudufu, chagua Rejesha kwenye… ili kurejesha faili.|siku 30 · 200 MB (inaweza kurekebishwa hadi 1 GB). Usafishaji wa kiotomatiki tu unapowashwa; operesheni zinazosubiri zinalindwa.|Nakala rudufu huhifadhi faili ya asili bila mabadiliko ya baadaye katika Sheets. Fomula na uumbizaji vinaweza kubadilika; makro za XLS hazifanyi kazi katika Sheets. Kiwango cha nafasi kikifikiwa, nakala zilizokamilika za zamani zaidi hufutwa hata chaguo hili likizimwa. Nakala zinazosubiri huhifadhiwa.",
+    "tutorial.backupExplanation": "Faili ya asili → nakala rudufu ya ndani → Google Sheets. Katika Nakala rudufu, chagua Rejesha kwenye… ili kurejesha faili.|siku 30 · 200 MB (inaweza kurekebishwa hadi 1 GB).|Nakala rudufu huhifadhi faili ya asili bila mabadiliko ya baadaye katika Sheets. Fomula na uumbizaji vinaweza kubadilika; makro za XLS hazifanyi kazi katika Sheets. Kiwango cha nafasi kikifikiwa, nakala zilizokamilika za zamani zaidi hufutwa. Nakala zinazosubiri huhifadhiwa.",
     "tutorial.backupTitle": "Hifadhi faili ya asili. Jua jinsi ya kuirejesha.",
     "tutorial.defaultsExplanation": "Bofya mara mbili au tumia Fungua kwa → ZagoSheetsWin katika menyu ya Windows.|Weka ZagoSheetsWin kuwa programu yako chaguomsingi ya lahajedwali (hiari):",
     "tutorial.defaultsTitle": "Chagua jinsi ya kufungua lahajedwali zako",
@@ -363,6 +363,6 @@
     "error.odsBounds": "ODS: marudio batili au vipimo vinavyozidi kikomo kinachotumika.",
     "error.odsStructure": "Muundo wa faili ya ODS haujakamilika au si halali.",
     "action.chooseSeparator": "Chagua kitenganishi",
-    "recovery.quotaRotation": "Kiwango cha nafasi kikifikiwa, nakala zilizokamilika za zamani zaidi hufutwa hata chaguo hili likizimwa. Nakala zinazosubiri huhifadhiwa."
+    "recovery.quotaRotation": "Kiwango cha nafasi kikifikiwa, nakala zilizokamilika za zamani zaidi hufutwa. Nakala zinazosubiri huhifadhiwa."
   }
 }
