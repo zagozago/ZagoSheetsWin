@@ -118,7 +118,7 @@ internal sealed class ProcessingForm : Form
                 if (busy) return;
                 if (ex is InvalidDataException data && data.Message == "Ambiguous CSV delimiter; configure it explicitly.")
                 {
-                    using var choice = new TextInterpretationForm();
+                    using var choice = new TextInterpretationForm(sourcePath: request.Path);
                     if (choice.ShowDialog(this) != DialogResult.OK) return;
                     interpretation = choice.Options;
                 }
@@ -180,8 +180,8 @@ internal sealed class ProcessingForm : Form
         {
             cpuSampler.Stop();
             LastMetrics = telemetry.Capture();
-            latestDiagnostic = DiagnosticLog.CreateEntry(outcome, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase, trace: telemetry.CaptureTrace());
-            if (recordDiagnostics) await diagnostics.RecordAsync(outcome, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase, trace: telemetry.CaptureTrace());
+            latestDiagnostic = DiagnosticLog.CreateEntry(outcome, operation: telemetry.OperationId, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase, trace: telemetry.CaptureTrace());
+            if (recordDiagnostics) await diagnostics.RecordAsync(outcome, operation: telemetry.OperationId, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase, trace: telemetry.CaptureTrace());
             busy = false;
         }
         if (failure is not null && (failure is not OperationCanceledException || !cancellation.IsCancellationRequested)) ShowFailure(failure);

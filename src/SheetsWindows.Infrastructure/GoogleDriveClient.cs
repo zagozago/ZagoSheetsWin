@@ -8,9 +8,9 @@ using SheetsWindows.Core;
 namespace SheetsWindows.Infrastructure;
 
 public sealed record GoogleFile(string Id, string MimeType, bool Trashed, bool CanEdit, Dictionary<string, string> Properties);
-public sealed class GoogleDriveClient(HttpClient http, IGoogleAuth auth, UploadSessionStore? sessions = null, TimeSpan? requestTimeout = null)
+public sealed class GoogleDriveClient(HttpClient http, IGoogleAuth auth, UploadSessionStore? sessions = null, TimeSpan? requestTimeout = null, ProcessingTelemetry? telemetry = null)
 {
-    private readonly ResumableUpload? uploads = sessions is null ? null : new(http, auth, sessions, requestTimeout);
+    private readonly ResumableUpload? uploads = sessions is null ? null : new(http, auth, sessions, requestTimeout, telemetry);
     public bool CanResume(RemoteAttempt attempt, byte[] bytes, string mime) => uploads?.HasSession(attempt, bytes, mime) == true;
     public Task<string> ResumeAsync(RemoteAttempt attempt, byte[] bytes, string mime, CancellationToken ct) =>
         uploads?.ResumeAsync(attempt, bytes, mime, ct) ?? throw new ReconciliationRequiredException();
@@ -72,7 +72,7 @@ public sealed class GoogleDriveClient(HttpClient http, IGoogleAuth auth, UploadS
             if (page is not null) url += "&pageToken=" + Uri.EscapeDataString(page);
             using var json = await SendAsync(() => new(HttpMethod.Get, url), attempt.AccountId, ct);
             foreach (var e in json.RootElement.GetProperty("files").EnumerateArray()) files.Add(File(e));
-            if (files.Count > 1) throw new ReconciliationRequiredException();
+            if (files.Count > 1) { telemetry?.Mark(ProcessingStep.RemoteLookupMultiple); throw new ReconciliationRequiredException(); }
             page = json.RootElement.TryGetProperty("nextPageToken", out var next) ? next.GetString() : null;
             if (page is not null && (!pages.Add(page) || pages.Count > 100)) throw new ReconciliationRequiredException();
         } while (page is not null);

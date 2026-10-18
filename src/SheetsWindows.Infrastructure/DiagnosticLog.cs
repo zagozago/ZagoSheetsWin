@@ -6,10 +6,10 @@ namespace SheetsWindows.Infrastructure;
 
 public enum DiagnosticEvent { Started, Completed, Cancelled, AuthorizationRequired, ReconciliationRequired, LocalConflict, ConversionMismatch, Failed, Exported }
 public enum DiagnosticFailure { WorkbookContentType, FormulaVerification, ConversionDifference, GoogleApi, Network, FileAccess, InvalidData, UnsupportedFormat, Other, Capacity }
-public enum DiagnosticCode { SnapshotIntegrity, RemoteAssociation, SourceIdentity, SourceChanged, AssociationBinding, TextEncoding, TextStructure, CsvDelimiter, WorkbookContentType, FileAccess, Database, GoogleApi, Network, Other, FileMissing, FileBusy, OdsPackage, TextRows, TextCells, TextColumns, CellCharacters, ImportBytes, NormalizedBytes, OdsContentBounds, OdsRepeat, RemoteExportBytes, TextRowWidth }
+public enum DiagnosticCode { SnapshotIntegrity, RemoteAssociation, SourceIdentity, SourceChanged, AssociationBinding, TextEncoding, TextStructure, CsvDelimiter, WorkbookContentType, FileAccess, Database, GoogleApi, Network, Other, FileMissing, FileBusy, OdsPackage, TextRows, TextCells, TextColumns, CellCharacters, ImportBytes, NormalizedBytes, OdsContentBounds, OdsRepeat, RemoteExportBytes, TextRowWidth, RemoteReconciliation, TextUnclosedQuote, TextMisplacedQuote, TextEmpty, TextInconsistentColumns, TextSeparatorHint, OdsMissingPart, OdsXml }
 public sealed record RemoteValidationContext(bool IsFolder, bool IsTrashed, bool CanEdit, bool MimeMatches,
     bool MarkerPresent, bool MarkerMatches, bool HashPresent, bool HashMatches, bool PreviouslyVerified);
-public sealed record DiagnosticEntry(DateTimeOffset Time, DiagnosticEvent Event, Guid? Operation, ProcessingMetrics? Metrics = null, DiagnosticFailure? Failure = null, string? Version = null, Guid? AttemptId = null, ProcessingPhase? Stage = null, DiagnosticCode? Code = null, int? NativeError = null, int? GoogleStatus = null, int? SqliteCode = null, RemoteValidationContext? RemoteValidation = null, IReadOnlyList<ProcessingCheckpoint>? Trace = null, string? Revision = null, int? Win32Code = null);
+public sealed record DiagnosticEntry(DateTimeOffset Time, DiagnosticEvent Event, Guid? Operation, ProcessingMetrics? Metrics = null, DiagnosticFailure? Failure = null, string? Version = null, Guid? AttemptId = null, ProcessingPhase? Stage = null, DiagnosticCode? Code = null, int? NativeError = null, int? GoogleStatus = null, int? SqliteCode = null, RemoteValidationContext? RemoteValidation = null, IReadOnlyList<ProcessingCheckpoint>? Trace = null, string? Revision = null, int? Win32Code = null, int? LogicalRow = null);
 // Diagnostic files are disposable; durable operation journals and backups are never pruned.
 public sealed class DiagnosticLog(LocalStorage storage)
 {
@@ -95,6 +95,13 @@ public sealed class DiagnosticLog(LocalStorage storage)
         };
         DiagnosticCode? code = failure is null ? null : failure switch
         {
+            ReconciliationRequiredException => DiagnosticCode.RemoteReconciliation,
+            InvalidDataException data when data.Message == "Unclosed quoted field." => DiagnosticCode.TextUnclosedQuote,
+            InvalidDataException data when data.Message == "Invalid quoted field." => DiagnosticCode.TextMisplacedQuote,
+            InvalidDataException data when data.Message is "Empty text spreadsheet." or "Empty table." => DiagnosticCode.TextEmpty,
+            InvalidDataException data when data.Message == "Conflicting Excel separator hint." => DiagnosticCode.TextSeparatorHint,
+            InvalidDataException data when data.Message == "Malformed ODS XML." => DiagnosticCode.OdsXml,
+            InvalidDataException data when data.Message == "Invalid ODS package structure." => DiagnosticCode.OdsMissingPart,
             SpreadsheetCapacityException capacity => capacity.Code,
             InvalidDataException data when data.Message == "Export too large." => DiagnosticCode.RemoteExportBytes,
             InvalidDataException data when data.Message == "Irregular delimited table." => DiagnosticCode.TextRowWidth,
@@ -121,7 +128,7 @@ public sealed class DiagnosticLog(LocalStorage storage)
             _ => DiagnosticCode.Other
         };
         return new DiagnosticEntry(DateTimeOffset.UtcNow, kind, operation, metrics, reason, UiText.ProductVersion, attemptId, stage, code,
-            failure?.HResult, (failure as GoogleApiException)?.Status, (failure as Microsoft.Data.Sqlite.SqliteException)?.SqliteErrorCode, failure?.Data["RemoteValidation"] as RemoteValidationContext, trace, BuildRevision, (failure as System.ComponentModel.Win32Exception)?.NativeErrorCode);
+            failure?.HResult, (failure as GoogleApiException)?.Status, (failure as Microsoft.Data.Sqlite.SqliteException)?.SqliteErrorCode, failure?.Data["RemoteValidation"] as RemoteValidationContext, trace, BuildRevision, (failure as System.ComponentModel.Win32Exception)?.NativeErrorCode, failure?.Data["LogicalRow"] is int logicalRow && logicalRow > 0 ? logicalRow : null);
     }
     private static void ValidateTrace(IReadOnlyList<ProcessingCheckpoint>? trace)
     {

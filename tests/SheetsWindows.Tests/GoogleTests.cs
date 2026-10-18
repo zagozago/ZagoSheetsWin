@@ -33,7 +33,7 @@ public sealed class GoogleTests
         public byte[]? ExportOverride; public int Exports; public bool ExportUnauthorizedOnce;
         public readonly Dictionary<string, byte[]> Uploaded = []; public readonly List<string> MediaTypes = [];
         private readonly Dictionary<string, (string Id, object File, string Mime, MemoryStream Bytes)> sessions = [];
-        public bool Offline, DisconnectOnLoss;
+        public bool Offline, DisconnectOnLoss, IncompleteCompletion, ExpiredSession;
         public readonly List<string> Metadata = [];
         public int Posts; public bool LoseSheetResponse, LoseFolderResponse, ListLag, DuplicateList, WrongMime, Trashed, DenyEdit, Get401;
         public readonly Dictionary<string, object> Files = [];
@@ -67,6 +67,7 @@ public sealed class GoogleTests
             {
                 if (Offline) throw new HttpRequestException("Simulated disconnection");
                 var id = req.RequestUri.Query.Split("upload_id=")[1]; var session = sessions[id];
+                if (ExpiredSession) return new(HttpStatusCode.NotFound);
                 var range = req.Content!.Headers.ContentRange!;
                 if (range.From is not null)
                 {
@@ -78,6 +79,7 @@ public sealed class GoogleTests
                     Files[id] = session.File;
                     if (!Uploaded.ContainsKey(id)) { Uploaded[id] = session.Bytes.ToArray(); MediaTypes.Add(session.Mime); }
                     if (LoseSheetResponse) { LoseSheetResponse = false; Offline = DisconnectOnLoss; throw new HttpRequestException("Lost completion response"); }
+                    if (IncompleteCompletion) return Json(new { });
                     return Json(new { id });
                 }
                 var response = new HttpResponseMessage((HttpStatusCode)308);
@@ -402,7 +404,7 @@ public sealed class GoogleTests
         var mapping = new GoogleRemoteRegistry(Path.Combine(w.Root, "state", "google.db")).Get("sheet:" + receipt.Operation.Id.ToString("N"))!;
         var verifier = new ConversionVerifier(drive); await verifier.VerifyAsync(receipt.Operation, mapping, default); Assert.Equal(2, server.Exports); Assert.Equal(1, auth.Refreshes);
         server.ExportOverride = SpreadsheetFormats.WriteXlsx([new SheetValues("Dados", [new object?[] { "changed" }])]);
-        await verifier.VerifyAsync(receipt.Operation, mapping, default); Assert.True(verifier.HasWarnings);
+        await Assert.ThrowsAsync<ConversionMismatchException>(() => verifier.VerifyAsync(receipt.Operation, mapping, default)); Assert.False(verifier.HasWarnings);
         auth.Account = "other"; await Assert.ThrowsAsync<InvalidOperationException>(() => verifier.VerifyAsync(receipt.Operation, mapping, default));
     }
     private static void ConfigureLauncher(Workspace w, out LocalStorage storage)
@@ -446,13 +448,13 @@ public sealed class GoogleTests
         }
     }
     [WindowsFact]
-    public async Task PartialConvertedValuesWarnAndReplaceWithRecoverableBackup()
+    public async Task MismatchedTextValuesPreserveOriginalAndNeverPublishShortcut()
     {
         using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".csv"); var original = FormatTests.LargeCsv(); File.WriteAllBytes(path, original); ConfigureLauncher(w, out var storage);
         using var server = new DriveServer { ExportOverride = SpreadsheetFormats.WriteXlsx([new SheetValues("Dados", [new object?[] { "changed" }])]) }; using var http = new HttpClient(server); var browser = new LauncherBrowser(); var launcher = new WindowsLauncher(storage, http, browser);
-        var shortcut = await launcher.OpenAsync(path); Assert.False(File.Exists(path)); Assert.True(File.Exists(shortcut)); Assert.Single(browser.Opened); Assert.NotNull(launcher.ImportNotice); Assert.Equal(2, server.Posts);
+        await Assert.ThrowsAsync<ConversionMismatchException>(() => launcher.OpenAsync(path)); Assert.True(File.Exists(path)); Assert.Empty(browser.Opened); Assert.Equal(2, server.Posts);
         var op = Assert.Single(w.Registry().Pending()); Assert.Equal(original, File.ReadAllBytes(op.Snapshot!.BackupPath));
-        Assert.Equal(shortcut, await launcher.ResumeAsync(op.Id, true)); Assert.Equal(2, server.Posts);
+        await Assert.ThrowsAsync<ConversionMismatchException>(() => launcher.ResumeAsync(op.Id, true)); Assert.Equal(2, server.Posts);
     }
     [WindowsFact]
     public async Task SavedCopyPreferenceControlsNormalOpenAndCanReturnToReplacementWithoutAnotherUpload()
@@ -692,6 +694,42 @@ public sealed class GoogleTests
         var browser = new LauncherBrowser { Fail = true }; var launcher = new WindowsLauncher(storage, http, browser);
         await Assert.ThrowsAsync<IOException>(() => launcher.OpenAsync(w.Source)); Assert.True(File.Exists(w.Source));
         browser.Fail = false; await launcher.OpenAsync(w.Source); Assert.Equal(2, server.Posts); Assert.False(File.Exists(w.Source));
+    }
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task IncompleteCompletionReconcilesExactlyOneMarkerOrBlocks(bool listLag)
+    {
+        using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".csv"); File.WriteAllText(path, "id;texto\n1;\"a\nb\"");
+        using var server = new DriveServer { IncompleteCompletion = true, ListLag = listLag }; using var http = new HttpClient(server, false); var auth = new FixedAuth();
+        var remote = new GoogleRemoteRegistry(Path.Combine(w.Root, "state", "google.db"));
+        var telemetry = new ProcessingTelemetry();
+        GoogleImport ImporterWithSession() => new(w.Coordinator(), w.Registry(), remote, new SourceReader(), new FileOperationLock(w.Locks), auth,
+            new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(w.Root, "state", "uploads"), new PlainUploadProtector()), telemetry: telemetry), telemetry: telemetry);
+        if (listLag)
+        {
+            await Assert.ThrowsAsync<ReconciliationRequiredException>(() => ImporterWithSession().ImportAsync(path));
+            await Assert.ThrowsAsync<ReconciliationRequiredException>(() => ImporterWithSession().ImportAsync(path));
+            server.ListLag = false;
+        }
+        var result = await ImporterWithSession().ImportAsync(path);
+        Assert.Equal(GoogleDriveClient.Editor("file_2"), result); Assert.Equal(2, server.Posts); Assert.True(File.Exists(path));
+        Assert.Contains(telemetry.CaptureTrace(), p => p.Step == ProcessingStep.SessionInitiated);
+        Assert.Contains(telemetry.CaptureTrace(), p => p.Step == ProcessingStep.SessionAck);
+    }
+    [Fact]
+    public async Task ExpiredPendingSessionRemainsBlockedWithoutAnotherCreation()
+    {
+        using var w = new Workspace(); File.WriteAllBytes(w.Source, Workbook()); var auth = new FixedAuth();
+        var op = await w.Coordinator().PrepareAsync("A", w.Source); var remote = new GoogleRemoteRegistry(Path.Combine(w.Root, "state", "google.db"));
+        var pending = remote.Begin("sheet:" + op.Id.ToString("N"), "A", "sheet", op.Snapshot!.Sha256);
+        using var server = new DriveServer { ExpiredSession = true }; using var http = new HttpClient(server, false);
+        var sessions = new UploadSessionStore(Path.Combine(w.Root, "state", "uploads"), new PlainUploadProtector());
+        var drive = new GoogleDriveClient(http, auth, sessions);
+        await Assert.ThrowsAsync<ReconciliationRequiredException>(() => drive.CreateAsync(pending, "test", null, File.ReadAllBytes(w.Source), default));
+        var importer = new GoogleImport(w.Coordinator(), w.Registry(), remote, new SourceReader(), new FileOperationLock(w.Locks), auth, drive);
+        await Assert.ThrowsAsync<ReconciliationRequiredException>(() => importer.ImportAsync(w.Source));
+        Assert.Equal(1, server.Posts); Assert.Empty(server.Files); Assert.True(File.Exists(w.Source));
     }
     [Fact]
     public async Task FirstImportVerifiesSheetAndRepeatDoesNotPost()

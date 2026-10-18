@@ -45,6 +45,7 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
         if (source.Source.IdentityKey != op.SourceKey) throw new LocalConflictException("Source identity changed; upload blocked.");
         await using var held = await locks.AcquireAsync(source.Source.IdentityKey, ct);
         op = local.Get(op.Id)!;
+        telemetry?.BindOperation(op.Id);
         var snapshot = op.Snapshot ?? throw new InvalidOperationException("Snapshot required.");
         source.Content.Position = 0;
         if (Convert.ToHexString(await SHA256.HashDataAsync(source.Content, ct)) != snapshot.Sha256) throw new LocalConflictException("Source changed; upload blocked.");
@@ -56,13 +57,13 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
         if (bytes.LongLength != snapshot.Length || Convert.ToHexString(SHA256.HashData(bytes)) != snapshot.Sha256) throw new InvalidDataException("Snapshot integrity failure.");
         telemetry?.Mark(ProcessingStep.SnapshotValidation);
         var interpretation = op.Format is "csv" or "tsv"
-            ? interpretations?.Load(op, textOptions ?? new(), remote.Get("sheet:" + op.Id.ToString("N")) is not null ? 1 : 2) ?? textOptions
+            ? interpretations?.Load(op, textOptions ?? new(), remote.Get("sheet:" + op.Id.ToString("N")) is not null ? 1 : 3) ?? textOptions
             : textOptions;
         SpreadsheetPayload payload;
         telemetry?.Mark(ProcessingStep.Conversion, CheckpointOutcome.Started);
         using (telemetry?.Begin(ProcessingPhase.Conversion)) payload = await Task.Run(() => SpreadsheetFormats.Prepare(op.Format, bytes, interpretation, ct), ct);
         if (op.Format is "csv" or "tsv" && interpretations is not null)
-            _ = interpretations.Bind(op, interpretation ?? new(), remote.Get("sheet:" + op.Id.ToString("N")) is not null);
+            _ = interpretations.Bind(op, payload.TextInterpretation ?? interpretation ?? new(), remote.Get("sheet:" + op.Id.ToString("N")) is not null);
         telemetry?.Mark(ProcessingStep.Conversion);
         using var uploadTiming = telemetry?.Begin(ProcessingPhase.Upload);
         // Fidelity limitations are warnings after a verified Google import; replacement follows user settings.
@@ -157,7 +158,9 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
             attempt = remote.Begin(key, account, kind, hash); // commit intent BEFORE touching Google
             telemetry?.Mark(ProcessingStep.RemoteIntent);
             telemetry?.Mark(ProcessingStep.RemoteCandidate, CheckpointOutcome.Started);
-            var candidate = await create(attempt); remote.Candidate(key, candidate);
+            try { var candidate = await create(attempt); remote.Candidate(key, candidate); }
+            catch (Exception ex) when (!ct.IsCancellationRequested && ex is ReconciliationRequiredException or System.Text.Json.JsonException or KeyNotFoundException)
+            { telemetry?.Mark(ProcessingStep.ReconciliationRequired); /* Resolve the same marker below; never initiate again. */ }
             telemetry?.Mark(ProcessingStep.RemoteCandidate);
             attempt = remote.Get(key)!;
         }
@@ -168,7 +171,7 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
         else
         {
             var found = await drive.FindAsync(attempt, ct);
-            if (found.Count != 1) throw new ReconciliationRequiredException();
+            if (found.Count != 1) { telemetry?.Mark(found.Count == 0 ? ProcessingStep.RemoteLookupNone : ProcessingStep.RemoteLookupMultiple); throw new ReconciliationRequiredException(); }
             file = found[0]; remote.Candidate(key, file.Id);
         }
         telemetry?.Mark(ProcessingStep.RemoteLookup);

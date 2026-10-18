@@ -535,13 +535,35 @@ internal static class InterfaceVerification
         using (benchmark.Begin(ProcessingPhase.Verification)) SpreadsheetFormats.VerifyValues(payload.Expected!, payload.Bytes);
         measurements["OfflineCsv5000x40RoundTrip"] = benchmark.Capture();
         var largeCsv = new System.Text.StringBuilder();
-        for (var row = 0; row < 60000; row++) { for (var column = 0; column < 10; column++) { if (column > 0) largeCsv.Append('|'); largeCsv.Append(row).Append('_').Append(column); } largeCsv.Append('\n'); }
+        for (var row = 0; row < 100000; row++) { for (var column = 0; column < 10; column++) { if (column > 0) largeCsv.Append('|'); largeCsv.Append(row).Append('_').Append(column); } largeCsv.Append('\n'); }
         var expanded = new ProcessingTelemetry();
         using (expanded.Begin(ProcessingPhase.Conversion)) payload = SpreadsheetFormats.Prepare("csv", System.Text.Encoding.UTF8.GetBytes(largeCsv.ToString()));
         using (expanded.Begin(ProcessingPhase.Verification)) SpreadsheetFormats.VerifyValues(payload.Expected!, payload.Bytes, textImport: true);
-        measurements["OfflineCsv60000x10RoundTrip"] = expanded.Capture();
+        measurements["OfflineCsv100000x10RoundTrip"] = expanded.Capture();
+        Require(expanded.Capture().PeakWorkingSetBytes < 512L * 1024 * 1024, "CSV capacity benchmark exceeded the 512 MiB working-set budget.");
         using (var interpretation = new TextInterpretationForm(repair: true))
         { interpretation.Show(); Application.DoEvents(); Require(interpretation.Options == new TextImportOptions(), "Repair defaults must use the current automatic interpretation."); interpretation.Close(); }
+        var previewInput = Path.Combine(Path.GetTempPath(), "zsw-preview-" + Guid.NewGuid().ToString("N") + ".csv");
+        try
+        {
+            File.WriteAllText(previewInput, "a,b;c\n1,2;3\n4,5;6");
+            foreach (var code in new[] { "en", "pt", "ar" })
+            {
+                UiText.Select(code);
+                using var choice = new TextInterpretationForm(sourcePath: previewInput);
+                choice.Show(); Application.DoEvents();
+                var picker = Descendants(choice).OfType<ComboBox>().Single(c => c.AccessibleName == UiText.Get("setup.delimiterAuto"));
+                picker.SelectedIndex = 2;
+                var grid = Descendants(choice).OfType<DataGridView>().Single();
+                var wait = System.Diagnostics.Stopwatch.StartNew();
+                while (grid.Rows.Count == 0 && wait.Elapsed < TimeSpan.FromSeconds(10)) { Application.DoEvents(); Thread.Sleep(10); }
+                Require(grid.Rows.Count == 3 && grid.Columns.Count == 2, "Per-file delimiter preview must render the selected interpretation.");
+                Require((string?)grid.Rows[0].Cells[0].Value == "a,b", "Preview must preserve the competing separator inside the value.");
+                Require(((Button)choice.AcceptButton!).Enabled, "A valid explicit preview must permit retry.");
+                choice.Close();
+            }
+        }
+        finally { if (File.Exists(previewInput)) File.Delete(previewInput); UiText.Select("pt"); }
         Console.Error.WriteLine("VERIFY: 51 locale layouts");
         LocaleVerification.Run(output);
         Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(output))!);

@@ -4,7 +4,7 @@ namespace SheetsWindows.Infrastructure;
 
 public enum ProcessingPhase { Conversion, Upload, Verification }
 [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<ProcessingStep>))]
-public enum ProcessingStep { Preflight, Authorization, PreviousAssociation, TrashedAssociationRetired, SnapshotPreparation, SourceValidation, SnapshotValidation, Conversion, FolderAssociation, RemoteIntent, RemoteCandidate, RemoteLookup, RemoteValidation, RemoteVerified, UploadResume, ImportReady, Replacement, ConversionVerification, ShortcutPublication, BrowserLaunch, SourceRetirement, CopyCompletion, Configuration, SourceOpening, ConversionWarning }
+public enum ProcessingStep { Preflight, Authorization, PreviousAssociation, TrashedAssociationRetired, SnapshotPreparation, SourceValidation, SnapshotValidation, Conversion, FolderAssociation, RemoteIntent, RemoteCandidate, RemoteLookup, RemoteValidation, RemoteVerified, UploadResume, ImportReady, Replacement, ConversionVerification, ShortcutPublication, BrowserLaunch, SourceRetirement, CopyCompletion, Configuration, SourceOpening, ConversionWarning, SessionInitiated, SessionAck, RemoteLookupNone, RemoteLookupMultiple, ReconciliationRequired }
 [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<CheckpointOutcome>))]
 public enum CheckpointOutcome { Started, Completed, Failed }
 public sealed record ProcessingCheckpoint(ProcessingStep Step, CheckpointOutcome Outcome, long ElapsedMs, RemoteValidationContext? RemoteValidation = null);
@@ -17,6 +17,8 @@ public sealed record ProcessingMetrics(long ElapsedMs, long? ReadyMs, long? Conv
 // Numeric, per-run counters only. No source path, account, content or upload URL.
 public sealed class ProcessingTelemetry(long? startedAt = null, IProgress<string>? progress = null)
 {
+    public Guid? OperationId { get; private set; }
+    public void BindOperation(Guid id) => OperationId = id;
     private readonly long started = startedAt ?? Stopwatch.GetTimestamp();
     private readonly long[] ticks = new long[3];
     private readonly int[] observed = new int[3];

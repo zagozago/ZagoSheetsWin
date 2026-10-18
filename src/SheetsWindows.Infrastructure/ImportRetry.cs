@@ -9,6 +9,7 @@ public static class ImportRetry
     public static bool RequiresInputChange(Exception failure) => failure is SpreadsheetCapacityException
         || failure is InvalidDataException data && data.Message is "Invalid text encoding or characters." or "Encoding conflicts with BOM."
             or "Irregular delimited table." or "Invalid quoted field." or "Unclosed quoted field." or "Empty text spreadsheet." or "Empty table."
+            or "Conflicting Excel separator hint." or "Malformed ODS XML." or "Invalid ODS package structure." or "Not an ODS package." or "ODS mimetype missing." or "Invalid ODS mimetype." or "Invalid ODS workbook."
             or "ODS content dimensions exceed limits." or "ODS columns too large." or "ODS rows too large." or "Unbounded repetition.";
     public static bool IsTransient(Exception failure) => failure switch
     {

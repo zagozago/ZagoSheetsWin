@@ -92,11 +92,18 @@ public static class LauncherErrors
         or System.Security.Cryptography.CryptographicException or Microsoft.Data.Sqlite.SqliteException or System.Text.Json.JsonException or System.Xml.XmlException or KeyNotFoundException or SecurityException or ExcelDataReader.Exceptions.ExcelReaderException;
     public static string Message(Exception ex) => ex switch
     {
+        InvalidDataException data when data.Message == "Unclosed quoted field." => UiText.Get("error.textUnclosed"),
+        InvalidDataException data when data.Message == "Invalid quoted field." => UiText.Get("error.textQuote"),
+        InvalidDataException data when data.Message is "Empty text spreadsheet." or "Empty table." => UiText.Get("error.textEmpty"),
+        InvalidDataException data when data.Message == "Conflicting Excel separator hint." => UiText.Get("error.textHint"),
+        InvalidDataException data when data.Message == "Irregular delimited table." => UiText.Get("error.textColumns"),
+        InvalidDataException data when data.Message is "Unbounded repetition." or "ODS content dimensions exceed limits." or "ODS columns too large." or "ODS rows too large." => UiText.Get("error.odsBounds"),
+        InvalidDataException data when data.Message is "Malformed ODS XML." or "Invalid ODS package structure." or "Not an ODS package." or "ODS mimetype missing." or "Invalid ODS mimetype." or "Invalid ODS workbook." or "Invalid ODS sheets." => UiText.Get("error.odsStructure"),
         BackupQuotaException => UiText.Get("error.backupQuota"),
         BackupRemovedException => UiText.Get("error.backupRemoved"),
         LauncherNotConfiguredException => UiText.Get("error.setupRequired"),
         AuthorizationRequiredException => UiText.Get("error.authorizationRequired"),
-        ReconciliationRequiredException => UiText.Get("error.reconciliationRequired"),
+        ReconciliationRequiredException => UiText.Get("error.reconciliationRequired") + "\n\n" + UiText.Get("action.recovery") + " / " + UiText.Get("home.backups").Replace("&", "", StringComparison.Ordinal),
         FormulaVerificationException => UiText.Get("error.formulaVerification"),
         ConversionMismatchException => UiText.Get("error.conversionMismatch"),
         SpreadsheetCapacityException capacity => UiText.Format("error.capacity", ("reason", capacity.UserMessage)),
@@ -182,7 +189,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         var preparation = storage.CreatePreparation(); var local = new SqliteOperationRegistry(storage.DatabasePath);
         var remote = new GoogleRemoteRegistry(System.IO.Path.Combine(storage.Root, "google.db")); var locks = new FileOperationLock(storage.LocksPath);
         var auth = Auth(client, locks);
-        var importer = new GoogleImport(preparation, local, remote, new SourceReader(), locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads"))), textOptions, telemetry, new BackupManagement(storage), new ImportInterpretations(storage));
+        var importer = new GoogleImport(preparation, local, remote, new SourceReader(), locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads")), telemetry: telemetry), textOptions, telemetry, new BackupManagement(storage), new ImportInterpretations(storage));
         progress?.Report(UiText.Get("progress.openingSheets"));
         var receipt = await importer.ImportReceiptAsync(request.Path!, ct);
         progress?.Report(UiText.Get("progress.publishingShortcut"));
@@ -209,7 +216,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         telemetry?.Mark(ProcessingStep.SourceOpening);
         var locks = new FileOperationLock(storage.LocksPath); var auth = Auth(client, locks);
         var importer = new GoogleImport(storage.CreatePreparation(sources), new SqliteOperationRegistry(storage.DatabasePath),
-            new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")), sources, locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads"))), options, telemetry, new BackupManagement(storage), new ImportInterpretations(storage));
+            new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")), sources, locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads")), telemetry: telemetry), options, telemetry, new BackupManagement(storage), new ImportInterpretations(storage));
         progress?.Report(UiText.Get("progress.importingCopy"));
         return await PublishCopyAsync(await importer.ImportReceiptAsync(path, ct), progress, ct);
     }
@@ -231,7 +238,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         var sources = new BackupRepairSource(original, repairId);
         var importer = new GoogleImport(storage.CreatePreparation(sources), local,
             new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")), sources, locks, auth,
-            new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads"))),
+            new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads")), telemetry: telemetry),
             interpretation ?? new(), telemetry, null, new ImportInterpretations(storage));
         // Automatic network retries stay inside this invocation, using one stable repair identity.
         ImportReceipt? receipt = null;
@@ -259,7 +266,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         telemetry?.Mark(ProcessingStep.Configuration); var locks = new FileOperationLock(storage.LocksPath); var auth = Auth(client, locks);
         var access = await auth.AccessAsync(cancellationToken: ct);
         if (access.AccountId != operation.AccountId || mapping.AccountId != operation.AccountId) throw new LocalConflictException("Account changed.");
-        var drive = new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads")));
+        var drive = new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads")), telemetry: telemetry);
         var options = operation.Format == "xlsx" ? null : ExtendedConfiguration.Load(storage);
         ImportReceipt receipt;
         var repairOperation = operation.SourceKey.StartsWith("repair:", StringComparison.Ordinal);
