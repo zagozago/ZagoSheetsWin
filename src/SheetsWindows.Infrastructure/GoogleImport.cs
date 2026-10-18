@@ -57,7 +57,7 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
         if (bytes.LongLength != snapshot.Length || Convert.ToHexString(SHA256.HashData(bytes)) != snapshot.Sha256) throw new InvalidDataException("Snapshot integrity failure.");
         telemetry?.Mark(ProcessingStep.SnapshotValidation);
         var interpretation = op.Format is "csv" or "tsv"
-            ? interpretations?.Load(op, textOptions ?? new(), remote.Get("sheet:" + op.Id.ToString("N")) is not null ? 1 : 3) ?? textOptions
+            ? interpretations?.Load(op, textOptions ?? new(), remote.Get("sheet:" + op.Id.ToString("N")) is not null ? 1 : 4) ?? textOptions
             : textOptions;
         SpreadsheetPayload payload;
         telemetry?.Mark(ProcessingStep.Conversion, CheckpointOutcome.Started);

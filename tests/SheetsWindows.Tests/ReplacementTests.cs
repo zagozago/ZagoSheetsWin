@@ -30,6 +30,24 @@ public sealed class ReplacementTests
         await Assert.ThrowsAsync<IOException>(() => f.Replace()); Assert.True(File.Exists(f.Source)); Assert.Equal(1, f.Journal.Get(f.Op.Id)!.Step);
         f.Browser.Fail = false; await f.Replace(); Assert.False(File.Exists(f.Source));
     }
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    public async Task RemovedShortcutCanBeRepublishedOnlyForTheVerifiedOriginal(int step)
+    {
+        using var f = new Fixture(); var path = Path.ChangeExtension(f.Source, ".url");
+        f.Journal.Begin(f.Op.Id, path, f.Url, f.Source);
+        for (var i = 0; i < step; i++) f.Journal.Advance(f.Op.Id, i, i + 1);
+        Assert.Equal(path, await f.Replace()); Assert.True(File.Exists(path)); Assert.False(File.Exists(f.Source)); Assert.Equal(4, f.Journal.Get(f.Op.Id)!.Step);
+        Assert.Equal(step == 1 ? 1 : 0, f.Browser.Count);
+    }
+    [Fact]
+    public async Task RemovedShortcutIsNotRecreatedForAChangedOriginal()
+    {
+        using var f = new Fixture(); var path = Path.ChangeExtension(f.Source, ".url");
+        f.Journal.Begin(f.Op.Id, path, f.Url, f.Source); f.Journal.Advance(f.Op.Id, 0, 1); File.WriteAllText(f.Source, "changed");
+        await Assert.ThrowsAsync<LocalConflictException>(() => f.Replace()); Assert.False(File.Exists(path)); Assert.Equal("changed", File.ReadAllText(f.Source));
+    }
     [Fact]
     public async Task ChangedSourceIsNeverRetired()
     {

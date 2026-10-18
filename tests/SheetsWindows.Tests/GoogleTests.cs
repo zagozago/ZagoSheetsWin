@@ -452,7 +452,7 @@ public sealed class GoogleTests
     {
         using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".csv"); var original = FormatTests.LargeCsv(); File.WriteAllBytes(path, original); ConfigureLauncher(w, out var storage);
         using var server = new DriveServer { ExportOverride = SpreadsheetFormats.WriteXlsx([new SheetValues("Dados", [new object?[] { "changed" }])]) }; using var http = new HttpClient(server); var browser = new LauncherBrowser(); var launcher = new WindowsLauncher(storage, http, browser);
-        await Assert.ThrowsAsync<ConversionMismatchException>(() => launcher.OpenAsync(path)); Assert.True(File.Exists(path)); Assert.Empty(browser.Opened); Assert.Equal(2, server.Posts);
+        await Assert.ThrowsAsync<ConversionMismatchException>(() => launcher.OpenAsync(path)); Assert.True(File.Exists(path)); Assert.Empty(Directory.GetFiles(w.Root, "*.url")); Assert.Empty(browser.Opened); Assert.Equal(2, server.Posts);
         var op = Assert.Single(w.Registry().Pending()); Assert.Equal(original, File.ReadAllBytes(op.Snapshot!.BackupPath));
         await Assert.ThrowsAsync<ConversionMismatchException>(() => launcher.ResumeAsync(op.Id, true)); Assert.Equal(2, server.Posts);
     }

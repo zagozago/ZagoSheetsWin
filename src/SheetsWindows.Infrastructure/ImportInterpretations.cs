@@ -44,7 +44,7 @@ public sealed class ImportInterpretations(LocalStorage storage)
     private static void Validate(TextImportOptions? options)
     {
         if (options is null || options.Encoding is not ("auto" or "windows-1252")
-            || options.Delimiter is not ("auto" or "comma" or "semicolon" or "tab" or "pipe") || options.InterpretationVersion is not (1 or 2 or 3))
+            || options.Delimiter is not ("auto" or "comma" or "semicolon" or "tab" or "pipe") || options.InterpretationVersion is not (1 or 2 or 3 or 4))
             throw new InvalidDataException("Invalid interpretation.");
     }
 }

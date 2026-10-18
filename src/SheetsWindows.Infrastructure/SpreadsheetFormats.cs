@@ -25,7 +25,7 @@ public sealed class SpreadsheetCapacityException : NotSupportedException
 public class ConversionMismatchException() : IOException("Converted cell values differ; source preserved.");
 public sealed class FormulaVerificationException : ConversionMismatchException;
 public sealed class CopyRequiredException() : NotSupportedException("This workbook requires copy-only import.");
-public sealed record TextImportOptions(string Encoding = "auto", string Delimiter = "auto", int InterpretationVersion = 3);
+public sealed record TextImportOptions(string Encoding = "auto", string Delimiter = "auto", int InterpretationVersion = 4);
 public sealed record SheetValues(string Name, IReadOnlyList<IReadOnlyList<object?>> Rows);
 public sealed record SpreadsheetPayload(byte[] Bytes, string MimeType, IReadOnlyList<SheetValues>? Expected, TextImportOptions? TextInterpretation = null);
 
@@ -52,7 +52,7 @@ public static class SpreadsheetFormats
             case "tsv":
                 var effective = options ?? new(); string? delimiter = null;
                 var table = new SheetValues("Dados", ReadTextCore(bytes, format, effective, ct, value => delimiter = value));
-                return new(WriteXlsx([table], ct, textImport: effective.InterpretationVersion != 1, compactText: effective.InterpretationVersion >= 3), XlsxMime, [table], effective with { Delimiter = delimiter ?? effective.Delimiter });
+                return new(WriteXlsx([table], ct, textImport: effective.InterpretationVersion != 1, compactText: effective.InterpretationVersion >= 3, preserveLineEndings: effective.InterpretationVersion >= 4), XlsxMime, [table], effective with { Delimiter = delimiter ?? effective.Delimiter });
             case "ods":
                 IReadOnlyList<SheetValues>? expected;
                 try { expected = ReadOds(bytes, ct); }
@@ -109,7 +109,7 @@ public static class SpreadsheetFormats
         ct.ThrowIfCancellationRequested();
         if (bytes.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException(UiText.Message("capacity.importSize"));
         var text = Decode(bytes, options.Encoding, options.InterpretationVersion);
-        if (options.InterpretationVersion is not (1 or 2 or 3)) throw new InvalidDataException("Unsupported interpretation version.");
+        if (options.InterpretationVersion is not (1 or 2 or 3 or 4)) throw new InvalidDataException("Unsupported interpretation version.");
         if (text.Length == 0 || text.All(c => c < ' ' && c is not ('\t' or '\n' or '\r'))) throw new InvalidDataException("Empty text spreadsheet.");
         if (options.InterpretationVersion >= 3) return ReadTextV3(text, format, options, ct, picked);
         if (format == "tsv" && options.InterpretationVersion == 1) return ParseDelimited(text, '\t', ct, 1);
@@ -241,7 +241,7 @@ public static class SpreadsheetFormats
         {
             // TSV without any tab can be a single text column containing punctuation.
             // CSV remains conservative: irregular delimiters must never become false success.
-            if (format == "tsv" && !text.Contains('\t') || !text.Any(c => c is ',' or ';' or '\t' or '|'))
+            if (format == "tsv" && !text.Contains('\t') || options.InterpretationVersion >= 4 && !HasUnquotedSeparator(text) || !text.Any(c => c is ',' or ';' or '\t' or '|'))
                 candidates.Add(('\t', ScanText(text, '\t', ct)));
             else throw syntax ?? new InvalidDataException("Irregular delimited table.");
         }
@@ -254,6 +254,16 @@ public static class SpreadsheetFormats
         var result = new List<IReadOnlyList<object?>>(shapeChosen.Rows); var row = new List<object?>(shapeChosen.Columns);
         ScanText(text, chosen.Separator, ct, value => { row.Add(value); if (row.Count == shapeChosen.Columns) { result.Add(row); row = new(shapeChosen.Columns); } });
         return result;
+    }
+    private static bool HasUnquotedSeparator(string text)
+    {
+        var quoted = false;
+        for (var i = 0; i < text.Length; i++)
+        {
+            if (text[i] == '"') { if (quoted && i + 1 < text.Length && text[i + 1] == '"') i++; else quoted = !quoted; }
+            else if (!quoted && text[i] is ',' or ';' or '\t' or '|') return true;
+        }
+        return false;
     }
     private static ZipArchive OpenPackage(byte[] bytes)
     {
@@ -403,13 +413,13 @@ public static class SpreadsheetFormats
                 var y = r < right.Count ? right[r] : Array.Empty<object?>();
                 for (var c = 0; c < Math.Max(x.Count, y.Count); c++)
                 {
-                    object? Normalize(object? value) => value switch { null or "" => null, int n => (double)n, _ => value };
+                    object? Normalize(object? value) => value switch { null or "" => null, int n => (double)n, string text when textImport => text.Replace("\r\n", "\n", StringComparison.Ordinal), _ => value };
                     if (!Equals(Normalize(c < x.Count ? x[c] : null), Normalize(c < y.Count ? y[c] : null))) throw new ConversionMismatchException();
                 }
             }
         }
     }
-    public static byte[] WriteXlsx(IReadOnlyList<SheetValues> sheets, CancellationToken ct = default, bool textImport = false, bool compactText = false)
+    public static byte[] WriteXlsx(IReadOnlyList<SheetValues> sheets, CancellationToken ct = default, bool textImport = false, bool compactText = false, bool preserveLineEndings = false)
     {
         long total = 0;
         foreach (var sheet in sheets)
@@ -438,7 +448,7 @@ public static class SpreadsheetFormats
                 var entry = zip.CreateEntry($"xl/worksheets/sheet{s + 1}.xml");
                 entry.LastWriteTime = new DateTimeOffset(1980, 1, 1, 0, 0, 0, TimeSpan.Zero);
                 using var stream = entry.Open();
-                using var writer = XmlWriter.Create(stream, new XmlWriterSettings { Encoding = new UTF8Encoding(false), CloseOutput = false });
+                using var writer = XmlWriter.Create(stream, new XmlWriterSettings { Encoding = new UTF8Encoding(false), CloseOutput = false, NewLineHandling = preserveLineEndings ? NewLineHandling.Entitize : NewLineHandling.Replace });
                 writer.WriteStartElement("worksheet", main.NamespaceName); writer.WriteStartElement("sheetData", main.NamespaceName);
                 var rows = sheets[s].Rows;
                 for (var r = 0; r < rows.Count; r++)

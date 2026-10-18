@@ -6,7 +6,7 @@ namespace SheetsWindows.Infrastructure;
 
 public enum DiagnosticEvent { Started, Completed, Cancelled, AuthorizationRequired, ReconciliationRequired, LocalConflict, ConversionMismatch, Failed, Exported }
 public enum DiagnosticFailure { WorkbookContentType, FormulaVerification, ConversionDifference, GoogleApi, Network, FileAccess, InvalidData, UnsupportedFormat, Other, Capacity }
-public enum DiagnosticCode { SnapshotIntegrity, RemoteAssociation, SourceIdentity, SourceChanged, AssociationBinding, TextEncoding, TextStructure, CsvDelimiter, WorkbookContentType, FileAccess, Database, GoogleApi, Network, Other, FileMissing, FileBusy, OdsPackage, TextRows, TextCells, TextColumns, CellCharacters, ImportBytes, NormalizedBytes, OdsContentBounds, OdsRepeat, RemoteExportBytes, TextRowWidth, RemoteReconciliation, TextUnclosedQuote, TextMisplacedQuote, TextEmpty, TextInconsistentColumns, TextSeparatorHint, OdsMissingPart, OdsXml }
+public enum DiagnosticCode { SnapshotIntegrity, RemoteAssociation, SourceIdentity, SourceChanged, AssociationBinding, TextEncoding, TextStructure, CsvDelimiter, WorkbookContentType, FileAccess, Database, GoogleApi, Network, Other, FileMissing, FileBusy, OdsPackage, TextRows, TextCells, TextColumns, CellCharacters, ImportBytes, NormalizedBytes, OdsContentBounds, OdsRepeat, RemoteExportBytes, TextRowWidth, RemoteReconciliation, TextUnclosedQuote, TextMisplacedQuote, TextEmpty, TextInconsistentColumns, TextSeparatorHint, OdsMissingPart, OdsXml, ConversionValues }
 public sealed record RemoteValidationContext(bool IsFolder, bool IsTrashed, bool CanEdit, bool MimeMatches,
     bool MarkerPresent, bool MarkerMatches, bool HashPresent, bool HashMatches, bool PreviouslyVerified);
 public sealed record DiagnosticEntry(DateTimeOffset Time, DiagnosticEvent Event, Guid? Operation, ProcessingMetrics? Metrics = null, DiagnosticFailure? Failure = null, string? Version = null, Guid? AttemptId = null, ProcessingPhase? Stage = null, DiagnosticCode? Code = null, int? NativeError = null, int? GoogleStatus = null, int? SqliteCode = null, RemoteValidationContext? RemoteValidation = null, IReadOnlyList<ProcessingCheckpoint>? Trace = null, string? Revision = null, int? Win32Code = null, int? LogicalRow = null);
@@ -96,6 +96,7 @@ public sealed class DiagnosticLog(LocalStorage storage)
         DiagnosticCode? code = failure is null ? null : failure switch
         {
             ReconciliationRequiredException => DiagnosticCode.RemoteReconciliation,
+            ConversionMismatchException => DiagnosticCode.ConversionValues,
             InvalidDataException data when data.Message == "Unclosed quoted field." => DiagnosticCode.TextUnclosedQuote,
             InvalidDataException data when data.Message == "Invalid quoted field." => DiagnosticCode.TextMisplacedQuote,
             InvalidDataException data when data.Message is "Empty text spreadsheet." or "Empty table." => DiagnosticCode.TextEmpty,

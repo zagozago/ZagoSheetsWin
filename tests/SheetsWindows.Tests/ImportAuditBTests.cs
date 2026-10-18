@@ -109,7 +109,7 @@ public sealed class ImportAuditBTests
         var repair = await new LocalPreparation(w.Registry(), reader, new FileOperationLock(storage.LocksPath), new BackupStore(storage.BackupsPath)).PrepareAsync("A", path);
         Assert.NotEqual(original.Id, repair.Id); Assert.NotEqual(original.SourceKey, repair.SourceKey);
         Assert.Equal(original, w.Registry().Get(original.Id)); Assert.Equal(File.ReadAllBytes(path), File.ReadAllBytes(repair.Snapshot!.BackupPath));
-        Assert.Equal(3, interpretations.Bind(repair, new(Delimiter: "pipe"), hasRemoteIntent: false).InterpretationVersion);
+        Assert.Equal(4, interpretations.Bind(repair, new(Delimiter: "pipe"), hasRemoteIntent: false).InterpretationVersion);
         File.WriteAllText(original.Snapshot!.BackupPath, "tampered");
         Assert.Throws<InvalidDataException>(() => reader.Open(path));
     }
