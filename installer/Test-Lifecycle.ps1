@@ -7,6 +7,30 @@ $ErrorActionPreference = 'Stop'
 $script:LifecycleRun = 0
 $lifecycleLogs = Join-Path (Get-Location) 'artifacts/installer-verification/lifecycle'
 New-Item -ItemType Directory -Force $lifecycleLogs | Out-Null
+# Inno's temporary clone continues cleanup after the registered EXE returns.
+# Wait for the final log record, not just the bootstrap process; never retry an install
+# over a still-running uninstall or remove its directory on behalf of the test.
+function Wait-UninstallFinished([string]$log, [Diagnostics.Stopwatch]$timer) {
+    do {
+        $text = ''
+        if (Test-Path -LiteralPath $log) {
+            $stream = [IO.File]::Open($log, [IO.FileMode]::Open, [IO.FileAccess]::Read,
+                [IO.FileShare]::ReadWrite -bor [IO.FileShare]::Delete)
+            $reader = [IO.StreamReader]::new($stream)
+            try { $text = $reader.ReadToEnd() } finally { $reader.Dispose() }
+            if ($text -match '(?m) Log closed\.\r?$') {
+                if ($text -notmatch 'Uninstallation process succeeded\.') { throw 'Uninstaller closed without confirming success' }
+                Write-Host 'Uninstaller final cleanup and log closure confirmed'
+                return
+            }
+        }
+        if ($timer.ElapsedMilliseconds -ge 120000) {
+            if ($text) { $text -split "`n" | Select-Object -Last 100 | Write-Host }
+            throw 'Timed out waiting for the uninstall clone to finish cleanup'
+        }
+        Start-Sleep -Milliseconds 100
+    } while ($true)
+}
 function Run-Checked($file, $arguments) {
     $script:LifecycleRun++
     $log = $null
@@ -15,12 +39,14 @@ function Run-Checked($file, $arguments) {
         $log = Join-Path $lifecycleLogs ('{0:d2}-{1}.log' -f $script:LifecycleRun, [IO.Path]::GetFileNameWithoutExtension($file))
         $arguments += " /LOG=`"$log`""
     }
+    $timer = [Diagnostics.Stopwatch]::StartNew()
     $process = Start-Process -FilePath $file -ArgumentList $arguments -PassThru
     if (!$process.WaitForExit(120000)) { $process.Kill(); throw "Timeout: $file" }
     if ($process.ExitCode -ne 0) {
         if ($log -and (Test-Path -LiteralPath $log)) { Get-Content -LiteralPath $log -Tail 100 | Write-Host }
         throw "Nonzero exit $($process.ExitCode): $file"
     }
+    if ($name -like 'unins*.exe') { Wait-UninstallFinished $log $timer }
 }
 # Disposable Windows CI account only. Never run against a user's existing installation.
 $state = Join-Path $env:LOCALAPPDATA 'SheetsWindows'
@@ -93,4 +119,16 @@ Run-Checked $exe '--installer-language-selected pt'
 Assert-NoLauncherUI
 Write-Host 'Running registered uninstaller'
 Run-Checked (Current-Uninstaller) '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART'
+# Repeat the immediate reinstall scenario: no arbitrary grace period may hide a race.
+foreach ($cycle in 1..2) {
+    Write-Host "Immediate reinstall/uninstall regression cycle $cycle"
+    Run-Checked $setup '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /LANG=english'
+    Assert-NoLauncherUI
+    Run-Checked (Current-Uninstaller) '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART'
+    if (Test-Path $exe) { throw 'Installed executable remains after repeated uninstall' }
+    if (Test-Path 'HKCU:/Software/SheetsWindows/Integration') { throw 'Owned registration remains after repeated uninstall' }
+    foreach ($name in $sentinels) { $expected = if ($name -eq 'language.json') { '"pt"' } else { "preserve:$name" }; if ([IO.File]::ReadAllText((Join-Path $state $name)) -ne $expected) { throw "Data changed during repeated uninstall: $name" } }
+    if ([IO.File]::ReadAllText($shortcut) -ne $shortcutBefore) { throw 'Shortcut changed during repeated uninstall' }
+    if (Compare-Object $before (Defaults-Snapshot)) { throw 'Windows defaults changed during repeated uninstall' }
+}
 Write-Host 'Per-user install, upgrade, uninstall and reinstall passed; backups, state, shortcut and Windows defaults preserved.'

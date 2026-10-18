@@ -38,3 +38,13 @@ Código validado: `8d589283e454898fdeeac3a65b2b90da753db017`. [Execução de val
 Benchmark nativo `OfflineCsv100000x20RoundTrip`: 2.000.000 de células, 4.867 ms totais (2.333 ms conversão, 2.531 ms conferência), pico de 489.345.024 bytes, abaixo do orçamento de 512 MiB (536.870.912 bytes). Sem rede Google nesse benchmark.
 
 Instalador: compilação, transições nos 51 idiomas, instalação, atualização, preservação na desinstalação e registro de integridade aprovados na mesma execução. Teste real no Google permanece para o aceite no dispositivo.
+
+## Correção do teste de distribuição (18/10/2026)
+
+A distribuição [39175119834](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39175119834) passou compilação, 389 testes Windows, interface nativa com dois milhões de células, empacotamento e os 51 idiomas. Falhou na reinstalação imediata em `Test-Lifecycle.ps1`: Inno retornou código 4, CreateFile com erro 3 ao criar `unins000.dat`.
+
+Os logs comprovam sobreposição: o teste começou a reinstalação às 23:19:11.792 UTC; o clone temporário da desinstalação anterior ainda excluía a pasta às 23:19:12.245, exatamente quando a reinstalação tentou criar seu registro de desinstalação. O log anterior só fechou às 23:19:12.255. Esperar apenas `WaitForExit` do executável registrado não garantia o fim dessa limpeza.
+
+O teste agora exige confirmação de sucesso e fechamento do log do desinstalador, dentro do mesmo orçamento de 120 segundos, antes de reinstalar. A leitura compartilha o log com o processo escritor. Não há retry de instalação, pausa fixa para mascarar a corrida, exclusão manual de pastas, alteração no instalador entregue nem relaxamento de verificações. Duas sequências adicionais de reinstalação/desinstalação imediata repetem as checagens de preservação de dados, atalhos e padrões do Windows.
+
+Referência do comportamento do clone: https://jrsoftware.org/ishelp/topic_uninstexitcodes.htm. A validação Windows da correção será registrada após o Actions. A versão do produto permanece 0.9.41.
