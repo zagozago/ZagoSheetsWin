@@ -496,17 +496,29 @@ internal static class InterfaceVerification
                 var before = failure.StatusText;
                 var failureLabel = Descendants(failure).OfType<Label>().Single(l => l.AccessibleName == UiText.Get("accessibility.processingStatus"));
                 var beforeInk = HasTextInk(failureLabel);
+                SaveFrame(failure, "failure-before");
                 oldProgress!.Report("STALE PROGRESS MUST NOT HIDE THE ERROR");
                 Application.DoEvents();
                 failure.WindowState = FormWindowState.Minimized; Application.DoEvents();
                 failure.WindowState = FormWindowState.Normal; failure.Invalidate(true); Application.DoEvents();
-                failureVisible = beforeInk && HasTextInk(failureLabel) && failure.StatusText == before && before == LauncherErrors.Message(new ConversionMismatchException()) && failure.Visible && Descendants(failure).OfType<Button>().Any(b => b.Text == "Exportar diagnóstico…")
+                var afterInk = HasTextInk(failureLabel);
+                SaveFrame(failure, "failure-after");
+                Console.Error.WriteLine($"FAILURE UI: beforeInk={beforeInk}; afterInk={afterInk}; retained={failure.StatusText == before}; message={before == LauncherErrors.Message(new ConversionMismatchException())}; visible={failure.Visible}; label={failureLabel.Bounds}; foreground={failureLabel.ForeColor}; background={failureLabel.BackColor}; export={Descendants(failure).OfType<Button>().Any(b => b.Text == UiText.Get("action.exportDiagnostics"))}; recovery={Descendants(failure).OfType<Button>().Any(b => b.Text == UiText.Get("action.recovery"))}");
+                failureVisible = beforeInk && afterInk && failure.StatusText == before && before == LauncherErrors.Message(new ConversionMismatchException()) && failure.Visible && Descendants(failure).OfType<Button>().Any(b => b.Text == "Exportar diagnóstico…")
                     && Descendants(failure).OfType<Button>().Any(b => b.Text == "Recuperação / backups");
                 failure.SetDiagnosticFeedback("diagnostics.exported");
+                Console.Error.WriteLine($"FAILURE UI feedback: retained={failure.StatusText.StartsWith(before, StringComparison.Ordinal)}; feedback={failure.StatusText.Contains(UiText.Get("diagnostics.exported"), StringComparison.Ordinal)}");
                 failureVisible &= failure.StatusText.StartsWith(before, StringComparison.Ordinal) && failure.StatusText.Contains(UiText.Get("diagnostics.exported"), StringComparison.Ordinal);
                 timer.Stop(); failure.Close();
             };
             timer.Start(); failure.ShowDialog(); measurements["OfflineFailureUi"] = failure.LastMetrics!; Require(failureVisible, "Failure must stay visible with diagnosis and recovery actions.");
+        }
+        void SaveFrame(Form form, string name)
+        {
+            using var bitmap = new Bitmap(form.Width, form.Height);
+            form.DrawToBitmap(bitmap, new Rectangle(Point.Empty, bitmap.Size));
+            var directory = Path.GetDirectoryName(Path.GetFullPath(output))!; Directory.CreateDirectory(directory);
+            bitmap.Save(Path.Combine(directory, name + ".png"));
         }
         // Synthetic CSV matching the user case by shape, without publishing their contents.
         var csv = new System.Text.StringBuilder();
