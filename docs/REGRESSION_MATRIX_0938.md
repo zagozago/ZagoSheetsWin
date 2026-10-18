@@ -52,7 +52,7 @@ Especificação revisada; não equivale a execução de todos os binários. Os a
 | T009 | 09_csv_separado_por_tab.csv | aceitar | Pendente: binário mestre e Google real. |
 | T010 | 10_tsv_separado_por_pv.tsv | aceitar | Pendente: binário mestre e Google real. |
 | T011 | 11_csv_uma_coluna_legitima.csv | aceitar | Pendente: binário mestre e Google real. |
-| T012 | 12_csv_coluna_unica_aspas.csv | aceitar | Pendente: binário mestre e Google real. |
+| T012 | 12_csv_coluna_unica_aspas.csv | aceitar | Bytes do anexo aceitos na geração v4; delimitadores dentro de aspas preservados. |
 | T013 | 13_ambiguo_virgula_pv.csv | Exigir escolha pontual com prévia; nunca desempatar arbitrariamente. | Ambas as gramáticas testadas; UI Windows pendente. |
 | T014 | 14_ambiguo_virgula_pipe.csv | Exigir escolha pontual com prévia; nunca desempatar arbitrariamente. | Ambas as gramáticas testadas; UI Windows pendente. |
 | T015 | 15_aspas_nao_fechadas.csv | rejeitar com erro de aspas nao fechadas | Pendente: binário mestre e Google real. |
@@ -67,11 +67,11 @@ Especificação revisada; não equivale a execução de todos os binários. Os a
 | T024 | 24_csv_lf_retorno_cr.csv | aceitar | Pendente: binário mestre e Google real. |
 | T025 | 25_csv_spaces_trailing.csv | aceitar | Pendente: binário mestre e Google real. |
 | T026 | 26_csv_cabecalhos_duplicados.csv | aceitar | Pendente: binário mestre e Google real. |
-| T027 | 27_csv_sep_excel_hint.csv | Omitir linha exata sep=; e interpretar tabela regular seguinte; rejeitar conflito. Dimensões antigas 3×1 deixam de ser critério. | Quatro dicas de separador, aspas e multilinhas testadas localmente. |
+| T027 | 27_csv_sep_excel_hint.csv | Rejeitar o anexo real: linha de dados inteira citada tem uma coluna contra três do cabeçalho. Aceitar variante sem as aspas ao redor do registro, omitindo sep=;. | Bytes do anexo reproduzidos em teste; variante corrigida positiva. |
 | T028 | 28_tsv_delimitador_citado_pipe.tsv | aceitar | Pendente: binário mestre e Google real. |
 | T029 | 29_csv_sem_terminador_final.csv | aceitar | Pendente: binário mestre e Google real. |
 | T030 | 30_csv_200_colunas_esparsas.csv | aceitar | Pendente: binário mestre e Google real. |
-| T031 | 31_csv_aspas_multilinha_crlf.csv | aceitar | Pendente: binário mestre e Google real. |
+| T031 | 31_csv_aspas_multilinha_crlf.csv | aceitar | Teste do anexo: CRLF preservado no XLSX v4; conferência CSV/TSV admite CRLF/LF. Google do dispositivo requer reteste. |
 | T032 | 32_csv_pv_decimal_virgula.csv | aceitar | Pendente: binário mestre e Google real. |
 | T033 | 33_csv_pipe_com_texto_livre.csv | aceitar | Pendente: binário mestre e Google real. |
 | T034 | 34_tsv_coluna_unica.tsv | Aceitar; preservar valores e dimensões do catálogo. | Regressão sintética por gramática; Google pendente. |

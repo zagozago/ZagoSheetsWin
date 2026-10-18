@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.38: safe reconciliation and bounded text interpretation; cloud acceptance pending.
+# Distribution candidate 0.9.39: explicit separator choice, rolling backup quota and safe quoted/multiline recovery.
 name: Protected alpha distribution
 on:
   workflow_dispatch:

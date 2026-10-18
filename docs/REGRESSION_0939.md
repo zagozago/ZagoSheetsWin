@@ -26,4 +26,12 @@ No dispositivo, retomar o T031 pelo MESMO caminho/operação; não renomear para
 - `27_csv_sep_excel_hint.csv`: `52bff58a8a677a86fec4e5c0c1554c55fdb30b0365748757348a4a1cdddc4e2f`
 - `31_csv_aspas_multilinha_crlf.csv`: `26bebc12f846cb99ace016bf61298b902df08d4966bc1beaba800c0218d97b4b`
 
-Resultado local Release: 332 testes aprovados, 42 exclusivos do Windows ignorados, 0 falhas (374 casos). A suíte anterior de 365 casos continua incluída.
+Resultado local Release: 332 testes aprovados, 43 exclusivos do Windows ignorados, 0 falhas (375 casos). A suíte anterior de 365 casos continua incluída.
+
+A revisão final também mantém o handle do atalho verificado aberto até concluir o fechamento da lease de retirada do original. Um teste exclusivo de Windows tenta abrir o atalho para escrita nesse instante e exige bloqueio; isto cobre a duração da proteção durante a recuperação, não apenas a presença do arquivo.
+
+## Resultados do Actions
+
+Código validado: `bcd482f8d70fe554d3a52507c3229c19c7f5c1fe`. [Execução de validação](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39157306007). Windows: 374 aprovados/1 ignorado; Linux: 332 aprovados/43 ignorados; total 375, nenhuma falha. Interface nativa nos 51 idiomas, minimize/restore, ação específica destacada e retry comum, prévia e política de backups aprovados. As capturas nativas foram inspecionadas.
+
+Instalador: compilação, transições nos 51 idiomas, instalação, atualização, preservação na desinstalação e registro de integridade aprovados na mesma execução. Aceite no Google real permanece pendente no dispositivo.
