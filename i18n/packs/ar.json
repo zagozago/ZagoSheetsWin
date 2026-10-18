@@ -2,8 +2,8 @@
   "language": "ar",
   "locale": "ar",
   "direction": "rtl",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -642,6 +642,13 @@
     "recovery.repairNew": "إعادة الاستيراد إلى مستند جديد…",
     "recovery.repairExplanation": "ينشئ جدول بيانات جديدًا من هذه النسخة الاحتياطية. يبقى الجدول السابق واختصاره والملف الأصلي دون تغيير.",
     "action.exportDiagnosticHistory": "تصدير سجل التشخيص…",
-    "retry.editInput": "عدّل الملف قبل إعادة المحاولة."
+    "retry.editInput": "عدّل الملف قبل إعادة المحاولة.",
+    "error.textUnclosed": "لم يتم إغلاق الحقل المحاط بعلامات اقتباس.",
+    "error.textQuote": "علامة اقتباس في موضع غير صالح.",
+    "error.textEmpty": "ملف CSV/TSV فارغ.",
+    "error.textHint": "تلميح sep= لا يتطابق مع الجدول.",
+    "error.textColumns": "تختلف أعداد الأعمدة بين الصفوف.",
+    "error.odsBounds": "ODS: تكرار غير صالح أو أبعاد تتجاوز الحد المدعوم.",
+    "error.odsStructure": "بنية ملف ODS غير مكتملة أو غير صالحة."
   }
 }

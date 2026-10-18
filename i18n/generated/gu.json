@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.38",
   "sourceLocale": "pt-BR",
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -354,6 +354,13 @@
     "recovery.repairNew": "નવા દસ્તાવેજમાં ફરી આયાત કરો…",
     "recovery.repairExplanation": "આ બેકઅપમાંથી નવી સ્પ્રેડશીટ બનાવે છે. અગાઉની સ્પ્રેડશીટ, તેનો શૉર્ટકટ અને મૂળ ફાઇલ અકબંધ રહે છે.",
     "action.exportDiagnosticHistory": "નિદાન ઇતિહાસ નિકાસ કરો…",
-    "retry.editInput": "ફરી પ્રયાસ કરતા પહેલાં ફાઇલ સંપાદિત કરો."
+    "retry.editInput": "ફરી પ્રયાસ કરતા પહેલાં ફાઇલ સંપાદિત કરો.",
+    "error.textUnclosed": "અવતરણવાળું ક્ષેત્ર બંધ થયું નથી.",
+    "error.textQuote": "અવતરણ ચિહ્ન ખોટી જગ્યાએ છે.",
+    "error.textEmpty": "CSV/TSV ફાઇલ ખાલી છે.",
+    "error.textHint": "sep= સંકેત કોષ્ટક સાથે મેળ ખાતો નથી.",
+    "error.textColumns": "પંક્તિઓમાં સ્તંભોની સંખ્યા અલગ છે.",
+    "error.odsBounds": "ODS: અમાન્ય પુનરાવર્તન અથવા સમર્થિત મર્યાદાથી વધુ પરિમાણો.",
+    "error.odsStructure": "ODS ફાઇલનું માળખું અધૂરું અથવા અમાન્ય છે."
   }
 }

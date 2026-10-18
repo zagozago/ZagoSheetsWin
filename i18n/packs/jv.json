@@ -2,8 +2,8 @@
   "language": "jv",
   "locale": "jv-ID",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -648,6 +648,13 @@
     "recovery.repairNew": "Impor maneh menyang dokumen anyar…",
     "recovery.repairExplanation": "Nggawe spreadsheet anyar saka serep iki. Spreadsheet sadurunge, trabasan lan berkas asli tetep wutuh.",
     "action.exportDiagnosticHistory": "Ekspor riwayat diagnostik…",
-    "retry.editInput": "Sunting berkas sadurunge nyoba maneh."
+    "retry.editInput": "Sunting berkas sadurunge nyoba maneh.",
+    "error.textUnclosed": "Kolom nganggo tandha petik durung ditutup.",
+    "error.textQuote": "Tandha petik ana ing posisi sing ora sah.",
+    "error.textEmpty": "Berkas CSV/TSV kosong.",
+    "error.textHint": "Petunjuk sep= ora cocog karo tabel.",
+    "error.textColumns": "Cacah kolom ing saben larik beda.",
+    "error.odsBounds": "ODS: pengulangan ora sah utawa ukuran ngluwihi wates sing didhukung.",
+    "error.odsStructure": "Struktur berkas ODS ora pepak utawa ora sah."
   }
 }

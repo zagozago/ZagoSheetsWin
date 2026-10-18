@@ -2,8 +2,8 @@
   "language": "ig",
   "locale": "ig-NG",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -647,6 +647,13 @@
     "recovery.repairNew": "Bubata ọzọ n'ime akwụkwọ ọhụrụ…",
     "recovery.repairExplanation": "Ọ na-emepụta spreadsheet ọhụrụ site na ndabere a. Spreadsheet mbụ, ụzọ mkpirisi ya na faịlụ mbụ ga-adị otu ha dị.",
     "action.exportDiagnosticHistory": "Bupụ akụkọ nyocha…",
-    "retry.editInput": "Dezie faịlụ ahụ tupu ị nwaa ọzọ."
+    "retry.editInput": "Dezie faịlụ ahụ tupu ị nwaa ọzọ.",
+    "error.textUnclosed": "E mechighị mpaghara dị n'ime akara nkwuputa.",
+    "error.textQuote": "Akara nkwuputa nọ n'ebe na-ezighi ezi.",
+    "error.textEmpty": "Faịlụ CSV/TSV tọgbọ chakoo.",
+    "error.textHint": "Ntuziaka sep= adabaghị na tebụl.",
+    "error.textColumns": "Ahịrị nwere ọnụọgụ kọlụm dị iche iche.",
+    "error.odsBounds": "ODS: nkwughachi na-ezighi ezi ma ọ bụ nha gafere oke a na-akwado.",
+    "error.odsStructure": "Nhazi faịlụ ODS ezughị ezu ma ọ bụ na-ezighi ezi."
   }
 }

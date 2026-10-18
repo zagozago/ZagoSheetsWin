@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.38",
   "sourceLocale": "pt-BR",
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -354,6 +354,13 @@
     "recovery.repairNew": "Impor ulang ke dokumen baru…",
     "recovery.repairExplanation": "Membuat spreadsheet baru dari cadangan ini. Spreadsheet sebelumnya, pintasannya, dan berkas asli tetap utuh.",
     "action.exportDiagnosticHistory": "Ekspor riwayat diagnostik…",
-    "retry.editInput": "Edit berkas sebelum mencoba lagi."
+    "retry.editInput": "Edit berkas sebelum mencoba lagi.",
+    "error.textUnclosed": "Bidang bertanda kutip belum ditutup.",
+    "error.textQuote": "Tanda kutip berada di posisi yang tidak valid.",
+    "error.textEmpty": "File CSV/TSV kosong.",
+    "error.textHint": "Petunjuk sep= tidak sesuai dengan tabel.",
+    "error.textColumns": "Jumlah kolom berbeda antarbaris.",
+    "error.odsBounds": "ODS: pengulangan tidak valid atau dimensi melebihi batas yang didukung.",
+    "error.odsStructure": "Struktur file ODS tidak lengkap atau tidak valid."
   }
 }

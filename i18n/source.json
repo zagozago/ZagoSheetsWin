@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.38",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 11,
+  "catalogRevision": 12,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -7420,6 +7420,69 @@
     "retry.editInput": {
       "text": "Edite o arquivo para tentar novamente.",
       "context": "Permanent input failure; retry becomes available after the file is edited.",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "error.textUnclosed": {
+      "text": "Campo entre aspas não encerrado.",
+      "context": "Specific local input validation; no remote upload completed",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "error.textQuote": {
+      "text": "Aspas em posição inválida.",
+      "context": "Specific local input validation; no remote upload completed",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "error.textEmpty": {
+      "text": "Arquivo CSV/TSV vazio.",
+      "context": "Specific local input validation; no remote upload completed",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "error.textHint": {
+      "text": "A dica sep= não corresponde à tabela.",
+      "context": "Specific local input validation; no remote upload completed",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "error.textColumns": {
+      "text": "As linhas têm quantidades diferentes de colunas.",
+      "context": "Specific local input validation; no remote upload completed",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "error.odsBounds": {
+      "text": "ODS: repetição inválida ou dimensão além do limite suportado.",
+      "context": "Specific local input validation; no remote upload completed",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "error.odsStructure": {
+      "text": "A estrutura do arquivo ODS está incompleta ou inválida.",
+      "context": "Specific local input validation; no remote upload completed",
       "scope": "app",
       "placeholders": [],
       "invariants": [],

@@ -2,8 +2,8 @@
   "language": "sw",
   "locale": "sw-KE",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -647,6 +647,13 @@
     "recovery.repairNew": "Ingiza tena kwenye hati mpya…",
     "recovery.repairExplanation": "Huunda lahajedwali jipya kutoka kwa nakala hii. Lahajedwali la awali, njia yake ya mkato na faili asili hubaki salama.",
     "action.exportDiagnosticHistory": "Hamisha historia ya uchunguzi…",
-    "retry.editInput": "Hariri faili kabla ya kujaribu tena."
+    "retry.editInput": "Hariri faili kabla ya kujaribu tena.",
+    "error.textUnclosed": "Sehemu yenye alama za kunukuu haijafungwa.",
+    "error.textQuote": "Alama ya kunukuu iko mahali pasipofaa.",
+    "error.textEmpty": "Faili ya CSV/TSV haina kitu.",
+    "error.textHint": "Kidokezo cha sep= hakilingani na jedwali.",
+    "error.textColumns": "Safu mlalo zina idadi tofauti za safu wima.",
+    "error.odsBounds": "ODS: marudio batili au vipimo vinavyozidi kikomo kinachotumika.",
+    "error.odsStructure": "Muundo wa faili ya ODS haujakamilika au si halali."
   }
 }

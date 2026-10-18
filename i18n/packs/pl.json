@@ -2,8 +2,8 @@
   "language": "pl",
   "locale": "pl-PL",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -649,6 +649,13 @@
     "recovery.repairNew": "Importuj ponownie do nowego dokumentu…",
     "recovery.repairExplanation": "Tworzy nowy arkusz z tej kopii. Poprzedni arkusz, jego skrót i oryginał pozostają bez zmian.",
     "action.exportDiagnosticHistory": "Eksportuj historię diagnostyki…",
-    "retry.editInput": "Edytuj plik przed ponowną próbą."
+    "retry.editInput": "Edytuj plik przed ponowną próbą.",
+    "error.textUnclosed": "Pole w cudzysłowie nie zostało zamknięte.",
+    "error.textQuote": "Cudzysłów w nieprawidłowym miejscu.",
+    "error.textEmpty": "Pusty plik CSV/TSV.",
+    "error.textHint": "Wskazówka sep= nie pasuje do tabeli.",
+    "error.textColumns": "Wiersze mają różną liczbę kolumn.",
+    "error.odsBounds": "ODS: nieprawidłowe powtórzenie lub wymiary poza obsługiwanym limitem.",
+    "error.odsStructure": "Struktura pliku ODS jest niepełna lub nieprawidłowa."
   }
 }

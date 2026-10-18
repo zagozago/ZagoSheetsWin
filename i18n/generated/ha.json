@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.38",
   "sourceLocale": "pt-BR",
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -354,6 +354,13 @@
     "recovery.repairNew": "Sake shigo da shi cikin sabon takarda…",
     "recovery.repairExplanation": "Yana ƙirƙirar sabon maƙunsar bayani daga wannan madadin. Tsohon maƙunsar, gajeriyar hanyarsa da asalin fayil suna nan yadda suke.",
     "action.exportDiagnosticHistory": "Fitar da tarihin bincike…",
-    "retry.editInput": "Gyara fayil ɗin kafin sake gwadawa."
+    "retry.editInput": "Gyara fayil ɗin kafin sake gwadawa.",
+    "error.textUnclosed": "Ba a rufe filin da ke cikin alamar zance ba.",
+    "error.textQuote": "Alamar zance tana wurin da bai dace ba.",
+    "error.textEmpty": "Fayil ɗin CSV/TSV babu komai.",
+    "error.textHint": "Alamar sep= ba ta dace da jadawalin ba.",
+    "error.textColumns": "Layuka suna da adadin ginshiƙai daban-daban.",
+    "error.odsBounds": "ODS: maimaitawa mara inganci ko girma ya wuce iyakar tallafi.",
+    "error.odsStructure": "Tsarin fayil ɗin ODS bai cika ba ko ba shi da inganci."
   }
 }

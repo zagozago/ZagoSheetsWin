@@ -2,8 +2,8 @@
   "language": "mr",
   "locale": "mr-IN",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -647,6 +647,13 @@
     "recovery.repairNew": "नवीन दस्तऐवजात पुन्हा आयात करा…",
     "recovery.repairExplanation": "या बॅकअपमधून नवीन स्प्रेडशीट तयार होते. आधीची स्प्रेडशीट, तिचा शॉर्टकट आणि मूळ फाइल तशाच राहतात.",
     "action.exportDiagnosticHistory": "निदान इतिहास निर्यात करा…",
-    "retry.editInput": "पुन्हा प्रयत्न करण्यापूर्वी फाइल संपादित करा."
+    "retry.editInput": "पुन्हा प्रयत्न करण्यापूर्वी फाइल संपादित करा.",
+    "error.textUnclosed": "अवतरणातील क्षेत्र बंद झालेले नाही.",
+    "error.textQuote": "अवतरणचिन्ह चुकीच्या ठिकाणी आहे.",
+    "error.textEmpty": "CSV/TSV फाइल रिकामी आहे.",
+    "error.textHint": "sep= सूचना तक्त्याशी जुळत नाही.",
+    "error.textColumns": "ओळींतील स्तंभांची संख्या वेगळी आहे.",
+    "error.odsBounds": "ODS: अवैध पुनरावृत्ती किंवा समर्थित मर्यादेपेक्षा जास्त परिमाणे.",
+    "error.odsStructure": "ODS फाइलची रचना अपूर्ण किंवा अवैध आहे."
   }
 }

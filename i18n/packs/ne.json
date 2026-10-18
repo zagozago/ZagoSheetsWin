@@ -2,8 +2,8 @@
   "language": "ne",
   "locale": "ne-NP",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -647,6 +647,13 @@
     "recovery.repairNew": "नयाँ कागजातमा फेरि आयात गर्नुहोस्…",
     "recovery.repairExplanation": "यो ब्याकअपबाट नयाँ स्प्रेडसिट बनाउँछ। अघिल्लो स्प्रेडसिट, त्यसको सर्टकट र मूल फाइल उस्तै रहन्छन्।",
     "action.exportDiagnosticHistory": "निदान इतिहास निर्यात गर्नुहोस्…",
-    "retry.editInput": "फेरि प्रयास गर्नुअघि फाइल सम्पादन गर्नुहोस्।"
+    "retry.editInput": "फेरि प्रयास गर्नुअघि फाइल सम्पादन गर्नुहोस्।",
+    "error.textUnclosed": "उद्धरणभित्रको क्षेत्र बन्द भएको छैन।",
+    "error.textQuote": "उद्धरण चिह्न गलत स्थानमा छ।",
+    "error.textEmpty": "CSV/TSV फाइल खाली छ।",
+    "error.textHint": "sep= सङ्केत तालिकासँग मिल्दैन।",
+    "error.textColumns": "पङ्क्तिहरूमा स्तम्भको सङ्ख्या फरक छ।",
+    "error.odsBounds": "ODS: अमान्य पुनरावृत्ति वा समर्थित सीमाभन्दा बढी आयाम।",
+    "error.odsStructure": "ODS फाइलको संरचना अपूर्ण वा अमान्य छ।"
   }
 }

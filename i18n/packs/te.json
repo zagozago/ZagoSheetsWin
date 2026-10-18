@@ -2,8 +2,8 @@
   "language": "te",
   "locale": "te-IN",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -647,6 +647,13 @@
     "recovery.repairNew": "కొత్త పత్రంలోకి మళ్లీ దిగుమతి చేయండి…",
     "recovery.repairExplanation": "ఈ బ్యాకప్ నుండి కొత్త స్ప్రెడ్‌షీట్‌ను సృష్టిస్తుంది. మునుపటి స్ప్రెడ్‌షీట్, దాని షార్ట్‌కట్ మరియు అసలు ఫైల్ అలాగే ఉంటాయి.",
     "action.exportDiagnosticHistory": "నిర్ధారణ చరిత్రను ఎగుమతి చేయండి…",
-    "retry.editInput": "మళ్లీ ప్రయత్నించే ముందు ఫైల్‌ను సవరించండి."
+    "retry.editInput": "మళ్లీ ప్రయత్నించే ముందు ఫైల్‌ను సవరించండి.",
+    "error.textUnclosed": "కొటేషన్‌లోని ఫీల్డ్ మూసివేయబడలేదు.",
+    "error.textQuote": "కొటేషన్ గుర్తు చెల్లని స్థానంలో ఉంది.",
+    "error.textEmpty": "CSV/TSV ఫైల్ ఖాళీగా ఉంది.",
+    "error.textHint": "sep= సూచన పట్టికతో సరిపోలడం లేదు.",
+    "error.textColumns": "వరుసల్లో నిలువు వరుసల సంఖ్య వేరుగా ఉంది.",
+    "error.odsBounds": "ODS: చెల్లని పునరావృతం లేదా మద్దతు పరిమితిని మించిన కొలతలు.",
+    "error.odsStructure": "ODS ఫైల్ నిర్మాణం అసంపూర్ణంగా లేదా చెల్లనిదిగా ఉంది."
   }
 }

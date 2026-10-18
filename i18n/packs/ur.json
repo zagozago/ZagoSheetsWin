@@ -2,8 +2,8 @@
   "language": "ur",
   "locale": "ur",
   "direction": "rtl",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -647,6 +647,13 @@
     "recovery.repairNew": "نئی دستاویز میں دوبارہ درآمد کریں…",
     "recovery.repairExplanation": "اس بیک اپ سے نئی اسپریڈشیٹ بناتا ہے۔ پچھلی اسپریڈشیٹ، اس کا شارٹ کٹ اور اصل فائل برقرار رہتے ہیں۔",
     "action.exportDiagnosticHistory": "تشخیصی تاریخ برآمد کریں…",
-    "retry.editInput": "دوبارہ کوشش سے پہلے فائل میں ترمیم کریں۔"
+    "retry.editInput": "دوبارہ کوشش سے پہلے فائل میں ترمیم کریں۔",
+    "error.textUnclosed": "اقتباسی خانہ بند نہیں کیا گیا۔",
+    "error.textQuote": "اقتباسی نشان غلط جگہ پر ہے۔",
+    "error.textEmpty": "CSV/TSV فائل خالی ہے۔",
+    "error.textHint": "sep= اشارہ جدول سے مطابقت نہیں رکھتا۔",
+    "error.textColumns": "قطاروں میں کالموں کی تعداد مختلف ہے۔",
+    "error.odsBounds": "ODS: غلط تکرار یا معاون حد سے زیادہ ابعاد۔",
+    "error.odsStructure": "ODS فائل کی ساخت نامکمل یا غلط ہے۔"
   }
 }

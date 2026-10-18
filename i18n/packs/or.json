@@ -2,8 +2,8 @@
   "language": "or",
   "locale": "or-IN",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -647,6 +647,13 @@
     "recovery.repairNew": "ନୂଆ ଡକ୍ୟୁମେଣ୍ଟରେ ପୁଣି ଆମଦାନି କରନ୍ତୁ…",
     "recovery.repairExplanation": "ଏହି ବ୍ୟାକଅପ୍‌ରୁ ନୂଆ ସ୍ପ୍ରେଡସିଟ୍ ତିଆରି କରେ। ପୂର୍ବ ସ୍ପ୍ରେଡସିଟ୍, ତାହାର ସର୍ଟକଟ୍ ଓ ମୂଳ ଫାଇଲ୍ ଅକ୍ଷତ ରହିବ।",
     "action.exportDiagnosticHistory": "ନିର୍ଣ୍ଣୟ ଇତିହାସ ରପ୍ତାନି କରନ୍ତୁ…",
-    "retry.editInput": "ପୁଣି ଚେଷ୍ଟା ପୂର୍ବରୁ ଫାଇଲ୍ ସମ୍ପାଦନ କରନ୍ତୁ।"
+    "retry.editInput": "ପୁଣି ଚେଷ୍ଟା ପୂର୍ବରୁ ଫାଇଲ୍ ସମ୍ପାଦନ କରନ୍ତୁ।",
+    "error.textUnclosed": "ଉଦ୍ଧୃତ କ୍ଷେତ୍ର ବନ୍ଦ ହୋଇନାହିଁ।",
+    "error.textQuote": "ଉଦ୍ଧୃତି ଚିହ୍ନ ଭୁଲ ସ୍ଥାନରେ ଅଛି।",
+    "error.textEmpty": "CSV/TSV ଫାଇଲ୍ ଖାଲି ଅଛି।",
+    "error.textHint": "sep= ସୂଚନା ସାରଣୀ ସହ ମେଳ ଖାଉନାହିଁ।",
+    "error.textColumns": "ଧାଡ଼ିଗୁଡ଼ିକରେ ସ୍ତମ୍ଭ ସଂଖ୍ୟା ଭିନ୍ନ।",
+    "error.odsBounds": "ODS: ଅବୈଧ ପୁନରାବୃତ୍ତି କିମ୍ବା ସମର୍ଥିତ ସୀମାଠାରୁ ଅଧିକ ଆକାର।",
+    "error.odsStructure": "ODS ଫାଇଲ୍ ଗଠନ ଅସମ୍ପୂର୍ଣ୍ଣ କିମ୍ବା ଅବୈଧ।"
   }
 }

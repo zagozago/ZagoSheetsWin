@@ -2,8 +2,8 @@
   "language": "am",
   "locale": "am-ET",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -646,6 +646,13 @@
     "recovery.repairNew": "ወደ አዲስ ሰነድ እንደገና አስገባ…",
     "recovery.repairExplanation": "ከዚህ ምትኬ አዲስ የተመን ሉህ ይፈጥራል። የቀድሞው ሉህ፣ አቋራጩ እና ዋናው ፋይል ሳይቀየሩ ይቆያሉ።",
     "action.exportDiagnosticHistory": "የምርመራ ታሪክ ላክ…",
-    "retry.editInput": "እንደገና ከመሞከርዎ በፊት ፋይሉን ያርትዑ።"
+    "retry.editInput": "እንደገና ከመሞከርዎ በፊት ፋይሉን ያርትዑ።",
+    "error.textUnclosed": "በጥቅስ ውስጥ ያለው መስክ አልተዘጋም።",
+    "error.textQuote": "የጥቅስ ምልክቱ በማይሰራ ቦታ ላይ ነው።",
+    "error.textEmpty": "የCSV/TSV ፋይል ባዶ ነው።",
+    "error.textHint": "የsep= ፍንጭ ከሰንጠረዡ ጋር አይዛመድም።",
+    "error.textColumns": "ረድፎች የተለያዩ የአምድ ብዛቶች አሏቸው።",
+    "error.odsBounds": "ODS፦ ልክ ያልሆነ ድግግሞሽ ወይም ከሚደገፈው ገደብ በላይ መጠን።",
+    "error.odsStructure": "የODS ፋይል መዋቅር ያልተሟላ ወይም ልክ ያልሆነ ነው።"
   }
 }

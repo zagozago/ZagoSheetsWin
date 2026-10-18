@@ -25,15 +25,15 @@ public sealed class SpreadsheetCapacityException : NotSupportedException
 public class ConversionMismatchException() : IOException("Converted cell values differ; source preserved.");
 public sealed class FormulaVerificationException : ConversionMismatchException;
 public sealed class CopyRequiredException() : NotSupportedException("This workbook requires copy-only import.");
-public sealed record TextImportOptions(string Encoding = "auto", string Delimiter = "auto", int InterpretationVersion = 2);
+public sealed record TextImportOptions(string Encoding = "auto", string Delimiter = "auto", int InterpretationVersion = 3);
 public sealed record SheetValues(string Name, IReadOnlyList<IReadOnlyList<object?>> Rows);
-public sealed record SpreadsheetPayload(byte[] Bytes, string MimeType, IReadOnlyList<SheetValues>? Expected);
+public sealed record SpreadsheetPayload(byte[] Bytes, string MimeType, IReadOnlyList<SheetValues>? Expected, TextImportOptions? TextInterpretation = null);
 
 public static class SpreadsheetFormats
 {
     public const string XlsxMime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
     public const int MaxCells = 500000, MaxRows = 50000, MaxColumns = 1000;
-    public const int MaxTextCells = 600000, MaxTextRows = 60000;
+    public const int MaxTextCells = 1000000, MaxTextRows = 100000;
     public static readonly string[] Extensions = [".xlsx", ".ods", ".xls", ".csv", ".tsv"];
     public static string Format(string path)
     {
@@ -50,10 +50,14 @@ public static class SpreadsheetFormats
             case "xlsx": GoogleImport.ValidateXlsx(bytes); return new(bytes, XlsxMime, null);
             case "csv":
             case "tsv":
-                var table = new SheetValues("Dados", ReadText(bytes, format, options ?? new(), ct));
-                return new(WriteXlsx([table], ct), XlsxMime, [table]);
+                var effective = options ?? new(); string? delimiter = null;
+                var table = new SheetValues("Dados", ReadTextCore(bytes, format, effective, ct, value => delimiter = value));
+                return new(WriteXlsx([table], ct, textImport: effective.InterpretationVersion != 1), XlsxMime, [table], effective with { Delimiter = delimiter ?? effective.Delimiter });
             case "ods":
-                var expected = ReadOds(bytes, ct);
+                IReadOnlyList<SheetValues>? expected;
+                try { expected = ReadOds(bytes, ct); }
+                catch (XmlException) { throw new InvalidDataException("Malformed ODS XML."); }
+                catch (InvalidDataException ex) when (ex.Message is "Package part missing." or "Oversized or ambiguous ZIP package." or "XML part too large.") { throw new InvalidDataException("Invalid ODS package structure."); }
                 return new(bytes, "application/vnd.oasis.opendocument.spreadsheet", expected);
             case "xls":
                 if (HtmlWorkbookReader.IsHtml(bytes))
@@ -98,13 +102,15 @@ public static class SpreadsheetFormats
         }
         catch (DecoderFallbackException) { throw new InvalidDataException("Invalid text encoding or characters."); }
     }
-    public static IReadOnlyList<IReadOnlyList<object?>> ReadText(byte[] bytes, string format, TextImportOptions options, CancellationToken ct = default)
+    public static IReadOnlyList<IReadOnlyList<object?>> ReadText(byte[] bytes, string format, TextImportOptions options, CancellationToken ct = default) => ReadTextCore(bytes, format, options, ct);
+    private static IReadOnlyList<IReadOnlyList<object?>> ReadTextCore(byte[] bytes, string format, TextImportOptions options, CancellationToken ct, Action<string>? picked = null)
     {
         ct.ThrowIfCancellationRequested();
         if (bytes.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException(UiText.Message("capacity.importSize"));
         var text = Decode(bytes, options.Encoding, options.InterpretationVersion);
-        if (options.InterpretationVersion is not (1 or 2)) throw new InvalidDataException("Unsupported interpretation version.");
+        if (options.InterpretationVersion is not (1 or 2 or 3)) throw new InvalidDataException("Unsupported interpretation version.");
         if (text.Length == 0 || text.All(c => c < ' ' && c is not ('\t' or '\n' or '\r'))) throw new InvalidDataException("Empty text spreadsheet.");
+        if (options.InterpretationVersion >= 3) return ReadTextV3(text, format, options, ct, picked);
         if (format == "tsv" && options.InterpretationVersion == 1) return ParseDelimited(text, '\t', ct, 1);
         if (options.Delimiter is "comma" or "semicolon" or "tab" or "pipe")
             return ParseDelimited(text, options.Delimiter switch { "comma" => ',', "semicolon" => ';', "tab" => '\t', _ => '|' }, ct, options.InterpretationVersion);
@@ -133,7 +139,7 @@ public static class SpreadsheetFormats
     {
         var rows = new List<IReadOnlyList<object?>>(); var row = new List<object?>(); var field = new StringBuilder();
         var quoted = false; var closed = false; var cells = 0;
-        var maxCells = version >= 2 ? MaxTextCells : MaxCells; var maxRows = version >= 2 ? MaxTextRows : MaxRows;
+        var maxCells = version >= 3 ? MaxTextCells : version == 2 ? 600000 : MaxCells; var maxRows = version >= 3 ? MaxTextRows : version == 2 ? 60000 : MaxRows;
         void Field()
         {
             if (++cells > maxCells) throw new SpreadsheetCapacityException(UiText.Message("capacity.tableCells", ("limit", maxCells)));
@@ -166,6 +172,87 @@ public static class SpreadsheetFormats
         if (field.Length > 0 || closed || row.Count > 0 || text[^1] == separator) Row();
         if (rows.Count == 0) throw new InvalidDataException("Empty table.");
         return rows;
+    }
+    private static char Separator(string name) => name switch { "comma" => ',', "semicolon" => ';', "tab" => '\t', "pipe" => '|', _ => throw new ArgumentException("Unsupported delimiter.") };
+    private sealed record TextShape(int Rows, int Columns, long Cells, int Longest);
+    // First pass validates the whole grammar/width using counters only. A failed alternative
+    // cannot invent a capacity error or allocate a second million-cell table.
+    private static TextShape ScanText(string text, char separator, CancellationToken ct, Action<string>? fieldValue = null)
+    {
+        var quoted = false; var closed = false; var length = 0; var columns = 0; var width = 0; var rows = 0; long cells = 0; var longest = 0;
+        StringBuilder? field = fieldValue is null ? null : new();
+        InvalidDataException Invalid(string message, int logicalRow) { var error = new InvalidDataException(message); error.Data["LogicalRow"] = logicalRow; return error; }
+        void Character(char c) { length++; field?.Append(c); }
+        void Field() { columns++; cells++; longest = Math.Max(longest, length); fieldValue?.Invoke(field!.ToString()); field?.Clear(); length = 0; closed = false; }
+        void Row() { Field(); rows++; if (rows == 1) width = columns; else if (columns != width) throw Invalid("Irregular delimited table.", rows); columns = 0; }
+        for (var i = 0; i < text.Length; i++)
+        {
+            if ((i & 4095) == 0) ct.ThrowIfCancellationRequested();
+            var c = text[i];
+            if (quoted)
+            {
+                if (c == '"') { if (i + 1 < text.Length && text[i + 1] == '"') { Character('"'); i++; } else { quoted = false; closed = true; } }
+                else Character(c);
+            }
+            else if (c == separator) Field();
+            else if (c is '\r' or '\n') { Row(); if (c == '\r' && i + 1 < text.Length && text[i + 1] == '\n') i++; }
+            else if (c == '"' && length == 0 && !closed) quoted = true;
+            else { if (closed || c == '"') throw Invalid("Invalid quoted field.", rows + 1); Character(c); }
+        }
+        if (quoted) throw Invalid("Unclosed quoted field.", rows + 1);
+        if (length > 0 || closed || columns > 0 || text.Length > 0 && text[^1] == separator) Row();
+        if (rows == 0) throw new InvalidDataException("Empty text spreadsheet.");
+        return new(rows, width, cells, longest);
+    }
+    private static IReadOnlyList<IReadOnlyList<object?>> ReadTextV3(string text, string format, TextImportOptions options, CancellationToken ct, Action<string>? picked)
+    {
+        if (text.Length == 0) throw new InvalidDataException("Empty text spreadsheet.");
+        char? hint = null;
+        var end = text.IndexOfAny(['\r', '\n']);
+        var first = end < 0 ? text : text[..end];
+        if (first.Length == 5 && first.StartsWith("sep=", StringComparison.Ordinal) && first[4] is ',' or ';' or '|' or '\t')
+        {
+            hint = first[4]; var skip = end < 0 ? text.Length : end + 1;
+            if (end >= 0 && text[end] == '\r' && skip < text.Length && text[skip] == '\n') skip++;
+            text = text[skip..];
+        }
+        var explicitSeparator = options.Delimiter == "auto" ? (char?)null : Separator(options.Delimiter);
+        if (hint is not null && explicitSeparator is not null && hint != explicitSeparator) throw new InvalidDataException("Conflicting Excel separator hint.");
+        var selected = hint ?? explicitSeparator;
+        var candidates = new List<(char Separator, TextShape Shape)>();
+        InvalidDataException? syntax = null;
+        foreach (var separator in selected is { } one ? new[] { one } : new[] { ',', ';', '\t', '|' })
+        {
+            try { var shape = ScanText(text, separator, ct); if (selected is not null || shape.Columns > 1) candidates.Add((separator, shape)); }
+            catch (InvalidDataException ex) { if (syntax is null || ex.Message == "Unclosed quoted field.") syntax = ex; }
+        }
+        if (hint is not null && (candidates.Count != 1 || candidates[0].Shape.Columns < 2)) throw new InvalidDataException("Conflicting Excel separator hint.");
+        // Decimal commas inside an otherwise regular semicolon table are value evidence,
+        // independent of whether the first row is a header. Genuine 13/14 ties remain ties.
+        if (candidates.Count == 2 && candidates.Any(c => c.Separator == ';') && candidates.Any(c => c.Separator == ','))
+        {
+            var commas = 0; var numeric = true;
+            ScanText(text, ';', ct, value => { if (value.Contains(',')) { commas++; numeric &= Regex.IsMatch(value, @"^[+-]?[0-9]+,[0-9]+$", RegexOptions.CultureInvariant); } });
+            if (commas > 0 && numeric) candidates.RemoveAll(c => c.Separator == ',');
+        }
+        if (candidates.Count > 1) throw new InvalidDataException("Ambiguous CSV delimiter; configure it explicitly.");
+        if (candidates.Count == 0)
+        {
+            // TSV without any tab can be a single text column containing punctuation.
+            // CSV remains conservative: irregular delimiters must never become false success.
+            if (format == "tsv" && !text.Contains('\t') || !text.Any(c => c is ',' or ';' or '\t' or '|'))
+                candidates.Add(('\t', ScanText(text, '\t', ct)));
+            else throw syntax ?? new InvalidDataException("Irregular delimited table.");
+        }
+        var chosen = candidates[0]; var shapeChosen = chosen.Shape;
+        if (shapeChosen.Rows > MaxTextRows) throw new SpreadsheetCapacityException(UiText.Message("capacity.tableRows", ("limit", MaxTextRows)));
+        if (shapeChosen.Columns > MaxColumns) throw new SpreadsheetCapacityException(UiText.Message("capacity.tableColumns", ("limit", MaxColumns)));
+        if (shapeChosen.Cells > MaxTextCells) throw new SpreadsheetCapacityException(UiText.Message("capacity.tableCells", ("limit", MaxTextCells)));
+        if (shapeChosen.Longest > 32767) throw new SpreadsheetCapacityException(UiText.Message("capacity.cellCharacters"));
+        picked?.Invoke(chosen.Separator switch { ',' => "comma", ';' => "semicolon", '\t' => "tab", _ => "pipe" });
+        var result = new List<IReadOnlyList<object?>>(shapeChosen.Rows); var row = new List<object?>(shapeChosen.Columns);
+        ScanText(text, chosen.Separator, ct, value => { row.Add(value); if (row.Count == shapeChosen.Columns) { result.Add(row); row = new(shapeChosen.Columns); } });
+        return result;
     }
     private static ZipArchive OpenPackage(byte[] bytes)
     {
@@ -270,9 +357,10 @@ public static class SpreadsheetFormats
             using var zip = OpenPackage(bytes); _ = Xml(zip, "xl/workbook.xml");
             foreach (var entry in zip.Entries.Where(e => e.FullName.StartsWith("xl/worksheets/", StringComparison.Ordinal) && e.FullName.EndsWith(".xml", StringComparison.Ordinal)))
             {
-                if (entry.Length > 64 * 1024 * 1024) throw new SpreadsheetCapacityException(UiText.Message("capacity.uncompressedSheet"));
+                var xmlLimit = (textImport ? 96L : 64L) * 1024 * 1024;
+                if (entry.Length > xmlLimit) throw new SpreadsheetCapacityException(UiText.Message("capacity.uncompressedSheet"));
                 using var xmlStream = entry.Open();
-                using var xmlReader = XmlReader.Create(xmlStream, new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null, MaxCharactersInDocument = 64 * 1024 * 1024 });
+                using var xmlReader = XmlReader.Create(xmlStream, new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null, MaxCharactersInDocument = xmlLimit });
                 while (xmlReader.Read())
                 {
                     ct.ThrowIfCancellationRequested();
@@ -320,8 +408,21 @@ public static class SpreadsheetFormats
             }
         }
     }
-    public static byte[] WriteXlsx(IReadOnlyList<SheetValues> sheets, CancellationToken ct = default)
+    public static byte[] WriteXlsx(IReadOnlyList<SheetValues> sheets, CancellationToken ct = default, bool textImport = false)
     {
+        long total = 0;
+        foreach (var sheet in sheets)
+        {
+            ct.ThrowIfCancellationRequested();
+            if (sheet.Rows.Count > (textImport ? MaxTextRows : MaxRows)) throw new SpreadsheetCapacityException(UiText.Message("capacity.tableRows", ("limit", textImport ? MaxTextRows : MaxRows)));
+            foreach (var row in sheet.Rows)
+            {
+                ct.ThrowIfCancellationRequested(); total += row.Count;
+                if (row.Count > MaxColumns) throw new SpreadsheetCapacityException(UiText.Message("capacity.tableColumns", ("limit", MaxColumns)));
+                if (total > (textImport ? MaxTextCells : MaxCells)) throw new SpreadsheetCapacityException(UiText.Message("capacity.tableCells", ("limit", textImport ? MaxTextCells : MaxCells)));
+                if (row.Any(v => v is string value && value.Length > 32767)) throw new SpreadsheetCapacityException(UiText.Message("capacity.cellCharacters"));
+            }
+        }
         XNamespace main = "http://schemas.openxmlformats.org/spreadsheetml/2006/main", rel = "http://schemas.openxmlformats.org/officeDocument/2006/relationships", package = "http://schemas.openxmlformats.org/package/2006/relationships", types = "http://schemas.openxmlformats.org/package/2006/content-types";
         using var buffer = new MemoryStream();
         using (var zip = new ZipArchive(buffer, ZipArchiveMode.Create, true))

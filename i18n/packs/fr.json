@@ -2,8 +2,8 @@
   "language": "fr",
   "locale": "fr",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -644,7 +644,14 @@
     "recovery.repairNew": "Réimporter dans un nouveau document…",
     "recovery.repairExplanation": "Crée une nouvelle feuille depuis cette sauvegarde. La feuille précédente, son raccourci et l’original restent intacts.",
     "action.exportDiagnosticHistory": "Exporter l’historique des diagnostics…",
-    "retry.editInput": "Modifiez le fichier avant de réessayer."
+    "retry.editInput": "Modifiez le fichier avant de réessayer.",
+    "error.textUnclosed": "Champ entre guillemets non fermé.",
+    "error.textQuote": "Guillemet à une position incorrecte.",
+    "error.textEmpty": "Fichier CSV/TSV vide.",
+    "error.textHint": "L’indication sep= ne correspond pas au tableau.",
+    "error.textColumns": "Les lignes ont des nombres de colonnes différents.",
+    "error.odsBounds": "ODS : répétition incorrecte ou dimensions dépassant la limite prise en charge.",
+    "error.odsStructure": "La structure du fichier ODS est incomplète ou incorrecte."
   },
   "expandedNumericNotation": [
     "setup.formatLimits"

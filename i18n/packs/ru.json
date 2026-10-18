@@ -2,8 +2,8 @@
   "language": "ru",
   "locale": "ru",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -643,6 +643,13 @@
     "recovery.repairNew": "Повторно импортировать в новый документ…",
     "recovery.repairExplanation": "Создаёт новую таблицу из этой резервной копии. Прежняя таблица, её ярлык и исходный файл остаются нетронутыми.",
     "action.exportDiagnosticHistory": "Экспорт истории диагностики…",
-    "retry.editInput": "Измените файл перед повторной попыткой."
+    "retry.editInput": "Измените файл перед повторной попыткой.",
+    "error.textUnclosed": "Поле в кавычках не закрыто.",
+    "error.textQuote": "Кавычка в недопустимой позиции.",
+    "error.textEmpty": "Пустой файл CSV/TSV.",
+    "error.textHint": "Подсказка sep= не соответствует таблице.",
+    "error.textColumns": "В строках разное количество столбцов.",
+    "error.odsBounds": "ODS: недопустимое повторение или размеры выше поддерживаемого предела.",
+    "error.odsStructure": "Структура файла ODS неполная или недопустимая."
   }
 }

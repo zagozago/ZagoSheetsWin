@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.38",
   "sourceLocale": "pt-BR",
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -354,6 +354,13 @@
     "recovery.repairNew": "नव दस्तावेजमे फेर आयात करू…",
     "recovery.repairExplanation": "एहि बैकअपसँ नव स्प्रेडशीट बनैत अछि। पहिलुक स्प्रेडशीट, ओकर शॉर्टकट आ मूल फाइल जकाँक तहाँ रहत।",
     "action.exportDiagnosticHistory": "जाँच इतिहास निर्यात करू…",
-    "retry.editInput": "फेर प्रयाससँ पहिने फाइल सुधारू।"
+    "retry.editInput": "फेर प्रयाससँ पहिने फाइल सुधारू।",
+    "error.textUnclosed": "उद्धरणक भीतरक क्षेत्र बन्न नहि भेल अछि।",
+    "error.textQuote": "उद्धरण चिह्न गलत स्थान पर अछि।",
+    "error.textEmpty": "CSV/TSV फाइल खाली अछि।",
+    "error.textHint": "sep= संकेत तालिका सँ मेल नहि खाइत अछि।",
+    "error.textColumns": "पंक्तिसभमे स्तम्भक संख्या अलग अछि।",
+    "error.odsBounds": "ODS: अमान्य दोहराव वा समर्थित सीमासँ बेसी आकार।",
+    "error.odsStructure": "ODS फाइलक संरचना अधूरी वा अमान्य अछि।"
   }
 }

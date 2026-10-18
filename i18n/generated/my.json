@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.38",
   "sourceLocale": "pt-BR",
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -354,6 +354,13 @@
     "recovery.repairNew": "စာရွက်စာတမ်းအသစ်ထဲ ပြန်တင်သွင်းမည်…",
     "recovery.repairExplanation": "ဤအရန်မိတ္တူမှ စာရင်းဇယားအသစ် ဖန်တီးသည်။ ယခင်စာရင်းဇယား၊ ၎င်း၏ဖြတ်လမ်းနှင့် မူရင်းဖိုင်ကို မပြောင်းလဲဘဲ ထားရှိမည်။",
     "action.exportDiagnosticHistory": "စစ်ဆေးမှုမှတ်တမ်း ထုတ်ယူမည်…",
-    "retry.editInput": "ပြန်မစမ်းမီ ဖိုင်ကို ပြင်ဆင်ပါ။"
+    "retry.editInput": "ပြန်မစမ်းမီ ဖိုင်ကို ပြင်ဆင်ပါ။",
+    "error.textUnclosed": "ကိုးကားအကွက်ကို မပိတ်ရသေးပါ။",
+    "error.textQuote": "ကိုးကားအမှတ်သည် မမှန်ကန်သောနေရာတွင် ရှိနေသည်။",
+    "error.textEmpty": "CSV/TSV ဖိုင်သည် ဗလာဖြစ်သည်။",
+    "error.textHint": "sep= အညွှန်းသည် ဇယားနှင့် မကိုက်ညီပါ။",
+    "error.textColumns": "အတန်းများတွင် ကော်လံအရေအတွက် မတူပါ။",
+    "error.odsBounds": "ODS: မမှန်ကန်သော ထပ်ခါတလဲလဲမှု သို့မဟုတ် ပံ့ပိုးသည့်ကန့်သတ်ချက်ထက် ကျော်လွန်သော အတိုင်းအတာ။",
+    "error.odsStructure": "ODS ဖိုင်ဖွဲ့စည်းပုံသည် မပြည့်စုံ သို့မဟုတ် မမှန်ကန်ပါ။"
   }
 }

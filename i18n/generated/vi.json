@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.38",
   "sourceLocale": "pt-BR",
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -354,6 +354,13 @@
     "recovery.repairNew": "Nhập lại vào tài liệu mới…",
     "recovery.repairExplanation": "Tạo bảng tính mới từ bản sao lưu này. Bảng tính trước, lối tắt và tệp gốc vẫn nguyên vẹn.",
     "action.exportDiagnosticHistory": "Xuất lịch sử chẩn đoán…",
-    "retry.editInput": "Chỉnh sửa tệp trước khi thử lại."
+    "retry.editInput": "Chỉnh sửa tệp trước khi thử lại.",
+    "error.textUnclosed": "Trường trong dấu ngoặc kép chưa được đóng.",
+    "error.textQuote": "Dấu ngoặc kép ở vị trí không hợp lệ.",
+    "error.textEmpty": "Tệp CSV/TSV trống.",
+    "error.textHint": "Gợi ý sep= không khớp với bảng.",
+    "error.textColumns": "Các hàng có số cột khác nhau.",
+    "error.odsBounds": "ODS: lặp không hợp lệ hoặc kích thước vượt giới hạn hỗ trợ.",
+    "error.odsStructure": "Cấu trúc tệp ODS không đầy đủ hoặc không hợp lệ."
   }
 }

@@ -2,8 +2,8 @@
   "language": "bn",
   "locale": "bn",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -644,6 +644,13 @@
     "recovery.repairNew": "নতুন নথিতে আবার আমদানি করুন…",
     "recovery.repairExplanation": "এই ব্যাকআপ থেকে নতুন স্প্রেডশিট তৈরি করে। আগের স্প্রেডশিট, তার শর্টকাট এবং মূল ফাইল অক্ষত থাকে।",
     "action.exportDiagnosticHistory": "নির্ণয়ের ইতিহাস রপ্তানি করুন…",
-    "retry.editInput": "আবার চেষ্টা করার আগে ফাইলটি সম্পাদনা করুন।"
+    "retry.editInput": "আবার চেষ্টা করার আগে ফাইলটি সম্পাদনা করুন।",
+    "error.textUnclosed": "উদ্ধৃত ক্ষেত্র বন্ধ করা হয়নি।",
+    "error.textQuote": "ভুল স্থানে উদ্ধৃতি চিহ্ন।",
+    "error.textEmpty": "CSV/TSV ফাইল খালি।",
+    "error.textHint": "sep= নির্দেশটি সারণির সঙ্গে মেলে না।",
+    "error.textColumns": "সারিগুলিতে কলামের সংখ্যা ভিন্ন।",
+    "error.odsBounds": "ODS: অবৈধ পুনরাবৃত্তি বা সমর্থিত সীমার বেশি মাত্রা।",
+    "error.odsStructure": "ODS ফাইলের গঠন অসম্পূর্ণ বা অবৈধ।"
   }
 }

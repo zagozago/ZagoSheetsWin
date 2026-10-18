@@ -2,8 +2,8 @@
   "language": "hi",
   "locale": "hi",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -644,7 +644,14 @@
     "recovery.repairNew": "नए दस्तावेज़ में फिर से आयात करें…",
     "recovery.repairExplanation": "इस बैकअप से नई स्प्रेडशीट बनती है। पिछली स्प्रेडशीट, उसका शॉर्टकट और मूल फ़ाइल सुरक्षित रहते हैं।",
     "action.exportDiagnosticHistory": "निदान इतिहास निर्यात करें…",
-    "retry.editInput": "फिर प्रयास करने से पहले फ़ाइल संपादित करें।"
+    "retry.editInput": "फिर प्रयास करने से पहले फ़ाइल संपादित करें।",
+    "error.textUnclosed": "उद्धृत फ़ील्ड बंद नहीं हुई।",
+    "error.textQuote": "उद्धरण चिह्न गलत स्थान पर है।",
+    "error.textEmpty": "CSV/TSV फ़ाइल खाली है।",
+    "error.textHint": "sep= संकेत तालिका से मेल नहीं खाता।",
+    "error.textColumns": "पंक्तियों में स्तंभों की संख्या अलग है।",
+    "error.odsBounds": "ODS: अमान्य पुनरावृत्ति या समर्थित सीमा से अधिक आकार।",
+    "error.odsStructure": "ODS फ़ाइल की संरचना अधूरी या अमान्य है।"
   },
   "expandedNumericNotation": [
     "setup.formatLimits"

@@ -2,8 +2,8 @@
   "language": "gn",
   "locale": "gn-PY",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -647,6 +647,13 @@
     "recovery.repairNew": "Egueru jey kuatia pyahúpe…",
     "recovery.repairExplanation": "Ojapo kuatia cálculo pyahu ko ñongatupyrégui. Kuatia ymaguare, ijysã mbyky ha archivo ypykue opyta oĩháicha.",
     "action.exportDiagnosticHistory": "Egueraha tembiasakue jehechajey rehegua…",
-    "retry.editInput": "Emyatyrõ archivo reñeha’ã jey mboyve."
+    "retry.editInput": "Emyatyrõ archivo reñeha’ã jey mboyve.",
+    "error.textUnclosed": "Ñe'ẽjoaju oĩva ita'ãnga ryepýpe noñembotýi.",
+    "error.textQuote": "Ita'ãnga oĩ tenda ndoikóivape.",
+    "error.textEmpty": "CSV/TSV vore inandi.",
+    "error.textHint": "Pe sep= techaukaha ndojoajúi cuadro rehe.",
+    "error.textColumns": "Tysýikuéra oguereko vore yvate hetakue iñambuéva.",
+    "error.odsBounds": "ODS: jejey ndoikóiva térã tuichakue ohasáva límite oñemoneĩva.",
+    "error.odsStructure": "ODS vore rete noĩmbái térã ndoikói."
   }
 }

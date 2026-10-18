@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.38",
   "sourceLocale": "pt-BR",
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -354,6 +354,13 @@
     "recovery.repairNew": "Reimportar em novo documento…",
     "recovery.repairExplanation": "Cria uma nova planilha a partir deste backup. A planilha anterior, seu atalho e o original permanecem intactos.",
     "action.exportDiagnosticHistory": "Exportar histórico de diagnósticos…",
-    "retry.editInput": "Edite o arquivo para tentar novamente."
+    "retry.editInput": "Edite o arquivo para tentar novamente.",
+    "error.textUnclosed": "Campo entre aspas não encerrado.",
+    "error.textQuote": "Aspas em posição inválida.",
+    "error.textEmpty": "Arquivo CSV/TSV vazio.",
+    "error.textHint": "A dica sep= não corresponde à tabela.",
+    "error.textColumns": "As linhas têm quantidades diferentes de colunas.",
+    "error.odsBounds": "ODS: repetição inválida ou dimensão além do limite suportado.",
+    "error.odsStructure": "A estrutura do arquivo ODS está incompleta ou inválida."
   }
 }

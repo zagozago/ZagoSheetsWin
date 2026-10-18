@@ -2,8 +2,8 @@
   "language": "ps",
   "locale": "ps-AF",
   "direction": "rtl",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -647,6 +647,13 @@
     "recovery.repairNew": "نوي سند ته بیا وارد کړئ…",
     "recovery.repairExplanation": "له دې شاتړ څخه نوې سپرېډشیټ جوړوي. پخوانۍ سپرېډشیټ، لنډلار او اصلي فایل هماغسې پاتې کېږي.",
     "action.exportDiagnosticHistory": "د تشخیص تاریخ صادر کړئ…",
-    "retry.editInput": "له بیا هڅې مخکې فایل سم کړئ."
+    "retry.editInput": "له بیا هڅې مخکې فایل سم کړئ.",
+    "error.textUnclosed": "په اقتباس کې ساحه نه ده تړل شوې.",
+    "error.textQuote": "د اقتباس نښه په ناسم ځای کې ده.",
+    "error.textEmpty": "د CSV/TSV دوتنه تشه ده.",
+    "error.textHint": "د sep= اشاره له جدول سره سمون نه لري.",
+    "error.textColumns": "په قطارونو کې د ستنو شمېر توپیر لري.",
+    "error.odsBounds": "ODS: ناسمه تکرار یا له ملاتړ شوي حد څخه لوی ابعاد.",
+    "error.odsStructure": "د ODS دوتنې جوړښت نیمګړی یا ناسم دی."
   }
 }

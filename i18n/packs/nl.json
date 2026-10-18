@@ -2,8 +2,8 @@
   "language": "nl",
   "locale": "nl-NL",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -650,6 +650,13 @@
     "recovery.repairNew": "Opnieuw importeren in nieuw document…",
     "recovery.repairExplanation": "Maakt een nieuw werkblad van deze back-up. Het vorige werkblad, de snelkoppeling en het origineel blijven intact.",
     "action.exportDiagnosticHistory": "Diagnosegeschiedenis exporteren…",
-    "retry.editInput": "Bewerk het bestand voordat u opnieuw probeert."
+    "retry.editInput": "Bewerk het bestand voordat u opnieuw probeert.",
+    "error.textUnclosed": "Veld tussen aanhalingstekens is niet afgesloten.",
+    "error.textQuote": "Aanhalingsteken op een ongeldige positie.",
+    "error.textEmpty": "Leeg CSV/TSV-bestand.",
+    "error.textHint": "De aanwijzing sep= komt niet overeen met de tabel.",
+    "error.textColumns": "De rijen hebben verschillende aantallen kolommen.",
+    "error.odsBounds": "ODS: ongeldige herhaling of afmetingen boven de ondersteunde limiet.",
+    "error.odsStructure": "De structuur van het ODS-bestand is onvolledig of ongeldig."
   }
 }

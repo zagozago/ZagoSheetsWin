@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.38",
   "sourceLocale": "pt-BR",
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -354,6 +354,13 @@
     "recovery.repairNew": "புதிய ஆவணத்தில் மீண்டும் இறக்குமதி செய்…",
     "recovery.repairExplanation": "இந்தக் காப்பிலிருந்து புதிய விரிதாளை உருவாக்குகிறது. முந்தைய விரிதாள், அதன் குறுக்குவழி மற்றும் அசல் கோப்பு மாறாமல் இருக்கும்.",
     "action.exportDiagnosticHistory": "கண்டறிதல் வரலாற்றை ஏற்றுமதி செய்…",
-    "retry.editInput": "மீண்டும் முயலும் முன் கோப்பைத் திருத்தவும்."
+    "retry.editInput": "மீண்டும் முயலும் முன் கோப்பைத் திருத்தவும்.",
+    "error.textUnclosed": "மேற்கோளிட்ட புலம் மூடப்படவில்லை.",
+    "error.textQuote": "மேற்கோள் குறி தவறான இடத்தில் உள்ளது.",
+    "error.textEmpty": "CSV/TSV கோப்பு காலியாக உள்ளது.",
+    "error.textHint": "sep= குறிப்பு அட்டவணையுடன் பொருந்தவில்லை.",
+    "error.textColumns": "வரிசைகளில் நெடுவரிசைகளின் எண்ணிக்கை வேறுபடுகிறது.",
+    "error.odsBounds": "ODS: தவறான மீளுருவாக்கம் அல்லது ஆதரிக்கப்படும் வரம்பை மீறிய அளவுகள்.",
+    "error.odsStructure": "ODS கோப்பின் அமைப்பு முழுமையற்றது அல்லது தவறானது."
   }
 }

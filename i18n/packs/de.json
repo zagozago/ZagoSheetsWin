@@ -2,8 +2,8 @@
   "language": "de",
   "locale": "de",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -654,6 +654,13 @@
     "recovery.repairNew": "In ein neues Dokument importieren…",
     "recovery.repairExplanation": "Erstellt eine neue Tabelle aus dieser Sicherung. Die bisherige Tabelle, ihre Verknüpfung und das Original bleiben unverändert.",
     "action.exportDiagnosticHistory": "Diagnoseverlauf exportieren…",
-    "retry.editInput": "Bearbeiten Sie die Datei vor dem erneuten Versuch."
+    "retry.editInput": "Bearbeiten Sie die Datei vor dem erneuten Versuch.",
+    "error.textUnclosed": "Feld in Anführungszeichen nicht geschlossen.",
+    "error.textQuote": "Anführungszeichen an ungültiger Position.",
+    "error.textEmpty": "Leere CSV/TSV-Datei.",
+    "error.textHint": "Der Hinweis sep= passt nicht zur Tabelle.",
+    "error.textColumns": "Die Zeilen haben unterschiedlich viele Spalten.",
+    "error.odsBounds": "ODS: ungültige Wiederholung oder Abmessungen über der unterstützten Grenze.",
+    "error.odsStructure": "Die Struktur der ODS-Datei ist unvollständig oder ungültig."
   }
 }

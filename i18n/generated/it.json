@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.38",
   "sourceLocale": "pt-BR",
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -354,6 +354,13 @@
     "recovery.repairNew": "Reimporta in un nuovo documento…",
     "recovery.repairExplanation": "Crea un nuovo foglio da questo backup. Il foglio precedente, il suo collegamento e l’originale rimangono intatti.",
     "action.exportDiagnosticHistory": "Esporta cronologia diagnostica…",
-    "retry.editInput": "Modifica il file prima di riprovare."
+    "retry.editInput": "Modifica il file prima di riprovare.",
+    "error.textUnclosed": "Campo tra virgolette non chiuso.",
+    "error.textQuote": "Virgolette in una posizione non valida.",
+    "error.textEmpty": "File CSV/TSV vuoto.",
+    "error.textHint": "L’indicazione sep= non corrisponde alla tabella.",
+    "error.textColumns": "Le righe hanno numeri diversi di colonne.",
+    "error.odsBounds": "ODS: ripetizione non valida o dimensioni oltre il limite supportato.",
+    "error.odsStructure": "La struttura del file ODS è incompleta o non valida."
   }
 }

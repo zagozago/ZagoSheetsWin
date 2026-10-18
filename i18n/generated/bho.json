@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.38",
   "sourceLocale": "pt-BR",
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -354,6 +354,13 @@
     "recovery.repairNew": "नया दस्तावेज में फेर आयात करीं…",
     "recovery.repairExplanation": "एह बैकअप से नया स्प्रेडशीट बनावेला। पहिले वाला स्प्रेडशीट, ओकर शॉर्टकट आ असली फाइल जस के तस रही।",
     "action.exportDiagnosticHistory": "जाँच इतिहास निर्यात करीं…",
-    "retry.editInput": "फेर कोशिश से पहिले फाइल सुधारीं।"
+    "retry.editInput": "फेर कोशिश से पहिले फाइल सुधारीं।",
+    "error.textUnclosed": "उद्धरण वाला फील्ड बंद नइखे भइल।",
+    "error.textQuote": "उद्धरण चिन्ह गलत जगह बा।",
+    "error.textEmpty": "CSV/TSV फाइल खाली बा।",
+    "error.textHint": "sep= संकेत तालिका से मेल नइखे खात।",
+    "error.textColumns": "पंक्तियन में कॉलम के गिनती अलग बा।",
+    "error.odsBounds": "ODS: अमान्य दोहराव भा समर्थित सीमा से अधिक आकार।",
+    "error.odsStructure": "ODS फाइल के बनावट अधूरा भा अमान्य बा।"
   }
 }

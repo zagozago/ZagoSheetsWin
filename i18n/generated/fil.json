@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.38",
   "sourceLocale": "pt-BR",
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -354,6 +354,13 @@
     "recovery.repairNew": "I-import muli sa bagong dokumento…",
     "recovery.repairExplanation": "Gumagawa ng bagong spreadsheet mula sa backup na ito. Mananatiling buo ang dating spreadsheet, shortcut nito, at orihinal.",
     "action.exportDiagnosticHistory": "I-export ang kasaysayan ng diagnostic…",
-    "retry.editInput": "I-edit ang file bago subukang muli."
+    "retry.editInput": "I-edit ang file bago subukang muli.",
+    "error.textUnclosed": "Hindi naisara ang field na may panipi.",
+    "error.textQuote": "Nasa maling posisyon ang panipi.",
+    "error.textEmpty": "Walang laman ang CSV/TSV file.",
+    "error.textHint": "Hindi tugma ang pahiwatig na sep= sa talahanayan.",
+    "error.textColumns": "Magkakaiba ang bilang ng mga column sa mga row.",
+    "error.odsBounds": "ODS: maling pag-uulit o sukat na lampas sa suportadong limitasyon.",
+    "error.odsStructure": "Hindi kumpleto o hindi wasto ang istruktura ng ODS file."
   }
 }

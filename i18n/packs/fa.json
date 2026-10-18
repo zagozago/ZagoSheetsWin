@@ -2,8 +2,8 @@
   "language": "fa",
   "locale": "fa-IR",
   "direction": "rtl",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -647,6 +647,13 @@
     "recovery.repairNew": "وارد کردن دوباره در سند جدید…",
     "recovery.repairExplanation": "از این نسخه پشتیبان یک صفحه‌گسترده جدید می‌سازد. صفحه قبلی، میان‌بر آن و فایل اصلی دست‌نخورده می‌مانند.",
     "action.exportDiagnosticHistory": "صدور تاریخچه عیب‌یابی…",
-    "retry.editInput": "پیش از تلاش دوباره فایل را ویرایش کنید."
+    "retry.editInput": "پیش از تلاش دوباره فایل را ویرایش کنید.",
+    "error.textUnclosed": "فیلد نقل‌قول‌شده بسته نشده است.",
+    "error.textQuote": "علامت نقل‌قول در جای نامعتبر است.",
+    "error.textEmpty": "فایل CSV/TSV خالی است.",
+    "error.textHint": "راهنمای sep= با جدول مطابقت ندارد.",
+    "error.textColumns": "تعداد ستون‌ها در ردیف‌ها متفاوت است.",
+    "error.odsBounds": "ODS: تکرار نامعتبر یا ابعاد فراتر از حد پشتیبانی‌شده.",
+    "error.odsStructure": "ساختار فایل ODS ناقص یا نامعتبر است."
   }
 }

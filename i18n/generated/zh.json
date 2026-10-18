@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.38",
   "sourceLocale": "pt-BR",
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -354,6 +354,13 @@
     "recovery.repairNew": "重新导入为新文档…",
     "recovery.repairExplanation": "从此备份创建新电子表格。之前的电子表格、其快捷方式和原文件均保持不变。",
     "action.exportDiagnosticHistory": "导出诊断历史…",
-    "retry.editInput": "请先修改文件再重试。"
+    "retry.editInput": "请先修改文件再重试。",
+    "error.textUnclosed": "引号字段未闭合。",
+    "error.textQuote": "引号位置无效。",
+    "error.textEmpty": "CSV/TSV 文件为空。",
+    "error.textHint": "sep= 提示与表格不匹配。",
+    "error.textColumns": "各行的列数不同。",
+    "error.odsBounds": "ODS：重复无效或尺寸超出支持的限制。",
+    "error.odsStructure": "ODS 文件结构不完整或无效。"
   }
 }

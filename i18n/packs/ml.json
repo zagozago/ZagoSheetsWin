@@ -2,8 +2,8 @@
   "language": "ml",
   "locale": "ml-IN",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -651,6 +651,13 @@
     "recovery.repairNew": "പുതിയ പ്രമാണത്തിലേക്ക് വീണ്ടും ഇറക്കുമതി ചെയ്യുക…",
     "recovery.repairExplanation": "ഈ ബാക്കപ്പിൽ നിന്ന് പുതിയ സ്പ്രെഡ്ഷീറ്റ് സൃഷ്ടിക്കുന്നു. മുൻ സ്പ്രെഡ്ഷീറ്റും അതിന്റെ കുറുക്കുവഴിയും യഥാർത്ഥ ഫയലും മാറ്റമില്ലാതെ തുടരും.",
     "action.exportDiagnosticHistory": "പരിശോധനാ ചരിത്രം കയറ്റുമതി ചെയ്യുക…",
-    "retry.editInput": "വീണ്ടും ശ്രമിക്കുന്നതിന് മുമ്പ് ഫയൽ തിരുത്തുക."
+    "retry.editInput": "വീണ്ടും ശ്രമിക്കുന്നതിന് മുമ്പ് ഫയൽ തിരുത്തുക.",
+    "error.textUnclosed": "ഉദ്ധരണിക്കുള്ളിലെ ഫീൽഡ് അടച്ചിട്ടില്ല.",
+    "error.textQuote": "ഉദ്ധരണി ചിഹ്നം തെറ്റായ സ്ഥാനത്താണ്.",
+    "error.textEmpty": "CSV/TSV ഫയൽ ശൂന്യമാണ്.",
+    "error.textHint": "sep= സൂചന പട്ടികയുമായി പൊരുത്തപ്പെടുന്നില്ല.",
+    "error.textColumns": "വരികളിലെ നിരകളുടെ എണ്ണം വ്യത്യസ്തമാണ്.",
+    "error.odsBounds": "ODS: അസാധുവായ ആവർത്തനം അല്ലെങ്കിൽ പിന്തുണയ്ക്കുന്ന പരിധിക്കപ്പുറമുള്ള അളവുകൾ.",
+    "error.odsStructure": "ODS ഫയലിന്റെ ഘടന അപൂർണ്ണമോ അസാധുവോ ആണ്."
   }
 }

@@ -26,6 +26,6 @@ public sealed class ConversionVerifier(GoogleDriveClient drive, TextImportOption
         if (expected is null) { Warn(); return; }
         var exported = await drive.ExportXlsxAsync(operation.AccountId, mapping.FileId, ct);
         try { await Task.Run(() => SpreadsheetFormats.VerifyValues(expected, exported, ct, textImport: operation.Format is "csv" or "tsv"), ct); }
-        catch (ConversionMismatchException) { Warn(); }
+        catch (ConversionMismatchException) when (operation.Format is not ("csv" or "tsv")) { Warn(); }
     }
 }

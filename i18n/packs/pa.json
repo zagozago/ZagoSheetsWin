@@ -2,8 +2,8 @@
   "language": "pa",
   "locale": "pa-Guru-IN",
   "direction": "ltr",
-  "catalogRevision": 11,
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "catalogRevision": 12,
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -647,6 +647,13 @@
     "recovery.repairNew": "ਨਵੇਂ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਮੁੜ ਆਯਾਤ ਕਰੋ…",
     "recovery.repairExplanation": "ਇਸ ਬੈਕਅੱਪ ਤੋਂ ਨਵੀਂ ਸਪ੍ਰੈਡਸ਼ੀਟ ਬਣਾਉਂਦਾ ਹੈ। ਪਿਛਲੀ ਸਪ੍ਰੈਡਸ਼ੀਟ, ਉਸ ਦਾ ਸ਼ਾਰਟਕੱਟ ਅਤੇ ਮੂਲ ਫਾਈਲ ਬਰਕਰਾਰ ਰਹਿੰਦੇ ਹਨ।",
     "action.exportDiagnosticHistory": "ਜਾਂਚ ਇਤਿਹਾਸ ਨਿਰਯਾਤ ਕਰੋ…",
-    "retry.editInput": "ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਫਾਈਲ ਸੋਧੋ।"
+    "retry.editInput": "ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਫਾਈਲ ਸੋਧੋ।",
+    "error.textUnclosed": "ਹਵਾਲਿਆਂ ਵਾਲਾ ਖੇਤਰ ਬੰਦ ਨਹੀਂ ਹੋਇਆ।",
+    "error.textQuote": "ਹਵਾਲਾ ਚਿੰਨ੍ਹ ਗਲਤ ਥਾਂ ਉੱਤੇ ਹੈ।",
+    "error.textEmpty": "CSV/TSV ਫਾਈਲ ਖਾਲੀ ਹੈ।",
+    "error.textHint": "sep= ਸੰਕੇਤ ਸਾਰਣੀ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ।",
+    "error.textColumns": "ਕਤਾਰਾਂ ਵਿੱਚ ਕਾਲਮਾਂ ਦੀ ਗਿਣਤੀ ਵੱਖਰੀ ਹੈ।",
+    "error.odsBounds": "ODS: ਅਵੈਧ ਦੁਹਰਾਅ ਜਾਂ ਸਮਰਥਿਤ ਹੱਦ ਤੋਂ ਵੱਧ ਮਾਪ।",
+    "error.odsStructure": "ODS ਫਾਈਲ ਦੀ ਬਣਤਰ ਅਧੂਰੀ ਜਾਂ ਅਵੈਧ ਹੈ।"
   }
 }

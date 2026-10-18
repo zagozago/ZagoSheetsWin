@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.38",
   "sourceLocale": "pt-BR",
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -354,6 +354,13 @@
     "recovery.repairNew": "새 문서로 다시 가져오기…",
     "recovery.repairExplanation": "이 백업에서 새 스프레드시트를 만듭니다. 이전 스프레드시트, 바로가기 및 원본 파일은 그대로 유지됩니다.",
     "action.exportDiagnosticHistory": "진단 기록 내보내기…",
-    "retry.editInput": "파일을 수정한 후 다시 시도하세요."
+    "retry.editInput": "파일을 수정한 후 다시 시도하세요.",
+    "error.textUnclosed": "따옴표로 묶인 필드가 닫히지 않았습니다.",
+    "error.textQuote": "따옴표 위치가 잘못되었습니다.",
+    "error.textEmpty": "CSV/TSV 파일이 비어 있습니다.",
+    "error.textHint": "sep= 지정이 표와 일치하지 않습니다.",
+    "error.textColumns": "행마다 열 수가 다릅니다.",
+    "error.odsBounds": "ODS: 반복이 잘못되었거나 크기가 지원 한도를 초과합니다.",
+    "error.odsStructure": "ODS 파일 구조가 불완전하거나 잘못되었습니다."
   }
 }

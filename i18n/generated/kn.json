@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.38",
   "sourceLocale": "pt-BR",
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -354,6 +354,13 @@
     "recovery.repairNew": "ಹೊಸ ದಾಖಲೆಗೆ ಮತ್ತೆ ಆಮದು ಮಾಡಿ…",
     "recovery.repairExplanation": "ಈ ಬ್ಯಾಕಪ್‌ನಿಂದ ಹೊಸ ಸ್ಪ್ರೆಡ್‌ಶೀಟ್ ರಚಿಸುತ್ತದೆ. ಹಿಂದಿನ ಸ್ಪ್ರೆಡ್‌ಶೀಟ್, ಅದರ ಶಾರ್ಟ್‌ಕಟ್ ಮತ್ತು ಮೂಲ ಫೈಲ್ ಹಾಗೆಯೇ ಉಳಿಯುತ್ತವೆ.",
     "action.exportDiagnosticHistory": "ರೋಗನಿರ್ಣಯ ಇತಿಹಾಸ ರಫ್ತು ಮಾಡಿ…",
-    "retry.editInput": "ಮತ್ತೆ ಪ್ರಯತ್ನಿಸುವ ಮೊದಲು ಫೈಲ್ ಸಂಪಾದಿಸಿ."
+    "retry.editInput": "ಮತ್ತೆ ಪ್ರಯತ್ನಿಸುವ ಮೊದಲು ಫೈಲ್ ಸಂಪಾದಿಸಿ.",
+    "error.textUnclosed": "ಉದ್ಧರಣದಲ್ಲಿರುವ ಕ್ಷೇತ್ರ ಮುಚ್ಚಿಲ್ಲ.",
+    "error.textQuote": "ಉದ್ಧರಣ ಚಿಹ್ನೆ ತಪ್ಪಾದ ಸ್ಥಾನದಲ್ಲಿದೆ.",
+    "error.textEmpty": "CSV/TSV ಫೈಲ್ ಖಾಲಿಯಾಗಿದೆ.",
+    "error.textHint": "sep= ಸೂಚನೆ ಕೋಷ್ಟಕಕ್ಕೆ ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ.",
+    "error.textColumns": "ಸಾಲುಗಳಲ್ಲಿ ಕಾಲಮ್‌ಗಳ ಸಂಖ್ಯೆ ಬೇರೆಯಾಗಿದೆ.",
+    "error.odsBounds": "ODS: ಅಮಾನ್ಯ ಪುನರಾವರ್ತನೆ ಅಥವಾ ಬೆಂಬಲಿತ ಮಿತಿಗಿಂತ ಹೆಚ್ಚಿನ ಆಯಾಮಗಳು.",
+    "error.odsStructure": "ODS ಫೈಲ್ ರಚನೆ ಅಪೂರ್ಣ ಅಥವಾ ಅಮಾನ್ಯವಾಗಿದೆ."
   }
 }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.38",
   "sourceLocale": "pt-BR",
-  "sourceHash": "7f3a631be7030d3fbbc465c4cda8fd1cd32a57bf54a4eb08f4eba45984446239",
+  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -354,6 +354,13 @@
     "recovery.repairNew": "重新匯入做新文件…",
     "recovery.repairExplanation": "由呢個備份建立新試算表。之前嘅試算表、佢嘅捷徑同原檔都會保持不變。",
     "action.exportDiagnosticHistory": "匯出診斷記錄…",
-    "retry.editInput": "請先修改檔案再試。"
+    "retry.editInput": "請先修改檔案再試。",
+    "error.textUnclosed": "引號欄位未關閉。",
+    "error.textQuote": "引號位置無效。",
+    "error.textEmpty": "CSV/TSV 檔案係空嘅。",
+    "error.textHint": "sep= 提示同表格唔一致。",
+    "error.textColumns": "每行嘅欄數唔同。",
+    "error.odsBounds": "ODS：重複無效或者尺寸超出支援上限。",
+    "error.odsStructure": "ODS 檔案結構唔完整或者無效。"
   }
 }
