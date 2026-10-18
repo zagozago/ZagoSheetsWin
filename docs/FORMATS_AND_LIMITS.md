@@ -1,15 +1,15 @@
 # Formatos, ambientes e limites — estado atual
 
-**Referência:** código de `SpreadsheetFormats`, `GoogleImport`, `ConversionVerifier`, `ReplacementCoordinator`, `WindowsLauncher` e políticas Windows no candidato alfa **0.9.35** ([estado e commit](RELEASE_STATUS.md)). Esta é a matriz vigente, não os limites históricos do piloto 0.7 ou a política de fidelidade da 0.9.30.
+**Referência:** código de `SpreadsheetFormats`, `GoogleImport`, `ConversionVerifier`, `ReplacementCoordinator`, `WindowsLauncher` e políticas Windows no candidato alfa **0.9.37** ([estado e commit](RELEASE_STATUS.md)). Esta é a matriz vigente, não os limites históricos do piloto 0.7 ou a política de fidelidade da 0.9.30.
 
 ## Entrada e destino
 
 | Extensão | Preparação antes do Drive | Critério para retirar o original |
 |---|---|---|
 | `.xlsx` | Validar pacote OOXML e enviar XLSX | Fonte local elegível; backup íntegro, associação e atalho verificados, sem VBA; não há certificação de todos os recursos visuais |
-| `.csv` | Decodificar texto estritamente, analisar e gerar XLSX com células de texto | Divergência de valores conferidos gera **advertência**, não cópia automática, se a importação Google estiver confirmada e as demais condições de segurança forem satisfeitas |
-| `.tsv` | Interpretar tabulação, normalizar para XLSX com texto literal | A análise estrutural deve ser válida; a divergência de valores conferidos deixa de bloquear por si só a retirada do original |
-| `.ods` | Validar assinatura/ZIP/mimetype e interpretar estruturas; enviar ODS verdadeiro | Fórmulas, datas, mesclagens e recursos não verificáveis **podem não ser preservados**; isso **não impede por si só** a substituição após importação confirmada. Estrutura inválida e scripts são recusados |
+| `.csv` | Identificar separador por conteúdo (vírgula, ponto e vírgula, TAB, pipe), decodificar UTF-8 estrito/CP1252 controlado e gerar XLSX com texto literal | Ambiguidade exige escolha **por importação**; verificação de texto até 60.000 registros/600.000 células; divergência parcial não impede sozinha a substituição |
+| `.tsv` | Ler texto estruturado com semântica de interpretação v2 e gerar XLSX com texto literal | Respeitar interpretação versionada por operação; 60.000 registros/600.000 células no formato novo, sem reinterpretação automática do documento remoto antigo |
+| `.ods` | Validar assinatura/ZIP/mimetype e calcular coordenadas de células sem expandir caudas vazias repetidas; enviar **bytes ODS originais** | Fórmulas, datas, mesclagens e recursos complexos podem não ser preservados; isso não impede por si só substituição após importação confirmada. Estrutura inválida/scripts recusados; teste Google real pendente |
 | `.xls` | Binário: ExcelDataReader + NPOI para gerar XLSX. Alguns relatórios HTML nomeados `.xls` têm leitor HTML específico | Fórmulas/valores complexos podem mudar **e a origem ainda pode ser substituída** se a opção de XLS permitir. Macros não são executadas nem preservadas |
 
 **Fora do escopo:** `.xlsm`, `.xlsb`, Word, PowerPoint e qualquer extensão não listada. Arquivo HTML **renomeado para `.ods`** não é um arquivo ODS: a importação é rejeitada sem upload.
@@ -27,8 +27,10 @@ São bloqueios reais, não simples avisos: pacote inválido, script/estrutura re
 | Recurso | Limite |
 |---|---:|
 | Bytes de entrada e payload normalizado | 20 MiB (`20 × 1024 × 1024` bytes) |
-| Células processadas | 500.000 |
-| Linhas | 50.000 |
+| Células processadas (outros formatos / interpretação antiga) | 500.000 |
+| Linhas (outros formatos / interpretação antiga) | 50.000 |
+| Células CSV/TSV com interpretação v2 | **600.000** |
+| Registros lógicos CSV/TSV com interpretação v2 | **60.000** |
 | Colunas | 1.000 |
 | Abas nos leitores aplicáveis | Até 100 |
 | Texto por célula/campo | 32.767 caracteres |
@@ -43,12 +45,20 @@ Todos os limites pertinentes se aplicam simultaneamente. Um arquivo abaixo de 20
 
 ## CSV e TSV
 
-- Automático: UTF-8 estrito, com ou sem BOM; UTF-16 LE/BE somente com BOM. Não adivinha Windows-1252.
-- Windows-1252 requer seleção explícita nas configurações e é rejeitado se conflitar com BOM.
-- CSV: separadores vírgula ou ponto e vírgula; ambiguidade deve ser corrigida com escolha explícita.
-- TSV: separador fixo de tabulação.
-- Parser suporta campos vazios e aspas escapadas; estrutura irregular é rejeitada.
+- Automático na interpretação v2: UTF-8 estrito, com ou sem BOM; UTF-16 LE/BE somente com BOM. Se **não houver BOM** e UTF-8 estrito falhar, um **fallback controlado para Windows-1252** é permitido, excluindo bytes indefinidos e controles incompatíveis com texto. Operações antigas com semântica v1 continuam com as regras de leitura anteriores.
+- Windows-1252 também pode ser escolhido **na janela específica da importação ou reparo**; não há seletor global atual em Opções avançadas. A seleção é rejeitada se conflitar com BOM.
+- CSV/TSV v2: reconhecer **vírgula, ponto e vírgula, TAB e barra vertical (pipe)** a partir da estrutura do conteúdo; ambiguidades requerem escolha explícita por importação.
+- TSV com operação legada v1 preserva interpretação TAB da versão anterior.
+- Parser suporta campos vazios, aspas escapadas e quebras de linha em campo citado; largura irregular é rejeitada. **Registros lógicos não equivalem ao número de linhas físicas de arquivo**.
 - Todos os valores CSV/TSV são mantidos como **texto literal**, incluindo zeros à esquerda, números longos, datas escritas como texto e cadeias com `=`, `+`, `-` ou `@`. Essa regra evita execução de fórmulas na importação, mas também exige conversões manuais posteriores no Sheets quando desejadas.
+
+## Interpretação versionada e reparo seguro (0.9.36)
+
+O interpretador CSV/TSV registra **opções e versão imutáveis** por operação. Importações antigas com intenção remota preservam a versão 1, inclusive suas limitações; a versão 2 aplica nova detecção e limites. A conferência do XLSX exportado usa os limites específicos para texto e respeita o interpretador da própria operação.
+
+Para corrigir um CSV/TSV antigo, usar **Backups → Mais ações → Reimportar em novo documento**. O programa verifica o hash do backup original, cria **nova operação e documento Google** e mantém intactos a planilha anterior, o atalho anterior e o vínculo remoto. O reparo é **como cópia**, não faz retirada da fonte. Correção de conteúdo local antes de qualquer intenção remota pode iniciar operação nova sem descartar o snapshot anterior.
+
+Em erros permanentes de entrada, repetir automaticamente sem alterar o arquivo não corrige a causa; a repetição manual é condicionada a mudança do arquivo. Ambiguidade de separador usa escolha por tentativa, não edição de `formats.json`.
 
 ## XLS e relatórios HTML
 
@@ -74,4 +84,4 @@ O Google Sheets criado é a cópia de trabalho online. O backup da importação 
 
 Quando o formato tem valores esperados, o aplicativo pode exportar o Sheets como XLSX e compará-los. Na **0.9.35**, diferenças representadas por `ConversionMismatchException` ou conteúdo não comparável marcam uma advertência interna e **não bloqueiam por si sós** a substituição. Falhas reais na exportação, associação remota, snapshot ou conteúdo estrutural ainda bloqueiam. A comparação não abrange gráficos, macros, formatação nem a semântica total das fórmulas.
 
-**Interface atual:** os cinco formatos estão habilitados sem toggle. A seção de formato/codificação/delimitador foi removida das Opções avançadas em 0.9.32; escolhas `formats.json` pré-existentes permanecem aplicáveis, mas **não existe seletor atual para alterá-las na interface**.
+**Interface atual:** os cinco formatos estão habilitados sem toggle. A seção **global** de formato/codificação/delimitador foi removida das Opções avançadas em 0.9.32; escolhas `formats.json` pré-existentes permanecem aplicáveis. Desde a 0.9.36 há um **seletor contextual de interpretação por importação** para casos ambíguos ou reparo, sem modificar operações remotas anteriores.

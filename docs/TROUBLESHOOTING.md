@@ -1,6 +1,6 @@
 # Solução de problemas e recuperação
 
-**Escopo:** ZagoSheetsWin alpha **0.9.35** ([evidências](RELEASE_STATUS.md)) em Windows. Antes de repetir operações, confirme a presença do arquivo original, atalho e backup. **Não exclua `%LOCALAPPDATA%\SheetsWindows` para tentar resolver problemas.** Isso pode eliminar associações ou material necessário à recuperação.
+**Escopo:** ZagoSheetsWin alpha **0.9.37** ([evidências](RELEASE_STATUS.md)) em Windows. Antes de repetir operações, confirme a presença do arquivo original, atalho e backup. **Não exclua `%LOCALAPPDATA%\SheetsWindows` para tentar resolver problemas.** Isso pode eliminar associações ou material necessário à recuperação.
 
 ## 1. A planilha não abre por duplo clique
 
@@ -30,11 +30,11 @@ Se o aviso vier do Google Auth Platform (modo Testing, revisão de marca, conta 
 
 ## 4. CSV/TSV com colunas incorretas, caracteres inválidos ou limite
 
-1. Confira a codificação do arquivo: UTF-8, UTF-16 com BOM ou Windows-1252 **se essa preferência já estava persistida em uma instalação anterior**. Os seletores de formato, codificação e delimitador foram retirados da interface na 0.9.32.
-2. Para CSV ambíguo, **normalize o arquivo antes da importação** para UTF-8 e um delimitador consistente; TSV usa tabulação. Não procure o antigo seletor nas Opções avançadas nem edite arquivos internos.
-3. Verifique o limite de **20 MiB**, **500.000 células**, **50.000 linhas** e **1.000 colunas**.
+1. Confira o arquivo e sua codificação: UTF-8 estrito, UTF-16 com BOM ou fallback limitado para Windows-1252 quando não houver BOM (CSV/TSV v2). Se necessário, escolha a codificação na **janela da tentativa**, não em um controle global antigo.
+2. A nova detecção analisa separadores **vírgula, ponto e vírgula, tabulação e pipe (`|`)**. Se surgir mensagem de ambiguidade, selecione o separador na janela de interpretação; confira campos entre aspas e linhas internas. Não edite arquivos internos.
+3. Confira limites: **20 MiB**, **60.000 registros lógicos e 600.000 células para novas interpretações CSV/TSV**, com até **1.000 colunas**. Outros formatos/operações legadas mantêm limites anteriores (50.000 linhas/500.000 células).
 4. O programa mantém CSV/TSV como **texto literal**, inclusive zeros à esquerda e fórmulas escritas como texto. Isso é comportamento intencional.
-5. Se a interpretação já foi fixada para operações anteriores, não apague `formats.json` ou o banco; prepare nova fonte ou migração suportada.
+5. Se a interpretação já foi fixada para a operação anterior, **não exclua `formats.json` nem o banco**. Use **Backups → Mais ações → Reimportar em novo documento** para reparar uma importação antiga a partir do backup original, sem sobrescrever o Google Sheets existente.
 
 ## 5. O arquivo original continua na pasta
 
@@ -75,11 +75,27 @@ O programa mantém associação, upload resumable e journal. Falhas transitória
 3. Escolha **Retomar como cópia** para conservar a fonte, ou **Concluir substituição** se o programa permitir e a origem continuar elegível.
 4. Se o sistema exigir reconciliação por resultado remoto incerto, não apague bancos/sessões nem reimporte com outro nome como tentativa automática de “conserto”.
 
+### Erro permanente, botão Tentar novamente e janela de erro (0.9.36)
+
+- **Erro permanente de leitura/capacidade:** o programa não executa novas tentativas automáticas enquanto o arquivo permanece igual. Corrija/salve a fonte; a tentativa manual passa a estar disponível quando a alteração é detectada.
+- **CSV/TSV ambíguo:** escolha explicitamente delimitador/codificação na janela contextual. Não é obrigatório reconfigurar o aplicativo globalmente.
+- **Depois de minimizar/restaurar a janela:** a mensagem de falha permanece, mesmo com progresso atrasado. Se a mensagem desaparecer em uma instalação antiga, use 0.9.37 e exporte evidência sanitizada.
+- **Exportar diagnóstico** na tela de falha: exporta **a tentativa atual**. Em Backups → Mais ações → **Exportar histórico**, o arquivo contém o histórico geral. O formato é JSONL e mantém exclusões de dados sensíveis.
+
 ## 7. Backup não pode ser restaurado
 
 Verifique se a operação possui snapshot disponível e não teve backup excluído por limpeza/descarte confirmado. Restauração usa um destino novo e não sobrescreve arquivo existente. Se a limpeza já apagou o snapshot, o histórico e o Sheets remoto podem continuar, mas **não existe recuperação garantida dos bytes originais**.
 
 O prazo de 30 dias **não elimina backups sozinho**. A limpeza automática é opcional e acontece em operações futuras.
+
+### Importação antiga interpretou colunas erradas — reparo explícito (0.9.36)
+
+1. Abra **Backups** e localize a operação com o backup íntegro.
+2. Selecione uma linha e use **Mais ações → Reimportar em novo documento**.
+3. Informe o separador e a codificação adequados à fonte.
+4. Confira o **novo** Google Sheets criado.
+
+A operação anterior, o antigo atalho, a planilha e quaisquer edições remotas anteriores continuam preservados. O reparo não reinterpreta nem atualiza o mesmo documento. Sem backup disponível, esse reparo não é garantido.
 
 ## 8. Documento Google apagado, enviado à lixeira ou sem permissão
 
@@ -91,7 +107,7 @@ O prazo de 30 dias **não elimina backups sozinho**. A limpeza automática é op
 ## 9. Exportar diagnóstico para suporte
 
 1. Abra a janela de erro ou **Backups/Recuperação**.
-2. Selecione **Exportar diagnóstico**.
+2. Na janela de falha, selecione **Exportar diagnóstico** para a **tentativa atual**. Para o histórico geral, use **Backups → Mais ações → Exportar histórico**.
 3. Salve o arquivo `.jsonl` e revise **o nome sugerido**. Pode conter um identificador sanitizado do nome do documento local.
 4. Não envie backups, planilhas, tokens, `auth/`, `uploads/` ou pastas inteiras de dados.
 5. Compartilhe apenas o diagnóstico e o resumo do procedimento, removendo qualquer dado adicional que não deseje expor.

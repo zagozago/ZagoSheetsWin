@@ -1,14 +1,14 @@
 # Arquitetura atual do ZagoSheetsWin
 
-**Base:** `feature/zagosheetswin`, candidato **0.9.35** em 17/10/2026 ([commit e evidências](RELEASE_STATUS.md)). Descrição da **implementação**, não do arquivo histórico [ARCHITECTURE.md](ARCHITECTURE.md), que nasceu como arquitetura-alvo. Não representa auditoria formal de segurança.
+**Base:** `feature/zagosheetswin`, candidato **0.9.37** em 18/10/2026 ([commit e evidências](RELEASE_STATUS.md)). Descrição da **implementação**, não do arquivo histórico [ARCHITECTURE.md](ARCHITECTURE.md), que nasceu como arquitetura-alvo. Não representa auditoria formal de segurança.
 
 ## Organização do código
 
 | Diretório ou módulo | Responsabilidade |
 |---|---|
 | `src/SheetsWindows.Core/` | Modelos `ImportOperation`, `Snapshot`, `SourceDescriptor`; interfaces e preparação local |
-| `src/SheetsWindows.Infrastructure/` | Drive, OAuth, backup, banco SQLite, upload retomável, formatos, integração Windows, logs e recuperação |
-| `src/SheetsWindows.Windows/` | Formulários WinForms: início, primeiro uso, configurações, opções avançadas, processamento, recuperação, tutorial e seletor de idiomas |
+| `src/SheetsWindows.Infrastructure/` | Drive, OAuth, backup, banco SQLite, upload retomável, `ImportInterpretations` (interpretação versionada), `BackupRepairSource` (reparo a partir de snapshot), formatos, integração Windows, logs e recuperação |
+| `src/SheetsWindows.Windows/` | Formulários WinForms: início, primeiro uso, configurações, opções avançadas, `TextInterpretationForm` contextual, processamento/erros persistentes, recuperação, tutorial e seletor de idiomas |
 | `src/SheetsWindows.Cli/` | Entrada CLI auxiliar para operações do fluxo |
 | `tests/SheetsWindows.Tests/` | Testes automatizados de núcleo, Drive simulado, recuperação, formatos, UI e integração Windows |
 | `installer/SheetsWindows.iss` | Instalação/desinstalação por usuário com Inno Setup 6 |
@@ -48,7 +48,7 @@ LocalPreparation --> GoogleImport --> GoogleDriveClient --> Google Drive API
 2. Validar leitura, autorização da conta Google e eventual operação anterior.
 3. Preparar um snapshot consistente, salvar backup e SHA-256, com lock da identidade de origem.
 4. Normalizar o formato quando exigido e registrar a **intenção remota** antes de criar o documento.
-5. Fazer upload/retomada de sessão; confirmar ID, tipo Google Sheets, permissão, estado da lixeira e marcadores `sw_operation` / `sw_hash`. Associação não é escolhida por nome.
+5. Para CSV/TSV, **fixar a versão e opções de interpretação por operação** antes da intenção remota; ambiguidades novas usam escolha contextual. Fazer upload/retomada de sessão; confirmar ID, tipo Google Sheets, permissão, estado da lixeira e marcadores `sw_operation` / `sw_hash`. Associação não é escolhida por nome.
 6. Conferir as células suportadas, quando possível. **Desde 0.9.33, diferença de valores ou verificação incompleta é advertência, não veto automático**. Falhas de integridade, importação ou vínculo continuam bloqueando.
 7. Para substituição elegível: verificar backup, publicar o atalho sem sobrescrever outro arquivo, solicitar abertura do navegador e só então retirar o arquivo original sob handle Windows que evita corrida por nome/caminho.
 8. Persistir cada transição no journal. Se uma etapa falhar, preservar representação recuperável; uma criação remota incerta exige reconciliação, não repetição cega.
@@ -56,6 +56,16 @@ LocalPreparation --> GoogleImport --> GoogleDriveClient --> Google Drive API
 10. Após substituição concluída, a interface apresenta confirmação com acesso a Backups e opção persistente de ocultação. Uma proteção por mutex impede avisos simultâneos; a confirmação **ocorre após a retirada**, não antes.
 
 **Reabrir `.url` não chama o importador**: o Windows abre diretamente a URL HTTPS gravada. Não há sincronização reversa nem atualização remota silenciosa de arquivo conhecido alterado.
+
+## Interpretação de texto e reparo sem alterar documento anterior (0.9.36)
+
+A classe `SpreadsheetFormats` diferencia **v1 e v2** para CSV/TSV. A v2 identifica vírgula, ponto e vírgula, TAB ou pipe, oferece fallback CP1252 limitado e usa limites de 60.000 registros/600.000 células. A classe `ImportInterpretations` vincula a versão e `TextImportOptions` à identidade local da operação em SQLite; operações antigas com intenção remota conservam v1. `ConversionVerifier` recupera a interpretação da operação antes de comparar valores exportados.
+
+O reparo explícito usa `BackupRepairSource` para ler **bytes de backup íntegros** com identidade de operação nova (`repair:<uuid>`). `WindowsLauncher.RepairAsync` envia para um documento Google novo via `GoogleImport` e publica resultado como **cópia**, sem alterar o Google Sheets, atalho ou journal anterior. Locks, hash SHA-256 e disponibilidade do backup continuam necessários.
+
+Para erro permanente de leitura, `ImportRetry.RequiresInputChange` impede retries automáticos e a janela de erro habilita nova tentativa após mudança observável de tamanho/mtime da fonte. Sem intenção remota anterior, `GoogleImport` pode aposentar associação local não enviada; havendo intenção remota, requer reconciliação antes de reinterpretação. O estado terminal em `ProcessingForm` não é substituído por atualizações atrasadas, e a janela recalcula altura ao voltar de minimizada.
+
+A exportação `DiagnosticLog.ExportAsync(..., currentAttempt)` produz registros da tentativa atual por `AttemptId`; o histórico geral segue ação separada em Backups. Novos códigos diferenciam limites de texto, ODS e tamanho remoto, sem expor células nem tokens.
 
 ## Estados persistentes e armazenamento
 
@@ -88,7 +98,11 @@ O banco SQLite registra operações locais e remotas em estruturas separadas. **
 
 ## Interface e internacionalização
 
-`FirstUseWizard` tem três páginas. `TutorialForm` tem quatro páginas. `SetupForm` contém conexão Google, padrões Windows e opções usuais; `AdvancedPreferencesForm` contém cliente Google, escopo de pasta/sincronização, consentimento de substituição e regra XLS. **A seção Formatos e texto foi retirada em 0.9.32**, mantendo configurações existentes. `RecoveryForm` salva políticas sem botão Salvar, usa seleção direta de linhas e ordena Arquivo/Data/Tamanho/Estado. `ProcessingForm` exibe a confirmação após substituição e a opção persistente **Não mostrar novamente**. O botão Ajuda inicial abre uma URL Zagotools ainda não comprovada como publicada. Temas claro (padrão)/escuro. Catálogo de 51 idiomas gerado a partir de fonte e ordem T51; RTL e fontes alternativas dependem também das fontes instaladas no Windows.
+`FirstUseWizard` tem três páginas. `TutorialForm` tem quatro páginas. `SetupForm` contém conexão Google, padrões Windows e opções usuais; `AdvancedPreferencesForm` contém cliente Google, escopo de pasta/sincronização, consentimento de substituição e regra XLS. **A seção global Formatos e texto foi retirada em 0.9.32**, mantendo configurações existentes; o `TextInterpretationForm` da 0.9.36 é contextual à importação/reparo. `RecoveryForm` salva políticas sem botão Salvar, usa seleção direta de linhas e ordena Arquivo/Data/Tamanho/Estado. `ProcessingForm` exibe a confirmação após substituição e a opção persistente **Não mostrar novamente**. O botão Ajuda inicial abre uma URL Zagotools ainda não comprovada como publicada. Temas claro (padrão)/escuro. Catálogo de 51 idiomas gerado a partir de fonte e ordem T51; RTL e fontes alternativas dependem também das fontes instaladas no Windows.
+
+## Identidade visual (0.9.37)
+
+`branding/zagosheetswin.ico` foi substituído pela arte de planilha já usada por `branding/sheet-shortcut.ico`, preservando frames de 16 a 256 px. `branding/app-icon-source.png` registra o raster correspondente. Aplicação, janelas, instalador e documentos/atalhos associados compartilham o desenho; `zonly.png`/`zfull.png` permanecem marcas de cabeçalho Zagotools. Direitos, avisos MIT e atribuição de Swati K não mudaram.
 
 ## Arquitetura herdada
 

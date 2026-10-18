@@ -1,6 +1,6 @@
 # Manual do usuário — ZagoSheetsWin
 
-**Status:** documentação do comportamento implementado na 0.9.35, ainda em fase alfa. Veja a [referência central de versão e evidências](RELEASE_STATUS.md). Os procedimentos usam português técnico claro; nomes de botões podem variar conforme o idioma.
+**Status:** documentação do comportamento implementado na 0.9.37, ainda em fase alfa. Veja a [referência central de versão e evidências](RELEASE_STATUS.md). Os procedimentos usam português técnico claro; nomes de botões podem variar conforme o idioma.
 
 ## 1. O que o aplicativo faz
 
@@ -56,6 +56,16 @@ O assistente de primeira utilização tem **três páginas**. O tutorial de Ajud
 
 O aplicativo não converte um atalho em arquivo editável offline. Se o arquivo local mudar depois de uma importação conservada, o sistema impede reenvio silencioso da versão divergente. Não tente forçar a criação de outro documento eliminando o histórico.
 
+### CSV e TSV: interpretação por conteúdo (0.9.36)
+
+O programa lê o conteúdo antes de decidir o separador. Ele reconhece **vírgula (,), ponto e vírgula (;), tabulação (TAB) e barra vertical (|)**. Suporta aspas e campos com quebras de linha. A leitura é de **UTF-8 estrito** ou UTF-16 com BOM; quando um arquivo **sem BOM** falha na decodificação UTF-8, há um fallback **controlado para Windows-1252**, com recusa de caracteres indefinidos/controles de aparência binária.
+
+Quando houver **ambiguidade**, o programa apresenta uma janela de interpretação para escolher delimitador e codificação **somente para aquela tentativa**. Isso não reintroduz um seletor global em Opções avançadas. O conteúdo é importado como **texto literal**, sem executar fórmulas.
+
+Os limites dos novos CSV/TSV são **60.000 registros lógicos, 600.000 células, 1.000 colunas e 20 MiB por arquivo**. A contagem de registros é **lógica**, ou seja, um campo com quebra de linha dentro de aspas não representa necessariamente outro registro. Os outros formatos mantêm os limites anteriores quando aplicáveis.
+
+Se um erro permanente exigir corrigir o arquivo, salve a correção e depois tente novamente. Não repita automaticamente uma importação com erro estrutural antes de editar a fonte.
+
 ## 6. Importar como cópia
 
 Use o modo **Importar como cópia** quando desejar manter o arquivo na pasta original. O Google Sheets é criado; a fonte local permanece. Se a criação de atalhos estiver habilitada, o atalho de cópia fica na pasta privada do aplicativo, acessível por **Abrir pasta de atalhos das cópias** quando disponível.
@@ -66,7 +76,7 @@ O programa também pode usar o modo de cópia automaticamente ao reconhecer orig
 
 Na tela **Configurações**, o usuário pode conferir/conectar/verificar/desconectar a conta Google, abrir os aplicativos padrão do Windows, habilitar atalhos e selecionar importação como cópia.
 
-Em **Opções avançadas**, estão a configuração alternativa de cliente Google, a política de pasta e sincronização, o consentimento de substituição e o comportamento específico de **substituição de XLS**. A seção **Formatos e texto** foi retirada na 0.9.32: não existem controles atuais para habilitar/desabilitar extensões nem seletores de codificação e delimitador. Os **cinco formatos continuam habilitados**, e configurações de texto que já estavam persistidas continuam aplicáveis. Para fontes CSV/TSV incompatíveis, prepare um arquivo UTF-8 ou TSV válido antes de importar; não edite manualmente os registros de configuração. As preferências exibidas são salvas automaticamente.
+Em **Opções avançadas**, estão a configuração alternativa de cliente Google, a política de pasta e sincronização, o consentimento de substituição e o comportamento específico de **substituição de XLS**. A seção **Formatos e texto** foi retirada na 0.9.32: não há seletor **global** de extensões/codificação/delimitador. Os **cinco formatos continuam habilitados**, e configurações anteriores de texto são preservadas. Desde a 0.9.36, **escolher delimitador e codificação por importação** é possível na janela que aparece quando o conteúdo de CSV/TSV é ambíguo, e também ao usar o reparo explícito. Isso não equivale a alterar retroativamente as opções de uma operação antiga. As preferências exibidas são salvas automaticamente.
 
 O tema inicial é **claro**. O usuário pode escolher o tema escuro e selecionar qualquer um dos **51 idiomas**. Uma seleção explícita prevalece sobre a preferência automática do Windows.
 
@@ -88,6 +98,24 @@ A restauração recupera **o original importado**, não edições feitas depois 
 
 Outras ações: **Retomar como cópia**, **Concluir substituição** quando elegível, **Limpar vencidos/excesso**, **Apagar selecionados** e **Exportar diagnóstico**. Não exclua manualmente o diretório de dados do aplicativo.
 
+### Corrigir importações antigas sem perder a planilha anterior (0.9.36)
+
+Se um CSV ou TSV antigo foi interpretado com colunas incorretas, **não exclua o documento Google antigo nem seu atalho para forçar nova importação**.
+
+1. Abra **Backups/Recuperação**.
+2. Selecione o registro do arquivo que deseja corrigir e confirme que há um backup **disponível**.
+3. Abra **Mais ações → Reimportar em novo documento**.
+4. Escolha o delimitador/codificação corretos e confirme.
+5. Aguarde a criação de um **novo** Google Sheets e confira o resultado.
+
+O reparo lê e verifica o **backup original** e inicia uma operação diferente. A planilha anterior, suas edições online, o atalho anterior e a associação original permanecem intactos; o reparo **não retira o arquivo de origem**. Se o backup não estiver disponível ou íntegro, o reparo não pode ser garantido. Ele não é sincronização, atualização in-place nem substituição da planilha antiga.
+
+### Diagnóstico de erro da tentativa e do histórico (0.9.36)
+
+A tela de erro conserva a mensagem terminal ao minimizar e restaurar a janela, após retorno de progresso atrasado e durante a exportação de diagnóstico. **Exportar diagnóstico** nessa tela gera o resultado relacionado à **tentativa atual**. Em **Backups → Mais ações → Exportar histórico**, é possível gerar o histórico geral. Revise o nome do arquivo de diagnóstico antes de compartilhar; **nunca compartilhe planilhas, backups ou credenciais**.
+
+Erros de capacidade e estrutura de texto são tratados como **não transitórios**, sem contagem regressiva de repetição automática. Para entrada corrigível, o botão de repetição só volta a ficar disponível depois que o arquivo original muda. Se houve intenção remota criada, a operação é reconciliada em vez de se criar outro Google Sheets às cegas.
+
 ## 9. Interrupções e erros
 
 A interface oferece uma tentativa automática **limitada** para falhas transitórias, com contagem regressiva. Na janela de erro, **Tentar novamente** permite nova tentativa explícita; o histórico evita recriar cegamente uma importação que possa ter chegado ao Google. Em dúvida, escolha **Recuperar operação/backup** e mantenha o original. Falhas de conexão, autorização, formato, limite ou conferência exigem correções diferentes; use [Solução de problemas](TROUBLESHOOTING.md).
@@ -97,6 +125,10 @@ A interface oferece uma tentativa automática **limitada** para falhas transitó
 O atributo **Somente leitura** do Windows pode impedir a exclusão controlada que conclui a substituição. **O programa não deve ignorar o atributo nem apagar o arquivo à força.** Em caso de erro, o original permanece no local e o backup já criado continua disponível. A mensagem genérica de erro informa essa possibilidade nos 51 idiomas.
 
 Se for legítimo remover o atributo, altere-o nas **Propriedades do arquivo** no Windows, após confirmar que o arquivo pode ser modificado, e use a ação de recuperação/retomada da operação existente. Se preferir, importe como cópia. Não apague o original nem os registros locais para tentar repetir o upload.
+
+### Aparência do aplicativo (0.9.37)
+
+O aplicativo, o instalador, as janelas nativas, as extensões de planilha associadas e os atalhos `.url` usam o **mesmo ícone de planilha** fornecido para a 0.9.37. Os logotipos Zagotools do cabeçalho, a licença MIT e os créditos à base Open in Google permanecem preservados.
 
 ## 10. Atualização e desinstalação
 
