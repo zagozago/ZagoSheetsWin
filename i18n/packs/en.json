@@ -133,7 +133,7 @@
     "emphasis.usesSync": "Do you use sync?",
     "emphasis.verify": "Check Google connection",
     "error.authorizationRequired": "Google needs authorization. Open Settings and click Authorize Google, then open the spreadsheet again.",
-    "error.backupQuota": "Not enough space after automatic cleanup. Pending backups are protected, or this file exceeds the quota. The original and existing Google association were preserved. Review Backups or increase the limit (maximum 1 GB).",
+    "error.backupQuota": "Not enough space after automatic cleanup. Pending backups are protected, or this file exceeds the quota. The original was preserved. The existing Google association remains. Review Backups or increase the limit (maximum 1 GB).",
     "error.backupRemoved": "This backup has already been marked as cleaned and is not available for restoration or resuming. The Google document and its shortcut were preserved. Use the shortcut to open the online spreadsheet.",
     "error.busy": "Another operation is still using the file or registry. Wait and resume; the original and backups were preserved.",
     "error.cancelled": "Operation stopped. The backup and recovery record, if created, were preserved.",
