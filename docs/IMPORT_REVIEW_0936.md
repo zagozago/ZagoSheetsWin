@@ -44,7 +44,15 @@ A reprodução nativa no Windows confirmou a causa visual de UI-01: após minimi
 
 ## Validação final e verificações manuais
 
-Resultados da automação Windows/Linux e do instalador serão registrados após a execução do candidato. O build oficial continua usando a licença privada configurada no CI; a compilação local Debug usa o modo de desenvolvimento permitido pelo fornecedor.
+A validação Release passou no [CI 39087296881](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39087296881), commit `bbbc4a44a587cebc12543c8bf6b70e8fac57e85e`: Windows com 338 testes aprovados e um não executado; Linux com 297 aprovados e 42 não executados. Nenhuma falha. Auditoria de dependências sem vulnerabilidades conhecidas; catálogos, interface nativa e transições do instalador nos 51 idiomas passaram.
+
+O ciclo de instalação, atualização, bloqueio de downgrade, desinstalação e reinstalação passou, preservando backups, estado, atalhos e padrões do Windows. Uma primeira execução de reinstalação retornou erro sem código/log detalhado; a instrumentação passou a preservá-los. Essa ocorrência não se reproduziu na execução completa instrumentada, e sua causa anterior permanece não confirmada.
+
+O teste nativo confirmou texto renderizado antes/depois de minimizar/restaurar, depois de mudar idioma/tema e após feedback de exportação; verificou também bloquear repetição permanente até editar o arquivo. Capturas da janela restaurada e do reparo em português, tâmil e árabe foram inspecionadas.
+
+No Windows Release, o CSV sintético de 60.000 × 10 completou preparação e releitura em 2.137 ms (1.000 ms + 1.135 ms), com pico de memória residente do processo em 235.667.456 bytes. Medição sem rede; o incremento de capacidade permanece incluído.
+
+O build Release usa a licença já configurada no CI; a compilação local Debug usa o modo de desenvolvimento permitido pelo fornecedor.
 
 Antes de publicar, no Windows 11 e na conta Google:
 

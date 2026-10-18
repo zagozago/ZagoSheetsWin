@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.35: clarify read-only file failures in all 51 languages.
+# Distribution candidate 0.9.36: scope B import integrity, sparse ODS, safe repair and durable failure UI.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
