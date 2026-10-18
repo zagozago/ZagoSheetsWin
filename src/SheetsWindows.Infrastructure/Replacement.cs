@@ -175,43 +175,48 @@ public sealed class ReplacementCoordinator(IOperationRegistry local, IRemoteRegi
             telemetry?.Mark(ProcessingStep.SourceRetirement);
         journal.Advance(op.Id, 3, 4); telemetry?.Mark(ProcessingStep.Replacement); return record.ShortcutPath;
         }
-        await using (var source = sources.Open(sourcePath))
+        FileStream? shortcutLease = null;
+        try
         {
-            if (source.Source.IdentityKey != op.SourceKey || source.Content.Length != snapshot.Length
-                || Convert.ToHexString(await SHA256.HashDataAsync(source.Content, ct)) != snapshot.Sha256) throw new LocalConflictException("Original changed; retirement blocked.");
-            if (op.Format != "xlsx")
+            await using (var source = sources.Open(sourcePath))
             {
-                if (conversion is null || !receipt.CanReplace) throw new CopyRequiredException();
-                telemetry?.Mark(ProcessingStep.ConversionVerification, CheckpointOutcome.Started);
-                await conversion.VerifyAsync(op, mapping, ct);
-                telemetry?.Mark(ProcessingStep.ConversionVerification);
+                if (source.Source.IdentityKey != op.SourceKey || source.Content.Length != snapshot.Length
+                    || Convert.ToHexString(await SHA256.HashDataAsync(source.Content, ct)) != snapshot.Sha256) throw new LocalConflictException("Original changed; retirement blocked.");
+                if (op.Format != "xlsx")
+                {
+                    if (conversion is null || !receipt.CanReplace) throw new CopyRequiredException();
+                    telemetry?.Mark(ProcessingStep.ConversionVerification, CheckpointOutcome.Started);
+                    await conversion.VerifyAsync(op, mapping, ct);
+                    telemetry?.Mark(ProcessingStep.ConversionVerification);
+                }
+                // Verify before publishing a new shortcut. When resuming an interrupted
+                // operation, republish a removed shortcut only while the exact original
+                // and backup are held and verified; never overwrite another file.
+                if (record.Step == 0 || record.Step is 1 or 2 && !File.Exists(record.ShortcutPath))
+                {
+                    telemetry?.Mark(ProcessingStep.ShortcutPublication, CheckpointOutcome.Started);
+                    if (!File.Exists(record.ShortcutPath)) InternetShortcut.Publish(record.ShortcutPath, bytes);
+                    using var check = InternetShortcut.Hold(record.ShortcutPath, bytes);
+                    telemetry?.Mark(ProcessingStep.ShortcutPublication);
+                    if (record.Step == 0) { journal.Advance(op.Id, 0, 1); record = record with { Step = 1 }; }
+                }
+                shortcutLease = InternetShortcut.Hold(record.ShortcutPath, bytes);
+                if (record.Step == 1)
+                {
+                    telemetry?.Mark(ProcessingStep.BrowserLaunch, CheckpointOutcome.Started);
+                    browser.Open(receipt.Url); // Acceptance by shell, not proof that the page loaded.
+                    telemetry?.Mark(ProcessingStep.BrowserLaunch);
+                    journal.Advance(op.Id, 1, 2); record = record with { Step = 2 };
+                }
+                ct.ThrowIfCancellationRequested();
+                if (record.Step == 2) { journal.Advance(op.Id, 2, 3); record = record with { Step = 3 }; }
+                telemetry?.Mark(ProcessingStep.SourceRetirement, CheckpointOutcome.Started);
+                source.Retire(); // Exact held file, no delete-by-path race.
             }
-            // Verify before publishing a new shortcut. When resuming an interrupted
-            // operation, republish a removed shortcut only while the exact original
-            // and backup are held and verified; never overwrite another file.
-            if (record.Step == 0 || record.Step is 1 or 2 && !File.Exists(record.ShortcutPath))
-            {
-                telemetry?.Mark(ProcessingStep.ShortcutPublication, CheckpointOutcome.Started);
-                if (!File.Exists(record.ShortcutPath)) InternetShortcut.Publish(record.ShortcutPath, bytes);
-                using var check = InternetShortcut.Hold(record.ShortcutPath, bytes);
-                telemetry?.Mark(ProcessingStep.ShortcutPublication);
-                if (record.Step == 0) { journal.Advance(op.Id, 0, 1); record = record with { Step = 1 }; }
-            }
-            using var shortcut = InternetShortcut.Hold(record.ShortcutPath, bytes);
-            if (record.Step == 1)
-            {
-                telemetry?.Mark(ProcessingStep.BrowserLaunch, CheckpointOutcome.Started);
-                browser.Open(receipt.Url); // Acceptance by shell, not proof that the page loaded.
-                telemetry?.Mark(ProcessingStep.BrowserLaunch);
-                journal.Advance(op.Id, 1, 2); record = record with { Step = 2 };
-            }
-            ct.ThrowIfCancellationRequested();
-            if (record.Step == 2) { journal.Advance(op.Id, 2, 3); record = record with { Step = 3 }; }
-            telemetry?.Mark(ProcessingStep.SourceRetirement, CheckpointOutcome.Started);
-            source.Retire(); // Exact held file, no delete-by-path race.
+            telemetry?.Mark(ProcessingStep.SourceRetirement);
+            journal.Advance(op.Id, 3, 4); telemetry?.Mark(ProcessingStep.Replacement); return record.ShortcutPath;
         }
-        telemetry?.Mark(ProcessingStep.SourceRetirement);
-        journal.Advance(op.Id, 3, 4); telemetry?.Mark(ProcessingStep.Replacement); return record.ShortcutPath;
+        finally { shortcutLease?.Dispose(); }
     }
 }
 
