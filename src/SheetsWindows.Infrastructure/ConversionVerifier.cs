@@ -7,7 +7,7 @@ public interface IConversionVerifier
 {
     Task VerifyAsync(ImportOperation operation, RemoteAttempt mapping, CancellationToken ct);
 }
-public sealed class ConversionVerifier(GoogleDriveClient drive, TextImportOptions? options = null, ProcessingTelemetry? telemetry = null) : IConversionVerifier
+public sealed class ConversionVerifier(GoogleDriveClient drive, TextImportOptions? options = null, ProcessingTelemetry? telemetry = null, ImportInterpretations? interpretations = null) : IConversionVerifier
 {
     public bool HasWarnings { get; private set; }
     private void Warn() { HasWarnings = true; telemetry?.Mark(ProcessingStep.ConversionWarning); }
@@ -21,10 +21,11 @@ public sealed class ConversionVerifier(GoogleDriveClient drive, TextImportOption
         if (file.Length != snapshot.Length) throw new InvalidDataException("Backup changed.");
         var bytes = new byte[checked((int)file.Length)]; await file.ReadExactlyAsync(bytes, ct);
         if (Convert.ToHexString(SHA256.HashData(bytes)) != snapshot.Sha256) throw new InvalidDataException("Backup changed.");
-        var expected = await Task.Run(() => SpreadsheetFormats.Prepare(operation.Format, bytes, options, ct).Expected, ct);
+        var interpretation = operation.Format is "csv" or "tsv" ? interpretations?.Load(operation, options ?? new()) ?? options : options;
+        var expected = await Task.Run(() => SpreadsheetFormats.Prepare(operation.Format, bytes, interpretation, ct).Expected, ct);
         if (expected is null) { Warn(); return; }
         var exported = await drive.ExportXlsxAsync(operation.AccountId, mapping.FileId, ct);
-        try { await Task.Run(() => SpreadsheetFormats.VerifyValues(expected, exported, ct), ct); }
+        try { await Task.Run(() => SpreadsheetFormats.VerifyValues(expected, exported, ct, textImport: operation.Format is "csv" or "tsv"), ct); }
         catch (ConversionMismatchException) { Warn(); }
     }
 }

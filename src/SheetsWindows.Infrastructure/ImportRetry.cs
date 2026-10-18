@@ -6,6 +6,10 @@ namespace SheetsWindows.Infrastructure;
 
 public static class ImportRetry
 {
+    public static bool RequiresInputChange(Exception failure) => failure is SpreadsheetCapacityException
+        || failure is InvalidDataException data && data.Message is "Invalid text encoding or characters." or "Encoding conflicts with BOM."
+            or "Irregular delimited table." or "Invalid quoted field." or "Unclosed quoted field." or "Empty text spreadsheet." or "Empty table."
+            or "ODS content dimensions exceed limits." or "ODS columns too large." or "ODS rows too large." or "Unbounded repetition.";
     public static bool IsTransient(Exception failure) => failure switch
     {
         GoogleApiException api => api.Status == 429 || api.Status >= 500,

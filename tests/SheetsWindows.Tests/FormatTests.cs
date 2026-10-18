@@ -111,14 +111,14 @@ public sealed class FormatTests
     [InlineData("semicolon")]
     public void CapacityFailureIsNotHiddenOrReinterpretedAsSingleColumn(string delimiter)
     {
-        var error = Assert.Throws<SpreadsheetCapacityException>(() => SpreadsheetFormats.Prepare("csv", LargeCsv(12501, 40), new(Delimiter: delimiter)));
+        var error = Assert.Throws<SpreadsheetCapacityException>(() => SpreadsheetFormats.Prepare("csv", LargeCsv(15001, 40), new(Delimiter: delimiter)));
         Assert.Contains("células", error.Message);
         Assert.Contains("original", LauncherErrors.Message(error));
     }
     [Fact]
     public void RowColumnFieldAndByteLimitsGiveSpecificDiagnostics()
     {
-        Assert.Contains("linhas", Assert.Throws<SpreadsheetCapacityException>(() => SpreadsheetFormats.Prepare("csv", Utf8(new string('\n', SpreadsheetFormats.MaxRows + 1)))).Message);
+        Assert.Contains("linhas", Assert.Throws<SpreadsheetCapacityException>(() => SpreadsheetFormats.Prepare("csv", Utf8(new string('\n', SpreadsheetFormats.MaxTextRows + 1)))).Message);
         Assert.Contains("colunas", Assert.Throws<SpreadsheetCapacityException>(() => SpreadsheetFormats.Prepare("tsv", Utf8(new string('\t', SpreadsheetFormats.MaxColumns)))).Message);
         Assert.Contains("caracteres", Assert.Throws<SpreadsheetCapacityException>(() => SpreadsheetFormats.Prepare("csv", Utf8(new string('a', 32768)))).Message);
         Assert.Contains("20 MiB", Assert.Throws<SpreadsheetCapacityException>(() => SpreadsheetFormats.Prepare("csv", new byte[GoogleImport.MaxBytes + 1])).Message);
@@ -183,10 +183,11 @@ public sealed class FormatTests
         Assert.Equal(2, SpreadsheetFormats.Prepare("csv", bytes, new(Delimiter: "semicolon")).Expected![0].Rows[0].Count);
     }
     [Fact]
-    public void EncodingIsStrictAndLegacyEncodingRequiresExplicitChoice()
+    public void EncodingUsesControlledLegacyFallbackAndHonorsBom()
     {
         byte[] legacy = [0x6E, 0x6F, 0x6D, 0x65, 0x0A, 0x63, 0x61, 0x66, 0xE9];
-        Assert.Throws<InvalidDataException>(() => SpreadsheetFormats.Prepare("csv", legacy));
+        Assert.Equal("café", SpreadsheetFormats.Prepare("csv", legacy).Expected![0].Rows[1][0]);
+        Assert.Throws<InvalidDataException>(() => SpreadsheetFormats.Prepare("csv", legacy, new(InterpretationVersion: 1)));
         Assert.Equal("café", SpreadsheetFormats.Prepare("csv", legacy, new("windows-1252")).Expected![0].Rows[1][0]);
         var utf16 = Encoding.Unicode.GetPreamble().Concat(Encoding.Unicode.GetBytes("ação\t01\nlinha\t02")).ToArray();
         var payload = SpreadsheetFormats.Prepare("tsv", utf16); SpreadsheetFormats.VerifyValues(payload.Expected!, payload.Bytes);
@@ -217,7 +218,7 @@ public sealed class FormatTests
         Assert.Null(SpreadsheetFormats.Prepare("ods", Ods("<table:table-row><table:table-cell office:value-type='date' office:date-value='2026-10-01'/></table:table-row>")).Expected);
         Assert.Null(SpreadsheetFormats.Prepare("ods", Ods("<table:table-row><table:covered-table-cell/></table:table-row>")).Expected);
         Assert.Throws<NotSupportedException>(() => SpreadsheetFormats.Prepare("ods", Ods("", script: true)));
-        Assert.Throws<InvalidDataException>(() => SpreadsheetFormats.Prepare("ods", Ods("<table:table-row table:number-rows-repeated='1048576'><table:table-cell/></table:table-row>")));
+        Assert.Empty(SpreadsheetFormats.Prepare("ods", Ods("<table:table-row table:number-rows-repeated='1048576'><table:table-cell/></table:table-row>")).Expected![0].Rows);
     }
     [Fact]
     public async Task RegistryStoresActualFormatAndRecoveryPreservesOriginalBytes()

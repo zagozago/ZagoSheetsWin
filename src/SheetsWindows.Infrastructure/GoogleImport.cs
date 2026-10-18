@@ -7,7 +7,7 @@ using SheetsWindows.Core;
 namespace SheetsWindows.Infrastructure;
 
 public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistry local, IRemoteRegistry remote,
-    ISourceReader sources, IOperationLock locks, IGoogleAuth auth, GoogleDriveClient drive, TextImportOptions? textOptions = null, ProcessingTelemetry? telemetry = null, BackupManagement? backupManagement = null)
+    ISourceReader sources, IOperationLock locks, IGoogleAuth auth, GoogleDriveClient drive, TextImportOptions? textOptions = null, ProcessingTelemetry? telemetry = null, BackupManagement? backupManagement = null, ImportInterpretations? interpretations = null)
 {
     public const int MaxBytes = 20 * 1024 * 1024;
     public async Task<Uri> ImportAsync(string path, CancellationToken ct = default) => (await ImportReceiptAsync(path, ct)).Url;
@@ -20,7 +20,11 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
         telemetry?.Mark(ProcessingStep.Authorization, CheckpointOutcome.Started);
         var access = await auth.AccessAsync(cancellationToken: ct);
         telemetry?.Mark(ProcessingStep.Authorization);
-        if (renewTrashed) await RetireTrashedSourceAssociationAsync(access.AccountId, path, ct);
+        if (renewTrashed)
+        {
+            await RetireTrashedSourceAssociationAsync(access.AccountId, path, ct);
+            await RevalidateUnsentInputAsync(access.AccountId, path, ct);
+        }
         if (backupManagement is not null)
         {
             Guid? existingId; long incoming;
@@ -51,9 +55,14 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
         using var buffer = new MemoryStream(); await backup.CopyToAsync(buffer, ct); var bytes = buffer.ToArray();
         if (bytes.LongLength != snapshot.Length || Convert.ToHexString(SHA256.HashData(bytes)) != snapshot.Sha256) throw new InvalidDataException("Snapshot integrity failure.");
         telemetry?.Mark(ProcessingStep.SnapshotValidation);
+        var interpretation = op.Format is "csv" or "tsv"
+            ? interpretations?.Load(op, textOptions ?? new(), remote.Get("sheet:" + op.Id.ToString("N")) is not null ? 1 : 2) ?? textOptions
+            : textOptions;
         SpreadsheetPayload payload;
         telemetry?.Mark(ProcessingStep.Conversion, CheckpointOutcome.Started);
-        using (telemetry?.Begin(ProcessingPhase.Conversion)) payload = await Task.Run(() => SpreadsheetFormats.Prepare(op.Format, bytes, textOptions, ct), ct);
+        using (telemetry?.Begin(ProcessingPhase.Conversion)) payload = await Task.Run(() => SpreadsheetFormats.Prepare(op.Format, bytes, interpretation, ct), ct);
+        if (op.Format is "csv" or "tsv" && interpretations is not null)
+            _ = interpretations.Bind(op, interpretation ?? new(), remote.Get("sheet:" + op.Id.ToString("N")) is not null);
         telemetry?.Mark(ProcessingStep.Conversion);
         using var uploadTiming = telemetry?.Begin(ProcessingPhase.Upload);
         // Fidelity limitations are warnings after a verified Google import; replacement follows user settings.
@@ -111,6 +120,16 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
             }
         }
         return await EnsureAsync(key, accountId, "folder", "", a => drive.CreateAsync(a, "ZagoSheetsWin", "root", null, ct), ct);
+    }
+    private async Task RevalidateUnsentInputAsync(string accountId, string path, CancellationToken ct)
+    {
+        await using var source = sources.Open(path);
+        await using var held = await locks.AcquireAsync(source.Source.IdentityKey, ct);
+        var old = local.Pending().FirstOrDefault(o => o.AccountId == accountId && o.SourceKey == source.Source.IdentityKey);
+        if (old?.Snapshot is not { } snapshot || remote.Get("sheet:" + old.Id.ToString("N")) is not null) return;
+        if (Convert.ToHexString(await SHA256.HashDataAsync(source.Content, ct)) == snapshot.Sha256) return;
+        ct.ThrowIfCancellationRequested();
+        local.RetireUnsentAssociation(old.Id, old.Version); // Both snapshots retained; no remote has been touched.
     }
     private async Task RetireTrashedSourceAssociationAsync(string accountId, string path, CancellationToken ct)
     {

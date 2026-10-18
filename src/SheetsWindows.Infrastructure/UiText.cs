@@ -72,6 +72,7 @@ public sealed class LocalizedMessage
         this.raw = raw; this.key = key; this.arguments = arguments.ToArray();
         nested = arguments.Select(a => a.Value is string text ? UiText.Descriptor(text) : null).ToArray();
     }
+    internal string Key => key;
     public string SourceText => raw ? UiText.Source(key) : UiText.FormatSource(key, arguments);
     public string Text => raw ? UiText.Raw(key) : UiText.Render(key, arguments.Select((a, i) => (a.Name, nested[i] is { } message ? (object?)message.Text : a.Value)).ToArray());
 }
