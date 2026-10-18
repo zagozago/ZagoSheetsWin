@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.40",
+  "productVersion": "0.9.41",
   "sourceLocale": "pt-BR",
-  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
+  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -90,7 +90,7 @@
     "capacity.tableCells": "표가 {limit:N0}개 셀 제한을 초과합니다.",
     "capacity.tableColumns": "표가 {limit:N0}개 열 제한을 초과합니다.",
     "capacity.tableRows": "표가 {limit:N0}개 행 제한을 초과합니다.",
-    "capacity.uncompressedSheet": "시트 하나가 압축 해제 기준 64 MiB 검증 제한을 초과합니다.",
+    "capacity.uncompressedSheet": "시트 하나가 압축 해제 기준 {limit} MiB 검증 제한을 초과합니다.",
     "diagnostics.destinationInvalid": "존재하지 않는 파일 이름을 선택하고 쓰기 권한을 확인하세요.",
     "diagnostics.exported": "진단을 내보냈습니다: 이벤트, 타임스탬프, ID 및 숫자 측정값만 포함되며 파일, 계정 또는 콘텐츠는 포함되지 않습니다.",
     "diagnostics.fileExists": "진단을 내보내려면 존재하지 않는 파일 이름을 선택하세요.",
@@ -267,7 +267,7 @@
     "setup.encodingUnicode": "텍스트: BOM이 포함된 UTF-8 / UTF-16",
     "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "최초 사용 - ZagoSheetsWin",
-    "setup.formatLimits": "파일당 최대 20 MiB.\nCSV/TSV: 셀 500,000 개, 행 50,000 개, 열 1,000 개.\n\n콘텐츠는 리터럴 텍스트로 처리됩니다. ODS 변환을 검증할 수 없으면 원본을 유지합니다. 텍스트 설정은 보존됩니다.",
+    "setup.formatLimits": "파일당 최대 20 MiB.\nCSV/TSV: 셀 2,000,000 개, 행 100,000 개, 열 1,000 개.\n\n콘텐츠는 리터럴 텍스트로 처리됩니다. ODS 변환을 검증할 수 없으면 원본을 유지합니다. 텍스트 설정은 보존됩니다.",
     "setup.formatsHeading": "형식 및 텍스트",
     "setup.googleExplanation": "자신의 계정으로 로그인하세요. 스프레드시트는 Google Drive에 유지됩니다.",
     "setup.googleHeading": "1. Google 계정",

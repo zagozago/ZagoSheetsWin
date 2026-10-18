@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.40",
+  "productVersion": "0.9.41",
   "sourceLocale": "pt-BR",
-  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
+  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -90,7 +90,7 @@
     "capacity.tableCells": "तक्त्याने {limit:N0} सेलची मर्यादा ओलांडली आहे.",
     "capacity.tableColumns": "तक्त्याने {limit:N0} स्तंभांची मर्यादा ओलांडली आहे.",
     "capacity.tableRows": "तक्त्याने {limit:N0} पंक्तींची मर्यादा ओलांडली आहे.",
-    "capacity.uncompressedSheet": "एका शीटने असंपीडित 64 MiB पडताळणी मर्यादा ओलांडली आहे.",
+    "capacity.uncompressedSheet": "एका शीटने असंपीडित {limit} MiB पडताळणी मर्यादा ओलांडली आहे.",
     "diagnostics.destinationInvalid": "अस्तित्वात नसलेले फाइल नाव निवडा आणि लेखन परवानग्या तपासा.",
     "diagnostics.exported": "निदान निर्यात केले: घटना, टाइमस्टॅम्प, ID आणि संख्यात्मक मोजमाप; फाइल, खाते किंवा आशय नाही.",
     "diagnostics.fileExists": "निदान निर्यात करण्यासाठी अस्तित्वात नसलेले फाइल नाव निवडा.",
@@ -267,7 +267,7 @@
     "setup.encodingUnicode": "मजकूर: BOM सह UTF-8 / UTF-16",
     "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "प्रथम वापर - ZagoSheetsWin",
-    "setup.formatLimits": "प्रति फाइल 20 MiB पर्यंत.\nCSV/TSV: 500 हजार सेल, 50 हजार पंक्ती आणि एक हजार स्तंभ.\n\nआशय अक्षरशः मजकूर म्हणून हाताळला जातो. ODS रूपांतरण पडताळता आले नाही तर मूळ जतन केले जाते. तुमच्या मजकूर पसंती जतन केल्या जातात.",
+    "setup.formatLimits": "प्रति फाइल 20 MiB पर्यंत.\nCSV/TSV: 2,000,000 सेल, 100,000 पंक्ती आणि 1,000 स्तंभ.\n\nआशय अक्षरशः मजकूर म्हणून हाताळला जातो. ODS रूपांतरण पडताळता आले नाही तर मूळ जतन केले जाते. तुमच्या मजकूर पसंती जतन केल्या जातात.",
     "setup.formatsHeading": "फॉरमॅट आणि मजकूर",
     "setup.googleExplanation": "तुमच्या स्वतःच्या खात्याने साइन इन करा. तुमच्या स्प्रेडशीट्स तुमच्या Google Drive मध्ये राहतात.",
     "setup.googleHeading": "1. Google खाते",

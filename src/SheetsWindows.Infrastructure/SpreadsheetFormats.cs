@@ -33,7 +33,7 @@ public static class SpreadsheetFormats
 {
     public const string XlsxMime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
     public const int MaxCells = 500000, MaxRows = 50000, MaxColumns = 1000;
-    public const int MaxTextCells = 1000000, MaxTextRows = 100000;
+    public const int MaxTextCells = 2000000, MaxTextRows = 100000;
     public static readonly string[] Extensions = [".xlsx", ".ods", ".xls", ".csv", ".tsv"];
     public static string Format(string path)
     {
@@ -265,10 +265,10 @@ public static class SpreadsheetFormats
         }
         return false;
     }
-    private static ZipArchive OpenPackage(byte[] bytes)
+    private static ZipArchive OpenPackage(byte[] bytes, bool textImport = false)
     {
         var zip = new ZipArchive(new MemoryStream(bytes), ZipArchiveMode.Read);
-        const long expandedLimit = 96 * 1024 * 1024;
+        var expandedLimit = (textImport ? 160L : 96L) * 1024 * 1024;
         long total = 0; var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         if (zip.Entries.Count > 10000) { zip.Dispose(); throw new InvalidDataException("Oversized or ambiguous ZIP package."); }
         foreach (var entry in zip.Entries)
@@ -365,11 +365,11 @@ public static class SpreadsheetFormats
         if (!binary)
         {
             GoogleImport.ValidateXlsx(bytes);
-            using var zip = OpenPackage(bytes); _ = Xml(zip, "xl/workbook.xml");
+            using var zip = OpenPackage(bytes, textImport); _ = Xml(zip, "xl/workbook.xml");
             foreach (var entry in zip.Entries.Where(e => e.FullName.StartsWith("xl/worksheets/", StringComparison.Ordinal) && e.FullName.EndsWith(".xml", StringComparison.Ordinal)))
             {
-                const long xmlLimit = 64L * 1024 * 1024;
-                if (entry.Length > xmlLimit) throw new SpreadsheetCapacityException(UiText.Message("capacity.uncompressedSheet"));
+                var xmlLimit = (textImport ? 128L : 64L) * 1024 * 1024;
+                if (entry.Length > xmlLimit) throw new SpreadsheetCapacityException(UiText.Message("capacity.uncompressedSheet", ("limit", xmlLimit / (1024 * 1024))));
                 using var xmlStream = entry.Open();
                 using var xmlReader = XmlReader.Create(xmlStream, new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null, MaxCharactersInDocument = xmlLimit });
                 while (xmlReader.Read())
@@ -476,7 +476,15 @@ public static class SpreadsheetFormats
                 writer.WriteEndElement(); writer.WriteEndElement();
             }
         }
-        var bytes = buffer.ToArray(); if (bytes.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException(UiText.Message("capacity.normalizedSize")); return bytes;
+        var bytes = buffer.ToArray();
+        if (textImport)
+        {
+            // Reject a generated package beyond the same verification budget before uploading.
+            using var packageCheck = OpenPackage(bytes, textImport: true);
+            if (packageCheck.Entries.Any(e => e.FullName.StartsWith("xl/worksheets/", StringComparison.Ordinal) && e.Length > 128L * 1024 * 1024))
+                throw new SpreadsheetCapacityException(UiText.Message("capacity.uncompressedSheet", ("limit", 128)));
+        }
+        if (bytes.Length > GoogleImport.MaxBytes) throw new SpreadsheetCapacityException(UiText.Message("capacity.normalizedSize")); return bytes;
     }
     private static string EscapeSpreadsheetText(string value)
     {

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.40",
+  "productVersion": "0.9.41",
   "sourceLocale": "pt-BR",
-  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
+  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -90,7 +90,7 @@
     "capacity.tableCells": "तालिकाले {limit:N0} सेलको सीमा नाघ्छ।",
     "capacity.tableColumns": "तालिकाले {limit:N0} स्तम्भको सीमा नाघ्छ।",
     "capacity.tableRows": "तालिकाले {limit:N0} पङ्क्तिको सीमा नाघ्छ।",
-    "capacity.uncompressedSheet": "एउटा सिटले अनकम्प्रेस अवस्थामा 64 MiB प्रमाणीकरण सीमा नाघ्छ।",
+    "capacity.uncompressedSheet": "एउटा सिटले अनकम्प्रेस अवस्थामा {limit} MiB प्रमाणीकरण सीमा नाघ्छ।",
     "diagnostics.destinationInvalid": "अवस्थित नभएको फाइल नाम छान्नुहोस् र लेख्ने अनुमति जाँच गर्नुहोस्।",
     "diagnostics.exported": "डायग्नोस्टिक्स निर्यात भयो: घटना, टाइमस्ट्याम्प, ID र संख्यात्मक मापन; कुनै फाइल, खाता वा सामग्री छैन।",
     "diagnostics.fileExists": "डायग्नोस्टिक्स निर्यात गर्न अवस्थित नभएको फाइल नाम छान्नुहोस्।",
@@ -267,7 +267,7 @@
     "setup.encodingUnicode": "टेक्स्ट: UTF-8 / UTF-16 BOM सहित",
     "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "पहिलो प्रयोग - ZagoSheetsWin",
-    "setup.formatLimits": "प्रति फाइल 20 MiB सम्म।\nCSV/TSV: 500 हजार सेल, 50 हजार पङ्क्ति र एक हजार स्तम्भ।\n\nसामग्रीलाई शाब्दिक टेक्स्टका रूपमा लिइन्छ। ODS रूपान्तरण प्रमाणित गर्न नसकिए मूल फाइल राखिन्छ। तपाईंका टेक्स्ट प्राथमिकताहरू सुरक्षित रहन्छन्।",
+    "setup.formatLimits": "प्रति फाइल 20 MiB सम्म।\nCSV/TSV: 2,000,000 सेल, 100,000 पङ्क्ति र 1,000 स्तम्भ।\n\nसामग्रीलाई शाब्दिक टेक्स्टका रूपमा लिइन्छ। ODS रूपान्तरण प्रमाणित गर्न नसकिए मूल फाइल राखिन्छ। तपाईंका टेक्स्ट प्राथमिकताहरू सुरक्षित रहन्छन्।",
     "setup.formatsHeading": "ढाँचा र टेक्स्ट",
     "setup.googleExplanation": "आफ्नै खाताबाट साइन इन गर्नुहोस्। तपाईंका स्प्रेडसिटहरू Google Drive मा रहन्छन्।",
     "setup.googleHeading": "1. Google खाता",

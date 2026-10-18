@@ -558,11 +558,11 @@ internal static class InterfaceVerification
         using (benchmark.Begin(ProcessingPhase.Verification)) SpreadsheetFormats.VerifyValues(payload.Expected!, payload.Bytes);
         measurements["OfflineCsv5000x40RoundTrip"] = benchmark.Capture();
         var largeCsv = new System.Text.StringBuilder();
-        for (var row = 0; row < 100000; row++) { for (var column = 0; column < 10; column++) { if (column > 0) largeCsv.Append('|'); largeCsv.Append(row).Append('_').Append(column); } largeCsv.Append('\n'); }
+        for (var row = 0; row < 100000; row++) { for (var column = 0; column < 20; column++) { if (column > 0) largeCsv.Append('|'); largeCsv.Append(row).Append('_').Append(column); } largeCsv.Append('\n'); }
         var expanded = new ProcessingTelemetry();
         using (expanded.Begin(ProcessingPhase.Conversion)) payload = SpreadsheetFormats.Prepare("csv", System.Text.Encoding.UTF8.GetBytes(largeCsv.ToString()));
         using (expanded.Begin(ProcessingPhase.Verification)) SpreadsheetFormats.VerifyValues(payload.Expected!, payload.Bytes, textImport: true);
-        measurements["OfflineCsv100000x10RoundTrip"] = expanded.Capture();
+        measurements["OfflineCsv100000x20RoundTrip"] = expanded.Capture();
         Require(expanded.Capture().PeakWorkingSetBytes < 512L * 1024 * 1024, "CSV capacity benchmark exceeded the 512 MiB working-set budget.");
         using (var interpretation = new TextInterpretationForm(repair: true))
         { interpretation.Show(); Application.DoEvents(); Require(interpretation.Options == new TextImportOptions(), "Repair defaults must use the current automatic interpretation."); interpretation.Close(); }

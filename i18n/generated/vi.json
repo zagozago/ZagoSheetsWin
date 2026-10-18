@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.40",
+  "productVersion": "0.9.41",
   "sourceLocale": "pt-BR",
-  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
+  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -90,7 +90,7 @@
     "capacity.tableCells": "Bảng vượt quá giới hạn {limit:N0} ô.",
     "capacity.tableColumns": "Bảng vượt quá giới hạn {limit:N0} cột.",
     "capacity.tableRows": "Bảng vượt quá giới hạn {limit:N0} hàng.",
-    "capacity.uncompressedSheet": "Một trang tính vượt quá giới hạn xác minh 64 MiB khi giải nén.",
+    "capacity.uncompressedSheet": "Một trang tính vượt quá giới hạn xác minh {limit} MiB khi giải nén.",
     "diagnostics.destinationInvalid": "Chọn tên tệp chưa tồn tại và kiểm tra quyền ghi.",
     "diagnostics.exported": "Đã xuất chẩn đoán: sự kiện, dấu thời gian, ID và số đo; không bao gồm tệp, tài khoản hoặc nội dung.",
     "diagnostics.fileExists": "Chọn tên tệp chưa tồn tại để xuất chẩn đoán.",
@@ -267,7 +267,7 @@
     "setup.encodingUnicode": "Văn bản: UTF-8 / UTF-16 có BOM",
     "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Lần sử dụng đầu - ZagoSheetsWin",
-    "setup.formatLimits": "Tối đa 20 MiB mỗi tệp.\nCSV/TSV: 500 nghìn ô, 50 nghìn hàng và một nghìn cột.\n\nNội dung được xử lý như văn bản thuần. Nếu không thể xác minh chuyển đổi ODS, tệp gốc được giữ lại. Tùy chọn văn bản của bạn được giữ nguyên.",
+    "setup.formatLimits": "Tối đa 20 MiB mỗi tệp.\nCSV/TSV: 2.000.000 ô, 100.000 hàng và 1.000 cột.\n\nNội dung được xử lý như văn bản thuần. Nếu không thể xác minh chuyển đổi ODS, tệp gốc được giữ lại. Tùy chọn văn bản của bạn được giữ nguyên.",
     "setup.formatsHeading": "Định dạng và văn bản",
     "setup.googleExplanation": "Đăng nhập bằng tài khoản của bạn. Bảng tính của bạn vẫn nằm trong Google Drive của bạn.",
     "setup.googleHeading": "1. Tài khoản Google",

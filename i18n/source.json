@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.40",
+  "productVersion": "0.9.41",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 13,
+  "catalogRevision": 14,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -1686,10 +1686,12 @@
       "notes": []
     },
     "capacity.uncompressedSheet": {
-      "text": "Uma aba excede o limite de 64 MiB descompactados para conferência.",
+      "text": "Uma aba excede o limite de {limit} MiB descompactados para conferência.",
       "context": "src/SheetsWindows.Infrastructure/SpreadsheetFormats.cs - public static IReadOnlyList<SheetValues> ReadExcel(byte[] bytes, bool binary = false, CancellationToken ct = default)",
       "scope": "app",
-      "placeholders": [],
+      "placeholders": [
+        "limit"
+      ],
       "invariants": [
         "MiB"
       ],
@@ -6523,7 +6525,7 @@
       "notes": []
     },
     "setup.formatLimits": {
-      "text": "Até 20 MiB por arquivo.\nCSV/TSV: 500 mil células, 50 mil linhas e mil colunas.\n\nO conteúdo é tratado como texto literal. Se a conversão de ODS não puder ser conferida, o original é mantido. Suas preferências de texto são preservadas.",
+      "text": "Até 20 MiB por arquivo.\nCSV/TSV: 2.000.000 células, 100.000 linhas e 1.000 colunas.\n\nO conteúdo é tratado como texto literal. Se a conversão de ODS não puder ser conferida, o original é mantido. Suas preferências de texto são preservadas.",
       "context": "src/SheetsWindows.Windows/SetupForm.cs - public SetupForm(bool firstUse = false, bool preview = false)",
       "scope": "app",
       "placeholders": [],

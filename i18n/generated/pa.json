@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.40",
+  "productVersion": "0.9.41",
   "sourceLocale": "pt-BR",
-  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
+  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -90,7 +90,7 @@
     "capacity.tableCells": "ਟੇਬਲ {limit:N0} ਸੈੱਲਾਂ ਦੀ ਸੀਮਾ ਤੋਂ ਵੱਧ ਹੈ।",
     "capacity.tableColumns": "ਟੇਬਲ {limit:N0} ਕਾਲਮਾਂ ਦੀ ਸੀਮਾ ਤੋਂ ਵੱਧ ਹੈ।",
     "capacity.tableRows": "ਟੇਬਲ {limit:N0} ਕਤਾਰਾਂ ਦੀ ਸੀਮਾ ਤੋਂ ਵੱਧ ਹੈ।",
-    "capacity.uncompressedSheet": "ਇੱਕ ਸ਼ੀਟ ਅਨਕੰਪ੍ਰੈੱਸਡ 64 MiB ਤਸਦੀਕ ਸੀਮਾ ਤੋਂ ਵੱਧ ਹੈ।",
+    "capacity.uncompressedSheet": "ਇੱਕ ਸ਼ੀਟ ਅਨਕੰਪ੍ਰੈੱਸਡ {limit} MiB ਤਸਦੀਕ ਸੀਮਾ ਤੋਂ ਵੱਧ ਹੈ।",
     "diagnostics.destinationInvalid": "ਉਹ ਫਾਈਲ ਨਾਮ ਚੁਣੋ ਜੋ ਮੌਜੂਦ ਨਾ ਹੋਵੇ ਅਤੇ ਲਿਖਣ ਦੀਆਂ ਇਜਾਜ਼ਤਾਂ ਚੈੱਕ ਕਰੋ।",
     "diagnostics.exported": "ਡਾਇਗਨੋਸਟਿਕਸ ਐਕਸਪੋਰਟ ਹੋ ਗਏ: ਘਟਨਾਵਾਂ, ਟਾਈਮਸਟੈਂਪ, ID ਅਤੇ ਅੰਕੀ ਮਾਪ; ਕੋਈ ਫਾਈਲ, ਖਾਤਾ ਜਾਂ ਸਮੱਗਰੀ ਨਹੀਂ।",
     "diagnostics.fileExists": "ਡਾਇਗਨੋਸਟਿਕਸ ਐਕਸਪੋਰਟ ਕਰਨ ਲਈ ਉਹ ਫਾਈਲ ਨਾਮ ਚੁਣੋ ਜੋ ਮੌਜੂਦ ਨਾ ਹੋਵੇ।",
@@ -267,7 +267,7 @@
     "setup.encodingUnicode": "ਟੈਕਸਟ: BOM ਨਾਲ UTF-8 / UTF-16",
     "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "ਪਹਿਲੀ ਵਰਤੋਂ - ZagoSheetsWin",
-    "setup.formatLimits": "ਹਰ ਫਾਈਲ ਲਈ 20 MiB ਤੱਕ।\nCSV/TSV: 500 ਹਜ਼ਾਰ ਸੈੱਲ, 50 ਹਜ਼ਾਰ ਕਤਾਰਾਂ ਅਤੇ ਇੱਕ ਹਜ਼ਾਰ ਕਾਲਮ।\n\nਸਮੱਗਰੀ ਨੂੰ ਸ਼ਾਬਦਿਕ ਟੈਕਸਟ ਵਜੋਂ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ। ਜੇ ODS ਰੂਪਾਂਤਰਨ ਦੀ ਤਸਦੀਕ ਨਹੀਂ ਹੋ ਸਕਦੀ, ਅਸਲ ਫਾਈਲ ਰੱਖੀ ਜਾਂਦੀ ਹੈ। ਤੁਹਾਡੀਆਂ ਟੈਕਸਟ ਪਸੰਦਾਂ ਸੁਰੱਖਿਅਤ ਰਹਿੰਦੀਆਂ ਹਨ।",
+    "setup.formatLimits": "ਹਰ ਫਾਈਲ ਲਈ 20 MiB ਤੱਕ।\nCSV/TSV: 2,000,000 ਸੈੱਲ, 100,000 ਕਤਾਰਾਂ ਅਤੇ 1,000 ਕਾਲਮ।\n\nਸਮੱਗਰੀ ਨੂੰ ਸ਼ਾਬਦਿਕ ਟੈਕਸਟ ਵਜੋਂ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ। ਜੇ ODS ਰੂਪਾਂਤਰਨ ਦੀ ਤਸਦੀਕ ਨਹੀਂ ਹੋ ਸਕਦੀ, ਅਸਲ ਫਾਈਲ ਰੱਖੀ ਜਾਂਦੀ ਹੈ। ਤੁਹਾਡੀਆਂ ਟੈਕਸਟ ਪਸੰਦਾਂ ਸੁਰੱਖਿਅਤ ਰਹਿੰਦੀਆਂ ਹਨ।",
     "setup.formatsHeading": "ਫਾਰਮੈਟ ਅਤੇ ਟੈਕਸਟ",
     "setup.googleExplanation": "ਆਪਣੇ ਖਾਤੇ ਨਾਲ ਸਾਈਨ-ਇਨ ਕਰੋ। ਤੁਹਾਡੀਆਂ ਸਪ੍ਰੈਡਸ਼ੀਟਾਂ ਤੁਹਾਡੇ Google Drive ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ।",
     "setup.googleHeading": "1. Google ਖਾਤਾ",

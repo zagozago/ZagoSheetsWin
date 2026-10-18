@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.40",
+  "productVersion": "0.9.41",
   "sourceLocale": "pt-BR",
-  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
+  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -90,7 +90,7 @@
     "capacity.tableCells": "Таблиця перевищує ліміт у {limit:N0} комірок.",
     "capacity.tableColumns": "Таблиця перевищує ліміт у {limit:N0} стовпців.",
     "capacity.tableRows": "Таблиця перевищує ліміт у {limit:N0} рядків.",
-    "capacity.uncompressedSheet": "Аркуш перевищує ліміт перевірки 64 MiB у розпакованому вигляді.",
+    "capacity.uncompressedSheet": "Аркуш перевищує ліміт перевірки {limit} MiB у розпакованому вигляді.",
     "diagnostics.destinationInvalid": "Виберіть неіснуюче ім’я файлу та перевірте права на запис.",
     "diagnostics.exported": "Діагностику експортовано: події, позначки часу, ідентифікатори та числові вимірювання; без файлів, облікових записів і вмісту.",
     "diagnostics.fileExists": "Щоб експортувати діагностику, виберіть неіснуюче ім’я файлу.",
@@ -267,7 +267,7 @@
     "setup.encodingUnicode": "Текст: UTF-8 / UTF-16 з BOM",
     "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Перше використання - ZagoSheetsWin",
-    "setup.formatLimits": "До 20 MiB на файл.\nCSV/TSV: 500 тисяч комірок, 50 тисяч рядків і одна тисяча стовпців.\n\nВміст обробляється як буквальний текст. Якщо перетворення ODS не можна перевірити, оригінал зберігається. Ваші параметри тексту зберігаються.",
+    "setup.formatLimits": "До 20 MiB на файл.\nCSV/TSV: 2 000 000 комірок, 100 000 рядків і 1 000 стовпців.\n\nВміст обробляється як буквальний текст. Якщо перетворення ODS не можна перевірити, оригінал зберігається. Ваші параметри тексту зберігаються.",
     "setup.formatsHeading": "Формати й текст",
     "setup.googleExplanation": "Увійдіть у власний обліковий запис. Таблиці залишаються у вашому Google Drive.",
     "setup.googleHeading": "1. Обліковий запис Google",

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.40",
+  "productVersion": "0.9.41",
   "sourceLocale": "pt-BR",
-  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
+  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -90,7 +90,7 @@
     "capacity.tableCells": "テーブルが {limit:N0} セルの上限を超えています。",
     "capacity.tableColumns": "テーブルが {limit:N0} 列の上限を超えています。",
     "capacity.tableRows": "テーブルが {limit:N0} 行の上限を超えています。",
-    "capacity.uncompressedSheet": "シートの展開後サイズが 64 MiB の検証上限を超えています。",
+    "capacity.uncompressedSheet": "シートの展開後サイズが {limit} MiB の検証上限を超えています。",
     "diagnostics.destinationInvalid": "存在しないファイル名を選び、書き込み権限を確認してください。",
     "diagnostics.exported": "診断情報をエクスポートしました。イベント、タイムスタンプ、ID、数値測定値を含みます。ファイル、アカウント、内容は含みません。",
     "diagnostics.fileExists": "診断情報をエクスポートするには、存在しないファイル名を選んでください。",
@@ -267,7 +267,7 @@
     "setup.encodingUnicode": "テキスト: UTF-8 / BOM 付き UTF-16",
     "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "初回使用 - ZagoSheetsWin",
-    "setup.formatLimits": "ファイルごとに最大 20 MiB。\nCSV/TSV: 500 千セル、50 千行、千列。\n\n内容はリテラルテキストとして扱われます。ODS の変換を検証できない場合、元ファイルは保持されます。テキスト設定は保持されます。",
+    "setup.formatLimits": "ファイルごとに最大 20 MiB。\nCSV/TSV: 2,000,000 セル、100,000 行、1,000 列。\n\n内容はリテラルテキストとして扱われます。ODS の変換を検証できない場合、元ファイルは保持されます。テキスト設定は保持されます。",
     "setup.formatsHeading": "形式とテキスト",
     "setup.googleExplanation": "自分のアカウントでログインしてください。スプレッドシートは自分の Google Drive に保存されます。",
     "setup.googleHeading": "1. Google アカウント",

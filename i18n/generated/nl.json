@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.40",
+  "productVersion": "0.9.41",
   "sourceLocale": "pt-BR",
-  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
+  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -90,7 +90,7 @@
     "capacity.tableCells": "De tabel overschrijdt de limiet van {limit:N0} cellen.",
     "capacity.tableColumns": "De tabel overschrijdt de limiet van {limit:N0} kolommen.",
     "capacity.tableRows": "De tabel overschrijdt de limiet van {limit:N0} rijen.",
-    "capacity.uncompressedSheet": "Een werkblad overschrijdt de verificatielimiet van 64 MiB ongecomprimeerd.",
+    "capacity.uncompressedSheet": "Een werkblad overschrijdt de verificatielimiet van {limit} MiB ongecomprimeerd.",
     "diagnostics.destinationInvalid": "Kies een bestandsnaam die nog niet bestaat en controleer de schrijfrechten.",
     "diagnostics.exported": "Diagnostiek geëxporteerd: gebeurtenissen, tijdstempels, ID's en numerieke metingen; geen bestanden, accounts of inhoud.",
     "diagnostics.fileExists": "Kies voor het exporteren van diagnostiek een bestandsnaam die nog niet bestaat.",
@@ -267,7 +267,7 @@
     "setup.encodingUnicode": "Tekst: UTF-8 / UTF-16 met BOM",
     "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Eerste gebruik - ZagoSheetsWin",
-    "setup.formatLimits": "Maximaal 20 MiB per bestand.\nCSV/TSV: 500 duizend cellen, 50 duizend rijen en duizend kolommen.\n\nInhoud wordt als letterlijke tekst behandeld. Als ODS-conversie niet kan worden geverifieerd, blijft het origineel behouden. Uw tekstvoorkeuren worden bewaard.",
+    "setup.formatLimits": "Maximaal 20 MiB per bestand.\nCSV/TSV: 2.000.000 cellen, 100.000 rijen en 1.000 kolommen.\n\nInhoud wordt als letterlijke tekst behandeld. Als ODS-conversie niet kan worden geverifieerd, blijft het origineel behouden. Uw tekstvoorkeuren worden bewaard.",
     "setup.formatsHeading": "Indelingen en tekst",
     "setup.googleExplanation": "Meld u aan met uw eigen account. Uw werkbladen blijven in uw Google Drive.",
     "setup.googleHeading": "1. Google-account",

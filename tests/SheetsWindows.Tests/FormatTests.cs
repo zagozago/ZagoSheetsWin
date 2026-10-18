@@ -111,7 +111,8 @@ public sealed class FormatTests
     [InlineData("semicolon")]
     public void CapacityFailureIsNotHiddenOrReinterpretedAsSingleColumn(string delimiter)
     {
-        var error = Assert.Throws<SpreadsheetCapacityException>(() => SpreadsheetFormats.Prepare("csv", LargeCsv(25001, 40), new(Delimiter: delimiter)));
+        var overCells = Utf8(string.Join('\n', Enumerable.Repeat(string.Join(';', Enumerable.Repeat("v", 40)), 50001)));
+        var error = Assert.Throws<SpreadsheetCapacityException>(() => SpreadsheetFormats.Prepare("csv", overCells, new(Delimiter: delimiter)));
         Assert.Contains("células", error.Message);
         Assert.Contains("original", LauncherErrors.Message(error));
     }

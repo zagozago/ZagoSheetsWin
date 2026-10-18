@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.40",
+  "productVersion": "0.9.41",
   "sourceLocale": "pt-BR",
-  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
+  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -90,7 +90,7 @@
     "capacity.tableCells": "टेबल {limit:N0} सेल सीमा सँ बेसी अछि।",
     "capacity.tableColumns": "टेबल {limit:N0} कॉलम सीमा सँ बेसी अछि।",
     "capacity.tableRows": "टेबल {limit:N0} पंक्ति सीमा सँ बेसी अछि।",
-    "capacity.uncompressedSheet": "एकटा शीट अनकम्प्रेस्ड 64 MiB सत्यापन सीमा सँ बेसी अछि।",
+    "capacity.uncompressedSheet": "एकटा शीट अनकम्प्रेस्ड {limit} MiB सत्यापन सीमा सँ बेसी अछि।",
     "diagnostics.destinationInvalid": "एहन फाइल नाम चुनू जे पहिने सँ नहि अछि, आ लिखबाक अनुमति जाँचू।",
     "diagnostics.exported": "डायग्नोस्टिक्स एक्सपोर्ट भेल: घटना, टाइमस्टैम्प, ID आ संख्यात्मक माप; कोनो फाइल, अकाउंट वा सामग्री नहि।",
     "diagnostics.fileExists": "डायग्नोस्टिक्स एक्सपोर्ट करबाक लेल एहन फाइल नाम चुनू जे पहिने सँ नहि अछि।",
@@ -267,7 +267,7 @@
     "setup.encodingUnicode": "टेक्स्ट: UTF-8 / UTF-16 BOM सहित",
     "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "पहिल उपयोग - ZagoSheetsWin",
-    "setup.formatLimits": "प्रति फाइल 20 MiB धरि।\nCSV/TSV: 500 हजार सेल, 50 हजार पंक्ति आ एक हजार कॉलम।\n\nसामग्री केँ अक्षरशः टेक्स्ट मानल जाइत अछि। जँ ODS रूपान्तरण सत्यापित नहि भ' सके, मूल फाइल सुरक्षित रहत। अहाँक टेक्स्ट पसंद सुरक्षित राखल जाइत अछि।",
+    "setup.formatLimits": "प्रति फाइल 20 MiB धरि।\nCSV/TSV: 2,000,000 सेल, 100,000 पंक्ति आ 1,000 कॉलम।\n\nसामग्री केँ अक्षरशः टेक्स्ट मानल जाइत अछि। जँ ODS रूपान्तरण सत्यापित नहि भ' सके, मूल फाइल सुरक्षित रहत। अहाँक टेक्स्ट पसंद सुरक्षित राखल जाइत अछि।",
     "setup.formatsHeading": "फॉर्मेट आ टेक्स्ट",
     "setup.googleExplanation": "अपन अकाउंट सँ साइन इन करू। अहाँक स्प्रेडशीट अहाँक Google Drive मेँ रहत।",
     "setup.googleHeading": "1. Google अकाउंट",

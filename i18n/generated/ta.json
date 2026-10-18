@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.40",
+  "productVersion": "0.9.41",
   "sourceLocale": "pt-BR",
-  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
+  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -90,7 +90,7 @@
     "capacity.tableCells": "அட்டவணை {limit:N0} செல்களின் வரம்பை மீறுகிறது.",
     "capacity.tableColumns": "அட்டவணை {limit:N0} நெடுவரிசைகளின் வரம்பை மீறுகிறது.",
     "capacity.tableRows": "அட்டவணை {limit:N0} வரிசைகளின் வரம்பை மீறுகிறது.",
-    "capacity.uncompressedSheet": "ஒரு sheet, சுருக்கப்படாத 64 MiB சரிபார்ப்பு வரம்பை மீறுகிறது.",
+    "capacity.uncompressedSheet": "ஒரு sheet, சுருக்கப்படாத {limit} MiB சரிபார்ப்பு வரம்பை மீறுகிறது.",
     "diagnostics.destinationInvalid": "இல்லாத ஒரு கோப்பு பெயரைத் தேர்ந்தெடுத்து எழுதும் அனுமதிகளைச் சரிபார்க்கவும்.",
     "diagnostics.exported": "கண்டறிதல் ஏற்றுமதி செய்யப்பட்டது: நிகழ்வுகள், timestamps, ID-கள் மற்றும் எண் அளவீடுகள்; கோப்புகள், கணக்குகள் அல்லது உள்ளடக்கம் எதுவும் இல்லை.",
     "diagnostics.fileExists": "கண்டறிதல்-ஐ ஏற்றுமதி செய்ய இல்லாத ஒரு கோப்பு பெயரைத் தேர்ந்தெடுக்கவும்.",
@@ -267,7 +267,7 @@
     "setup.encodingUnicode": "உரை: BOM உடன் UTF-8 / UTF-16",
     "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "முதல் பயன்பாடு - ZagoSheetsWin",
-    "setup.formatLimits": "ஒவ்வொரு கோப்புக்கும் 20 MiB வரை.\nCSV/TSV: 500 ஆயிரம் செல்கள், 50 ஆயிரம் வரிசைகள் மற்றும் ஆயிரம் நெடுவரிசைகள்.\n\nஉள்ளடக்கம் நேரடி உரை ஆக கருதப்படும். ODS மாற்றம்-ஐ சரிபார்க்க முடியாவிட்டால், மூல கோப்பு வைத்திருக்கப்படும். உங்கள் உரை விருப்பங்கள் பாதுகாக்கப்படும்.",
+    "setup.formatLimits": "ஒவ்வொரு கோப்புக்கும் 20 MiB வரை.\nCSV/TSV: 2,000,000 செல்கள், 100,000 வரிசைகள் மற்றும் 1,000 நெடுவரிசைகள்.\n\nஉள்ளடக்கம் நேரடி உரை ஆக கருதப்படும். ODS மாற்றம்-ஐ சரிபார்க்க முடியாவிட்டால், மூல கோப்பு வைத்திருக்கப்படும். உங்கள் உரை விருப்பங்கள் பாதுகாக்கப்படும்.",
     "setup.formatsHeading": "வடிவங்கள் மற்றும் உரை",
     "setup.googleExplanation": "உங்கள் சொந்த கணக்கில் உள்நுழையவும். உங்கள் விரிதாள்கள் உங்கள் Google Drive-ல் இருக்கும்.",
     "setup.googleHeading": "1. Google கணக்கு",

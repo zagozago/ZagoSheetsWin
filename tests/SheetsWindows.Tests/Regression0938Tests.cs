@@ -70,10 +70,10 @@ public sealed class Regression0938Tests
         Assert.Equal(100000, payload.Expected![0].Rows.Count); Assert.Equal("99999_9", payload.Expected[0].Rows[^1][^1]);
         Assert.True(sw.Elapsed < TimeSpan.FromMinutes(2)); Assert.True(GC.GetAllocatedBytesForCurrentThread() - allocated < 2L * 1024 * 1024 * 1024);
         Assert.Throws<SpreadsheetCapacityException>(() => SpreadsheetFormats.Prepare("csv", Encoding.UTF8.GetBytes(new string('\n', 100001))));
-        var overCells = Encoding.UTF8.GetBytes(string.Join('\n', Enumerable.Repeat(string.Join('|', Enumerable.Repeat("v", 101)), 9901)));
+        var overCells = Encoding.UTF8.GetBytes(string.Join('\n', Enumerable.Repeat(string.Join('|', Enumerable.Repeat("v", 201)), 9951)));
         Assert.Equal(DiagnosticCode.TextCells, Assert.Throws<SpreadsheetCapacityException>(() => SpreadsheetFormats.Prepare("csv", overCells)).Code);
-        var row = Enumerable.Repeat<object?>("v", 11).ToArray();
-        var tooMany = new SheetValues("Dados", Enumerable.Repeat<IReadOnlyList<object?>>(row, 90910).ToArray());
+        var row = Enumerable.Repeat<object?>("v", 21).ToArray();
+        var tooMany = new SheetValues("Dados", Enumerable.Repeat<IReadOnlyList<object?>>(row, 95239).ToArray());
         Assert.Throws<SpreadsheetCapacityException>(() => SpreadsheetFormats.WriteXlsx([tooMany], textImport: true));
         Assert.Throws<InvalidDataException>(() => SpreadsheetFormats.ReadExcel(payload.Bytes));
     }

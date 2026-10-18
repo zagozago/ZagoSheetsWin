@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.40",
+  "productVersion": "0.9.41",
   "sourceLocale": "pt-BR",
-  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
+  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -90,7 +90,7 @@
     "capacity.tableCells": "Die Tabelle überschreitet das Limit von {limit:N0} Zellen.",
     "capacity.tableColumns": "Die Tabelle überschreitet das Limit von {limit:N0} Spalten.",
     "capacity.tableRows": "Die Tabelle überschreitet das Limit von {limit:N0} Zeilen.",
-    "capacity.uncompressedSheet": "Ein Tabellenblatt überschreitet das Prüflimit von 64 MiB im entpackten Zustand.",
+    "capacity.uncompressedSheet": "Ein Tabellenblatt überschreitet das Prüflimit von {limit} MiB im entpackten Zustand.",
     "diagnostics.destinationInvalid": "Wählen Sie einen noch nicht vorhandenen Dateinamen und prüfen Sie die Schreibberechtigungen.",
     "diagnostics.exported": "Diagnose exportiert: Ereignisse, Zeitstempel, IDs und numerische Messwerte; keine Dateien, Konten oder Inhalte.",
     "diagnostics.fileExists": "Wählen Sie zum Exportieren der Diagnose einen noch nicht vorhandenen Dateinamen.",
@@ -267,7 +267,7 @@
     "setup.encodingUnicode": "Text: UTF-8 / UTF-16 mit BOM",
     "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Erste Verwendung - ZagoSheetsWin",
-    "setup.formatLimits": "Bis zu 20 MiB pro Datei.\nCSV/TSV: 500 Tausend Zellen, 50 Tausend Zeilen und eintausend Spalten.\n\nInhalt wird als reiner Text behandelt. Wenn die ODS-Konvertierung nicht verifiziert werden kann, bleibt das Original erhalten. Ihre Texteinstellungen werden beibehalten.",
+    "setup.formatLimits": "Bis zu 20 MiB pro Datei.\nCSV/TSV: 2.000.000 Zellen, 100.000 Zeilen und 1.000 Spalten.\n\nInhalt wird als reiner Text behandelt. Wenn die ODS-Konvertierung nicht verifiziert werden kann, bleibt das Original erhalten. Ihre Texteinstellungen werden beibehalten.",
     "setup.formatsHeading": "Formate und Text",
     "setup.googleExplanation": "Melden Sie sich mit Ihrem eigenen Konto an. Ihre Tabellen bleiben in Ihrem Google Drive.",
     "setup.googleHeading": "1. Google-Konto",

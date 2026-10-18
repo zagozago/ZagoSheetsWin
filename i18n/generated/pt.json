@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.40",
+  "productVersion": "0.9.41",
   "sourceLocale": "pt-BR",
-  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
+  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -90,7 +90,7 @@
     "capacity.tableCells": "A tabela excede o limite de {limit:N0} células.",
     "capacity.tableColumns": "A tabela excede o limite de {limit:N0} colunas.",
     "capacity.tableRows": "A tabela excede o limite de {limit:N0} linhas.",
-    "capacity.uncompressedSheet": "Uma aba excede o limite de 64 MiB descompactados para conferência.",
+    "capacity.uncompressedSheet": "Uma aba excede o limite de {limit} MiB descompactados para conferência.",
     "diagnostics.destinationInvalid": "Escolha um arquivo inexistente e confira as permissões para exportar.",
     "diagnostics.exported": "Diagnóstico exportado: eventos, horários, IDs e medidas numéricas; sem arquivos, contas ou conteúdo.",
     "diagnostics.fileExists": "Escolha um arquivo inexistente para exportar o diagnóstico.",
@@ -267,7 +267,7 @@
     "setup.encodingUnicode": "Texto: UTF-8 / UTF-16 com BOM",
     "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Primeiro uso - ZagoSheetsWin",
-    "setup.formatLimits": "Até 20 MiB por arquivo.\nCSV/TSV: 500 mil células, 50 mil linhas e mil colunas.\n\nO conteúdo é tratado como texto literal. Se a conversão de ODS não puder ser conferida, o original é mantido. Suas preferências de texto são preservadas.",
+    "setup.formatLimits": "Até 20 MiB por arquivo.\nCSV/TSV: 2.000.000 células, 100.000 linhas e 1.000 colunas.\n\nO conteúdo é tratado como texto literal. Se a conversão de ODS não puder ser conferida, o original é mantido. Suas preferências de texto são preservadas.",
     "setup.formatsHeading": "Formatos e texto",
     "setup.googleExplanation": "Entre com sua própria conta. As planilhas ficam no seu Google Drive.",
     "setup.googleHeading": "1. Conta Google",

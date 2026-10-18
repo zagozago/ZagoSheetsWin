@@ -2,8 +2,8 @@
   "language": "zh",
   "locale": "zh-CN",
   "direction": "ltr",
-  "catalogRevision": 13,
-  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
+  "catalogRevision": 14,
+  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -76,7 +76,7 @@
     "capacity.tableCells": "表格超过了{limit:N0}个单元格的上限。",
     "capacity.tableColumns": "表格超过了{limit:N0}列的上限。",
     "capacity.tableRows": "表格超过了{limit:N0}行的上限。",
-    "capacity.uncompressedSheet": "某个工作表解压后超过了64 MiB的验证上限。",
+    "capacity.uncompressedSheet": "某个工作表解压后超过了{limit} MiB的验证上限。",
     "diagnostics.destinationInvalid": "请选择尚不存在的文件名，并检查导出所需的写入权限。",
     "diagnostics.exported": "诊断已导出：包含事件、时间、ID 和数值指标；不包含文件、账号或内容。",
     "diagnostics.fileExists": "请选择尚不存在的文件名来导出诊断。",
@@ -555,7 +555,7 @@
     "setup.encodingUnicode": "文本：UTF-8 / UTF-16（带 BOM）",
     "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "首次使用 - ZagoSheetsWin",
-    "setup.formatLimits": "每个文件最大20 MiB。\nCSV/TSV：最多500,000个单元格、50,000行和1,000列。\n\n内容按字面文本处理。如果无法验证 ODS 的转换，原文件会被保留。您的文本偏好设置会被保留。",
+    "setup.formatLimits": "每个文件最大20 MiB。\nCSV/TSV：最多2,000,000个单元格、100,000行和1,000列。\n\n内容按字面文本处理。如果无法验证 ODS 的转换，原文件会被保留。您的文本偏好设置会被保留。",
     "setup.formatsHeading": "格式与文本",
     "setup.googleExplanation": "使用您自己的账号登录。电子表格保存在您的 Google Drive 中。",
     "setup.googleHeading": "1. Google 账号",
@@ -653,9 +653,6 @@
     "action.chooseSeparator": "选择分隔符",
     "recovery.quotaRotation": "达到配额时，会删除最旧的已完成备份。待处理备份会保留。"
   },
-  "expandedNumericNotation": [
-    "setup.formatLimits"
-  ],
   "translationMethod": "AI-authored application translation; reviewed public Inno Setup Chinese Simplified messages",
   "standardInstallerCredits": {
     "maintainer": "Zhenghan Yang (Kira)",

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.40",
+  "productVersion": "0.9.41",
   "sourceLocale": "pt-BR",
-  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
+  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -90,7 +90,7 @@
     "capacity.tableCells": "Tablo {limit:N0} hücre sınırını aşıyor.",
     "capacity.tableColumns": "Tablo {limit:N0} sütun sınırını aşıyor.",
     "capacity.tableRows": "Tablo {limit:N0} satır sınırını aşıyor.",
-    "capacity.uncompressedSheet": "Bir sayfa, sıkıştırılmamış olarak 64 MiB doğrulama sınırını aşıyor.",
+    "capacity.uncompressedSheet": "Bir sayfa, sıkıştırılmamış olarak {limit} MiB doğrulama sınırını aşıyor.",
     "diagnostics.destinationInvalid": "Var olmayan bir dosya adı seçin ve yazma izinlerini denetleyin.",
     "diagnostics.exported": "Tanılama dışa aktarıldı: olaylar, zaman damgaları, kimlikler ve sayısal ölçümler; dosya, hesap veya içerik yok.",
     "diagnostics.fileExists": "Tanılamayı dışa aktarmak için var olmayan bir dosya adı seçin.",
@@ -267,7 +267,7 @@
     "setup.encodingUnicode": "Metin: BOM içeren UTF-8 / UTF-16",
     "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "İlk kullanım - ZagoSheetsWin",
-    "setup.formatLimits": "Dosya başına en fazla 20 MiB.\nCSV/TSV: 500 bin hücre, 50 bin satır ve bin sütun.\n\nİçerik düz metin olarak işlenir. ODS dönüştürmesi doğrulanamazsa özgün dosya korunur. Metin tercihleriniz korunur.",
+    "setup.formatLimits": "Dosya başına en fazla 20 MiB.\nCSV/TSV: 2.000.000 hücre, 100.000 satır ve 1.000 sütun.\n\nİçerik düz metin olarak işlenir. ODS dönüştürmesi doğrulanamazsa özgün dosya korunur. Metin tercihleriniz korunur.",
     "setup.formatsHeading": "Biçimler ve metin",
     "setup.googleExplanation": "Kendi hesabınızla oturum açın. Elektronik tablolarınız Google Drive’ınızda kalır.",
     "setup.googleHeading": "1. Google hesabı",

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.40",
+  "productVersion": "0.9.41",
   "sourceLocale": "pt-BR",
-  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
+  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -90,7 +90,7 @@
     "capacity.tableCells": "ٹیبل {limit:N0} سیلز کی حد سے تجاوز کرتا ہے۔",
     "capacity.tableColumns": "ٹیبل {limit:N0} کالموں کی حد سے تجاوز کرتا ہے۔",
     "capacity.tableRows": "ٹیبل {limit:N0} قطاروں کی حد سے تجاوز کرتا ہے۔",
-    "capacity.uncompressedSheet": "ایک شیٹ غیر کمپریس حالت میں 64 MiB کی توثیقی حد سے تجاوز کرتی ہے۔",
+    "capacity.uncompressedSheet": "ایک شیٹ غیر کمپریس حالت میں {limit} MiB کی توثیقی حد سے تجاوز کرتی ہے۔",
     "diagnostics.destinationInvalid": "ایسا فائل نام منتخب کریں جو پہلے سے موجود نہ ہو اور لکھنے کی اجازتیں چیک کریں۔",
     "diagnostics.exported": "تشخیصی معلومات برآمد ہوگئیں: واقعات، ٹائم اسٹیمپس، IDs اور عددی پیمائشیں؛ کوئی فائل، اکاؤنٹ یا مواد شامل نہیں۔",
     "diagnostics.fileExists": "تشخیصی معلومات برآمد کرنے کے لیے ایسا فائل نام منتخب کریں جو پہلے سے موجود نہ ہو۔",
@@ -267,7 +267,7 @@
     "setup.encodingUnicode": "متن: BOM کے ساتھ UTF-8 / UTF-16",
     "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "پہلا استعمال - ZagoSheetsWin",
-    "setup.formatLimits": "ہر فائل زیادہ سے زیادہ 20 MiB۔\nCSV/TSV: 500 ہزار سیلز، 50 ہزار قطاریں اور ایک ہزار کالم۔\n\nمواد کو لفظی متن سمجھا جاتا ہے۔ اگر ODS تبدیلی کی تصدیق نہ ہو سکے تو اصل فائل محفوظ رہتی ہے۔ آپ کی متن ترجیحات محفوظ رہتی ہیں۔",
+    "setup.formatLimits": "ہر فائل زیادہ سے زیادہ 20 MiB۔\nCSV/TSV: ‏2,000,000 سیلز، 100,000 قطاریں اور 1,000 کالم۔\n\nمواد کو لفظی متن سمجھا جاتا ہے۔ اگر ODS تبدیلی کی تصدیق نہ ہو سکے تو اصل فائل محفوظ رہتی ہے۔ آپ کی متن ترجیحات محفوظ رہتی ہیں۔",
     "setup.formatsHeading": "فارمیٹس اور متن",
     "setup.googleExplanation": "اپنے اکاؤنٹ سے سائن اِن کریں۔ آپ کی اسپریڈشیٹس آپ کے Google Drive میں رہتی ہیں۔",
     "setup.googleHeading": "1. Google اکاؤنٹ",

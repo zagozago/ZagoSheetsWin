@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.40",
+  "productVersion": "0.9.41",
   "sourceLocale": "pt-BR",
-  "sourceHash": "49df65d76f4ed7adb43bb7b8488b9c2e1623db965ad438f207761a0b415939ce",
+  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -90,7 +90,7 @@
     "capacity.tableCells": "Lumampas ang table sa limit na {limit:N0} cell.",
     "capacity.tableColumns": "Lumampas ang table sa limit na {limit:N0} column.",
     "capacity.tableRows": "Lumampas ang table sa limit na {limit:N0} row.",
-    "capacity.uncompressedSheet": "Lumampas ang isang sheet sa verification limit na 64 MiB uncompressed.",
+    "capacity.uncompressedSheet": "Lumampas ang isang sheet sa verification limit na {limit} MiB uncompressed.",
     "diagnostics.destinationInvalid": "Pumili ng file name na hindi pa umiiral at tingnan ang write permissions.",
     "diagnostics.exported": "Na-export ang diagnostics: mga event, timestamp, ID at numeric measurement; walang file, account o content.",
     "diagnostics.fileExists": "Pumili ng file name na hindi pa umiiral para i-export ang diagnostics.",
@@ -267,7 +267,7 @@
     "setup.encodingUnicode": "Text: UTF-8 / UTF-16 na may BOM",
     "setup.extendedFormats": "XLSX · CSV · TSV · XLS · ODS",
     "setup.firstUseTitle": "Unang paggamit - ZagoSheetsWin",
-    "setup.formatLimits": "Hanggang 20 MiB bawat file.\nCSV/TSV: 500 libong cell, 50 libong row at isang libong column.\n\nItinuturing ang content bilang literal na text. Kung hindi ma-verify ang ODS conversion, pinananatili ang orihinal. Pinapanatili ang iyong text preferences.",
+    "setup.formatLimits": "Hanggang 20 MiB bawat file.\nCSV/TSV: 2,000,000 cell, 100,000 row at 1,000 column.\n\nItinuturing ang content bilang literal na text. Kung hindi ma-verify ang ODS conversion, pinananatili ang orihinal. Pinapanatili ang iyong text preferences.",
     "setup.formatsHeading": "Mga format at text",
     "setup.googleExplanation": "Mag-sign in gamit ang sarili mong account. Mananatili ang spreadsheets mo sa iyong Google Drive.",
     "setup.googleHeading": "1. Google account",
