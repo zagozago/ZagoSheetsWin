@@ -39,7 +39,7 @@ public sealed class GoogleDriveClient(HttpClient http, IGoogleAuth auth, UploadS
                 var reason = await GoogleRetry.ReasonAsync(response, ct);
                 if (req.Method == HttpMethod.Get && GoogleRetry.Transient((int)response.StatusCode, reason) && GoogleRetry.WithinRetryWindow(response) && ++retries <= 3)
                 { await GoogleRetry.DelayAsync(retries, response, ct, ms => telemetry?.MarkGoogleRetry("drive.read", (int)response.StatusCode, reason, retries, ms)); continue; }
-                if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode, reason, req.Method == HttpMethod.Get ? "drive.read" : "drive.create");
+                if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode, reason, req.Method == HttpMethod.Get ? "drive.read" : "drive.create", retryDeferred: !GoogleRetry.WithinRetryWindow(response));
                 const int max = 1024 * 1024;
                 if (response.Content.Headers.ContentLength > max) throw new InvalidDataException("Google response too large.");
                 await using var stream = await response.Content.ReadAsStreamAsync(ct); using var buffer = new MemoryStream(); var chunk = new byte[81920]; int count;
@@ -98,7 +98,7 @@ public sealed class GoogleDriveClient(HttpClient http, IGoogleAuth auth, UploadS
                 var reason = await GoogleRetry.ReasonAsync(response, ct);
                 if (GoogleRetry.Transient((int)response.StatusCode, reason) && GoogleRetry.WithinRetryWindow(response) && ++retries <= 3)
                 { await GoogleRetry.DelayAsync(retries, response, ct, ms => telemetry?.MarkGoogleRetry("drive.export", (int)response.StatusCode, reason, retries, ms)); continue; }
-                if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode, reason, "drive.export");
+                if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode, reason, "drive.export", retryDeferred: !GoogleRetry.WithinRetryWindow(response));
                 const int max = 10 * 1024 * 1024;
                 if (response.Content.Headers.ContentLength > max) throw new InvalidDataException("Export too large.");
                 await using var stream = await response.Content.ReadAsStreamAsync(ct); using var buffer = new MemoryStream();

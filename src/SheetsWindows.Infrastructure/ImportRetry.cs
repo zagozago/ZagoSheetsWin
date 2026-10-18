@@ -13,7 +13,7 @@ public static class ImportRetry
             or "ODS content dimensions exceed limits." or "ODS columns too large." or "ODS rows too large." or "Unbounded repetition.";
     public static bool IsTransient(Exception failure) => failure switch
     {
-        GoogleApiException api => api.Status == 429 || api.Status >= 500,
+        GoogleApiException api => !api.RetryDeferred && (api.Status == 429 || api.Status >= 500),
         HttpRequestException http => http.StatusCode is null || (int)http.StatusCode == 429 || (int)http.StatusCode >= 500,
         SqliteException sqlite => sqlite.SqliteErrorCode is 5 or 6,
         Win32Exception native => native.NativeErrorCode is 21 or 32 or 33 or 170 or 1237,

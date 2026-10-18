@@ -200,7 +200,7 @@ internal static class InterfaceVerification
                 "Restore must be the first regular primary action beside selection controls.");
             var numbers = Descendants(recovery).OfType<NumericUpDown>().ToArray();
             Require(numbers.Any(n => n.Value == 30 && n.Maximum == 365) && numbers.Any(n => n.Value == 200 && n.Maximum == 1000), "Backup defaults and quota ceiling must be visible.");
-            Require(!Descendants(recovery).OfType<CheckBox>().Single().Checked, "Automatic cleanup requires informed opt-in.");
+            Require(!Descendants(recovery).OfType<CheckBox>().Any(), "Automatic cleanup must not expose an opt-in toggle.");
             Require(list.Columns.Count == 4 && list.Items.Cast<ListViewItem>().All(i => i.Tag is RecoveryEntry), "Backup table must preserve recovery identity and expose four readable columns.");
             Require(list.Items.Count == 3 && list.Items.Cast<ListViewItem>().All(i => ((RecoveryEntry)i.Tag!).CleanupState != 2), "Deleted backup history must be absent from the recovery list.");
             Require(list.MultiSelect && !list.CheckBoxes, "Backups must support multiple selection.");
@@ -211,7 +211,7 @@ internal static class InterfaceVerification
             Require(list.SelectedItems.Count == 0, "Clear selection must remove all marks.");
             Require(!Descendants(recovery).OfType<Button>().Any(b => b.Text == UiText.Get("recovery.savePolicy")), "Backup policy must auto-save without a save button.");
             Require(!Descendants(recovery).OfType<CheckBox>().Any(), "Automatic backup cleanup must not expose a switch.");
-            var statistics = Descendants(recovery).OfType<Label>().Single(l => l.AccessibleName == "Backup statistics");
+            var statistics = Descendants(recovery).OfType<Label>().Single(l => l.Name == "backupStatistics");
             Require(statistics.Font.Bold && statistics.Parent is FlowLayoutPanel { BorderStyle: BorderStyle.FixedSingle, Margin.Top: >= 16 }, "Backup statistics must have bold text, a border and vertical separation.");
             for (var column = 0; column < 4; column++)
             {

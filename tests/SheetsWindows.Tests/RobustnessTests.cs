@@ -386,7 +386,8 @@ public sealed class RobustnessTests
             response.Headers.RetryAfter = new System.Net.Http.Headers.RetryConditionHeaderValue(TimeSpan.FromMinutes(1)); return response;
         });
         using var http = new HttpClient(server);
-        await Assert.ThrowsAsync<GoogleApiException>(() => new GoogleDriveClient(http, new Auth()).ExportXlsxAsync("A", "sheet_1", default)); Assert.Equal(1, server.Calls);
+        var error = await Assert.ThrowsAsync<GoogleApiException>(() => new GoogleDriveClient(http, new Auth()).ExportXlsxAsync("A", "sheet_1", default)); Assert.Equal(1, server.Calls);
+        Assert.True(error.RetryDeferred); Assert.False(ImportRetry.IsTransient(error));
     }
     [Fact]
     public async Task ExportTransientRetryIsBounded()
