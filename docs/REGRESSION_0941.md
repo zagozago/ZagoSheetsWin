@@ -29,4 +29,12 @@ Um teste sintético percorre exatamente 100.000 × 20 = 2.000.000 células com v
 
 O benchmark nativo do Windows também passa a exercitar dois milhões de células com orçamento de pico de memória de 512 MiB. Os testes antigos que esperavam recusa em um milhão foram ajustados para exceder dois milhões, usando dados compactos para que a checagem exercite células, não o limite de bytes.
 
-Validação local Release: 347 testes aprovados, 43 exclusivos de Windows ignorados, total 390, nenhuma falha. Compilação sem avisos/erros; 14 testes do catálogo e auditoria estática aprovados. CI Windows/Linux e instalador serão registrados após a execução.
+Validação local Release: 347 testes aprovados, 43 exclusivos de Windows ignorados, total 390, nenhuma falha. Compilação sem avisos/erros; 14 testes do catálogo e auditoria estática aprovados.
+
+## Resultados do Actions
+
+Código validado: `8d589283e454898fdeeac3a65b2b90da753db017`. [Execução de validação](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39174444610). TRX: Windows 389 aprovados e 1 ignorado; Linux 347 aprovados e 43 ignorados; total 390, nenhuma falha. Interface nativa e 51 idiomas aprovados.
+
+Benchmark nativo `OfflineCsv100000x20RoundTrip`: 2.000.000 de células, 4.867 ms totais (2.333 ms conversão, 2.531 ms conferência), pico de 489.345.024 bytes, abaixo do orçamento de 512 MiB (536.870.912 bytes). Sem rede Google nesse benchmark.
+
+Instalador: compilação, transições nos 51 idiomas, instalação, atualização, preservação na desinstalação e registro de integridade aprovados na mesma execução. Teste real no Google permanece para o aceite no dispositivo.
