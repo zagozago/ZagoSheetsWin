@@ -106,7 +106,9 @@ internal sealed class ProcessingForm : Form
         actions.Controls.AddRange([recovery, export, setup]); cancel.Text = UiText.Get("action.close"); cancel.Enabled = true;
         if (request.Action is LauncherAction.Open or LauncherAction.Copy)
         {
-            var retry = new AdaptiveButton { Text = UiText.Get("action.retry"), AutoSize = true };
+            var chooseSeparator = ex is InvalidDataException ambiguous && ambiguous.Message == "Ambiguous CSV delimiter; configure it explicitly.";
+            var retry = new AdaptiveButton { Text = UiText.Get(chooseSeparator ? "action.chooseSeparator" : "action.retry"), AutoSize = true };
+            if (chooseSeparator) Ui.Primary(retry);
             if (needsInputChange)
             {
                 retry.Enabled = InputStamp() != inputStamp;

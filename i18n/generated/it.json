@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.38",
+  "productVersion": "0.9.39",
   "sourceLocale": "pt-BR",
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -198,7 +198,7 @@
     "progress.stopping": "Arresto in sicurezza…",
     "progress.upload": "Caricamento e verifica dell'importazione su Google…",
     "progress.verification": "Verifica dei dati convertiti prima della sostituzione…",
-    "recovery.autoCleanup": "Pulisci automaticamente i backup completati",
+    "recovery.autoCleanup": "Elimina i backup completati alla scadenza",
     "recovery.cancelResume": "Annulla ripresa",
     "recovery.cleanExpired": "Pulisci backup scaduti / in eccesso…",
     "recovery.clearSelection": "Deseleziona tutto",
@@ -296,7 +296,7 @@
     "theme.dark": "Scuro",
     "theme.light": "Chiaro",
     "theme.saveFailed": "Impossibile salvare il tema. La preferenza precedente è stata conservata.",
-    "tutorial.backupExplanation": "Originale → backup locale → Google Sheets. In Backup, scegli Ripristina in… per recuperare il file.|30 giorni · 200 MB (regolabile fino a 1 GB). Pulizia automatica solo quando abilitata; le operazioni in sospeso sono protette.|Il backup conserva l'originale, senza le modifiche successive in Sheets. Formule e formattazione possono cambiare; le macro XLS non funzionano in Sheets.",
+    "tutorial.backupExplanation": "Originale → backup locale → Google Sheets. In Backup, scegli Ripristina in… per recuperare il file.|30 giorni · 200 MB (regolabile fino a 1 GB). Pulizia automatica solo quando abilitata; le operazioni in sospeso sono protette.|Il backup conserva l'originale, senza le modifiche successive in Sheets. Formule e formattazione possono cambiare; le macro XLS non funzionano in Sheets. Al raggiungimento della quota, i backup completati più vecchi vengono eliminati anche con questa opzione disattivata. Quelli in sospeso vengono conservati.",
     "tutorial.backupTitle": "Conserva l'originale. Scopri come recuperarlo.",
     "tutorial.defaultsExplanation": "Fai doppio clic o usa Apri con → ZagoSheetsWin nel menu di Windows.|Imposta ZagoSheetsWin come app predefinita per i fogli di calcolo (facoltativo):",
     "tutorial.defaultsTitle": "Scegli come aprire i tuoi fogli di calcolo",
@@ -361,6 +361,8 @@
     "error.textHint": "L’indicazione sep= non corrisponde alla tabella.",
     "error.textColumns": "Le righe hanno numeri diversi di colonne.",
     "error.odsBounds": "ODS: ripetizione non valida o dimensioni oltre il limite supportato.",
-    "error.odsStructure": "La struttura del file ODS è incompleta o non valida."
+    "error.odsStructure": "La struttura del file ODS è incompleta o non valida.",
+    "action.chooseSeparator": "Scegli separatore",
+    "recovery.quotaRotation": "Al raggiungimento della quota, i backup completati più vecchi vengono eliminati anche con questa opzione disattivata. Quelli in sospeso vengono conservati."
   }
 }

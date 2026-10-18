@@ -2,8 +2,8 @@
   "language": "nl",
   "locale": "nl-NL",
   "direction": "ltr",
-  "catalogRevision": 12,
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "catalogRevision": 13,
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -494,7 +494,7 @@
     "progress.stopping": "Veilig stoppen…",
     "progress.upload": "Import uploaden en verifiëren in Google…",
     "progress.verification": "Geconverteerde gegevens vóór vervanging verifiëren…",
-    "recovery.autoCleanup": "Voltooide back-ups automatisch opschonen",
+    "recovery.autoCleanup": "Voltooide back-ups na de bewaartermijn opruimen",
     "recovery.cancelResume": "Hervatten annuleren",
     "recovery.cleanExpired": "Verlopen / overtollige back-ups opschonen…",
     "recovery.clearSelection": "Selectie wissen",
@@ -592,7 +592,7 @@
     "theme.dark": "Donker",
     "theme.light": "Licht",
     "theme.saveFailed": "Het thema kon niet worden opgeslagen. Uw vorige voorkeur is behouden.",
-    "tutorial.backupExplanation": "Origineel → lokale back-up → Google Sheets. Kies in Back-ups Herstellen naar… om het bestand terug te zetten.|30 dagen · 200 MB (aanpasbaar tot 1 GB). Automatische opschoning alleen wanneer ingeschakeld; openstaande bewerkingen zijn beschermd.|De back-up bewaart het origineel, zonder latere wijzigingen in Sheets. Formules en opmaak kunnen veranderen; XLS-macro's werken niet in Sheets.",
+    "tutorial.backupExplanation": "Origineel → lokale back-up → Google Sheets. Kies in Back-ups Herstellen naar… om het bestand terug te zetten.|30 dagen · 200 MB (aanpasbaar tot 1 GB). Automatische opschoning alleen wanneer ingeschakeld; openstaande bewerkingen zijn beschermd.|De back-up bewaart het origineel, zonder latere wijzigingen in Sheets. Formules en opmaak kunnen veranderen; XLS-macro's werken niet in Sheets. Als het quotum bereikt is, worden de oudste voltooide back-ups verwijderd, ook als deze optie uitstaat. Wachtende back-ups blijven behouden.",
     "tutorial.backupTitle": "Bewaar het origineel. Weet hoe u het herstelt.",
     "tutorial.defaultsExplanation": "Dubbelklik of gebruik Openen met → ZagoSheetsWin in het Windows-menu.|Stel ZagoSheetsWin in als uw standaardapp voor werkbladen (optioneel):",
     "tutorial.defaultsTitle": "Kies hoe u uw werkbladen opent",
@@ -657,6 +657,8 @@
     "error.textHint": "De aanwijzing sep= komt niet overeen met de tabel.",
     "error.textColumns": "De rijen hebben verschillende aantallen kolommen.",
     "error.odsBounds": "ODS: ongeldige herhaling of afmetingen boven de ondersteunde limiet.",
-    "error.odsStructure": "De structuur van het ODS-bestand is onvolledig of ongeldig."
+    "error.odsStructure": "De structuur van het ODS-bestand is onvolledig of ongeldig.",
+    "action.chooseSeparator": "Scheidingsteken kiezen",
+    "recovery.quotaRotation": "Als het quotum bereikt is, worden de oudste voltooide back-ups verwijderd, ook als deze optie uitstaat. Wachtende back-ups blijven behouden."
   }
 }

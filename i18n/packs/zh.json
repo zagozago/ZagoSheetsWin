@@ -2,8 +2,8 @@
   "language": "zh",
   "locale": "zh-CN",
   "direction": "ltr",
-  "catalogRevision": 12,
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "catalogRevision": 13,
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -486,7 +486,7 @@
     "progress.stopping": "正在安全地停止操作…",
     "progress.upload": "正在上传并验证 Google 中的导入…",
     "progress.verification": "正在替换前验证转换后的数据…",
-    "recovery.autoCleanup": "自动清理已完成操作的备份",
+    "recovery.autoCleanup": "保留期结束后清理已完成的备份",
     "recovery.cancelResume": "取消继续操作",
     "recovery.cleanExpired": "清理过期或超出容量的备份…",
     "recovery.clearSelection": "清除选择",
@@ -584,7 +584,7 @@
     "theme.dark": "深色",
     "theme.light": "浅色",
     "theme.saveFailed": "无法保存主题。已保留原偏好设置。",
-    "tutorial.backupExplanation": "原文件 → 本地备份 → Google Sheets。在备份中，点击“恢复到…”即可恢复文件。|30天 · 200 MB（可调整至1 GB）。仅在启用后才自动清理；待处理操作受到保护。|备份保存的是原文件，不包含之后在 Sheets 中进行的修改。公式和格式可能改变；XLS 宏无法在 Sheets 中运行。",
+    "tutorial.backupExplanation": "原文件 → 本地备份 → Google Sheets。在备份中，点击“恢复到…”即可恢复文件。|30天 · 200 MB（可调整至1 GB）。仅在启用后才自动清理；待处理操作受到保护。|备份保存的是原文件，不包含之后在 Sheets 中进行的修改。公式和格式可能改变；XLS 宏无法在 Sheets 中运行。 达到配额时，即使此选项关闭，也会删除最旧的已完成备份。待处理备份会保留。",
     "tutorial.backupTitle": "保留原文件，了解如何恢复。",
     "tutorial.defaultsExplanation": "双击文件，或在 Windows 菜单中使用“打开方式 → ZagoSheetsWin”。|将 ZagoSheetsWin 设为默认电子表格应用（可选）：",
     "tutorial.defaultsTitle": "选择打开电子表格的方式",
@@ -649,7 +649,9 @@
     "error.textHint": "sep= 提示与表格不匹配。",
     "error.textColumns": "各行的列数不同。",
     "error.odsBounds": "ODS：重复无效或尺寸超出支持的限制。",
-    "error.odsStructure": "ODS 文件结构不完整或无效。"
+    "error.odsStructure": "ODS 文件结构不完整或无效。",
+    "action.chooseSeparator": "选择分隔符",
+    "recovery.quotaRotation": "达到配额时，即使此选项关闭，也会删除最旧的已完成备份。待处理备份会保留。"
   },
   "expandedNumericNotation": [
     "setup.formatLimits"

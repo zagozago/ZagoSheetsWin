@@ -2,8 +2,8 @@
   "language": "vi",
   "locale": "vi-VN",
   "direction": "ltr",
-  "catalogRevision": 12,
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "catalogRevision": 13,
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -491,7 +491,7 @@
     "progress.stopping": "Đang dừng an toàn…",
     "progress.upload": "Đang tải lên và xác minh lần nhập trên Google…",
     "progress.verification": "Đang xác minh dữ liệu đã chuyển đổi trước khi thay thế…",
-    "recovery.autoCleanup": "Tự động dọn dẹp các bản sao lưu đã hoàn tất",
+    "recovery.autoCleanup": "Xóa bản sao lưu hoàn tất khi hết hạn",
     "recovery.cancelResume": "Hủy tiếp tục",
     "recovery.cleanExpired": "Dọn dẹp bản sao lưu hết hạn / vượt dung lượng…",
     "recovery.clearSelection": "Bỏ chọn",
@@ -589,7 +589,7 @@
     "theme.dark": "Tối",
     "theme.light": "Sáng",
     "theme.saveFailed": "Không thể lưu giao diện. Tùy chọn trước đó của bạn đã được giữ lại.",
-    "tutorial.backupExplanation": "Tệp gốc → bản sao lưu cục bộ → Google Sheets. Trong Sao lưu, chọn Khôi phục đến… để khôi phục tệp.|30 ngày · 200 MB (có thể điều chỉnh đến 1 GB). Chỉ tự động dọn dẹp khi được bật; các thao tác đang chờ được bảo vệ.|Bản sao lưu giữ tệp gốc, không gồm các thay đổi sau này trong Sheets. Công thức và định dạng có thể thay đổi; macro XLS không hoạt động trong Sheets.",
+    "tutorial.backupExplanation": "Tệp gốc → bản sao lưu cục bộ → Google Sheets. Trong Sao lưu, chọn Khôi phục đến… để khôi phục tệp.|30 ngày · 200 MB (có thể điều chỉnh đến 1 GB). Chỉ tự động dọn dẹp khi được bật; các thao tác đang chờ được bảo vệ.|Bản sao lưu giữ tệp gốc, không gồm các thay đổi sau này trong Sheets. Công thức và định dạng có thể thay đổi; macro XLS không hoạt động trong Sheets. Khi đạt hạn mức, các bản sao lưu hoàn tất cũ nhất bị xóa ngay cả khi tắt tùy chọn này. Bản sao lưu đang chờ được giữ lại.",
     "tutorial.backupTitle": "Giữ tệp gốc. Biết cách khôi phục.",
     "tutorial.defaultsExplanation": "Nhấp đúp hoặc dùng Mở bằng → ZagoSheetsWin trong menu Windows.|Đặt ZagoSheetsWin làm ứng dụng bảng tính mặc định (tùy chọn):",
     "tutorial.defaultsTitle": "Chọn cách mở bảng tính",
@@ -654,6 +654,8 @@
     "error.textHint": "Gợi ý sep= không khớp với bảng.",
     "error.textColumns": "Các hàng có số cột khác nhau.",
     "error.odsBounds": "ODS: lặp không hợp lệ hoặc kích thước vượt giới hạn hỗ trợ.",
-    "error.odsStructure": "Cấu trúc tệp ODS không đầy đủ hoặc không hợp lệ."
+    "error.odsStructure": "Cấu trúc tệp ODS không đầy đủ hoặc không hợp lệ.",
+    "action.chooseSeparator": "Chọn dấu phân cách",
+    "recovery.quotaRotation": "Khi đạt hạn mức, các bản sao lưu hoàn tất cũ nhất bị xóa ngay cả khi tắt tùy chọn này. Bản sao lưu đang chờ được giữ lại."
   }
 }

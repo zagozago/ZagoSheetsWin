@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.38",
+  "productVersion": "0.9.39",
   "sourceLocale": "pt-BR",
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -198,7 +198,7 @@
     "progress.stopping": "Arrêt sécurisé…",
     "progress.upload": "Envoi et vérification de l’importation dans Google…",
     "progress.verification": "Vérification des données converties avant le remplacement…",
-    "recovery.autoCleanup": "Nettoyer automatiquement les sauvegardes terminées",
+    "recovery.autoCleanup": "Nettoyer les sauvegardes terminées à expiration",
     "recovery.cancelResume": "Annuler la reprise",
     "recovery.cleanExpired": "Nettoyer les sauvegardes expirées ou excédentaires…",
     "recovery.clearSelection": "Effacer la sélection",
@@ -296,7 +296,7 @@
     "theme.dark": "Sombre",
     "theme.light": "Clair",
     "theme.saveFailed": "Impossible d’enregistrer le thème. Votre préférence précédente a été conservée.",
-    "tutorial.backupExplanation": "Original → sauvegarde locale → Google Sheets. Dans Sauvegardes, choisissez Restaurer vers… pour récupérer le fichier.|30 jours · 200 MB (réglable jusqu’à 1 GB). Nettoyage automatique uniquement lorsqu’il est activé ; les opérations en attente sont protégées.|La sauvegarde conserve l’original, sans les modifications ultérieures effectuées dans Sheets. Les formules et la mise en forme peuvent changer ; les macros XLS ne fonctionnent pas dans Sheets.",
+    "tutorial.backupExplanation": "Original → sauvegarde locale → Google Sheets. Dans Sauvegardes, choisissez Restaurer vers… pour récupérer le fichier.|30 jours · 200 MB (réglable jusqu’à 1 GB). Nettoyage automatique uniquement lorsqu’il est activé ; les opérations en attente sont protégées.|La sauvegarde conserve l’original, sans les modifications ultérieures effectuées dans Sheets. Les formules et la mise en forme peuvent changer ; les macros XLS ne fonctionnent pas dans Sheets. Lorsque le quota est atteint, les sauvegardes terminées les plus anciennes sont supprimées même si cette option est désactivée. Celles en attente sont conservées.",
     "tutorial.backupTitle": "Conservez l’original. Sachez comment le récupérer.",
     "tutorial.defaultsExplanation": "Double-cliquez ou utilisez Ouvrir avec → ZagoSheetsWin dans le menu Windows.|Définissez ZagoSheetsWin comme application de feuilles de calcul par défaut (facultatif) :",
     "tutorial.defaultsTitle": "Choisissez comment ouvrir vos feuilles de calcul",
@@ -361,6 +361,8 @@
     "error.textHint": "L’indication sep= ne correspond pas au tableau.",
     "error.textColumns": "Les lignes ont des nombres de colonnes différents.",
     "error.odsBounds": "ODS : répétition incorrecte ou dimensions dépassant la limite prise en charge.",
-    "error.odsStructure": "La structure du fichier ODS est incomplète ou incorrecte."
+    "error.odsStructure": "La structure du fichier ODS est incomplète ou incorrecte.",
+    "action.chooseSeparator": "Choisir le séparateur",
+    "recovery.quotaRotation": "Lorsque le quota est atteint, les sauvegardes terminées les plus anciennes sont supprimées même si cette option est désactivée. Celles en attente sont conservées."
   }
 }

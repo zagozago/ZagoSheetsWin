@@ -519,6 +519,26 @@ internal static class InterfaceVerification
             };
             timer.Start(); failure.ShowDialog(); measurements["OfflineFailureUi"] = failure.LastMetrics!; Require(failureVisible, "Failure must stay visible with diagnosis and recovery actions.");
         }
+        foreach (var ambiguous in new[] { false, true })
+        {
+            var error = ambiguous ? new InvalidDataException("Ambiguous CSV delimiter; configure it explicitly.") : new InvalidDataException("Irregular delimited table.");
+            using var errorForm = new ProcessingForm(new(LauncherAction.Open, "preview.csv"), execute: (_, _) => Task.FromException(error), recordDiagnostics: false);
+            using var watcher = new System.Windows.Forms.Timer { Interval = 25 };
+            var verified = false;
+            watcher.Tick += (_, _) =>
+            {
+                if (errorForm.IsBusy || errorForm.ExitCode != 1) return;
+                watcher.Stop();
+                var button = Descendants(errorForm).OfType<Button>().Single(b => b.Text == UiText.Get(ambiguous ? "action.chooseSeparator" : "action.retry"));
+                verified = ambiguous ? button.Tag as string == "primary" && button.Font.Bold && button.ForeColor == Color.White && button.BackColor == Color.FromArgb(18, 126, 69)
+                    : button.Tag as string != "primary" && !Descendants(errorForm).OfType<Button>().Any(b => b.Text == UiText.Get("action.chooseSeparator"));
+                SaveFrame(errorForm, ambiguous ? "choose-separator-action" : "ordinary-retry-action");
+                errorForm.Close();
+            };
+            watcher.Start(); errorForm.ShowDialog(); Require(verified, "Only an ambiguous delimiter error gets the highlighted Choose separator action.");
+        }
+        using (var selector = new TextInterpretationForm())
+        { Require(((Button)selector.AcceptButton!).Text == UiText.Get("action.retry"), "The interpretation modal keeps its Retry action."); }
         void SaveFrame(Form form, string name)
         {
             using var bitmap = new Bitmap(form.Width, form.Height);

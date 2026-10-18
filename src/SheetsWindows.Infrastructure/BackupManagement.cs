@@ -115,7 +115,9 @@ public sealed class BackupManagement(LocalStorage storage, Func<DateTimeOffset>?
     {
         var policy=BackupPolicy.Load(storage);
         if (incomingBytes > policy.QuotaBytes) throw new BackupQuotaException();
-        if(policy.AutomaticCleanup)await CleanAsync(Plan(incomingBytes,excludeId:excludeId),ct);
+        // Quota is a rolling capacity budget, independent of age-based expiration.
+        // Only verified completed entries are eligible; pending/unknown files stay protected.
+        await CleanAsync(Plan(incomingBytes,includeExpired:policy.AutomaticCleanup,excludeId:excludeId),ct);
     }
 }
 public sealed class ManagedBackupStore(LocalStorage storage):IBackupStore

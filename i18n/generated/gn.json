@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.38",
+  "productVersion": "0.9.39",
   "sourceLocale": "pt-BR",
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -198,7 +198,7 @@
     "progress.stopping": "Oñemombyta hekorosãme…",
     "progress.upload": "Jegueru ojehupi ha oñemboaje Google-pe…",
     "progress.verification": "Mba'ekuaarã oñemoambuéva oñemboaje myengovia mboyve…",
-    "recovery.autoCleanup": "Ñongatupyre joapy oñemohu'ãva mopotĩ ijehegui",
+    "recovery.autoCleanup": "Emopotĩ ñeñongatu oĩmbáva opa rire ára",
     "recovery.cancelResume": "Jeho hese heja",
     "recovery.cleanExpired": "Ñongatupyre joapy ndoikovéimava / hetaitereíva mopotĩ…",
     "recovery.clearSelection": "Poravopyre mopotĩ",
@@ -296,7 +296,7 @@
     "theme.dark": "Pytũ",
     "theme.light": "Hesakãva",
     "theme.saveFailed": "Ndaikatúi oñeñongatu jehecha reko. Ne poravopyre mboyvegua oñeñongatu.",
-    "tutorial.backupExplanation": "Ypygua → ñongatupyre joapy mohendaha ryepypegua → Google Sheets. Ñongatupyre joapýpe, eiporavo Embojevy ko'ápe… embojevy hag̃ua marandurenda.|30 ára · 200 MB (ikatúva oñemoambue 1 GB peve). Ñemopotĩ ijehegui oñemyandy jave año; tembiapo oha'arõva oñemo'ã.|Ñongatupyre joapy oñongatu ypygua, umi ñemoambue ojejapóva upe rire Sheets-pe'ỹre. Formula ha mboheko ikatu oñemoambue; XLS macros nomba'apói Sheets-pe.",
+    "tutorial.backupExplanation": "Ypygua → ñongatupyre joapy mohendaha ryepypegua → Google Sheets. Ñongatupyre joapýpe, eiporavo Embojevy ko'ápe… embojevy hag̃ua marandurenda.|30 ára · 200 MB (ikatúva oñemoambue 1 GB peve). Ñemopotĩ ijehegui oñemyandy jave año; tembiapo oha'arõva oñemo'ã.|Ñongatupyre joapy oñongatu ypygua, umi ñemoambue ojejapóva upe rire Sheets-pe'ỹre. Formula ha mboheko ikatu oñemoambue; XLS macros nomba'apói Sheets-pe. Henyhẽvo pe tenda, oñembogue ñeñongatu oĩmbáva itujavéva, ko poravopy oñemboguéramo jepe. Oñongatu umi neʼĩrava opa.",
     "tutorial.backupTitle": "Eñongatu ypygua. Eikuaa mba'éichapa rembojevýta.",
     "tutorial.defaultsExplanation": "Eikutu mokõi jey térã eiporu Jeike hendive → ZagoSheetsWin Windows poravorãme.|Emoĩ ZagoSheetsWin ne kuatia papapy tembipuru'i ijypykue ramo (ikatu ojeporu):",
     "tutorial.defaultsTitle": "Eiporavo mba'éichapa reikéta ne kuatia papapýpe",
@@ -361,6 +361,8 @@
     "error.textHint": "Pe sep= techaukaha ndojoajúi cuadro rehe.",
     "error.textColumns": "Tysýikuéra oguereko vore yvate hetakue iñambuéva.",
     "error.odsBounds": "ODS: jejey ndoikóiva térã tuichakue ohasáva límite oñemoneĩva.",
-    "error.odsStructure": "ODS vore rete noĩmbái térã ndoikói."
+    "error.odsStructure": "ODS vore rete noĩmbái térã ndoikói.",
+    "action.chooseSeparator": "Eiporavo pe joajuha",
+    "recovery.quotaRotation": "Henyhẽvo pe tenda, oñembogue ñeñongatu oĩmbáva itujavéva, ko poravopy oñemboguéramo jepe. Oñongatu umi neʼĩrava opa."
   }
 }

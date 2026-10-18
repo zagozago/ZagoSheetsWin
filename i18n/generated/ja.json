@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.38",
+  "productVersion": "0.9.39",
   "sourceLocale": "pt-BR",
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -198,7 +198,7 @@
     "progress.stopping": "安全に処理を停止しています…",
     "progress.upload": "Google にインポートをアップロードして検証しています…",
     "progress.verification": "置換前に変換済みデータを検証しています…",
-    "recovery.autoCleanup": "完了したバックアップを自動的にクリーンアップ",
+    "recovery.autoCleanup": "保持期間終了時に完了済みバックアップを削除",
     "recovery.cancelResume": "再開をキャンセル",
     "recovery.cleanExpired": "期限切れ / 容量超過のバックアップをクリーンアップ…",
     "recovery.clearSelection": "選択を解除",
@@ -296,7 +296,7 @@
     "theme.dark": "ダーク",
     "theme.light": "ライト",
     "theme.saveFailed": "テーマを保存できませんでした。以前の設定は保持されています。",
-    "tutorial.backupExplanation": "元ファイル → ローカルバックアップ → Google Sheets。「バックアップ」で「復元先…」を選ぶとファイルを復元できます。|30 日 · 200 MB（最大 1 GB まで調整可能）。自動クリーンアップは有効時のみ。保留中の処理は保護されます。|バックアップには、Sheets での後の変更を含まない元ファイルが保存されます。数式や書式が変わる場合があります。XLS マクロは Sheets では動作しません。",
+    "tutorial.backupExplanation": "元ファイル → ローカルバックアップ → Google Sheets。「バックアップ」で「復元先…」を選ぶとファイルを復元できます。|30 日 · 200 MB（最大 1 GB まで調整可能）。自動クリーンアップは有効時のみ。保留中の処理は保護されます。|バックアップには、Sheets での後の変更を含まない元ファイルが保存されます。数式や書式が変わる場合があります。XLS マクロは Sheets では動作しません。 上限に達すると、この設定がオフでも古い完了済みバックアップから削除されます。保留中のバックアップは保持されます。",
     "tutorial.backupTitle": "元ファイルを保持し、復元方法を確認",
     "tutorial.defaultsExplanation": "ダブルクリックするか、Windows メニューの「プログラムから開く → ZagoSheetsWin」を使用します。|ZagoSheetsWin を既定のスプレッドシートアプリに設定します（任意）:",
     "tutorial.defaultsTitle": "スプレッドシートの開き方を選択",
@@ -361,6 +361,8 @@
     "error.textHint": "sep= の指定が表と一致しません。",
     "error.textColumns": "行ごとの列数が異なります。",
     "error.odsBounds": "ODS：繰り返しが無効か、対応する寸法の上限を超えています。",
-    "error.odsStructure": "ODS ファイルの構造が不完全か無効です。"
+    "error.odsStructure": "ODS ファイルの構造が不完全か無効です。",
+    "action.chooseSeparator": "区切り文字を選択",
+    "recovery.quotaRotation": "上限に達すると、この設定がオフでも古い完了済みバックアップから削除されます。保留中のバックアップは保持されます。"
   }
 }

@@ -2,8 +2,8 @@
   "language": "su",
   "locale": "su-ID",
   "direction": "ltr",
-  "catalogRevision": 12,
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "catalogRevision": 13,
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -493,7 +493,7 @@
     "progress.stopping": "Ngeureunkeun kalayan aman…",
     "progress.upload": "Ngunggah jeung mariksa impor di Google…",
     "progress.verification": "Mariksa data hasil konvérsi saméméh ngaganti…",
-    "recovery.autoCleanup": "Bersihkeun otomatis cadangan nu geus réngsé",
+    "recovery.autoCleanup": "Beresihan cadangan réngsé nalika waktuna béak",
     "recovery.cancelResume": "Batalkeun neruskeun",
     "recovery.cleanExpired": "Bersihkeun cadangan kadaluwarsa / kaleuwihan…",
     "recovery.clearSelection": "Bersihkeun pilihan",
@@ -591,7 +591,7 @@
     "theme.dark": "Poék",
     "theme.light": "Caang",
     "theme.saveFailed": "Téma teu bisa disimpen. Pilihan saméméhna tetep disimpen.",
-    "tutorial.backupExplanation": "File asli → cadangan lokal → Google Sheets. Dina Cadangan, pilih Pulihkeun ka… pikeun mulihkeun file.|30 poé · 200 MB (bisa diatur nepi ka 1 GB). Bersih otomatis ngan lamun diaktipkeun; operasi nu nungguan ditangtayungan.|Cadangan nyimpen file asli, tanpa parobahan saterusna dina Sheets. Rumus jeung pormat bisa robah; makro XLS teu jalan dina Sheets.",
+    "tutorial.backupExplanation": "File asli → cadangan lokal → Google Sheets. Dina Cadangan, pilih Pulihkeun ka… pikeun mulihkeun file.|30 poé · 200 MB (bisa diatur nepi ka 1 GB). Bersih otomatis ngan lamun diaktipkeun; operasi nu nungguan ditangtayungan.|Cadangan nyimpen file asli, tanpa parobahan saterusna dina Sheets. Rumus jeung pormat bisa robah; makro XLS teu jalan dina Sheets. Nalika kuota pinuh, cadangan réngsé anu pangkolotna dipupus sanajan pilihan ieu dipareuman. Cadangan anu ngantosan tetep disimpen.",
     "tutorial.backupTitle": "Simpen file asli. Apal cara mulihkeunana.",
     "tutorial.defaultsExplanation": "Klik dua kali atawa paké Buka ku → ZagoSheetsWin dina ménu Windows.|Jadikeun ZagoSheetsWin aplikasi spreadsheet standar (opsional):",
     "tutorial.defaultsTitle": "Pilih cara muka spreadsheet",
@@ -656,6 +656,8 @@
     "error.textHint": "Pituduh sep= teu cocog jeung tabél.",
     "error.textColumns": "Jumlah kolom dina unggal baris béda.",
     "error.odsBounds": "ODS: pangulangan teu sah atawa ukuran ngaleuwihan wates anu dirojong.",
-    "error.odsStructure": "Struktur berkas ODS teu lengkep atawa teu sah."
+    "error.odsStructure": "Struktur berkas ODS teu lengkep atawa teu sah.",
+    "action.chooseSeparator": "Pilih pamisah",
+    "recovery.quotaRotation": "Nalika kuota pinuh, cadangan réngsé anu pangkolotna dipupus sanajan pilihan ieu dipareuman. Cadangan anu ngantosan tetep disimpen."
   }
 }

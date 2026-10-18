@@ -2,8 +2,8 @@
   "language": "uz",
   "locale": "uz-Latn-UZ",
   "direction": "ltr",
-  "catalogRevision": 12,
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "catalogRevision": 13,
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -495,7 +495,7 @@
     "progress.stopping": "Xavfsiz to‘xtatilmoqda…",
     "progress.upload": "Google’ga yuklanmoqda va import tekshirilmoqda…",
     "progress.verification": "Almashtirishdan oldin aylantirilgan ma’lumotlar tekshirilmoqda…",
-    "recovery.autoCleanup": "Tugallangan zaxira nusxalarni avtomatik tozalash",
+    "recovery.autoCleanup": "Saqlash muddati tugaganda tugallangan nusxalarni tozalash",
     "recovery.cancelResume": "Davom ettirishni bekor qilish",
     "recovery.cleanExpired": "Muddati o‘tgan / ortiqcha zaxira nusxalarni tozalash…",
     "recovery.clearSelection": "Tanlovni tozalash",
@@ -593,7 +593,7 @@
     "theme.dark": "Qorong‘i",
     "theme.light": "Yorug‘",
     "theme.saveFailed": "Mavzuni saqlab bo‘lmadi. Oldingi tanlovingiz saqlandi.",
-    "tutorial.backupExplanation": "Asl fayl → mahalliy zaxira nusxa → Google Sheets. Zaxira nusxalarda faylni tiklash uchun Quyidagi joyga tiklash… ni tanlang.|30 days · 200 MB (1 GB gacha sozlanadi). Avtomatik tozalash faqat yoqilganda; kutilayotgan amallar himoyalangan.|Zaxira nusxa asl faylni Sheets’dagi keyingi o‘zgarishlarsiz saqlaydi. Formulalar va formatlash o‘zgarishi mumkin; XLS makroslari Sheets’da ishlamaydi.",
+    "tutorial.backupExplanation": "Asl fayl → mahalliy zaxira nusxa → Google Sheets. Zaxira nusxalarda faylni tiklash uchun Quyidagi joyga tiklash… ni tanlang.|30 days · 200 MB (1 GB gacha sozlanadi). Avtomatik tozalash faqat yoqilganda; kutilayotgan amallar himoyalangan.|Zaxira nusxa asl faylni Sheets’dagi keyingi o‘zgarishlarsiz saqlaydi. Formulalar va formatlash o‘zgarishi mumkin; XLS makroslari Sheets’da ishlamaydi. Kvota to‘lganda ushbu parametr o‘chiq bo‘lsa ham eng eski tugallangan nusxalar o‘chiriladi. Kutilayotgan nusxalar saqlanadi.",
     "tutorial.backupTitle": "Asl faylni saqlang. Uni qanday tiklashni biling.",
     "tutorial.defaultsExplanation": "Windows menyusida ikki marta bosing yoki Open with → ZagoSheetsWin’dan foydalaning.|ZagoSheetsWin’ni standart jadval ilovasi qilib belgilang (ixtiyoriy):",
     "tutorial.defaultsTitle": "Jadvallaringizni qanday ochishni tanlang",
@@ -658,6 +658,8 @@
     "error.textHint": "sep= ko‘rsatmasi jadvalga mos kelmaydi.",
     "error.textColumns": "Qatorlardagi ustunlar soni har xil.",
     "error.odsBounds": "ODS: yaroqsiz takrorlash yoki qo‘llab-quvvatlanadigan chegaradan katta o‘lchamlar.",
-    "error.odsStructure": "ODS faylining tuzilishi to‘liq emas yoki yaroqsiz."
+    "error.odsStructure": "ODS faylining tuzilishi to‘liq emas yoki yaroqsiz.",
+    "action.chooseSeparator": "Ajratgichni tanlang",
+    "recovery.quotaRotation": "Kvota to‘lganda ushbu parametr o‘chiq bo‘lsa ham eng eski tugallangan nusxalar o‘chiriladi. Kutilayotgan nusxalar saqlanadi."
   }
 }

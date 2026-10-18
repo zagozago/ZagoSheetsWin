@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.38",
+  "productVersion": "0.9.39",
   "sourceLocale": "pt-BR",
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -198,7 +198,7 @@
     "progress.stopping": "محفوظ نموني روڪي رهيو آهي…",
     "progress.upload": "Google ۾ اپلوڊ ۽ درآمد جي تصديق ٿي رهي آهي…",
     "progress.verification": "بدلي کان اڳ بدليل ڊيٽا جي تصديق ٿي رهي آهي…",
-    "recovery.autoCleanup": "مڪمل بيڪ اپ پاڻمرادو صاف ڪريو",
+    "recovery.autoCleanup": "مدت پوري ٿيڻ تي مڪمل بيڪ اپ صاف ڪريو",
     "recovery.cancelResume": "جاري رکڻ رد ڪريو",
     "recovery.cleanExpired": "مدو پورو / وڌيڪ بيڪ اپ صاف ڪريو…",
     "recovery.clearSelection": "چونڊ صاف ڪريو",
@@ -296,7 +296,7 @@
     "theme.dark": "اونداهو",
     "theme.light": "روشن",
     "theme.saveFailed": "ٿيم محفوظ نه ٿي سگهيو. توهان جي اڳين پسند محفوظ رکي وئي.",
-    "tutorial.backupExplanation": "اصل → مقامي بيڪ اپ → Google Sheets. بيڪ اپ ۾ فائل واپس آڻڻ لاءِ هتي بحال ڪريو… چونڊيو.|30 ڏينهن · 200 MB (1 GB تائين بدلائي سگهجي ٿو). پاڻمرادو صفائي رڳو فعال ٿيڻ تي؛ زير انتظار آپريشن محفوظ آهن.|بيڪ اپ اصل کي Sheets ۾ بعد جي تبديلين کان سواءِ محفوظ رکي ٿو. فارمولا ۽ فارميٽنگ بدلجي سگهن ٿا؛ XLS ميڪروز Sheets ۾ ڪم نٿا ڪن.",
+    "tutorial.backupExplanation": "اصل → مقامي بيڪ اپ → Google Sheets. بيڪ اپ ۾ فائل واپس آڻڻ لاءِ هتي بحال ڪريو… چونڊيو.|30 ڏينهن · 200 MB (1 GB تائين بدلائي سگهجي ٿو). پاڻمرادو صفائي رڳو فعال ٿيڻ تي؛ زير انتظار آپريشن محفوظ آهن.|بيڪ اپ اصل کي Sheets ۾ بعد جي تبديلين کان سواءِ محفوظ رکي ٿو. فارمولا ۽ فارميٽنگ بدلجي سگهن ٿا؛ XLS ميڪروز Sheets ۾ ڪم نٿا ڪن. ڪوٽا ڀرجڻ تي هي اختيار بند هجي تڏهن به پراڻا مڪمل بيڪ اپ ڊاهيا وڃن ٿا. التوا وارا بيڪ اپ محفوظ رهن ٿا.",
     "tutorial.backupTitle": "اصل محفوظ رکو. ڄاڻو ته ان کي ڪيئن بحال ڪجي.",
     "tutorial.defaultsExplanation": "ڊبل ڪلڪ ڪريو يا Windows مينيو ۾ هن سان کوليو → ZagoSheetsWin استعمال ڪريو.|ZagoSheetsWin کي پنهنجو ڊيفالٽ اسپريڊ شيٽ ايپ مقرر ڪريو (اختياري):",
     "tutorial.defaultsTitle": "پنهنجون اسپريڊ شيٽون ڪيئن کولڻيون آهن چونڊيو",
@@ -361,6 +361,8 @@
     "error.textHint": "sep= اشارو جدول سان نٿو ملي.",
     "error.textColumns": "قطارن ۾ ڪالمن جو انگ مختلف آهي.",
     "error.odsBounds": "ODS: غلط ورجاءُ يا سهائتا واري حد کان وڏا ماپ.",
-    "error.odsStructure": "ODS فائل جي بناوت اڻپوري يا غلط آهي."
+    "error.odsStructure": "ODS فائل جي بناوت اڻپوري يا غلط آهي.",
+    "action.chooseSeparator": "جدا ڪندڙ چونڊيو",
+    "recovery.quotaRotation": "ڪوٽا ڀرجڻ تي هي اختيار بند هجي تڏهن به پراڻا مڪمل بيڪ اپ ڊاهيا وڃن ٿا. التوا وارا بيڪ اپ محفوظ رهن ٿا."
   }
 }

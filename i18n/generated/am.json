@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.38",
+  "productVersion": "0.9.39",
   "sourceLocale": "pt-BR",
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -198,7 +198,7 @@
     "progress.stopping": "በደህና በማቆም ላይ…",
     "progress.upload": "ማስመጣቱን ወደ Google በመስቀል እና በማረጋገጥ ላይ…",
     "progress.verification": "ከመተካቱ በፊት የተቀየረውን ውሂብ በማረጋገጥ ላይ…",
-    "recovery.autoCleanup": "የተጠናቀቁ ምትኬዎችን በራስ-ሰር አጽዳ",
+    "recovery.autoCleanup": "የማቆያ ጊዜ ሲያበቃ የተጠናቀቁ ምትኬዎችን አጽዳ",
     "recovery.cancelResume": "መቀጠልን ሰርዝ",
     "recovery.cleanExpired": "ጊዜያቸው ያለፈ / ተጨማሪ ምትኬዎችን አጽዳ…",
     "recovery.clearSelection": "ምርጫን አጽዳ",
@@ -296,7 +296,7 @@
     "theme.dark": "ጨለማ",
     "theme.light": "ብርሃን",
     "theme.saveFailed": "ገጽታውን ማስቀመጥ አልተቻለም። ቀዳሚ ምርጫዎ ተጠብቋል።",
-    "tutorial.backupExplanation": "ዋናው → የአካባቢ ምትኬ → Google Sheets. በምትኬዎች ውስጥ ፋይሉን ለመመለስ ወደ… መልስ ይምረጡ።|30 ቀናት · 200 MB (እስከ 1 GB ድረስ ማስተካከል ይቻላል)። ራስ-ሰር ማጽዳት ሲነቃ ብቻ፤ በመጠባበቅ ላይ ያሉ ሂደቶች የተጠበቁ ናቸው።|ምትኬው ዋናውን ይጠብቃል፣ በSheets ውስጥ በኋላ የሚደረጉ ለውጦችን አያካትትም። ቀመሮች እና ቅርጸት ሊቀየሩ ይችላሉ፤ XLS ማክሮዎች በSheets ውስጥ አይሠሩም።",
+    "tutorial.backupExplanation": "ዋናው → የአካባቢ ምትኬ → Google Sheets. በምትኬዎች ውስጥ ፋይሉን ለመመለስ ወደ… መልስ ይምረጡ።|30 ቀናት · 200 MB (እስከ 1 GB ድረስ ማስተካከል ይቻላል)። ራስ-ሰር ማጽዳት ሲነቃ ብቻ፤ በመጠባበቅ ላይ ያሉ ሂደቶች የተጠበቁ ናቸው።|ምትኬው ዋናውን ይጠብቃል፣ በSheets ውስጥ በኋላ የሚደረጉ ለውጦችን አያካትትም። ቀመሮች እና ቅርጸት ሊቀየሩ ይችላሉ፤ XLS ማክሮዎች በSheets ውስጥ አይሠሩም። የቦታ ገደቡ ሲደርስ ይህ አማራጭ ቢጠፋም በጣም የቆዩ የተጠናቀቁ ምትኬዎች ይሰረዛሉ። በመጠባበቅ ላይ ያሉት ይጠበቃሉ።",
     "tutorial.backupTitle": "ዋናውን ያቆዩ። እንዴት እንደሚመልሱት ይወቁ።",
     "tutorial.defaultsExplanation": "ሁለት ጊዜ ጠቅ ያድርጉ ወይም በWindows ምናሌ ውስጥ በ… ክፈት → ZagoSheetsWin ይጠቀሙ።|ZagoSheetsWinን እንደ ነባሪ የተመን ሉህ መተግበሪያ ያድርጉ (አማራጭ):",
     "tutorial.defaultsTitle": "የተመን ሉሆችዎን እንዴት እንደሚከፍቱ ይምረጡ",
@@ -361,6 +361,8 @@
     "error.textHint": "የsep= ፍንጭ ከሰንጠረዡ ጋር አይዛመድም።",
     "error.textColumns": "ረድፎች የተለያዩ የአምድ ብዛቶች አሏቸው።",
     "error.odsBounds": "ODS፦ ልክ ያልሆነ ድግግሞሽ ወይም ከሚደገፈው ገደብ በላይ መጠን።",
-    "error.odsStructure": "የODS ፋይል መዋቅር ያልተሟላ ወይም ልክ ያልሆነ ነው።"
+    "error.odsStructure": "የODS ፋይል መዋቅር ያልተሟላ ወይም ልክ ያልሆነ ነው።",
+    "action.chooseSeparator": "መለያ ምረጥ",
+    "recovery.quotaRotation": "የቦታ ገደቡ ሲደርስ ይህ አማራጭ ቢጠፋም በጣም የቆዩ የተጠናቀቁ ምትኬዎች ይሰረዛሉ። በመጠባበቅ ላይ ያሉት ይጠበቃሉ።"
   }
 }

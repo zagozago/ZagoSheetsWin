@@ -2,8 +2,8 @@
   "language": "yue",
   "locale": "yue-Hant-HK",
   "direction": "ltr",
-  "catalogRevision": 12,
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "catalogRevision": 13,
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -490,7 +490,7 @@
     "progress.stopping": "正安全停止…",
     "progress.upload": "正上載並喺 Google 驗證匯入…",
     "progress.verification": "取代之前正驗證轉換後嘅資料…",
-    "recovery.autoCleanup": "自動清理已完成嘅備份",
+    "recovery.autoCleanup": "保留期完結後清理已完成備份",
     "recovery.cancelResume": "取消繼續",
     "recovery.cleanExpired": "清理過期 / 超額備份…",
     "recovery.clearSelection": "清除選擇",
@@ -588,7 +588,7 @@
     "theme.dark": "深色",
     "theme.light": "淺色",
     "theme.saveFailed": "未能儲存主題。你之前嘅偏好已保留。",
-    "tutorial.backupExplanation": "原檔 → 本機備份 → Google Sheets。喺「備份」揀「還原到…」就可以復原檔案。|30 日 · 200 MB（最高可調到 1 GB）。只會喺啟用咗先自動清理；待處理操作會受保護。|備份會保留原檔，唔包括之後喺 Sheets 做嘅改動。公式同格式可能會改變；XLS 巨集喺 Sheets 唔會運作。",
+    "tutorial.backupExplanation": "原檔 → 本機備份 → Google Sheets。喺「備份」揀「還原到…」就可以復原檔案。|30 日 · 200 MB（最高可調到 1 GB）。只會喺啟用咗先自動清理；待處理操作會受保護。|備份會保留原檔，唔包括之後喺 Sheets 做嘅改動。公式同格式可能會改變；XLS 巨集喺 Sheets 唔會運作。 達到配額時，即使呢個選項關咗，都會刪除最舊嘅已完成備份。待處理備份會保留。",
     "tutorial.backupTitle": "保留原檔，亦要識得點樣復原。",
     "tutorial.defaultsExplanation": "雙擊，或者喺 Windows 選單用「開啟方式 → ZagoSheetsWin」。|將 ZagoSheetsWin 設做預設試算表應用程式（可選）：",
     "tutorial.defaultsTitle": "揀點樣開啟你嘅試算表",
@@ -653,6 +653,8 @@
     "error.textHint": "sep= 提示同表格唔一致。",
     "error.textColumns": "每行嘅欄數唔同。",
     "error.odsBounds": "ODS：重複無效或者尺寸超出支援上限。",
-    "error.odsStructure": "ODS 檔案結構唔完整或者無效。"
+    "error.odsStructure": "ODS 檔案結構唔完整或者無效。",
+    "action.chooseSeparator": "選擇分隔符",
+    "recovery.quotaRotation": "達到配額時，即使呢個選項關咗，都會刪除最舊嘅已完成備份。待處理備份會保留。"
   }
 }

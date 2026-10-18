@@ -158,12 +158,12 @@ public sealed class BackupManagementTests
         using var w=new Workspace();var op=await Completed(w);var held=await new FileOperationLock(w.Locks).AcquireAsync(op.SourceKey);var task=new BackupManagement(Storage(w)).DeleteAsync(op.Id);
         await Task.Delay(100);Assert.False(task.IsCompleted);Assert.True(File.Exists(op.Snapshot!.BackupPath));await held.DisposeAsync();Assert.Equal(1,(await task).Count);
     }
-    [Fact] public async Task QuotaCleanupChoosesOldestEligibleAndKeepsNewer()
+    [Theory] [InlineData(false)] [InlineData(true)] public async Task QuotaCleanupChoosesOldestEligibleAndKeepsNewer(bool automatic)
     {
         using var w = new Workspace(); var older = await Completed(w, DateTimeOffset.UtcNow.AddDays(-2));
         var other = Path.Combine(w.Root, "newer.xlsx"); File.WriteAllBytes(other, [1,2,3,4]);
         var newer = await Completed(w, DateTimeOffset.UtcNow.AddDays(-1), sourcePath: other);
-        await BackupPolicy.SaveAsync(Storage(w), new(30,1,true)); var manager = new BackupManagement(Storage(w));
+        await BackupPolicy.SaveAsync(Storage(w), new(30,1,automatic)); var manager = new BackupManagement(Storage(w));
         Assert.Equal(new[] { older.Id }, manager.Plan(999_995)); await manager.MakeRoomAsync(999_995);
         Assert.False(File.Exists(older.Snapshot!.BackupPath)); Assert.True(File.Exists(newer.Snapshot!.BackupPath));
     }

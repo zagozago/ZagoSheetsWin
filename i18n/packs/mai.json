@@ -2,8 +2,8 @@
   "language": "mai",
   "locale": "mai-IN",
   "direction": "ltr",
-  "catalogRevision": 12,
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "catalogRevision": 13,
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -491,7 +491,7 @@
     "progress.stopping": "सुरक्षित रूप सँ रोकल जा रहल अछि…",
     "progress.upload": "Google मेँ इम्पोर्ट अपलोड आ सत्यापित कएल जा रहल अछि…",
     "progress.verification": "बदलबाक पहिने रूपान्तरित डेटा सत्यापित कएल जा रहल अछि…",
-    "recovery.autoCleanup": "पूरा बैकअप स्वचालित रूप सँ साफ करू",
+    "recovery.autoCleanup": "अवधि समाप्त भेलापर पूरा बैकअप हटाउ",
     "recovery.cancelResume": "जारी रखब रद्द करू",
     "recovery.cleanExpired": "समाप्त / अतिरिक्त बैकअप साफ करू…",
     "recovery.clearSelection": "चयन साफ करू",
@@ -589,7 +589,7 @@
     "theme.dark": "गाढ़",
     "theme.light": "हल्का",
     "theme.saveFailed": "थीम सहेजल नहि जा सकल। पहिलुक पसंद सुरक्षित राखल गेल।",
-    "tutorial.backupExplanation": "मूल फाइल → स्थानीय बैकअप → Google Sheets. बैकअप मेँ फाइल वापस पाबै लेल एतय पुनर्स्थापित करू… चुनू।|30 दिन · 200 MB (1 GB धरि बदलि सकैत छी)। स्वचालित सफाई केवल सक्षम रहला पर; लम्बित ऑपरेशन सुरक्षित अछि।|बैकअप मूल फाइल सुरक्षित रखैत अछि, Sheets मेँ बादक बदलाव नहि। फॉर्मूला आ फॉर्मेटिंग बदलि सकैत अछि; XLS मैक्रो Sheets मेँ काम नहि करैत अछि।",
+    "tutorial.backupExplanation": "मूल फाइल → स्थानीय बैकअप → Google Sheets. बैकअप मेँ फाइल वापस पाबै लेल एतय पुनर्स्थापित करू… चुनू।|30 दिन · 200 MB (1 GB धरि बदलि सकैत छी)। स्वचालित सफाई केवल सक्षम रहला पर; लम्बित ऑपरेशन सुरक्षित अछि।|बैकअप मूल फाइल सुरक्षित रखैत अछि, Sheets मेँ बादक बदलाव नहि। फॉर्मूला आ फॉर्मेटिंग बदलि सकैत अछि; XLS मैक्रो Sheets मेँ काम नहि करैत अछि। कोटा भरलापर ई विकल्प बन्द रहितो सभसँ पुरान पूरा बैकअप हटाओल जाइत अछि। लम्बित बैकअप सुरक्षित रहैत अछि।",
     "tutorial.backupTitle": "मूल फाइल सुरक्षित राखू। ओकरा वापस पाबै तरीका जानू।",
     "tutorial.defaultsExplanation": "डबल-क्लिक करू वा Windows मेनू मेँ एकरासँ खोलू → ZagoSheetsWin उपयोग करू।|ZagoSheetsWin केँ अपन डिफॉल्ट स्प्रेडशीट ऐप बनाउ (वैकल्पिक):",
     "tutorial.defaultsTitle": "स्प्रेडशीट कोना खोलब, चुनू",
@@ -654,6 +654,8 @@
     "error.textHint": "sep= संकेत तालिका सँ मेल नहि खाइत अछि।",
     "error.textColumns": "पंक्तिसभमे स्तम्भक संख्या अलग अछि।",
     "error.odsBounds": "ODS: अमान्य दोहराव वा समर्थित सीमासँ बेसी आकार।",
-    "error.odsStructure": "ODS फाइलक संरचना अधूरी वा अमान्य अछि।"
+    "error.odsStructure": "ODS फाइलक संरचना अधूरी वा अमान्य अछि।",
+    "action.chooseSeparator": "विभाजक चुनू",
+    "recovery.quotaRotation": "कोटा भरलापर ई विकल्प बन्द रहितो सभसँ पुरान पूरा बैकअप हटाओल जाइत अछि। लम्बित बैकअप सुरक्षित रहैत अछि।"
   }
 }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.38",
+  "productVersion": "0.9.39",
   "sourceLocale": "pt-BR",
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -198,7 +198,7 @@
     "progress.stopping": "Na-akwụsị n'enweghị nsogbu…",
     "progress.upload": "Na-ebulite ma na-enyocha mbubata na Google…",
     "progress.verification": "Na-enyocha data a tụgharịrị tupu nnọchi…",
-    "recovery.autoCleanup": "Hichaa nnomi ndabere emechara na akpaka",
+    "recovery.autoCleanup": "Hichaa ndabere emechara mgbe oge nchekwa gwụchara",
     "recovery.cancelResume": "Kagbuo ịga n'ihu",
     "recovery.cleanExpired": "Hichaa nnomi ndabere kubie ume / karịrị oke…",
     "recovery.clearSelection": "Kpochapụ nhọrọ",
@@ -296,7 +296,7 @@
     "theme.dark": "Ọchịchịrị",
     "theme.light": "Ìhè",
     "theme.saveFailed": "Enweghị ike ichekwa isiokwu. E chekwara nhọrọ mbụ gị.",
-    "tutorial.backupExplanation": "Nke mbụ → nnomi ndabere n'ime kọmputa → Google Sheets. Na Nnomi ndabere, họrọ Weghachite gaa… iji weghachite faịlụ.|30 ụbọchị · 200 MB (enwere ike ịgbanwe ruo 1 GB). Nhicha akpaka naanị mgbe agbanyere ya; a na-echekwa ọrụ ndị na-echere.|Nnomi ndabere na-edobe nke mbụ, n'enweghị mgbanwe emechara na Sheets. Formulas na nhazi nwere ike ịgbanwe; macros XLS anaghị arụ ọrụ na Sheets.",
+    "tutorial.backupExplanation": "Nke mbụ → nnomi ndabere n'ime kọmputa → Google Sheets. Na Nnomi ndabere, họrọ Weghachite gaa… iji weghachite faịlụ.|30 ụbọchị · 200 MB (enwere ike ịgbanwe ruo 1 GB). Nhicha akpaka naanị mgbe agbanyere ya; a na-echekwa ọrụ ndị na-echere.|Nnomi ndabere na-edobe nke mbụ, n'enweghị mgbanwe emechara na Sheets. Formulas na nhazi nwere ike ịgbanwe; macros XLS anaghị arụ ọrụ na Sheets. Mgbe oke ohere juru, a na-ehichapụ ndabere emechara kacha ochie ọbụna ma nhọrọ a gbanyụọ. A na-edobe ndabere na-eche.",
     "tutorial.backupTitle": "Debe nke mbụ. Mara otu esi eweghachi ya.",
     "tutorial.defaultsExplanation": "Pịa ugboro abụọ ma ọ bụ jiri Mepee na → ZagoSheetsWin na menu Windows.|Tọọ ZagoSheetsWin dịka ngwa spreadsheet ndabara gị (nhọrọ):",
     "tutorial.defaultsTitle": "Họrọ otu esi emepee spreadsheets gị",
@@ -361,6 +361,8 @@
     "error.textHint": "Ntuziaka sep= adabaghị na tebụl.",
     "error.textColumns": "Ahịrị nwere ọnụọgụ kọlụm dị iche iche.",
     "error.odsBounds": "ODS: nkwughachi na-ezighi ezi ma ọ bụ nha gafere oke a na-akwado.",
-    "error.odsStructure": "Nhazi faịlụ ODS ezughị ezu ma ọ bụ na-ezighi ezi."
+    "error.odsStructure": "Nhazi faịlụ ODS ezughị ezu ma ọ bụ na-ezighi ezi.",
+    "action.chooseSeparator": "Họrọ ihe nkewa",
+    "recovery.quotaRotation": "Mgbe oke ohere juru, a na-ehichapụ ndabere emechara kacha ochie ọbụna ma nhọrọ a gbanyụọ. A na-edobe ndabere na-eche."
   }
 }

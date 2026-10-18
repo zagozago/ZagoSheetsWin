@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.38",
+  "productVersion": "0.9.39",
   "sourceLocale": "pt-BR",
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -198,7 +198,7 @@
     "progress.stopping": "Vorgang wird sicher gestoppt…",
     "progress.upload": "Import wird hochgeladen und bei Google geprüft…",
     "progress.verification": "Konvertierte Daten werden vor dem Ersetzen geprüft…",
-    "recovery.autoCleanup": "Abgeschlossene Sicherungen automatisch bereinigen",
+    "recovery.autoCleanup": "Abgeschlossene Sicherungen nach Ablauf löschen",
     "recovery.cancelResume": "Fortsetzen abbrechen",
     "recovery.cleanExpired": "Abgelaufene / überschüssige Sicherungen bereinigen…",
     "recovery.clearSelection": "Auswahl aufheben",
@@ -296,7 +296,7 @@
     "theme.dark": "Dunkel",
     "theme.light": "Hell",
     "theme.saveFailed": "Das Design konnte nicht gespeichert werden. Ihre vorherige Einstellung wurde beibehalten.",
-    "tutorial.backupExplanation": "Original → lokale Sicherung → Google Sheets. Wählen Sie unter „Sicherungen“ „Wiederherstellen nach…“, um die Datei wiederherzustellen.|30 Tage · 200 MB (anpassbar bis 1 GB). Automatische Bereinigung nur bei Aktivierung; ausstehende Vorgänge sind geschützt.|Die Sicherung enthält das Original ohne spätere Änderungen in Sheets. Formeln und Formatierungen können sich ändern; XLS-Makros funktionieren in Sheets nicht.",
+    "tutorial.backupExplanation": "Original → lokale Sicherung → Google Sheets. Wählen Sie unter „Sicherungen“ „Wiederherstellen nach…“, um die Datei wiederherzustellen.|30 Tage · 200 MB (anpassbar bis 1 GB). Automatische Bereinigung nur bei Aktivierung; ausstehende Vorgänge sind geschützt.|Die Sicherung enthält das Original ohne spätere Änderungen in Sheets. Formeln und Formatierungen können sich ändern; XLS-Makros funktionieren in Sheets nicht. Bei Erreichen des Kontingents werden die ältesten abgeschlossenen Sicherungen auch bei deaktivierter Option gelöscht. Ausstehende Sicherungen bleiben erhalten.",
     "tutorial.backupTitle": "Original behalten. Wissen, wie es wiederhergestellt wird.",
     "tutorial.defaultsExplanation": "Doppelklicken oder im Windows-Menü „Öffnen mit → ZagoSheetsWin“ verwenden.|ZagoSheetsWin als Standard-App für Tabellen festlegen (optional):",
     "tutorial.defaultsTitle": "Auswählen, wie Tabellen geöffnet werden",
@@ -361,6 +361,8 @@
     "error.textHint": "Der Hinweis sep= passt nicht zur Tabelle.",
     "error.textColumns": "Die Zeilen haben unterschiedlich viele Spalten.",
     "error.odsBounds": "ODS: ungültige Wiederholung oder Abmessungen über der unterstützten Grenze.",
-    "error.odsStructure": "Die Struktur der ODS-Datei ist unvollständig oder ungültig."
+    "error.odsStructure": "Die Struktur der ODS-Datei ist unvollständig oder ungültig.",
+    "action.chooseSeparator": "Trennzeichen wählen",
+    "recovery.quotaRotation": "Bei Erreichen des Kontingents werden die ältesten abgeschlossenen Sicherungen auch bei deaktivierter Option gelöscht. Ausstehende Sicherungen bleiben erhalten."
   }
 }

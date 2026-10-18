@@ -2,8 +2,8 @@
   "language": "ms",
   "locale": "ms-MY",
   "direction": "ltr",
-  "catalogRevision": 12,
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "catalogRevision": 13,
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -492,7 +492,7 @@
     "progress.stopping": "Menghentikan dengan selamat…",
     "progress.upload": "Memuat naik dan mengesahkan import di Google…",
     "progress.verification": "Mengesahkan data yang ditukar sebelum penggantian…",
-    "recovery.autoCleanup": "Bersihkan sandaran yang selesai secara automatik",
+    "recovery.autoCleanup": "Padam sandaran selesai apabila tempoh tamat",
     "recovery.cancelResume": "Batalkan sambung semula",
     "recovery.cleanExpired": "Bersihkan sandaran tamat tempoh / berlebihan…",
     "recovery.clearSelection": "Kosongkan pilihan",
@@ -590,7 +590,7 @@
     "theme.dark": "Gelap",
     "theme.light": "Cerah",
     "theme.saveFailed": "Tidak dapat menyimpan tema. Pilihan anda sebelum ini dikekalkan.",
-    "tutorial.backupExplanation": "Asal → sandaran setempat → Google Sheets. Dalam Sandaran, pilih Pulihkan ke… untuk memulihkan fail.|30 hari · 200 MB (boleh dilaraskan sehingga 1 GB). Pembersihan automatik hanya apabila didayakan; operasi tertunda dilindungi.|Sandaran mengekalkan fail asal tanpa perubahan kemudian dalam Sheets. Formula dan pemformatan mungkin berubah; makro XLS tidak berfungsi dalam Sheets.",
+    "tutorial.backupExplanation": "Asal → sandaran setempat → Google Sheets. Dalam Sandaran, pilih Pulihkan ke… untuk memulihkan fail.|30 hari · 200 MB (boleh dilaraskan sehingga 1 GB). Pembersihan automatik hanya apabila didayakan; operasi tertunda dilindungi.|Sandaran mengekalkan fail asal tanpa perubahan kemudian dalam Sheets. Formula dan pemformatan mungkin berubah; makro XLS tidak berfungsi dalam Sheets. Apabila kuota dicapai, sandaran selesai paling lama dipadam walaupun pilihan ini dimatikan. Sandaran tertunda dikekalkan.",
     "tutorial.backupTitle": "Kekalkan fail asal. Ketahui cara memulihkannya.",
     "tutorial.defaultsExplanation": "Dwiklik atau gunakan Buka dengan → ZagoSheetsWin dalam menu Windows.|Tetapkan ZagoSheetsWin sebagai aplikasi hamparan lalai anda (pilihan):",
     "tutorial.defaultsTitle": "Pilih cara membuka hamparan anda",
@@ -655,6 +655,8 @@
     "error.textHint": "Petunjuk sep= tidak sepadan dengan jadual.",
     "error.textColumns": "Bilangan lajur berbeza antara baris.",
     "error.odsBounds": "ODS: pengulangan tidak sah atau dimensi melebihi had yang disokong.",
-    "error.odsStructure": "Struktur fail ODS tidak lengkap atau tidak sah."
+    "error.odsStructure": "Struktur fail ODS tidak lengkap atau tidak sah.",
+    "action.chooseSeparator": "Pilih pemisah",
+    "recovery.quotaRotation": "Apabila kuota dicapai, sandaran selesai paling lama dipadam walaupun pilihan ini dimatikan. Sandaran tertunda dikekalkan."
   }
 }

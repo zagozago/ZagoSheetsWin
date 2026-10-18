@@ -2,8 +2,8 @@
   "language": "om",
   "locale": "om-ET",
   "direction": "ltr",
-  "catalogRevision": 12,
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "catalogRevision": 13,
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -495,7 +495,7 @@
     "progress.stopping": "Nageenyaan dhaabaa jira…",
     "progress.upload": "Google keessatti olkaa'aa fi galchiinsa mirkaneessaa jira…",
     "progress.verification": "Bakka buusuun dura deetaa jijjiirame mirkaneessaa jira…",
-    "recovery.autoCleanup": "Kuusdeebii xumuraman ofumaan qulqulleessi",
+    "recovery.autoCleanup": "Yeroon kuusaa yoo dhume duwwaawwan xumuraman haqii",
     "recovery.cancelResume": "Itti fufiinsa dhiisi",
     "recovery.cleanExpired": "Kuusdeebii yeroo isaanii darbe / daangaa caale qulqulleessi…",
     "recovery.clearSelection": "Filannoo qulqulleessi",
@@ -593,7 +593,7 @@
     "theme.dark": "Dukkana",
     "theme.light": "Ifa",
     "theme.saveFailed": "Tema kuusuun hin danda'amne. Filannoon kee duraa eegameera.",
-    "tutorial.backupExplanation": "Kan jalqabaa → kuusdeebii naannoo keessaa → Google Sheets. Kuusdeebii keessatti faayila deebisuuf Gara… deebisi filadhu.|30 days · 200 MB (hanga 1 GBtti sirreeffamuu danda'a). Qulqulleessuun ofumaan yeroo dandeessifame qofa; adeemsi eegaa jiru ni eeggama.|Kuusdeebiin kan jalqabaa eega, jijjiirama booda Sheets keessatti godhame osoo hin dabalatin. Foormulaan fi bifa qindaa'inaa jijjiiramuu danda'u; makroon XLS Sheets keessatti hin hojjetu.",
+    "tutorial.backupExplanation": "Kan jalqabaa → kuusdeebii naannoo keessaa → Google Sheets. Kuusdeebii keessatti faayila deebisuuf Gara… deebisi filadhu.|30 days · 200 MB (hanga 1 GBtti sirreeffamuu danda'a). Qulqulleessuun ofumaan yeroo dandeessifame qofa; adeemsi eegaa jiru ni eeggama.|Kuusdeebiin kan jalqabaa eega, jijjiirama booda Sheets keessatti godhame osoo hin dabalatin. Foormulaan fi bifa qindaa'inaa jijjiiramuu danda'u; makroon XLS Sheets keessatti hin hojjetu. Daangaan iddoo yoo guute, filannoon kun cufamus duwwaawwan xumuraman keessaa kan durii haqamu. Kan eeggachaa jiran ni kuufamu.",
     "tutorial.backupTitle": "Kan jalqabaa eegi. Akkaataa itti deebiftu beeki.",
     "tutorial.defaultsExplanation": "Cuqaasa lamaa yookaan menu Windows keessatti Open with → ZagoSheetsWin fayyadami.|ZagoSheetsWin akka appii gabatee durtii keetti qindeessi (filannoo):",
     "tutorial.defaultsTitle": "Akkaataa gabateewwan kee banuu filadhu",
@@ -658,6 +658,8 @@
     "error.textHint": "Qajeelfamni sep= gabatee wajjin wal hin simu.",
     "error.textColumns": "Tarreewwan lakkoofsa tarjaalee adda addaa qabu.",
     "error.odsBounds": "ODS: irra deddeebii sirrii hin taane yookaan hamma daangaa deeggaramu caalu.",
-    "error.odsStructure": "Caasaan faayilii ODS guutuu miti yookaan sirrii miti."
+    "error.odsStructure": "Caasaan faayilii ODS guutuu miti yookaan sirrii miti.",
+    "action.chooseSeparator": "Mallattoo addaan baasuu fili",
+    "recovery.quotaRotation": "Daangaan iddoo yoo guute, filannoon kun cufamus duwwaawwan xumuraman keessaa kan durii haqamu. Kan eeggachaa jiran ni kuufamu."
   }
 }

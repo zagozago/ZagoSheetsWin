@@ -2,8 +2,8 @@
   "language": "ar",
   "locale": "ar",
   "direction": "rtl",
-  "catalogRevision": 12,
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "catalogRevision": 13,
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -486,7 +486,7 @@
     "progress.stopping": "جارٍ الإيقاف بأمان…",
     "progress.upload": "جارٍ الرفع والتحقق من الاستيراد في Google…",
     "progress.verification": "جارٍ التحقق من البيانات المحوَّلة قبل الاستبدال…",
-    "recovery.autoCleanup": "تنظيف النسخ الاحتياطية المكتملة تلقائيًا",
+    "recovery.autoCleanup": "حذف النسخ المكتملة عند انتهاء مدة الاحتفاظ",
     "recovery.cancelResume": "إلغاء الاستئناف",
     "recovery.cleanExpired": "تنظيف النسخ الاحتياطية المنتهية أو الزائدة…",
     "recovery.clearSelection": "مسح التحديد",
@@ -584,7 +584,7 @@
     "theme.dark": "داكن",
     "theme.light": "فاتح",
     "theme.saveFailed": "تعذر حفظ السمة. تم الاحتفاظ بتفضيلك السابق.",
-    "tutorial.backupExplanation": "الأصل → نسخة احتياطية محلية → Google Sheets. في النسخ الاحتياطية، اختر «استعادة إلى…» لاسترداد الملف.|30 يومًا · 200 MB (قابل للتعديل حتى 1 GB). التنظيف التلقائي فقط عند تمكينه؛ العمليات المعلّقة محمية.|تحافظ النسخة الاحتياطية على الأصل من دون التغييرات اللاحقة في Sheets. قد تتغير الصيغ والتنسيق؛ ولا تعمل وحدات ماكرو XLS في Sheets.",
+    "tutorial.backupExplanation": "الأصل → نسخة احتياطية محلية → Google Sheets. في النسخ الاحتياطية، اختر «استعادة إلى…» لاسترداد الملف.|30 يومًا · 200 MB (قابل للتعديل حتى 1 GB). التنظيف التلقائي فقط عند تمكينه؛ العمليات المعلّقة محمية.|تحافظ النسخة الاحتياطية على الأصل من دون التغييرات اللاحقة في Sheets. قد تتغير الصيغ والتنسيق؛ ولا تعمل وحدات ماكرو XLS في Sheets. عند بلوغ الحصة، تُحذف أقدم النسخ المكتملة حتى لو كان هذا الخيار معطلاً. تُحفظ النسخ المعلقة.",
     "tutorial.backupTitle": "احتفظ بالأصل. واعرف كيفية استعادته.",
     "tutorial.defaultsExplanation": "انقر نقرًا مزدوجًا أو استخدم «فتح باستخدام → ZagoSheetsWin» من قائمة Windows.|عيّن ZagoSheetsWin كتطبيق افتراضي لجداول البيانات (اختياري):",
     "tutorial.defaultsTitle": "اختر طريقة فتح جداول بياناتك",
@@ -649,6 +649,8 @@
     "error.textHint": "تلميح sep= لا يتطابق مع الجدول.",
     "error.textColumns": "تختلف أعداد الأعمدة بين الصفوف.",
     "error.odsBounds": "ODS: تكرار غير صالح أو أبعاد تتجاوز الحد المدعوم.",
-    "error.odsStructure": "بنية ملف ODS غير مكتملة أو غير صالحة."
+    "error.odsStructure": "بنية ملف ODS غير مكتملة أو غير صالحة.",
+    "action.chooseSeparator": "اختيار الفاصل",
+    "recovery.quotaRotation": "عند بلوغ الحصة، تُحذف أقدم النسخ المكتملة حتى لو كان هذا الخيار معطلاً. تُحفظ النسخ المعلقة."
   }
 }

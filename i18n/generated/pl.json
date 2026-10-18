@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.38",
+  "productVersion": "0.9.39",
   "sourceLocale": "pt-BR",
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -198,7 +198,7 @@
     "progress.stopping": "Bezpieczne zatrzymywanie…",
     "progress.upload": "Wysyłanie i weryfikowanie importu w Google…",
     "progress.verification": "Weryfikowanie przekonwertowanych danych przed zastąpieniem…",
-    "recovery.autoCleanup": "Automatycznie czyść ukończone kopie zapasowe",
+    "recovery.autoCleanup": "Usuwaj ukończone kopie po upływie okresu",
     "recovery.cancelResume": "Anuluj wznawianie",
     "recovery.cleanExpired": "Wyczyść wygasłe / nadmiarowe kopie zapasowe…",
     "recovery.clearSelection": "Wyczyść zaznaczenie",
@@ -296,7 +296,7 @@
     "theme.dark": "Ciemny",
     "theme.light": "Jasny",
     "theme.saveFailed": "Nie udało się zapisać motywu. Poprzednia preferencja została zachowana.",
-    "tutorial.backupExplanation": "Oryginał → lokalna kopia zapasowa → Google Sheets. W Kopiach zapasowych wybierz Przywróć do…, aby odzyskać plik.|30 dni · 200 MB (można zwiększyć do 1 GB). Automatyczne czyszczenie tylko po włączeniu; operacje oczekujące są chronione.|Kopia zapasowa zachowuje oryginał bez późniejszych zmian z Sheets. Formuły i formatowanie mogą się zmienić; makra XLS nie działają w Sheets.",
+    "tutorial.backupExplanation": "Oryginał → lokalna kopia zapasowa → Google Sheets. W Kopiach zapasowych wybierz Przywróć do…, aby odzyskać plik.|30 dni · 200 MB (można zwiększyć do 1 GB). Automatyczne czyszczenie tylko po włączeniu; operacje oczekujące są chronione.|Kopia zapasowa zachowuje oryginał bez późniejszych zmian z Sheets. Formuły i formatowanie mogą się zmienić; makra XLS nie działają w Sheets. Po osiągnięciu limitu najstarsze ukończone kopie są usuwane nawet przy wyłączonej opcji. Kopie oczekujące są zachowywane.",
     "tutorial.backupTitle": "Zachowaj oryginał. Dowiedz się, jak go odzyskać.",
     "tutorial.defaultsExplanation": "Kliknij dwukrotnie albo użyj Otwórz za pomocą → ZagoSheetsWin w menu Windows.|Ustaw ZagoSheetsWin jako domyślną aplikację arkuszy (opcjonalnie):",
     "tutorial.defaultsTitle": "Wybierz sposób otwierania arkuszy",
@@ -361,6 +361,8 @@
     "error.textHint": "Wskazówka sep= nie pasuje do tabeli.",
     "error.textColumns": "Wiersze mają różną liczbę kolumn.",
     "error.odsBounds": "ODS: nieprawidłowe powtórzenie lub wymiary poza obsługiwanym limitem.",
-    "error.odsStructure": "Struktura pliku ODS jest niepełna lub nieprawidłowa."
+    "error.odsStructure": "Struktura pliku ODS jest niepełna lub nieprawidłowa.",
+    "action.chooseSeparator": "Wybierz separator",
+    "recovery.quotaRotation": "Po osiągnięciu limitu najstarsze ukończone kopie są usuwane nawet przy wyłączonej opcji. Kopie oczekujące są zachowywane."
   }
 }

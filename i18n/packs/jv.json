@@ -2,8 +2,8 @@
   "language": "jv",
   "locale": "jv-ID",
   "direction": "ltr",
-  "catalogRevision": 12,
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "catalogRevision": 13,
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -492,7 +492,7 @@
     "progress.stopping": "Mandheg kanthi aman…",
     "progress.upload": "Ngunggah lan verifikasi impor ing Google…",
     "progress.verification": "Verifikasi data asil konversi sadurunge panggantos…",
-    "recovery.autoCleanup": "Resiki cadangan sing wis rampung kanthi otomatis",
+    "recovery.autoCleanup": "Resiki serep rampung nalika wektu entek",
     "recovery.cancelResume": "Batal terusake",
     "recovery.cleanExpired": "Resiki cadangan kadaluwarsa / keluwihan…",
     "recovery.clearSelection": "Busak pilihan",
@@ -590,7 +590,7 @@
     "theme.dark": "Peteng",
     "theme.light": "Padhang",
     "theme.saveFailed": "Tema ora bisa disimpen. Pilihan sadurunge tetep dijaga.",
-    "tutorial.backupExplanation": "Berkas asli → cadangan lokal → Google Sheets. Ing Cadangan, pilih Pulihake menyang… kanggo mulihake berkas.|30 dina · 200 MB (bisa diatur nganti 1 GB). Reresik otomatis mung nalika diaktifake; operasi sing durung rampung dilindhungi.|Cadangan njaga berkas asli, tanpa owah-owahan sabanjure ing Sheets. Rumus lan format bisa owah; makro XLS ora bisa digunakake ing Sheets.",
+    "tutorial.backupExplanation": "Berkas asli → cadangan lokal → Google Sheets. Ing Cadangan, pilih Pulihake menyang… kanggo mulihake berkas.|30 dina · 200 MB (bisa diatur nganti 1 GB). Reresik otomatis mung nalika diaktifake; operasi sing durung rampung dilindhungi.|Cadangan njaga berkas asli, tanpa owah-owahan sabanjure ing Sheets. Rumus lan format bisa owah; makro XLS ora bisa digunakake ing Sheets. Nalika kuota kebak, serep rampung sing paling lawas dibusak sanajan pilihan iki dipateni. Serep sing isih ngenteni tetep disimpen.",
     "tutorial.backupTitle": "Simpen berkas asli. Ngerteni carane mulihake.",
     "tutorial.defaultsExplanation": "Klik kaping pindho utawa gunakake Bukak nganggo → ZagoSheetsWin ing menu Windows.|Setel ZagoSheetsWin minangka aplikasi spreadsheet baku (opsional):",
     "tutorial.defaultsTitle": "Pilih cara mbukak spreadsheet sampeyan",
@@ -655,6 +655,8 @@
     "error.textHint": "Petunjuk sep= ora cocog karo tabel.",
     "error.textColumns": "Cacah kolom ing saben larik beda.",
     "error.odsBounds": "ODS: pengulangan ora sah utawa ukuran ngluwihi wates sing didhukung.",
-    "error.odsStructure": "Struktur berkas ODS ora pepak utawa ora sah."
+    "error.odsStructure": "Struktur berkas ODS ora pepak utawa ora sah.",
+    "action.chooseSeparator": "Pilih pamisah",
+    "recovery.quotaRotation": "Nalika kuota kebak, serep rampung sing paling lawas dibusak sanajan pilihan iki dipateni. Serep sing isih ngenteni tetep disimpen."
   }
 }

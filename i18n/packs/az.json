@@ -2,8 +2,8 @@
   "language": "az",
   "locale": "az-Latn-AZ",
   "direction": "ltr",
-  "catalogRevision": 12,
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "catalogRevision": 13,
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -491,7 +491,7 @@
     "progress.stopping": "Təhlükəsiz dayandırılır…",
     "progress.upload": "İdxal Google-a yüklənir və yoxlanılır…",
     "progress.verification": "Əvəzləmədən əvvəl çevrilmiş məlumatlar yoxlanılır…",
-    "recovery.autoCleanup": "Tamamlanmış ehtiyat nüsxələri avtomatik təmizlə",
+    "recovery.autoCleanup": "Saxlama müddəti bitdikdə tamamlanmış nüsxələri sil",
     "recovery.cancelResume": "Davam etdirməni ləğv et",
     "recovery.cleanExpired": "Müddəti bitmiş / artıq ehtiyat nüsxələri təmizlə…",
     "recovery.clearSelection": "Seçimi təmizlə",
@@ -589,7 +589,7 @@
     "theme.dark": "Tünd",
     "theme.light": "Açıq",
     "theme.saveFailed": "Mövzunu saxlamaq mümkün olmadı. Əvvəlki seçiminiz saxlanıldı.",
-    "tutorial.backupExplanation": "Orijinal → yerli ehtiyat nüsxə → Google Sheets. Faylı bərpa etmək üçün Ehtiyat nüsxələrdə Bura bərpa et… seçin.|30 gün · 200 MB (1 GB-dək tənzimlənə bilər). Avtomatik təmizləmə yalnız aktiv olduqda; gözləyən əməliyyatlar qorunur.|Ehtiyat nüsxə Sheets-də sonrakı dəyişikliklər olmadan orijinalı saxlayır. Düsturlar və formatlama dəyişə bilər; XLS makrosları Sheets-də işləmir.",
+    "tutorial.backupExplanation": "Orijinal → yerli ehtiyat nüsxə → Google Sheets. Faylı bərpa etmək üçün Ehtiyat nüsxələrdə Bura bərpa et… seçin.|30 gün · 200 MB (1 GB-dək tənzimlənə bilər). Avtomatik təmizləmə yalnız aktiv olduqda; gözləyən əməliyyatlar qorunur.|Ehtiyat nüsxə Sheets-də sonrakı dəyişikliklər olmadan orijinalı saxlayır. Düsturlar və formatlama dəyişə bilər; XLS makrosları Sheets-də işləmir. Kvota dolduqda bu seçim söndürülsə belə ən köhnə tamamlanmış nüsxələr silinir. Gözləyən nüsxələr saxlanılır.",
     "tutorial.backupTitle": "Orijinalı saxlayın. Onu necə bərpa edəcəyinizi bilin.",
     "tutorial.defaultsExplanation": "Windows menyusunda iki dəfə klikləyin və ya Birlikdə aç → ZagoSheetsWin istifadə edin.|ZagoSheetsWin-i standart elektron cədvəl tətbiqi kimi təyin edin (istəyə bağlı):",
     "tutorial.defaultsTitle": "Elektron cədvəllərinizi necə açacağınızı seçin",
@@ -654,6 +654,8 @@
     "error.textHint": "sep= göstərişi cədvələ uyğun gəlmir.",
     "error.textColumns": "Sətirlərdə sütunların sayı fərqlidir.",
     "error.odsBounds": "ODS: etibarsız təkrarlama və ya dəstəklənən həddi aşan ölçülər.",
-    "error.odsStructure": "ODS faylının quruluşu natamam və ya etibarsızdır."
+    "error.odsStructure": "ODS faylının quruluşu natamam və ya etibarsızdır.",
+    "action.chooseSeparator": "Ayırıcı seçin",
+    "recovery.quotaRotation": "Kvota dolduqda bu seçim söndürülsə belə ən köhnə tamamlanmış nüsxələr silinir. Gözləyən nüsxələr saxlanılır."
   }
 }

@@ -78,7 +78,7 @@ internal sealed class RecoveryForm : Form
             automatic.Height = TextRenderer.MeasureText(automatic.Text, automatic.Font, new Size(Math.Max(40, width-54), int.MaxValue), TextFormatFlags.WordBreak).Height + 14;
         }
         policyPanel.SizeChanged += (_, _) => FitPolicy(); automatic.TextChanged += (_, _) => FitPolicy(); automatic.FontChanged += (_, _) => FitPolicy();
-        policyPanel.Controls.AddRange([limits, automatic, usage]);
+        policyPanel.Controls.AddRange([limits, automatic, new Label { AutoSize = true, Text = UiText.Get("recovery.quotaRotation") }, usage]);
         var restore = new AdaptiveButton { Text = UiText.Get("action.restore"), AutoSize = true };
         var repair = new MenuActionButton { Text = UiText.Get("recovery.repairNew"), AutoSize = true };
         var copy = new MenuActionButton { Text = UiText.Get("recovery.resumeCopy"), AutoSize = true };

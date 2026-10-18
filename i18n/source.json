@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.38",
+  "productVersion": "0.9.39",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 12,
+  "catalogRevision": 13,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -5805,7 +5805,7 @@
       "notes": []
     },
     "recovery.autoCleanup": {
-      "text": "Limpar automaticamente backups concluídos",
+      "text": "Limpar backups concluídos ao vencer o prazo",
       "context": "src/SheetsWindows.Windows/RecoveryForm.cs - public RecoveryForm(bool preview = false, bool previewBusy = false)",
       "scope": "app",
       "placeholders": [],
@@ -6821,7 +6821,7 @@
       "notes": []
     },
     "tutorial.backupExplanation": {
-      "text": "Original → backup local → Google Sheets. Em Backups, escolha Restaurar em… para recuperar o arquivo.|30 dias · 200 MB (ajustável até 1 GB). Limpeza automática só quando ativada; operações pendentes são protegidas.|O backup guarda o original, sem alterações posteriores no Sheets. Fórmulas e formatação podem mudar; macros XLS não funcionam no Sheets.",
+      "text": "Original → backup local → Google Sheets. Em Backups, escolha Restaurar em… para recuperar o arquivo.|30 dias · 200 MB (ajustável até 1 GB). Limpeza automática só quando ativada; operações pendentes são protegidas.|O backup guarda o original, sem alterações posteriores no Sheets. Fórmulas e formatação podem mudar; macros XLS não funcionam no Sheets. Ao atingir a cota, os backups concluídos mais antigos são excluídos, mesmo com esta opção desligada. Pendentes são preservados.",
       "context": "src/SheetsWindows.Windows/TutorialForm.cs - private static readonly (string Title, string Text)[] Pages =",
       "scope": "app",
       "placeholders": [],
@@ -7483,6 +7483,24 @@
     "error.odsStructure": {
       "text": "A estrutura do arquivo ODS está incompleta ou inválida.",
       "context": "Specific local input validation; no remote upload completed",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "action.chooseSeparator": {
+      "text": "Escolher separador",
+      "context": "Ambiguous import action / completed backup quota rotation",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "recovery.quotaRotation": {
+      "text": "Ao atingir a cota, os backups concluídos mais antigos são excluídos, mesmo com esta opção desligada. Pendentes são preservados.",
+      "context": "Ambiguous import action / completed backup quota rotation",
       "scope": "app",
       "placeholders": [],
       "invariants": [],

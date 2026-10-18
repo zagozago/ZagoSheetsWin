@@ -2,8 +2,8 @@
   "language": "sw",
   "locale": "sw-KE",
   "direction": "ltr",
-  "catalogRevision": 12,
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "catalogRevision": 13,
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -491,7 +491,7 @@
     "progress.stopping": "Inasimama kwa usalama…",
     "progress.upload": "Inapakia na kuthibitisha uingizaji katika Google…",
     "progress.verification": "Inathibitisha data iliyobadilishwa kabla ya ubadilishaji…",
-    "recovery.autoCleanup": "Safisha kiotomatiki nakala rudufu zilizokamilika",
+    "recovery.autoCleanup": "Futa nakala zilizokamilika muda ukiisha",
     "recovery.cancelResume": "Ghairi kuendelea",
     "recovery.cleanExpired": "Safisha nakala rudufu zilizoisha muda / zilizozidi…",
     "recovery.clearSelection": "Futa uteuzi",
@@ -589,7 +589,7 @@
     "theme.dark": "Nyeusi",
     "theme.light": "Angavu",
     "theme.saveFailed": "Haikuwezekana kuhifadhi mandhari. Mapendeleo yako ya awali yalihifadhiwa.",
-    "tutorial.backupExplanation": "Faili ya asili → nakala rudufu ya ndani → Google Sheets. Katika Nakala rudufu, chagua Rejesha kwenye… ili kurejesha faili.|siku 30 · 200 MB (inaweza kurekebishwa hadi 1 GB). Usafishaji wa kiotomatiki tu unapowashwa; operesheni zinazosubiri zinalindwa.|Nakala rudufu huhifadhi faili ya asili bila mabadiliko ya baadaye katika Sheets. Fomula na uumbizaji vinaweza kubadilika; makro za XLS hazifanyi kazi katika Sheets.",
+    "tutorial.backupExplanation": "Faili ya asili → nakala rudufu ya ndani → Google Sheets. Katika Nakala rudufu, chagua Rejesha kwenye… ili kurejesha faili.|siku 30 · 200 MB (inaweza kurekebishwa hadi 1 GB). Usafishaji wa kiotomatiki tu unapowashwa; operesheni zinazosubiri zinalindwa.|Nakala rudufu huhifadhi faili ya asili bila mabadiliko ya baadaye katika Sheets. Fomula na uumbizaji vinaweza kubadilika; makro za XLS hazifanyi kazi katika Sheets. Kiwango cha nafasi kikifikiwa, nakala zilizokamilika za zamani zaidi hufutwa hata chaguo hili likizimwa. Nakala zinazosubiri huhifadhiwa.",
     "tutorial.backupTitle": "Hifadhi faili ya asili. Jua jinsi ya kuirejesha.",
     "tutorial.defaultsExplanation": "Bofya mara mbili au tumia Fungua kwa → ZagoSheetsWin katika menyu ya Windows.|Weka ZagoSheetsWin kuwa programu yako chaguomsingi ya lahajedwali (hiari):",
     "tutorial.defaultsTitle": "Chagua jinsi ya kufungua lahajedwali zako",
@@ -654,6 +654,8 @@
     "error.textHint": "Kidokezo cha sep= hakilingani na jedwali.",
     "error.textColumns": "Safu mlalo zina idadi tofauti za safu wima.",
     "error.odsBounds": "ODS: marudio batili au vipimo vinavyozidi kikomo kinachotumika.",
-    "error.odsStructure": "Muundo wa faili ya ODS haujakamilika au si halali."
+    "error.odsStructure": "Muundo wa faili ya ODS haujakamilika au si halali.",
+    "action.chooseSeparator": "Chagua kitenganishi",
+    "recovery.quotaRotation": "Kiwango cha nafasi kikifikiwa, nakala zilizokamilika za zamani zaidi hufutwa hata chaguo hili likizimwa. Nakala zinazosubiri huhifadhiwa."
   }
 }

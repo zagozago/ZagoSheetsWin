@@ -99,7 +99,7 @@ public static class LauncherErrors
         InvalidDataException data when data.Message == "Irregular delimited table." => UiText.Get("error.textColumns"),
         InvalidDataException data when data.Message is "Unbounded repetition." or "ODS content dimensions exceed limits." or "ODS columns too large." or "ODS rows too large." => UiText.Get("error.odsBounds"),
         InvalidDataException data when data.Message is "Malformed ODS XML." or "Invalid ODS package structure." or "Not an ODS package." or "ODS mimetype missing." or "Invalid ODS mimetype." or "Invalid ODS workbook." or "Invalid ODS sheets." => UiText.Get("error.odsStructure"),
-        BackupQuotaException => UiText.Get("error.backupQuota"),
+        BackupQuotaException => UiText.Get("error.backupQuota") + "\n\n" + UiText.Get("recovery.quotaRotation"),
         BackupRemovedException => UiText.Get("error.backupRemoved"),
         LauncherNotConfiguredException => UiText.Get("error.setupRequired"),
         AuthorizationRequiredException => UiText.Get("error.authorizationRequired"),

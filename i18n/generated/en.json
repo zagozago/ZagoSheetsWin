@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.38",
+  "productVersion": "0.9.39",
   "sourceLocale": "pt-BR",
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -198,7 +198,7 @@
     "progress.stopping": "Stopping safely…",
     "progress.upload": "Uploading and verifying the import in Google…",
     "progress.verification": "Verifying converted data before replacement…",
-    "recovery.autoCleanup": "Automatically clean up completed backups",
+    "recovery.autoCleanup": "Clean completed backups when retention expires",
     "recovery.cancelResume": "Cancel resume",
     "recovery.cleanExpired": "Clean up expired / excess backups…",
     "recovery.clearSelection": "Clear selection",
@@ -296,7 +296,7 @@
     "theme.dark": "Dark",
     "theme.light": "Light",
     "theme.saveFailed": "Could not save the theme. Your previous preference was preserved.",
-    "tutorial.backupExplanation": "Original → local backup → Google Sheets. In Backups, choose Restore to… to recover the file.|30 days · 200 MB (adjustable up to 1 GB). Automatic cleanup only when enabled; pending operations are protected.|The backup keeps the original, without later changes in Sheets. Formulas and formatting may change; XLS macros do not work in Sheets.",
+    "tutorial.backupExplanation": "Original → local backup → Google Sheets. In Backups, choose Restore to… to recover the file.|30 days · 200 MB (adjustable up to 1 GB). Automatic cleanup only when enabled; pending operations are protected.|The backup keeps the original, without later changes in Sheets. Formulas and formatting may change; XLS macros do not work in Sheets. When the quota is reached, the oldest completed backups are deleted even with this option off. Pending backups are preserved.",
     "tutorial.backupTitle": "Keep the original. Know how to recover it.",
     "tutorial.defaultsExplanation": "Double-click or use Open with → ZagoSheetsWin in the Windows menu.|Set ZagoSheetsWin as your default spreadsheet app (optional):",
     "tutorial.defaultsTitle": "Choose how to open your spreadsheets",
@@ -361,6 +361,8 @@
     "error.textHint": "The sep= hint does not match the table.",
     "error.textColumns": "Rows have different numbers of columns.",
     "error.odsBounds": "ODS: invalid repetition or dimensions beyond the supported limit.",
-    "error.odsStructure": "The ODS file structure is incomplete or invalid."
+    "error.odsStructure": "The ODS file structure is incomplete or invalid.",
+    "action.chooseSeparator": "Choose separator",
+    "recovery.quotaRotation": "When the quota is reached, the oldest completed backups are deleted even with this option off. Pending backups are preserved."
   }
 }

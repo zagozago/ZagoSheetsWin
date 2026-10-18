@@ -2,8 +2,8 @@
   "language": "tr",
   "locale": "tr-TR",
   "direction": "ltr",
-  "catalogRevision": 12,
-  "sourceHash": "a3059b0ec393b0e029ccb409d3998fcdc9e2c862cf7ed738701e450e7fd72c78",
+  "catalogRevision": 13,
+  "sourceHash": "fd24b2e63e1c3035b5e283b7548b4ffb8ddd2ee516ba8b68e2b6d60f30135694",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -490,7 +490,7 @@
     "progress.stopping": "İşlem güvenli biçimde durduruluyor…",
     "progress.upload": "İçe aktarma Google’a yükleniyor ve doğrulanıyor…",
     "progress.verification": "Dönüştürülen veriler değiştirmeden önce doğrulanıyor…",
-    "recovery.autoCleanup": "Tamamlanan yedekleri otomatik olarak temizle",
+    "recovery.autoCleanup": "Süre dolunca tamamlanan yedekleri temizle",
     "recovery.cancelResume": "Sürdürmeyi iptal et",
     "recovery.cleanExpired": "Süresi dolmuş / sınırı aşan yedekleri temizle…",
     "recovery.clearSelection": "Seçimi temizle",
@@ -588,7 +588,7 @@
     "theme.dark": "Koyu",
     "theme.light": "Açık",
     "theme.saveFailed": "Tema kaydedilemedi. Önceki tercihiniz korundu.",
-    "tutorial.backupExplanation": "Özgün dosya → yerel yedek → Google Sheets. Dosyayı kurtarmak için Yedekler bölümünde Şuraya geri yükle… seçeneğini kullanın.|30 gün · 200 MB (1 GB değerine kadar ayarlanabilir). Otomatik temizleme yalnızca etkinleştirildiğinde; bekleyen işlemler korunur.|Yedek, Sheets’teki sonraki değişiklikleri içermez ve özgün dosyayı korur. Formüller ve biçimlendirme değişebilir; XLS makroları Sheets’te çalışmaz.",
+    "tutorial.backupExplanation": "Özgün dosya → yerel yedek → Google Sheets. Dosyayı kurtarmak için Yedekler bölümünde Şuraya geri yükle… seçeneğini kullanın.|30 gün · 200 MB (1 GB değerine kadar ayarlanabilir). Otomatik temizleme yalnızca etkinleştirildiğinde; bekleyen işlemler korunur.|Yedek, Sheets’teki sonraki değişiklikleri içermez ve özgün dosyayı korur. Formüller ve biçimlendirme değişebilir; XLS makroları Sheets’te çalışmaz. Kotaya ulaşıldığında bu seçenek kapalı olsa da en eski tamamlanmış yedekler silinir. Bekleyen yedekler korunur.",
     "tutorial.backupTitle": "Özgün dosyayı koruyun. Nasıl kurtaracağınızı bilin.",
     "tutorial.defaultsExplanation": "Windows menüsünde çift tıklayın veya Birlikte aç → ZagoSheetsWin seçeneğini kullanın.|ZagoSheetsWin’i varsayılan elektronik tablo uygulamanız olarak ayarlayın (isteğe bağlı):",
     "tutorial.defaultsTitle": "Elektronik tablolarınızı nasıl açacağınızı seçin",
@@ -653,6 +653,8 @@
     "error.textHint": "sep= ipucu tabloyla eşleşmiyor.",
     "error.textColumns": "Satırlardaki sütun sayıları farklı.",
     "error.odsBounds": "ODS: geçersiz tekrar veya desteklenen sınırı aşan boyutlar.",
-    "error.odsStructure": "ODS dosyasının yapısı eksik veya geçersiz."
+    "error.odsStructure": "ODS dosyasının yapısı eksik veya geçersiz.",
+    "action.chooseSeparator": "Ayırıcı seç",
+    "recovery.quotaRotation": "Kotaya ulaşıldığında bu seçenek kapalı olsa da en eski tamamlanmış yedekler silinir. Bekleyen yedekler korunur."
   }
 }
