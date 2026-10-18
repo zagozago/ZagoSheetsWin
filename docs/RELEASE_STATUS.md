@@ -1,38 +1,45 @@
-# Estado da versão — única referência para documentação vigente
+# Estado da versão — referência vigente
 
-**Versão do produto no código: `0.9.35` — candidata alfa.** Não é lançamento estável nem certificação.  
-**Branch de referência:** `feature/zagosheetswin`.  
-**Commit mais recente conferido:** [9929524e67fe](https://github.com/zagozago/ZagoSheetsWin/commit/9929524e67fea42c8940ae27b41f80963479c490), em 17/10/2026.  
-**Sem tags de versão e sem GitHub Releases publicados** na consulta de 17/10/2026.  
-**Objetivo futuro:** avaliar promoção de um commit homologado para `1.0.0`, sem mudar o número do produto antes do aceite.
+**Versão declarada no código: `0.9.37` (alfa).** Não existe lançamento estável 1.0.0 nem certificação.  
+**Branch do aplicativo:** `feature/zagosheetswin`.  
+**Commit-fonte conferido:** [f58b630263cd](https://github.com/zagozago/ZagoSheetsWin/commit/f58b630263cdee07e473a54ee40ff6d3beafe4f6) — 18/10/2026.  
+**Sem tags de versão e sem GitHub Releases** na consulta de 18/10/2026. O objetivo futuro é homologar um commit e só então considerar a promoção para 1.0.0.
 
-## Evidências do código e da automação
+## Evidências verificadas
 
-- [Projeto Windows C#](../src/SheetsWindows.Windows/SheetsWindows.Windows.csproj): `<Version>0.9.35</Version>`.
-- [Inno Setup](../installer/SheetsWindows.iss): fallback `0.9.35`; a distribuição protegida usa versão do projeto.
-- [Catálogo i18n](../i18n/source.json): `productVersion = 0.9.35`, 51 idiomas.
-- [Avisos de terceiros](../third-party/NOTICE.md): referência ao produto na 0.9.35; não foram reescritas as licenças.
-- [CI Local core no commit HEAD 9929524](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39059144987): **concluído com sucesso** nas plataformas reportadas (Windows e Ubuntu). Checagem automatizada **não equivale a teste com Google real**.
-- [Protected alpha distribution no commit 70377cb](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39059101337): **concluído com sucesso**; commit imediatamente anterior à verificação visual final 9929524. Essa diferença de SHA exige confirmar novo pacote para o commit escolhido ao congelar a futura Release.
-- Nenhuma evidência desta revisão autoriza afirmar que o instalador foi assinado com Authenticode ou que uma verificação formal de segurança, auditoria externa ou homologação Google foi concluída.
+- [Projeto C#](../src/SheetsWindows.Windows/SheetsWindows.Windows.csproj): versão `0.9.37`.
+- [Inno Setup](../installer/SheetsWindows.iss): fallback `0.9.37`; distribuição usa versão do projeto.
+- [Fonte internacional](../i18n/source.json): `productVersion = 0.9.37`, interface/instalador com 51 idiomas.
+- [Avisos de terceiros](../third-party/NOTICE.md): cabeçalho 0.9.37, licenças preservadas.
+- [Branding](../branding/README.md): aplicativo, janelas e instalador com ícone de planilha fornecido; mesmo desenho dos arquivos associados e atalhos.
+- [Local core 0.9.37](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39099713350): **concluído com sucesso** no SHA `f58b630`.
+- [Protected alpha distribution 0.9.37](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39099713370): **concluído com sucesso** no mesmo SHA `f58b630`.
+- [Relatório de aceite técnico e amostras 0.9.36](IMPORT_REVIEW_0936.md): testes offline/CI e pendências Google real. É uma **fotografia datada** da 0.9.36, não homologação do 0.9.37 com Google real.
 
-## Política de importação que precisa constar nos textos de 1.0
+**Distinção:** sucesso do GitHub Actions não prova que todos os formatos convertam corretamente documentos reais, que a aplicação OAuth esteja verificada/publicada, nem assinatura Authenticode. A disponibilidade de um artefato de Actions não equivale a Release.
 
-1. Se o modo **Importar como cópia** estiver ativo, o original permanece na pasta de origem.
-2. Quando a substituição está autorizada e a fonte é elegível, uma **importação Google confirmada** pode substituir o original por `.url` **mesmo que valores, fórmulas ou recursos complexos não tenham equivalência comprovada**. Essa é uma decisão de produto introduzida na 0.9.33. Não prometer fidelidade perfeita nem cópia obrigatória quando a comparação falha.
-3. O snapshot original é mantido em backup recuperável; o usuário deve conferir os resultados no Google Sheets e restaurar em caso de diferenças.
-4. Desde 0.9.34, o aplicativo apresenta confirmação após substituir, com link para Backups, opção persistente **Não mostrar novamente** e apenas uma confirmação visível por vez. Essa janela **não é autorização prévia a cada importação**.
-5. Arquivos com atributo Windows **somente leitura** podem impedir a retirada (erro nativo de acesso negado), mesmo que a importação no Google tenha acontecido; o programa **preserva o original e backup**. Depois de o usuário remover o atributo, a operação pode ser retomada com segurança.
-6. Arquivos inválidos, scripts, falhas de importação, verificações estruturais críticas, falhas de hash, associação remota incerta, pasta sincronizada/rede e conflitos locais continuam sujeitos a bloqueio ou cópia conforme o caso.
-7. Desde 0.9.32, os seletores de Formatos e texto não existem nas Opções avançadas, mas as preferências previamente gravadas continuam aplicáveis. Os cinco formatos seguem habilitados.
+## Mudanças de comportamento vigentes na 0.9.37
 
-## Preparação para 1.0.0
+1. **Importação por atalho:** após Google Sheets confirmado e verificações essenciais de backup/hash/vínculo, um original elegível pode ser substituído por `.url`, **mesmo quando há fidelidade parcial de fórmulas/valores** (política 0.9.33). A preferência de **importar como cópia**, ambiente sincronizado/rede e a opção específica de XLS continuam protegendo a origem nos casos previstos.
+2. **Aviso pós-substituição:** Backups, `Não mostrar novamente` persistente e uma confirmação de cada vez (0.9.34). Não é pedido de consentimento a cada arquivo.
+3. **Somente leitura:** falha de retirada conserva original e backup; correção do atributo permite retomada, sem reupload cego (0.9.35).
+4. **CSV/TSV v2:** leitor por conteúdo (`,`, `;`, TAB e `|`), escolha manual por importação ambígua, UTF-8 estrito com fallback CP1252 limitado **sem BOM**, preservação de textos literais; limites próprios de **60.000 registros / 600.000 células**, além do limite geral de 20 MiB e 1.000 colunas (0.9.36).
+5. **Operações antigas:** interpretação gravada por versão e operação. Uma intenção remota anterior conserva semântica v1, evitando reinterpretar o mesmo documento sem autorização.
+6. **Reparo explícito:** `Backups → Mais ações → Reimportar em novo documento` lê snapshot original verificado e cria outra operação/documento. Não substitui o Google Sheets antigo nem retira a origem, e conserva o atalho anterior (0.9.36).
+7. **ODS:** valida pacotes, suporta cálculos de coordenadas/caudas vazias sem materialização exagerada e envia o ODS original; **não declara equivalência de fórmulas, dados complexos nem homologação de todos os ODS**.
+8. **Diagnósticos/repetição:** erro terminal persiste na janela e após minimizar/restaurar; progresso atrasado é ignorado; exportação da **tentativa atual** é diferente de exportação de **histórico**; erros permanentes exigem correção de entrada ou escolha de delimitador, sem retry automático (0.9.36).
+9. **Visual:** ícone de planilha único para programa, janelas, instalador, arquivos associados e atalhos; identidade Zagotools do cabeçalho e créditos Open in Google mantidos (0.9.37).
+10. **Configurações:** seção global de Formatos e texto não existe desde 0.9.32. Escolha de interpretação **por arquivo** para entrada ambígua ou reparo não é a volta do antigo controle global.
 
-A [lista de aceite](PRE_RELEASE_CHECKLIST.md) centraliza pendências reais. Os [guias atuais](README.md) evitam amarrar comportamentos ao número de versão em cada página, para que a futura promoção exija principalmente:
+## Preparação para a futura 1.0
 
-- confirmar o commit de lançamento, execução protegida correspondente, pacotes, hashes e testes;
-- atualizar este estado de versão e o README raiz;
-- criar a seção 1.0.0 no [CHANGELOG](../CHANGELOG.md) **somente quando existir lançamento real**;
-- verificar suporte web e revisar avisos/idiomas conforme o aceite.
+Ver [checklist](PRE_RELEASE_CHECKLIST.md). No congelamento do commit candidato:
 
-Os materiais de 0.9.30 são registro datado, não substituem esta referência.
+- Conferir o mesmo SHA em código, pacote protegido, hashes, manifesto e testes.
+- Fazer aceite manual no Windows 11 com conta Google, cinco formatos e amostras de CSV/TSV/ODS indicadas no [relatório 0.9.36](IMPORT_REVIEW_0936.md).
+- Validar importação como cópia, substituição, falha/somente leitura, retries, diagnósticos e **novo reparo em documento separado**.
+- Revisar tradução editorial dos READMEs e central de ajuda efetivamente hospedada.
+- Verificar OAuth/distribuição, licenças de terceiros e eventual assinatura do instalador.
+- Depois de aprovado: atualizar estado, README e CHANGELOG, criar tag/Release oficiais. **Não há promessa de data nem de conclusão prévia do aceite**.
+
+Os relatórios `SECURITY_REVIEW_0930.md` e `IMPORT_REVIEW_0936.md` são evidências de seus respectivos marcos, não certificados de segurança nem garantia geral de conversão.

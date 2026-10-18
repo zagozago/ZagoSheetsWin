@@ -59,7 +59,7 @@
 
 **Open local spreadsheet files in Google Sheets from Windows.** ZagoSheetsWin is a free, open-source Windows application developed by **Zagotools** and derived from [Open in Google](https://github.com/SwatiK425/open-in-google).
 
-**Status: alpha — current development candidate 0.9.35. Version 1.0.0 has not been released.** The active application code is on `feature/zagosheetswin`; `main` has historically hosted multilingual documentation and is not the authoritative code branch for alpha builds.
+**Status: alpha — current development candidate 0.9.37. Version 1.0.0 has not been released.** The active application code is on `feature/zagosheetswin`; `main` has historically hosted multilingual documentation and is not the authoritative code branch for alpha builds.
 
 > Documentation translations are retained as snapshots. For up-to-date behavior, limits and safety restrictions, use this English README and the [current documentation index](docs/README.md). Availability of 51 interfaces does not imply that every translation has completed native editorial review.
 
@@ -82,11 +82,21 @@ There is **no bidirectional synchronization**: subsequent online edits are not c
 |---|---|---|
 | `.xlsx` | Native Sheets import; eligible local files may be replaced by a shortcut | VBA/macros are not supported; native import does not guarantee visual/functional equivalence |
 | `.xls` | Binary Excel is converted locally to XLSX; some HTML exports named `.xls` are read as tables | Some formulas, values and advanced features can change: successful imports may replace the original; use the backup to recover the original bytes; VBA/macros are not preserved |
-| `.ods` | Real OpenDocument packages are checked and imported using the ODS media type | Some formulas, values, dates, styles or merges may change, **even when replacement succeeds**; invalid/renamed HTML `.ods` is rejected; real-world compatibility remains under validation |
-| `.csv` | Parsed and normalized to XLSX with literal text cells | Encoding and delimiter must be unambiguous; text is not automatically converted to dates/numbers/formulas |
-| `.tsv` | Tab-separated input normalized with literal text cells | Strict parsing and encoding checks apply |
+| `.ods` | Real OpenDocument packages are checked and imported using the original ODS bytes; sparse empty trailing cells are handled without expanding them in memory | Complex formulas, dates, styles and merges may change despite successful replacement; invalid/renamed HTML `.ods` is rejected; end-to-end Google validation remains pending |
+| `.csv` | Detects comma, semicolon, TAB or pipe from content; converts to XLSX with literal text cells | Ambiguity opens a per-import choice; supports strict UTF-8 and bounded Windows-1252 fallback (without BOM); text stays literal |
+| `.tsv` | Strictly parses separated text into XLSX with literal text cells | Parsing and interpretation are versioned per operation; malformed/ambiguous text may need a per-import choice or source correction |
 
-The file input limit is **20 MiB**. Table processing limits include **500,000 cells**, **50,000 rows**, **1,000 columns** and **32,767 characters per text field**; additional format, export and package limits apply. Import success does **not** certify full visual fidelity. See [formats and limitations](docs/FORMATS_AND_LIMITS.md).
+The file input limit remains **20 MiB**. For **new CSV/TSV interpretations**, the limits are **60,000 logical rows**, **600,000 cells** and **1,000 columns**; other formats retain their previous **50,000 rows / 500,000 cells** limits as applicable. The maximum text field remains **32,767 characters**. Additional format, export and package limits apply. Import success does **not** certify full visual fidelity. See [formats and limitations](docs/FORMATS_AND_LIMITS.md).
+
+## Improvements in alpha 0.9.36 and 0.9.37
+
+**Text import (0.9.36):** CSV/TSV delimiter detection uses actual file contents (comma, semicolon, tab, pipe), with a per-import chooser for ambiguous data. UTF-8 decoding is strict; files without a BOM may use a bounded Windows-1252 fallback. Quoted fields and embedded line breaks are supported within the documented limits. **Old import operations retain their original parsing semantics:** the application does not reinterpret an existing Google document silently.
+
+**Explicit repair (0.9.36):** From **Backups → More actions → Reimport into a new document**, select the interpretation of a previously misread CSV/TSV. The application reads the verified original backup and creates a **separate** Google Sheets document. The old document, its shortcut, and original operation remain untouched. Repair requires the original backup to be available.
+
+**Failure handling (0.9.36):** The failure message stays visible when a Windows dialog is minimized/restored, late progress updates cannot replace the error, and exporting diagnostics from a failed attempt is distinct from exporting the full diagnostic history. A permanent parsing/capacity failure is not automatically retried; the retry can become available after the input file changes. Ambiguous delimiters have a manual selection flow.
+
+**Consistent icon (0.9.37):** The app, installer, native windows, file associations and `.url` shortcuts share the same supplied spreadsheet icon. Existing Zagotools header logos and the MIT/upstream credits are unchanged.
 
 ## Installation and first use
 
@@ -116,7 +126,7 @@ Privacy and terms: [Privacy](https://zagotools.top/legal.html#privacidade), [Ter
 
 ## Current interface preferences
 
-Advanced Options now contains Google client setup, folder/synchronization and replacement consent, plus the specific XLS replacement preference. **The Formats and Text settings section was removed in 0.9.32**; all five formats remain supported. Previously persisted CSV/TSV text-interpretation preferences are retained, but the removed selectors are **not available in the current UI**.
+Advanced Options contains Google client setup, folder/synchronization and replacement consent, plus the specific XLS replacement preference. **The global Formats and Text settings section was removed in 0.9.32**; all five formats remain supported. Existing text preferences remain available to legacy operations, while **the new 0.9.36 per-import text chooser** is shown when input ambiguity requires a decision or during an explicit repair. It does **not** restore the removed global settings section.
 
 ## Languages and accessibility
 
@@ -128,6 +138,7 @@ The Windows application and installer provide **51 language selections**, follow
 - [User guide](docs/USER_GUIDE.md)
 - [Current architecture](docs/ARCHITECTURE_CURRENT.md)
 - [Current alpha baseline and CI evidence](docs/RELEASE_STATUS.md)
+- [Alpha 0.9.36 import review and verified test scope](docs/IMPORT_REVIEW_0936.md)
 - [Formats and limits](docs/FORMATS_AND_LIMITS.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
 - [Stable-release readiness checklist](docs/PRE_RELEASE_CHECKLIST.md)

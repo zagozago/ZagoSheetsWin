@@ -1,15 +1,52 @@
 # Changelog — ZagoSheetsWin
 
-As alterações significativas são registradas aqui em ordem cronológica inversa, seguindo as categorias **Added**, **Changed**, **Fixed**, **Security** e **Known limitations** do [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). As versões anteriores a 1.0.0 são **marcos do desenvolvimento alfa**, não GitHub Releases. Este histórico foi revisado em **17/10/2026** usando commits, código, documentos de fase e metadados do repositório.
+As alterações significativas são registradas aqui em ordem cronológica inversa, seguindo as categorias **Added**, **Changed**, **Fixed**, **Security** e **Known limitations** do [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). As versões anteriores a 1.0.0 são **marcos do desenvolvimento alfa**, não GitHub Releases. Este histórico foi revisado em **18/10/2026** usando commits, código, documentos de fase e metadados do repositório.
 
-**Não há tags de versão nem Releases publicadas no GitHub em 17/10/2026.** GitHub Actions produz candidatos e artefatos temporários, mas uma execução bem-sucedida não constitui lançamento público nem aceite com Google real. Não confundir versão declarada no código com Release publicada.
+**Não há tags de versão nem Releases publicadas no GitHub em 18/10/2026.** GitHub Actions produz candidatos e artefatos temporários, mas uma execução bem-sucedida não constitui lançamento público nem aceite com Google real. Não confundir versão declarada no código com Release publicada.
 
 ## [Unreleased] — preparação para 1.0.0
 
 - **Documentation:** consolidar README internacional, guias atuais, histórico, formatos, recuperação, segurança e checklist de homologação.
-- **Pending:** homologar fluxos reais de OAuth/Drive no Windows, comportamento de ODS complexos, **aceitar explicitamente a política de substituição sem fidelidade integral**, revisão editorial dos idiomas, distribuição no commit definitivo, elegibilidade de licenças e eventual assinatura do instalador.
+- **Pending:** homologar fluxos reais de OAuth/Drive no Windows, compatibilidade de ODS complexos e importações com conversão parcial, validar reparo e seleção de interpretador com conta Google real, revisão editorial dos READMEs internacionais, elegibilidade de licenças e eventual assinatura do instalador.
 - **Not done:** publicar 1.0.0, criar tag ou Release, certificar segurança, afirmar suporte universal a ODS.
 - Alterações de documentação **não** aumentam a versão do aplicativo.
+
+## [0.9.37] — candidato alfa, 18/10/2026
+
+Commit: [f58b630](https://github.com/zagozago/ZagoSheetsWin/commit/f58b630263cdee07e473a54ee40ff6d3beafe4f6).
+
+### Changed
+- Uniformizar **ícone do programa, janelas e instalador** com o ícone de planilha fornecido pelo usuário. O ICO inclui frames de 16, 24, 32, 48, 64, 128 e 256 pixels.
+- Reutilizar o mesmo desenho já empregado nos arquivos associados e nos atalhos de planilha. Manter as marcas do cabeçalho Zagotools e as atribuições Open in Google/Swati K intactas.
+- Atualizar `branding/app-icon-source.png`, `branding/zagosheetswin.ico`, versão do catálogo e fallback do Inno Setup para 0.9.37.
+
+### Verificação
+- [Local core 0.9.37](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39099713350): **sucesso**.
+- [Protected alpha distribution 0.9.37](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39099713370): **sucesso** no **mesmo commit f58b630**.
+- Testes automatizados e build protegido não equivalem à homologação de conteúdo e importação com conta Google real.
+
+## [0.9.36] — candidato alfa, 17–18/10/2026
+
+Commits principais: [ae27b88](https://github.com/zagozago/ZagoSheetsWin/commit/ae27b8819d50815c96cb51681bcbf4f051373c45), [4bceb7a](https://github.com/zagozago/ZagoSheetsWin/commit/4bceb7aaac739c2dbd13ab7730fe292f0bf3b673), [3aae63c](https://github.com/zagozago/ZagoSheetsWin/commit/3aae63c1397f716abe9eeee7edb8722e4adff6d4), [f6b6a4f](https://github.com/zagozago/ZagoSheetsWin/commit/f6b6a4f4852b00e0dc07a565fbe70092bf2e92bb). Relatório detalhado: [Escopo B](docs/IMPORT_REVIEW_0936.md).
+
+### Added
+- **CSV/TSV:** detecção de `,`, `;`, TAB e `|` pelo conteúdo, interpretação manual **por importação** quando a leitura é ambígua, suporte a aspas/multilinhas e fallback controlado para Windows-1252 quando UTF-8 estrito falha em arquivo sem BOM.
+- **Interpretação versionada:** versão e opções de leitura gravadas por operação, com compatibilidade para operações anteriores que já possuem intenção remota. Não alterar silenciosamente o significado de um documento existente.
+- **Reimportar em novo documento:** reparo explícito a partir do backup SHA-256 verificado, com nova identidade e documento Google; **não sobrescreve o documento, atalho, operação ou histórico anteriores**.
+- **Diagnósticos:** códigos de capacidade/estrutura mais específicos; exportação da tentativa atual isolada do histórico completo.
+
+### Fixed
+- Em ODS, calcular coordenadas sem expandir longas caudas vazias repetidas; manter as posições das células relevantes e enviar os **bytes originais** do ODS.
+- Preservar mensagem terminal de erro e sua altura após minimizar/restaurar a janela modal; impedir que atualizações de progresso atrasadas substituam a falha exibida.
+- Evitar repetição automática de erros permanentes de entrada. Para esses erros, reabilitar tentativa manual depois que o arquivo muda; em ambiguidade CSV, abrir escolha do interpretador.
+- Para arquivo local corrigido **sem intenção remota**, permitir nova operação mantendo snapshot/histórico anteriores. Se há intenção remota, reconciliar em vez de recriar cegamente.
+- Ajustar limites **somente para CSV/TSV v2**: até **60.000 registros lógicos** e **600.000 células**, inclusive na verificação do XLSX exportado. Demais formatos conservam os limites anteriores.
+- Instrumentar o ciclo de instalação/reinstalação com logs e códigos de saída, após uma ocorrência anterior não reproduzida; **não declarar causa confirmada para a falha antiga**.
+
+### Verificação
+- [Local core](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39087900152) e [Protected alpha distribution](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39087900310) do commit **f6b6a4f**: **sucesso**.
+- Revisão Scope B registra no Windows Release **338 testes aprovados, 1 não executado**; Linux **297 aprovados, 42 não executados** no [CI 39087296881](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39087296881).
+- Amostras locais reais de texto e um ODS fornecido foram conferidos **sem chamadas Google**. Outros arquivos ODS e a conversão real permanecem pendentes. Nenhuma certificação de compatibilidade ou segurança é inferida.
 
 ## [0.9.35] — candidato alfa, 17/10/2026
 
