@@ -38,28 +38,39 @@ public sealed class BackupCapacityTests
         Assert.Equal(count * 600_000L, new BackupManagement(storage).UsedBytes());
     }
 
-    [Theory] [InlineData(12)] [InlineData(20)]
-    public async Task FullBatchWaitsOnlyForCapacityAndRotatesCompletedBackups(int count)
+    [Theory] [InlineData(12, 1)] [InlineData(20, 2)]
+    public async Task FullBatchWaitsOnlyForCapacityAndRotatesCompletedBackups(int count, int batches)
     {
         using var w = new Workspace(); var storage = new LocalStorage(Path.GetDirectoryName(w.Database)!);
         await BackupPolicy.SaveAsync(storage, new(30, 1));
-        using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(45));
-        var waits = 0;
-        await Task.WhenAll(Enumerable.Range(0, count).Select(async i =>
+        var returnedIds = new System.Collections.Concurrent.ConcurrentBag<Guid>();
+        for (var batch = 0; batch < batches; batch++)
         {
-            var path = Path.Combine(w.Root, $"full-{i}.csv"); File.WriteAllBytes(path, new byte[600_000]);
-            var manager = new BackupManagement(storage);
-            var op = await manager.PrepareWithCapacityAsync(
-                () => storage.CreatePreparation().PrepareAsync("A", path, timeout.Token), 600_000,
-                waiting: () => Interlocked.Increment(ref waits), ct: timeout.Token);
-            Assert.InRange(manager.UsedBytes(), 600_000, 1_000_000);
-            await Task.Delay(10, timeout.Token); // Keep this pending briefly while the next capture competes.
-            await Complete(storage, op);
-            Assert.Equal(600_000, new FileInfo(path).Length);
-        }));
-        Assert.True(waits > 0);
-        Assert.Equal(600_000, new BackupManagement(storage).UsedBytes());
-        Assert.Single(new BackupManagement(storage).Inspect().Entries, e => e.Available);
+            // Correctness test, not a 45-second throughput SLA for a shared Windows VM.
+            // Each capture retains the application's own two-minute capacity deadline.
+            // This outer watchdog lets that deadline surface instead of canceling early.
+            using var timeout = new CancellationTokenSource(TimeSpan.FromMinutes(3));
+            var waits = 0;
+            await Task.WhenAll(Enumerable.Range(0, count).Select(async i =>
+            {
+                var path = Path.Combine(w.Root, $"full-{batch}-{i}.csv");
+                var original = new byte[600_000]; original[0] = (byte)batch; original[^1] = (byte)i;
+                File.WriteAllBytes(path, original);
+                var manager = new BackupManagement(storage);
+                var op = await manager.PrepareWithCapacityAsync(
+                    () => storage.CreatePreparation().PrepareAsync("A", path, timeout.Token), 600_000,
+                    waiting: () => Interlocked.Increment(ref waits), ct: timeout.Token);
+                returnedIds.Add(op.Id);
+                Assert.InRange(manager.UsedBytes(), 600_000, 1_000_000);
+                await Task.Delay(10, timeout.Token); // Pending while the next capture competes.
+                await Complete(storage, op);
+                Assert.Equal(original, File.ReadAllBytes(path));
+            }));
+            Assert.True(waits > 0);
+            Assert.Equal((batch + 1) * count, returnedIds.Distinct().Count());
+            Assert.Equal(600_000, new BackupManagement(storage).UsedBytes());
+            Assert.Single(new BackupManagement(storage).Inspect().Entries, e => e.Available);
+        }
     }
 
     [Fact]

@@ -34,3 +34,13 @@ Validação local Release: 350 testes aprovados, 43 exclusivos de Windows ignora
 A primeira validação Windows (39180414738) detectou estouro do orçamento de 45 segundos no lote de 20 arquivos com cota cheia; 391 outros testes passaram. A coordenação foi refinada para evitar novas escritas de falha e varreduras concorrentes enquanto a cota permanece ocupada. O orçamento do teste foi mantido.
 
 Tempos dos testes Windows (ensaio local, sem rede Google): espaço disponível, lote de 12 = 4,60 s e lote de 20 = 11,95 s; cota extrema de 1.000.000 bytes para arquivos de 600.000 bytes, lote de 12 = 14,78 s e lote de 20 = 30,65 s, ambos dentro dos 45 s mantidos. Cada teste de espaço disponível exige que todos cheguem ao upload antes de permitir que qualquer upload termine. Os tempos incluem criação de arquivos de teste, snapshot, registros e conclusão simulada; não são latências do Google.
+
+## Prazo do teste de distribuição (19/10/2026 UTC)
+
+A execução protegida [39181854241](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39181854241) compilou sem erros e passou 391 testes, mas o teste extremo de 20 arquivos com cota de apenas 1.000.000 bytes foi cancelado pelo seu watchdog global de 45 segundos. O [CI normal do mesmo commit](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39181854229) passou. O teto de 45 segundos não fazia parte do contrato de capacidade: o próprio aplicativo permite até dois minutos de espera por captura quando precisa aguardar backups protegidos.
+
+A correção desta etapa é no teste. O watchdog externo de cada lote passa a três minutos, deixando o limite interno de dois minutos produzir a falha real se a aplicação não conseguir liberar espaço. Não há alteração nos prazos do aplicativo, no algoritmo, nos locks nem no instalador. O teste continua falhando por exceção de cota, cancelamento, ultrapassagem de espaço ou perda de dados. Os prazos do teste de espaço disponível e do teste de cancelamento não foram ampliados.
+
+Para reforçar a regressão, o lote de 20 é executado duas vezes no mesmo perfil: a segunda rodada começa com o backup anterior já ocupando espaço. Cada original recebe bytes distintos e é conferido integralmente após a conclusão; os IDs de operações devem permanecer distintos. Em cada rodada, a cota continua respeitada e sobra exatamente um backup disponível. Os testes de barreira com espaço livre continuam exigindo que todos cheguem ao upload antes de permitir a conclusão de qualquer um.
+
+Validação da correção do teste: pendente do Actions.
