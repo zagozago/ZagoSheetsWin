@@ -232,6 +232,18 @@ public sealed class GoogleTests
         await manager.DeleteAsync(receipt.Operation.Id);
         await Assert.ThrowsAsync<BackupRemovedException>(() => importer.ImportAsync(w.Source)); Assert.Equal(2,server.Posts); Assert.Single(w.Registry().Pending());
     }
+    [WindowsFact]
+    public async Task LauncherDoesNotCleanExpiredBackupsAfterImport()
+    {
+        using var w = new Workspace(); File.WriteAllBytes(w.Source, Workbook()); ConfigureLauncher(w, out var storage);
+        using var server = new DriveServer(); using var http = new HttpClient(server); var browser = new LauncherBrowser();
+        var launcher = new WindowsLauncher(storage,http,browser); await launcher.CopyAsync(w.Source);
+        var saved = Assert.Single(new SqliteOperationRegistry(storage.DatabasePath).Pending());
+        new BackupCatalog(storage).Register(saved.Id,saved.Snapshot!,DateTimeOffset.UtcNow.AddDays(-31));
+        await BackupPolicy.SaveAsync(storage,new(30,200,true));
+        await launcher.CopyAsync(w.Source);
+        Assert.True(File.Exists(saved.Snapshot!.BackupPath)); Assert.Equal(2,server.Posts);
+    }
     [Fact]
     public async Task BackupQuotaFailurePreservesOriginalAndMakesNoUploadRequest()
     {
@@ -738,6 +750,14 @@ public sealed class GoogleTests
         var first = await importer.ImportAsync(w.Source); var second = await importer.ImportAsync(w.Source);
         Assert.Equal(first, second); Assert.Equal(2, server.Posts); Assert.DoesNotContain("PATCH", server.Methods); Assert.DoesNotContain("DELETE", server.Methods); Assert.Equal(bytes, File.ReadAllBytes(w.Source));
         var op = Assert.Single(w.Registry().Pending()); var remote = new GoogleRemoteRegistry(Path.Combine(w.Root, "state", "google.db")).Get("sheet:" + op.Id.ToString("N")); Assert.True(remote!.Verified);
+    }
+    [Fact]
+    public async Task ExistingFolderIsFetchedAndValidatedOnlyOncePerOpening()
+    {
+        using var w = new Workspace(); using var server = new DriveServer(); var importer = Importer(w, server);
+        var folder = await importer.EnsureFolderAsync(); var reads = server.Methods.Count(m => m == "GET");
+        Assert.Equal(folder, await importer.EnsureFolderAsync());
+        Assert.Equal(reads + 1, server.Methods.Count(m => m == "GET")); Assert.Equal(1, server.Posts);
     }
     [Fact]
     public async Task ConcurrentCallsCreateOnlyOneFolderAndSheet()

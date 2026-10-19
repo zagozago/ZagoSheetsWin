@@ -105,13 +105,6 @@ public sealed class BackupManagement(LocalStorage storage, Func<DateTimeOffset>?
         }
         return result;
     }
-    public async Task<CleanupResult> MaintainAsync(CancellationToken ct=default,Guid? excludeId=null)
-    {
-        IReadOnlyList<Guid> ids;
-        await using (var held=await new FileOperationLock(storage.LocksPath).AcquireAsync(LockKey,ct))
-            ids=Plan(excludeId:excludeId);
-        return await CleanAsync(ids,ct,skipBusy:true);
-    }
     public async Task<CleanupResult> CleanAsync(IEnumerable<Guid> ids,CancellationToken ct=default,bool skipBusy=false)
     {
         var count=0;long bytes=0;foreach(var id in ids.Distinct()){ct.ThrowIfCancellationRequested();var result=await DeleteCoreAsync(id,false,ct,skipBusy);count+=result.Count;bytes+=result.Bytes;}return new(count,bytes);

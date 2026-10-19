@@ -101,6 +101,13 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
         {
             if (old.AccountId != accountId || old.Kind != "folder" || old.Hash != "") throw new InvalidOperationException("Association binding changed.");
             var file = await drive.GetAsync(accountId, old.FileId, ct);
+            if (!file.Trashed)
+            {
+                ValidateRemote(file, old);
+                remote.Verify(key, file.Id);
+                telemetry?.Mark(ProcessingStep.RemoteVerified);
+                return file.Id; // Already fetched and validated under the account-folder lock.
+            }
             if (file.Trashed)
             {
                 ValidateRemote(file, old, allowTrashed: true);

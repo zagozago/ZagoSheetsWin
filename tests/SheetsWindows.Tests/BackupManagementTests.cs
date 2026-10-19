@@ -127,14 +127,14 @@ public sealed class BackupManagementTests
     {
         using var w=new Workspace();var op=await Completed(w,DateTimeOffset.UtcNow.AddDays(-31));var manager=new BackupManagement(Storage(w));
         await BackupPolicy.SaveAsync(Storage(w),new(30,200,false)); Assert.False(BackupPolicy.Load(Storage(w)).AutomaticCleanup); Assert.True(File.Exists(op.Snapshot!.BackupPath));
-        await BackupPolicy.SaveAsync(Storage(w),new(30,200,true));Assert.Empty(manager.Plan(excludeId:op.Id));Assert.Equal(0,(await manager.MaintainAsync(excludeId:op.Id)).Count);
-        Assert.Equal(1,(await manager.MaintainAsync()).Count);Assert.False(File.Exists(op.Snapshot.BackupPath));
+        await BackupPolicy.SaveAsync(Storage(w),new(30,200,true));Assert.Empty(manager.Plan(excludeId:op.Id));Assert.Equal(0,(await manager.CleanAsync(manager.Plan(excludeId:op.Id))).Count);
+        Assert.Equal(1,(await manager.CleanAsync(manager.Plan())).Count);Assert.False(File.Exists(op.Snapshot.BackupPath));
     }
     [Theory] [InlineData(false)] [InlineData(true)] public async Task RecordedDeletionRecoversBeforeOrAfterPhysicalDelete(bool deleted)
     {
         using var w=new Workspace();var op=await Completed(w);var catalog=new BackupCatalog(Storage(w));catalog.BeginDelete(op.Id,DateTimeOffset.UtcNow);if(deleted)File.Delete(op.Snapshot!.BackupPath);
         var manager=new BackupManagement(Storage(w));Assert.False(Assert.Single(manager.Inspect().Entries).Available);
-        Assert.Equal(1,(await manager.MaintainAsync()).Count);Assert.Equal(2,new BackupCatalog(Storage(w)).Get(op.Id)!.State);Assert.False(File.Exists(op.Snapshot!.BackupPath));
+        Assert.Equal(1,(await manager.CleanAsync(manager.Plan())).Count);Assert.Equal(2,new BackupCatalog(Storage(w)).Get(op.Id)!.State);Assert.False(File.Exists(op.Snapshot!.BackupPath));
     }
     [Fact] public async Task CancellationDoesNotDeleteBackup()
     {
@@ -185,7 +185,7 @@ public sealed class BackupManagementTests
         using var w=new Workspace();var op=await Completed(w);
         using(var external=new FileStream(op.Snapshot!.BackupPath,FileMode.Open,FileAccess.Read,FileShare.Read))
         {await Assert.ThrowsAsync<System.ComponentModel.Win32Exception>(()=>new BackupManagement(Storage(w)).DeleteAsync(op.Id));Assert.True(File.Exists(op.Snapshot.BackupPath));}
-        Assert.Equal(1,(await new BackupManagement(Storage(w)).MaintainAsync()).Count);
+        Assert.Equal(1,(await new BackupManagement(Storage(w)).CleanAsync(new BackupManagement(Storage(w)).Plan())).Count);
     }
 
 }
