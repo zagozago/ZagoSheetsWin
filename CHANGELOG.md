@@ -1,8 +1,8 @@
 # Changelog — ZagoSheetsWin
 
-As alterações significativas são registradas aqui em ordem cronológica inversa, seguindo as categorias **Added**, **Changed**, **Fixed**, **Security** e **Known limitations** do [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). As versões anteriores a 1.0.0 são **marcos do desenvolvimento alfa**, não GitHub Releases. Este histórico foi revisado em **18/10/2026** usando commits, código, documentos de fase e metadados do repositório.
+As alterações significativas são registradas aqui em ordem cronológica inversa, seguindo as categorias **Added**, **Changed**, **Fixed**, **Security** e **Known limitations** do [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). As versões anteriores a 1.0.0 são **marcos do desenvolvimento alfa**, não GitHub Releases. Este histórico foi revisado em **18/10/2026 (19/10 UTC)** usando commits, código, documentos de fase e metadados do repositório.
 
-**Não há tags de versão nem Releases publicadas no GitHub em 18/10/2026.** GitHub Actions produz candidatos e artefatos temporários, mas uma execução bem-sucedida não constitui lançamento público nem aceite com Google real. Não confundir versão declarada no código com Release publicada.
+**Não há tags de versão nem Releases publicadas no GitHub na consulta de 18/10/2026 (19/10 UTC).** GitHub Actions produz candidatos e artefatos temporários, mas uma execução bem-sucedida não constitui lançamento público nem aceite com Google real. Não confundir versão declarada no código com Release publicada.
 
 ## [Unreleased] — preparação para 1.0.0
 
@@ -10,6 +10,62 @@ As alterações significativas são registradas aqui em ordem cronológica inver
 - **Pending:** homologar fluxos reais de OAuth/Drive no Windows, compatibilidade de ODS complexos e importações com conversão parcial, validar reparo e seleção de interpretador com conta Google real, revisão editorial dos READMEs internacionais, elegibilidade de licenças e eventual assinatura do instalador.
 - **Not done:** publicar 1.0.0, criar tag ou Release, certificar segurança, afirmar suporte universal a ODS.
 - Alterações de documentação **não** aumentam a versão do aplicativo.
+
+## [0.9.42] — candidato alfa, 18/10/2026 (19/10 UTC)
+
+Commits: [3cc48e0](https://github.com/zagozago/ZagoSheetsWin/commit/3cc48e0bf2d77e5e04f3523b085293c1c23514e9), [e2096c7](https://github.com/zagozago/ZagoSheetsWin/commit/e2096c7c2c61ba3c1aaf2cbad94a98a56731b391), [ceed7fb](https://github.com/zagozago/ZagoSheetsWin/commit/ceed7fbd897019e4afb0c1661e43c9f5182ac40b), [c1dc8a5](https://github.com/zagozago/ZagoSheetsWin/commit/c1dc8a501209ce37d1f65c141ad30498146296af). [Relatório datado](docs/REGRESSION_0942.md).
+
+### Changed
+- Remover a fila global que serializava as importações na 0.9.40. Abrir, importar como cópia, retomar e reparar arquivos **diferentes** podem avançar paralelamente. Locks por origem e operações permanecem.
+- Manter lock curto de manutenção na captura do backup; **esperar somente quando a quota está efetivamente ocupada**. Aguardar capacidade com checagens a cada 250 ms, cancelamento e prazo interno de até **2 minutos**; não bloquear a rede nem a conclusão de outras operações.
+- Coalescer esperas/limpezas simultâneas e evitar escrita/preparação repetida enquanto o espaço permanece indisponível. Liberar backups concluídos elegíveis mais antigos; não apagar pendências ou material protegido.
+- Ajustar apenas o **watchdog do teste extremo de lote** de 45 segundos para 3 minutos, mantendo os prazos do produto; repetir o lote de 20 arquivos com a quota previamente ocupada.
+
+### Verification status — NÃO HOMOLOGADO
+- [Actions 39181030201](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39181030201) no commit `e2096c7`: **CI Windows e Linux passaram** (392/1 Windows; 350/43 Linux).
+- [Actions 39181854229](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39181854229) no commit `ceed7fb`: **Local core passou**.
+- [Protected distribution 39181854241](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39181854241) no `ceed7fb`: **falhou** no watchdog de 45 s do teste extremo de quota.
+- [Local core 39189870249](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39189870249) no HEAD `c1dc8a5`: **Linux passou; Windows falhou** na etapa de testes. A correção do watchdog de 3 min **não pode ser declarada aprovada**. Não há distribuição protegida concluída com sucesso para o SHA final consultado.
+
+## [0.9.41] — candidato alfa, 18/10/2026
+
+Commit: [8d58928](https://github.com/zagozago/ZagoSheetsWin/commit/8d589283e454898fdeeac3a65b2b90da753db017). [Relatório](docs/REGRESSION_0941.md).
+
+- Aumentar **somente CSV/TSV novos** de 1.000.000 para **2.000.000 células**; manter 100.000 linhas, 1.000 colunas, 32.767 caracteres/célula e limite de 20 MiB de entrada/payload.
+- Conferência de XML de aba de texto até 128 MiB e ZIP expandido de texto até 160 MiB; demais formatos mantêm seus tetos anteriores.
+- Testes locais do CSV real `GDEX1ADC geo codes no fbo or military(1).csv`: 8.782 × 116 = **1.018.712 células**, conversão e comparação local aprovadas; **não testado no Google real**.
+- [Local core 39174444610](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39174444610) passou. A primeira [distribuição 39175119834](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39175119834) falhou no ciclo desinstalação/reinstalação, por corrida de limpeza no ambiente de teste. O teste foi corrigido para aguardar confirmação final do desinstalador; [CI 39176358735](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39176358735) passou e [distribuição 39177203588](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39177203588) concluiu com sucesso no commit posterior `f8c7639`.
+
+## [0.9.40] — candidato alfa, 18/10/2026
+
+Commits: [a5bf4ea](https://github.com/zagozago/ZagoSheetsWin/commit/a5bf4eafbb71f34036e7d02c83ba540e26865cd9), [624a2a8](https://github.com/zagozago/ZagoSheetsWin/commit/624a2a8da81463af04ac170105859da87a707c7f), [22fabdf](https://github.com/zagozago/ZagoSheetsWin/commit/22fabdf9cc85dab91492a1b6eda4cff1e5b2005e). [Relatório](docs/REGRESSION_0940.md).
+
+- Remover o toggle **Limpeza automática**: limpeza por prazo/cota passa a ser automática; retenção/quota mantêm autosave. O campo `AutomaticCleanup` permanece no JSON apenas para compatibilidade.
+- Introduzir **fila global de importações por perfil** para reduzir colisões do lote, **posteriormente substituída pela execução paralela da 0.9.42**.
+- Retry seguro de leituras Google (metadados/exportação) para 403 exclusivamente com motivos `rateLimitExceeded` / `userRateLimitExceeded`, até 3 tentativas extras, `Retry-After` limitado a 30 s; não repetir POST de criação e não tratar 403 de permissão como transitório.
+- Novos motivos estruturados e diagnósticos de quota/limitação Google sem expor dados da planilha. [CI 39172166238](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39172166238) passou.
+
+## [0.9.39] — candidato alfa, 18/10/2026
+
+Commits: [4e081b5](https://github.com/zagozago/ZagoSheetsWin/commit/4e081b58a2adaa954219011c20d0bab3c0dc0315), [b759a97](https://github.com/zagozago/ZagoSheetsWin/commit/b759a97020104768dd3d682a5e525acace52b54d), [bcd482f](https://github.com/zagozago/ZagoSheetsWin/commit/bcd482f8d70fe554d3a52507c3229c19c7f5c1fe). [Relatório](docs/REGRESSION_0939.md).
+
+- Destacar **Escolher separador** apenas nos casos genuinamente ambíguos, com prévia de leitura; demais erros mantêm ação comum.
+- Corrigir CSV de coluna única com delimitadores internos citados, campos multilinha, e CRLF/LF no caminho CSV/TSV v4 sem `trim` nem perda de espaços; operações antigas mantêm payload.
+- Em nova substituição, **verificar CSV/TSV antes de publicar atalho**. Recusar diferença de valores e preservar o original; XLS/ODS permanecem sob política própria de fidelidade parcial.
+- Recuperar atalho ausente em journal incompleto **sem novo upload**, mantendo proteção do original/backup e sem sobrescrever atalho de terceiros.
+- Limpeza por cota pode liberar backups concluídos mais antigos mesmo sem expiração, sem descartar pendências.
+- [CI 39157306007](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39157306007) passou.
+
+## [0.9.38] — candidato alfa, 18/10/2026
+
+Commits: [21ba191](https://github.com/zagozago/ZagoSheetsWin/commit/21ba191705ee671750fdded120ee9ddae167b8a5), [67d1986](https://github.com/zagozago/ZagoSheetsWin/commit/67d1986f6d90891d05c638df894dacec002f89ed), [d12844d](https://github.com/zagozago/ZagoSheetsWin/commit/d12844d7a6d6223840dc236056c469828246a492). [Relatório](docs/REGRESSION_0938.md) e [matriz 26+78](docs/REGRESSION_MATRIX_0938.md).
+
+- Interpretador v3: CSV sem cabeçalho, coluna única TSV, hints `sep=` exatos, análise de gramática/largura antes de alocar dados, prévia local de 3 linhas e 12 colunas; versões anteriores preservadas.
+- Limite experimental v3 de 100.000 linhas/1.000.000 células, **superado por v4/0.9.41**; writers respeitam XML/ZIP e compatibilidade do payload legado.
+- Reconciliar respostas de criação/sessão remota incertas via marcador de operação, **sem reupload cego**. Telemetria de reconciliação, códigos estruturados e tentativas correlacionadas.
+- ODS com repetição fora da grade é rejeitado conservadoramente; **sem normalizar silenciosamente os bytes originais**.
+- Conferência CSV/TSV com divergência **bloqueia substituição** (política específica mais estrita que XLS/ODS).
+- [CI 39145165210](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39145165210) passou; homologação Google real permanece pendente.
 
 ## [0.9.37] — candidato alfa, 18/10/2026
 

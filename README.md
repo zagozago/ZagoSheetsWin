@@ -59,7 +59,7 @@
 
 **Open local spreadsheet files in Google Sheets from Windows.** ZagoSheetsWin is a free, open-source Windows application developed by **Zagotools** and derived from [Open in Google](https://github.com/SwatiK425/open-in-google).
 
-**Status: alpha — current development candidate 0.9.37. Version 1.0.0 has not been released.** The active application code is on `feature/zagosheetswin`; `main` has historically hosted multilingual documentation and is not the authoritative code branch for alpha builds.
+**Status: alpha — current development candidate 0.9.42. Version 1.0.0 has not been released.** The active application code is on `feature/zagosheetswin`; `main` has historically hosted multilingual documentation and is not the authoritative code branch for alpha builds.
 
 > Documentation translations are retained as snapshots. For up-to-date behavior, limits and safety restrictions, use this English README and the [current documentation index](docs/README.md). Availability of 51 interfaces does not imply that every translation has completed native editorial review.
 
@@ -83,20 +83,22 @@ There is **no bidirectional synchronization**: subsequent online edits are not c
 | `.xlsx` | Native Sheets import; eligible local files may be replaced by a shortcut | VBA/macros are not supported; native import does not guarantee visual/functional equivalence |
 | `.xls` | Binary Excel is converted locally to XLSX; some HTML exports named `.xls` are read as tables | Some formulas, values and advanced features can change: successful imports may replace the original; use the backup to recover the original bytes; VBA/macros are not preserved |
 | `.ods` | Real OpenDocument packages are checked and imported using the original ODS bytes; sparse empty trailing cells are handled without expanding them in memory | Complex formulas, dates, styles and merges may change despite successful replacement; invalid/renamed HTML `.ods` is rejected; end-to-end Google validation remains pending |
-| `.csv` | Detects comma, semicolon, TAB or pipe from content; converts to XLSX with literal text cells | Ambiguity opens a per-import choice; supports strict UTF-8 and bounded Windows-1252 fallback (without BOM); text stays literal |
-| `.tsv` | Strictly parses separated text into XLSX with literal text cells | Parsing and interpretation are versioned per operation; malformed/ambiguous text may need a per-import choice or source correction |
+| `.csv` | Strict parser v4 with comma/semicolon/TAB/pipe, `sep=` first-line hint, single-column/headerless text and literal cells | Real ambiguity prompts contextual choice and preview; unsafe quoting/irregular width is rejected; remotely exported values must match for replacement |
+| `.tsv` | Text import with quoted/multiline fields and versioned interpretation | One-column TSV can be valid; confirmed mismatched values block replacement; legacy remote sessions keep their parser/payload |
 
-The file input limit remains **20 MiB**. For **new CSV/TSV interpretations**, the limits are **60,000 logical rows**, **600,000 cells** and **1,000 columns**; other formats retain their previous **50,000 rows / 500,000 cells** limits as applicable. The maximum text field remains **32,767 characters**. Additional format, export and package limits apply. Import success does **not** certify full visual fidelity. See [formats and limitations](docs/FORMATS_AND_LIMITS.md).
+The file input limit remains **20 MiB** (and the normalized upload must also fit). For **new CSV/TSV v4 imports**, limits are **100,000 logical rows, 2,000,000 cells and 1,000 columns**; historical parser versions retain their original limits. Other formats retain **50,000 rows / 500,000 cells** as applicable. The text field limit is **32,767 characters**. For text-only verification, XML/package ceilings are higher (128 MiB per worksheet XML; 160 MiB expanded package), not for XLS/ODS/XLSX generally. Import success is **not** complete visual/functional fidelity. See [formats and limitations](docs/FORMATS_AND_LIMITS.md).
 
 ## Improvements in alpha 0.9.36 and 0.9.37
 
-**Text import (0.9.36):** CSV/TSV delimiter detection uses actual file contents (comma, semicolon, tab, pipe), with a per-import chooser for ambiguous data. UTF-8 decoding is strict; files without a BOM may use a bounded Windows-1252 fallback. Quoted fields and embedded line breaks are supported within the documented limits. **Old import operations retain their original parsing semantics:** the application does not reinterpret an existing Google document silently.
+**Text import (0.9.36–0.9.41):** CSV/TSV supports comma, semicolon, TAB, pipe, precise quote/multiline handling, single-column/headerless input, an optional first-line `sep=` hint, contextual choice with a three-row preview for genuinely ambiguous delimiters and bounded Windows-1252 fallback. Interpretation and upload payload are versioned per operation; **existing remote imports are never silently reinterpreted**. New CSV/TSV imports may contain up to **100,000 logical rows and 2,000,000 cells**, subject to the input/payload size and other limits. **For CSV/TSV, mismatched Google-exported cell values block replacement**; complex XLS/ODS fidelity differences remain warnings under the separate 0.9.33 policy.
 
 **Explicit repair (0.9.36):** From **Backups → More actions → Reimport into a new document**, select the interpretation of a previously misread CSV/TSV. The application reads the verified original backup and creates a **separate** Google Sheets document. The old document, its shortcut, and original operation remain untouched. Repair requires the original backup to be available.
 
-**Failure handling (0.9.36):** The failure message stays visible when a Windows dialog is minimized/restored, late progress updates cannot replace the error, and exporting diagnostics from a failed attempt is distinct from exporting the full diagnostic history. A permanent parsing/capacity failure is not automatically retried; the retry can become available after the input file changes. Ambiguous delimiters have a manual selection flow.
+**Failure handling (0.9.36–0.9.39):** Error messages remain visible after minimizing/restoring, late progress does not overwrite terminal failure, and diagnostics distinguish the attempt from full history. A permanently invalid source is not retried automatically. Genuine delimiter ambiguity presents a highlighted **Choose separator** action and preview. Uncertain remote upload completion is reconciled against the **existing** operation marker, never blindly recreated; a missing shortcut can be safely repaired from journal state without another upload.
 
-**Consistent icon (0.9.37):** The app, installer, native windows, file associations and `.url` shortcuts share the same supplied spreadsheet icon. Existing Zagotools header logos and the MIT/upstream credits are unchanged.
+**Backup policy (0.9.39–0.9.42):** Cleanup of expired **completed** backups and oldest eligible completed backups to respect the configured quota is **automatic**, no cleanup toggle. Pending/uncertain backups remain protected. The 0.9.40 global import queue was superseded in 0.9.42: different files can upload in parallel; only **actual backup-capacity shortage** triggers a bounded, cancellable wait. An individual file larger than the backup quota is rejected immediately without deletion.
+
+**Consistent icon (0.9.37):** The app, installer, native windows, file associations and `.url` shortcuts share the supplied spreadsheet icon. Existing Zagotools logos and upstream MIT credits remain unchanged.
 
 ## Installation and first use
 
@@ -112,7 +114,7 @@ For current procedures use the [user guide](docs/USER_GUIDE.md) and [troubleshoo
 
 ## Backups and recovery
 
-A snapshot of the original bytes is kept before replacement, including after conversions with uncertain fidelity. The default policy is **30 days of retention** with a **200 MB storage quota**, configurable up to **1,000 MB (1 GB)**. **Automatic cleanup is opt-in**, during application operations rather than via a background service. Backup retention/quota/cleanup settings **save automatically**. The list has **File, Date, Size, Status** headers that sort ascending/descending when clicked; multiple rows are selected directly, without checkboxes. Deleting selected backups requires confirmation, with stronger safeguards for pending operations. After a successful replacement, the app shows a local confirmation with a **Backups** button and a persistent **Don't show again** option (only one confirmation is shown at a time).
+A snapshot of the original bytes is kept before replacement, including after conversions with uncertain fidelity. The default policy is **30 days of retention** with a **200 MB storage quota**, configurable up to **1,000 MB (1 GB)**. **Automatic cleanup is always enabled for eligible completed backups** (both time-based retention and quota rotation), during application operations rather than via a resident background service. Backup retention and quota settings **save automatically**. The cleanup toggle was removed. The list has **File, Date, Size, Status** headers that sort ascending/descending when clicked; multiple rows are selected directly, without checkboxes. Deleting selected backups requires confirmation, with stronger safeguards for pending operations. After a successful replacement, the app shows a local confirmation with a **Backups** button and a persistent **Don't show again** option (only one confirmation is shown at a time).
 
 From **Backups/Recovery**, users can restore to a new local destination, continue an existing operation as a copy, conclude an eligible replacement, and export privacy-filtered diagnostics. Do not delete `%LOCALAPPDATA%\SheetsWindows` as a troubleshooting step: it contains recovery state. The uninstaller intentionally preserves local state and Google documents.
 
@@ -139,6 +141,7 @@ The Windows application and installer provide **51 language selections**, follow
 - [Current architecture](docs/ARCHITECTURE_CURRENT.md)
 - [Current alpha baseline and CI evidence](docs/RELEASE_STATUS.md)
 - [Alpha 0.9.36 import review and verified test scope](docs/IMPORT_REVIEW_0936.md)
+- [Regression reports 0.9.38–0.9.42](docs/REGRESSION_0942.md) and [stable-release readiness](docs/PRE_RELEASE_CHECKLIST.md)
 - [Formats and limits](docs/FORMATS_AND_LIMITS.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
 - [Stable-release readiness checklist](docs/PRE_RELEASE_CHECKLIST.md)
