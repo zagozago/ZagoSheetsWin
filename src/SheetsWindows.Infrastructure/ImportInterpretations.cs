@@ -27,7 +27,7 @@ public sealed class ImportInterpretations(LocalStorage storage)
             var loaded = JsonSerializer.Deserialize<TextImportOptions>(saved) ?? throw new InvalidDataException("Invalid interpretation.");
             Validate(loaded); tx.Commit(); return loaded;
         }
-        var options = proposed with { InterpretationVersion = hasRemoteIntent ? 1 : 2 };
+        var options = proposed with { InterpretationVersion = hasRemoteIntent ? 1 : proposed.InterpretationVersion };
         Validate(options);
         cmd.CommandText = "INSERT INTO import_interpretations(operation_id,options) VALUES($id,$options)";
         cmd.Parameters.AddWithValue("$options", JsonSerializer.Serialize(options)); cmd.ExecuteNonQuery();
@@ -44,7 +44,7 @@ public sealed class ImportInterpretations(LocalStorage storage)
     private static void Validate(TextImportOptions? options)
     {
         if (options is null || options.Encoding is not ("auto" or "windows-1252")
-            || options.Delimiter is not ("auto" or "comma" or "semicolon" or "tab" or "pipe") || options.InterpretationVersion is not (1 or 2))
+            || options.Delimiter is not ("auto" or "comma" or "semicolon" or "tab" or "pipe") || options.InterpretationVersion is not (1 or 2 or 3 or 4))
             throw new InvalidDataException("Invalid interpretation.");
     }
 }

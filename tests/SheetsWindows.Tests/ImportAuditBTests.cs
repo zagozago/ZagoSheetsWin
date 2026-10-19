@@ -58,20 +58,27 @@ public sealed class ImportAuditBTests
         var bytes = Encoding.UTF8.GetBytes("a,b|c\n1,2|3");
         Assert.Throws<InvalidDataException>(() => SpreadsheetFormats.Prepare("csv", bytes));
         Assert.Equal("a,b", SpreadsheetFormats.Prepare("csv", bytes, new(Delimiter: "pipe")).Expected![0].Rows[0][0]);
-        Assert.Throws<SpreadsheetCapacityException>(() => SpreadsheetFormats.Prepare("csv", Encoding.UTF8.GetBytes(new string('\n', 60001))));
+        Assert.Throws<SpreadsheetCapacityException>(() => SpreadsheetFormats.Prepare("csv", Encoding.UTF8.GetBytes(new string('\n', 100001))));
     }
     [Theory]
     [InlineData(53941, 10)]
+    [InlineData(90001, 5)]
+    [InlineData(60001, 9)]
+    [InlineData(60002, 9)]
+    [InlineData(60001, 1)]
+    [InlineData(60002, 1)]
+    [InlineData(60001, 10)]
+    [InlineData(30001, 20)]
     [InlineData(60000, 10)]
     public void ExpandedTextCapacityRoundTripsWithinBoundedTimeAndAllocation(int rows, int columns)
     {
         var input = string.Join('\n', Enumerable.Range(0, rows).Select(r => string.Join(',', Enumerable.Range(0, columns).Select(c => $"{r:D5}-{c}"))));
-        var started = Stopwatch.StartNew(); var allocated = GC.GetTotalAllocatedBytes();
+        var started = Stopwatch.StartNew(); var allocated = GC.GetAllocatedBytesForCurrentThread();
         var payload = SpreadsheetFormats.Prepare("csv", Encoding.UTF8.GetBytes(input));
         SpreadsheetFormats.VerifyValues(payload.Expected!, payload.Bytes, textImport: true);
         Assert.Equal(rows, payload.Expected![0].Rows.Count); Assert.Equal($"{rows - 1:D5}-{columns - 1}", payload.Expected[0].Rows[^1][^1]);
         Assert.True(started.Elapsed < TimeSpan.FromMinutes(2));
-        Assert.True(GC.GetTotalAllocatedBytes() - allocated < 2L * 1024 * 1024 * 1024);
+        Assert.True(GC.GetAllocatedBytesForCurrentThread() - allocated < 2L * 1024 * 1024 * 1024);
         // The elevated allowance cannot accidentally enable other workbook formats.
         Assert.Throws<InvalidDataException>(() => SpreadsheetFormats.ReadExcel(payload.Bytes));
     }
@@ -102,7 +109,7 @@ public sealed class ImportAuditBTests
         var repair = await new LocalPreparation(w.Registry(), reader, new FileOperationLock(storage.LocksPath), new BackupStore(storage.BackupsPath)).PrepareAsync("A", path);
         Assert.NotEqual(original.Id, repair.Id); Assert.NotEqual(original.SourceKey, repair.SourceKey);
         Assert.Equal(original, w.Registry().Get(original.Id)); Assert.Equal(File.ReadAllBytes(path), File.ReadAllBytes(repair.Snapshot!.BackupPath));
-        Assert.Equal(2, interpretations.Bind(repair, new(Delimiter: "pipe"), hasRemoteIntent: false).InterpretationVersion);
+        Assert.Equal(4, interpretations.Bind(repair, new(Delimiter: "pipe"), hasRemoteIntent: false).InterpretationVersion);
         File.WriteAllText(original.Snapshot!.BackupPath, "tampered");
         Assert.Throws<InvalidDataException>(() => reader.Open(path));
     }

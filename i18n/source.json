@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.37",
+  "productVersion": "0.9.42",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 11,
+  "catalogRevision": 15,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -1686,10 +1686,12 @@
       "notes": []
     },
     "capacity.uncompressedSheet": {
-      "text": "Uma aba excede o limite de 64 MiB descompactados para conferência.",
+      "text": "Uma aba excede o limite de {limit} MiB descompactados para conferência.",
       "context": "src/SheetsWindows.Infrastructure/SpreadsheetFormats.cs - public static IReadOnlyList<SheetValues> ReadExcel(byte[] bytes, bool binary = false, CancellationToken ct = default)",
       "scope": "app",
-      "placeholders": [],
+      "placeholders": [
+        "limit"
+      ],
       "invariants": [
         "MiB"
       ],
@@ -2218,7 +2220,7 @@
       "notes": []
     },
     "error.backupQuota": {
-      "text": "Não há espaço dentro do limite de backups. O original foi preservado e não foi enviado ao Google. Abra Backups para limpar backups concluídos ou ajustar o limite (máximo 1 GB).",
+      "text": "Não há espaço suficiente após a limpeza automática. O original foi preservado. Backups pendentes ou protegidos não são apagados automaticamente; este arquivo também pode exceder a cota. Em Backups, revise as operações ou aumente o limite (máximo 1 GB). A associação existente no Google é mantida.",
       "context": "src/SheetsWindows.Infrastructure/Launcher.cs - public static string Message(Exception ex) => ex switch",
       "scope": "app",
       "placeholders": [],
@@ -5805,7 +5807,7 @@
       "notes": []
     },
     "recovery.autoCleanup": {
-      "text": "Limpar automaticamente backups concluídos",
+      "text": "Limpar backups concluídos ao vencer o prazo",
       "context": "src/SheetsWindows.Windows/RecoveryForm.cs - public RecoveryForm(bool preview = false, bool previewBusy = false)",
       "scope": "app",
       "placeholders": [],
@@ -6191,7 +6193,7 @@
       "notes": []
     },
     "recovery.usage": {
-      "text": "Espaço usado: {usedMb:N2} MB · limite: {limitMb} MB · backups: {backupCount} · protegidos: {protectedCount}",
+      "text": "Espaço Usado: {usedMb:N2} MB · Limite: {limitMb} MB · Backups: {backupCount} · Protegido: {protectedCount}",
       "context": "src/SheetsWindows.Windows/RecoveryForm.cs - public RecoveryForm(bool preview = false, bool previewBusy = false)",
       "scope": "app",
       "placeholders": [
@@ -6523,7 +6525,7 @@
       "notes": []
     },
     "setup.formatLimits": {
-      "text": "Até 20 MiB por arquivo.\nCSV/TSV: 500 mil células, 50 mil linhas e mil colunas.\n\nO conteúdo é tratado como texto literal. Se a conversão de ODS não puder ser conferida, o original é mantido. Suas preferências de texto são preservadas.",
+      "text": "Até 20 MiB por arquivo.\nCSV/TSV: 2.000.000 células, 100.000 linhas e 1.000 colunas.\n\nO conteúdo é tratado como texto literal. Se a conversão de ODS não puder ser conferida, o original é mantido. Suas preferências de texto são preservadas.",
       "context": "src/SheetsWindows.Windows/SetupForm.cs - public SetupForm(bool firstUse = false, bool preview = false)",
       "scope": "app",
       "placeholders": [],
@@ -6821,7 +6823,7 @@
       "notes": []
     },
     "tutorial.backupExplanation": {
-      "text": "Original → backup local → Google Sheets. Em Backups, escolha Restaurar em… para recuperar o arquivo.|30 dias · 200 MB (ajustável até 1 GB). Limpeza automática só quando ativada; operações pendentes são protegidas.|O backup guarda o original, sem alterações posteriores no Sheets. Fórmulas e formatação podem mudar; macros XLS não funcionam no Sheets.",
+      "text": "Original → backup local → Google Sheets. Em Backups, escolha Restaurar em… para recuperar o arquivo.|30 dias · 200 MB (ajustável até 1 GB). A limpeza por prazo e por cota é automática; operações pendentes são protegidas.|O backup guarda o original, sem alterações posteriores no Sheets. Fórmulas e formatação podem mudar; macros XLS não funcionam no Sheets. Ao atingir a cota, os backups concluídos mais antigos são excluídos. Pendentes são preservados.",
       "context": "src/SheetsWindows.Windows/TutorialForm.cs - private static readonly (string Title, string Text)[] Pages =",
       "scope": "app",
       "placeholders": [],
@@ -7420,6 +7422,105 @@
     "retry.editInput": {
       "text": "Edite o arquivo para tentar novamente.",
       "context": "Permanent input failure; retry becomes available after the file is edited.",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "error.textUnclosed": {
+      "text": "Campo entre aspas não encerrado.",
+      "context": "Specific local input validation; no remote upload completed",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "error.textQuote": {
+      "text": "Aspas em posição inválida.",
+      "context": "Specific local input validation; no remote upload completed",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "error.textEmpty": {
+      "text": "Arquivo CSV/TSV vazio.",
+      "context": "Specific local input validation; no remote upload completed",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "error.textHint": {
+      "text": "A dica sep= não corresponde à tabela.",
+      "context": "Specific local input validation; no remote upload completed",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "error.textColumns": {
+      "text": "As linhas têm quantidades diferentes de colunas.",
+      "context": "Specific local input validation; no remote upload completed",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "error.odsBounds": {
+      "text": "ODS: repetição inválida ou dimensão além do limite suportado.",
+      "context": "Specific local input validation; no remote upload completed",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "error.odsStructure": {
+      "text": "A estrutura do arquivo ODS está incompleta ou inválida.",
+      "context": "Specific local input validation; no remote upload completed",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "action.chooseSeparator": {
+      "text": "Escolher separador",
+      "context": "Ambiguous import action / completed backup quota rotation",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "recovery.quotaRotation": {
+      "text": "Ao atingir a cota, os backups concluídos mais antigos são excluídos. Pendentes são preservados.",
+      "context": "Ambiguous import action / completed backup quota rotation",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "progress.backupWaiting": {
+      "text": "Aguardando espaço no backup… Dica: libere espaço no backup para evitar esperas demoradas.",
+      "context": "Backup capacity wait only; shown after an atomic capture reports insufficient space.",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "error.backupQuotaTip": {
+      "text": "Dica: libere espaço no backup para evitar esperas demoradas.",
+      "context": "Tip for the final backup quota error, after capacity cannot be freed safely.",
       "scope": "app",
       "placeholders": [],
       "invariants": [],

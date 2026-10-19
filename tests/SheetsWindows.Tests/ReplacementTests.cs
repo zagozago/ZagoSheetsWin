@@ -30,6 +30,48 @@ public sealed class ReplacementTests
         await Assert.ThrowsAsync<IOException>(() => f.Replace()); Assert.True(File.Exists(f.Source)); Assert.Equal(1, f.Journal.Get(f.Op.Id)!.Step);
         f.Browser.Fail = false; await f.Replace(); Assert.False(File.Exists(f.Source));
     }
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    public async Task RemovedShortcutCanBeRepublishedOnlyForTheVerifiedOriginal(int step)
+    {
+        using var f = new Fixture(); var path = Path.ChangeExtension(f.Source, ".url");
+        f.Journal.Begin(f.Op.Id, path, f.Url, f.Source);
+        for (var i = 0; i < step; i++) f.Journal.Advance(f.Op.Id, i, i + 1);
+        Assert.Equal(path, await f.Replace()); Assert.True(File.Exists(path)); Assert.False(File.Exists(f.Source)); Assert.Equal(4, f.Journal.Get(f.Op.Id)!.Step);
+        Assert.Equal(step == 1 ? 1 : 0, f.Browser.Count);
+    }
+    [Fact]
+    public async Task RemovedShortcutIsNotRecreatedForAChangedOriginal()
+    {
+        using var f = new Fixture(); var path = Path.ChangeExtension(f.Source, ".url");
+        f.Journal.Begin(f.Op.Id, path, f.Url, f.Source); f.Journal.Advance(f.Op.Id, 0, 1); File.WriteAllText(f.Source, "changed");
+        await Assert.ThrowsAsync<LocalConflictException>(() => f.Replace()); Assert.False(File.Exists(path)); Assert.Equal("changed", File.ReadAllText(f.Source));
+    }
+    [WindowsFact]
+    public async Task ShortcutRemainsHeldUntilTheRetirementLeaseCloses()
+    {
+        using var f = new Fixture(); var path = Path.ChangeExtension(f.Source, ".url");
+        var reader = new ClosingProbeReader(new WindowsRetirementReader(f.Root), () =>
+        {
+            Assert.True(File.Exists(path));
+            Assert.ThrowsAny<IOException>(() => { using var write = new FileStream(path, FileMode.Open, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete); });
+        });
+        await f.Coordinator(reader).ReplaceAsync(new(f.Op, f.Url));
+        Assert.True(reader.Checked); Assert.False(File.Exists(f.Source));
+    }
+    private sealed class ClosingProbeReader(IRetirementReader inner, Action check) : IRetirementReader
+    {
+        public bool Checked;
+        public IRetirementLease Open(string path) => new ClosingProbeLease(inner.Open(path), this, check);
+        private sealed class ClosingProbeLease(IRetirementLease inner, ClosingProbeReader owner, Action check) : IRetirementLease
+        {
+            public SourceDescriptor Source => inner.Source;
+            public Stream Content => inner.Content;
+            public void Retire() => inner.Retire();
+            public async ValueTask DisposeAsync() { try { check(); owner.Checked = true; } finally { await inner.DisposeAsync(); } }
+        }
+    }
     [Fact]
     public async Task ChangedSourceIsNeverRetired()
     {

@@ -24,7 +24,7 @@ public sealed class DpapiUploadProtector : IUploadSecretProtector
         return ProtectedData.Unprotect(bytes, Entropy, DataProtectionScope.CurrentUser);
     }
 }
-public sealed record UploadSession(string Key, string Account, string SourceHash, string PayloadHash, int Length, string MimeType, string Location)
+public sealed record UploadSession(string Key, string Account, string SourceHash, string PayloadHash, int Length, string MimeType, string Location, string? Marker = null)
 {
     public override string ToString() => "UploadSession [protected]";
 }
@@ -41,14 +41,14 @@ public sealed class UploadSessionStore(string root, IUploadSecretProtector? prot
         if (file.Length > 65536 || (File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0) throw new InvalidDataException("Invalid upload session.");
         using var buffer = new MemoryStream(); file.CopyTo(buffer);
         var session = JsonSerializer.Deserialize<UploadSession>(secrets.Unprotect(buffer.ToArray())) ?? throw new InvalidDataException("Invalid upload session.");
-        if (session.Key != attempt.Key || session.Account != attempt.AccountId || session.SourceHash != attempt.Hash || session.Length != bytes.Length
+        if (session.Marker is not null && session.Marker != attempt.Marker || session.Key != attempt.Key || session.Account != attempt.AccountId || session.SourceHash != attempt.Hash || session.Length != bytes.Length
             || session.PayloadHash != Convert.ToHexString(SHA256.HashData(bytes)) || session.MimeType != mime) throw new LocalConflictException("Upload binding changed.");
         ValidateLocation(session.Location); return session;
     }
     public void Save(RemoteAttempt attempt, byte[] bytes, string mime, Uri location)
     {
         ValidateLocation(location.AbsoluteUri); PrivateDirectory.Create(root);
-        var session = new UploadSession(attempt.Key, attempt.AccountId, attempt.Hash, Convert.ToHexString(SHA256.HashData(bytes)), bytes.Length, mime, location.AbsoluteUri);
+        var session = new UploadSession(attempt.Key, attempt.AccountId, attempt.Hash, Convert.ToHexString(SHA256.HashData(bytes)), bytes.Length, mime, location.AbsoluteUri, attempt.Marker);
         var encrypted = secrets.Protect(JsonSerializer.SerializeToUtf8Bytes(session)); var path = PathFor(attempt.Key); var tmp = path + "." + Guid.NewGuid().ToString("N") + ".tmp";
         try
         {

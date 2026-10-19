@@ -113,7 +113,7 @@ class CatalogContracts(unittest.TestCase):
         self.assertTrue(all(isinstance(v,str) for v in pack['strings'].values()))
         with self.assertRaises(AssertionError):generator.validate_pack(pack,self.source,self.locales,True)
         self.assertIn(generator.ROOT/'i18n/generated/zh.json',generator.files(self.source))
-        for key,value in [('setup.formatLimits',pack['strings']['setup.formatLimits'].replace('500,000','600,000')),('installer.standard.Messages.ComponentSize1','%1 MB')]:
+        for key,value in [('setup.formatLimits',pack['strings']['setup.formatLimits'].replace('2,000,000','3,000,000')),('installer.standard.Messages.ComponentSize1','%1 MB')]:
             invalid=copy.deepcopy(pack);invalid['strings'][key]=value
             with self.assertRaises(AssertionError):generator.validate_pack(invalid,self.source,self.locales)
         invalid=copy.deepcopy(pack);invalid['strings']['home.help']=None
@@ -130,8 +130,8 @@ class CatalogContracts(unittest.TestCase):
         cases=[('fr','error.backupQuota','1 Go','2 Go'),
                ('fr','recovery.sizeMb','Mo','Google'),
                ('ru','installer.standard.Messages.ComponentSize2','МБ','ГБ'),
-               ('hi','setup.formatLimits','500,000','600,000'),
-               ('ko','setup.formatLimits','50,000','60,000'),
+               ('hi','setup.formatLimits','2,000,000','3,000,000'),
+               ('ko','setup.formatLimits','100,000','200,000'),
                ('ja','dialog.oauthFileFilter','OAuth JSON','Ajuda'),
                ('ja','tutorial.pageCount','{total}','{count}')]
         for code,key,old,new in cases:

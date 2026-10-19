@@ -179,7 +179,7 @@ internal static class InterfaceVerification
                     var fields = Descendants(autosave).OfType<NumericUpDown>().ToArray();
                     fields.Single(n => n.Maximum == 365).Value = 45;
                     fields.Single(n => n.Maximum == 1000).Value = 321;
-                    Descendants(autosave).OfType<CheckBox>().Single().Checked = true;
+                    Require(!Descendants(autosave).OfType<CheckBox>().Any(), "Backup cleanup is automatic and has no toggle.");
                     autosave.Close();
                 };
                 autosave.ShowDialog();
@@ -200,7 +200,7 @@ internal static class InterfaceVerification
                 "Restore must be the first regular primary action beside selection controls.");
             var numbers = Descendants(recovery).OfType<NumericUpDown>().ToArray();
             Require(numbers.Any(n => n.Value == 30 && n.Maximum == 365) && numbers.Any(n => n.Value == 200 && n.Maximum == 1000), "Backup defaults and quota ceiling must be visible.");
-            Require(!Descendants(recovery).OfType<CheckBox>().Single().Checked, "Automatic cleanup requires informed opt-in.");
+            Require(!Descendants(recovery).OfType<CheckBox>().Any(), "Automatic cleanup must not expose an opt-in toggle.");
             Require(list.Columns.Count == 4 && list.Items.Cast<ListViewItem>().All(i => i.Tag is RecoveryEntry), "Backup table must preserve recovery identity and expose four readable columns.");
             Require(list.Items.Count == 3 && list.Items.Cast<ListViewItem>().All(i => ((RecoveryEntry)i.Tag!).CleanupState != 2), "Deleted backup history must be absent from the recovery list.");
             Require(list.MultiSelect && !list.CheckBoxes, "Backups must support multiple selection.");
@@ -210,6 +210,10 @@ internal static class InterfaceVerification
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Limpar seleção").PerformClick();
             Require(list.SelectedItems.Count == 0, "Clear selection must remove all marks.");
             Require(!Descendants(recovery).OfType<Button>().Any(b => b.Text == UiText.Get("recovery.savePolicy")), "Backup policy must auto-save without a save button.");
+            Require(!Descendants(recovery).OfType<CheckBox>().Any(), "Automatic backup cleanup must not expose a switch.");
+            var statistics = Descendants(recovery).OfType<Label>().Single(l => l.Name == "backupStatistics");
+            Require(Math.Abs(statistics.Font.SizeInPoints - 8f) < 0.01f, "Backup statistics must use the compact 8-point font.");
+            Require(statistics.Font.Bold && statistics.Parent is FlowLayoutPanel { BorderStyle: BorderStyle.FixedSingle, Margin.Top: >= 16 }, "Backup statistics must have bold text, a border and vertical separation.");
             for (var column = 0; column < 4; column++)
             {
                 recovery.SortByColumn(column);
@@ -519,6 +523,26 @@ internal static class InterfaceVerification
             };
             timer.Start(); failure.ShowDialog(); measurements["OfflineFailureUi"] = failure.LastMetrics!; Require(failureVisible, "Failure must stay visible with diagnosis and recovery actions.");
         }
+        foreach (var ambiguous in new[] { false, true })
+        {
+            var error = ambiguous ? new InvalidDataException("Ambiguous CSV delimiter; configure it explicitly.") : new InvalidDataException("Irregular delimited table.");
+            using var errorForm = new ProcessingForm(new(LauncherAction.Open, "preview.csv"), execute: (_, _) => Task.FromException(error), recordDiagnostics: false);
+            using var watcher = new System.Windows.Forms.Timer { Interval = 25 };
+            var verified = false;
+            watcher.Tick += (_, _) =>
+            {
+                if (errorForm.IsBusy || errorForm.ExitCode != 1) return;
+                watcher.Stop();
+                var button = Descendants(errorForm).OfType<Button>().Single(b => b.Text == UiText.Get(ambiguous ? "action.chooseSeparator" : "action.retry"));
+                verified = ambiguous ? button.Tag as string == "primary" && button.Font.Bold && button.ForeColor == Color.White && button.BackColor == Color.FromArgb(18, 126, 69)
+                    : button.Tag as string != "primary" && !Descendants(errorForm).OfType<Button>().Any(b => b.Text == UiText.Get("action.chooseSeparator"));
+                SaveFrame(errorForm, ambiguous ? "choose-separator-action" : "ordinary-retry-action");
+                errorForm.Close();
+            };
+            watcher.Start(); errorForm.ShowDialog(); Require(verified, "Only an ambiguous delimiter error gets the highlighted Choose separator action.");
+        }
+        using (var selector = new TextInterpretationForm())
+        { Require(((Button)selector.AcceptButton!).Text == UiText.Get("action.retry"), "The interpretation modal keeps its Retry action."); }
         void SaveFrame(Form form, string name)
         {
             using var bitmap = new Bitmap(form.Width, form.Height);
@@ -535,13 +559,35 @@ internal static class InterfaceVerification
         using (benchmark.Begin(ProcessingPhase.Verification)) SpreadsheetFormats.VerifyValues(payload.Expected!, payload.Bytes);
         measurements["OfflineCsv5000x40RoundTrip"] = benchmark.Capture();
         var largeCsv = new System.Text.StringBuilder();
-        for (var row = 0; row < 60000; row++) { for (var column = 0; column < 10; column++) { if (column > 0) largeCsv.Append('|'); largeCsv.Append(row).Append('_').Append(column); } largeCsv.Append('\n'); }
+        for (var row = 0; row < 100000; row++) { for (var column = 0; column < 20; column++) { if (column > 0) largeCsv.Append('|'); largeCsv.Append(row).Append('_').Append(column); } largeCsv.Append('\n'); }
         var expanded = new ProcessingTelemetry();
         using (expanded.Begin(ProcessingPhase.Conversion)) payload = SpreadsheetFormats.Prepare("csv", System.Text.Encoding.UTF8.GetBytes(largeCsv.ToString()));
         using (expanded.Begin(ProcessingPhase.Verification)) SpreadsheetFormats.VerifyValues(payload.Expected!, payload.Bytes, textImport: true);
-        measurements["OfflineCsv60000x10RoundTrip"] = expanded.Capture();
+        measurements["OfflineCsv100000x20RoundTrip"] = expanded.Capture();
+        Require(expanded.Capture().PeakWorkingSetBytes < 512L * 1024 * 1024, "CSV capacity benchmark exceeded the 512 MiB working-set budget.");
         using (var interpretation = new TextInterpretationForm(repair: true))
         { interpretation.Show(); Application.DoEvents(); Require(interpretation.Options == new TextImportOptions(), "Repair defaults must use the current automatic interpretation."); interpretation.Close(); }
+        var previewInput = Path.Combine(Path.GetTempPath(), "zsw-preview-" + Guid.NewGuid().ToString("N") + ".csv");
+        try
+        {
+            File.WriteAllText(previewInput, "a,b;c\n1,2;3\n4,5;6");
+            foreach (var code in new[] { "en", "pt", "ar" })
+            {
+                UiText.Select(code);
+                using var choice = new TextInterpretationForm(sourcePath: previewInput);
+                choice.Show(); Application.DoEvents();
+                var picker = Descendants(choice).OfType<ComboBox>().Single(c => c.AccessibleName == UiText.Get("setup.delimiterAuto"));
+                picker.SelectedIndex = 2;
+                var grid = Descendants(choice).OfType<DataGridView>().Single();
+                var wait = System.Diagnostics.Stopwatch.StartNew();
+                while (grid.Rows.Count == 0 && wait.Elapsed < TimeSpan.FromSeconds(10)) { Application.DoEvents(); Thread.Sleep(10); }
+                Require(grid.Rows.Count == 3 && grid.Columns.Count == 2, "Per-file delimiter preview must render the selected interpretation.");
+                Require((string?)grid.Rows[0].Cells[0].Value == "a,b", "Preview must preserve the competing separator inside the value.");
+                Require(((Button)choice.AcceptButton!).Enabled, "A valid explicit preview must permit retry.");
+                choice.Close();
+            }
+        }
+        finally { if (File.Exists(previewInput)) File.Delete(previewInput); UiText.Select("pt"); }
         Console.Error.WriteLine("VERIFY: 51 locale layouts");
         LocaleVerification.Run(output);
         Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(output))!);

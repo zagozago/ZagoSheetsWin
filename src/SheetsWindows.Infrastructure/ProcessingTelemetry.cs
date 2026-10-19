@@ -4,10 +4,15 @@ namespace SheetsWindows.Infrastructure;
 
 public enum ProcessingPhase { Conversion, Upload, Verification }
 [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<ProcessingStep>))]
-public enum ProcessingStep { Preflight, Authorization, PreviousAssociation, TrashedAssociationRetired, SnapshotPreparation, SourceValidation, SnapshotValidation, Conversion, FolderAssociation, RemoteIntent, RemoteCandidate, RemoteLookup, RemoteValidation, RemoteVerified, UploadResume, ImportReady, Replacement, ConversionVerification, ShortcutPublication, BrowserLaunch, SourceRetirement, CopyCompletion, Configuration, SourceOpening, ConversionWarning }
+public enum ProcessingStep { Preflight, Authorization, PreviousAssociation, TrashedAssociationRetired, SnapshotPreparation, SourceValidation, SnapshotValidation, Conversion, FolderAssociation, RemoteIntent, RemoteCandidate, RemoteLookup, RemoteValidation, RemoteVerified, UploadResume, ImportReady, Replacement, ConversionVerification, ShortcutPublication, BrowserLaunch, SourceRetirement, CopyCompletion, Configuration, SourceOpening, ConversionWarning, SessionInitiated, SessionAck, RemoteLookupNone, RemoteLookupMultiple, ReconciliationRequired, ImportQueue, GoogleReadRetry, BackupCapacityWait }
 [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<CheckpointOutcome>))]
 public enum CheckpointOutcome { Started, Completed, Failed }
-public sealed record ProcessingCheckpoint(ProcessingStep Step, CheckpointOutcome Outcome, long ElapsedMs, RemoteValidationContext? RemoteValidation = null);
+public sealed record GoogleRequestContext(string Endpoint, int Status, string? Reason, int Retry, int DelayMs)
+{
+    public bool IsValid => Endpoint is "drive.read" or "drive.export" && Status is >= 100 and <= 599
+        && Reason == SheetsWindows.Core.GoogleApiException.SafeReason(Reason) && Retry is >= 1 and <= 3 && DelayMs is >= 0 and <= 30000;
+}
+public sealed record ProcessingCheckpoint(ProcessingStep Step, CheckpointOutcome Outcome, long ElapsedMs, RemoteValidationContext? RemoteValidation = null, GoogleRequestContext? GoogleRequest = null);
 public sealed record ProcessingMetrics(long ElapsedMs, long? ReadyMs, long? ConversionMs, long? UploadMs, long? VerificationMs, long? PeakWorkingSetBytes, long? CpuMs, double? PeakCpuPercent = null)
 {
     [System.Text.Json.Serialization.JsonIgnore]
@@ -17,6 +22,8 @@ public sealed record ProcessingMetrics(long ElapsedMs, long? ReadyMs, long? Conv
 // Numeric, per-run counters only. No source path, account, content or upload URL.
 public sealed class ProcessingTelemetry(long? startedAt = null, IProgress<string>? progress = null)
 {
+    public Guid? OperationId { get; private set; }
+    public void BindOperation(Guid id) => OperationId = id;
     private readonly long started = startedAt ?? Stopwatch.GetTimestamp();
     private readonly long[] ticks = new long[3];
     private readonly int[] observed = new int[3];
@@ -30,6 +37,16 @@ public sealed class ProcessingTelemetry(long? startedAt = null, IProgress<string
         {
             if (checkpoints.Count == MaxCheckpoints) checkpoints.RemoveAt(0);
             checkpoints.Add(new(step, outcome, Ms(Stopwatch.GetTimestamp() - started), validation));
+        }
+    }
+    public void MarkGoogleRetry(string endpoint, int status, string? reason, int retry, int delayMs)
+    {
+        var context = new GoogleRequestContext(endpoint, status, SheetsWindows.Core.GoogleApiException.SafeReason(reason), retry, delayMs);
+        if (!context.IsValid) throw new ArgumentException("Invalid Google retry context.");
+        lock (traceGate)
+        {
+            if (checkpoints.Count == MaxCheckpoints) checkpoints.RemoveAt(0);
+            checkpoints.Add(new(ProcessingStep.GoogleReadRetry, CheckpointOutcome.Completed, Ms(Stopwatch.GetTimestamp() - started), GoogleRequest: context));
         }
     }
     public IReadOnlyList<ProcessingCheckpoint> CaptureTrace() { lock (traceGate) return checkpoints.ToArray(); }

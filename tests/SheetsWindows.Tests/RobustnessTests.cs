@@ -317,6 +317,78 @@ public sealed class RobustnessTests
         await Assert.ThrowsAsync<GoogleApiException>(() => new GoogleDriveClient(http, new Auth()).ExportXlsxAsync("A", "sheet_1", default));
         Assert.Equal(1, server.Calls);
     }
+    [Theory]
+    [InlineData("rateLimitExceeded", true)]
+    [InlineData("userRateLimitExceeded", true)]
+    [InlineData("insufficientFilePermissions", false)]
+    [InlineData("dailyLimitExceeded", false)]
+    [InlineData("storageQuotaExceeded", false)]
+    [InlineData("private-server-content", false)]
+    public async Task Export403RetriesOnlyAnExplicitTemporaryRateLimit(string reason, bool retry)
+    {
+        var telemetry = new ProcessingTelemetry();
+        using var server = new Responses((request, count) =>
+        {
+            Assert.Equal(HttpMethod.Get, request.Method);
+            if (count > 1) return new(HttpStatusCode.OK) { Content = new ByteArrayContent([1,2,3]) };
+            var response = Json(new { error = new { message = "private-server-content", errors = new[] { new { reason } } } });
+            response.StatusCode = HttpStatusCode.Forbidden;
+            response.Headers.RetryAfter = new System.Net.Http.Headers.RetryConditionHeaderValue(TimeSpan.Zero); return response;
+        });
+        using var http = new HttpClient(server); var drive = new GoogleDriveClient(http, new Auth(), telemetry: telemetry);
+        if (retry)
+        {
+            Assert.Equal(new byte[]{1,2,3}, await drive.ExportXlsxAsync("A", "sheet_1", default));
+            var context = Assert.Single(telemetry.CaptureTrace()).GoogleRequest!;
+            Assert.Equal(reason, context.Reason); Assert.Equal(1, context.Retry); Assert.Equal(0, context.DelayMs); Assert.Equal("drive.export", context.Endpoint);
+        }
+        else
+        {
+            var error = await Assert.ThrowsAsync<GoogleApiException>(() => drive.ExportXlsxAsync("A", "sheet_1", default));
+            var diagnostic = DiagnosticLog.CreateEntry(DiagnosticEvent.Failed, failure: error);
+            Assert.Equal("drive.export", diagnostic.GoogleEndpoint);
+            Assert.DoesNotContain("private-server-content", System.Text.Json.JsonSerializer.Serialize(diagnostic));
+            Assert.Empty(telemetry.CaptureTrace());
+        }
+        Assert.Equal(retry ? 2 : 1, server.Calls);
+    }
+    [Theory]
+    [InlineData("not-json")]
+    [InlineData("{\"error\":{\"errors\":[{\"reason\":\"rateLimitExceeded\"},{\"reason\":\"insufficientFilePermissions\"}]}}")]
+    public async Task MalformedOrMixed403DoesNotAuthorizeAutomaticRetry(string body)
+    {
+        using var server = new Responses((_, _) => new(HttpStatusCode.Forbidden) { Content = new StringContent(body) });
+        using var http = new HttpClient(server);
+        await Assert.ThrowsAsync<GoogleApiException>(() => new GoogleDriveClient(http, new Auth()).ExportXlsxAsync("A", "sheet_1", default)); Assert.Equal(1, server.Calls);
+    }
+    [Fact]
+    public async Task Temporary403RetryExhaustionKeepsReasonAndNeverRequestsLogin()
+    {
+        using var server = new Responses((request, _) =>
+        {
+            Assert.Equal(HttpMethod.Get, request.Method);
+            var response = Json(new { error = new { errors = new[] { new { reason = "userRateLimitExceeded" } } } });
+            response.StatusCode = HttpStatusCode.Forbidden;
+            response.Headers.RetryAfter = new System.Net.Http.Headers.RetryConditionHeaderValue(TimeSpan.Zero); return response;
+        });
+        using var http = new HttpClient(server);
+        var error = await Assert.ThrowsAsync<GoogleApiException>(() => new GoogleDriveClient(http, new Auth()).ExportXlsxAsync("A", "sheet_1", default));
+        Assert.Equal(4, server.Calls); Assert.Equal("userRateLimitExceeded", error.Reason);
+        Assert.Equal(UiText.Get("error.googleUnavailable"), LauncherErrors.Message(error));
+        Assert.Equal(DiagnosticCode.BackupQuota, DiagnosticLog.CreateEntry(DiagnosticEvent.Failed, failure: new BackupQuotaException()).Code);
+    }
+    [Fact]
+    public async Task RetryAfterBeyondTheBoundDoesNotRetryEarlierThanRequested()
+    {
+        using var server = new Responses((_, _) =>
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.TooManyRequests);
+            response.Headers.RetryAfter = new System.Net.Http.Headers.RetryConditionHeaderValue(TimeSpan.FromMinutes(1)); return response;
+        });
+        using var http = new HttpClient(server);
+        var error = await Assert.ThrowsAsync<GoogleApiException>(() => new GoogleDriveClient(http, new Auth()).ExportXlsxAsync("A", "sheet_1", default)); Assert.Equal(1, server.Calls);
+        Assert.True(error.RetryDeferred); Assert.False(ImportRetry.IsTransient(error));
+    }
     [Fact]
     public async Task ExportTransientRetryIsBounded()
     {

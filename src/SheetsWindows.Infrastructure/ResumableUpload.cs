@@ -7,7 +7,7 @@ using SheetsWindows.Core;
 
 namespace SheetsWindows.Infrastructure;
 
-public sealed class ResumableUpload(HttpClient http, IGoogleAuth auth, UploadSessionStore sessions, TimeSpan? requestTimeout = null)
+public sealed class ResumableUpload(HttpClient http, IGoogleAuth auth, UploadSessionStore sessions, TimeSpan? requestTimeout = null, ProcessingTelemetry? telemetry = null)
 {
     public bool HasSession(RemoteAttempt attempt, byte[] bytes, string mime) => sessions.Get(attempt, bytes, mime) is not null;
     public async Task<string> StartAsync(RemoteAttempt attempt, string metadata, byte[] bytes, string mime, CancellationToken ct)
@@ -20,7 +20,8 @@ public sealed class ResumableUpload(HttpClient http, IGoogleAuth auth, UploadSes
         using var response = await SendAsync(request, attempt.AccountId, false, ct);
         if (!response.IsSuccessStatusCode) throw new GoogleApiException((int)response.StatusCode);
         var location = response.Headers.Location ?? throw new InvalidDataException("Missing upload session.");
-        sessions.Save(attempt, bytes, mime, location); // Durable before the first content PUT.
+        sessions.Save(attempt, bytes, mime, location);
+        telemetry?.Mark(ProcessingStep.SessionInitiated); // Durable before the first content PUT.
         return await ResumeAsync(attempt, bytes, mime, ct);
     }
     public async Task<string> ResumeAsync(RemoteAttempt attempt, byte[] bytes, string mime, CancellationToken ct)
@@ -42,6 +43,7 @@ public sealed class ResumableUpload(HttpClient http, IGoogleAuth auth, UploadSes
             catch (HttpRequestException) when (++transient <= 3) { query = true; await GoogleRetry.DelayAsync(transient, null, ct); continue; }
             using (response)
             {
+                telemetry?.Mark(ProcessingStep.SessionAck);
                 if (response.StatusCode == HttpStatusCode.Unauthorized && !refreshed)
                 { if (++transient > 3) throw new AuthorizationRequiredException(); refresh = true; refreshed = true; query = true; continue; }
                 if (GoogleRetry.Transient((int)response.StatusCode))
@@ -52,7 +54,13 @@ public sealed class ResumableUpload(HttpClient http, IGoogleAuth auth, UploadSes
                     await using var stream = await response.Content.ReadAsStreamAsync(ct);
                     using var buffer = new MemoryStream(); var chunk = new byte[8192]; int read;
                     while ((read = await stream.ReadAsync(chunk, ct)) != 0) { if (buffer.Length + read > 65536) throw new InvalidDataException("Upload response too large."); buffer.Write(chunk, 0, read); }
-                    using var json = JsonDocument.Parse(buffer.ToArray()); var id = json.RootElement.GetProperty("id").GetString()!; GoogleDriveClient.ValidateId(id); return id;
+                    try
+                    {
+                        using var json = JsonDocument.Parse(buffer.ToArray());
+                        if (!json.RootElement.TryGetProperty("id", out var value) || value.ValueKind != JsonValueKind.String) throw new ReconciliationRequiredException();
+                        var id = value.GetString()!; GoogleDriveClient.ValidateId(id); return id;
+                    }
+                    catch (JsonException) { throw new ReconciliationRequiredException(); }
                 }
                 if ((int)response.StatusCode != 308) throw new ReconciliationRequiredException(); // Never create a second session automatically after expiry.
                 var next = 0;
