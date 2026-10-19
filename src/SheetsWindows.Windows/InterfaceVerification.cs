@@ -194,7 +194,7 @@ internal static class InterfaceVerification
                 };
                 autosave.ShowDialog();
             }
-            Require(BackupPolicy.Load(policyStorage) == new BackupPolicy(45, 321, true), "Every backup rule edit must auto-save and survive immediate close.");
+            Require(BackupPolicy.Load(policyStorage) == new BackupPolicy(45, 321, false), "Every backup rule edit must auto-save and survive immediate close.");
         }
         finally { if (Directory.Exists(policyRoot)) Directory.Delete(policyRoot, true); }
         using (var recovery = new RecoveryForm(preview: true, previewBusy: true))

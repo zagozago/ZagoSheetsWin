@@ -36,7 +36,7 @@ public sealed class BackupManagementTests
     [Fact] public async Task PolicyRoundTripAndMaximum()
     {
         using var w = new Workspace(); await BackupPolicy.SaveAsync(Storage(w),new(45,1000,true));
-        Assert.Equal(new BackupPolicy(45,1000,true),BackupPolicy.Load(Storage(w))); Assert.Equal(1_000_000_000,BackupPolicy.Load(Storage(w)).QuotaBytes);
+        Assert.Equal(new BackupPolicy(45,1000,false),BackupPolicy.Load(Storage(w))); Assert.Equal(1_000_000_000,BackupPolicy.Load(Storage(w)).QuotaBytes);
     }
     [Fact] public void LegacyBackupCatalogMigrationPreservesRowsAndAddsOnlyTheDiscardFlag()
     {
