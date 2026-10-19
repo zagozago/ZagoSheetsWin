@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.42",
+  "productVersion": "0.9.43",
   "sourceLocale": "pt-BR",
-  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
+  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Adakah anda menggunakan penyegerakan?",
     "emphasis.verify": "Semak sambungan Google",
     "error.authorizationRequired": "Google memerlukan kebenaran. Buka Tetapan dan klik Benarkan Google, kemudian buka hamparan sekali lagi.",
-    "error.backupQuota": "Ruang tidak cukup selepas pembersihan automatik: sandaran tertunda dilindungi atau fail melebihi kuota. Fail asal dan pautan Google dikekalkan. Semak sandaran atau naikkan had (maksimum 1 GB).",
+    "error.backupQuota": "Tiada ruang dalam had sandaran. Fail asal dikekalkan dan tidak dihantar ke Google. Buka Sandaran untuk memadam sandaran yang selesai atau laraskan had (maksimum 1 GB).",
     "error.backupRemoved": "Sandaran ini telah ditandai sebagai dibersihkan dan tidak lagi tersedia untuk pemulihan atau menyambung semula. Dokumen Google dan pintasannya dikekalkan. Gunakan pintasan untuk membuka hamparan dalam talian.",
     "error.busy": "Operasi lain masih menggunakan fail atau registri. Tunggu dan sambung semula; fail asal dan sandaran dikekalkan.",
     "error.cancelled": "Operasi dihentikan. Sandaran dan rekod pemulihan, jika telah dibuat, dikekalkan.",

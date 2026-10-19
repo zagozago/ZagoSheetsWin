@@ -43,7 +43,7 @@ public sealed class ResumableUpload(HttpClient http, IGoogleAuth auth, UploadSes
             catch (HttpRequestException) when (++transient <= 3) { query = true; await GoogleRetry.DelayAsync(transient, null, ct); continue; }
             using (response)
             {
-                telemetry?.Mark(ProcessingStep.SessionAck);
+                telemetry?.Mark(ProcessingStep.SessionAck, sessionStatus: (int)response.StatusCode);
                 if (response.StatusCode == HttpStatusCode.Unauthorized && !refreshed)
                 { if (++transient > 3) throw new AuthorizationRequiredException(); refresh = true; refreshed = true; query = true; continue; }
                 if (GoogleRetry.Transient((int)response.StatusCode))

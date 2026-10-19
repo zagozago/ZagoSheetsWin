@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.42",
+  "productVersion": "0.9.43",
   "sourceLocale": "pt-BR",
-  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
+  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Gumagamit ka ba ng sync?",
     "emphasis.verify": "Suriin ang Google connection",
     "error.authorizationRequired": "Kailangan ng Google ng authorization. Buksan ang Mga Setting at i-click ang I-authorize ang Google, pagkatapos ay buksan ulit ang spreadsheet.",
-    "error.backupQuota": "Kulang ang espasyo matapos ang awtomatikong paglilinis: protektado ang nakabinbing backup o lampas sa quota ang file. Napanatili ang orihinal at ugnayan sa Google. Suriin ang backup o taasan ang limitasyon (hanggang 1 GB).",
+    "error.backupQuota": "Walang sapat na espasyo sa loob ng backup limit. Napanatili ang orihinal at hindi ito ipinadala sa Google. Buksan ang Backups para mag-delete ng completed backups o ayusin ang limit (maximum 1 GB).",
     "error.backupRemoved": "Namarkahan nang nalinis ang backup na ito at hindi na ito available para sa restoration o pagpapatuloy. Napanatili ang Google document at shortcut nito. Gamitin ang shortcut para buksan ang online spreadsheet.",
     "error.busy": "May isa pang operation na gumagamit pa ng file o registry. Maghintay at ipagpatuloy; napanatili ang orihinal at mga backup.",
     "error.cancelled": "Huminto ang operation. Kung nagawa na, napanatili ang backup at recovery record.",

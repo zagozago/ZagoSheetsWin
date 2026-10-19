@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.42",
+  "productVersion": "0.9.43",
   "sourceLocale": "pt-BR",
-  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
+  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "You dey use sync?",
     "emphasis.verify": "Check Google connection",
     "error.authorizationRequired": "Google need authorization. Open Settings and click Authorize Google, then open di spreadsheet again.",
-    "error.backupQuota": "Space no reach after automatic cleanup: pending backups dey protected or dis file pass quota. Original and Google link still dey safe. Check backups or increase limit (maximum 1 GB).",
+    "error.backupQuota": "Space no dey inside di backup limit. Dem keep di original and dem no send am go Google. Open Backups to delete completed backups or adjust di limit (maximum 1 GB).",
     "error.backupRemoved": "Dem don already mark dis backup as cleaned, so e no dey available for restore or resume again. Dem keep di Google document and im shortcut. Use di shortcut open di online spreadsheet.",
     "error.busy": "Another operation still dey use di file or registry. Wait and resume; dem keep di original and backups.",
     "error.cancelled": "Operation stop. If backup and recovery record don create, dem keep dem.",

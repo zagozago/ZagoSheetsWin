@@ -14,6 +14,16 @@ internal static class InterfaceVerification
         using (var languageOwner = new LauncherForm(new(LauncherAction.Home)))
         {
             languageOwner.Show(); Application.DoEvents();
+            var restoredSize = languageOwner.ClientSize;
+            Require(!languageOwner.MaximizeBox && languageOwner.MinimizeBox && languageOwner.FormBorderStyle == FormBorderStyle.FixedSingle,
+                "Home must allow minimize but prohibit resizing and maximizing.");
+            for (var cycle = 0; cycle < 4; cycle++)
+            {
+                languageOwner.WindowState = FormWindowState.Minimized; Application.DoEvents();
+                languageOwner.WindowState = FormWindowState.Normal; Application.DoEvents();
+                Require(languageOwner.ClientSize == restoredSize, "Minimize/restore must preserve home client size.");
+                Require(Descendants(languageOwner).OfType<FlowLayoutPanel>().All(panel => !panel.VerticalScroll.Visible), "Restored home must not acquire a scrollbar.");
+            }
             var openButton = Descendants(languageOwner).OfType<Button>().Single(b => b.Text == UiText.Get("home.open"));
             var container = openButton.Parent!;
             Require(Math.Abs((openButton.Left - container.Padding.Left) - (container.ClientSize.Width - container.Padding.Right - openButton.Right)) <= 1,
@@ -476,6 +486,18 @@ internal static class InterfaceVerification
         {
             observed.ShowDialog(); measurements["OfflineSampledCpuUi"] = observed.LastMetrics!;
             Require(observed.LastMetrics!.PeakCpuPercent is >= 0 and <= 100, "Processing must sample CPU without keeping the process resident.");
+        }
+        using (var exhausted = new ProcessingForm(new(LauncherAction.Open, "preview.xlsx"),
+            execute: (_, _) => Task.FromException(new OutOfMemoryException()), recordDiagnostics: false))
+        using (var timer = new System.Windows.Forms.Timer { Interval = 25 })
+        {
+            timer.Tick += (_, _) =>
+            {
+                if (exhausted.IsBusy) return;
+                Require(exhausted.ExitCode == 1 && exhausted.LastMetrics is null, "Memory failure must stop without allocating diagnostic output or retrying.");
+                timer.Stop(); exhausted.Close();
+            };
+            timer.Start(); exhausted.ShowDialog();
         }
         var cancelled = false;
         using (var cancel = new ProcessingForm(new(LauncherAction.Open, "preview.xlsx"), execute: async (_, ct) =>

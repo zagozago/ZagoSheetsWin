@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.42",
+  "productVersion": "0.9.43",
   "sourceLocale": "pt-BR",
-  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
+  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Bạn có dùng đồng bộ không?",
     "emphasis.verify": "Kiểm tra kết nối Google",
     "error.authorizationRequired": "Google cần được ủy quyền. Mở Cài đặt, nhấp “Ủy quyền Google”, rồi mở lại bảng tính.",
-    "error.backupQuota": "Không đủ chỗ sau khi dọn tự động: bản sao đang chờ được bảo vệ hoặc tệp vượt hạn mức. Bản gốc và liên kết Google được giữ lại. Kiểm tra bản sao hoặc tăng giới hạn (tối đa 1 GB).",
+    "error.backupQuota": "Không còn dung lượng trong giới hạn sao lưu. Tệp gốc đã được giữ lại và chưa gửi đến Google. Mở Sao lưu để xóa các bản sao lưu đã hoàn tất hoặc điều chỉnh giới hạn (tối đa 1 GB).",
     "error.backupRemoved": "Bản sao lưu này đã được đánh dấu là đã dọn dẹp và không còn dùng được để khôi phục hoặc tiếp tục. Tài liệu Google và lối tắt của nó đã được giữ lại. Hãy dùng lối tắt để mở bảng tính trực tuyến.",
     "error.busy": "Một thao tác khác vẫn đang sử dụng tệp hoặc bản ghi. Hãy chờ rồi tiếp tục; tệp gốc và các bản sao lưu đã được giữ lại.",
     "error.cancelled": "Đã dừng thao tác. Bản sao lưu và bản ghi khôi phục, nếu đã tạo, đều được giữ lại.",

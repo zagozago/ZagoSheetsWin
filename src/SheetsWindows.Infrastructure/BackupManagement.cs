@@ -116,64 +116,7 @@ public sealed class BackupManagement(LocalStorage storage, Func<DateTimeOffset>?
     {
         var count=0;long bytes=0;foreach(var id in ids.Distinct()){ct.ThrowIfCancellationRequested();var result=await DeleteCoreAsync(id,false,ct,skipBusy);count+=result.Count;bytes+=result.Bytes;}return new(count,bytes);
     }
-    // The first capture never joins a profile-wide import queue. Its short maintenance
-    // lock atomically checks actual disk usage and commits the snapshot. Uploads are parallel.
-    // Capacity retries run only after that atomic check proves there is insufficient space.
-    // PrepareAsync has released its source lock before entering this method's slow path.
-    public async Task<ImportOperation> PrepareWithCapacityAsync(Func<Task<ImportOperation>> prepare,
-        long incomingBytes, Guid? excludeId = null, Action? waiting = null, CancellationToken ct = default)
-    {
-        if (incomingBytes < 0) throw new ArgumentException("Invalid incoming size.");
-        if (incomingBytes > BackupPolicy.Load(storage).QuotaBytes) throw new BackupQuotaException();
-        try { return await prepare(); }
-        catch (BackupQuotaException) when (incomingBytes <= BackupPolicy.Load(storage).QuotaBytes) { }
-        waiting?.Invoke();
-        var timer = System.Diagnostics.Stopwatch.StartNew();
-        var capacityLocks = new FileOperationLock(storage.LocksPath);
-        async ValueTask<bool> HasRoomAsync()
-        {
-            // Do not enqueue quota polling behind capture/completion. No registry writes
-            // or failed preparation attempts are needed while disk usage is unchanged.
-            await using var held = capacityLocks.TryAcquire(LockKey);
-            return held is not null && UsedBytes() + incomingBytes <= BackupPolicy.Load(storage).QuotaBytes;
-        }
-        while (true)
-        {
-            ct.ThrowIfCancellationRequested();
-            if (!await HasRoomAsync())
-            {
-                // Only one quota waiter scans the catalog. While all eligible space is
-                // still protected, retain just this cleanup handle for one polling tick.
-                // Source/maintenance handles are released; active uploads can finish.
-                await using var cleaner = capacityLocks.TryAcquire("backup-capacity-cleanup");
-                if (cleaner is not null)
-                {
-                    await MakeRoomAsync(incomingBytes, ct, excludeId);
-                    if (!await HasRoomAsync()) await Task.Delay(250, ct);
-                }
-            }
-            if (await HasRoomAsync())
-            {
-                try { return await prepare(); }
-                catch (BackupQuotaException) { } // Another capture won the available space.
-            }
-            if (timer.Elapsed >= TimeSpan.FromMinutes(2)) throw new BackupQuotaException();
-            // Pending uploads remain protected. Their completed backups become eligible
-            // on a later pass; cancellation releases the wait without touching originals.
-            await Task.Delay(250, ct);
-        }
-    }
-    public async Task MakeRoomAsync(long incomingBytes,CancellationToken ct=default,Guid? excludeId=null)
-    {
-        var policy=BackupPolicy.Load(storage);
-        if (incomingBytes > policy.QuotaBytes) throw new BackupQuotaException();
-        // Quota is a rolling capacity budget, independent of age-based expiration.
-        // Only verified completed entries are eligible; pending/unknown files stay protected.
-        IReadOnlyList<Guid> ids;
-        await using (var held=await new FileOperationLock(storage.LocksPath).AcquireAsync(LockKey,ct))
-            ids=Plan(incomingBytes,includeExpired:true,excludeId:excludeId);
-        await CleanAsync(ids,ct,skipBusy:true);
-    }
+
 }
 public sealed class ManagedBackupStore(LocalStorage storage):IBackupStore
 {

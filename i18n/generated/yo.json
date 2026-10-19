@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.42",
+  "productVersion": "0.9.43",
   "sourceLocale": "pt-BR",
-  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
+  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Ṣé o ń lo sync?",
     "emphasis.verify": "Ṣàyẹ̀wò connection Google",
     "error.authorizationRequired": "Google nílò authorization. Ṣí Settings, tẹ Authorize Google, lẹ́yìn náà ṣí spreadsheet náà lẹ́ẹ̀kan síi.",
-    "error.backupQuota": "Àyè kò tó lẹ́yìn ìmọ́tótó aládàáṣiṣẹ́: àfẹ́yìntì tó ń dúró ní ààbò tàbí fáìlì kọjá ààlà. Fáìlì ìpilẹ̀ àti ìsopọ̀ Google wà láìléwu. Ṣàyẹ̀wò àfẹ́yìntì tàbí mú ààlà pọ̀ sí i (tó pọ̀ jù 1 GB).",
+    "error.backupQuota": "Kò sí àyè nínú ààlà backup. A pa original mọ́, a kò sì fi ránṣẹ́ sí Google. Ṣí Backups láti pa backups tí ó parí rẹ́ tàbí láti ṣàtúnṣe ààlà (maximum 1 GB).",
     "error.backupRemoved": "Backup yìí ti samisi gẹ́gẹ́ bí cleaned, kò sì wà fún restoration tàbí resume mọ́. A pa document Google àti shortcut rẹ̀ mọ́. Lo shortcut láti ṣí spreadsheet online.",
     "error.busy": "Iṣẹ́ mìíràn ṣì ń lo file tàbí registry. Dúró kí o sì resume; a pa original àti backups mọ́.",
     "error.cancelled": "A dá iṣẹ́ dúró. Backup àti recovery record, tí a bá ṣẹ̀dá wọn, ni a pa mọ́.",

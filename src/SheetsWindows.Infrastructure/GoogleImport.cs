@@ -7,7 +7,7 @@ using SheetsWindows.Core;
 namespace SheetsWindows.Infrastructure;
 
 public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistry local, IRemoteRegistry remote,
-    ISourceReader sources, IOperationLock locks, IGoogleAuth auth, GoogleDriveClient drive, TextImportOptions? textOptions = null, ProcessingTelemetry? telemetry = null, BackupManagement? backupManagement = null, ImportInterpretations? interpretations = null, IProgress<string>? backupProgress = null, Guid? protectedBackup = null)
+    ISourceReader sources, IOperationLock locks, IGoogleAuth auth, GoogleDriveClient drive, TextImportOptions? textOptions = null, ProcessingTelemetry? telemetry = null, ImportInterpretations? interpretations = null)
 {
     public const int MaxBytes = 20 * 1024 * 1024;
     public async Task<Uri> ImportAsync(string path, CancellationToken ct = default) => (await ImportReceiptAsync(path, ct)).Url;
@@ -27,21 +27,7 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
         }
         ImportOperation op;
         telemetry?.Mark(ProcessingStep.SnapshotPreparation, CheckpointOutcome.Started);
-        if (backupManagement is not null)
-        {
-            Guid? existingId; long incoming;
-            await using (var preflight = sources.Open(path))
-            {
-                var existing = local.Pending().FirstOrDefault(o => o.AccountId == access.AccountId && o.SourceKey == preflight.Source.IdentityKey);
-                existingId = existing?.Id;
-                if (existingId is { } existingOperationId) backupManagement.RequireAvailable(existingOperationId);
-                incoming = existing?.Snapshot is { } saved && File.Exists(saved.BackupPath) ? 0 : preflight.Content.Length;
-            }
-            op = await backupManagement.PrepareWithCapacityAsync(
-                () => preparation.PrepareAsync(access.AccountId, path, ct), incoming, protectedBackup ?? existingId,
-                () => { telemetry?.Mark(ProcessingStep.BackupCapacityWait, CheckpointOutcome.Started); backupProgress?.Report(UiText.Get("progress.backupWaiting")); }, ct);
-        }
-        else op = await preparation.PrepareAsync(access.AccountId, path, ct);
+        op = await preparation.PrepareAsync(access.AccountId, path, ct);
         telemetry?.Mark(ProcessingStep.SnapshotPreparation);
         await using var source = sources.Open(path);
         if (source.Source.IdentityKey != op.SourceKey) throw new LocalConflictException("Source identity changed; upload blocked.");
@@ -55,7 +41,7 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
         // Hold the backup handle while checking and freezing the bytes that will be sent.
         await using var backup = new FileStream(snapshot.BackupPath, FileMode.Open, FileAccess.Read, FileShare.Read);
         if (backup.Length > MaxBytes) throw new SpreadsheetCapacityException(UiText.Message("capacity.importSize"));
-        using var buffer = new MemoryStream(); await backup.CopyToAsync(buffer, ct); var bytes = buffer.ToArray();
+        var bytes = new byte[checked((int)backup.Length)]; await backup.ReadExactlyAsync(bytes, ct);
         if (bytes.LongLength != snapshot.Length || Convert.ToHexString(SHA256.HashData(bytes)) != snapshot.Sha256) throw new InvalidDataException("Snapshot integrity failure.");
         telemetry?.Mark(ProcessingStep.SnapshotValidation);
         var interpretation = op.Format is "csv" or "tsv"
@@ -173,6 +159,11 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
         else
         {
             var found = await drive.FindAsync(attempt, ct);
+            for (var lookup = 0; found.Count == 0 && lookup < 2; lookup++)
+            {
+                await Task.Delay(TimeSpan.FromMilliseconds(500 * (lookup + 1)), ct);
+                found = await drive.FindAsync(attempt, ct);
+            }
             if (found.Count != 1) { telemetry?.Mark(found.Count == 0 ? ProcessingStep.RemoteLookupNone : ProcessingStep.RemoteLookupMultiple); throw new ReconciliationRequiredException(); }
             file = found[0]; remote.Candidate(key, file.Id);
         }

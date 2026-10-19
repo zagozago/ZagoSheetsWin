@@ -24,7 +24,7 @@ public sealed class BackupManagementTests
     [Fact] public void DefaultsAreNonDestructiveAndReadOnly()
     {
         using var w = new Workspace(); var storage = Storage(w); var policy = BackupPolicy.Load(storage);
-        Assert.Equal(30, policy.RetentionDays); Assert.Equal(200_000_000, policy.QuotaBytes); Assert.True(policy.AutomaticCleanup);
+        Assert.Equal(30, policy.RetentionDays); Assert.Equal(200_000_000, policy.QuotaBytes); Assert.False(policy.AutomaticCleanup);
         Assert.Empty(new BackupManagement(storage).Inspect().Entries); Assert.False(Directory.Exists(storage.Root));
     }
     [Theory] [InlineData(0,200)] [InlineData(366,200)] [InlineData(30,0)] [InlineData(30,1001)]
@@ -123,10 +123,10 @@ public sealed class BackupManagementTests
         using var w=new Workspace();var op=await Completed(w);var journal=new ReplacementJournal(Path.Combine(Storage(w).Root,"replacement.db"));journal.Begin(op.Id,w.Source+".url",GoogleDriveClient.Editor("sheet-id"),w.Source);
         Assert.False(Assert.Single(new BackupManagement(Storage(w)).Inspect().Entries).CanClean);
     }
-    [Fact] public async Task AutomaticCleanupMigratesLegacyPolicyAndExcludesCurrentOperation()
+    [Fact] public async Task CleanupIsManualEvenForLegacyAutomaticPolicy()
     {
         using var w=new Workspace();var op=await Completed(w,DateTimeOffset.UtcNow.AddDays(-31));var manager=new BackupManagement(Storage(w));
-        await BackupPolicy.SaveAsync(Storage(w),new(30,200,false)); Assert.True(BackupPolicy.Load(Storage(w)).AutomaticCleanup); Assert.True(File.Exists(op.Snapshot!.BackupPath));
+        await BackupPolicy.SaveAsync(Storage(w),new(30,200,false)); Assert.False(BackupPolicy.Load(Storage(w)).AutomaticCleanup); Assert.True(File.Exists(op.Snapshot!.BackupPath));
         await BackupPolicy.SaveAsync(Storage(w),new(30,200,true));Assert.Empty(manager.Plan(excludeId:op.Id));Assert.Equal(0,(await manager.MaintainAsync(excludeId:op.Id)).Count);
         Assert.Equal(1,(await manager.MaintainAsync()).Count);Assert.False(File.Exists(op.Snapshot.BackupPath));
     }
@@ -164,13 +164,14 @@ public sealed class BackupManagementTests
         var other = Path.Combine(w.Root, "newer.xlsx"); File.WriteAllBytes(other, [1,2,3,4]);
         var newer = await Completed(w, DateTimeOffset.UtcNow.AddDays(-1), sourcePath: other);
         await BackupPolicy.SaveAsync(Storage(w), new(30,1,automatic)); var manager = new BackupManagement(Storage(w));
-        Assert.Equal(new[] { older.Id }, manager.Plan(999_995)); await manager.MakeRoomAsync(999_995);
+        Assert.Equal(new[] { older.Id }, manager.Plan(999_995)); await manager.CleanAsync(manager.Plan(999_995));
         Assert.False(File.Exists(older.Snapshot!.BackupPath)); Assert.True(File.Exists(newer.Snapshot!.BackupPath));
     }
     [Fact] public async Task OversizedIncomingFileDoesNotDeleteExistingBackups()
     {
         using var w = new Workspace(); var op = await Completed(w); await BackupPolicy.SaveAsync(Storage(w),new(30,1,true));
-        await Assert.ThrowsAsync<BackupQuotaException>(()=>new BackupManagement(Storage(w)).MakeRoomAsync(1_000_001)); Assert.True(File.Exists(op.Snapshot!.BackupPath));
+        var other = Path.Combine(w.Root,"too-big.xlsx"); File.WriteAllBytes(other,new byte[1_000_001]);
+        await Assert.ThrowsAsync<BackupQuotaException>(()=>Storage(w).CreatePreparation().PrepareAsync("A",other)); Assert.True(File.Exists(op.Snapshot!.BackupPath));
     }
     [Fact] public async Task ConcurrentCapturesCannotExceedQuota()
     {

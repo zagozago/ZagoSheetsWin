@@ -2,7 +2,7 @@ using System.Text.Json;
 
 namespace SheetsWindows.Infrastructure;
 
-public sealed record BackupPolicy(int RetentionDays = 30, int QuotaMb = 200, bool AutomaticCleanup = true)
+public sealed record BackupPolicy(int RetentionDays = 30, int QuotaMb = 200, bool AutomaticCleanup = false)
 {
     [System.Text.Json.Serialization.JsonIgnore]
     public long QuotaBytes => QuotaMb * 1_000_000L;
@@ -14,7 +14,7 @@ public sealed record BackupPolicy(int RetentionDays = 30, int QuotaMb = 200, boo
         if ((File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0) throw new InvalidDataException("Invalid backup policy.");
         using var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
         if (file.Length > 2048) throw new InvalidDataException("Invalid backup policy.");
-        var policy = JsonSerializer.Deserialize<BackupPolicy>(file) ?? throw new InvalidDataException("Invalid backup policy."); policy.Validate(); return policy with { AutomaticCleanup = true };
+        var policy = JsonSerializer.Deserialize<BackupPolicy>(file) ?? throw new InvalidDataException("Invalid backup policy."); policy.Validate(); return policy with { AutomaticCleanup = false };
     }
     public static async Task SaveAsync(LocalStorage storage, BackupPolicy policy, CancellationToken ct = default)
     {

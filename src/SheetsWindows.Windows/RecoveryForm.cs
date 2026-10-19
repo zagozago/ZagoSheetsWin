@@ -79,7 +79,7 @@ internal sealed class RecoveryForm : Form
             days.Width = quota.Width = Math.Max(45, width/2-6);
         }
         policyPanel.SizeChanged += (_, _) => FitPolicy();
-        policyPanel.Controls.AddRange([limits, new Label { AutoSize = true, Text = UiText.Get("recovery.quotaRotation") }, statistics]);
+        policyPanel.Controls.AddRange([limits, new Label { AutoSize = true, Text = UiText.Get("error.backupQuotaTip") }, statistics]);
         var restore = new AdaptiveButton { Text = UiText.Get("action.restore"), AutoSize = true };
         var repair = new MenuActionButton { Text = UiText.Get("recovery.repairNew"), AutoSize = true };
         var copy = new MenuActionButton { Text = UiText.Get("recovery.resumeCopy"), AutoSize = true };

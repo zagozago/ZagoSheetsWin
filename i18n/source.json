@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.42",
+  "productVersion": "0.9.43",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 15,
+  "catalogRevision": 16,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -2220,7 +2220,7 @@
       "notes": []
     },
     "error.backupQuota": {
-      "text": "Não há espaço suficiente após a limpeza automática. O original foi preservado. Backups pendentes ou protegidos não são apagados automaticamente; este arquivo também pode exceder a cota. Em Backups, revise as operações ou aumente o limite (máximo 1 GB). A associação existente no Google é mantida.",
+      "text": "Não há espaço dentro do limite de backups. O original foi preservado e não foi enviado ao Google. Abra Backups para limpar backups concluídos ou ajustar o limite (máximo 1 GB).",
       "context": "src/SheetsWindows.Infrastructure/Launcher.cs - public static string Message(Exception ex) => ex switch",
       "scope": "app",
       "placeholders": [],
