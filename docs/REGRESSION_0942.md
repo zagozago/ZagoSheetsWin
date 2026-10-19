@@ -44,3 +44,11 @@ A correção desta etapa é no teste. O watchdog externo de cada lote passa a tr
 Para reforçar a regressão, o lote de 20 é executado duas vezes no mesmo perfil: a segunda rodada começa com o backup anterior já ocupando espaço. Cada original recebe bytes distintos e é conferido integralmente após a conclusão; os IDs de operações devem permanecer distintos. Em cada rodada, a cota continua respeitada e sobra exatamente um backup disponível. Os testes de barreira com espaço livre continuam exigindo que todos cheguem ao upload antes de permitir a conclusão de qualquer um.
 
 Validação da correção do teste: pendente do Actions.
+
+## Contenção revelada pela repetição (19/10/2026 UTC)
+
+O [Actions 39189870249](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39189870249) passou no Linux, mas revelou no Windows uma falha diferente: `SQLite Error 5: database is locked` ao construir `GoogleRemoteRegistry` no lote com espaço livre. A análise inicial de prazo não cobria esse problema. Os construtores dos registros tentavam iniciar transações imediatas de migração em cada abertura, inclusive quando o esquema já estava atualizado. O catálogo de backup ainda repetia DDL e `user_version=2` em leituras de rotina. A repetição de verificações durante os lotes ampliava a disputa por escrita.
+
+A abertura de registros de operações, associações Google, backups e substituição agora consulta a versão sem adquirir uma transação de escrita. Somente bancos antigos/novos entram na transação de migração; a versão é consultada novamente dentro dessa transação para preservar a inicialização simultânea entre processos. Versões futuras continuam recusadas. Interpretações salvas também deixam de executar DDL em cada leitura; a tabela só é criada se estiver ausente. Transações de dados, journal, `synchronous=FULL`, limites e bloqueios por identidade continuam preservados. Nenhuma transação é estendida ao upload, e a fila de importação inteira não retorna.
+
+Cinco regressões mantêm deliberadamente outro escritor SQLite ativo e exigem que um registro atualizado/interpretação salva abra e leia durante esse período. Os testes de migração e os lotes repetidos continuam na suíte. Validação desta correção: pendente do Actions.

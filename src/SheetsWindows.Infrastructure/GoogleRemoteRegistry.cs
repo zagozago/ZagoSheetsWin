@@ -10,10 +10,13 @@ public sealed class GoogleRemoteRegistry : IRemoteRegistry
     {
         PrivateDirectory.Create(Path.GetDirectoryName(Path.GetFullPath(path))!);
         connection = new SqliteConnectionStringBuilder { DataSource = Path.GetFullPath(path), Pooling = false, DefaultTimeout = 10 }.ToString();
-        using var db = Open(); using var tx = db.BeginTransaction(deferred: false);
+        using var db = Open();
+        if (SqliteSchema.IsCurrent(db, 1, "Remote registry is newer than this application.")) return;
+        using var tx = db.BeginTransaction(deferred: false);
         using var v = Cmd(db, tx, "PRAGMA user_version");
         var version = Convert.ToInt32(v.ExecuteScalar());
         if (version > 1) throw new NotSupportedException("Remote registry is newer than this application.");
+        if (version == 1) { tx.Commit(); return; }
         if (version == 0)
         {
             using var cmd = Cmd(db, tx, """
