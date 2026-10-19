@@ -1,6 +1,6 @@
 # Auditoria e consolidação documental — preparação 1.0.0
 
-**Revisão inicial:** 15/10/2026; **atualização:** 17/10/2026. **Base de código inicial:** `feature/zagosheetswin` commit `6a019318f64c1068ebd5ece4932320535b24f629`. **Base da atualização 0.9.35:** `9929524e67fea42c8940ae27b41f80963479c490`. **Base verificada 0.9.37 (18/10/2026):** `f58b630263cdee07e473a54ee40ff6d3beafe4f6`. **README internacional:** `main` commit `057ef77e0e79af197bb2c6c3f7b28fee1b8c0b02`. **Forma de entrega:** branch isolada e PR para a branch de desenvolvimento; **sem publicar tag/Release 1.0.0**.
+**Revisão inicial:** 15/10/2026; **atualização:** 17/10/2026. **Base de código inicial:** `feature/zagosheetswin` commit `6a019318f64c1068ebd5ece4932320535b24f629`. **Base da atualização 0.9.35:** `9929524e67fea42c8940ae27b41f80963479c490`. **Base verificada 0.9.37 (18/10/2026):** `f58b630263cdee07e473a54ee40ff6d3beafe4f6`. **Base 0.9.42 (19/10 UTC):** `c1dc8a501209ce37d1f65c141ad30498146296af` (CI Windows ainda vermelho). **README internacional:** `main` commit `057ef77e0e79af197bb2c6c3f7b28fee1b8c0b02`. **Forma de entrega:** branch isolada e PR para a branch de desenvolvimento; **sem publicar tag/Release 1.0.0**.
 
 ## Constatações e decisões
 
@@ -60,3 +60,14 @@
 
 - [PR #11](https://github.com/zagozago/ZagoSheetsWin/pull/11): propõe `CONTRIBUTING.md` e `docs/README.md`. Este PR incorpora versões atualizadas desses conceitos. Conciliar ou encerrar PR #11 separadamente **após revisão**, sem presumir sua aprovação.
 - [PR #12](https://github.com/zagozago/ZagoSheetsWin/pull/12): propõe botão Ajuda abrindo URL futura. Este PR não modifica essa ação; o domínio/caminho deve ser confirmado primeiro.
+
+
+## Mudanças auditadas até 0.9.42
+
+- **0.9.38:** interpretação v3 até 1M células, escolha de separador com prévia e gramática ampliada; **CSV/TSV passam a exigir conferência de valores para retirar o original**, diferente de XLS/ODS.
+- **0.9.39:** leitor v4 corrige coluna única/campos citados/CRLF, ação `Escolher separador` e restauração segura de atalho perdido; rotação da cota por backups concluídos.
+- **0.9.40:** retirada do toggle de limpeza; prazo/cota automáticos; fila global de importação temporária; retry de leituras Google com motivos 403 de rate-limit permitidos. **A fila global não é política vigente.**
+- **0.9.41:** CSV/TSV até **2.000.000 células** com 100.000 registros; XML/ZIP de texto aumentados; arquivo real de 1.018.712 células validado localmente, não no Google. Correção de corrida de desinstalação/reinstalação no teste CI.
+- **0.9.42:** removida fila global, importações diferentes paralelas e espera **apenas quando falta capacidade real de backup**, com coordenação/cancelamento/prazo. Último CI Windows falhou no commit `c1dc8a5`, distribuição anterior falhou no watchdog de quota. **Não afirmar candidato pronto**.
+- Fontes: [0.9.38](REGRESSION_0938.md), [0.9.39](REGRESSION_0939.md), [0.9.40](REGRESSION_0940.md), [0.9.41](REGRESSION_0941.md), [0.9.42](REGRESSION_0942.md), além de fontes C# e workflow GitHub. Nenhuma dessas evidências representa homologação Google real, assinatura ou certificação.
+- Histórico de licenças, 51 idiomas, créditos MIT/Swati K e identidade Zagotools mantidos; nenhuma credencial alterada pelo PR.

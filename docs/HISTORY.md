@@ -34,6 +34,11 @@
 - [XLS_CONVERSION](XLS_CONVERSION.md) — evolução da conversão de XLS binário e HTML com extensão XLS.
 - [IMPORT_REVIEW_0936](IMPORT_REVIEW_0936.md) — aceitação técnica do Escopo B: CSV/TSV, ODS esparso, reparo versionado, interface, diagnósticos e limites; **o teste real Google está pendente**.
 - [Branding/README](../branding/README.md) — evolução dos ícones incluindo a unificação da 0.9.37.
+- [REGRESSION_0938](REGRESSION_0938.md), [matriz](REGRESSION_MATRIX_0938.md) — parser v3 e segurança da exportação.
+- [REGRESSION_0939](REGRESSION_0939.md) — coluna única/CRLF, rotação, reconciliação de atalho.
+- [REGRESSION_0940](REGRESSION_0940.md) — fila de importação histórica, limpeza automática e retries Google.
+- [REGRESSION_0941](REGRESSION_0941.md) — 2M células CSV/TSV, correção do teste de reinstalação.
+- [REGRESSION_0942](REGRESSION_0942.md) — paralelismo restaurado, espera específica por quota e testes ainda incompletos.
 
 ## Interface, traduções e dependências — registros de trabalho
 

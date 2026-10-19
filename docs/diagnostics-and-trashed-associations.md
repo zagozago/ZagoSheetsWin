@@ -1,4 +1,4 @@
-# Diagnostics, trashed associations and safe repair (current through 0.9.37)
+# Diagnostics, trashed associations and safe repair (current through 0.9.42)
 
 **Updated 18 October 2026.** For the alpha 0.9.36 implementation evidence see [IMPORT_REVIEW_0936.md](IMPORT_REVIEW_0936.md). The older trashed-association behavior described below remains relevant; new interpretation/revalidation rules must also be considered.
 
@@ -27,3 +27,12 @@ Each entry includes the product version and, when supplied by the SDK build, its
 Trace is captured in memory and appended with the attempt outcome; a process termination before that point can leave only the Started entry. Durable local/remote operation journals remain the authority for recovery. Diagnostic logging failures cannot change the import outcome. The current error window retains its final context for export even if history could not be written.
 
 At most 96 checkpoints are retained per attempt. The existing four files of 64 KiB limit disk usage. Export validates the typed fields, rejects malformed traces and publishes atomically after any approved overwrite. Older entries without trace or revision remain readable. Alpha 0.9.36 adds localized messages for interpretation, recovery and diagnostics in the 51 UI languages; language/editorial quality requires separate review. The parser and diagnostic extensions add categorized limits (text rows/cells/columns, bytes, ODS dimensions/repetition, remote export size) without exposing source content.
+
+
+## Retentativas remotas e quotas na 0.9.42
+
+O diagnóstico incorpora razões de falha de capacidade/backup separadas de acesso a arquivo. A telemetria da fila global `ImportQueue` permanece legível em históricos, mas **não é uma fila de importação vigente**. `BackupCapacityWait` identifica a espera por espaço real, rechecado a cada 250 ms com cancelamento/prazo.
+
+Nas leituras Google, retries controlados aceitam motivos 403 `rateLimitExceeded`/`userRateLimitExceeded` e regras 429/5xx, com limite de `Retry-After`; não repetir POST de criação. Mensagens de API brutas e planilhas continuam fora do JSONL. O diagnóstico da tentativa continua distinto do histórico geral.
+
+**Estado da distribuição:** `39181854241` (protegida) falhou por watchdog de teste de lote; `39189870249` (Local core HEAD) falhou em Windows e passou em Ubuntu. Não inferir que uma falha de teste é sempre erro de quota real.

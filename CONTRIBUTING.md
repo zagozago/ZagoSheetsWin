@@ -4,7 +4,7 @@ ZagoSheetsWin is free and open-source software under the MIT license. It is deve
 
 ## Which branch?
 
-As of 18 October 2026, **`feature/zagosheetswin`** contains the current C#/.NET application (alpha 0.9.37); the default `main` historically carries the international README and 50 translations, not this application. **Choose your PR base deliberately.** Do not assume `main` contains a stable release. Version 1.0.0 has not been published.
+As of 18 October 2026, **`feature/zagosheetswin`** contains the current C#/.NET application (alpha 0.9.42; final CI Windows currently failing); the default `main` historically carries the international README and 50 translations, not this application. **Choose your PR base deliberately.** Do not assume `main` contains a stable release. Version 1.0.0 has not been published.
 
 For software changes, branch from the current application branch; for documentation changes, prefer the current documentation consolidation branch while it is under review. Avoid mixing source refactors and documentation cleanup in the same commit.
 
@@ -46,7 +46,7 @@ For any change touching import, schema, conversion, remote association, snapshot
 2. Do not repeat a remote **create POST** blindly after uncertain network completion.
 3. Keep account, source identity, hash and operation marker consistent.
 4. Test concurrent opens, failed uploads, suspended sessions, interrupted retirement and recovery.
-5. Respect the copy-only rule for synchronized/network locations and user preferences. **Do not automatically force copy-only for partial formula/value fidelity:** since 0.9.33, verified Google imports may replace sources even when conversion equality cannot be proved. Preserve the original backup and explain this risk.
+5. Respect copy-only rules for synchronized/network locations and user preferences. **Separate text and non-text verification:** CSV/TSV differences in exported cell values **block source retirement and shortcut publication**, while complex XLS/ODS mismatches may be warnings under the 0.9.33 policy. Preserve verified backup and explain conversion risks.
 6. Do not automatically overwrite remote Sheets after local changes. Preserve the read-only file attribute on failed retirement and allow safe resume after the user changes it.
 7. Do not break recovery compatibility or discard local state without a migration plan.
 8. Keep CSV/TSV **interpretation version and options immutable per operation** once remote intent is created. Use explicit **repair into a new document** for incorrectly imported old data; never rewrite the prior Google document or shortcut.
@@ -78,3 +78,12 @@ A passing dependency audit, a SHA-256 checksum, and a signed binary are differen
 - Update [current documentation](docs/README.md) and [stable readiness checklist](docs/PRE_RELEASE_CHECKLIST.md) when applicable.
 
 Historical engineering notes may remain in Portuguese; translating them is not a prerequisite for external contributors. Report security vulnerabilities responsibly rather than publishing secrets in a PR or issue.
+
+
+## Current 0.9.42 change-control expectations
+
+- **CSV/TSV v4:** 100,000 rows / 2,000,000 cells, with 1,000 columns and 20 MiB source/payload; v1–v3 unchanged. Test exported XML budget 128 MiB/160 MiB text-only, empty cells and literal values.
+- **Backup management:** automatic expiry and quota cleanup without a toggle. Never remove pending/unknown/repair-source backup; serialize only snapshot capacity operations, not whole import.
+- **Concurrency:** different source identities progress concurrently; quota wait is cancellable and lasts up to 2 min per attempt. No global import queue in current implementation.
+- **Google retry:** rate-limit 403 only for recognized API reasons on reads, not arbitrary 403 or remote POST.
+- **Release gates:** resolve HEAD CI Windows failure and rerun protected distribution on the exact code SHA. Evidence from earlier green versions is not approval of 0.9.42.
