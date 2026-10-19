@@ -2,8 +2,8 @@
   "language": "sw",
   "locale": "sw-KE",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -656,6 +656,8 @@
     "error.odsBounds": "ODS: marudio batili au vipimo vinavyozidi kikomo kinachotumika.",
     "error.odsStructure": "Muundo wa faili ya ODS haujakamilika au si halali.",
     "action.chooseSeparator": "Chagua kitenganishi",
-    "recovery.quotaRotation": "Kiwango cha nafasi kikifikiwa, nakala zilizokamilika za zamani zaidi hufutwa. Nakala zinazosubiri huhifadhiwa."
+    "recovery.quotaRotation": "Kiwango cha nafasi kikifikiwa, nakala zilizokamilika za zamani zaidi hufutwa. Nakala zinazosubiri huhifadhiwa.",
+    "progress.backupWaiting": "Inasubiri nafasi ya nakala rudufu… Kidokezo: ongeza nafasi iliyo wazi ili kuepuka kusubiri kwa muda mrefu.",
+    "error.backupQuotaTip": "Kidokezo: ongeza nafasi iliyo wazi ili kuepuka kusubiri kwa muda mrefu."
   }
 }

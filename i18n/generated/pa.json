@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.41",
+  "productVersion": "0.9.42",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -363,6 +363,8 @@
     "error.odsBounds": "ODS: ਅਵੈਧ ਦੁਹਰਾਅ ਜਾਂ ਸਮਰਥਿਤ ਹੱਦ ਤੋਂ ਵੱਧ ਮਾਪ।",
     "error.odsStructure": "ODS ਫਾਈਲ ਦੀ ਬਣਤਰ ਅਧੂਰੀ ਜਾਂ ਅਵੈਧ ਹੈ।",
     "action.chooseSeparator": "ਵਿਭਾਜਕ ਚੁਣੋ",
-    "recovery.quotaRotation": "ਕੋਟਾ ਭਰਨ ’ਤੇ ਸਭ ਤੋਂ ਪੁਰਾਣੇ ਪੂਰੇ ਬੈਕਅੱਪ ਮਿਟਾਏ ਜਾਂਦੇ ਹਨ। ਲੰਬਿਤ ਬੈਕਅੱਪ ਰੱਖੇ ਜਾਂਦੇ ਹਨ।"
+    "recovery.quotaRotation": "ਕੋਟਾ ਭਰਨ ’ਤੇ ਸਭ ਤੋਂ ਪੁਰਾਣੇ ਪੂਰੇ ਬੈਕਅੱਪ ਮਿਟਾਏ ਜਾਂਦੇ ਹਨ। ਲੰਬਿਤ ਬੈਕਅੱਪ ਰੱਖੇ ਜਾਂਦੇ ਹਨ।",
+    "progress.backupWaiting": "ਬੈਕਅੱਪ ਵਿੱਚ ਥਾਂ ਦੀ ਉਡੀਕ… ਸੁਝਾਅ: ਲੰਮੀ ਉਡੀਕ ਤੋਂ ਬਚਣ ਲਈ ਬੈਕਅੱਪ ਵਿੱਚ ਥਾਂ ਖਾਲੀ ਕਰੋ।",
+    "error.backupQuotaTip": "ਸੁਝਾਅ: ਲੰਮੀ ਉਡੀਕ ਤੋਂ ਬਚਣ ਲਈ ਬੈਕਅੱਪ ਵਿੱਚ ਥਾਂ ਖਾਲੀ ਕਰੋ।"
   }
 }

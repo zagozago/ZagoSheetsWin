@@ -99,7 +99,7 @@ public static class LauncherErrors
         InvalidDataException data when data.Message == "Irregular delimited table." => UiText.Get("error.textColumns"),
         InvalidDataException data when data.Message is "Unbounded repetition." or "ODS content dimensions exceed limits." or "ODS columns too large." or "ODS rows too large." => UiText.Get("error.odsBounds"),
         InvalidDataException data when data.Message is "Malformed ODS XML." or "Invalid ODS package structure." or "Not an ODS package." or "ODS mimetype missing." or "Invalid ODS mimetype." or "Invalid ODS workbook." or "Invalid ODS sheets." => UiText.Get("error.odsStructure"),
-        BackupQuotaException => UiText.Get("error.backupQuota") + "\n\n" + UiText.Get("recovery.quotaRotation"),
+        BackupQuotaException => UiText.Get("error.backupQuota") + "\n\n" + UiText.Get("recovery.quotaRotation") + "\n\n" + UiText.Get("error.backupQuotaTip"),
         BackupRemovedException => UiText.Get("error.backupRemoved"),
         LauncherNotConfiguredException => UiText.Get("error.setupRequired"),
         AuthorizationRequiredException => UiText.Get("error.authorizationRequired"),
@@ -165,8 +165,9 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
     }
     public async Task<string> OpenAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default, TextImportOptions? interpretation = null)
     {
-        await using var turn = await new ImportQueue(storage, telemetry).EnterAsync(ct);
-        return await OpenCoreAsync(path, progress, ct, interpretation);
+        var result = await OpenCoreAsync(path, progress, ct, interpretation);
+        await new BackupManagement(storage).MaintainAsync(ct);
+        return result;
     }
     private async Task<string> OpenCoreAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default, TextImportOptions? interpretation = null)
     {
@@ -195,7 +196,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         var preparation = storage.CreatePreparation(); var local = new SqliteOperationRegistry(storage.DatabasePath);
         var remote = new GoogleRemoteRegistry(System.IO.Path.Combine(storage.Root, "google.db")); var locks = new FileOperationLock(storage.LocksPath);
         var auth = Auth(client, locks);
-        var importer = new GoogleImport(preparation, local, remote, new SourceReader(), locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads")), telemetry: telemetry), textOptions, telemetry, new BackupManagement(storage), new ImportInterpretations(storage));
+        var importer = new GoogleImport(preparation, local, remote, new SourceReader(), locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads")), telemetry: telemetry), textOptions, telemetry, new BackupManagement(storage), new ImportInterpretations(storage), progress);
         progress?.Report(UiText.Get("progress.openingSheets"));
         var receipt = await importer.ImportReceiptAsync(request.Path!, ct);
         progress?.Report(UiText.Get("progress.publishingShortcut"));
@@ -209,8 +210,9 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
 
     public async Task<string> CopyAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default, TextImportOptions? interpretation = null)
     {
-        await using var turn = await new ImportQueue(storage, telemetry).EnterAsync(ct);
-        return await CopyCoreAsync(path, progress, ct, interpretation);
+        var result = await CopyCoreAsync(path, progress, ct, interpretation);
+        await new BackupManagement(storage).MaintainAsync(ct);
+        return result;
     }
     private async Task<string> CopyCoreAsync(string path, IProgress<string>? progress = null, CancellationToken ct = default, TextImportOptions? interpretation = null)
     {
@@ -227,14 +229,15 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         telemetry?.Mark(ProcessingStep.SourceOpening);
         var locks = new FileOperationLock(storage.LocksPath); var auth = Auth(client, locks);
         var importer = new GoogleImport(storage.CreatePreparation(sources), new SqliteOperationRegistry(storage.DatabasePath),
-            new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")), sources, locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads")), telemetry: telemetry), options, telemetry, new BackupManagement(storage), new ImportInterpretations(storage));
+            new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")), sources, locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads")), telemetry: telemetry), options, telemetry, new BackupManagement(storage), new ImportInterpretations(storage), progress);
         progress?.Report(UiText.Get("progress.importingCopy"));
         return await PublishCopyAsync(await importer.ImportReceiptAsync(path, ct), progress, ct);
     }
     public async Task<string> RepairAsync(Guid id, TextImportOptions? interpretation = null, CancellationToken ct = default)
     {
-        await using var turn = await new ImportQueue(storage, telemetry).EnterAsync(ct);
-        return await RepairCoreAsync(id, interpretation, ct);
+        var result = await RepairCoreAsync(id, interpretation, ct);
+        await new BackupManagement(storage).MaintainAsync(ct, id);
+        return result;
     }
     private async Task<string> RepairCoreAsync(Guid id, TextImportOptions? interpretation = null, CancellationToken ct = default)
     {
@@ -247,7 +250,6 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         var access = await auth.AccessAsync(cancellationToken: ct);
         if (access.AccountId != original.AccountId) throw new LocalConflictException("Account changed.");
         var manager = new BackupManagement(storage); manager.RequireAvailable(id);
-        await manager.MaintainAsync(ct, id); await manager.MakeRoomAsync(original.Snapshot!.Length, ct, id);
         await using var originalLock = await locks.AcquireAsync(original.SourceKey, ct); manager.RequireAvailable(id);
         await new ManagedBackupStore(storage).VerifyAsync(id, original.Snapshot!, ct);
         var repairId = Guid.NewGuid();
@@ -255,7 +257,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         var importer = new GoogleImport(storage.CreatePreparation(sources), local,
             new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")), sources, locks, auth,
             new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads")), telemetry: telemetry),
-            interpretation ?? new(), telemetry, null, new ImportInterpretations(storage));
+            interpretation ?? new(), telemetry, manager, new ImportInterpretations(storage), protectedBackup: id);
         // Automatic network retries stay inside this invocation, using one stable repair identity.
         ImportReceipt? receipt = null;
         await ImportRetry.ExecuteAsync(async token => receipt = await importer.ImportReceiptAsync(original.SourcePath, token, renewTrashed: false), ct: ct);
@@ -264,8 +266,9 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
 
     public async Task<string> ResumeAsync(Guid id, bool replace, IProgress<string>? progress = null, CancellationToken ct = default)
     {
-        await using var turn = await new ImportQueue(storage, telemetry).EnterAsync(ct);
-        return await ResumeCoreAsync(id, replace, progress, ct);
+        var result = await ResumeCoreAsync(id, replace, progress, ct);
+        await new BackupManagement(storage).MaintainAsync(ct, id);
+        return result;
     }
     private async Task<string> ResumeCoreAsync(Guid id, bool replace, IProgress<string>? progress = null, CancellationToken ct = default)
     {
@@ -298,7 +301,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
             await using (var source = sources.Open(path))
             {
                 if (source.Source.IdentityKey != operation.SourceKey || source.Source.Format != operation.Format) throw new LocalConflictException("Source changed.");
-                var importer = new GoogleImport(storage.CreatePreparation(sources), local, remote, sources, locks, auth, drive, options, telemetry, new BackupManagement(storage), new ImportInterpretations(storage));
+                var importer = new GoogleImport(storage.CreatePreparation(sources), local, remote, sources, locks, auth, drive, options, telemetry, new BackupManagement(storage), new ImportInterpretations(storage), progress);
                 receipt = await importer.ImportReceiptAsync(path, ct, renewTrashed: false);
                 if (receipt.Operation.Id != id) throw new LocalConflictException("Operation changed.");
             }

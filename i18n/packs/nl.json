@@ -2,8 +2,8 @@
   "language": "nl",
   "locale": "nl-NL",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -659,6 +659,8 @@
     "error.odsBounds": "ODS: ongeldige herhaling of afmetingen boven de ondersteunde limiet.",
     "error.odsStructure": "De structuur van het ODS-bestand is onvolledig of ongeldig.",
     "action.chooseSeparator": "Scheidingsteken kiezen",
-    "recovery.quotaRotation": "Als het quotum bereikt is, worden de oudste voltooide back-ups verwijderd. Wachtende back-ups blijven behouden."
+    "recovery.quotaRotation": "Als het quotum bereikt is, worden de oudste voltooide back-ups verwijderd. Wachtende back-ups blijven behouden.",
+    "progress.backupWaiting": "Wachten op back-upruimte… Tip: maak ruimte vrij om lang wachten te voorkomen.",
+    "error.backupQuotaTip": "Tip: maak ruimte vrij om lang wachten te voorkomen."
   }
 }

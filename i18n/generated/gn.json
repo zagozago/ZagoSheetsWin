@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.41",
+  "productVersion": "0.9.42",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -363,6 +363,8 @@
     "error.odsBounds": "ODS: jejey ndoikóiva térã tuichakue ohasáva límite oñemoneĩva.",
     "error.odsStructure": "ODS vore rete noĩmbái térã ndoikói.",
     "action.chooseSeparator": "Eiporavo pe joajuha",
-    "recovery.quotaRotation": "Henyhẽvo pe tenda, oñembogue ñeñongatu oĩmbáva itujavéva. Oñongatu umi neʼĩrava opa."
+    "recovery.quotaRotation": "Henyhẽvo pe tenda, oñembogue ñeñongatu oĩmbáva itujavéva. Oñongatu umi neʼĩrava opa.",
+    "progress.backupWaiting": "Oha’arõ hína tenda kopiaguépe… Ñemoñe’ẽ: emosãso tenda ani hag̃ua reha’arõ are.",
+    "error.backupQuotaTip": "Ñemoñe’ẽ: emosãso tenda ani hag̃ua reha’arõ are."
   }
 }

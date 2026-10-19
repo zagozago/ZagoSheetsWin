@@ -72,11 +72,14 @@ public sealed class BackupManagement(LocalStorage storage, Func<DateTimeOffset>?
     }
     public Task<CleanupResult> DeleteAsync(Guid id,CancellationToken ct=default) => DeleteCoreAsync(id, false, ct);
     public Task<CleanupResult> DiscardAsync(Guid id,CancellationToken ct=default) => DeleteCoreAsync(id, true, ct);
-    private async Task<CleanupResult> DeleteCoreAsync(Guid id,bool discardPending,CancellationToken ct)
+    private async Task<CleanupResult> DeleteCoreAsync(Guid id,bool discardPending,CancellationToken ct,bool skipBusy=false)
     {
         var registry=new SqliteOperationRegistry(storage.DatabasePath);var original=registry.Get(id)??throw new KeyNotFoundException();
         // Same order as capture/restore: source first, maintenance second. Never hold maintenance while waiting for another source.
-        await using var source=await new FileOperationLock(storage.LocksPath).AcquireAsync(original.SourceKey,ct);
+        var sourceLocks=new FileOperationLock(storage.LocksPath);
+        ct.ThrowIfCancellationRequested();
+        await using var source=skipBusy?sourceLocks.TryAcquire(original.SourceKey):await sourceLocks.AcquireAsync(original.SourceKey,ct);
+        if(source is null)return new(0,0);
         await using var maintenance=await new FileOperationLock(storage.LocksPath).AcquireAsync(LockKey,ct);
         var entry=Current(id);if(entry.CleanupState==2) { if (ExistingCatalog()?.Get(id)?.DiscardRequested == true) registry.ArchiveDiscarded(id); return new(0,0); }
         if(!discardPending && (!entry.CanClean || entry.CapturedAt is null))throw new InvalidOperationException("Pending or unverified backup is protected.");
@@ -104,12 +107,41 @@ public sealed class BackupManagement(LocalStorage storage, Func<DateTimeOffset>?
     }
     public async Task<CleanupResult> MaintainAsync(CancellationToken ct=default,Guid? excludeId=null)
     {
-        var ids=Plan(excludeId:excludeId);
-        return await CleanAsync(ids,ct);
+        IReadOnlyList<Guid> ids;
+        await using (var held=await new FileOperationLock(storage.LocksPath).AcquireAsync(LockKey,ct))
+            ids=Plan(excludeId:excludeId);
+        return await CleanAsync(ids,ct,skipBusy:true);
     }
-    public async Task<CleanupResult> CleanAsync(IEnumerable<Guid> ids,CancellationToken ct=default)
+    public async Task<CleanupResult> CleanAsync(IEnumerable<Guid> ids,CancellationToken ct=default,bool skipBusy=false)
     {
-        var count=0;long bytes=0;foreach(var id in ids.Distinct()){ct.ThrowIfCancellationRequested();var result=await DeleteAsync(id,ct);count+=result.Count;bytes+=result.Bytes;}return new(count,bytes);
+        var count=0;long bytes=0;foreach(var id in ids.Distinct()){ct.ThrowIfCancellationRequested();var result=await DeleteCoreAsync(id,false,ct,skipBusy);count+=result.Count;bytes+=result.Bytes;}return new(count,bytes);
+    }
+    // The first capture never joins a profile-wide import queue. Its short maintenance
+    // lock atomically checks actual disk usage and commits the snapshot. Uploads are parallel.
+    // Capacity retries run only after that atomic check proves there is insufficient space.
+    // PrepareAsync has released its source lock before entering this method's slow path.
+    public async Task<ImportOperation> PrepareWithCapacityAsync(Func<Task<ImportOperation>> prepare,
+        long incomingBytes, Guid? excludeId = null, Action? waiting = null, CancellationToken ct = default)
+    {
+        if (incomingBytes < 0) throw new ArgumentException("Invalid incoming size.");
+        if (incomingBytes > BackupPolicy.Load(storage).QuotaBytes) throw new BackupQuotaException();
+        try { return await prepare(); }
+        catch (BackupQuotaException) when (incomingBytes <= BackupPolicy.Load(storage).QuotaBytes) { }
+        waiting?.Invoke();
+        var timer = System.Diagnostics.Stopwatch.StartNew();
+        while (true)
+        {
+            ct.ThrowIfCancellationRequested();
+            // Each deletion rechecks its state under source/maintenance locks. Automatic
+            // cleanup skips busy sources, so no quota waiter blocks a finishing import.
+            await MakeRoomAsync(incomingBytes, ct, excludeId);
+            try { return await prepare(); }
+            catch (BackupQuotaException) { }
+            if (timer.Elapsed >= TimeSpan.FromMinutes(2)) throw new BackupQuotaException();
+            // Pending uploads remain protected. Their completed backups become eligible
+            // on a later pass; cancellation releases the wait without touching originals.
+            await Task.Delay(250, ct);
+        }
     }
     public async Task MakeRoomAsync(long incomingBytes,CancellationToken ct=default,Guid? excludeId=null)
     {
@@ -117,7 +149,10 @@ public sealed class BackupManagement(LocalStorage storage, Func<DateTimeOffset>?
         if (incomingBytes > policy.QuotaBytes) throw new BackupQuotaException();
         // Quota is a rolling capacity budget, independent of age-based expiration.
         // Only verified completed entries are eligible; pending/unknown files stay protected.
-        await CleanAsync(Plan(incomingBytes,includeExpired:true,excludeId:excludeId),ct);
+        IReadOnlyList<Guid> ids;
+        await using (var held=await new FileOperationLock(storage.LocksPath).AcquireAsync(LockKey,ct))
+            ids=Plan(incomingBytes,includeExpired:true,excludeId:excludeId);
+        await CleanAsync(ids,ct,skipBusy:true);
     }
 }
 public sealed class ManagedBackupStore(LocalStorage storage):IBackupStore

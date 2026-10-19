@@ -2,8 +2,8 @@
   "language": "ar",
   "locale": "ar",
   "direction": "rtl",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -651,6 +651,8 @@
     "error.odsBounds": "ODS: تكرار غير صالح أو أبعاد تتجاوز الحد المدعوم.",
     "error.odsStructure": "بنية ملف ODS غير مكتملة أو غير صالحة.",
     "action.chooseSeparator": "اختيار الفاصل",
-    "recovery.quotaRotation": "عند بلوغ الحصة، تُحذف أقدم النسخ المكتملة. تُحفظ النسخ المعلقة."
+    "recovery.quotaRotation": "عند بلوغ الحصة، تُحذف أقدم النسخ المكتملة. تُحفظ النسخ المعلقة.",
+    "progress.backupWaiting": "بانتظار مساحة للنسخ الاحتياطية… نصيحة: أفرغ مساحة لتجنب الانتظار الطويل.",
+    "error.backupQuotaTip": "نصيحة: أفرغ مساحة لتجنب الانتظار الطويل."
   }
 }

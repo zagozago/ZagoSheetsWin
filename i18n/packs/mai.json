@@ -2,8 +2,8 @@
   "language": "mai",
   "locale": "mai-IN",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -656,6 +656,8 @@
     "error.odsBounds": "ODS: अमान्य दोहराव वा समर्थित सीमासँ बेसी आकार।",
     "error.odsStructure": "ODS फाइलक संरचना अधूरी वा अमान्य अछि।",
     "action.chooseSeparator": "विभाजक चुनू",
-    "recovery.quotaRotation": "कोटा भरलापर सभसँ पुरान पूरा बैकअप हटाओल जाइत अछि। लम्बित बैकअप सुरक्षित रहैत अछि।"
+    "recovery.quotaRotation": "कोटा भरलापर सभसँ पुरान पूरा बैकअप हटाओल जाइत अछि। लम्बित बैकअप सुरक्षित रहैत अछि।",
+    "progress.backupWaiting": "बैकअपमे जगहक प्रतीक्षा… सुझाव: बेसी काल प्रतीक्षा सँ बचबाक लेल बैकअपमे जगह खाली करू।",
+    "error.backupQuotaTip": "सुझाव: बेसी काल प्रतीक्षा सँ बचबाक लेल बैकअपमे जगह खाली करू।"
   }
 }

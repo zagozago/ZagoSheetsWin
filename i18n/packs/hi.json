@@ -2,8 +2,8 @@
   "language": "hi",
   "locale": "hi",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -653,6 +653,8 @@
     "error.odsBounds": "ODS: अमान्य पुनरावृत्ति या समर्थित सीमा से अधिक आकार।",
     "error.odsStructure": "ODS फ़ाइल की संरचना अधूरी या अमान्य है।",
     "action.chooseSeparator": "विभाजक चुनें",
-    "recovery.quotaRotation": "कोटा भरने पर सबसे पुराने पूर्ण बैकअप हटाए जाते हैं। लंबित बैकअप सुरक्षित रहते हैं।"
+    "recovery.quotaRotation": "कोटा भरने पर सबसे पुराने पूर्ण बैकअप हटाए जाते हैं। लंबित बैकअप सुरक्षित रहते हैं।",
+    "progress.backupWaiting": "बैकअप में जगह का इंतज़ार… सुझाव: लंबी प्रतीक्षा से बचने के लिए बैकअप में जगह खाली करें।",
+    "error.backupQuotaTip": "सुझाव: लंबी प्रतीक्षा से बचने के लिए बैकअप में जगह खाली करें।"
   }
 }

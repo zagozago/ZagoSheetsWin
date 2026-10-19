@@ -2,8 +2,8 @@
   "language": "pl",
   "locale": "pl-PL",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -658,6 +658,8 @@
     "error.odsBounds": "ODS: nieprawidłowe powtórzenie lub wymiary poza obsługiwanym limitem.",
     "error.odsStructure": "Struktura pliku ODS jest niepełna lub nieprawidłowa.",
     "action.chooseSeparator": "Wybierz separator",
-    "recovery.quotaRotation": "Po osiągnięciu limitu najstarsze ukończone kopie są usuwane. Kopie oczekujące są zachowywane."
+    "recovery.quotaRotation": "Po osiągnięciu limitu najstarsze ukończone kopie są usuwane. Kopie oczekujące są zachowywane.",
+    "progress.backupWaiting": "Oczekiwanie na miejsce na kopie zapasowe… Wskazówka: zwolnij miejsce, aby uniknąć długiego oczekiwania.",
+    "error.backupQuotaTip": "Wskazówka: zwolnij miejsce, aby uniknąć długiego oczekiwania."
   }
 }

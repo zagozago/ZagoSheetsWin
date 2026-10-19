@@ -2,8 +2,8 @@
   "language": "ms",
   "locale": "ms-MY",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -657,6 +657,8 @@
     "error.odsBounds": "ODS: pengulangan tidak sah atau dimensi melebihi had yang disokong.",
     "error.odsStructure": "Struktur fail ODS tidak lengkap atau tidak sah.",
     "action.chooseSeparator": "Pilih pemisah",
-    "recovery.quotaRotation": "Apabila kuota dicapai, sandaran selesai paling lama dipadam. Sandaran tertunda dikekalkan."
+    "recovery.quotaRotation": "Apabila kuota dicapai, sandaran selesai paling lama dipadam. Sandaran tertunda dikekalkan.",
+    "progress.backupWaiting": "Menunggu ruang sandaran… Petua: kosongkan ruang sandaran untuk mengelakkan penantian lama.",
+    "error.backupQuotaTip": "Petua: kosongkan ruang sandaran untuk mengelakkan penantian lama."
   }
 }

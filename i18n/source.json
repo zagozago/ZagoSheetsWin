@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.41",
+  "productVersion": "0.9.42",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 14,
+  "catalogRevision": 15,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -7503,6 +7503,24 @@
     "recovery.quotaRotation": {
       "text": "Ao atingir a cota, os backups concluídos mais antigos são excluídos. Pendentes são preservados.",
       "context": "Ambiguous import action / completed backup quota rotation",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "progress.backupWaiting": {
+      "text": "Aguardando espaço no backup… Dica: libere espaço no backup para evitar esperas demoradas.",
+      "context": "Backup capacity wait only; shown after an atomic capture reports insufficient space.",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "error.backupQuotaTip": {
+      "text": "Dica: libere espaço no backup para evitar esperas demoradas.",
+      "context": "Tip for the final backup quota error, after capacity cannot be freed safely.",
       "scope": "app",
       "placeholders": [],
       "invariants": [],

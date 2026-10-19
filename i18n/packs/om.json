@@ -2,8 +2,8 @@
   "language": "om",
   "locale": "om-ET",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -660,6 +660,8 @@
     "error.odsBounds": "ODS: irra deddeebii sirrii hin taane yookaan hamma daangaa deeggaramu caalu.",
     "error.odsStructure": "Caasaan faayilii ODS guutuu miti yookaan sirrii miti.",
     "action.chooseSeparator": "Mallattoo addaan baasuu fili",
-    "recovery.quotaRotation": "Daangaan iddoo yoo guute, duwwaawwan xumuraman keessaa kan durii haqamu. Kan eeggachaa jiran ni kuufamu."
+    "recovery.quotaRotation": "Daangaan iddoo yoo guute, duwwaawwan xumuraman keessaa kan durii haqamu. Kan eeggachaa jiran ni kuufamu.",
+    "progress.backupWaiting": "Bakka waraabbii eeggataa jira… Gorsa: yeroo dheeraa eeguu dhiisuuf bakka waraabbii bilisa godhi.",
+    "error.backupQuotaTip": "Gorsa: yeroo dheeraa eeguu dhiisuuf bakka waraabbii bilisa godhi."
   }
 }

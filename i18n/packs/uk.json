@@ -2,8 +2,8 @@
   "language": "uk",
   "locale": "uk-UA",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -656,6 +656,8 @@
     "error.odsBounds": "ODS: неприпустиме повторення або розміри понад підтримувану межу.",
     "error.odsStructure": "Структура файлу ODS неповна або неприпустима.",
     "action.chooseSeparator": "Вибрати роздільник",
-    "recovery.quotaRotation": "Після досягнення квоти найстаріші завершені копії видаляються. Незавершені копії зберігаються."
+    "recovery.quotaRotation": "Після досягнення квоти найстаріші завершені копії видаляються. Незавершені копії зберігаються.",
+    "progress.backupWaiting": "Очікування місця для резервних копій… Порада: звільніть місце, щоб уникнути тривалого очікування.",
+    "error.backupQuotaTip": "Порада: звільніть місце, щоб уникнути тривалого очікування."
   }
 }

@@ -2,8 +2,8 @@
   "language": "bn",
   "locale": "bn",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -653,6 +653,8 @@
     "error.odsBounds": "ODS: অবৈধ পুনরাবৃত্তি বা সমর্থিত সীমার বেশি মাত্রা।",
     "error.odsStructure": "ODS ফাইলের গঠন অসম্পূর্ণ বা অবৈধ।",
     "action.chooseSeparator": "বিভাজক বেছে নিন",
-    "recovery.quotaRotation": "কোটা পূর্ণ হলে সবচেয়ে পুরোনো সম্পূর্ণ ব্যাকআপ মুছে যায়। অপেক্ষমাণ ব্যাকআপ রাখা হয়।"
+    "recovery.quotaRotation": "কোটা পূর্ণ হলে সবচেয়ে পুরোনো সম্পূর্ণ ব্যাকআপ মুছে যায়। অপেক্ষমাণ ব্যাকআপ রাখা হয়।",
+    "progress.backupWaiting": "ব্যাকআপে জায়গার জন্য অপেক্ষা করা হচ্ছে… পরামর্শ: দীর্ঘ অপেক্ষা এড়াতে ব্যাকআপে জায়গা খালি করুন।",
+    "error.backupQuotaTip": "পরামর্শ: দীর্ঘ অপেক্ষা এড়াতে ব্যাকআপে জায়গা খালি করুন।"
   }
 }

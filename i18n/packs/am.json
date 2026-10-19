@@ -2,8 +2,8 @@
   "language": "am",
   "locale": "am-ET",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -655,6 +655,8 @@
     "error.odsBounds": "ODS፦ ልክ ያልሆነ ድግግሞሽ ወይም ከሚደገፈው ገደብ በላይ መጠን።",
     "error.odsStructure": "የODS ፋይል መዋቅር ያልተሟላ ወይም ልክ ያልሆነ ነው።",
     "action.chooseSeparator": "መለያ ምረጥ",
-    "recovery.quotaRotation": "የቦታ ገደቡ ሲደርስ በጣም የቆዩ የተጠናቀቁ ምትኬዎች ይሰረዛሉ። በመጠባበቅ ላይ ያሉት ይጠበቃሉ።"
+    "recovery.quotaRotation": "የቦታ ገደቡ ሲደርስ በጣም የቆዩ የተጠናቀቁ ምትኬዎች ይሰረዛሉ። በመጠባበቅ ላይ ያሉት ይጠበቃሉ።",
+    "progress.backupWaiting": "የመጠባበቂያ ቅጂ ቦታ በመጠባበቅ ላይ… ጠቃሚ ምክር፦ ረጅም ጥበቃን ለማስወገድ ቦታ ያስለቅቁ።",
+    "error.backupQuotaTip": "ጠቃሚ ምክር፦ ረጅም ጥበቃን ለማስወገድ ቦታ ያስለቅቁ።"
   }
 }

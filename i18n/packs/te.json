@@ -2,8 +2,8 @@
   "language": "te",
   "locale": "te-IN",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -656,6 +656,8 @@
     "error.odsBounds": "ODS: చెల్లని పునరావృతం లేదా మద్దతు పరిమితిని మించిన కొలతలు.",
     "error.odsStructure": "ODS ఫైల్ నిర్మాణం అసంపూర్ణంగా లేదా చెల్లనిదిగా ఉంది.",
     "action.chooseSeparator": "విభజకాన్ని ఎంచుకోండి",
-    "recovery.quotaRotation": "కోటా నిండితే పాత పూర్తయిన బ్యాకప్‌లు తొలగించబడతాయి. పెండింగ్ బ్యాకప్‌లు భద్రంగా ఉంటాయి."
+    "recovery.quotaRotation": "కోటా నిండితే పాత పూర్తయిన బ్యాకప్‌లు తొలగించబడతాయి. పెండింగ్ బ్యాకప్‌లు భద్రంగా ఉంటాయి.",
+    "progress.backupWaiting": "బ్యాకప్ స్థలం కోసం వేచి ఉంది… చిట్కా: ఎక్కువసేపు వేచి ఉండకుండా బ్యాకప్ స్థలాన్ని ఖాళీ చేయండి.",
+    "error.backupQuotaTip": "చిట్కా: ఎక్కువసేపు వేచి ఉండకుండా బ్యాకప్ స్థలాన్ని ఖాళీ చేయండి."
   }
 }

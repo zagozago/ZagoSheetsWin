@@ -212,6 +212,7 @@ internal static class InterfaceVerification
             Require(!Descendants(recovery).OfType<Button>().Any(b => b.Text == UiText.Get("recovery.savePolicy")), "Backup policy must auto-save without a save button.");
             Require(!Descendants(recovery).OfType<CheckBox>().Any(), "Automatic backup cleanup must not expose a switch.");
             var statistics = Descendants(recovery).OfType<Label>().Single(l => l.Name == "backupStatistics");
+            Require(Math.Abs(statistics.Font.SizeInPoints - 8f) < 0.01f, "Backup statistics must use the compact 8-point font.");
             Require(statistics.Font.Bold && statistics.Parent is FlowLayoutPanel { BorderStyle: BorderStyle.FixedSingle, Margin.Top: >= 16 }, "Backup statistics must have bold text, a border and vertical separation.");
             for (var column = 0; column < 4; column++)
             {

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.41",
+  "productVersion": "0.9.42",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -363,6 +363,8 @@
     "error.odsBounds": "ODS: lặp không hợp lệ hoặc kích thước vượt giới hạn hỗ trợ.",
     "error.odsStructure": "Cấu trúc tệp ODS không đầy đủ hoặc không hợp lệ.",
     "action.chooseSeparator": "Chọn dấu phân cách",
-    "recovery.quotaRotation": "Khi đạt hạn mức, các bản sao lưu hoàn tất cũ nhất bị xóa. Bản sao lưu đang chờ được giữ lại."
+    "recovery.quotaRotation": "Khi đạt hạn mức, các bản sao lưu hoàn tất cũ nhất bị xóa. Bản sao lưu đang chờ được giữ lại.",
+    "progress.backupWaiting": "Đang chờ dung lượng sao lưu… Mẹo: giải phóng dung lượng sao lưu để tránh chờ lâu.",
+    "error.backupQuotaTip": "Mẹo: giải phóng dung lượng sao lưu để tránh chờ lâu."
   }
 }

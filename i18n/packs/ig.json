@@ -2,8 +2,8 @@
   "language": "ig",
   "locale": "ig-NG",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -656,6 +656,8 @@
     "error.odsBounds": "ODS: nkwughachi na-ezighi ezi ma ọ bụ nha gafere oke a na-akwado.",
     "error.odsStructure": "Nhazi faịlụ ODS ezughị ezu ma ọ bụ na-ezighi ezi.",
     "action.chooseSeparator": "Họrọ ihe nkewa",
-    "recovery.quotaRotation": "Mgbe oke ohere juru, a na-ehichapụ ndabere emechara kacha ochie. A na-edobe ndabere na-eche."
+    "recovery.quotaRotation": "Mgbe oke ohere juru, a na-ehichapụ ndabere emechara kacha ochie. A na-edobe ndabere na-eche.",
+    "progress.backupWaiting": "Na-eche ohere ndabere… Ndụmọdụ: hapụ ohere ndabere ka ichere ghara ịdị ogologo.",
+    "error.backupQuotaTip": "Ndụmọdụ: hapụ ohere ndabere ka ichere ghara ịdị ogologo."
   }
 }

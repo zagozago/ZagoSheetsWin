@@ -2,8 +2,8 @@
   "language": "az",
   "locale": "az-Latn-AZ",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -656,6 +656,8 @@
     "error.odsBounds": "ODS: etibarsız təkrarlama və ya dəstəklənən həddi aşan ölçülər.",
     "error.odsStructure": "ODS faylının quruluşu natamam və ya etibarsızdır.",
     "action.chooseSeparator": "Ayırıcı seçin",
-    "recovery.quotaRotation": "Kvota dolduqda ən köhnə tamamlanmış nüsxələr silinir. Gözləyən nüsxələr saxlanılır."
+    "recovery.quotaRotation": "Kvota dolduqda ən köhnə tamamlanmış nüsxələr silinir. Gözləyən nüsxələr saxlanılır.",
+    "progress.backupWaiting": "Ehtiyat nüsxə üçün yer gözlənilir… Məsləhət: uzun gözləməmək üçün yer boşaldın.",
+    "error.backupQuotaTip": "Məsləhət: uzun gözləməmək üçün yer boşaldın."
   }
 }

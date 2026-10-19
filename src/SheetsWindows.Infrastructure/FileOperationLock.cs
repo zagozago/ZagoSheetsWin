@@ -16,6 +16,14 @@ public sealed class FileOperationLock : IOperationLock
         this.timeout = timeout ?? TimeSpan.FromSeconds(30);
         PrivateDirectory.Create(this.directory);
     }
+    public IAsyncDisposable? TryAcquire(string key)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(key);
+        var name = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(key))) + ".lock";
+        try { return new Handle(new FileStream(Path.Combine(directory, name), FileMode.OpenOrCreate,
+            FileAccess.ReadWrite, FileShare.None)); }
+        catch (IOException ex) when (IsSharingViolation(ex)) { return null; }
+    }
     public async ValueTask<IAsyncDisposable> AcquireAsync(string key, CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(key);

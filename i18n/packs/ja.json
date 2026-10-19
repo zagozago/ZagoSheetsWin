@@ -2,8 +2,8 @@
   "language": "ja",
   "locale": "ja",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -654,6 +654,8 @@
     "error.odsBounds": "ODS：繰り返しが無効か、対応する寸法の上限を超えています。",
     "error.odsStructure": "ODS ファイルの構造が不完全か無効です。",
     "action.chooseSeparator": "区切り文字を選択",
-    "recovery.quotaRotation": "上限に達すると、古い完了済みバックアップから削除されます。保留中のバックアップは保持されます。"
+    "recovery.quotaRotation": "上限に達すると、古い完了済みバックアップから削除されます。保留中のバックアップは保持されます。",
+    "progress.backupWaiting": "バックアップの空き容量を待っています… ヒント：長時間の待機を避けるには、バックアップの空き容量を増やしてください。",
+    "error.backupQuotaTip": "ヒント：長時間の待機を避けるには、バックアップの空き容量を増やしてください。"
   }
 }

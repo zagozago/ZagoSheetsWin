@@ -2,8 +2,8 @@
   "language": "yo",
   "locale": "yo-NG",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -657,6 +657,8 @@
     "error.odsBounds": "ODS: àtúnṣe tí kò tọ́ tàbí ìwọ̀n tó kọjá ààlà tí a ṣe àtìlẹ́yìn fún.",
     "error.odsStructure": "Ìṣètò fáìlì ODS kò pé tàbí kò tọ́.",
     "action.chooseSeparator": "Yan àmì ìpín",
-    "recovery.quotaRotation": "Nígbà tí ààlà àyè bá dé, a pa àfẹ́yìntì tó parí tó ti pẹ́ jù rẹ́. A pa àwọn tó ń dúró mọ́."
+    "recovery.quotaRotation": "Nígbà tí ààlà àyè bá dé, a pa àfẹ́yìntì tó parí tó ti pẹ́ jù rẹ́. A pa àwọn tó ń dúró mọ́.",
+    "progress.backupWaiting": "Ń dúró de àyè fún ẹ̀dà àfẹ́yìntì… Ìmọ̀ràn: ṣí àyè sílẹ̀ láti yẹra fún ìdúró pípẹ́.",
+    "error.backupQuotaTip": "Ìmọ̀ràn: ṣí àyè sílẹ̀ láti yẹra fún ìdúró pípẹ́."
   }
 }

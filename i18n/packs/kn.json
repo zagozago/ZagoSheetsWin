@@ -2,8 +2,8 @@
   "language": "kn",
   "locale": "kn-IN",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -656,6 +656,8 @@
     "error.odsBounds": "ODS: ಅಮಾನ್ಯ ಪುನರಾವರ್ತನೆ ಅಥವಾ ಬೆಂಬಲಿತ ಮಿತಿಗಿಂತ ಹೆಚ್ಚಿನ ಆಯಾಮಗಳು.",
     "error.odsStructure": "ODS ಫೈಲ್ ರಚನೆ ಅಪೂರ್ಣ ಅಥವಾ ಅಮಾನ್ಯವಾಗಿದೆ.",
     "action.chooseSeparator": "ವಿಭಜಕವನ್ನು ಆಯ್ಕೆಮಾಡಿ",
-    "recovery.quotaRotation": "ಕೋಟಾ ತುಂಬಿದಾಗ ಹಳೆಯ ಪೂರ್ಣಗೊಂಡ ಬ್ಯಾಕಪ್‌ಗಳನ್ನು ಅಳಿಸಲಾಗುತ್ತದೆ. ಬಾಕಿಯಿರುವ ಬ್ಯಾಕಪ್‌ಗಳನ್ನು ಉಳಿಸಲಾಗುತ್ತದೆ."
+    "recovery.quotaRotation": "ಕೋಟಾ ತುಂಬಿದಾಗ ಹಳೆಯ ಪೂರ್ಣಗೊಂಡ ಬ್ಯಾಕಪ್‌ಗಳನ್ನು ಅಳಿಸಲಾಗುತ್ತದೆ. ಬಾಕಿಯಿರುವ ಬ್ಯಾಕಪ್‌ಗಳನ್ನು ಉಳಿಸಲಾಗುತ್ತದೆ.",
+    "progress.backupWaiting": "ಬ್ಯಾಕಪ್ ಸ್ಥಳಕ್ಕಾಗಿ ಕಾಯುತ್ತಿದೆ… ಸಲಹೆ: ದೀರ್ಘ ಕಾಯುವಿಕೆಯನ್ನು ತಪ್ಪಿಸಲು ಬ್ಯಾಕಪ್ ಸ್ಥಳವನ್ನು ಖಾಲಿ ಮಾಡಿ.",
+    "error.backupQuotaTip": "ಸಲಹೆ: ದೀರ್ಘ ಕಾಯುವಿಕೆಯನ್ನು ತಪ್ಪಿಸಲು ಬ್ಯಾಕಪ್ ಸ್ಥಳವನ್ನು ಖಾಲಿ ಮಾಡಿ."
   }
 }

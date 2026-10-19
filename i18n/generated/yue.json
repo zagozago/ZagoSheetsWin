@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.41",
+  "productVersion": "0.9.42",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -363,6 +363,8 @@
     "error.odsBounds": "ODS：重複無效或者尺寸超出支援上限。",
     "error.odsStructure": "ODS 檔案結構唔完整或者無效。",
     "action.chooseSeparator": "選擇分隔符",
-    "recovery.quotaRotation": "達到配額時，會刪除最舊嘅已完成備份。待處理備份會保留。"
+    "recovery.quotaRotation": "達到配額時，會刪除最舊嘅已完成備份。待處理備份會保留。",
+    "progress.backupWaiting": "等緊備份空間… 提示：清出備份空間就可以避免等太耐。",
+    "error.backupQuotaTip": "提示：清出備份空間就可以避免等太耐。"
   }
 }

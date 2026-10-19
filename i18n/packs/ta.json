@@ -2,8 +2,8 @@
   "language": "ta",
   "locale": "ta-IN",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -655,6 +655,8 @@
     "error.odsBounds": "ODS: தவறான மீளுருவாக்கம் அல்லது ஆதரிக்கப்படும் வரம்பை மீறிய அளவுகள்.",
     "error.odsStructure": "ODS கோப்பின் அமைப்பு முழுமையற்றது அல்லது தவறானது.",
     "action.chooseSeparator": "பிரிப்பானைத் தேர்ந்தெடு",
-    "recovery.quotaRotation": "ஒதுக்கீடு நிரம்பினால் பழைய முடிக்கப்பட்ட காப்புகள் நீக்கப்படும். நிலுவைக் காப்புகள் பாதுகாக்கப்படும்."
+    "recovery.quotaRotation": "ஒதுக்கீடு நிரம்பினால் பழைய முடிக்கப்பட்ட காப்புகள் நீக்கப்படும். நிலுவைக் காப்புகள் பாதுகாக்கப்படும்.",
+    "progress.backupWaiting": "காப்புப்பிரதி இடத்திற்காகக் காத்திருக்கிறது… குறிப்பு: நீண்ட காத்திருப்பைத் தவிர்க்க காப்புப்பிரதி இடத்தை விடுவிக்கவும்.",
+    "error.backupQuotaTip": "குறிப்பு: நீண்ட காத்திருப்பைத் தவிர்க்க காப்புப்பிரதி இடத்தை விடுவிக்கவும்."
   }
 }

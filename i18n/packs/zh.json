@@ -2,8 +2,8 @@
   "language": "zh",
   "locale": "zh-CN",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -651,7 +651,9 @@
     "error.odsBounds": "ODS：重复无效或尺寸超出支持的限制。",
     "error.odsStructure": "ODS 文件结构不完整或无效。",
     "action.chooseSeparator": "选择分隔符",
-    "recovery.quotaRotation": "达到配额时，会删除最旧的已完成备份。待处理备份会保留。"
+    "recovery.quotaRotation": "达到配额时，会删除最旧的已完成备份。待处理备份会保留。",
+    "progress.backupWaiting": "正在等待备份空间… 提示：释放备份空间可避免长时间等待。",
+    "error.backupQuotaTip": "提示：释放备份空间可避免长时间等待。"
   },
   "translationMethod": "AI-authored application translation; reviewed public Inno Setup Chinese Simplified messages",
   "standardInstallerCredits": {

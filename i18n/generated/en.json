@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.41",
+  "productVersion": "0.9.42",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -363,6 +363,8 @@
     "error.odsBounds": "ODS: invalid repetition or dimensions beyond the supported limit.",
     "error.odsStructure": "The ODS file structure is incomplete or invalid.",
     "action.chooseSeparator": "Choose separator",
-    "recovery.quotaRotation": "When the quota is reached, the oldest completed backups are deleted. Pending backups are preserved."
+    "recovery.quotaRotation": "When the quota is reached, the oldest completed backups are deleted. Pending backups are preserved.",
+    "progress.backupWaiting": "Waiting for backup space… Tip: free up backup space to avoid long waits.",
+    "error.backupQuotaTip": "Tip: free up backup space to avoid long waits."
   }
 }

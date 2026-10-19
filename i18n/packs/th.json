@@ -2,8 +2,8 @@
   "language": "th",
   "locale": "th-TH",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -655,6 +655,8 @@
     "error.odsBounds": "ODS: การทำซ้ำไม่ถูกต้องหรือขนาดเกินขีดจำกัดที่รองรับ",
     "error.odsStructure": "โครงสร้างไฟล์ ODS ไม่สมบูรณ์หรือไม่ถูกต้อง",
     "action.chooseSeparator": "เลือกตัวคั่น",
-    "recovery.quotaRotation": "เมื่อถึงโควตา ข้อมูลสำรองที่เสร็จแล้วและเก่าที่สุดจะถูกลบ ข้อมูลสำรองที่ค้างอยู่จะถูกเก็บไว้"
+    "recovery.quotaRotation": "เมื่อถึงโควตา ข้อมูลสำรองที่เสร็จแล้วและเก่าที่สุดจะถูกลบ ข้อมูลสำรองที่ค้างอยู่จะถูกเก็บไว้",
+    "progress.backupWaiting": "กำลังรอพื้นที่สำรองข้อมูล… เคล็ดลับ: เพิ่มพื้นที่ว่างสำหรับข้อมูลสำรองเพื่อหลีกเลี่ยงการรอนาน",
+    "error.backupQuotaTip": "เคล็ดลับ: เพิ่มพื้นที่ว่างสำหรับข้อมูลสำรองเพื่อหลีกเลี่ยงการรอนาน"
   }
 }

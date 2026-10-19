@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.41",
+  "productVersion": "0.9.42",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -363,6 +363,8 @@
     "error.odsBounds": "ODS: pengulangan ora sah utawa ukuran ngluwihi wates sing didhukung.",
     "error.odsStructure": "Struktur berkas ODS ora pepak utawa ora sah.",
     "action.chooseSeparator": "Pilih pamisah",
-    "recovery.quotaRotation": "Nalika kuota kebak, serep rampung sing paling lawas dibusak. Serep sing isih ngenteni tetep disimpen."
+    "recovery.quotaRotation": "Nalika kuota kebak, serep rampung sing paling lawas dibusak. Serep sing isih ngenteni tetep disimpen.",
+    "progress.backupWaiting": "Ngenteni papan serep… Tip: kosongna papan serep supaya ora ngenteni suwe.",
+    "error.backupQuotaTip": "Tip: kosongna papan serep supaya ora ngenteni suwe."
   }
 }

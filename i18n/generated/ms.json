@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.41",
+  "productVersion": "0.9.42",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -363,6 +363,8 @@
     "error.odsBounds": "ODS: pengulangan tidak sah atau dimensi melebihi had yang disokong.",
     "error.odsStructure": "Struktur fail ODS tidak lengkap atau tidak sah.",
     "action.chooseSeparator": "Pilih pemisah",
-    "recovery.quotaRotation": "Apabila kuota dicapai, sandaran selesai paling lama dipadam. Sandaran tertunda dikekalkan."
+    "recovery.quotaRotation": "Apabila kuota dicapai, sandaran selesai paling lama dipadam. Sandaran tertunda dikekalkan.",
+    "progress.backupWaiting": "Menunggu ruang sandaran… Petua: kosongkan ruang sandaran untuk mengelakkan penantian lama.",
+    "error.backupQuotaTip": "Petua: kosongkan ruang sandaran untuk mengelakkan penantian lama."
   }
 }

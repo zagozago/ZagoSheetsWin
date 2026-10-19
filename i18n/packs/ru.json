@@ -2,8 +2,8 @@
   "language": "ru",
   "locale": "ru",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -652,6 +652,8 @@
     "error.odsBounds": "ODS: недопустимое повторение или размеры выше поддерживаемого предела.",
     "error.odsStructure": "Структура файла ODS неполная или недопустимая.",
     "action.chooseSeparator": "Выбрать разделитель",
-    "recovery.quotaRotation": "При достижении квоты самые старые завершённые копии удаляются. Незавершённые копии сохраняются."
+    "recovery.quotaRotation": "При достижении квоты самые старые завершённые копии удаляются. Незавершённые копии сохраняются.",
+    "progress.backupWaiting": "Ожидание места для резервных копий… Совет: освободите место, чтобы избежать долгого ожидания.",
+    "error.backupQuotaTip": "Совет: освободите место, чтобы избежать долгого ожидания."
   }
 }

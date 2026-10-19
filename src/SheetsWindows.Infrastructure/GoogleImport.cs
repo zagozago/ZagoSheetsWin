@@ -7,7 +7,7 @@ using SheetsWindows.Core;
 namespace SheetsWindows.Infrastructure;
 
 public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistry local, IRemoteRegistry remote,
-    ISourceReader sources, IOperationLock locks, IGoogleAuth auth, GoogleDriveClient drive, TextImportOptions? textOptions = null, ProcessingTelemetry? telemetry = null, BackupManagement? backupManagement = null, ImportInterpretations? interpretations = null)
+    ISourceReader sources, IOperationLock locks, IGoogleAuth auth, GoogleDriveClient drive, TextImportOptions? textOptions = null, ProcessingTelemetry? telemetry = null, BackupManagement? backupManagement = null, ImportInterpretations? interpretations = null, IProgress<string>? backupProgress = null, Guid? protectedBackup = null)
 {
     public const int MaxBytes = 20 * 1024 * 1024;
     public async Task<Uri> ImportAsync(string path, CancellationToken ct = default) => (await ImportReceiptAsync(path, ct)).Url;
@@ -25,6 +25,8 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
             await RetireTrashedSourceAssociationAsync(access.AccountId, path, ct);
             await RevalidateUnsentInputAsync(access.AccountId, path, ct);
         }
+        ImportOperation op;
+        telemetry?.Mark(ProcessingStep.SnapshotPreparation, CheckpointOutcome.Started);
         if (backupManagement is not null)
         {
             Guid? existingId; long incoming;
@@ -35,11 +37,11 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
                 if (existingId is { } existingOperationId) backupManagement.RequireAvailable(existingOperationId);
                 incoming = existing?.Snapshot is { } saved && File.Exists(saved.BackupPath) ? 0 : preflight.Content.Length;
             }
-            await backupManagement.MaintainAsync(ct, existingId);
-            await backupManagement.MakeRoomAsync(incoming, ct, existingId);
+            op = await backupManagement.PrepareWithCapacityAsync(
+                () => preparation.PrepareAsync(access.AccountId, path, ct), incoming, protectedBackup ?? existingId,
+                () => { telemetry?.Mark(ProcessingStep.BackupCapacityWait, CheckpointOutcome.Started); backupProgress?.Report(UiText.Get("progress.backupWaiting")); }, ct);
         }
-        telemetry?.Mark(ProcessingStep.SnapshotPreparation, CheckpointOutcome.Started);
-        var op = await preparation.PrepareAsync(access.AccountId, path, ct);
+        else op = await preparation.PrepareAsync(access.AccountId, path, ct);
         telemetry?.Mark(ProcessingStep.SnapshotPreparation);
         await using var source = sources.Open(path);
         if (source.Source.IdentityKey != op.SourceKey) throw new LocalConflictException("Source identity changed; upload blocked.");

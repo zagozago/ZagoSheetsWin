@@ -2,8 +2,8 @@
   "language": "fil",
   "locale": "fil-PH",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -689,6 +689,8 @@
     "error.odsBounds": "ODS: maling pag-uulit o sukat na lampas sa suportadong limitasyon.",
     "error.odsStructure": "Hindi kumpleto o hindi wasto ang istruktura ng ODS file.",
     "action.chooseSeparator": "Pumili ng separator",
-    "recovery.quotaRotation": "Kapag naabot ang quota, binubura ang pinakalumang tapos na backup. Pinapanatili ang mga nakabinbing backup."
+    "recovery.quotaRotation": "Kapag naabot ang quota, binubura ang pinakalumang tapos na backup. Pinapanatili ang mga nakabinbing backup.",
+    "progress.backupWaiting": "Naghihintay ng espasyo para sa backup… Tip: magbakante ng espasyo para maiwasan ang mahabang paghihintay.",
+    "error.backupQuotaTip": "Tip: magbakante ng espasyo para maiwasan ang mahabang paghihintay."
   }
 }

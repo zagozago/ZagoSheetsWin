@@ -2,8 +2,8 @@
   "language": "fr",
   "locale": "fr",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -653,6 +653,8 @@
     "error.odsBounds": "ODS : répétition incorrecte ou dimensions dépassant la limite prise en charge.",
     "error.odsStructure": "La structure du fichier ODS est incomplète ou incorrecte.",
     "action.chooseSeparator": "Choisir le séparateur",
-    "recovery.quotaRotation": "Lorsque le quota est atteint, les sauvegardes terminées les plus anciennes sont supprimées. Celles en attente sont conservées."
+    "recovery.quotaRotation": "Lorsque le quota est atteint, les sauvegardes terminées les plus anciennes sont supprimées. Celles en attente sont conservées.",
+    "progress.backupWaiting": "En attente d’espace de sauvegarde… Conseil : libérez de l’espace pour éviter une longue attente.",
+    "error.backupQuotaTip": "Conseil : libérez de l’espace pour éviter une longue attente."
   }
 }

@@ -2,8 +2,8 @@
   "language": "bho",
   "locale": "bho-IN",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -656,6 +656,8 @@
     "error.odsBounds": "ODS: अमान्य दोहराव भा समर्थित सीमा से अधिक आकार।",
     "error.odsStructure": "ODS फाइल के बनावट अधूरा भा अमान्य बा।",
     "action.chooseSeparator": "विभाजक चुनीं",
-    "recovery.quotaRotation": "कोटा भरला पर सबसे पुरान पूरा बैकअप हटावल जाला। बाकी बैकअप सुरक्षित रहेला।"
+    "recovery.quotaRotation": "कोटा भरला पर सबसे पुरान पूरा बैकअप हटावल जाला। बाकी बैकअप सुरक्षित रहेला।",
+    "progress.backupWaiting": "बैकअप में जगह के इंतजार बा… सलाह: लंबा इंतजार से बचे खातिर बैकअप में जगह खाली करीं।",
+    "error.backupQuotaTip": "सलाह: लंबा इंतजार से बचे खातिर बैकअप में जगह खाली करीं।"
   }
 }

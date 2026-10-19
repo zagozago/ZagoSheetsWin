@@ -2,8 +2,8 @@
   "language": "ps",
   "locale": "ps-AF",
   "direction": "rtl",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -656,6 +656,8 @@
     "error.odsBounds": "ODS: ناسمه تکرار یا له ملاتړ شوي حد څخه لوی ابعاد.",
     "error.odsStructure": "د ODS دوتنې جوړښت نیمګړی یا ناسم دی.",
     "action.chooseSeparator": "بېلوونکی وټاکئ",
-    "recovery.quotaRotation": "د ځای حد ته په رسېدو زاړه بشپړ بیک اپونه حذف کېږي. پاتې بیک اپونه ساتل کېږي."
+    "recovery.quotaRotation": "د ځای حد ته په رسېدو زاړه بشپړ بیک اپونه حذف کېږي. پاتې بیک اپونه ساتل کېږي.",
+    "progress.backupWaiting": "د شاتړ ځای ته انتظار… لارښوونه: د اوږده انتظار د مخنیوي لپاره د شاتړ ځای خالي کړئ.",
+    "error.backupQuotaTip": "لارښوونه: د اوږده انتظار د مخنیوي لپاره د شاتړ ځای خالي کړئ."
   }
 }

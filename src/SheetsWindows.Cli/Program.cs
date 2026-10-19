@@ -60,7 +60,6 @@ try
     var auth = new GoogleOAuth(http, client, new DpapiTokenVault(Path.Combine(storage.Root, "auth"), client.Id),
         new LoopbackAuthorizationReceiver(uri => Process.Start(new ProcessStartInfo(uri.AbsoluteUri) { UseShellExecute = true })), locks);
     if (args[0] == "login") { await auth.ConnectAsync(); Console.WriteLine("Google autorizado."); return 0; }
-    await using var turn = await new ImportQueue(storage).EnterAsync();
     var importer = new GoogleImport(preparation, new SqliteOperationRegistry(storage.DatabasePath), new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")), sourceReader, locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads"))), textOptions);
     if (args[0] is "replace" or "resume")
     {

@@ -2,8 +2,8 @@
   "language": "mr",
   "locale": "mr-IN",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -656,6 +656,8 @@
     "error.odsBounds": "ODS: अवैध पुनरावृत्ती किंवा समर्थित मर्यादेपेक्षा जास्त परिमाणे.",
     "error.odsStructure": "ODS फाइलची रचना अपूर्ण किंवा अवैध आहे.",
     "action.chooseSeparator": "विभाजक निवडा",
-    "recovery.quotaRotation": "कोटा भरल्यावर सर्वात जुने पूर्ण बॅकअप हटवले जातात. प्रलंबित बॅकअप जतन केले जातात."
+    "recovery.quotaRotation": "कोटा भरल्यावर सर्वात जुने पूर्ण बॅकअप हटवले जातात. प्रलंबित बॅकअप जतन केले जातात.",
+    "progress.backupWaiting": "बॅकअपमध्ये जागेची प्रतीक्षा करत आहे… सूचना: जास्त वेळ थांबावे लागू नये म्हणून बॅकअपमध्ये जागा मोकळी करा.",
+    "error.backupQuotaTip": "सूचना: जास्त वेळ थांबावे लागू नये म्हणून बॅकअपमध्ये जागा मोकळी करा."
   }
 }

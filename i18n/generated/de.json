@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.41",
+  "productVersion": "0.9.42",
   "sourceLocale": "pt-BR",
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -363,6 +363,8 @@
     "error.odsBounds": "ODS: ungültige Wiederholung oder Abmessungen über der unterstützten Grenze.",
     "error.odsStructure": "Die Struktur der ODS-Datei ist unvollständig oder ungültig.",
     "action.chooseSeparator": "Trennzeichen wählen",
-    "recovery.quotaRotation": "Bei Erreichen des Kontingents werden die ältesten abgeschlossenen Sicherungen gelöscht. Ausstehende Sicherungen bleiben erhalten."
+    "recovery.quotaRotation": "Bei Erreichen des Kontingents werden die ältesten abgeschlossenen Sicherungen gelöscht. Ausstehende Sicherungen bleiben erhalten.",
+    "progress.backupWaiting": "Warten auf Platz für Sicherungen… Tipp: Geben Sie Speicherplatz frei, um lange Wartezeiten zu vermeiden.",
+    "error.backupQuotaTip": "Tipp: Geben Sie Speicherplatz frei, um lange Wartezeiten zu vermeiden."
   }
 }

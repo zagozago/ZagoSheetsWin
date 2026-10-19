@@ -2,8 +2,8 @@
   "language": "ur",
   "locale": "ur",
   "direction": "rtl",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -656,6 +656,8 @@
     "error.odsBounds": "ODS: غلط تکرار یا معاون حد سے زیادہ ابعاد۔",
     "error.odsStructure": "ODS فائل کی ساخت نامکمل یا غلط ہے۔",
     "action.chooseSeparator": "جداکار منتخب کریں",
-    "recovery.quotaRotation": "کوٹا بھرنے پر سب سے پرانے مکمل بیک اپ حذف ہوتے ہیں۔ زیر التوا بیک اپ محفوظ رہتے ہیں۔"
+    "recovery.quotaRotation": "کوٹا بھرنے پر سب سے پرانے مکمل بیک اپ حذف ہوتے ہیں۔ زیر التوا بیک اپ محفوظ رہتے ہیں۔",
+    "progress.backupWaiting": "بیک اپ میں جگہ کا انتظار… مشورہ: طویل انتظار سے بچنے کے لیے بیک اپ میں جگہ خالی کریں۔",
+    "error.backupQuotaTip": "مشورہ: طویل انتظار سے بچنے کے لیے بیک اپ میں جگہ خالی کریں۔"
   }
 }

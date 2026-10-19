@@ -2,8 +2,8 @@
   "language": "es",
   "locale": "es",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -656,6 +656,8 @@
     "error.odsBounds": "ODS: repetición no válida o dimensiones superiores al límite admitido.",
     "error.odsStructure": "La estructura del archivo ODS está incompleta o no es válida.",
     "action.chooseSeparator": "Elegir separador",
-    "recovery.quotaRotation": "Al alcanzar la cuota, se eliminan las copias completadas más antiguas. Las pendientes se conservan."
+    "recovery.quotaRotation": "Al alcanzar la cuota, se eliminan las copias completadas más antiguas. Las pendientes se conservan.",
+    "progress.backupWaiting": "Esperando espacio para la copia de seguridad… Consejo: libera espacio para evitar esperas largas.",
+    "error.backupQuotaTip": "Consejo: libera espacio para evitar esperas largas."
   }
 }

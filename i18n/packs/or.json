@@ -2,8 +2,8 @@
   "language": "or",
   "locale": "or-IN",
   "direction": "ltr",
-  "catalogRevision": 14,
-  "sourceHash": "f229412b4390b0215e12a47c77b3df3c561a54d1dada1da49c154df1453d81da",
+  "catalogRevision": 15,
+  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -656,6 +656,8 @@
     "error.odsBounds": "ODS: ଅବୈଧ ପୁନରାବୃତ୍ତି କିମ୍ବା ସମର୍ଥିତ ସୀମାଠାରୁ ଅଧିକ ଆକାର।",
     "error.odsStructure": "ODS ଫାଇଲ୍ ଗଠନ ଅସମ୍ପୂର୍ଣ୍ଣ କିମ୍ବା ଅବୈଧ।",
     "action.chooseSeparator": "ବିଭାଜକ ବାଛନ୍ତୁ",
-    "recovery.quotaRotation": "କୋଟା ପୂର୍ଣ୍ଣ ହେଲେ ପୁରୁଣା ସମ୍ପୂର୍ଣ୍ଣ ବ୍ୟାକଅପ୍ ହଟାଯାଏ। ଅପେକ୍ଷାରତ ବ୍ୟାକଅପ୍ ରଖାଯାଏ।"
+    "recovery.quotaRotation": "କୋଟା ପୂର୍ଣ୍ଣ ହେଲେ ପୁରୁଣା ସମ୍ପୂର୍ଣ୍ଣ ବ୍ୟାକଅପ୍ ହଟାଯାଏ। ଅପେକ୍ଷାରତ ବ୍ୟାକଅପ୍ ରଖାଯାଏ।",
+    "progress.backupWaiting": "ବ୍ୟାକଅପ୍ ସ୍ଥାନ ପାଇଁ ଅପେକ୍ଷା କରୁଛି… ପରାମର୍ଶ: ଦୀର୍ଘ ଅପେକ୍ଷା ଏଡ଼ାଇବାକୁ ବ୍ୟାକଅପ୍ ସ୍ଥାନ ଖାଲି କରନ୍ତୁ।",
+    "error.backupQuotaTip": "ପରାମର୍ଶ: ଦୀର୍ଘ ଅପେକ୍ଷା ଏଡ଼ାଇବାକୁ ବ୍ୟାକଅପ୍ ସ୍ଥାନ ଖାଲି କରନ୍ତୁ।"
   }
 }
