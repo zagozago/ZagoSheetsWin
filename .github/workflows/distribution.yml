@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.41: validated final uninstall cleanup before immediate CI reinstalls.
+# Distribution candidate 0.9.42: validated parallel imports, quota-only capacity waits and compact backup statistics.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
