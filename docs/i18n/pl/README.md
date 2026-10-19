@@ -1,11 +1,16 @@
 # ZagoSheetsWin
 
-> ⚠️ **0.9.37 — Important safety update (English notice; full translation review pending).**
+> ⚠️ **Alpha 0.9.42 — English safety notice; full editorial translation pending.**
 >
 > Arkusz został otwarty w Google Sheets. Oryginalny plik zastąpiono skrótem. Aby go odzyskać, otwórz Kopie zapasowe.
 >
-> **Conversion fidelity:** After a confirmed Google import, the original local file **may be replaced with a `.url` shortcut even when formulas, values or formatting differ**. The original bytes remain in Backups. Choose **Import as copy BEFORE opening** if you need the original to stay in the source folder. Windows **read-only** files may block replacement; in that case, the original is preserved. **New in 0.9.36:** CSV/TSV detects comma, semicolon, TAB and pipe; a per-import chooser resolves ambiguity. The bounded Windows-1252 fallback and higher text limits (60,000 logical rows / 600,000 cells) apply to new interpretations. **Backups → More actions → Reimport into a new document** repairs from the verified original backup without overwriting the previous document/shortcut. **New in 0.9.37:** the app, installer, file associations and shortcuts share one spreadsheet icon. Some text below describes an older alpha policy; use the [current English README](../../../README.md) or [Portuguese user guide](../../USER_GUIDE.md) for complete 0.9.37 behavior.
-
+> **CSV/TSV v4:** up to **2,000,000 cells**, **100,000 logical rows**, 1,000 columns and 20 MiB input/payload, subject to other limits. Real delimiter ambiguity shows a local preview. If converted Google cell values differ, **the original must NOT be replaced by a shortcut**.
+>
+> **XLS/ODS:** complex features may still be converted with partial fidelity and the source **may** be replaced after verified import; the original bytes remain recoverable in Backups. Use **Import as copy** if you must keep the source file in place.
+>
+> **Backups:** automatic cleanup by age and quota, **no toggle**. Only eligible completed backups are cleaned; quota pressure may delete them before retention expires. Files from different sources can import in parallel; only actual backup-capacity shortages can cause a cancellable wait.
+>
+> **Release state:** 0.9.42 is **not a stable release**. The latest Windows CI and preceding protected distribution had failing checks; real-Google acceptance remains pending. Some text below describes older alpha behavior. Read the [current English README](../../../README.md) and [Portuguese user guide](../../USER_GUIDE.md) for current instructions.
 
 <details>
 <summary>🌐 Język dokumentacji · Wybierz język</summary>

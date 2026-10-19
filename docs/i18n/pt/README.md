@@ -1,11 +1,16 @@
 # ZagoSheetsWin
 
-> ⚠️ **0.9.37 — Important safety update (English notice; full translation review pending).**
+> ⚠️ **Alfa 0.9.42 — atualização importante; conteúdo completo ainda em revisão.**
 >
 > Planilha aberta no Google Sheets. O original foi substituído por um atalho. Para recuperá-lo, abra Backups.
 >
-> **Conversion fidelity:** After a confirmed Google import, the original local file **may be replaced with a `.url` shortcut even when formulas, values or formatting differ**. The original bytes remain in Backups. Choose **Import as copy BEFORE opening** if you need the original to stay in the source folder. Windows **read-only** files may block replacement; in that case, the original is preserved. **New in 0.9.36:** CSV/TSV detects comma, semicolon, TAB and pipe; a per-import chooser resolves ambiguity. The bounded Windows-1252 fallback and higher text limits (60,000 logical rows / 600,000 cells) apply to new interpretations. **Backups → More actions → Reimport into a new document** repairs from the verified original backup without overwriting the previous document/shortcut. **New in 0.9.37:** the app, installer, file associations and shortcuts share one spreadsheet icon. Some text below describes an older alpha policy; use the [current English README](../../../README.md) or [Portuguese user guide](../../USER_GUIDE.md) for complete 0.9.37 behavior.
-
+> **CSV/TSV v4:** até **2.000.000 de células**, **100.000 registros lógicos**, 1.000 colunas e 20 MiB, sujeitos a outros limites. Ambiguidade de separador apresenta prévia local. Se a conferência dos valores convertidos no Google encontrar divergências, **o original não deve ser substituído por um atalho**.
+>
+> **XLS/ODS:** recursos complexos podem perder fidelidade e, ainda assim, o original **pode** ser substituído após importação confirmada. O backup mantém os bytes originais. Se quiser conservar o arquivo na pasta, escolha **Importar como cópia** antes de abrir.
+>
+> **Backups:** limpeza por prazo e cota **automática e sem toggle**. Backups concluídos elegíveis podem ser removidos antes de vencer o prazo para liberar espaço. Arquivos diferentes podem importar em paralelo; somente falta real de espaço gera espera cancelável.
+>
+> **Estado da versão:** 0.9.42 **não é estável**. O último CI Windows e a distribuição protegida anterior tiveram falhas; a homologação com Google real permanece pendente. O restante desta página pode descrever versões alfa antigas. Consulte o [README canônico](../../../README.md) ou o [manual atual](../../USER_GUIDE.md).
 
 <details>
 <summary>🌐 Idiomas da documentação · Escolha seu idioma</summary>
