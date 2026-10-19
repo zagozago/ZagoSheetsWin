@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.42: validated parallel imports, quota-only capacity waits and compact backup statistics.
+# Distribution candidate 0.9.42: validated read-only registry opening and repeated full-quota batches.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
