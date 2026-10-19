@@ -1,14 +1,14 @@
 # Formatos, ambientes e limites — estado atual
 
-**Referência:** código de `SpreadsheetFormats`, `GoogleImport`, `ConversionVerifier`, `ReplacementCoordinator`, `WindowsLauncher` e políticas Windows no candidato alfa **0.9.37** ([estado e commit](RELEASE_STATUS.md)). Esta é a matriz vigente, não os limites históricos do piloto 0.7 ou a política de fidelidade da 0.9.30.
+**Referência:** código de `SpreadsheetFormats`, `GoogleImport`, `ConversionVerifier`, `ReplacementCoordinator`, `WindowsLauncher` e políticas Windows no candidato alfa **0.9.42** ([estado e commit](RELEASE_STATUS.md)). Esta é a matriz vigente, não os limites históricos do piloto 0.7 ou a política de fidelidade da 0.9.30.
 
 ## Entrada e destino
 
 | Extensão | Preparação antes do Drive | Critério para retirar o original |
 |---|---|---|
 | `.xlsx` | Validar pacote OOXML e enviar XLSX | Fonte local elegível; backup íntegro, associação e atalho verificados, sem VBA; não há certificação de todos os recursos visuais |
-| `.csv` | Identificar separador por conteúdo (vírgula, ponto e vírgula, TAB, pipe), decodificar UTF-8 estrito/CP1252 controlado e gerar XLSX com texto literal | Ambiguidade exige escolha **por importação**; verificação de texto até 60.000 registros/600.000 células; divergência parcial não impede sozinha a substituição |
-| `.tsv` | Ler texto estruturado com semântica de interpretação v2 e gerar XLSX com texto literal | Respeitar interpretação versionada por operação; 60.000 registros/600.000 células no formato novo, sem reinterpretação automática do documento remoto antigo |
+| `.csv` | Parser v4 sem cabeçalho obrigatório, coluna única, `sep=` exato, aspas/CRLF, quatro separadores e prévia | Até **100.000 registros e 2.000.000 células**; **diferença de valores impede substituição** |
+| `.tsv` | Parser v4 com campos entre aspas e multilinha, coluna única válida | Até **100.000 registros e 2.000.000 células**, com verificação de valores para substituição; versões antigas mantêm limites originais |
 | `.ods` | Validar assinatura/ZIP/mimetype e calcular coordenadas de células sem expandir caudas vazias repetidas; enviar **bytes ODS originais** | Fórmulas, datas, mesclagens e recursos complexos podem não ser preservados; isso não impede por si só substituição após importação confirmada. Estrutura inválida/scripts recusados; teste Google real pendente |
 | `.xls` | Binário: ExcelDataReader + NPOI para gerar XLSX. Alguns relatórios HTML nomeados `.xls` têm leitor HTML específico | Fórmulas/valores complexos podem mudar **e a origem ainda pode ser substituída** se a opção de XLS permitir. Macros não são executadas nem preservadas |
 
@@ -29,13 +29,18 @@ São bloqueios reais, não simples avisos: pacote inválido, script/estrutura re
 | Bytes de entrada e payload normalizado | 20 MiB (`20 × 1024 × 1024` bytes) |
 | Células processadas (outros formatos / interpretação antiga) | 500.000 |
 | Linhas (outros formatos / interpretação antiga) | 50.000 |
-| Células CSV/TSV com interpretação v2 | **600.000** |
-| Registros lógicos CSV/TSV com interpretação v2 | **60.000** |
+| Células CSV/TSV com interpretação v2 | 600.000 |
+| Registros CSV/TSV com interpretação v2 | 60.000 |
+| Células CSV/TSV com interpretação v3 | 1.000.000 |
+| Registros lógicos CSV/TSV com interpretação v3/v4 | 100.000 |
+| Células CSV/TSV com interpretação v4 | **2.000.000** |
 | Colunas | 1.000 |
 | Abas nos leitores aplicáveis | Até 100 |
 | Texto por célula/campo | 32.767 caracteres |
-| Conteúdo expandido de pacote ZIP | 96 MiB |
-| Parte XML individual | 64 MiB |
+| Conteúdo expandido de pacote ZIP (geral) | 96 MiB |
+| Parte XML individual (geral) | 64 MiB |
+| Pacote expandido para conferência de CSV/TSV | 160 MiB |
+| XML de aba para conferência de CSV/TSV | 128 MiB |
 | Resposta de exportação XLSX via Google | 10 MiB |
 | Metadados HTTP Google (com restrições adicionais por endpoint) | Até 1 MiB |
 | Checkpoints no diagnóstico por tentativa | 96 |
@@ -47,7 +52,7 @@ Todos os limites pertinentes se aplicam simultaneamente. Um arquivo abaixo de 20
 
 - Automático na interpretação v2: UTF-8 estrito, com ou sem BOM; UTF-16 LE/BE somente com BOM. Se **não houver BOM** e UTF-8 estrito falhar, um **fallback controlado para Windows-1252** é permitido, excluindo bytes indefinidos e controles incompatíveis com texto. Operações antigas com semântica v1 continuam com as regras de leitura anteriores.
 - Windows-1252 também pode ser escolhido **na janela específica da importação ou reparo**; não há seletor global atual em Opções avançadas. A seleção é rejeitada se conflitar com BOM.
-- CSV/TSV v2: reconhecer **vírgula, ponto e vírgula, TAB e barra vertical (pipe)** a partir da estrutura do conteúdo; ambiguidades requerem escolha explícita por importação.
+- CSV/TSV v4: reconhecer **vírgula, ponto e vírgula, TAB e barra vertical (pipe)**, cabeçalho opcional, coluna única quando válida; ambiguidade real usa escolha com prévia local. `sep=` só é aceito na primeira linha exata.
 - TSV com operação legada v1 preserva interpretação TAB da versão anterior.
 - Parser suporta campos vazios, aspas escapadas e quebras de linha em campo citado; largura irregular é rejeitada. **Registros lógicos não equivalem ao número de linhas físicas de arquivo**.
 - Todos os valores CSV/TSV são mantidos como **texto literal**, incluindo zeros à esquerda, números longos, datas escritas como texto e cadeias com `=`, `+`, `-` ou `@`. Essa regra evita execução de fórmulas na importação, mas também exige conversões manuais posteriores no Sheets quando desejadas.
@@ -82,6 +87,15 @@ O Google Sheets criado é a cópia de trabalho online. O backup da importação 
 
 ## Critério de verificação
 
-Quando o formato tem valores esperados, o aplicativo pode exportar o Sheets como XLSX e compará-los. Na **0.9.35**, diferenças representadas por `ConversionMismatchException` ou conteúdo não comparável marcam uma advertência interna e **não bloqueiam por si sós** a substituição. Falhas reais na exportação, associação remota, snapshot ou conteúdo estrutural ainda bloqueiam. A comparação não abrange gráficos, macros, formatação nem a semântica total das fórmulas.
+Quando o formato tem valores esperados, o aplicativo pode exportar o Sheets como XLSX e compará-los. Na **0.9.42**, diferenças `ConversionMismatchException` em **CSV/TSV** **bloqueiam a substituição**. Apenas formatos **não textuais**, como XLS/ODS, podem tratar diferenças de equivalência como advertência. Falhas reais na exportação, associação remota, snapshot ou conteúdo estrutural ainda bloqueiam. A comparação não abrange gráficos, macros, formatação nem a semântica total das fórmulas.
 
 **Interface atual:** os cinco formatos estão habilitados sem toggle. A seção **global** de formato/codificação/delimitador foi removida das Opções avançadas em 0.9.32; escolhas `formats.json` pré-existentes permanecem aplicáveis. Desde a 0.9.36 há um **seletor contextual de interpretação por importação** para casos ambíguos ou reparo, sem modificar operações remotas anteriores.
+
+
+## Especificações adicionais para 0.9.42
+
+O teto de **2.000.000 células** (incluindo vazias) aplica-se a CSV/TSV **v4**, até **100.000 registros**, **1.000 colunas**, 32.767 caracteres por célula e 20 MiB de origem/payload. XLS/ODS/XLSX não herdam esse aumento. Conferência textual: XML de aba de até **128 MiB** e pacote expandido de até **160 MiB**; não textuais: 64 MiB/96 MiB. Operações v1/v2/v3 mantêm formato de upload e semântica de interpretação previamente vinculados.
+
+Para CSV/TSV, **a comparação de valores deve passar para substituir o original**; diferentemente de XLS/ODS com recursos complexos, divergência textual é falha e não somente aviso. A exportação/comparação ocorre antes de publicar atalho novo.
+
+A limpeza por prazo e capacidade do backup é **automática, sem opção desativável**. Importações de arquivos diferentes podem avançar em paralelo. Falta comprovada de capacidade ativa espera específica de até 2 minutos; não há fila global durante rede ou upload. O limite de cota do backup em MB usa bytes decimais, enquanto tamanho de arquivo em MiB usa bytes binários.

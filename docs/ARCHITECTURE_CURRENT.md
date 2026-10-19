@@ -1,6 +1,6 @@
 # Arquitetura atual do ZagoSheetsWin
 
-**Base:** `feature/zagosheetswin`, candidato **0.9.37** em 18/10/2026 ([commit e evidências](RELEASE_STATUS.md)). Descrição da **implementação**, não do arquivo histórico [ARCHITECTURE.md](ARCHITECTURE.md), que nasceu como arquitetura-alvo. Não representa auditoria formal de segurança.
+**Base:** `feature/zagosheetswin`, candidato **0.9.42** em 18/10/2026 (19/10 UTC) ([commit e evidências](RELEASE_STATUS.md)). Descrição da **implementação**, não do arquivo histórico [ARCHITECTURE.md](ARCHITECTURE.md), que nasceu como arquitetura-alvo. Não representa auditoria formal de segurança.
 
 ## Organização do código
 
@@ -59,7 +59,7 @@ LocalPreparation --> GoogleImport --> GoogleDriveClient --> Google Drive API
 
 ## Interpretação de texto e reparo sem alterar documento anterior (0.9.36)
 
-A classe `SpreadsheetFormats` diferencia **v1 e v2** para CSV/TSV. A v2 identifica vírgula, ponto e vírgula, TAB ou pipe, oferece fallback CP1252 limitado e usa limites de 60.000 registros/600.000 células. A classe `ImportInterpretations` vincula a versão e `TextImportOptions` à identidade local da operação em SQLite; operações antigas com intenção remota conservam v1. `ConversionVerifier` recupera a interpretação da operação antes de comparar valores exportados.
+A classe `SpreadsheetFormats` mantém **v1–v4** para CSV/TSV; v2 introduziu 60.000/600.000, v3 100.000/1.000.000 e v4 **100.000/2.000.000**, conservando opções e payloads anteriores. A interpretação de novas importações não é aplicada silenciosamente a operações remotas antigas. A classe `ImportInterpretations` vincula a versão e `TextImportOptions` à identidade local da operação em SQLite; operações antigas com intenção remota conservam v1. `ConversionVerifier` recupera a interpretação da operação antes de comparar valores exportados.
 
 O reparo explícito usa `BackupRepairSource` para ler **bytes de backup íntegros** com identidade de operação nova (`repair:<uuid>`). `WindowsLauncher.RepairAsync` envia para um documento Google novo via `GoogleImport` e publica resultado como **cópia**, sem alterar o Google Sheets, atalho ou journal anterior. Locks, hash SHA-256 e disponibilidade do backup continuam necessários.
 
@@ -111,3 +111,14 @@ A origem foi o projeto MIT [Open in Google](https://github.com/SwatiK425/open-in
 ## Mudanças de arquitetura
 
 Alterações em identidade, OAuth, schema SQLite, backup, substituição ou política de ambientes exigem testes de regressão e revisão de migração. Não elimine dados persistentes para “corrigir” um upgrade e não deixe uma falha de logging decidir o resultado da importação.
+
+
+## Coordenador de capacidade, conferência e concorrência da 0.9.42
+
+`BackupPolicy` carrega `AutomaticCleanup=true` mesmo em configurações antigas, para compatibilidade. O toggle foi removido. Backups concluídos verificados são limpos por prazo e por cota, do mais antigo primeiro; pendentes/associações incertas ou fontes de reparo são protegidos.
+
+`BackupManagement.PrepareWithCapacityAsync` confere espaço e grava snapshot sob lock curto de manutenção (sem proteger rede). Só quando falta capacidade há espera coordenada por `backup-capacity-cleanup`, com rechecagem a cada 250 ms, cancelamento e limite de até **2 minutos**. Arquivos maiores que a cota falham imediatamente. A **fila global** introduzida na 0.9.40 foi removida em 0.9.42: diferentes arquivos podem ter importação/upload simultâneos. O lock de origem continua impedindo concorrência duplicada. `ImportQueue` é categoria legada de telemetria; `BackupCapacityWait` identifica espera real.
+
+`ConversionVerifier` propaga divergências em **CSV/TSV** antes de publicar o atalho/retirar a fonte; apenas formatos não CSV/TSV podem registrar diferenças como aviso da política de 0.9.33. O XLSX de conferência de texto tem XML por aba até 128 MiB e ZIP expandido até 160 MiB, mantendo outros formatos nos tetos anteriores. `GoogleRetry` permite retentativas controladas para erros de leitura 403 com motivos `rateLimitExceeded`/`userRateLimitExceeded`, 429 e 5xx, mas não faz novo POST de criação às cegas.
+
+**Não há aceite final do commit atual:** `Local core` do HEAD `c1dc8a5` falhou no job Windows; a distribuição protegida anterior falhou no teste extremo de quota. Ubuntu passou no HEAD.

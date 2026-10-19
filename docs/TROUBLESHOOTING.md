@@ -1,6 +1,6 @@
 # Solução de problemas e recuperação
 
-**Escopo:** ZagoSheetsWin alpha **0.9.37** ([evidências](RELEASE_STATUS.md)) em Windows. Antes de repetir operações, confirme a presença do arquivo original, atalho e backup. **Não exclua `%LOCALAPPDATA%\SheetsWindows` para tentar resolver problemas.** Isso pode eliminar associações ou material necessário à recuperação.
+**Escopo:** ZagoSheetsWin alpha **0.9.42** ([evidências](RELEASE_STATUS.md)) em Windows. Antes de repetir operações, confirme a presença do arquivo original, atalho e backup. **Não exclua `%LOCALAPPDATA%\SheetsWindows` para tentar resolver problemas.** Isso pode eliminar associações ou material necessário à recuperação.
 
 ## 1. A planilha não abre por duplo clique
 
@@ -32,7 +32,7 @@ Se o aviso vier do Google Auth Platform (modo Testing, revisão de marca, conta 
 
 1. Confira o arquivo e sua codificação: UTF-8 estrito, UTF-16 com BOM ou fallback limitado para Windows-1252 quando não houver BOM (CSV/TSV v2). Se necessário, escolha a codificação na **janela da tentativa**, não em um controle global antigo.
 2. A nova detecção analisa separadores **vírgula, ponto e vírgula, tabulação e pipe (`|`)**. Se surgir mensagem de ambiguidade, selecione o separador na janela de interpretação; confira campos entre aspas e linhas internas. Não edite arquivos internos.
-3. Confira limites: **20 MiB**, **60.000 registros lógicos e 600.000 células para novas interpretações CSV/TSV**, com até **1.000 colunas**. Outros formatos/operações legadas mantêm limites anteriores (50.000 linhas/500.000 células).
+3. Confira limites: **20 MiB**, **100.000 registros lógicos e 2.000.000 células para CSV/TSV v4**, até 1.000 colunas e 32.767 caracteres/célula. Células vazias contam. Outros formatos/versões antigas mantêm tetos anteriores.
 4. O programa mantém CSV/TSV como **texto literal**, inclusive zeros à esquerda e fórmulas escritas como texto. Isso é comportamento intencional.
 5. Se a interpretação já foi fixada para a operação anterior, **não exclua `formats.json` nem o banco**. Use **Backups → Mais ações → Reimportar em novo documento** para reparar uma importação antiga a partir do backup original, sem sobrescrever o Google Sheets existente.
 
@@ -86,7 +86,7 @@ O programa mantém associação, upload resumable e journal. Falhas transitória
 
 Verifique se a operação possui snapshot disponível e não teve backup excluído por limpeza/descarte confirmado. Restauração usa um destino novo e não sobrescreve arquivo existente. Se a limpeza já apagou o snapshot, o histórico e o Sheets remoto podem continuar, mas **não existe recuperação garantida dos bytes originais**.
 
-O prazo de 30 dias **não elimina backups sozinho**. A limpeza automática é opcional e acontece em operações futuras.
+A limpeza de backups concluídos agora é **automática por prazo e cota**, sem toggle, durante operações. Um backup concluído elegível pode ser removido antes dos 30 dias para liberar espaço. Backups pendentes/incertos continuam protegidos.
 
 ### Importação antiga interpretou colunas erradas — reparo explícito (0.9.36)
 
@@ -123,3 +123,14 @@ O JSONL exportado contém eventos tipados e etapas de processamento limitadas. N
 5. A desinstalação conserva dados do usuário por padrão. Se desejar remover os dados manualmente, faça isso somente depois de recuperar e verificar tudo o que importa.
 
 Abra um [issue no GitHub](https://github.com/zagozago/ZagoSheetsWin/issues) com versão, procedimento, resultado esperado e diagnóstico sanitizado, sem documentos privados ou segredos.
+
+
+## Casos novos 0.9.38–0.9.42
+
+**CSV/TSV com diferenças:** desde 0.9.38, valores incompatíveis com a planilha exportada do Google **bloqueiam substituição e publicação de novo atalho**. ODS/XLS conservam política separada de fidelidade parcial. Delimitadores ambíguos recebem **Escolher separador** com prévia de 3 linhas/12 colunas. CSV de coluna única, sem cabeçalho, e hint `sep=` exato podem ser válidos.
+
+**Várias planilhas:** 0.9.42 permite imports em paralelo de arquivos diferentes. `Aguardando espaço no backup…` indica falta real de quota; espera cancelável de até dois minutos. Backups concluídos podem ser rotacionados automaticamente. Se um único arquivo for maior que a quota, é recusado de imediato. Não apague journals, fontes ou arquivos `.session` para forçar importação.
+
+**403 Google:** só `rateLimitExceeded` e `userRateLimitExceeded` permitem retry controlado de leituras; erro de permissão não é rate-limit. `Retry-After` longo não pode ser antecipado. Criação incerta exige reconciliação pelo marcador anterior, sem novo upload cego.
+
+**Status do candidato:** CI Windows do commit `c1dc8a5` e distribuição protegida anterior `ceed7fb` não concluíram com sucesso. Consulte [estado de versão](RELEASE_STATUS.md) antes de considerar esse build validado.

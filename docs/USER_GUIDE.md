@@ -1,6 +1,6 @@
 # Manual do usuário — ZagoSheetsWin
 
-**Status:** documentação do comportamento implementado na 0.9.37, ainda em fase alfa. Veja a [referência central de versão e evidências](RELEASE_STATUS.md). Os procedimentos usam português técnico claro; nomes de botões podem variar conforme o idioma.
+**Status:** documentação do comportamento implementado na 0.9.42, ainda em fase alfa. Veja a [referência central de versão e evidências](RELEASE_STATUS.md). Os procedimentos usam português técnico claro; nomes de botões podem variar conforme o idioma.
 
 ## 1. O que o aplicativo faz
 
@@ -62,7 +62,7 @@ O programa lê o conteúdo antes de decidir o separador. Ele reconhece **vírgul
 
 Quando houver **ambiguidade**, o programa apresenta uma janela de interpretação para escolher delimitador e codificação **somente para aquela tentativa**. Isso não reintroduz um seletor global em Opções avançadas. O conteúdo é importado como **texto literal**, sem executar fórmulas.
 
-Os limites dos novos CSV/TSV são **60.000 registros lógicos, 600.000 células, 1.000 colunas e 20 MiB por arquivo**. A contagem de registros é **lógica**, ou seja, um campo com quebra de linha dentro de aspas não representa necessariamente outro registro. Os outros formatos mantêm os limites anteriores quando aplicáveis.
+Os limites atuais de CSV/TSV v4 são **100.000 registros lógicos, 2.000.000 células, 1.000 colunas e 20 MiB por arquivo/payload**, além de 32.767 caracteres/célula. Células vazias contam. Interpretadores antigos mantêm seus próprios limites. A contagem de registros é **lógica**, ou seja, um campo com quebra de linha dentro de aspas não representa necessariamente outro registro. Os outros formatos mantêm os limites anteriores quando aplicáveis.
 
 Se um erro permanente exigir corrigir o arquivo, salve a correção e depois tente novamente. Não repita automaticamente uma importação com erro estrutural antes de editar a fonte.
 
@@ -82,7 +82,7 @@ O tema inicial é **claro**. O usuário pode escolher o tema escuro e selecionar
 
 ## 8. Backups e restauração
 
-**Valores padrão:** 30 dias de retenção, quota de 200 MB e limpeza automática **desligada**. É possível configurar 1 a 365 dias e 1 a 1.000 MB. A retenção define elegibilidade para limpeza, não exclusão obrigatória na data exata. **Não existe botão Salvar regras:** as edições de dias, quota e limpeza são **salvas automaticamente**. A limpeza automática só é executada durante operações futuras do aplicativo, sem serviço residente.
+**Valores padrão:** 30 dias de retenção, cota de 200 MB e **limpeza automática sem opção de desativar**. É possível configurar 1–365 dias e 1–1.000 MB; retenção e cota salvam automaticamente. Backups concluídos e verificados podem ser removidos quando vencidos ou **antes**, para liberar espaço para nova captura. Pendentes, incertos e fontes de reparação continuam protegidos. Não há serviço residente.
 
 A tabela **Arquivo, Data, Tamanho, Estado** permite ordenar cada coluna ao clicar no cabeçalho. Um novo clique inverte a direção. Data e Tamanho têm ordenação por valores, não apenas por texto. Selecione uma ou várias **linhas inteiras**; não há caixas de seleção por linha. Use **Selecionar todos** e **Limpar seleção** quando necessário. A restauração individual exige que **um único** backup esteja selecionado.
 
@@ -141,3 +141,16 @@ As planilhas são enviadas diretamente às APIs Google; não passam por servidor
 Links: [Privacidade](https://zagotools.top/legal.html#privacidade), [Termos](https://zagotools.top/legal.html#termos), [Licenças](https://zagotools.top/legal.html#licencas) e [GitHub Issues](https://github.com/zagozago/ZagoSheetsWin/issues). O botão **Ajuda** da tela inicial já tenta abrir um endereço Zagotools, mas a publicação e o funcionamento dessa página não foram verificados; use estes manuais versionados como referência. Consulte o [plano de links](HELP_CENTER_PLAN.md).
 
 Licença MIT. Projeto derivado de [Open in Google](https://github.com/SwatiK425/open-in-google), de Swati K; atribuição preservada em `LICENSE` e `ATTRIBUTION.md`.
+
+
+## Mudanças vigentes 0.9.38–0.9.42
+
+**CSV/TSV:** o leitor v4 admite cabeçalho opcional, coluna única válida, aspas/multilinhas, dica `sep=` na primeira linha exata e quatro separadores. Ambiguidade genuína mostra **Escolher separador**, com prévia local de 3 linhas e 12 colunas. O teto chegou a **2 milhões de células**, até **100.000 registros lógicos**, mas respeita 20 MiB de origem/payload e 1.000 colunas. A versão da interpretação de operações antigas é preservada.
+
+**Fidelidade:** diferenças de valores em CSV/TSV, verificadas pela exportação do Google Sheets, **impedem retirar o original e publicar o novo atalho**; XLS/ODS continuam com política distinta de fidelidade parcial sob regras de backup/identidade. Não misture as duas políticas.
+
+**Backups:** limpeza automática por prazo e cota (não existe toggle). Um backup concluído elegível pode sair antes dos 30 dias para permitir outra captura, dos mais antigos primeiro. Se o espaço permanecer protegido, a operação informa erro de cota sem apagar o original.
+
+**Aberturas simultâneas:** na 0.9.42 arquivos diferentes podem importar **em paralelo**, pois a fila global da 0.9.40 foi removida. Só a **falta real de capacidade do backup** ativa espera cancelável de até **dois minutos**, enquanto outras importações podem avançar. Um arquivo maior que a cota é recusado de imediato. Não há promessa de latência nem garantia de êxito com Google real.
+
+**Segurança:** upload incerto deve ser conciliado pelo marcador original, sem outra criação cega. Atalho ausente em journal recuperável pode ser recriado com a URL vinculada e integridade confirmada, sem novo upload. O teste final protegido da 0.9.42 ainda está pendente.
