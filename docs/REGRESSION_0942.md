@@ -10,7 +10,7 @@ A captura mantém somente o lock local curto de manutenção, necessário para c
 
 A primeira tentativa de captura não entra em fila de importações. Apenas uma recusa por falta real de capacidade ativa o caminho de limpeza e nova tentativa local. A limpeza escolhe backups concluídos e verificados, do mais antigo para o mais recente; pendentes, desconhecidos, alterados e a origem de uma reparação continuam protegidos. Capturas concorrentes reconferem a cota sob lock antes de gravar. Não há retry de upload nesse mecanismo.
 
-A espera por capacidade reavalia os backups a cada 250 ms e admite cancelamento. Ela tem limite de espera de dois minutos entre tentativas; operações locais conservam também seus próprios timeouts. Se não houver espaço recuperável, a mensagem de cota continua necessária, preservando o original. Um arquivo sozinho maior que a cota é recusado imediatamente, sem criar uma operação nem apagar backups.
+A espera por capacidade reavalia os backups a cada 250 ms e admite cancelamento. Os processos que aguardam não repetem a preparação enquanto o espaço continua ocupado. Um único aguardante por perfil inspeciona o catálogo por vez; se o espaço ainda está protegido, ele mantém somente esse lock de limpeza por um intervalo de 250 ms, liberando os locks de origem e manutenção para que uploads e conclusões avancem. A captura ocorre fora desse lock de limpeza, preservando a ordem dos locks em reparações. Ela tem limite de espera de dois minutos entre tentativas; operações locais conservam também seus próprios timeouts. Se não houver espaço recuperável, a mensagem de cota continua necessária, preservando o original. Um arquivo sozinho maior que a cota é recusado imediatamente, sem criar uma operação nem apagar backups.
 
 A limpeza automática pula fontes ocupadas, em vez de esperar seus locks. Isso evita inversão de locks com reparações que precisam manter seu backup de origem protegido. A exclusão manual conserva sua espera e suas verificações. A retenção automática é aplicada depois de uma importação bem-sucedida; rotação por capacidade ocorre somente quando falta espaço.
 
@@ -30,3 +30,5 @@ Somente o quadro de estatísticas de Backups passa de 10 para 8 pontos. Negrito,
 - Catálogo: 14 testes aprovados; geração dos 51 idiomas e auditoria estática aprovadas.
 
 Validação local Release: 350 testes aprovados, 43 exclusivos de Windows ignorados, total 393, nenhuma falha. Os resultados Windows/instalador serão registrados após o Actions. Os ensaios de concorrência usam uma barreira local; não medem latência real nem garantem disponibilidade/cota do Google.
+
+A primeira validação Windows (39180414738) detectou estouro do orçamento de 45 segundos no lote de 20 arquivos com cota cheia; 391 outros testes passaram. A coordenação foi refinada para evitar novas escritas de falha e varreduras concorrentes enquanto a cota permanece ocupada. O orçamento do teste foi mantido.

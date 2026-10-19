@@ -71,10 +71,12 @@ public sealed class BackupCapacityTests
         var other = Path.Combine(w.Root, "waiting.csv"); File.WriteAllBytes(other, new byte[600_000]);
         var waiting = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         using var cancel = new CancellationTokenSource();
+        var preparationAttempts = 0;
         var task = new BackupManagement(storage).PrepareWithCapacityAsync(
-            () => storage.CreatePreparation().PrepareAsync("A", other, cancel.Token), 600_000,
+            () => { Interlocked.Increment(ref preparationAttempts); return storage.CreatePreparation().PrepareAsync("A", other, cancel.Token); }, 600_000,
             waiting: () => waiting.SetResult(), ct: cancel.Token);
         await waiting.Task.WaitAsync(TimeSpan.FromSeconds(10));
+        await Task.Delay(600); Assert.Equal(1, preparationAttempts);
         cancel.Cancel(); await Assert.ThrowsAnyAsync<OperationCanceledException>(() => task);
         await using var source = new SourceReader().Open(other);
         await using var heldSource = await new FileOperationLock(storage.LocksPath).AcquireAsync(source.Source.IdentityKey);

@@ -129,14 +129,34 @@ public sealed class BackupManagement(LocalStorage storage, Func<DateTimeOffset>?
         catch (BackupQuotaException) when (incomingBytes <= BackupPolicy.Load(storage).QuotaBytes) { }
         waiting?.Invoke();
         var timer = System.Diagnostics.Stopwatch.StartNew();
+        var capacityLocks = new FileOperationLock(storage.LocksPath);
+        async ValueTask<bool> HasRoomAsync()
+        {
+            // Do not enqueue quota polling behind capture/completion. No registry writes
+            // or failed preparation attempts are needed while disk usage is unchanged.
+            await using var held = capacityLocks.TryAcquire(LockKey);
+            return held is not null && UsedBytes() + incomingBytes <= BackupPolicy.Load(storage).QuotaBytes;
+        }
         while (true)
         {
             ct.ThrowIfCancellationRequested();
-            // Each deletion rechecks its state under source/maintenance locks. Automatic
-            // cleanup skips busy sources, so no quota waiter blocks a finishing import.
-            await MakeRoomAsync(incomingBytes, ct, excludeId);
-            try { return await prepare(); }
-            catch (BackupQuotaException) { }
+            if (!await HasRoomAsync())
+            {
+                // Only one quota waiter scans the catalog. While all eligible space is
+                // still protected, retain just this cleanup handle for one polling tick.
+                // Source/maintenance handles are released; active uploads can finish.
+                await using var cleaner = capacityLocks.TryAcquire("backup-capacity-cleanup");
+                if (cleaner is not null)
+                {
+                    await MakeRoomAsync(incomingBytes, ct, excludeId);
+                    if (!await HasRoomAsync()) await Task.Delay(250, ct);
+                }
+            }
+            if (await HasRoomAsync())
+            {
+                try { return await prepare(); }
+                catch (BackupQuotaException) { } // Another capture won the available space.
+            }
             if (timer.Elapsed >= TimeSpan.FromMinutes(2)) throw new BackupQuotaException();
             // Pending uploads remain protected. Their completed backups become eligible
             // on a later pass; cancellation releases the wait without touching originals.
