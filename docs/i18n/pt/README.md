@@ -1,16 +1,14 @@
 # ZagoSheetsWin
 
-> ⚠️ **Alfa 0.9.42 — atualização importante; conteúdo completo ainda em revisão.**
+> ⚠️ **Alfa 0.9.43 — atualização de segurança.**
 >
 > Planilha aberta no Google Sheets. O original foi substituído por um atalho. Para recuperá-lo, abra Backups.
 >
-> **CSV/TSV v4:** até **2.000.000 de células**, **100.000 registros lógicos**, 1.000 colunas e 20 MiB, sujeitos a outros limites. Ambiguidade de separador apresenta prévia local. Se a conferência dos valores convertidos no Google encontrar divergências, **o original não deve ser substituído por um atalho**.
+> **CSV/TSV v4:** até **2.000.000 de células**, 100.000 registros lógicos, 1.000 colunas e 20 MiB, sujeitos aos demais limites. Divergência de valores na conferência do Google **impede substituir o original**. Para XLS/ODS, recursos complexos ainda podem sofrer alterações em importação confirmada; confira o resultado.
 >
-> **XLS/ODS:** recursos complexos podem perder fidelidade e, ainda assim, o original **pode** ser substituído após importação confirmada. O backup mantém os bytes originais. Se quiser conservar o arquivo na pasta, escolha **Importar como cópia** antes de abrir.
+> **Backups na 0.9.43:** a limpeza é **EXCLUSIVAMENTE MANUAL**, não automática por prazo ou cota. Se não houver espaço de backup, a importação falha rapidamente e **preserva o arquivo original e os backups existentes**. Use **Backups → Limpar expirados** ou exclua explicitamente backups concluídos elegíveis. Não há espera por capacidade, rotação automática nem fila global; arquivos diferentes podem importar em paralelo.
 >
-> **Backups:** limpeza por prazo e cota **automática e sem toggle**. Backups concluídos elegíveis podem ser removidos antes de vencer o prazo para liberar espaço. Arquivos diferentes podem importar em paralelo; somente falta real de espaço gera espera cancelável.
->
-> **Estado da versão:** 0.9.42 **não é estável**. O último CI Windows e a distribuição protegida anterior tiveram falhas; a homologação com Google real permanece pendente. O restante desta página pode descrever versões alfa antigas. Consulte o [README canônico](../../../README.md) ou o [manual atual](../../USER_GUIDE.md).
+> **Confiabilidade:** uso de memória reduzido no envio do snapshot, reconciliação remota sem criação duplicada, botão **Fechar** para falhas por falta de memória e janela principal fixa com altura menor. O [CI local](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495162) e a [distribuição protegida](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298) passaram no commit `9fbec2a`. A homologação no Google real ainda é necessária. **Não é um lançamento estável 1.0.0**. Algumas explicações abaixo são históricas; consulte o [README vigente](../../../README.md) e o [manual do usuário](../../USER_GUIDE.md).
 
 <details>
 <summary>🌐 Idiomas da documentação · Escolha seu idioma</summary>
