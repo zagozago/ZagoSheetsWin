@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.43: validated manual backup quota, parallel admission and stable restored window.
+# Distribution candidate 0.9.43: home-height-only visual adjustment; import and backup code unchanged.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
