@@ -1,8 +1,8 @@
 # Changelog — ZagoSheetsWin
 
-As alterações significativas são registradas aqui em ordem cronológica inversa, seguindo as categorias **Added**, **Changed**, **Fixed**, **Security** e **Known limitations** do [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). As versões anteriores a 1.0.0 são **marcos do desenvolvimento alfa**, não GitHub Releases. Este histórico foi revisado em **18/10/2026 (19/10 UTC)** usando commits, código, documentos de fase e metadados do repositório.
+As alterações significativas são registradas aqui em ordem cronológica inversa, seguindo as categorias **Added**, **Changed**, **Fixed**, **Security** e **Known limitations** do [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). As versões anteriores a 1.0.0 são **marcos do desenvolvimento alfa**, não GitHub Releases. Este histórico foi revisado em **19/10/2026 (20/10 UTC)** usando commits, código, documentos de fase e metadados do repositório.
 
-**Não há tags de versão nem Releases publicadas no GitHub na consulta de 18/10/2026 (19/10 UTC).** GitHub Actions produz candidatos e artefatos temporários, mas uma execução bem-sucedida não constitui lançamento público nem aceite com Google real. Não confundir versão declarada no código com Release publicada.
+**Não há tags de versão nem Releases publicadas no GitHub na consulta de 19/10/2026 (20/10 UTC).** GitHub Actions produz candidatos e artefatos temporários, mas uma execução bem-sucedida não constitui lançamento público nem aceite com Google real. Não confundir versão declarada no código com Release publicada.
 
 ## [Unreleased] — preparação para 1.0.0
 
@@ -10,6 +10,28 @@ As alterações significativas são registradas aqui em ordem cronológica inver
 - **Pending:** homologar fluxos reais de OAuth/Drive no Windows, compatibilidade de ODS complexos e importações com conversão parcial, validar reparo e seleção de interpretador com conta Google real, revisão editorial dos READMEs internacionais, elegibilidade de licenças e eventual assinatura do instalador.
 - **Not done:** publicar 1.0.0, criar tag ou Release, certificar segurança, afirmar suporte universal a ODS.
 - Alterações de documentação **não** aumentam a versão do aplicativo.
+
+## [0.9.43] — candidato alfa, 19/10/2026 (20/10 UTC)
+
+Referência de código: [9fbec2a](https://github.com/zagozago/ZagoSheetsWin/commit/9fbec2add18c012012405b56a333f6e49248a6e5). Commits de produto: [4555ead](https://github.com/zagozago/ZagoSheetsWin/commit/4555eadc67aa0473412ca788472f815017e57fa9), [038ce08](https://github.com/zagozago/ZagoSheetsWin/commit/038ce08d3a9a5acfb68c5f5baac5bde33b53de36), [788b4c7](https://github.com/zagozago/ZagoSheetsWin/commit/788b4c7f1f31c62f8a751944c19fbe61988d6faf), [1fba728](https://github.com/zagozago/ZagoSheetsWin/commit/1fba7286f447694fe7711753bfce5c04e9935c3e) e ajuste final [9fbec2a](https://github.com/zagozago/ZagoSheetsWin/commit/9fbec2add18c012012405b56a333f6e49248a6e5). Documento técnico [REGRESSION_0943.md](docs/REGRESSION_0943.md).
+
+### Changed — política de backups, **revogando a limpeza automática da 0.9.40–0.9.42**
+- **Limpeza exclusivamente manual:** nenhuma rotação de backups concluídos por quota, nenhuma limpeza por prazo após importação, nenhuma espera por liberação de capacidade. A ação **Limpar expirados** usa os dias de retenção configurados; também é possível selecionar e apagar backups concluídos de forma explícita. Estados pendentes/incertos são preservados.
+- **Quota imediata:** se não houver capacidade suficiente, a captura falha prontamente, preserva o original e orienta limpeza manual em Backups. Lock curto de snapshot e checagem atômica de quota continuam protegendo capturas concorrentes; **uploads de fontes diferentes permanecem paralelos**, sem fila global/limite arbitrário de quantidade.
+- Configurações numéricas de retenção/quota seguem com salvamento automático; campo legado `AutomaticCleanup` persiste para leitura de arquivos antigos, mas é carregado como **false**. Sem toggle na interface.
+
+### Fixed — memória, associação e interface
+- Usar um único buffer de tamanho exato para os bytes do snapshot enviados ao importador, reduzindo uma duplicação de memória; remover varreduras de manutenção antes/depois de cada importação.
+- Conferir a pasta Google existente **uma única vez** sob a validação atual, eliminando GET redundante. Em resposta remota incerta, até **duas consultas limitadas** pelo marcador da operação, **sem outra criação/sessão**. O diagnóstico registra apenas status numérico dos ACKs.
+- Falhas por falta de memória seguem caminho de baixo custo, sem serialização diagnóstica e sem construir a UI de retry; a janela de processamento oferece **Fechar** com texto de erro previamente preparado. Isso não promete memória ilimitada para conversões paralelas.
+- Manter janela inicial com borda fixa, minimizar disponível, maximizar/redimensionar indisponíveis, posicionamento responsivo e tratamento seguro de minimização/restauração.
+- Ajuste final do commit `9fbec2a`: reduzir **apenas a altura do cliente da janela Home de 240 para 192 px** para eliminar espaço inferior excessivo, sem mudar o processamento de arquivos.
+
+### Verificação — aprovada no SHA de referência
+- [Local core #39346495162](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495162) em `9fbec2a`: **Windows e Ubuntu concluídos com sucesso**.
+- [Protected alpha distribution #39346495298](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298) no **mesmo SHA `9fbec2a`**: **concluída com sucesso**. Publicou artefatos de instalador `ZagoSheetsWin-Setup-win-x64`, launcher `ZagoSheetsWin-win-x64`, diagnósticos de teste e conferência de idioma. **Artefatos de Actions não são GitHub Releases.**
+- [Relatório 0.9.43](docs/REGRESSION_0943.md) registra validação anterior no `788b4c7`: **398 testes aprovados + 1 ignorado no Windows; 355 aprovados + 44 ignorados no Linux**, catálogos/segurança/instalação/51 idiomas; resultados específicos do HEAD final são indicados pelos workflows bem-sucedidos, sem assumir a mesma contagem.
+- **Ainda pendente:** homologação de lotes no Windows do usuário e importação Google real, casos complexos de ODS, revisão editorial das traduções, avaliação de assinatura/infra e aceite para 1.0.
 
 ## [0.9.42] — candidato alfa, 18/10/2026 (19/10 UTC)
 
