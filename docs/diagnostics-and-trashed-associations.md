@@ -1,4 +1,4 @@
-# Diagnostics, trashed associations and safe repair (current through 0.9.42)
+# Diagnostics, trashed associations and safe repair (current through 0.9.43)
 
 **Updated 18 October 2026.** For the alpha 0.9.36 implementation evidence see [IMPORT_REVIEW_0936.md](IMPORT_REVIEW_0936.md). The older trashed-association behavior described below remains relevant; new interpretation/revalidation rules must also be considered.
 
@@ -31,8 +31,16 @@ At most 96 checkpoints are retained per attempt. The existing four files of 64 K
 
 ## Retentativas remotas e quotas na 0.9.42
 
-O diagnóstico incorpora razões de falha de capacidade/backup separadas de acesso a arquivo. A telemetria da fila global `ImportQueue` permanece legível em históricos, mas **não é uma fila de importação vigente**. `BackupCapacityWait` identifica a espera por espaço real, rechecado a cada 250 ms com cancelamento/prazo.
+O diagnóstico conserva razões de falha de cota separadas de acesso a arquivo. `ImportQueue` e `BackupCapacityWait` podem constar em **históricos de versões anteriores**, mas na 0.9.43 **não existe fila global, espera por capacidade nem polling de 250 ms**. Quota insuficiente gera falha rápida e orientação de limpeza manual.
 
 Nas leituras Google, retries controlados aceitam motivos 403 `rateLimitExceeded`/`userRateLimitExceeded` e regras 429/5xx, com limite de `Retry-After`; não repetir POST de criação. Mensagens de API brutas e planilhas continuam fora do JSONL. O diagnóstico da tentativa continua distinto do histórico geral.
 
-**Estado da distribuição:** `39181854241` (protegida) falhou por watchdog de teste de lote; `39189870249` (Local core HEAD) falhou em Windows e passou em Ubuntu. Não inferir que uma falha de teste é sempre erro de quota real.
+**Estado da distribuição vigente:** [Local core #39346495162](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495162) e [Protected alpha distribution #39346495298](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298) passaram em `9fbec2a`. Falhas das execuções de 0.9.42 são históricas; nenhum workflow comprova sozinho importação com Google real.
+
+## Upload incerto e falha de memória (0.9.43)
+
+Quando a sessão de upload recebe confirmação ambígua, o programa faz **até duas consultas somente-leitura** ao marcador persistido da mesma operação, sem novo POST de criação ou nova sessão. A telemetria dos reconhecimentos de sessão armazena **apenas o código HTTP numérico**, não cabeçalhos ou conteúdo arbitrário.
+
+Em `OutOfMemoryException`, o `ProcessingForm` usa a mensagem terminal pré-calculada com botão **Fechar**, **sem** serializar rastros JSONL ou reconstruir controles de repetição. O diagnóstico pode ficar incompleto durante memória insuficiente; sua ausência não comprova ausência de erro. Essa proteção também não implica que lotes simultâneos ilimitados caibam na RAM.
+
+**Backups:** não há limpeza automática no fluxo da 0.9.43. Uma falha de cota não remove snapshots concluídos nem arquivos originais; limpar espaço é ação expressa do usuário em Backups.

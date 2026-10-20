@@ -4,7 +4,7 @@ ZagoSheetsWin is free and open-source software under the MIT license. It is deve
 
 ## Which branch?
 
-As of 18 October 2026, **`feature/zagosheetswin`** contains the current C#/.NET application (alpha 0.9.42; final CI Windows currently failing); the default `main` historically carries the international README and 50 translations, not this application. **Choose your PR base deliberately.** Do not assume `main` contains a stable release. Version 1.0.0 has not been published.
+As of 19 October 2026, **`feature/zagosheetswin`** contains the current C#/.NET application (alpha 0.9.43; Windows/Linux CI and protected distribution successful at 9fbec2a); the default `main` historically carries the international README and 50 translations, not this application. **Choose your PR base deliberately.** Do not assume `main` contains a stable release. Version 1.0.0 has not been published.
 
 For software changes, branch from the current application branch; for documentation changes, prefer the current documentation consolidation branch while it is under review. Avoid mixing source refactors and documentation cleanup in the same commit.
 
@@ -80,10 +80,13 @@ A passing dependency audit, a SHA-256 checksum, and a signed binary are differen
 Historical engineering notes may remain in Portuguese; translating them is not a prerequisite for external contributors. Report security vulnerabilities responsibly rather than publishing secrets in a PR or issue.
 
 
-## Current 0.9.42 change-control expectations
+## Current 0.9.43 change-control expectations
 
 - **CSV/TSV v4:** 100,000 rows / 2,000,000 cells, with 1,000 columns and 20 MiB source/payload; v1–v3 unchanged. Test exported XML budget 128 MiB/160 MiB text-only, empty cells and literal values.
-- **Backup management:** automatic expiry and quota cleanup without a toggle. Never remove pending/unknown/repair-source backup; serialize only snapshot capacity operations, not whole import.
-- **Concurrency:** different source identities progress concurrently; quota wait is cancellable and lasts up to 2 min per attempt. No global import queue in current implementation.
+- **Backup management:** cleanup is **manual only**. Do not reintroduce automatic retention cleanup, quota rotation, capacity polling or maintenance after import without an explicit product decision. Retain atomic snapshot quota admission; quota failures preserve source and all earlier backup data.
+- **Concurrency:** different source identities progress concurrently; **there is no backup-capacity wait** and no global import queue. Keep locks on source identity and a short atomic quota/snapshot section.
 - **Google retry:** rate-limit 403 only for recognized API reasons on reads, not arbitrary 403 or remote POST.
-- **Release gates:** resolve HEAD CI Windows failure and rerun protected distribution on the exact code SHA. Evidence from earlier green versions is not approval of 0.9.42.
+- **Release gates:** [Local core 39346495162](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495162) and [protected distribution 39346495298](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298) passed on the exact 0.9.43 SHA `9fbec2a`; still validate real Google imports, signed artifact status and 1.0 release commit separately.
+
+- **Low-memory UI:** simulate `OutOfMemoryException` and verify minimal **Close** path without attempts to serialize logs or construct more controls; test home window fixed-size/minimize/restore and 500×192 client dimensions.
+- **Remote uncertainty:** marker reconciliation may perform two bounded read-only rechecks, never an extra POST/upload session. Avoid sensitive details in HTTP acknowledgment logs.

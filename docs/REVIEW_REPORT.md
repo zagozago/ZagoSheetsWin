@@ -1,6 +1,6 @@
 # Auditoria e consolidação documental — preparação 1.0.0
 
-**Revisão inicial:** 15/10/2026; **atualização:** 17/10/2026. **Base de código inicial:** `feature/zagosheetswin` commit `6a019318f64c1068ebd5ece4932320535b24f629`. **Base da atualização 0.9.35:** `9929524e67fea42c8940ae27b41f80963479c490`. **Base verificada 0.9.37 (18/10/2026):** `f58b630263cdee07e473a54ee40ff6d3beafe4f6`. **Base 0.9.42 (19/10 UTC):** `c1dc8a501209ce37d1f65c141ad30498146296af` (CI Windows ainda vermelho). **README internacional:** `main` commit `057ef77e0e79af197bb2c6c3f7b28fee1b8c0b02`. **Forma de entrega:** branch isolada e PR para a branch de desenvolvimento; **sem publicar tag/Release 1.0.0**.
+**Revisão inicial:** 15/10/2026; **atualização:** 17/10/2026. **Base de código inicial:** `feature/zagosheetswin` commit `6a019318f64c1068ebd5ece4932320535b24f629`. **Base da atualização 0.9.35:** `9929524e67fea42c8940ae27b41f80963479c490`. **Base verificada 0.9.37 (18/10/2026):** `f58b630263cdee07e473a54ee40ff6d3beafe4f6`. **Base 0.9.42 (19/10 UTC):** `c1dc8a501209ce37d1f65c141ad30498146296af` (CI Windows vermelho naquela execução). **Base atual 0.9.43:** `9fbec2add18c012012405b56a333f6e49248a6e5`, **Local core e distribuição protegida aprovados**. **README internacional:** `main` commit `057ef77e0e79af197bb2c6c3f7b28fee1b8c0b02`. **Forma de entrega:** branch isolada e PR para a branch de desenvolvimento; **sem publicar tag/Release 1.0.0**.
 
 ## Constatações e decisões
 
@@ -62,7 +62,7 @@
 - [PR #12](https://github.com/zagozago/ZagoSheetsWin/pull/12): propõe botão Ajuda abrindo URL futura. Este PR não modifica essa ação; o domínio/caminho deve ser confirmado primeiro.
 
 
-## Mudanças auditadas até 0.9.42
+## Mudanças auditadas até 0.9.43
 
 - **0.9.38:** interpretação v3 até 1M células, escolha de separador com prévia e gramática ampliada; **CSV/TSV passam a exigir conferência de valores para retirar o original**, diferente de XLS/ODS.
 - **0.9.39:** leitor v4 corrige coluna única/campos citados/CRLF, ação `Escolher separador` e restauração segura de atalho perdido; rotação da cota por backups concluídos.
@@ -71,3 +71,11 @@
 - **0.9.42:** removida fila global, importações diferentes paralelas e espera **apenas quando falta capacidade real de backup**, com coordenação/cancelamento/prazo. Último CI Windows falhou no commit `c1dc8a5`, distribuição anterior falhou no watchdog de quota. **Não afirmar candidato pronto**.
 - Fontes: [0.9.38](REGRESSION_0938.md), [0.9.39](REGRESSION_0939.md), [0.9.40](REGRESSION_0940.md), [0.9.41](REGRESSION_0941.md), [0.9.42](REGRESSION_0942.md), além de fontes C# e workflow GitHub. Nenhuma dessas evidências representa homologação Google real, assinatura ou certificação.
 - Histórico de licenças, 51 idiomas, créditos MIT/Swati K e identidade Zagotools mantidos; nenhuma credencial alterada pelo PR.
+
+### Conciliação da versão 0.9.43 (19/10 local — 20/10 UTC)
+
+O [relatório `REGRESSION_0943.md`](REGRESSION_0943.md) registra **rollback explícito** da política de backups: não se aplica mais limpeza por prazo após importações nem rotação por quota. **Limpeza apenas manual.** `BackupPolicy.AutomaticCleanup` volta a `false` ao carregar preferências antigas e o toggle segue ausente. Quota excedida retorna falha imediata preservando original/backup, enquanto capturas usam trava curta atômica.
+
+A versão manteve importações paralelas entre arquivos diferentes e os limites de 2 milhões de células CSV/TSV. Resposta de sessão remota ambígua admite até duas consultas somente-leitura ao marcador, sem duplicação de criação; byte buffer de upload foi simplificado, leitura de pasta existente não duplica GET e erros por falta de RAM usam UI mínima com **Fechar**. Janela principal sem redimensionamento ganhou ajuste de `ClientSize` de 500×240 para **500×192**, restrito à Home.
+
+**Evidência verificável:** [Local core #39346495162](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495162) e [Protected alpha distribution #39346495298](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298) aprovaram o mesmo commit `9fbec2a`, com pacotes de instalador/launcher e testes de idioma. Não se infere sucesso de testes Google reais, assinatura pública, compatibilidade universal de ODS nem conclusão de revisão editorial.
