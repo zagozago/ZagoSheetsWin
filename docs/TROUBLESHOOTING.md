@@ -1,6 +1,6 @@
 # Solução de problemas e recuperação
 
-**Escopo:** ZagoSheetsWin alpha **0.9.42** ([evidências](RELEASE_STATUS.md)) em Windows. Antes de repetir operações, confirme a presença do arquivo original, atalho e backup. **Não exclua `%LOCALAPPDATA%\SheetsWindows` para tentar resolver problemas.** Isso pode eliminar associações ou material necessário à recuperação.
+**Escopo:** ZagoSheetsWin alpha **0.9.43** ([evidências](RELEASE_STATUS.md)) em Windows. Antes de repetir operações, confirme a presença do arquivo original, atalho e backup. **Não exclua `%LOCALAPPDATA%\SheetsWindows` para tentar resolver problemas.** Isso pode eliminar associações ou material necessário à recuperação.
 
 ## 1. A planilha não abre por duplo clique
 
@@ -86,7 +86,7 @@ O programa mantém associação, upload resumable e journal. Falhas transitória
 
 Verifique se a operação possui snapshot disponível e não teve backup excluído por limpeza/descarte confirmado. Restauração usa um destino novo e não sobrescreve arquivo existente. Se a limpeza já apagou o snapshot, o histórico e o Sheets remoto podem continuar, mas **não existe recuperação garantida dos bytes originais**.
 
-A limpeza de backups concluídos agora é **automática por prazo e cota**, sem toggle, durante operações. Um backup concluído elegível pode ser removido antes dos 30 dias para liberar espaço. Backups pendentes/incertos continuam protegidos.
+**Na 0.9.43 a limpeza é manual:** nenhuma importação elimina backups automaticamente por prazo ou cota. Os 30 dias apenas definem quais backups concluídos são elegíveis à ação **Limpar expirados**. Você também pode selecionar backups concluídos para exclusão explícita. Backups pendentes/incertos permanecem protegidos.
 
 ### Importação antiga interpretou colunas erradas — reparo explícito (0.9.36)
 
@@ -129,8 +129,19 @@ Abra um [issue no GitHub](https://github.com/zagozago/ZagoSheetsWin/issues) com 
 
 **CSV/TSV com diferenças:** desde 0.9.38, valores incompatíveis com a planilha exportada do Google **bloqueiam substituição e publicação de novo atalho**. ODS/XLS conservam política separada de fidelidade parcial. Delimitadores ambíguos recebem **Escolher separador** com prévia de 3 linhas/12 colunas. CSV de coluna única, sem cabeçalho, e hint `sep=` exato podem ser válidos.
 
-**Várias planilhas:** 0.9.42 permite imports em paralelo de arquivos diferentes. `Aguardando espaço no backup…` indica falta real de quota; espera cancelável de até dois minutos. Backups concluídos podem ser rotacionados automaticamente. Se um único arquivo for maior que a quota, é recusado de imediato. Não apague journals, fontes ou arquivos `.session` para forçar importação.
+**Várias planilhas:** arquivos de origem diferentes continuam podendo importar em paralelo na 0.9.43. **Não há mais mensagem de espera por cota, polling de dois minutos nem rotação automática de backups.** Se faltar capacidade, ocorre erro prontamente e o arquivo original permanece. Abra **Backups** e libere espaço **manualmente**, se houver backups concluídos elegíveis. Arquivo maior que a própria quota também é recusado. Não apague journals, fontes ou arquivos `.session` para forçar importação.
 
 **403 Google:** só `rateLimitExceeded` e `userRateLimitExceeded` permitem retry controlado de leituras; erro de permissão não é rate-limit. `Retry-After` longo não pode ser antecipado. Criação incerta exige reconciliação pelo marcador anterior, sem novo upload cego.
 
-**Status do candidato:** CI Windows do commit `c1dc8a5` e distribuição protegida anterior `ceed7fb` não concluíram com sucesso. Consulte [estado de versão](RELEASE_STATUS.md) antes de considerar esse build validado.
+**Estado do build atual:** os erros de CI da 0.9.42 são históricos. No commit `9fbec2a` da **0.9.43**, [Local core](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495162) e [distribuição protegida](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298) passaram. Ainda é necessário testar o pacote no Windows do usuário e em Google real.
+
+
+## Falha por memória insuficiente ou erro de cota na 0.9.43
+
+**Memória insuficiente:** o software agora tenta apresentar um erro simplificado com botão **Fechar**, sem serializar diagnósticos/abrir formulário de repetição que demande memória adicional. Esse tratamento não comprova qual tarefa consumiu a RAM nem garante que um arquivo enorme seja processado com sucesso. Evite iniciar várias conversões pesadas de uma vez; preserve os arquivos originais e backups.
+
+**Cota cheia:** o sistema **não apaga automaticamente backups concluídos e não aguarda que outras importações liberem espaço**. Abre o erro de quota com orientação de limpeza manual. Vá a **Backups**, verifique a disponibilidade, selecione/exclua backups concluídos somente se desejar ou use **Limpar expirados** conforme a retenção. Repita a operação somente depois de haver espaço e sem apagar estado/journal.
+
+**Upload com resposta incompleta:** podem ocorrer até duas reconsultas ao marcador remoto existente. Não renomeie nem apague o arquivo para criar uma importação diferente; preserve o estado e retome a mesma operação quando for apropriado.
+
+**Margem inferior da janela principal:** na 0.9.43, a área cliente da Home foi reduzida de 240 para **192 px** de altura, sem desbloquear maximização/redimensionamento e mantendo minimizar disponível. Se houver corte de botões em DPI/idioma específico, documente captura e idioma; não altere manualmente arquivos de configuração para tentar corrigir a janela.

@@ -1,6 +1,6 @@
 # Formatos, ambientes e limites — estado atual
 
-**Referência:** código de `SpreadsheetFormats`, `GoogleImport`, `ConversionVerifier`, `ReplacementCoordinator`, `WindowsLauncher` e políticas Windows no candidato alfa **0.9.42** ([estado e commit](RELEASE_STATUS.md)). Esta é a matriz vigente, não os limites históricos do piloto 0.7 ou a política de fidelidade da 0.9.30.
+**Referência:** código de `SpreadsheetFormats`, `GoogleImport`, `ConversionVerifier`, `ReplacementCoordinator`, `WindowsLauncher` e políticas Windows no candidato alfa **0.9.43** ([estado e commit](RELEASE_STATUS.md)). Esta é a matriz vigente, não os limites históricos do piloto 0.7 ou a política de fidelidade da 0.9.30.
 
 ## Entrada e destino
 
@@ -92,10 +92,19 @@ Quando o formato tem valores esperados, o aplicativo pode exportar o Sheets como
 **Interface atual:** os cinco formatos estão habilitados sem toggle. A seção **global** de formato/codificação/delimitador foi removida das Opções avançadas em 0.9.32; escolhas `formats.json` pré-existentes permanecem aplicáveis. Desde a 0.9.36 há um **seletor contextual de interpretação por importação** para casos ambíguos ou reparo, sem modificar operações remotas anteriores.
 
 
-## Especificações adicionais para 0.9.42
+## Especificações de CSV/TSV v4 (vigentes na 0.9.43)
 
 O teto de **2.000.000 células** (incluindo vazias) aplica-se a CSV/TSV **v4**, até **100.000 registros**, **1.000 colunas**, 32.767 caracteres por célula e 20 MiB de origem/payload. XLS/ODS/XLSX não herdam esse aumento. Conferência textual: XML de aba de até **128 MiB** e pacote expandido de até **160 MiB**; não textuais: 64 MiB/96 MiB. Operações v1/v2/v3 mantêm formato de upload e semântica de interpretação previamente vinculados.
 
 Para CSV/TSV, **a comparação de valores deve passar para substituir o original**; diferentemente de XLS/ODS com recursos complexos, divergência textual é falha e não somente aviso. A exportação/comparação ocorre antes de publicar atalho novo.
 
-A limpeza por prazo e capacidade do backup é **automática, sem opção desativável**. Importações de arquivos diferentes podem avançar em paralelo. Falta comprovada de capacidade ativa espera específica de até 2 minutos; não há fila global durante rede ou upload. O limite de cota do backup em MB usa bytes decimais, enquanto tamanho de arquivo em MiB usa bytes binários.
+A limpeza por prazo e capacidade do backup é **manual**, sem toggle de limpeza automática. **A 0.9.43 retirou a rotação de backups concluídos e a espera por capacidade.** Importações de fontes diferentes continuam avançando em paralelo; a captura consulta atomicamente a cota sob lock curto. Se faltar capacidade, falha prontamente, preservando o original e orientando **Limpar expirados** ou exclusão manual de backups concluídos elegíveis. O limite de cota do backup em MB usa bytes decimais; o tamanho de arquivo em MiB usa bytes binários.
+
+
+## Política de backup e requisitos de memória (0.9.43)
+
+O tamanho máximo de entrada (20 MiB), o limite atual CSV/TSV v4 (2 milhões de células) e os orçamentos XML/ZIP **não mudaram** nesta versão. Entretanto, o armazenamento de backup já usado deve ter capacidade suficiente antes de capturar a origem. A cota é checada atomicamente, de modo que capturas simultâneas não podem ultrapassá-la; **nenhuma exclusão, espera ou nova tentativa automática por capacidade** é realizada. Nem o prazo de retenção nem a cota autorizam remoção automática de backups concluídos.
+
+O usuário deve gerenciar o espaço em **Backups**, selecionando backups concluídos ou executando **Limpar expirados** quando aplicável. Backups pendentes ou não verificados não são apagados por esse fluxo. O controle `AutomaticCleanup` permanece apenas para ler configurações antigas; o código atual normaliza para **false**.
+
+A implementação usa um buffer exato para upload de bytes do snapshot, evitando uma cópia integral redundante, e tenta reduzir alocações adicionais ao lidar com `OutOfMemoryException`. **Não é uma garantia de baixa utilização de RAM** para conversões com dois milhões de células ou lotes paralelos. O aceite de desempenho/compatibilidade com Google real permanece necessário.

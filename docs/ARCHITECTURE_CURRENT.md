@@ -1,6 +1,6 @@
 # Arquitetura atual do ZagoSheetsWin
 
-**Base:** `feature/zagosheetswin`, candidato **0.9.42** em 18/10/2026 (19/10 UTC) ([commit e evidências](RELEASE_STATUS.md)). Descrição da **implementação**, não do arquivo histórico [ARCHITECTURE.md](ARCHITECTURE.md), que nasceu como arquitetura-alvo. Não representa auditoria formal de segurança.
+**Base:** `feature/zagosheetswin`, candidato **0.9.43** em 19/10/2026 (20/10 UTC) ([commit e evidências](RELEASE_STATUS.md)). Descrição da **implementação**, não do arquivo histórico [ARCHITECTURE.md](ARCHITECTURE.md), que nasceu como arquitetura-alvo. Não representa auditoria formal de segurança.
 
 ## Organização do código
 
@@ -49,7 +49,7 @@ LocalPreparation --> GoogleImport --> GoogleDriveClient --> Google Drive API
 3. Preparar um snapshot consistente, salvar backup e SHA-256, com lock da identidade de origem.
 4. Normalizar o formato quando exigido e registrar a **intenção remota** antes de criar o documento.
 5. Para CSV/TSV, **fixar a versão e opções de interpretação por operação** antes da intenção remota; ambiguidades novas usam escolha contextual. Fazer upload/retomada de sessão; confirmar ID, tipo Google Sheets, permissão, estado da lixeira e marcadores `sw_operation` / `sw_hash`. Associação não é escolhida por nome.
-6. Conferir as células suportadas, quando possível. **Desde 0.9.33, diferença de valores ou verificação incompleta é advertência, não veto automático**. Falhas de integridade, importação ou vínculo continuam bloqueando.
+6. Conferir as células suportadas, quando possível. Para **CSV/TSV**, diferenças dos valores exportados pelo Google **bloqueiam** a retirada do original. Para **XLS/ODS e outros formatos não textuais**, fidelidade parcial pode ser advertência sob a política anterior. Falhas de integridade, importação e vínculo sempre bloqueiam.
 7. Para substituição elegível: verificar backup, publicar o atalho sem sobrescrever outro arquivo, solicitar abertura do navegador e só então retirar o arquivo original sob handle Windows que evita corrida por nome/caminho.
 8. Persistir cada transição no journal. Se uma etapa falhar, preservar representação recuperável; uma criação remota incerta exige reconciliação, não repetição cega.
 9. Se a importação for em modo de cópia: manter a fonte. Com atalhos habilitados, publicar atalho na pasta privada do aplicativo.
@@ -113,12 +113,21 @@ A origem foi o projeto MIT [Open in Google](https://github.com/SwatiK425/open-in
 Alterações em identidade, OAuth, schema SQLite, backup, substituição ou política de ambientes exigem testes de regressão e revisão de migração. Não elimine dados persistentes para “corrigir” um upgrade e não deixe uma falha de logging decidir o resultado da importação.
 
 
-## Coordenador de capacidade, conferência e concorrência da 0.9.42
+## Backup e concorrência — transição 0.9.40–0.9.43
 
-`BackupPolicy` carrega `AutomaticCleanup=true` mesmo em configurações antigas, para compatibilidade. O toggle foi removido. Backups concluídos verificados são limpos por prazo e por cota, do mais antigo primeiro; pendentes/associações incertas ou fontes de reparo são protegidos.
+`BackupPolicy` carrega `AutomaticCleanup=false` mesmo em configurações antigas. A limpeza automática da 0.9.40–0.9.42 foi **removida na 0.9.43**: limpar expirados e excluir backups concluídos são ações manuais, enquanto pendentes/associações incertas/fontes de reparo permanecem protegidos. O toggle não existe na interface.
 
-`BackupManagement.PrepareWithCapacityAsync` confere espaço e grava snapshot sob lock curto de manutenção (sem proteger rede). Só quando falta capacidade há espera coordenada por `backup-capacity-cleanup`, com rechecagem a cada 250 ms, cancelamento e limite de até **2 minutos**. Arquivos maiores que a cota falham imediatamente. A **fila global** introduzida na 0.9.40 foi removida em 0.9.42: diferentes arquivos podem ter importação/upload simultâneos. O lock de origem continua impedindo concorrência duplicada. `ImportQueue` é categoria legada de telemetria; `BackupCapacityWait` identifica espera real.
+`BackupManagement` verifica a cota e captura snapshot sob lock curto de manutenção. **A 0.9.43 removeu o polling, a espera por capacidade, a limpeza/rotação automática e a manutenção pós-importação.** Sem espaço suficiente, a operação falha prontamente; não há retry de captura por cota. A fila global já havia sido retirada na 0.9.42: fontes diferentes continuam podendo executar upload e conferência simultaneamente; locks por origem/associação protegem operações duplicadas. `ImportQueue` e `BackupCapacityWait` podem aparecer em diagnósticos históricos, **não indicam espera ativa da versão atual**.
 
 `ConversionVerifier` propaga divergências em **CSV/TSV** antes de publicar o atalho/retirar a fonte; apenas formatos não CSV/TSV podem registrar diferenças como aviso da política de 0.9.33. O XLSX de conferência de texto tem XML por aba até 128 MiB e ZIP expandido até 160 MiB, mantendo outros formatos nos tetos anteriores. `GoogleRetry` permite retentativas controladas para erros de leitura 403 com motivos `rateLimitExceeded`/`userRateLimitExceeded`, 429 e 5xx, mas não faz novo POST de criação às cegas.
 
-**Não há aceite final do commit atual:** `Local core` do HEAD `c1dc8a5` falhou no job Windows; a distribuição protegida anterior falhou no teste extremo de quota. Ubuntu passou no HEAD.
+**Evidência atual:** [Local core #39346495162](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495162) e [Protected alpha distribution #39346495298](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298) concluíram com **sucesso no mesmo SHA `9fbec2a`**. Isso não comprova importações no Google real.
+
+
+## Otimizações e interface da 0.9.43
+
+- `SqliteSchema` introduziu leitura de versão do esquema sem transação imediata de escrita para bancos já migrados; diminui `database is locked` na abertura concorrente de registries, preservando transações quando migração realmente é necessária.
+- Bytes do snapshot passaram a um buffer **único e de tamanho exato** no upload; verificações de pasta Google existente foram deduplicadas, sem segundo GET da mesma pasta.
+- Upload com confirmação incerta faz até **duas reconsultas limitadas e read-only** ao marcador de operação existente. **Não** gera novo POST de criação ou nova sessão. ACKs registram apenas o status HTTP numérico.
+- `ProcessingForm` trata `OutOfMemoryException` por caminho simplificado de finalização com **Fechar**, sem serializar diagnóstico ou construir controles adicionais. A memória disponível ainda limita operações paralelas.
+- `LauncherForm` usa `FormBorderStyle.FixedSingle`, mantém minimizar, bloqueia maximização/redimensionamento e usa `ClientSize = (500,192)` no commit final `9fbec2a`. A mudança de altura **aplica-se somente à janela Home**, não ao modal de progresso.

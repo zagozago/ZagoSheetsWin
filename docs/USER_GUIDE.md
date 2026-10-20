@@ -1,6 +1,6 @@
 # Manual do usuário — ZagoSheetsWin
 
-**Status:** documentação do comportamento implementado na 0.9.42, ainda em fase alfa. Veja a [referência central de versão e evidências](RELEASE_STATUS.md). Os procedimentos usam português técnico claro; nomes de botões podem variar conforme o idioma.
+**Status:** documentação do comportamento implementado na 0.9.43, ainda em fase alfa. Veja a [referência central de versão e evidências](RELEASE_STATUS.md). Os procedimentos usam português técnico claro; nomes de botões podem variar conforme o idioma.
 
 ## 1. O que o aplicativo faz
 
@@ -82,7 +82,7 @@ O tema inicial é **claro**. O usuário pode escolher o tema escuro e selecionar
 
 ## 8. Backups e restauração
 
-**Valores padrão:** 30 dias de retenção, cota de 200 MB e **limpeza automática sem opção de desativar**. É possível configurar 1–365 dias e 1–1.000 MB; retenção e cota salvam automaticamente. Backups concluídos e verificados podem ser removidos quando vencidos ou **antes**, para liberar espaço para nova captura. Pendentes, incertos e fontes de reparação continuam protegidos. Não há serviço residente.
+**Valores padrão:** 30 dias de retenção e cota de 200 MB, configuráveis de 1 a 365 dias e de 1 a 1.000 MB. As regras numéricas salvam automaticamente. **A limpeza é exclusivamente manual na 0.9.43:** use **Limpar expirados** para executar a limpeza de backups elegíveis pelo prazo ou selecione backups concluídos para exclusão explícita com confirmação. O aplicativo **não** remove backups automaticamente ao atingir a cota nem após importar. Pendentes, não verificados e fontes necessárias à recuperação permanecem protegidos.
 
 A tabela **Arquivo, Data, Tamanho, Estado** permite ordenar cada coluna ao clicar no cabeçalho. Um novo clique inverte a direção. Data e Tamanho têm ordenação por valores, não apenas por texto. Selecione uma ou várias **linhas inteiras**; não há caixas de seleção por linha. Use **Selecionar todos** e **Limpar seleção** quando necessário. A restauração individual exige que **um único** backup esteja selecionado.
 
@@ -143,14 +143,23 @@ Links: [Privacidade](https://zagotools.top/legal.html#privacidade), [Termos](htt
 Licença MIT. Projeto derivado de [Open in Google](https://github.com/SwatiK425/open-in-google), de Swati K; atribuição preservada em `LICENSE` e `ATTRIBUTION.md`.
 
 
-## Mudanças vigentes 0.9.38–0.9.42
+## Evolução da importação desde 0.9.38 (comportamento atual 0.9.43)
 
 **CSV/TSV:** o leitor v4 admite cabeçalho opcional, coluna única válida, aspas/multilinhas, dica `sep=` na primeira linha exata e quatro separadores. Ambiguidade genuína mostra **Escolher separador**, com prévia local de 3 linhas e 12 colunas. O teto chegou a **2 milhões de células**, até **100.000 registros lógicos**, mas respeita 20 MiB de origem/payload e 1.000 colunas. A versão da interpretação de operações antigas é preservada.
 
 **Fidelidade:** diferenças de valores em CSV/TSV, verificadas pela exportação do Google Sheets, **impedem retirar o original e publicar o novo atalho**; XLS/ODS continuam com política distinta de fidelidade parcial sob regras de backup/identidade. Não misture as duas políticas.
 
-**Backups:** limpeza automática por prazo e cota (não existe toggle). Um backup concluído elegível pode sair antes dos 30 dias para permitir outra captura, dos mais antigos primeiro. Se o espaço permanecer protegido, a operação informa erro de cota sem apagar o original.
+**Backups:** a versão **0.9.43 desfez a limpeza automática introduzida na 0.9.40**. A aplicação nunca remove backups por prazo nem por cota sem ação do usuário. Se não houver espaço para um novo snapshot, informa imediatamente a falta de capacidade e direciona a limpeza **manual** na tela Backups, mantendo arquivo original e backups existentes.
 
-**Aberturas simultâneas:** na 0.9.42 arquivos diferentes podem importar **em paralelo**, pois a fila global da 0.9.40 foi removida. Só a **falta real de capacidade do backup** ativa espera cancelável de até **dois minutos**, enquanto outras importações podem avançar. Um arquivo maior que a cota é recusado de imediato. Não há promessa de latência nem garantia de êxito com Google real.
+**Aberturas simultâneas:** arquivos de origem diferentes continuam podendo importar **em paralelo**, sem fila global nem teto artificial de quantidade. Na 0.9.43 **não existe espera por capacidade**: se a cota do backup estiver cheia, a nova captura falha prontamente e orienta intervenção manual. Um arquivo maior que a cota também é recusado imediatamente. A simultaneidade real depende de memória disponível e do Google.
 
-**Segurança:** upload incerto deve ser conciliado pelo marcador original, sem outra criação cega. Atalho ausente em journal recuperável pode ser recriado com a URL vinculada e integridade confirmada, sem novo upload. O teste final protegido da 0.9.42 ainda está pendente.
+**Segurança:** upload incerto deve ser conciliado pelo marcador original, sem outra criação cega. Na 0.9.43 são permitidas até **duas reconsultas limitadas da identidade remota**, sem iniciar outra criação/sessão. Atalho ausente em journal recuperável pode ser recriado com a URL vinculada e integridade confirmada, sem novo upload. **Local core e distribuição protegida 0.9.43 passaram** no mesmo commit.
+
+
+## Memória, erros e dimensões da janela na 0.9.43
+
+- A preparação de bytes do snapshot utiliza um buffer de tamanho exato, reduzindo duplicações de memória durante o envio. Isso **não** elimina limitações físicas de RAM nem garante sucesso com qualquer número de arquivos.
+- Se ocorrer falta de memória, a interface tenta apresentar a falha em modo simplificado, com botão **Fechar**, evitando gerar diagnósticos/controles de retry que poderiam exigir mais memória. Não exclua o arquivo original nem os backups para contornar esse erro.
+- A janela principal **não pode ser redimensionada ou maximizada**, mas ainda pode ser minimizada. A altura do conteúdo da janela inicial foi ajustada para **192 px** (largura 500 px), removendo a margem inferior excessiva; o processamento e as janelas de backup não foram redimensionados por essa alteração.
+- Uma pasta existente do Google é validada em uma única consulta quando possível; em resposta remota incerta o aplicativo reconsulta o marcador, sem subir o arquivo novamente às cegas.
+- A execução protegida [#39346495298](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298) e o CI [#39346495162](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495162) passaram no commit `9fbec2a`. **Testes locais e builds aprovados não substituem validação no Google real.**
