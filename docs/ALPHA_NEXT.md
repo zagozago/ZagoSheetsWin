@@ -1,3 +1,7 @@
+> **PLANEJAMENTO HISTÓRICO.** Alguns itens já foram implementados, enquanto outros permanecem pendentes. As referências a pacotes 0.9.6 e tarefas iniciais não descrevem a versão de desenvolvimento 0.9.30. Consulte [guia atual](README.md), [checklist de 1.0.0](PRE_RELEASE_CHECKLIST.md) e [histórico](HISTORY.md).
+
+---
+
 # Próxima evolução alpha — ZagoSheetsWin
 
 Decisões e prioridades alinhadas com Fernando em 03/10/2026. Este documento descreve trabalho aprovado e propostas; não declara implementação nem homologação concluídas. Pacote aprovado: 0.9.6 (etapas 1 a 6; ícones integrados desde 0.9.3); CI Windows/Linux, instalador e prévias nativas aprovados. Teste Google real desta correção permanece pendente.

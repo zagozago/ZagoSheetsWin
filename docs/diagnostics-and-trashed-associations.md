@@ -1,4 +1,6 @@
-# Diagnostics and trashed associations
+# Diagnostics, trashed associations and safe repair (current through 0.9.43)
+
+**Updated 18 October 2026.** For the alpha 0.9.36 implementation evidence see [IMPORT_REVIEW_0936.md](IMPORT_REVIEW_0936.md). The older trashed-association behavior described below remains relevant; new interpretation/revalidation rules must also be considered.
 
 ## Opening a local spreadsheet
 
@@ -10,12 +12,35 @@ A confirmed trashed application folder is similarly retired and replaced by a ne
 
 Direct Internet shortcuts continue to open their recorded URL. Explicit recovery of an old operation does not silently create a different operation.
 
+## Revalidating corrected local data (0.9.36)
+
+Before creating a new import, the app examines whether the previous local source operation has already registered **remote intent**. If the file was edited after a permanent parsing/capacity failure and **no remote intent exists**, the system can retire the unsent association and start a fresh local operation, preserving previous snapshots. If a remote intent or uncertain upload exists, it must be reconciled; the parser cannot silently start another remote creation.
+
+CSV/TSV now keep **versioned parsing options per operation**. Old remote intents remain on version 1; new imports use version 2, including comma/semicolon/TAB/pipe and controlled UTF-8/Windows-1252 behavior. To fix a previously created but incorrectly parsed Google document, the user must explicitly choose **Backups → More actions → Reimport into a new document**. This uses the verified original snapshot and a fresh identity, leaves the old Google document and shortcut untouched, and completes as a **copy**.
+
 ## Exporting a diagnostic
 
-The existing export button produces one JSONL file containing rotated history, current attempt context and an export timestamp. Each completed or failed UI attempt includes a bounded `Trace`: step name, outcome, elapsed milliseconds and, where applicable, boolean remote validation checks. It covers preflight, authorization, snapshot preparation, conversion, remote creation/reconciliation/validation, shortcut publication, browser launch and source retirement. Repeated preflight steps identify automatic retries inside the same UI attempt.
+**There are two export contexts in alpha 0.9.36 and later:** **Export diagnostics** from the failure window exports JSONL records correlated to the **current attempt ID** (including the current terminal failure, even if normal history logging was unavailable). **Backups → More actions → Export history** exports the available rotated historical JSONL logs to a distinct user-selected file, suggested as `ZSW-history.jsonl`. These contexts must not be described as one common button. Both use bounded, typed entries and safe file handling. Each completed or failed UI attempt includes a bounded `Trace`: step name, outcome, elapsed milliseconds and, where applicable, boolean remote validation checks. It covers preflight, authorization, snapshot preparation, conversion, remote creation/reconciliation/validation, shortcut publication, browser launch and source retirement. Repeated preflight steps may identify **transient-only automatic retries** within an attempt. Persistent text/format/capacity errors are not retried automatically; retry after input correction is deliberately gated by the changed file. Ambiguous delimiters use an explicit per-import chooser.
 
 Each entry includes the product version and, when supplied by the SDK build, its Git revision. Existing failure categories, HRESULT, Google HTTP status and SQLite error code remain available. No exception messages, stack traces, source paths, spreadsheet cells, account identifiers, Google file IDs, OAuth configuration, tokens or upload URLs are exported. Trace names are internal diagnostic codes, not user-facing text.
 
 Trace is captured in memory and appended with the attempt outcome; a process termination before that point can leave only the Started entry. Durable local/remote operation journals remain the authority for recovery. Diagnostic logging failures cannot change the import outcome. The current error window retains its final context for export even if history could not be written.
 
-At most 96 checkpoints are retained per attempt. The existing four files of 64 KiB limit disk usage. Export validates the typed fields, rejects malformed traces and publishes atomically after any approved overwrite. Older entries without trace or revision remain readable. No new UI messages or translations are introduced by this backend change.
+At most 96 checkpoints are retained per attempt. The existing four files of 64 KiB limit disk usage. Export validates the typed fields, rejects malformed traces and publishes atomically after any approved overwrite. Older entries without trace or revision remain readable. Alpha 0.9.36 adds localized messages for interpretation, recovery and diagnostics in the 51 UI languages; language/editorial quality requires separate review. The parser and diagnostic extensions add categorized limits (text rows/cells/columns, bytes, ODS dimensions/repetition, remote export size) without exposing source content.
+
+
+## Retentativas remotas e quotas na 0.9.42
+
+O diagnóstico conserva razões de falha de cota separadas de acesso a arquivo. `ImportQueue` e `BackupCapacityWait` podem constar em **históricos de versões anteriores**, mas na 0.9.43 **não existe fila global, espera por capacidade nem polling de 250 ms**. Quota insuficiente gera falha rápida e orientação de limpeza manual.
+
+Nas leituras Google, retries controlados aceitam motivos 403 `rateLimitExceeded`/`userRateLimitExceeded` e regras 429/5xx, com limite de `Retry-After`; não repetir POST de criação. Mensagens de API brutas e planilhas continuam fora do JSONL. O diagnóstico da tentativa continua distinto do histórico geral.
+
+**Estado da distribuição vigente:** [Local core #39346495162](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495162) e [Protected alpha distribution #39346495298](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298) passaram em `9fbec2a`. Falhas das execuções de 0.9.42 são históricas; nenhum workflow comprova sozinho importação com Google real.
+
+## Upload incerto e falha de memória (0.9.43)
+
+Quando a sessão de upload recebe confirmação ambígua, o programa faz **até duas consultas somente-leitura** ao marcador persistido da mesma operação, sem novo POST de criação ou nova sessão. A telemetria dos reconhecimentos de sessão armazena **apenas o código HTTP numérico**, não cabeçalhos ou conteúdo arbitrário.
+
+Em `OutOfMemoryException`, o `ProcessingForm` usa a mensagem terminal pré-calculada com botão **Fechar**, **sem** serializar rastros JSONL ou reconstruir controles de repetição. O diagnóstico pode ficar incompleto durante memória insuficiente; sua ausência não comprova ausência de erro. Essa proteção também não implica que lotes simultâneos ilimitados caibam na RAM.
+
+**Backups:** não há limpeza automática no fluxo da 0.9.43. Uma falha de cota não remove snapshots concluídos nem arquivos originais; limpar espaço é ação expressa do usuário em Backups.

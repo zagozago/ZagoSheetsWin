@@ -1,3 +1,7 @@
+> **ARQUITETURA-ALVO HISTÓRICA, NÃO IMPLEMENTAÇÃO CANÔNICA.** Para componentes e caminhos reais do candidato atual, consulte [ARCHITECTURE_CURRENT.md](ARCHITECTURE_CURRENT.md).
+
+---
+
 # Arquitetura alvo
 
 Status: design, não implementação. Regras de produto vêm do roadmap.
