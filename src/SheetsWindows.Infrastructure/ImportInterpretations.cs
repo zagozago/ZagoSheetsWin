@@ -11,10 +11,20 @@ public sealed class ImportInterpretations(LocalStorage storage)
     private SqliteConnection Open()
     {
         var db = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = storage.DatabasePath, Pooling = false }.ToString());
-        db.Open();
-        using var schema = db.CreateCommand();
-        schema.CommandText = "PRAGMA foreign_keys=ON; PRAGMA synchronous=FULL; CREATE TABLE IF NOT EXISTS import_interpretations(operation_id TEXT PRIMARY KEY REFERENCES operations(id), options TEXT NOT NULL);";
-        schema.ExecuteNonQuery(); return db;
+        try
+        {
+            db.Open();
+            using var schema = db.CreateCommand();
+            schema.CommandText = "PRAGMA foreign_keys=ON; PRAGMA synchronous=FULL"; schema.ExecuteNonQuery();
+            schema.CommandText = "SELECT 1 FROM sqlite_master WHERE type='table' AND name='import_interpretations'";
+            if (schema.ExecuteScalar() is null)
+            {
+                schema.CommandText = "CREATE TABLE IF NOT EXISTS import_interpretations(operation_id TEXT PRIMARY KEY REFERENCES operations(id), options TEXT NOT NULL)";
+                schema.ExecuteNonQuery();
+            }
+            return db;
+        }
+        catch { db.Dispose(); throw; }
     }
     public TextImportOptions Bind(ImportOperation operation, TextImportOptions proposed, bool hasRemoteIntent)
     {

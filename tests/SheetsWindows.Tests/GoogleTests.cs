@@ -35,7 +35,7 @@ public sealed class GoogleTests
         private readonly Dictionary<string, (string Id, object File, string Mime, MemoryStream Bytes)> sessions = [];
         public bool Offline, DisconnectOnLoss, IncompleteCompletion, ExpiredSession;
         public readonly List<string> Metadata = [];
-        public int Posts; public bool LoseSheetResponse, LoseFolderResponse, ListLag, DuplicateList, WrongMime, Trashed, DenyEdit, Get401;
+        public int EmptyListResponses; public int Posts; public bool LoseSheetResponse, LoseFolderResponse, ListLag, DuplicateList, WrongMime, Trashed, DenyEdit, Get401;
         public readonly Dictionary<string, object> Files = [];
         public readonly List<string> Methods = [];
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage req, CancellationToken ct)
@@ -100,7 +100,7 @@ public sealed class GoogleTests
             {
                 var query = Uri.UnescapeDataString(req.RequestUri.Query); var marker = Regex.Match(query, "value='([^']+)'").Groups[1].Value;
                 var matched = Files.Values.Where(f => JsonSerializer.Serialize(f).Contains(marker, StringComparison.Ordinal)).ToList();
-                if (ListLag) matched.Clear(); if (DuplicateList && matched.Count > 0) matched.Add(matched[0]); return Json(new { files = matched });
+                if (ListLag || EmptyListResponses-- > 0) matched.Clear(); if (DuplicateList && matched.Count > 0) matched.Add(matched[0]); return Json(new { files = matched });
             }
             var key = path.Split('/').Last(); return Files.TryGetValue(key, out var found) ? Json(found) : new(HttpStatusCode.NotFound);
         }
@@ -227,18 +227,30 @@ public sealed class GoogleTests
         await manager.RegisterCopyCompletionAsync(receipt); await BackupPolicy.SaveAsync(storage, new(30,1,true));
         File.WriteAllBytes(Path.Combine(storage.BackupsPath, "unknown.bin"), new byte[checked((int)(1_000_000 - receipt.Operation.Snapshot!.Length))]);
         var auth = new FixedAuth(); using var http = new HttpClient(server, false);
-        var importer = new GoogleImport(storage.CreatePreparation(), w.Registry(), new GoogleRemoteRegistry(Path.Combine(storage.Root,"google.db")), new SourceReader(), new FileOperationLock(w.Locks), auth, new GoogleDriveClient(http,auth), backupManagement: manager);
+        var importer = new GoogleImport(storage.CreatePreparation(), w.Registry(), new GoogleRemoteRegistry(Path.Combine(storage.Root,"google.db")), new SourceReader(), new FileOperationLock(w.Locks), auth, new GoogleDriveClient(http,auth));
         Assert.Equal(receipt.Url, await importer.ImportAsync(w.Source)); Assert.True(File.Exists(receipt.Operation.Snapshot.BackupPath)); Assert.Equal(2,server.Posts);
         await manager.DeleteAsync(receipt.Operation.Id);
         await Assert.ThrowsAsync<BackupRemovedException>(() => importer.ImportAsync(w.Source)); Assert.Equal(2,server.Posts); Assert.Single(w.Registry().Pending());
+    }
+    [WindowsFact]
+    public async Task LauncherDoesNotCleanExpiredBackupsAfterImport()
+    {
+        using var w = new Workspace(); File.WriteAllBytes(w.Source, Workbook()); ConfigureLauncher(w, out var storage);
+        using var server = new DriveServer(); using var http = new HttpClient(server); var browser = new LauncherBrowser();
+        var launcher = new WindowsLauncher(storage,http,browser); await launcher.CopyAsync(w.Source);
+        var saved = Assert.Single(new SqliteOperationRegistry(storage.DatabasePath).Pending());
+        new BackupCatalog(storage).Register(saved.Id,saved.Snapshot!,DateTimeOffset.UtcNow.AddDays(-31));
+        await BackupPolicy.SaveAsync(storage,new(30,200,true));
+        await launcher.CopyAsync(w.Source);
+        Assert.True(File.Exists(saved.Snapshot!.BackupPath)); Assert.Equal(2,server.Posts);
     }
     [Fact]
     public async Task BackupQuotaFailurePreservesOriginalAndMakesNoUploadRequest()
     {
         using var w = new Workspace(); var storage = new LocalStorage(Path.GetDirectoryName(w.Database)!); await BackupPolicy.SaveAsync(storage,new(30,1,true));
         var path=Path.ChangeExtension(w.Source,".csv"); var bytes=new byte[1_000_001]; File.WriteAllBytes(path,bytes); using var server=new DriveServer(); var auth=new FixedAuth();using var http=new HttpClient(server,false);
-        var importer=new GoogleImport(storage.CreatePreparation(),w.Registry(),new GoogleRemoteRegistry(Path.Combine(storage.Root,"google.db")),new SourceReader(),new FileOperationLock(w.Locks),auth,new GoogleDriveClient(http,auth),backupManagement:new BackupManagement(storage));
-        await Assert.ThrowsAsync<BackupQuotaException>(()=>importer.ImportAsync(path)); Assert.Equal(bytes,File.ReadAllBytes(path)); Assert.Equal(0,server.Posts); Assert.Empty(w.Registry().Pending());
+        var importer=new GoogleImport(storage.CreatePreparation(),w.Registry(),new GoogleRemoteRegistry(Path.Combine(storage.Root,"google.db")),new SourceReader(),new FileOperationLock(w.Locks),auth,new GoogleDriveClient(http,auth));
+        await Assert.ThrowsAsync<BackupQuotaException>(()=>importer.ImportAsync(path)); Assert.Equal(bytes,File.ReadAllBytes(path)); Assert.Equal(0,server.Posts); Assert.Null(Assert.Single(w.Registry().Pending()).Snapshot);
     }
     [Fact]
     public async Task CsvImportKeepsRawBackupUploadsTypedWorkbookAndReopensWithoutPost()
@@ -740,6 +752,14 @@ public sealed class GoogleTests
         var op = Assert.Single(w.Registry().Pending()); var remote = new GoogleRemoteRegistry(Path.Combine(w.Root, "state", "google.db")).Get("sheet:" + op.Id.ToString("N")); Assert.True(remote!.Verified);
     }
     [Fact]
+    public async Task ExistingFolderIsFetchedAndValidatedOnlyOncePerOpening()
+    {
+        using var w = new Workspace(); using var server = new DriveServer(); var importer = Importer(w, server);
+        var folder = await importer.EnsureFolderAsync(); var reads = server.Methods.Count(m => m == "GET");
+        Assert.Equal(folder, await importer.EnsureFolderAsync());
+        Assert.Equal(reads + 1, server.Methods.Count(m => m == "GET")); Assert.Equal(1, server.Posts);
+    }
+    [Fact]
     public async Task ConcurrentCallsCreateOnlyOneFolderAndSheet()
     {
         using var w = new Workspace(); File.WriteAllBytes(w.Source, Workbook()); using var server = new DriveServer(); var importer = Importer(w, server);
@@ -771,6 +791,18 @@ public sealed class GoogleTests
         using var w = new Workspace(); File.WriteAllBytes(w.Source, Workbook()); using var server = new DriveServer { LoseSheetResponse = true }; var importer = Importer(w, server);
         await Assert.ThrowsAsync<HttpRequestException>(() => importer.ImportAsync(w.Source)); server.ListLag = true;
         await Assert.ThrowsAsync<ReconciliationRequiredException>(() => importer.ImportAsync(w.Source)); Assert.Equal(2, server.Posts); Assert.True(File.Exists(w.Source));
+    }
+    [Fact]
+    public async Task DelayedMarkerAfterIncompleteUploadIsFoundWithoutAnotherPost()
+    {
+        using var w = new Workspace(); var path = Path.ChangeExtension(w.Source, ".csv"); File.WriteAllText(path,"Código,Cidade\n001,São Paulo");
+        using var server = new DriveServer { IncompleteCompletion = true, EmptyListResponses = 2 };
+        using var http = new HttpClient(server, false); var auth = new FixedAuth();
+        var importer = new GoogleImport(w.Coordinator(), w.Registry(), new GoogleRemoteRegistry(Path.Combine(w.Root,"state","google.db")),
+            new SourceReader(), new FileOperationLock(w.Locks), auth,
+            new GoogleDriveClient(http,auth,new UploadSessionStore(Path.Combine(w.Root,"state","uploads"),new PlainUploadProtector())));
+        var url = await importer.ImportAsync(path);
+        Assert.Equal(GoogleDriveClient.Editor("file_2"),url); Assert.Equal(2,server.Posts); Assert.True(File.Exists(path));
     }
     [Fact]
     public async Task DuplicateMarkersStopReconciliation()

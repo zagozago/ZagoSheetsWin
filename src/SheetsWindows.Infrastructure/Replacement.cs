@@ -24,10 +24,13 @@ public sealed class ReplacementJournal
     {
         PrivateDirectory.Create(Path.GetDirectoryName(Path.GetFullPath(path))!);
         connection = new SqliteConnectionStringBuilder { DataSource = Path.GetFullPath(path), Pooling = false }.ToString();
-        using var db = Open(); using var tx = db.BeginTransaction(deferred: false); using var cmd = db.CreateCommand(); cmd.Transaction = tx;
+        using var db = Open();
+        if (SqliteSchema.IsCurrent(db, 2, "Newer replacement journal.")) return;
+        using var tx = db.BeginTransaction(deferred: false); using var cmd = db.CreateCommand(); cmd.Transaction = tx;
         cmd.CommandText = "PRAGMA user_version";
         var version = Convert.ToInt32(cmd.ExecuteScalar());
         if (version > 2) throw new NotSupportedException("Newer replacement journal.");
+        if (version == 2) { tx.Commit(); return; }
         if (version == 1) { cmd.CommandText = "ALTER TABLE replacements ADD COLUMN source_path TEXT"; cmd.ExecuteNonQuery(); }
         cmd.CommandText = "CREATE TABLE IF NOT EXISTS replacements(id TEXT PRIMARY KEY,path TEXT NOT NULL,url TEXT NOT NULL,step INTEGER NOT NULL CHECK(step BETWEEN 0 AND 4),source_path TEXT); CREATE TABLE IF NOT EXISTS events(seq INTEGER PRIMARY KEY,id TEXT NOT NULL,step INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS failures(seq INTEGER PRIMARY KEY,id TEXT NOT NULL,code TEXT NOT NULL); PRAGMA user_version=2;";
         cmd.ExecuteNonQuery(); tx.Commit();

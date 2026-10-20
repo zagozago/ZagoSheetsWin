@@ -12,7 +12,7 @@ public sealed record GoogleRequestContext(string Endpoint, int Status, string? R
     public bool IsValid => Endpoint is "drive.read" or "drive.export" && Status is >= 100 and <= 599
         && Reason == SheetsWindows.Core.GoogleApiException.SafeReason(Reason) && Retry is >= 1 and <= 3 && DelayMs is >= 0 and <= 30000;
 }
-public sealed record ProcessingCheckpoint(ProcessingStep Step, CheckpointOutcome Outcome, long ElapsedMs, RemoteValidationContext? RemoteValidation = null, GoogleRequestContext? GoogleRequest = null);
+public sealed record ProcessingCheckpoint(ProcessingStep Step, CheckpointOutcome Outcome, long ElapsedMs, RemoteValidationContext? RemoteValidation = null, GoogleRequestContext? GoogleRequest = null, int? SessionStatus = null);
 public sealed record ProcessingMetrics(long ElapsedMs, long? ReadyMs, long? ConversionMs, long? UploadMs, long? VerificationMs, long? PeakWorkingSetBytes, long? CpuMs, double? PeakCpuPercent = null)
 {
     [System.Text.Json.Serialization.JsonIgnore]
@@ -30,13 +30,14 @@ public sealed class ProcessingTelemetry(long? startedAt = null, IProgress<string
     public const int MaxCheckpoints = 96;
     private readonly object traceGate = new();
     private readonly List<ProcessingCheckpoint> checkpoints = [];
-    public void Mark(ProcessingStep step, CheckpointOutcome outcome = CheckpointOutcome.Completed, RemoteValidationContext? validation = null)
+    public void Mark(ProcessingStep step, CheckpointOutcome outcome = CheckpointOutcome.Completed, RemoteValidationContext? validation = null, int? sessionStatus = null)
     {
+        if (sessionStatus is not null && (step != ProcessingStep.SessionAck || sessionStatus is < 100 or > 599)) throw new ArgumentException("Invalid session status.");
         if (!Enum.IsDefined(step) || !Enum.IsDefined(outcome)) throw new ArgumentException("Invalid processing checkpoint.");
         lock (traceGate)
         {
             if (checkpoints.Count == MaxCheckpoints) checkpoints.RemoveAt(0);
-            checkpoints.Add(new(step, outcome, Ms(Stopwatch.GetTimestamp() - started), validation));
+            checkpoints.Add(new(step, outcome, Ms(Stopwatch.GetTimestamp() - started), validation, SessionStatus: sessionStatus));
         }
     }
     public void MarkGoogleRetry(string endpoint, int status, string? reason, int retry, int delayMs)

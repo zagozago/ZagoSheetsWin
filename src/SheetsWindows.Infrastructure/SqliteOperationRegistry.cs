@@ -13,10 +13,12 @@ public sealed class SqliteOperationRegistry : IOperationRegistry
         PrivateDirectory.Create(Path.GetDirectoryName(full)!);
         connectionString = new SqliteConnectionStringBuilder { DataSource = full, Pooling = false, DefaultTimeout = 10 }.ToString();
         using var db = Open();
+        if (SqliteSchema.IsCurrent(db, 2, "Database schema is newer than this application.")) return;
         using var tx = db.BeginTransaction(deferred: false);
         using var version = Command(db, tx, "PRAGMA user_version;");
         var current = Convert.ToInt32(version.ExecuteScalar());
         if (current > 2) throw new NotSupportedException("Database schema is newer than this application.");
+        if (current == 2) { tx.Commit(); return; }
         if (current == 0)
         {
             using var schema = Command(db, tx, """

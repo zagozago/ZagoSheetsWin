@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.42",
+  "productVersion": "0.9.43",
   "sourceLocale": "pt-BR",
-  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
+  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Gebruikt u synchronisatie?",
     "emphasis.verify": "Google-verbinding controleren",
     "error.authorizationRequired": "Google vereist autorisatie. Open Instellingen en klik op Google autoriseren; open daarna het werkblad opnieuw.",
-    "error.backupQuota": "Onvoldoende ruimte na automatisch opschonen: beschermde openstaande back-ups of een bestand boven het quotum. Het origineel en de Google-koppeling blijven behouden. Controleer back-ups of verhoog de limiet (maximaal 1 GB).",
+    "error.backupQuota": "Er is geen ruimte binnen de back-uplimiet. Het origineel is behouden en niet naar Google verzonden. Open Back-ups om voltooide back-ups te verwijderen of pas de limiet aan (maximaal 1 GB).",
     "error.backupRemoved": "Deze back-up is al als opgeschoond gemarkeerd en is niet beschikbaar voor herstel of hervatten. Het Google-document en de snelkoppeling zijn behouden. Gebruik de snelkoppeling om het online werkblad te openen.",
     "error.busy": "Een andere bewerking gebruikt het bestand of register nog. Wacht en hervat; het origineel en de back-ups zijn behouden.",
     "error.cancelled": "Bewerking gestopt. De back-up en herstelregistratie, indien aangemaakt, zijn behouden.",

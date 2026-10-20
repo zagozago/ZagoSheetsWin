@@ -8,8 +8,8 @@ internal sealed class LauncherForm : Form
     public LauncherForm(LauncherRequest request)
     {
         if (request.Action != LauncherAction.Home) throw new ArgumentException("Home request required.");
-        Text = "ZagoSheetsWin"; ClientSize = new Size(500, 208); MinimumSize = new Size(500, 208); StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
-        var layout = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18), FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = true };
+        Text = "ZagoSheetsWin"; ClientSize = new Size(500, 192); FormBorderStyle = FormBorderStyle.FixedSingle; MaximizeBox = false; MinimizeBox = true; StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
+        var layout = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18), FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = false };
         Button Action(string text, EventHandler action) { var b = new AdaptiveButton { Text = text, Width = 382, Height = 38, AccessibleName = text.Replace("&", "") }; b.Click += action; return b; }
         void Pick(LauncherAction action)
         {

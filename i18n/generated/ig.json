@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.42",
+  "productVersion": "0.9.43",
   "sourceLocale": "pt-BR",
-  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
+  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Ị na-eji mmekọrịta faịlụ?",
     "emphasis.verify": "Lelee njikọ Google",
     "error.authorizationRequired": "Google chọrọ ikike. Mepee Ntọala wee pịa Nye Google ikike, mgbe ahụ mepee spreadsheet ọzọ.",
-    "error.backupQuota": "Oghere ezughị mgbe nhicha akpaka gasịrị: a na-echebe ndabere na-eche ma ọ bụ faịlụ karịrị oke. E chekwara faịlụ mbụ na njikọ Google. Lelee ndabere ma ọ bụ bulie oke (ruo 1 GB).",
+    "error.backupQuota": "Enweghị ohere n'ime oke nnomi ndabere. E chekwara nke mbụ ma ezigaghị ya Google. Mepee Nnomi ndabere ka ihichapụ ndị emechara ma ọ bụ gbanwee oke (kacha 1 GB).",
     "error.backupRemoved": "Akara nnomi ndabere a dịka nke ehichachara ma ọ dịghịzi maka iweghachi ma ọ bụ ịga n'ihu. E chekwara akwụkwọ Google na ụzọ mkpirisi ya. Jiri ụzọ mkpirisi ahụ mepee spreadsheet dị n'ịntanetị.",
     "error.busy": "Ọrụ ọzọ ka na-eji faịlụ ma ọ bụ registry. Chere wee gaa n'ihu; e chekwara nke mbụ na nnomi ndabere.",
     "error.cancelled": "Akwụsịrị ọrụ. E chekwara nnomi ndabere na ndekọ mweghachi, ma ọ bụrụ na emepụtara ha.",

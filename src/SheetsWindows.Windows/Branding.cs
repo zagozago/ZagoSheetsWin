@@ -103,6 +103,8 @@ internal static class Branding
         form.Controls.Add(header); header.SendToBack();
         void FitHeader()
         {
+            // Minimized client bounds must never become the restored window bounds.
+            if (form.WindowState != FormWindowState.Normal) return;
             var required = header.Padding.Horizontal + picture.Width + title.PreferredSize.Width + 26 + right.PreferredSize.Width;
             if (form.ClientSize.Width < required) form.ClientSize = new Size(required, form.ClientSize.Height);
         }

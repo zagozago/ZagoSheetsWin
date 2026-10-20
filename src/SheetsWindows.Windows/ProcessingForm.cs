@@ -11,6 +11,7 @@ internal sealed class ProcessingForm : Form
     private readonly LauncherRequest request;
     private readonly Func<IProgress<string>, CancellationToken, Task>? execute;
     private readonly bool recordDiagnostics;
+    private readonly string memoryFailureMessage = new OutOfMemoryException().Message + "\n\n" + UiText.Get("error.generic");
     private readonly long? startedAt;
     private readonly Func<TimeSpan, CancellationToken, Task>? retryDelay;
     private bool busy;
@@ -85,7 +86,7 @@ internal sealed class ProcessingForm : Form
         UiText.Changed += RenderFailure;
         if (preview) { status.Text = UiText.Get("progress.verification"); if (previewError) ShowFailure(new ConversionMismatchException()); }
         // Start after the modal/native message loop installs its UI synchronization context.
-        else Shown += (_, _) => BeginInvoke((Action)(async () => await RunAsync()));
+        else Shown += (_, _) => BeginInvoke((Action)(async () => await RunSafelyAsync()));
     }
     private void ShowFailure(Exception ex)
     {
@@ -124,11 +125,22 @@ internal sealed class ProcessingForm : Form
                     if (choice.ShowDialog(this) != DialogResult.OK) return;
                     interpretation = choice.Options;
                 }
-                await RunAsync();
+                await RunSafelyAsync();
             };
             actions.Controls.Add(retry);
         }
         ClientSize = new Size((int)(620 * DeviceDpi / 96.0), (int)(330 * DeviceDpi / 96.0)); Branding.Refresh(this); RenderFailure();
+    }
+    private async Task RunSafelyAsync()
+    {
+        try { await RunAsync(); }
+        catch (OutOfMemoryException)
+        {
+            // No retries, diagnostics serialization or new dialogs under memory pressure.
+            busy = false; terminal = true; ExitCode = 1;
+            status.Text = memoryFailureMessage;
+            cancel.Text = UiText.Get("action.close"); cancel.Enabled = true;
+        }
     }
     private async Task RunAsync()
     {
@@ -151,6 +163,7 @@ internal sealed class ProcessingForm : Form
         var outcome = DiagnosticEvent.Completed;
         var attemptId = Guid.NewGuid();
         Exception? failure = null;
+        var memoryExhausted = false;
         string? importNotice = null;
         if (recordDiagnostics) await diagnostics.RecordAsync(DiagnosticEvent.Started, attemptId: attemptId);
         try
@@ -173,6 +186,7 @@ internal sealed class ProcessingForm : Form
             if (request.Action == LauncherAction.Login) await ExecuteOnce(cancellation.Token);
             else await ImportRetry.ExecuteAsync(ExecuteOnce, (seconds, attempt) => progress.Report(UiText.Format("progress.retry", ("seconds", seconds), ("attempt", attempt))), cancellation.Token, retryDelay);
         }
+        catch (OutOfMemoryException) { memoryExhausted = true; throw; }
         catch (Exception ex) when (LauncherErrors.Expected(ex))
         {
             failure = ex; ExitCode = 1; outcome = DiagnosticLog.Failure(ex);
@@ -181,9 +195,12 @@ internal sealed class ProcessingForm : Form
         finally
         {
             cpuSampler.Stop();
-            LastMetrics = telemetry.Capture();
-            latestDiagnostic = DiagnosticLog.CreateEntry(outcome, operation: telemetry.OperationId, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase, trace: telemetry.CaptureTrace());
-            if (recordDiagnostics) await diagnostics.RecordAsync(outcome, operation: telemetry.OperationId, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase, trace: telemetry.CaptureTrace());
+            if (!memoryExhausted)
+            {
+                LastMetrics = telemetry.Capture();
+                latestDiagnostic = DiagnosticLog.CreateEntry(outcome, operation: telemetry.OperationId, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase, trace: telemetry.CaptureTrace());
+                if (recordDiagnostics) await diagnostics.RecordAsync(outcome, operation: telemetry.OperationId, metrics: LastMetrics, failure: failure, attemptId: attemptId, stage: telemetry.LastPhase, trace: telemetry.CaptureTrace());
+            }
             busy = false;
         }
         if (failure is not null && (failure is not OperationCanceledException || !cancellation.IsCancellationRequested)) ShowFailure(failure);

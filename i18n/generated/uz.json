@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.42",
+  "productVersion": "0.9.43",
   "sourceLocale": "pt-BR",
-  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
+  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Sinxronlashdan foydalanasizmi?",
     "emphasis.verify": "Google ulanishini tekshirish",
     "error.authorizationRequired": "Google avtorizatsiyani talab qiladi. Sozlamalarni oching va Google’ga ruxsat berish tugmasini bosing, so‘ng jadvalni yana oching.",
-    "error.backupQuota": "Avtomatik tozalashdan keyin joy yetarli emas: kutilayotgan nusxalar himoyalangan yoki fayl kvotadan katta. Asl fayl va Google bog‘lanishi saqlangan. Nusxalarni tekshiring yoki limitni oshiring (ko‘pi bilan 1 GB).",
+    "error.backupQuota": "Zaxira nusxa limiti ichida bo‘sh joy yo‘q. Asl fayl saqlandi va Google’ga yuborilmadi. Tugallangan zaxira nusxalarni o‘chirish yoki limitni o‘zgartirish uchun Zaxira nusxalarni oching (maksimum 1 GB).",
     "error.backupRemoved": "Bu zaxira nusxa allaqachon tozalangan deb belgilangan va tiklash yoki davom ettirish uchun mavjud emas. Google hujjati va uning yorlig‘i saqlandi. Onlayn jadvalni ochish uchun yorliqdan foydalaning.",
     "error.busy": "Boshqa amal hali ham fayl yoki registrdan foydalanmoqda. Kuting va davom ettiring; asl fayl va zaxira nusxalar saqlandi.",
     "error.cancelled": "Amal to‘xtatildi. Agar yaratilgan bo‘lsa, zaxira nusxa va tiklash yozuvi saqlandi.",

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.42",
+  "productVersion": "0.9.43",
   "sourceLocale": "pt-BR",
-  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
+  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "¿Usas sincronización?",
     "emphasis.verify": "Comprobar conexión con Google",
     "error.authorizationRequired": "Google necesita autorización. Abre Configuración y haz clic en Autorizar Google; después vuelve a abrir la hoja de cálculo.",
-    "error.backupQuota": "No hay espacio suficiente tras la limpieza automática. Hay copias pendientes protegidas o el archivo supera la cuota. El original y la asociación con Google se conservan. Revisa las copias o aumenta el límite (máximo 1 GB).",
+    "error.backupQuota": "No hay espacio dentro del límite de copias de seguridad. Se conservó el original y no se envió a Google. Abre Copias de seguridad para eliminar copias completadas o ajustar el límite (máximo 1 GB).",
     "error.backupRemoved": "Esta copia de seguridad ya se marcó como limpiada y no está disponible para restaurar ni reanudar. Se conservaron el documento de Google y su acceso directo. Usa el acceso directo para abrir la hoja de cálculo en línea.",
     "error.busy": "Otra operación sigue usando el archivo o el registro. Espera y reanuda; se conservaron el original y las copias de seguridad.",
     "error.cancelled": "La operación se detuvo. Se conservaron la copia de seguridad y el registro de recuperación, si se habían creado.",

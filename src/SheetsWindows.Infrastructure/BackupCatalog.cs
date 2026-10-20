@@ -14,8 +14,11 @@ public sealed class BackupCatalog
         PrivateDirectory.Create(storage.Root); var path = PathFor(storage);
         if (File.Exists(path) && (File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0) throw new InvalidDataException("Invalid backup catalog.");
         connection = new SqliteConnectionStringBuilder { DataSource = path, Pooling = false }.ToString();
-        using var db = Open(); using var tx = db.BeginTransaction(deferred: false); using var cmd = db.CreateCommand(); cmd.Transaction = tx;
+        using var db = Open();
+        if (SqliteSchema.IsCurrent(db, 2, "Newer backup catalog.")) return;
+        using var tx = db.BeginTransaction(deferred: false); using var cmd = db.CreateCommand(); cmd.Transaction = tx;
         cmd.CommandText = "PRAGMA user_version"; var version = Convert.ToInt32(cmd.ExecuteScalar()); if (version > 2) throw new NotSupportedException("Newer backup catalog.");
+        if (version == 2) { tx.Commit(); return; }
         cmd.CommandText = "CREATE TABLE IF NOT EXISTS backups(id TEXT PRIMARY KEY,captured TEXT NOT NULL,hash TEXT NOT NULL,bytes INTEGER NOT NULL CHECK(bytes>=0),copy_completed INTEGER NOT NULL DEFAULT 0 CHECK(copy_completed IN (0,1)),state INTEGER NOT NULL DEFAULT 0 CHECK(state IN (0,1,2)),discard_requested INTEGER NOT NULL DEFAULT 0 CHECK(discard_requested IN (0,1))); CREATE TABLE IF NOT EXISTS events(seq INTEGER PRIMARY KEY,id TEXT NOT NULL,kind TEXT NOT NULL,at TEXT NOT NULL);";
         cmd.ExecuteNonQuery();
         cmd.CommandText = "PRAGMA table_info(backups)"; var hasDiscard = false;

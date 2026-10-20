@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.42",
+  "productVersion": "0.9.43",
   "sourceLocale": "pt-BR",
-  "sourceHash": "d0fb76d01e79184185c853fcfa693ed30148025479051fa8d4a2354162e2c40f",
+  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -143,7 +143,7 @@
     "emphasis.usesSync": "Apa sampeyan nggunakake sinkronisasi?",
     "emphasis.verify": "Priksa sambungan Google",
     "error.authorizationRequired": "Google mbutuhake wewenang. Bukak Setelan lan klik Wenehi wewenang Google, banjur bukak maneh spreadsheet.",
-    "error.backupQuota": "Papan ora cukup sawise reresik otomatis: serep sing ngenteni dilindhungi utawa berkas ngluwihi kuota. Berkas asli lan sesambungan Google tetep disimpen. Priksa serep utawa tambah wates (maksimal 1 GB).",
+    "error.backupQuota": "Ora ana papan ing wates cadangan. Berkas asli dijaga lan ora dikirim menyang Google. Bukak Cadangan kanggo mbusak cadangan sing wis rampung utawa ngatur wates (maksimum 1 GB).",
     "error.backupRemoved": "Cadangan iki wis diwenehi tandha wis diresiki lan ora kasedhiya kanggo dipulihake utawa diterusake. Dokumen Google lan trabasane tetep dijaga. Gunakake trabasan kanggo mbukak spreadsheet online.",
     "error.busy": "Operasi liyane isih nggunakake berkas utawa registry. Enteni banjur terusake; berkas asli lan cadangan tetep dijaga.",
     "error.cancelled": "Operasi mandheg. Cadangan lan cathetan pamulihan, yen digawe, tetep dijaga.",

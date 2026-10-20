@@ -135,7 +135,7 @@ public sealed class DiagnosticLog(LocalStorage storage)
     private static void ValidateTrace(IReadOnlyList<ProcessingCheckpoint>? trace)
     {
         if (trace is null) return;
-        if (trace.Count > ProcessingTelemetry.MaxCheckpoints || trace.Any(p => p is null || !Enum.IsDefined(p.Step) || !Enum.IsDefined(p.Outcome) || p.ElapsedMs < 0 || p.GoogleRequest is { IsValid: false }))
+        if (trace.Count > ProcessingTelemetry.MaxCheckpoints || trace.Any(p => p is null || !Enum.IsDefined(p.Step) || !Enum.IsDefined(p.Outcome) || p.ElapsedMs < 0 || p.GoogleRequest is { IsValid: false } || p.SessionStatus is not null && (p.Step != ProcessingStep.SessionAck || p.SessionStatus is < 100 or > 599)))
             throw new InvalidDataException("Invalid diagnostic trace.");
     }
     public async Task ExportAsync(string destination, bool overwrite = false, DiagnosticEntry? currentAttempt = null)
