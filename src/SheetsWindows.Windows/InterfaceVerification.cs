@@ -567,12 +567,12 @@ internal static class InterfaceVerification
                 if (errorForm.IsBusy || errorForm.ExitCode != 1) return;
                 watcher.Stop();
                 var button = Descendants(errorForm).OfType<Button>().Single(b => b.Text == UiText.Get(ambiguous ? "action.chooseSeparator" : "action.retry"));
-                verified = ambiguous ? button.Tag as string == "primary" && button.Font.Bold && button.ForeColor == Color.White && button.BackColor == Color.FromArgb(18, 126, 69)
-                    : button.Tag as string != "primary" && !Descendants(errorForm).OfType<Button>().Any(b => b.Text == UiText.Get("action.chooseSeparator"));
+                verified = button.Tag as string == "primary" && button.Font.Bold && button.ForeColor == Color.White && button.BackColor == Color.FromArgb(18, 126, 69)
+                    && (ambiguous || !Descendants(errorForm).OfType<Button>().Any(b => b.Text == UiText.Get("action.chooseSeparator")));
                 SaveFrame(errorForm, ambiguous ? "choose-separator-action" : "ordinary-retry-action");
                 errorForm.Close();
             };
-            watcher.Start(); errorForm.ShowDialog(); Require(verified, "Only an ambiguous delimiter error gets the highlighted Choose separator action.");
+            watcher.Start(); errorForm.ShowDialog(); Require(verified, "Retry must remain the primary error action; only an ambiguous delimiter error offers Choose separator.");
         }
         using (var selector = new TextInterpretationForm())
         { Require(((Button)selector.AcceptButton!).Text == UiText.Get("action.retry"), "The interpretation modal keeps its Retry action."); }
