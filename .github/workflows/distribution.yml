@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.45: native visual polish validated by Local core 39539594577 on Windows/Linux, all locales and installer lifecycle.
+# Distribution candidate 0.9.46: alignment, readable statistics and compact layouts validated by Local core 39682949120 on Windows/Linux, all locales and installer lifecycle.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
