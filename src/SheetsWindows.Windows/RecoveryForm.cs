@@ -92,7 +92,7 @@ internal sealed class RecoveryForm : Form
         }
         policyPanel.SizeChanged += (_, _) => FitPolicy();
         var configuration = VisualStyle.Card(limits);
-        var tip = VisualStyle.Card(Ui.Text(UiText.Get("recovery.selectionHint")), Ui.Text(UiText.Get("error.backupQuotaTip")));
+        var tip = VisualStyle.Card(Ui.Text(UiText.Get("recovery.selectionHint")));
         policyPanel.Controls.AddRange([configuration, statistics, tip]); Ui.Adapt(policyPanel);
         var restore = new AdaptiveButton { Text = UiText.Get("action.restore"), AutoSize = true };
         var repair = new MenuActionButton { Text = UiText.Get("recovery.repairNew"), AutoSize = true };

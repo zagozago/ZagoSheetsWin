@@ -29,14 +29,20 @@ internal sealed class AdvancedPreferencesForm : Form
             section.Controls.Add(row);
         }
         void Divider() { section = VisualStyle.Card(); layout.Controls.Add(section); }
-        var connectionHeading = Ui.Text(UiText.Get("setup.googleHeading"), true);
-        section.Controls.Add(connectionHeading);
-        section.Controls.Add(Ui.Text(UiText.Get("setup.connectionExplanation")));
+        var connectionHeading = Ui.Text("", true); var connectionExplanation = Ui.Text("");
+        void RefreshConnectionCopy()
+        {
+            var parts = UiText.Get("setup.connectionExplanation").Split('\n', 2);
+            connectionHeading.Text = parts[0]; connectionExplanation.Text = parts.Length > 1 ? parts[1] : "";
+        }
+        RefreshConnectionCopy(); UiText.Changed += RefreshConnectionCopy; Disposed += (_, _) => UiText.Changed -= RefreshConnectionCopy;
+        section.Controls.Add(connectionHeading); section.Controls.Add(connectionExplanation);
         var clientState = new TextBox { ReadOnly = true, BorderStyle = BorderStyle.None, Tag = "status", Margin = new Padding(0, 8, 0, 2) };
         var chooseClient = new AdaptiveButton { Text = UiText.Get("setup.chooseClient") };
         void RefreshClient()
         {
             var configured = File.Exists(LauncherConfiguration.ClientPath(storage));
+            clientState.Visible = configured;
             clientState.Text = configured ? UiText.Get("setup.clientPreserved") : "";
             chooseClient.Enabled = !configured;
         }

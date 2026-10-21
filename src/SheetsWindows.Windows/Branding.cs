@@ -140,7 +140,7 @@ internal sealed class AboutForm : Form
 {
     public AboutForm()
     {
-        Text = UiText.Get("about.title"); ClientSize = new Size(940, 640); MinimumSize = new Size(740, 540); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterParent;
+        Text = UiText.Get("about.title"); ClientSize = new Size(880, 580); MinimumSize = new Size(740, 540); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterParent;
         var body = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 2, Padding = new Padding(18, 2, 18, 18) };
         body.ColumnStyles.Add(new(SizeType.Percent, 42)); body.ColumnStyles.Add(new(SizeType.Percent, 58));
         body.RowStyles.Add(new(SizeType.Percent, 57)); body.RowStyles.Add(new(SizeType.Percent, 43));

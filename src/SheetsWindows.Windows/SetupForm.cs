@@ -168,12 +168,23 @@ internal sealed class SetupForm : Form
         Controls.Add(layout); Controls.Add(footer);
         FormClosing += (_, e) => { if (busy) { e.Cancel = true; cancellation.Cancel(); } };
         Branding.Apply(this); Ui.Adapt(layout);
+        var fittingStatus = false;
         void FitCenter()
         {
-            connectionState.Tag = "status"; connectionState.AutoSize = true;
-            if (connectionState.Font.SizeInPoints != 10) connectionState.Font = new Font(LanguageVisuals.Family, 10, FontStyle.Bold);
-            connectionState.Padding = new Padding(10, 9, 10, 9); connectionState.TextAlign = ContentAlignment.MiddleLeft;
+            if (fittingStatus || connectionState.Parent is not Control host) return;
+            fittingStatus = true;
+            try
+            {
+                connectionState.Tag = "status"; connectionState.AutoSize = false;
+                if (connectionState.Font.SizeInPoints != 10) connectionState.Font = new Font(LanguageVisuals.Family, 10, FontStyle.Bold);
+                connectionState.Padding = new Padding(10, 9, 10, 9); connectionState.TextAlign = ContentAlignment.MiddleLeft;
+                connectionState.Width = Math.Max(120, host.ClientSize.Width - host.Padding.Horizontal - connectionState.Margin.Horizontal);
+                connectionState.Height = TextRenderer.MeasureText(connectionState.Text, connectionState.Font,
+                    new Size(Math.Max(80, connectionState.Width - connectionState.Padding.Horizontal), int.MaxValue), TextFormatFlags.WordBreak).Height + connectionState.Padding.Vertical + 4;
+            }
+            finally { fittingStatus = false; }
         }
+        connectionState.Parent!.SizeChanged += (_, _) => FitCenter();
         connectionState.TextChanged += (_, _) => FitCenter();
         void LanguageChanged() { RefreshConnection(); FitCenter(); }
         UiText.Changed += LanguageChanged; Disposed += (_, _) => UiText.Changed -= LanguageChanged;

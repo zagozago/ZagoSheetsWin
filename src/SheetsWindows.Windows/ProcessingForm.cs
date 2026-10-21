@@ -5,7 +5,7 @@ namespace SheetsWindows.Windows;
 internal sealed class ProcessingForm : Form
 {
     private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Fill, Padding = new Padding(18), TextAlign = ContentAlignment.MiddleLeft, Text = UiText.Get("progress.preparing"), AccessibleName = UiText.Get("accessibility.processingStatus") };
-    private readonly Label failureHeading = new() { Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(18, 14, 18, 4), Visible = false, Font = new Font("Segoe UI", 12, FontStyle.Bold), Tag = "errorSurface" };
+    private readonly Label failureHeading = new() { Dock = DockStyle.Top, AutoSize = false, Height = 46, Padding = new Padding(18, 10, 18, 4), Visible = false, Font = new Font("Segoe UI", 12, FontStyle.Bold), Tag = "errorSurface" };
     private readonly Panel closeRow = new() { Dock = DockStyle.Bottom, Height = 58, Padding = new Padding(18, 0, 18, 10), Visible = false };
     private readonly Button cancel = new AdaptiveButton() { AutoSize = true, Text = UiText.Get("action.cancel") };
     private readonly FlowLayoutPanel actions = new() { Dock = DockStyle.Bottom, AutoSize = true, Padding = new Padding(12), WrapContents = true };
@@ -87,7 +87,7 @@ internal sealed class ProcessingForm : Form
         actions.Controls.Add(cancel); Controls.Add(status); Controls.Add(failureHeading); Controls.Add(actions); Controls.Add(closeRow);
         FormClosing += (_, e) => { if (busy) { e.Cancel = true; cancellation.Cancel(); cancel.Enabled = false; status.Text = UiText.Get("progress.stopping"); } };
         Branding.Apply(this, aboutButton: false, compact: true);
-        UiText.Changed += RenderFailure;
+        UiText.Changed += RenderFailure; Shown += (_, _) => RenderFailure();
         if (preview) { status.Text = UiText.Get("progress.verification"); if (previewError) ShowFailure(new ConversionMismatchException()); }
         // Start after the modal/native message loop installs its UI synchronization context.
         else Shown += (_, _) => BeginInvoke((Action)(async () => await RunSafelyAsync()));
@@ -96,7 +96,7 @@ internal sealed class ProcessingForm : Form
     {
         Text = UiText.Get("processing.failureTitle");
         failureHeading.Visible = true; status.Tag = "errorSurface"; closeRow.Visible = true;
-        actions.Controls.Remove(cancel); closeRow.Controls.Add(cancel); cancel.Dock = DockStyle.Left;
+        actions.Controls.Remove(cancel); closeRow.Controls.Add(cancel); cancel.Dock = DockStyle.None; cancel.AutoSize = false; cancel.Size = new Size(110, 40);
         displayedFailure = ex; diagnosticFeedback = null; terminal = true; needsInputChange = ImportRetry.RequiresInputChange(ex); RenderFailure();
         var recovery = new AdaptiveButton { Text = UiText.Get("action.recovery"), AutoSize = true };
         recovery.Click += (_, _) => { using var form = new RecoveryForm(); form.ShowDialog(this); };
@@ -136,7 +136,7 @@ internal sealed class ProcessingForm : Form
             actions.Controls.Add(retry); actions.Controls.SetChildIndex(retry, 0);
         }
         VisualStyle.Icon(recovery, UiIcon.Backup); VisualStyle.Icon(export, UiIcon.File); VisualStyle.Icon(setup, UiIcon.Settings);
-        ClientSize = new Size((int)(620 * DeviceDpi / 96.0), (int)(330 * DeviceDpi / 96.0)); Branding.Refresh(this); RenderFailure();
+        ClientSize = new Size((int)(760 * DeviceDpi / 96.0), (int)(360 * DeviceDpi / 96.0)); Branding.Refresh(this); RenderFailure();
     }
     private async Task RunSafelyAsync()
     {

@@ -51,6 +51,6 @@ internal sealed class LauncherForm : Form
             }
             finally { fittingHome = false; }
         }
-        layout.Layout += (_, _) => FitHome(); Shown += (_, _) => FitHome();
+        Shown += (_, _) => FitHome(); UiText.Changed += FitHome; Disposed += (_, _) => UiText.Changed -= FitHome;
     }
 }
