@@ -33,12 +33,12 @@ internal sealed class RecoveryForm : Form
             return ascending ? result : -result;
         }
     }
-    private readonly ListView entries = new ListView() { Dock = DockStyle.Fill, View = View.Details, FullRowSelect = true, MultiSelect = true, CheckBoxes = false, HideSelection = false, AccessibleName = UiText.Get("accessibility.availableBackups") };
+    private readonly ListView entries = new ListView() { Dock = DockStyle.Fill, View = View.Details, FullRowSelect = true, MultiSelect = true, CheckBoxes = false, HideSelection = false, BorderStyle = BorderStyle.None, AccessibleName = UiText.Get("accessibility.availableBackups") };
     private RecoveryEntry? Selected => entries.SelectedItems.Count != 1 ? null : entries.SelectedItems[0].Tag as RecoveryEntry;
     private void AddEntry(RecoveryEntry entry)
     {
         if (entry.CleanupState == 2) return;
-        var item = new ListViewItem(Path.GetFileName(entry.OriginalPath)) { Tag = entry, ToolTipText = entry.OriginalPath };
+        var item = new ListViewItem(Path.GetFileName(entry.OriginalPath)) { ImageIndex = 0, Tag = entry, ToolTipText = entry.OriginalPath };
         item.SubItems.Add(entry.CapturedAt?.ToLocalTime().ToString("dd/MM/yyyy HH:mm") ?? "-");
         item.SubItems.Add(UiText.Format("recovery.sizeMb", ("sizeMb", entry.Bytes / 1_000_000d)));
         item.SubItems.Add(entry.CleanupState == 2 ? UiText.Get("recovery.state.cleaned") : entry.CleanupState == 1 ? UiText.Get("recovery.state.cleaning") : !entry.Available ? UiText.Get("recovery.state.unavailable") : entry.CanClean ? UiText.Get("recovery.state.completed") : UiText.Get("recovery.state.protected")); entries.Items.Add(item);
@@ -52,6 +52,14 @@ internal sealed class RecoveryForm : Form
         status.TextChanged += (_, _) => FitStatus();
         Shown += (_, _) => FitStatus();
         entries.Columns.Add(UiText.Get("recovery.column.file"), 230); entries.Columns.Add(UiText.Get("recovery.column.date"), 140); entries.Columns.Add(UiText.Get("recovery.column.size"), 80); entries.Columns.Add(UiText.Get("recovery.column.state"), 180); entries.ShowItemToolTips = true;
+        var rowImages = new ImageList { ImageSize = new Size(20, 26), ColorDepth = ColorDepth.Depth32Bit };
+        using (var bitmap = new Bitmap(20, 26))
+        {
+            using var graphics = Graphics.FromImage(bitmap); using var pen = new Pen(Color.FromArgb(24, 128, 75), 1.4f);
+            graphics.DrawRectangle(pen, 4, 4, 12, 17); graphics.DrawLine(pen, 7, 10, 13, 10); graphics.DrawLine(pen, 7, 14, 13, 14); graphics.DrawLine(pen, 10, 8, 10, 18);
+            rowImages.Images.Add(bitmap);
+        }
+        entries.SmallImageList = rowImages; Disposed += (_, _) => rowImages.Dispose();
         entries.ColumnClick += (_, e) => SortByColumn(e.Column);
         var storage = policyStorage ?? LocalStorage.ForCurrentUser();
         var manager = new BackupManagement(storage);
@@ -60,7 +68,8 @@ internal sealed class RecoveryForm : Form
         var days = new NumericUpDown { Minimum = 1, Maximum = 365, Value = 30, Width = 70, AccessibleName = UiText.Get("accessibility.retentionDays") };
         var quota = new NumericUpDown { Minimum = 1, Maximum = 1000, Value = 200, Width = 80, AccessibleName = UiText.Get("accessibility.quotaMb") };
         var usage = new EmphasisLabel { AutoSize = true, Text = UiText.Get("recovery.limits"), Font = new Font("Segoe UI", 8, FontStyle.Bold), Margin = new Padding(10), Name = "backupStatistics", AccessibleName = UiText.Get("accessibility.availableBackups") };
-        var statistics = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, BorderStyle = BorderStyle.FixedSingle, FlowDirection = FlowDirection.TopDown, WrapContents = false, Margin = new Padding(0, 18, 0, 0) };
+        var statistics = VisualStyle.Card();
+        var meter = new ProgressBar { Height = 7, Maximum = 1000, Width = 150, AccessibleName = UiText.Get("recovery.quotaLabel") }; statistics.Controls.Add(meter);
         statistics.Controls.Add(usage);
         var limits = new TableLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, ColumnCount = 2, RowCount = 2, Margin = new Padding(0, 0, 0, 8) };
         limits.ColumnStyles.Add(new(SizeType.Percent, 50)); limits.ColumnStyles.Add(new(SizeType.Percent, 50));
@@ -71,15 +80,18 @@ internal sealed class RecoveryForm : Form
         void FitPolicy()
         {
             var width = Math.Max(120, policyPanel.ClientSize.Width - policyPanel.Padding.Horizontal - 22);
+            meter.Width = Math.Max(80, width - statistics.Padding.Horizontal);
             usage.MaximumSize = new Size(Math.Max(80, width - 24), 0);
             statistics.MinimumSize = new Size(width, 0); statistics.MaximumSize = new Size(width, 0);
             foreach (var label in policyPanel.Controls.OfType<Label>()) label.MaximumSize = new Size(width, 0);
-            limits.MinimumSize = new Size(width, 0); limits.MaximumSize = new Size(width, 0); limits.Width = width;
-            daysLabel.MaximumSize = quotaLabel.MaximumSize = new Size(Math.Max(45, width/2-6), 0);
-            days.Width = quota.Width = Math.Max(45, width/2-6);
+            limits.MinimumSize = new Size(Math.Max(100, width - 28), 0); limits.MaximumSize = new Size(Math.Max(100, width - 28), 0); limits.Width = Math.Max(100, width - 28);
+            daysLabel.MaximumSize = quotaLabel.MaximumSize = new Size(Math.Max(45, (width-28)/2-6), 0);
+            days.Width = quota.Width = Math.Max(45, (width-28)/2-6);
         }
         policyPanel.SizeChanged += (_, _) => FitPolicy();
-        policyPanel.Controls.AddRange([limits, new Label { AutoSize = true, Text = UiText.Get("error.backupQuotaTip") }, statistics]);
+        var configuration = VisualStyle.Card(limits);
+        var tip = VisualStyle.Card(Ui.Text(UiText.Get("recovery.selectionHint")), Ui.Text(UiText.Get("error.backupQuotaTip")));
+        policyPanel.Controls.AddRange([configuration, statistics, tip]); Ui.Adapt(policyPanel);
         var restore = new AdaptiveButton { Text = UiText.Get("action.restore"), AutoSize = true };
         var repair = new MenuActionButton { Text = UiText.Get("recovery.repairNew"), AutoSize = true };
         var copy = new MenuActionButton { Text = UiText.Get("recovery.resumeCopy"), AutoSize = true };
@@ -107,13 +119,14 @@ internal sealed class RecoveryForm : Form
         // Keep action buttons parented so native PerformClick executes their existing handlers.
         var hiddenActions = new Panel { Visible = false }; hiddenActions.Controls.AddRange([copy, resume, repair, export, clean]); Controls.Add(hiddenActions);
         Disposed += (_, _) => menu.Dispose(); Ui.Primary(restore);
-        var main = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 1 };
+        VisualStyle.Icon(restore, UiIcon.Restore); VisualStyle.Icon(more, UiIcon.Settings);
+        var main = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 1, Padding = new Padding(14, 0, 14, 14) };
         main.ColumnStyles.Add(new(SizeType.Percent, 75)); main.ColumnStyles.Add(new(SizeType.Percent, 25)); main.RowStyles.Add(new(SizeType.Percent, 100));
         var files = new Panel { Dock = DockStyle.Fill }; files.Controls.Add(entries); files.Controls.Add(actions); files.Controls.Add(status);
         files.SizeChanged += (_, _) => FitStatus(); main.Controls.Add(files, 0, 0); main.Controls.Add(policyPanel, 1, 0);
         Controls.Add(main); Controls.Add(cancel); cancel.Dock = DockStyle.Bottom;
         long shownBytes = 0; int shownCount = 0, shownProtected = 0;
-        void RefreshUsage() { usage.Text = UiText.Format("recovery.usage", ("usedMb", shownBytes / 1_000_000d), ("limitMb", quota.Value), ("backupCount", shownCount), ("protectedCount", shownProtected)).Replace(" · ", "\n"); FitPolicy(); }
+        void RefreshUsage() { meter.Value = (int)Math.Clamp(shownBytes * 1000d / Math.Max(1d, (double)quota.Value * 1_000_000d), 0d, 1000d); usage.Text = UiText.Format("recovery.usage", ("usedMb", shownBytes / 1_000_000d), ("limitMb", quota.Value), ("backupCount", shownCount), ("protectedCount", shownProtected)).Replace(" · ", "\n"); FitPolicy(); }
         UiText.Changed += RefreshUsage; Disposed += (_, _) => UiText.Changed -= RefreshUsage;
         quota.ValueChanged += (_, _) => RefreshUsage();
         async Task Resume(bool replace, TextImportOptions? repairOptions = null)
@@ -158,6 +171,7 @@ internal sealed class RecoveryForm : Form
             var result = await Task.Run(() => (Rows: service.List(), Summary: manager.Inspect()));
             entries.Items.Clear(); foreach (var row in result.Rows) AddEntry(row);
             shownBytes = result.Summary.UsedBytes; shownCount = result.Rows.Count; shownProtected = result.Rows.Count(e => !e.CanClean && e.Available); RefreshUsage();
+            Branding.Refresh(this);
             if (entries.Items.Count == 0) status.Text = UiText.Get("recovery.noBackups");
         }
         var loadingPolicy = !preview;

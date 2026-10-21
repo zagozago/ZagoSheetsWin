@@ -146,12 +146,22 @@ internal sealed class TutorialPicture : Control
         }
         void AppIcon(float x, float y, bool authorize)
         {
-            Round(x, y, 144, 107, pale); g.DrawRectangle(pen, x, y, 144, 107); g.DrawLine(pen, x, y + 18, x + 144, y + 18);
+            using var outline = new Pen(SystemInformation.HighContrast ? ForeColor : dark ? Color.FromArgb(75, 112, 90) : Color.FromArgb(161, 191, 174), 1);
+            Round(x, y, 144, 107, SystemInformation.HighContrast || dark ? pale : white);
+            g.DrawRectangle(outline, x, y, 144, 107);
+            g.FillRectangle(pale, x + 1, y + 1, 142, 15);
+            for (var dot = 0; dot < 3; dot++) g.FillEllipse(green, x + 7 + dot * 7, y + 6, 3, 3);
+            g.DrawLine(outline, x, y + 17, x + 144, y + 17);
             using var source = typeof(Branding).Assembly.GetManifestResourceStream("Brand.z.png")!;
-            using var logo = Image.FromStream(source); g.DrawImage(logo, x + 48, y + 29, 48, 44);
-            g.DrawString("ZagoSheetsWin", small, ink, new RectangleF(x, y + 70, 144, 20), centered);
-            Round(x + 12, y + 92, 120, 9, green);
-            if (authorize) { Round(x + 12, y + 80, 120, 23, green); g.DrawString(UiText.Get("tutorial.picture.authorize"), small, white, new RectangleF(x + 12, y + 80, 120, 23), centered); }
+            using var logo = Image.FromStream(source); g.DrawImage(logo, x + 53, y + 26, 38, 34);
+            using var name = new Font(LanguageVisuals.Family, 11, FontStyle.Bold, GraphicsUnit.Pixel);
+            g.DrawString("ZagoSheetsWin", name, ink, new RectangleF(x + 6, y + 63, 132, 17), centered);
+            if (authorize)
+            {
+                Round(x + 10, y + 82, 124, 18, green);
+                g.DrawString(UiText.Get("tutorial.picture.authorize"), small, white, new RectangleF(x + 10, y + 82, 124, 18), centered);
+            }
+            else { Round(x + 14, y + 88, 116, 5, pale); Round(x + 14, y + 88, 83, 5, green); }
         }
         void Folder(float x, float y)
         {
@@ -184,15 +194,16 @@ internal sealed class TutorialPicture : Control
             if (Page == 1 && step == 0)
             {
                 g.DrawString("Google", font, ink, new RectangleF(x, 27, 195, 35), centered);
-                g.FillEllipse(green, x + 78, 70, 38, 38);
+                g.FillEllipse(green, x + 72, 65, 50, 50);
+                g.FillEllipse(white, x + 89, 72, 16, 16); g.FillEllipse(white, x + 82, 91, 30, 19);
                 g.DrawString(UiText.Get("tutorial.picture.yourAccount"), small, ink, new RectangleF(x, 112, 195, 26), centered);
             }
             else if (step == 1 && Page == 3) Folder(x + 48, 15);
             else if (step == 1) AppIcon(x + 25, 30, Page == 1);
             else FileIcon(x + 61, Page == 3 ? 11 : 31, step == 0 ? "XLSX" : "", step == 2);
             var numberY = Page == 3 ? 128 : 174;
-            g.FillEllipse(green, x + 5, numberY, 26, 26);
-            g.DrawString((step + 1).ToString(), small, white, new RectangleF(x + 5, numberY, 26, 26), centered);
+            g.FillEllipse(green, x + (Page == 3 ? 5 : 84), numberY, 26, 26);
+            g.DrawString((step + 1).ToString(), small, white, new RectangleF(x + (Page == 3 ? 5 : 84), numberY, 26, 26), centered);
             g.DrawString(labels[step], font, ink, Page == 3 ? new RectangleF(x + 33, 124, 162, 34) : new RectangleF(x + 2, 207, 191, 42), centered);
         }
         foreach (var x in new[] { 211, 456 }) { var arrowY = Page == 3 ? 65 : 83; g.DrawLine(pen, x, arrowY, x + 24, arrowY); g.DrawLines(pen, [new PointF(x + 15, arrowY - 9), new PointF(x + 24, arrowY), new PointF(x + 15, arrowY + 9)]); }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.44",
+  "productVersion": "0.9.45",
   "sourceLocale": "pt-BR",
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "已删除的备份：{count}。已释放空间：{freedMb:N2} MB。",
     "recovery.enableCleanupPrompt": "自动清理规则也适用于现有备份。超过保留期限或需要释放空间时，会从最旧的备份开始删除已完成操作的备份。删除后将无法恢复本地原文件。Google 中的电子表格和快捷方式将被保留。是否启用？",
     "recovery.enableCleanupTitle": "启用自动清理",
-    "recovery.instructions": "恢复文件：选择一行，再点击“恢复到…”。\n待处理操作受到保护。Google 中的电子表格和快捷方式将被保留。",
+    "recovery.instructions": "恢复文件：选择一行，再点击“恢复到…”。",
     "recovery.limits": "容量上限：200 MB · 最大：1 GB。待处理操作受到保护。",
     "recovery.moreActions": "更多操作 ▾",
     "recovery.noBackups": "当前 Windows 用户尚无备份记录。",
@@ -365,6 +365,8 @@
     "action.chooseSeparator": "选择分隔符",
     "recovery.quotaRotation": "达到配额时，会删除最旧的已完成备份。待处理备份会保留。",
     "progress.backupWaiting": "正在等待备份空间… 提示：释放备份空间可避免长时间等待。",
-    "error.backupQuotaTip": "提示：释放备份空间可避免长时间等待。"
+    "error.backupQuotaTip": "提示：释放备份空间可避免长时间等待。",
+    "tagline.open_spreadsheets_automatically": "在 Google Sheets 中自动打开电子表格。",
+    "recovery.selectionHint": "多选：Ctrl + 单击 · Shift + 单击 · 键盘方向键。"
   }
 }

@@ -42,6 +42,18 @@ internal static class Program
                 foreach (var theme in new[] { ApplicationTheme.Light, ApplicationTheme.Dark })
                 {
                     Branding.PreviewTheme(theme);
+                    using (var advanced = new AdvancedPreferencesForm(LocalStorage.ForCurrentUser(), preview: true))
+                    {
+                        advanced.Show(); Application.DoEvents();
+                        using var bitmap = new Bitmap(advanced.Width, advanced.Height); advanced.DrawToBitmap(bitmap, new Rectangle(Point.Empty, bitmap.Size));
+                        bitmap.Save(Path.Combine(folder, $"advanced-{theme}.png"), System.Drawing.Imaging.ImageFormat.Png); advanced.Hide();
+                    }
+                    for (var page = 0; page < FirstUseWizard.PageCount; page++)
+                    {
+                        using var wizard = new FirstUseWizard(preview: true, initialPage: page); wizard.Show(); Application.DoEvents();
+                        using var bitmap = new Bitmap(wizard.Width, wizard.Height); wizard.DrawToBitmap(bitmap, new Rectangle(Point.Empty, bitmap.Size));
+                        bitmap.Save(Path.Combine(folder, $"first-use-{page+1}-{theme}.png"), System.Drawing.Imaging.ImageFormat.Png); wizard.Hide();
+                    }
                     for (var page = 0; page < 4; page++)
                     {
                         using var tutorial = new TutorialForm(page); tutorial.Show(); Application.DoEvents();

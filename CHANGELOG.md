@@ -1,5 +1,15 @@
 # Histórico de alterações
 
+## 0.9.45 — refinamento visual
+
+- Cabeçalho, ícones vetoriais próprios, cartões e hierarquia visual compartilhados entre as nove telas de referência.
+- Subtítulo da janela principal com as 51 traduções fornecidas; orientação localizada sobre seleção múltipla de backups.
+- Configurações agrupadas sem alterar ações, valores ou persistência; lista de backups com linhas discretas, ícones de arquivo e indicador real de uso de espaço.
+- Sobre/Licenças em duas colunas, mantendo textos legais integrais, créditos, links e dependências.
+- Erros com título destacado e ação de nova tentativa prioritária, preservando todas as condições e mensagens existentes.
+- Miniatura do ZagoSheetsWin redesenhada e unificada nos três passos do primeiro uso, com menos espaço vazio e os cinco formatos preservados.
+- O novo comportamento dos pendentes da 0.9.44 ainda aguarda homologação prática do usuário; não foi alterado nesta versão.
+
 ## 0.9.44
 
 - Backups incompletos aparecem como pendentes nos 51 idiomas.

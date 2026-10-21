@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.44",
+  "productVersion": "0.9.45",
   "sourceLocale": "pt-BR",
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "حذف شوي بیک‌اپونه: {count}. ازاد شوی ځای: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "اتومات پاکول دا قواعد پر شته بیک‌اپونو هم پلي کوي. بشپړ شوي بیک‌اپونه د ساتلو مودې له تېرېدو وروسته یا د ځای خالي کولو لپاره، له تر ټولو زړو څخه تر نویو، حذف کوي. وروسته به تاسو ځايي اصلي فایل بیا رغولی نه شئ. د Google سپرېډشیټونه او شارټ‌کټونه به پاتې شي. فعال یې کړئ؟",
     "recovery.enableCleanupTitle": "اتومات پاکول فعالول",
-    "recovery.instructions": "د بیا رغولو لپاره: یو قطار وټاکئ او بیا رغول په… غوره کړئ.\nځنډېدلي عملیات خوندي دي. د Google سپرېډشیټونه او شارټ‌کټونه ساتل کېږي.",
+    "recovery.instructions": "د بیا رغولو لپاره: یو قطار وټاکئ او بیا رغول په… غوره کړئ.",
     "recovery.limits": "حد: 200 MB · اعظمي: 1 GB. ځنډېدلي عملیات خوندي دي.",
     "recovery.moreActions": "نورې کړنې ▾",
     "recovery.noBackups": "د دې Windows کارن لپاره هېڅ بیک‌اپ ثبت شوی نه دی.",
@@ -365,6 +365,8 @@
     "action.chooseSeparator": "بېلوونکی وټاکئ",
     "recovery.quotaRotation": "د ځای حد ته په رسېدو زاړه بشپړ بیک اپونه حذف کېږي. پاتې بیک اپونه ساتل کېږي.",
     "progress.backupWaiting": "د شاتړ ځای ته انتظار… لارښوونه: د اوږده انتظار د مخنیوي لپاره د شاتړ ځای خالي کړئ.",
-    "error.backupQuotaTip": "لارښوونه: د اوږده انتظار د مخنیوي لپاره د شاتړ ځای خالي کړئ."
+    "error.backupQuotaTip": "لارښوونه: د اوږده انتظار د مخنیوي لپاره د شاتړ ځای خالي کړئ.",
+    "tagline.open_spreadsheets_automatically": "په Google Sheets کې سپرېډشېټونه په اوتومات ډول پرانیزئ.",
+    "recovery.selectionHint": "څو توکي وټاکئ: Ctrl + کلیک · Shift + کلیک · د غشي کیلي."
   }
 }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.44",
+  "productVersion": "0.9.45",
   "sourceLocale": "pt-BR",
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "백업 삭제됨: {count}개. 확보된 공간: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "자동 정리는 기존 백업에도 이 규칙을 적용합니다. 보관 기간이 지난 완료된 백업을 삭제하거나 공간 확보를 위해 오래된 것부터 삭제합니다. 이후에는 로컬 원본을 복원할 수 없습니다. Google 스프레드시트와 바로 가기는 유지됩니다. 활성화하시겠습니까?",
     "recovery.enableCleanupTitle": "자동 정리 활성화",
-    "recovery.instructions": "복구하려면: 행을 선택하고 다음 위치에 복원…을 선택하세요.\n대기 중인 작업은 보호됩니다. Google 스프레드시트와 바로 가기는 유지됩니다.",
+    "recovery.instructions": "복구하려면: 행을 선택하고 다음 위치에 복원…을 선택하세요.",
     "recovery.limits": "한도: 200 MB · 최대: 1 GB. 대기 중인 작업은 보호됩니다.",
     "recovery.moreActions": "추가 작업 ▾",
     "recovery.noBackups": "이 Windows 사용자에 대해 기록된 백업이 없습니다.",
@@ -365,6 +365,8 @@
     "action.chooseSeparator": "구분 기호 선택",
     "recovery.quotaRotation": "한도에 도달하면 가장 오래된 완료된 백업부터 삭제됩니다. 대기 중인 백업은 유지됩니다.",
     "progress.backupWaiting": "백업 공간을 기다리는 중… 팁: 오래 기다리지 않으려면 백업 공간을 확보하세요.",
-    "error.backupQuotaTip": "팁: 오래 기다리지 않으려면 백업 공간을 확보하세요."
+    "error.backupQuotaTip": "팁: 오래 기다리지 않으려면 백업 공간을 확보하세요.",
+    "tagline.open_spreadsheets_automatically": "Google Sheets에서 스프레드시트를 자동으로 여세요.",
+    "recovery.selectionHint": "여러 항목 선택: Ctrl + 클릭 · Shift + 클릭 · 방향키."
   }
 }

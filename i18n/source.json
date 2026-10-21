@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.44",
+  "productVersion": "0.9.45",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
@@ -5969,7 +5969,7 @@
       "notes": []
     },
     "recovery.instructions": {
-      "text": "Para recuperar: selecione uma linha e use Restaurar\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos.",
+      "text": "Para recuperar: selecione uma linha e use Restaurar",
       "context": "src/SheetsWindows.Windows/RecoveryForm.cs - private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Top, Height = 85, Padding = new Padding(12), Text = \"Para recuperar: selecione uma linha e use Restaurar em…\\nPara apagar vários backups: marque as caixas ou use Selecionar todos.\\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos.\" };",
       "scope": "app",
       "placeholders": [],
@@ -7524,6 +7524,29 @@
       "scope": "app",
       "placeholders": [],
       "invariants": [],
+      "markup": [],
+      "notes": []
+    },
+    "tagline.open_spreadsheets_automatically": {
+      "text": "Abra planilhas no Google Sheets automaticamente.",
+      "context": "Native visual polish: home subtitle and backup selection guidance.",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [
+        "Google Sheets"
+      ],
+      "markup": [],
+      "notes": []
+    },
+    "recovery.selectionHint": {
+      "text": "Selecione vários: Ctrl + clique · Shift + clique · setas do teclado.",
+      "context": "Native visual polish: home subtitle and backup selection guidance.",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [
+        "Ctrl",
+        "Shift"
+      ],
       "markup": [],
       "notes": []
     }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.44",
+  "productVersion": "0.9.45",
   "sourceLocale": "pt-BR",
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "بيڪ اپ ختم ٿيا: {count}. خالي ٿيل جاءِ: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "پاڻمرادو صفائي اهي قاعدا موجود بيڪ اپ تي به لاڳو ڪري ٿي. رکڻ جي مدي کان پوءِ يا جاءِ خالي ڪرڻ لاءِ مڪمل بيڪ اپ، سڀ کان پراڻي کان شروع ڪري، ختم ڪري ٿي. پوءِ مقامي اصل بحال نه ڪري سگهندا. Google اسپريڊ شيٽ ۽ شارٽ ڪٽ رهندا. فعال ڪجي؟",
     "recovery.enableCleanupTitle": "پاڻمرادو صفائي فعال ڪريو",
-    "recovery.instructions": "بحال ڪرڻ لاءِ: قطار چونڊيو ۽ هتي بحال ڪريو… چونڊيو.\nزير انتظار آپريشن محفوظ آهن. Google اسپريڊ شيٽ ۽ شارٽ ڪٽ محفوظ رهن ٿا.",
+    "recovery.instructions": "بحال ڪرڻ لاءِ: قطار چونڊيو ۽ هتي بحال ڪريو… چونڊيو.",
     "recovery.limits": "حد: 200 MB · وڌ ۾ وڌ: 1 GB. زير انتظار آپريشن محفوظ آهن.",
     "recovery.moreActions": "وڌيڪ عمل ▾",
     "recovery.noBackups": "هن Windows يوزر لاءِ ڪو بيڪ اپ رڪارڊ ٿيل ناهي.",
@@ -365,6 +365,8 @@
     "action.chooseSeparator": "جدا ڪندڙ چونڊيو",
     "recovery.quotaRotation": "ڪوٽا ڀرجڻ تي پراڻا مڪمل بيڪ اپ ڊاهيا وڃن ٿا. التوا وارا بيڪ اپ محفوظ رهن ٿا.",
     "progress.backupWaiting": "بيڪ اپ جي جاءِ جو انتظار… صلاح: ڊگهي انتظار کان بچڻ لاءِ بيڪ اپ ۾ جاءِ خالي ڪريو.",
-    "error.backupQuotaTip": "صلاح: ڊگهي انتظار کان بچڻ لاءِ بيڪ اپ ۾ جاءِ خالي ڪريو."
+    "error.backupQuotaTip": "صلاح: ڊگهي انتظار کان بچڻ لاءِ بيڪ اپ ۾ جاءِ خالي ڪريو.",
+    "tagline.open_spreadsheets_automatically": "Google Sheets ۾ اسپريڊ شيٽون پاڻمرادو کوليو.",
+    "recovery.selectionHint": "گهڻا چونڊيو: Ctrl + ڪلڪ · Shift + ڪلڪ · تير واريون ڪنجيون."
   }
 }

@@ -3,7 +3,7 @@
   "locale": "sw-KE",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -507,7 +507,7 @@
     "recovery.deleted": "Nakala rudufu zimefutwa: {count}. Nafasi iliyoachiliwa: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Usafishaji wa kiotomatiki pia hutumia kanuni hizi kwa nakala rudufu zilizopo. Hufuta nakala zilizokamilika baada ya muda wa kuhifadhi au ili kutoa nafasi, kutoka ya zamani hadi mpya. Baada ya hapo, hutaweza kurejesha faili ya asili ya ndani. Lahajedwali za Google na njia za mkato zitabaki. Washa?",
     "recovery.enableCleanupTitle": "Washa usafishaji wa kiotomatiki",
-    "recovery.instructions": "Ili kurejesha: chagua safu mlalo na uchague Rejesha kwenye…\nOperesheni zinazosubiri zinalindwa. Lahajedwali za Google na njia za mkato zinahifadhiwa.",
+    "recovery.instructions": "Ili kurejesha: chagua safu mlalo na uchague Rejesha kwenye…",
     "recovery.limits": "Kikomo: 200 MB · kiwango cha juu: 1 GB. Operesheni zinazosubiri zinalindwa.",
     "recovery.moreActions": "Vitendo zaidi ▾",
     "recovery.noBackups": "Hakuna nakala rudufu zilizorekodiwa kwa mtumiaji huyu wa Windows.",
@@ -658,6 +658,8 @@
     "action.chooseSeparator": "Chagua kitenganishi",
     "recovery.quotaRotation": "Kiwango cha nafasi kikifikiwa, nakala zilizokamilika za zamani zaidi hufutwa. Nakala zinazosubiri huhifadhiwa.",
     "progress.backupWaiting": "Inasubiri nafasi ya nakala rudufu… Kidokezo: ongeza nafasi iliyo wazi ili kuepuka kusubiri kwa muda mrefu.",
-    "error.backupQuotaTip": "Kidokezo: ongeza nafasi iliyo wazi ili kuepuka kusubiri kwa muda mrefu."
+    "error.backupQuotaTip": "Kidokezo: ongeza nafasi iliyo wazi ili kuepuka kusubiri kwa muda mrefu.",
+    "tagline.open_spreadsheets_automatically": "Fungua lahajedwali kiotomatiki kwenye Google Sheets.",
+    "recovery.selectionHint": "Chagua kadhaa: Ctrl + bofya · Shift + bofya · vitufe vya mishale."
   }
 }

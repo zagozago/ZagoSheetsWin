@@ -3,7 +3,7 @@
   "locale": "pa-Guru-IN",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -507,7 +507,7 @@
     "recovery.deleted": "ਮਿਟਾਏ ਬੈਕਅੱਪ: {count}. ਖਾਲੀ ਕੀਤੀ ਜਗ੍ਹਾ: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "ਆਟੋਮੈਟਿਕ ਸਫਾਈ ਇਹ ਨਿਯਮ ਮੌਜੂਦਾ ਬੈਕਅੱਪਾਂ 'ਤੇ ਵੀ ਲਾਗੂ ਕਰਦੀ ਹੈ। ਇਹ ਰੱਖਣ ਦੀ ਮਿਆਦ ਤੋਂ ਬਾਅਦ ਜਾਂ ਜਗ੍ਹਾ ਖਾਲੀ ਕਰਨ ਲਈ ਪੂਰੇ ਹੋਏ ਬੈਕਅੱਪ ਸਭ ਤੋਂ ਪੁਰਾਣੇ ਤੋਂ ਨਵੇਂ ਕ੍ਰਮ ਵਿੱਚ ਮਿਟਾਉਂਦੀ ਹੈ। ਇਸ ਤੋਂ ਬਾਅਦ ਤੁਸੀਂ ਲੋਕਲ ਅਸਲ ਫਾਈਲ ਰੀਸਟੋਰ ਨਹੀਂ ਕਰ ਸਕੋਗੇ। Google ਸਪ੍ਰੈਡਸ਼ੀਟਾਂ ਅਤੇ ਸ਼ਾਰਟਕੱਟ ਰਹਿਣਗੇ। ਚਾਲੂ ਕਰਨਾ ਹੈ?",
     "recovery.enableCleanupTitle": "ਆਟੋਮੈਟਿਕ ਸਫਾਈ ਚਾਲੂ ਕਰੋ",
-    "recovery.instructions": "ਰੀਸਟੋਰ ਕਰਨ ਲਈ: ਇੱਕ ਕਤਾਰ ਚੁਣੋ ਅਤੇ ਇੱਥੇ ਰੀਸਟੋਰ ਕਰੋ… ਚੁਣੋ।\nਬਕਾਇਆ ਕਾਰਵਾਈਆਂ ਸੁਰੱਖਿਅਤ ਹਨ। Google ਸਪ੍ਰੈਡਸ਼ੀਟਾਂ ਅਤੇ ਸ਼ਾਰਟਕੱਟ ਰੱਖੇ ਜਾਂਦੇ ਹਨ।",
+    "recovery.instructions": "ਰੀਸਟੋਰ ਕਰਨ ਲਈ: ਇੱਕ ਕਤਾਰ ਚੁਣੋ ਅਤੇ ਇੱਥੇ ਰੀਸਟੋਰ ਕਰੋ… ਚੁਣੋ।",
     "recovery.limits": "ਸੀਮਾ: 200 MB · ਵੱਧ ਤੋਂ ਵੱਧ: 1 GB. ਬਕਾਇਆ ਕਾਰਵਾਈਆਂ ਸੁਰੱਖਿਅਤ ਹਨ।",
     "recovery.moreActions": "ਹੋਰ ਕਾਰਵਾਈਆਂ ▾",
     "recovery.noBackups": "ਇਸ Windows ਯੂਜ਼ਰ ਲਈ ਕੋਈ ਬੈਕਅੱਪ ਦਰਜ ਨਹੀਂ।",
@@ -658,6 +658,8 @@
     "action.chooseSeparator": "ਵਿਭਾਜਕ ਚੁਣੋ",
     "recovery.quotaRotation": "ਕੋਟਾ ਭਰਨ ’ਤੇ ਸਭ ਤੋਂ ਪੁਰਾਣੇ ਪੂਰੇ ਬੈਕਅੱਪ ਮਿਟਾਏ ਜਾਂਦੇ ਹਨ। ਲੰਬਿਤ ਬੈਕਅੱਪ ਰੱਖੇ ਜਾਂਦੇ ਹਨ।",
     "progress.backupWaiting": "ਬੈਕਅੱਪ ਵਿੱਚ ਥਾਂ ਦੀ ਉਡੀਕ… ਸੁਝਾਅ: ਲੰਮੀ ਉਡੀਕ ਤੋਂ ਬਚਣ ਲਈ ਬੈਕਅੱਪ ਵਿੱਚ ਥਾਂ ਖਾਲੀ ਕਰੋ।",
-    "error.backupQuotaTip": "ਸੁਝਾਅ: ਲੰਮੀ ਉਡੀਕ ਤੋਂ ਬਚਣ ਲਈ ਬੈਕਅੱਪ ਵਿੱਚ ਥਾਂ ਖਾਲੀ ਕਰੋ।"
+    "error.backupQuotaTip": "ਸੁਝਾਅ: ਲੰਮੀ ਉਡੀਕ ਤੋਂ ਬਚਣ ਲਈ ਬੈਕਅੱਪ ਵਿੱਚ ਥਾਂ ਖਾਲੀ ਕਰੋ।",
+    "tagline.open_spreadsheets_automatically": "Google Sheets ਵਿੱਚ ਸਪ੍ਰੈਡਸ਼ੀਟਾਂ ਆਪਣੇ ਆਪ ਖੋਲ੍ਹੋ।",
+    "recovery.selectionHint": "ਕਈ ਚੁਣੋ: Ctrl + ਕਲਿੱਕ · Shift + ਕਲਿੱਕ · ਕੀਬੋਰਡ ਦੇ ਤੀਰ।"
   }
 }

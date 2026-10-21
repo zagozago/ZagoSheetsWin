@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.44",
+  "productVersion": "0.9.45",
   "sourceLocale": "pt-BR",
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "Kuusdeebii haqame: {count}. Iddoo bilisa ta'e: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Qulqulleessuun ofumaan seerota kana kuusdeebii jiran irrattis hojiirra oolcha. Yeroo turtii booda yookaan iddoo bilisoomsuuf kuusdeebii xumuraman, kan duraa irraa eegalee haqa. Sana booda kan jalqabaa naannoo keessaa deebisuu hin dandeessu. Gabateewwan Google fi shortcut ni hafan. Dandeessisuu?",
     "recovery.enableCleanupTitle": "Qulqulleessuu ofumaa dandeessisi",
-    "recovery.instructions": "Deebisuuf: tarree tokko filadhuutii Gara… deebisi filadhu.\nAdeemsi eegaa jiru ni eeggama. Gabateewwan Google fi shortcut ni eegamu.",
+    "recovery.instructions": "Deebisuuf: tarree tokko filadhuutii Gara… deebisi filadhu.",
     "recovery.limits": "Daangaa: 200 MB · guddaan: 1 GB. Adeemsi eegaa jiru ni eeggama.",
     "recovery.moreActions": "Gocha dabalataa ▾",
     "recovery.noBackups": "Fayyadamaa Windows kanaaf kuusdeebiin galmaa'e hin jiru.",
@@ -365,6 +365,8 @@
     "action.chooseSeparator": "Mallattoo addaan baasuu fili",
     "recovery.quotaRotation": "Daangaan iddoo yoo guute, duwwaawwan xumuraman keessaa kan durii haqamu. Kan eeggachaa jiran ni kuufamu.",
     "progress.backupWaiting": "Bakka waraabbii eeggataa jira… Gorsa: yeroo dheeraa eeguu dhiisuuf bakka waraabbii bilisa godhi.",
-    "error.backupQuotaTip": "Gorsa: yeroo dheeraa eeguu dhiisuuf bakka waraabbii bilisa godhi."
+    "error.backupQuotaTip": "Gorsa: yeroo dheeraa eeguu dhiisuuf bakka waraabbii bilisa godhi.",
+    "tagline.open_spreadsheets_automatically": "Gabateewwan herregaa Google Sheets keessatti ofumaan bani.",
+    "recovery.selectionHint": "Hedduu filadhu: Ctrl + cuqaasi · Shift + cuqaasi · furtuuwwan xiyyaa."
   }
 }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.44",
+  "productVersion": "0.9.45",
   "sourceLocale": "pt-BR",
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "Silinen yedekler: {count}. Boşaltılan alan: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Otomatik temizleme bu kuralları mevcut yedeklere de uygular. Tamamlanmış yedekleri saklama süresi dolduğunda veya alan açmak gerektiğinde en eskiden en yeniye doğru siler. Daha sonra yerel özgün dosyayı geri yükleyemezsiniz. Google elektronik tabloları ve kısayollar korunur. Etkinleştirilsin mi?",
     "recovery.enableCleanupTitle": "Otomatik temizlemeyi etkinleştir",
-    "recovery.instructions": "Kurtarmak için: bir satır seçip Şuraya geri yükle… seçeneğini kullanın.\nBekleyen işlemler korunur. Google elektronik tabloları ve kısayollar korunur.",
+    "recovery.instructions": "Kurtarmak için: bir satır seçip Şuraya geri yükle… seçeneğini kullanın.",
     "recovery.limits": "Sınır: 200 MB · en fazla: 1 GB. Bekleyen işlemler korunur.",
     "recovery.moreActions": "Diğer işlemler ▾",
     "recovery.noBackups": "Bu Windows kullanıcısı için kayıtlı yedek yok.",
@@ -365,6 +365,8 @@
     "action.chooseSeparator": "Ayırıcı seç",
     "recovery.quotaRotation": "Kotaya ulaşıldığında en eski tamamlanmış yedekler silinir. Bekleyen yedekler korunur.",
     "progress.backupWaiting": "Yedekleme alanı bekleniyor… İpucu: uzun beklemeleri önlemek için yedekleme alanını boşaltın.",
-    "error.backupQuotaTip": "İpucu: uzun beklemeleri önlemek için yedekleme alanını boşaltın."
+    "error.backupQuotaTip": "İpucu: uzun beklemeleri önlemek için yedekleme alanını boşaltın.",
+    "tagline.open_spreadsheets_automatically": "E-tabloları Google Sheets'te otomatik olarak açın.",
+    "recovery.selectionHint": "Çoklu seçim: Ctrl + tıklama · Shift + tıklama · ok tuşları."
   }
 }

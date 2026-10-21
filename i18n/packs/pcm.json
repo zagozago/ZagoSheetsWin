@@ -3,7 +3,7 @@
   "locale": "pcm-NG",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -687,7 +687,7 @@
     "recovery.deleted": "Backups don delete: {count}. Space wey free: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Automatic cleanup go also use dis rules for backups wey dey already. E dey delete completed backups after retention period or to free space, from oldest to newest. After dat, you no go fit restore di local original. Google spreadsheets and shortcuts go remain. Enable am?",
     "recovery.enableCleanupTitle": "Enable automatic cleanup",
-    "recovery.instructions": "To recover: choose one row and choose Restore to…\nPending operations dey protected. Google spreadsheets and shortcuts go remain.",
+    "recovery.instructions": "To recover: choose one row and choose Restore to…",
     "recovery.limits": "Limit: 200 MB · maximum: 1 GB. Pending operations dey protected.",
     "recovery.moreActions": "More actions ▾",
     "recovery.noBackups": "No backup record dey for dis Windows user.",
@@ -838,6 +838,8 @@
     "action.chooseSeparator": "Choose separator",
     "recovery.quotaRotation": "When quota full, di oldest completed backups go delete. Pending backups go remain.",
     "progress.backupWaiting": "Dey wait for backup space… Tip: free backup space make you no wait too long.",
-    "error.backupQuotaTip": "Tip: free backup space make you no wait too long."
+    "error.backupQuotaTip": "Tip: free backup space make you no wait too long.",
+    "tagline.open_spreadsheets_automatically": "Make spreadsheet dem open by demself for Google Sheets.",
+    "recovery.selectionHint": "Select plenty: Ctrl + click · Shift + click · keyboard arrow dem."
   }
 }

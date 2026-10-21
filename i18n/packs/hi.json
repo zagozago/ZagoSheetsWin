@@ -3,7 +3,7 @@
   "locale": "hi",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -504,7 +504,7 @@
     "recovery.deleted": "हटाए गए बैकअप: {count}. खाली किया गया स्थान: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "स्वचालित सफ़ाई इन नियमों को मौजूदा बैकअप पर भी लागू करती है। यह रखरखाव अवधि के बाद या जगह खाली करने के लिए, सबसे पुराने से नए क्रम में पूर्ण बैकअप हटाती है। इसके बाद आप स्थानीय मूल फ़ाइल पुनर्स्थापित नहीं कर पाएँगे। Google स्प्रेडशीट और शॉर्टकट बने रहेंगे। सक्षम करें?",
     "recovery.enableCleanupTitle": "स्वचालित सफ़ाई सक्षम करें",
-    "recovery.instructions": "पुनर्प्राप्ति के लिए: एक पंक्ति चुनें और यहाँ पुनर्स्थापित करें… चुनें।\nलंबित कार्रवाइयाँ सुरक्षित हैं। Google स्प्रेडशीट और शॉर्टकट रखे जाते हैं।",
+    "recovery.instructions": "पुनर्प्राप्ति के लिए: एक पंक्ति चुनें और यहाँ पुनर्स्थापित करें… चुनें।",
     "recovery.limits": "सीमा: 200 MB · अधिकतम: 1 GB. लंबित कार्रवाइयाँ सुरक्षित हैं।",
     "recovery.moreActions": "और कार्रवाइयाँ ▾",
     "recovery.noBackups": "इस Windows उपयोगकर्ता के लिए कोई बैकअप दर्ज नहीं है।",
@@ -655,6 +655,8 @@
     "action.chooseSeparator": "विभाजक चुनें",
     "recovery.quotaRotation": "कोटा भरने पर सबसे पुराने पूर्ण बैकअप हटाए जाते हैं। लंबित बैकअप सुरक्षित रहते हैं।",
     "progress.backupWaiting": "बैकअप में जगह का इंतज़ार… सुझाव: लंबी प्रतीक्षा से बचने के लिए बैकअप में जगह खाली करें।",
-    "error.backupQuotaTip": "सुझाव: लंबी प्रतीक्षा से बचने के लिए बैकअप में जगह खाली करें।"
+    "error.backupQuotaTip": "सुझाव: लंबी प्रतीक्षा से बचने के लिए बैकअप में जगह खाली करें।",
+    "tagline.open_spreadsheets_automatically": "Google Sheets में स्प्रेडशीट अपने आप खोलें।",
+    "recovery.selectionHint": "कई चुनें: Ctrl + क्लिक · Shift + क्लिक · कीबोर्ड तीर।"
   }
 }

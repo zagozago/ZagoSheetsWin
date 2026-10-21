@@ -3,7 +3,7 @@
   "locale": "jv-ID",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -508,7 +508,7 @@
     "recovery.deleted": "Cadangan dibusak: {count}. Papan sing dibebasake: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Reresik otomatis uga ngetrapake aturan iki marang cadangan sing wis ana. Cadangan sing wis rampung dibusak sawisé wektu panyimpenan utawa kanggo mbebasake papan, saka sing paling lawas nganti paling anyar. Sawisé iku, sampeyan ora bisa mulihake berkas asli lokal. Spreadsheet Google lan trabasan tetep ana. Aktifake?",
     "recovery.enableCleanupTitle": "Aktifake reresik otomatis",
-    "recovery.instructions": "Kanggo mulihake: pilih baris banjur pilih Pulihake menyang…\nOperasi sing durung rampung dilindhungi. Spreadsheet Google lan trabasan tetep disimpen.",
+    "recovery.instructions": "Kanggo mulihake: pilih baris banjur pilih Pulihake menyang…",
     "recovery.limits": "Wates: 200 MB · maksimum: 1 GB. Operasi sing durung rampung dilindhungi.",
     "recovery.moreActions": "Tumindak liyane ▾",
     "recovery.noBackups": "Ora ana cadangan sing kacathet kanggo pangguna Windows iki.",
@@ -659,6 +659,8 @@
     "action.chooseSeparator": "Pilih pamisah",
     "recovery.quotaRotation": "Nalika kuota kebak, serep rampung sing paling lawas dibusak. Serep sing isih ngenteni tetep disimpen.",
     "progress.backupWaiting": "Ngenteni papan serep… Tip: kosongna papan serep supaya ora ngenteni suwe.",
-    "error.backupQuotaTip": "Tip: kosongna papan serep supaya ora ngenteni suwe."
+    "error.backupQuotaTip": "Tip: kosongna papan serep supaya ora ngenteni suwe.",
+    "tagline.open_spreadsheets_automatically": "Bukak spreadsheet kanthi otomatis ing Google Sheets.",
+    "recovery.selectionHint": "Pilih luwih saka siji: Ctrl + klik · Shift + klik · tombol panah."
   }
 }

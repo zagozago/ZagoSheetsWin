@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.44",
+  "productVersion": "0.9.45",
   "sourceLocale": "pt-BR",
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "Na-delete ang backups: {count}. Nabakanteng espasyo: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Ilalapat din ng automatic cleanup ang mga rule na ito sa kasalukuyang backups. Dine-delete nito ang completed backups pagkatapos ng retention period o para magbakante ng espasyo, mula pinakaluma hanggang pinakabago. Pagkatapos nito, hindi mo na maibabalik ang lokal na orihinal. Mananatili ang Google spreadsheets at shortcuts. I-enable?",
     "recovery.enableCleanupTitle": "I-enable ang automatic cleanup",
-    "recovery.instructions": "Para mag-recover: pumili ng row at piliin ang I-restore sa…\nProtektado ang mga pending operation. Pinananatili ang Google spreadsheets at shortcuts.",
+    "recovery.instructions": "Para mag-recover: pumili ng row at piliin ang I-restore sa…",
     "recovery.limits": "Limit: 200 MB · maximum: 1 GB. Protektado ang mga pending operation.",
     "recovery.moreActions": "Higit pang action ▾",
     "recovery.noBackups": "Walang backup na naka-record para sa Windows user na ito.",
@@ -365,6 +365,8 @@
     "action.chooseSeparator": "Pumili ng separator",
     "recovery.quotaRotation": "Kapag naabot ang quota, binubura ang pinakalumang tapos na backup. Pinapanatili ang mga nakabinbing backup.",
     "progress.backupWaiting": "Naghihintay ng espasyo para sa backup… Tip: magbakante ng espasyo para maiwasan ang mahabang paghihintay.",
-    "error.backupQuotaTip": "Tip: magbakante ng espasyo para maiwasan ang mahabang paghihintay."
+    "error.backupQuotaTip": "Tip: magbakante ng espasyo para maiwasan ang mahabang paghihintay.",
+    "tagline.open_spreadsheets_automatically": "Awtomatikong buksan ang mga spreadsheet sa Google Sheets.",
+    "recovery.selectionHint": "Pumili ng marami: Ctrl + click · Shift + click · mga arrow key."
   }
 }

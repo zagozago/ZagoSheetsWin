@@ -3,7 +3,7 @@
   "locale": "it-IT",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -510,7 +510,7 @@
     "recovery.deleted": "Backup eliminati: {count}. Spazio liberato: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "La pulizia automatica applica queste regole anche ai backup esistenti. Elimina i backup completati dopo il periodo di conservazione o per liberare spazio, dal più vecchio al più recente. In seguito non potrai ripristinare l'originale locale. I fogli di calcolo Google e i collegamenti rimarranno. Abilitare?",
     "recovery.enableCleanupTitle": "Abilita pulizia automatica",
-    "recovery.instructions": "Per recuperare: seleziona una riga e scegli Ripristina in…\nLe operazioni in sospeso sono protette. I fogli di calcolo Google e i collegamenti vengono mantenuti.",
+    "recovery.instructions": "Per recuperare: seleziona una riga e scegli Ripristina in…",
     "recovery.limits": "Limite: 200 MB · massimo: 1 GB. Le operazioni in sospeso sono protette.",
     "recovery.moreActions": "Altre azioni ▾",
     "recovery.noBackups": "Nessun backup registrato per questo utente Windows.",
@@ -661,6 +661,8 @@
     "action.chooseSeparator": "Scegli separatore",
     "recovery.quotaRotation": "Al raggiungimento della quota, i backup completati più vecchi vengono eliminati. Quelli in sospeso vengono conservati.",
     "progress.backupWaiting": "In attesa di spazio per i backup… Suggerimento: libera spazio per evitare lunghe attese.",
-    "error.backupQuotaTip": "Suggerimento: libera spazio per evitare lunghe attese."
+    "error.backupQuotaTip": "Suggerimento: libera spazio per evitare lunghe attese.",
+    "tagline.open_spreadsheets_automatically": "Apri automaticamente i fogli di calcolo in Google Sheets.",
+    "recovery.selectionHint": "Selezione multipla: Ctrl + clic · Shift + clic · frecce della tastiera."
   }
 }

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.44",
+  "productVersion": "0.9.45",
   "sourceLocale": "pt-BR",
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "মুছে ফেলা ব্যাকআপ: {count}. খালি হয়েছে: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "স্বয়ংক্রিয় পরিষ্কার বিদ্যমান ব্যাকআপেও এই নিয়মগুলো প্রয়োগ করে। সংরক্ষণকাল শেষ হলে বা জায়গা খালি করতে সম্পূর্ণ ব্যাকআপগুলো পুরোনো থেকে নতুন ক্রমে মুছে দেয়। এরপর স্থানীয় মূল ফাইল পুনরুদ্ধার করা যাবে না। Google স্প্রেডশিট ও শর্টকাট থাকবে। চালু করবেন?",
     "recovery.enableCleanupTitle": "স্বয়ংক্রিয় পরিষ্কার চালু করুন",
-    "recovery.instructions": "পুনরুদ্ধার করতে: একটি সারি নির্বাচন করে পুনরুদ্ধার করুন… বেছে নিন।\nঅপেক্ষমাণ কাজ সুরক্ষিত। Google স্প্রেডশিট ও শর্টকাট রাখা হয়।",
+    "recovery.instructions": "পুনরুদ্ধার করতে: একটি সারি নির্বাচন করে পুনরুদ্ধার করুন… বেছে নিন।",
     "recovery.limits": "সীমা: 200 MB · সর্বোচ্চ: 1 GB. অপেক্ষমাণ কাজ সুরক্ষিত।",
     "recovery.moreActions": "আরও কাজ ▾",
     "recovery.noBackups": "এই Windows ব্যবহারকারীর জন্য কোনো ব্যাকআপ নথিভুক্ত নেই।",
@@ -365,6 +365,8 @@
     "action.chooseSeparator": "বিভাজক বেছে নিন",
     "recovery.quotaRotation": "কোটা পূর্ণ হলে সবচেয়ে পুরোনো সম্পূর্ণ ব্যাকআপ মুছে যায়। অপেক্ষমাণ ব্যাকআপ রাখা হয়।",
     "progress.backupWaiting": "ব্যাকআপে জায়গার জন্য অপেক্ষা করা হচ্ছে… পরামর্শ: দীর্ঘ অপেক্ষা এড়াতে ব্যাকআপে জায়গা খালি করুন।",
-    "error.backupQuotaTip": "পরামর্শ: দীর্ঘ অপেক্ষা এড়াতে ব্যাকআপে জায়গা খালি করুন।"
+    "error.backupQuotaTip": "পরামর্শ: দীর্ঘ অপেক্ষা এড়াতে ব্যাকআপে জায়গা খালি করুন।",
+    "tagline.open_spreadsheets_automatically": "Google Sheets-এ স্বয়ংক্রিয়ভাবে স্প্রেডশিট খুলুন।",
+    "recovery.selectionHint": "একাধিক নির্বাচন: Ctrl + ক্লিক · Shift + ক্লিক · কিবোর্ডের তীর।"
   }
 }

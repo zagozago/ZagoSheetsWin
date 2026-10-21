@@ -45,7 +45,7 @@ internal sealed class FirstUseWizard : Form
         noSync = new ToggleSwitch { AutoSize = true, Text = UiText.Get("setup.noSync"), Checked = !opening.RestrictToFolder };
         folder.Text = opening.Folder ?? "";
         CurrentPage = Math.Clamp(initialPage, 0, PageCount - 1);
-        Text = UiText.Get("setup.firstUseTitle"); ClientSize = new Size(760, 740); MinimumSize = new Size(620, 620);
+        Text = UiText.Get("setup.firstUseTitle"); ClientSize = new Size(760, 600); MinimumSize = new Size(620, 560);
         StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
         layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 220));
         layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100)); layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
@@ -118,6 +118,7 @@ internal sealed class FirstUseWizard : Form
         status.Visible = !string.IsNullOrEmpty(status.Text);
         content.Controls.Add(status);
         NextButton.Text = UiText.Get(CurrentPage == PageCount - 1 ? "tutorial.start" : "action.next"); PreviousButton.Text = UiText.Get("action.back");
+        count.Margin = new Padding(12, 10, 0, 0);
         count.Text = UiText.Format("tutorial.pageCount", ("number", CurrentPage + 1), ("total", PageCount));
         Branding.Refresh(this); content.PerformLayout(); UpdateNavigation();
     }

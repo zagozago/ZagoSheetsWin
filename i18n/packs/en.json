@@ -3,7 +3,7 @@
   "locale": "en",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "complete",
   "editorialQa": "passed",
   "layoutQa": "passed",
@@ -506,7 +506,7 @@
     "recovery.deleted": "Backups deleted: {count}. Space freed: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Automatic cleanup also applies these rules to existing backups. It deletes completed backups after the retention period or to free up space, from oldest to newest. Afterwards, you will not be able to restore the local original. Google spreadsheets and shortcuts will remain. Enable?",
     "recovery.enableCleanupTitle": "Enable automatic cleanup",
-    "recovery.instructions": "To recover: select a row and choose Restore\nPending operations are protected. Google spreadsheets and shortcuts are kept.",
+    "recovery.instructions": "To recover: select a row and choose Restore",
     "recovery.limits": "Limit: 200 MB · maximum: 1 GB. Pending operations are protected.",
     "recovery.moreActions": "More actions ▾",
     "recovery.noBackups": "No backups recorded for this Windows user.",
@@ -657,6 +657,8 @@
     "action.chooseSeparator": "Choose separator",
     "recovery.quotaRotation": "When the quota is reached, the oldest completed backups are deleted. Pending backups are preserved.",
     "progress.backupWaiting": "Waiting for backup space… Tip: free up backup space to avoid long waits.",
-    "error.backupQuotaTip": "Tip: free up backup space to avoid long waits."
+    "error.backupQuotaTip": "Tip: free up backup space to avoid long waits.",
+    "tagline.open_spreadsheets_automatically": "Open spreadsheets in Google Sheets automatically.",
+    "recovery.selectionHint": "Select several: Ctrl + click · Shift + click · keyboard arrows."
   }
 }

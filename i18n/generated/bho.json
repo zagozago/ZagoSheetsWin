@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.44",
+  "productVersion": "0.9.45",
   "sourceLocale": "pt-BR",
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "बैकअप हटावल गइल: {count}. खाली भइल जगह: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "स्वचालित सफाई ई नियम मौजूद बैकअप परो लागू करेला. रखाव अवधि के बाद भा जगह खाली करे खातिर पूरा भइल बैकअप के पुरान से नया क्रम में हटावेला. ओकरा बाद स्थानीय मूल बहाल करीं ना हो पाई. Google स्प्रेडशीट आ शॉर्टकट बचल रही. Enable करीं?",
     "recovery.enableCleanupTitle": "स्वचालित सफाई enable करीं",
-    "recovery.instructions": "बहाल करीं करे खातिर: एगो पंक्ति चुनीं आ एहिजा बहाल करीं… चुनीं.\nलंबित ऑपरेशन सुरक्षित बा. Google स्प्रेडशीट आ शॉर्टकट बचा के रखल जाला.",
+    "recovery.instructions": "बहाल करीं करे खातिर: एगो पंक्ति चुनीं आ एहिजा बहाल करीं… चुनीं.",
     "recovery.limits": "सीमा: 200 MB · अधिकतम: 1 GB. लंबित ऑपरेशन सुरक्षित बा.",
     "recovery.moreActions": "आउर कार्रवाई ▾",
     "recovery.noBackups": "एह Windows उपयोगकर्ता खातिर कवनो बैकअप रिकॉर्ड नइखे.",
@@ -365,6 +365,8 @@
     "action.chooseSeparator": "विभाजक चुनीं",
     "recovery.quotaRotation": "कोटा भरला पर सबसे पुरान पूरा बैकअप हटावल जाला। बाकी बैकअप सुरक्षित रहेला।",
     "progress.backupWaiting": "बैकअप में जगह के इंतजार बा… सलाह: लंबा इंतजार से बचे खातिर बैकअप में जगह खाली करीं।",
-    "error.backupQuotaTip": "सलाह: लंबा इंतजार से बचे खातिर बैकअप में जगह खाली करीं।"
+    "error.backupQuotaTip": "सलाह: लंबा इंतजार से बचे खातिर बैकअप में जगह खाली करीं।",
+    "tagline.open_spreadsheets_automatically": "Google Sheets में स्प्रेडशीट अपने-आप खोलीं।",
+    "recovery.selectionHint": "कई गो चुनीं: Ctrl + क्लिक · Shift + क्लिक · कीबोर्ड के तीर।"
   }
 }

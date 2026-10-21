@@ -3,7 +3,7 @@
   "locale": "mr-IN",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -507,7 +507,7 @@
     "recovery.deleted": "बॅकअप हटवले: {count}. मोकळी झालेली जागा: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "स्वयंचलित साफसफाई हे नियम विद्यमान बॅकअपवरही लागू करते. जतन कालावधीनंतर किंवा जागा मोकळी करण्यासाठी पूर्ण झालेले बॅकअप सर्वात जुन्यापासून नवीनपर्यंत हटवते. त्यानंतर तुम्ही स्थानिक मूळ पुनर्संचयित करू शकणार नाही. Google स्प्रेडशीट्स आणि शॉर्टकट राहतील. सक्षम करायचे?",
     "recovery.enableCleanupTitle": "स्वयंचलित साफसफाई सक्षम करा",
-    "recovery.instructions": "पुनर्प्राप्तीसाठी: एक पंक्ती निवडा आणि येथे पुनर्संचयित करा… निवडा\nप्रलंबित ऑपरेशन्स संरक्षित आहेत. Google स्प्रेडशीट्स आणि शॉर्टकट जतन केले जातात.",
+    "recovery.instructions": "पुनर्प्राप्तीसाठी: एक पंक्ती निवडा आणि येथे पुनर्संचयित करा… निवडा",
     "recovery.limits": "मर्यादा: 200 MB · कमाल: 1 GB. प्रलंबित ऑपरेशन्स संरक्षित आहेत.",
     "recovery.moreActions": "अधिक क्रिया ▾",
     "recovery.noBackups": "या Windows वापरकर्त्यासाठी कोणतेही बॅकअप नोंदलेले नाहीत.",
@@ -658,6 +658,8 @@
     "action.chooseSeparator": "विभाजक निवडा",
     "recovery.quotaRotation": "कोटा भरल्यावर सर्वात जुने पूर्ण बॅकअप हटवले जातात. प्रलंबित बॅकअप जतन केले जातात.",
     "progress.backupWaiting": "बॅकअपमध्ये जागेची प्रतीक्षा करत आहे… सूचना: जास्त वेळ थांबावे लागू नये म्हणून बॅकअपमध्ये जागा मोकळी करा.",
-    "error.backupQuotaTip": "सूचना: जास्त वेळ थांबावे लागू नये म्हणून बॅकअपमध्ये जागा मोकळी करा."
+    "error.backupQuotaTip": "सूचना: जास्त वेळ थांबावे लागू नये म्हणून बॅकअपमध्ये जागा मोकळी करा.",
+    "tagline.open_spreadsheets_automatically": "Google Sheets मध्ये स्प्रेडशीट्स आपोआप उघडा.",
+    "recovery.selectionHint": "अनेक निवडा: Ctrl + क्लिक · Shift + क्लिक · कीबोर्डवरील बाण."
   }
 }

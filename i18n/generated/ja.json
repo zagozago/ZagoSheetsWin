@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.44",
+  "productVersion": "0.9.45",
   "sourceLocale": "pt-BR",
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "削除したバックアップ: {count}。解放した容量: {freedMb:N2} MB。",
     "recovery.enableCleanupPrompt": "自動クリーンアップは既存のバックアップにもこれらのルールを適用します。完了したバックアップを保持期間後、または容量確保のために古いものから削除します。その後、ローカルの元ファイルは復元できません。Google のスプレッドシートとショートカットは保持されます。有効にしますか？",
     "recovery.enableCleanupTitle": "自動クリーンアップを有効にする",
-    "recovery.instructions": "復元するには、行を選択して「復元先…」を選びます。\n保留中の処理は保護されています。Google のスプレッドシートとショートカットは保持されます。",
+    "recovery.instructions": "復元するには、行を選択して「復元先…」を選びます。",
     "recovery.limits": "上限: 200 MB · 最大: 1 GB。保留中の処理は保護されています。",
     "recovery.moreActions": "その他の操作 ▾",
     "recovery.noBackups": "この Windows ユーザーのバックアップ記録はありません。",
@@ -365,6 +365,8 @@
     "action.chooseSeparator": "区切り文字を選択",
     "recovery.quotaRotation": "上限に達すると、古い完了済みバックアップから削除されます。保留中のバックアップは保持されます。",
     "progress.backupWaiting": "バックアップの空き容量を待っています… ヒント：長時間の待機を避けるには、バックアップの空き容量を増やしてください。",
-    "error.backupQuotaTip": "ヒント：長時間の待機を避けるには、バックアップの空き容量を増やしてください。"
+    "error.backupQuotaTip": "ヒント：長時間の待機を避けるには、バックアップの空き容量を増やしてください。",
+    "tagline.open_spreadsheets_automatically": "スプレッドシートを Google Sheets で自動的に開く。",
+    "recovery.selectionHint": "複数選択：Ctrl + クリック · Shift + クリック · 矢印キー。"
   }
 }

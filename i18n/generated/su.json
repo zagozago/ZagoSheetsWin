@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.44",
+  "productVersion": "0.9.45",
   "sourceLocale": "pt-BR",
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "Cadangan dipupus: {count}. Rohangan dibébaskeun: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Bersih otomatis ogé nerapkeun aturan ieu ka cadangan nu geus aya. Cadangan nu geus réngsé dipupus sanggeus mangsa panyimpenan atawa pikeun ngabébaskeun rohangan, ti nu pangheubeulna ka nu panganyarna. Sanggeus éta, file asli lokal moal bisa dipulihkeun. Spreadsheet Google jeung shortcut bakal tetep aya. Aktipkeun?",
     "recovery.enableCleanupTitle": "Aktipkeun bersih otomatis",
-    "recovery.instructions": "Pikeun mulihkeun: pilih hiji baris tuluy pilih Pulihkeun ka…\nOperasi nu keur nungguan ditangtayungan. Spreadsheet Google jeung shortcut tetep disimpen.",
+    "recovery.instructions": "Pikeun mulihkeun: pilih hiji baris tuluy pilih Pulihkeun ka…",
     "recovery.limits": "Wates: 200 MB · maksimum: 1 GB. Operasi nu keur nungguan ditangtayungan.",
     "recovery.moreActions": "Aksi séjén ▾",
     "recovery.noBackups": "Teu aya cadangan nu kacatet pikeun pamaké Windows ieu.",
@@ -365,6 +365,8 @@
     "action.chooseSeparator": "Pilih pamisah",
     "recovery.quotaRotation": "Nalika kuota pinuh, cadangan réngsé anu pangkolotna dipupus. Cadangan anu ngantosan tetep disimpen.",
     "progress.backupWaiting": "Ngantosan rohangan cadangan… Tip: kosongkeun rohangan cadangan supados henteu ngantosan lami.",
-    "error.backupQuotaTip": "Tip: kosongkeun rohangan cadangan supados henteu ngantosan lami."
+    "error.backupQuotaTip": "Tip: kosongkeun rohangan cadangan supados henteu ngantosan lami.",
+    "tagline.open_spreadsheets_automatically": "Buka spreadsheet sacara otomatis dina Google Sheets.",
+    "recovery.selectionHint": "Pilih sababaraha: Ctrl + klik · Shift + klik · tombol panah."
   }
 }

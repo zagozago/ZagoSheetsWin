@@ -3,7 +3,7 @@
   "locale": "ig-NG",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -507,7 +507,7 @@
     "recovery.deleted": "Nnomi ndabere ehichapụrụ: {count}. Oghere a tọhapụrụ: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Nhicha akpaka na-etinyekwa iwu ndị a na nnomi ndabere ndị dị. Ọ na-ehichapụ ndị emechara mgbe oge idowe gasịrị ma ọ bụ iji tọhapụ ohere, site na nke kacha ochie ruo nke kacha ọhụrụ. Mgbe nke ahụ gasịrị, ị gaghị enwe ike iweghachi nke mbụ dị n'ime kọmputa. Google spreadsheets na ụzọ mkpirisi ga-adị. Gbanwuo?",
     "recovery.enableCleanupTitle": "Gbanwuo nhicha akpaka",
-    "recovery.instructions": "Iji weghachite: họrọ otu ahịrị wee họrọ Weghachite gaa…\nA na-echekwa ọrụ ndị na-echere. A na-edobe Google spreadsheets na ụzọ mkpirisi.",
+    "recovery.instructions": "Iji weghachite: họrọ otu ahịrị wee họrọ Weghachite gaa…",
     "recovery.limits": "Oke: 200 MB · kacha: 1 GB. A na-echekwa ọrụ ndị na-echere.",
     "recovery.moreActions": "Omume ndị ọzọ ▾",
     "recovery.noBackups": "Enweghị nnomi ndabere edekọtara maka onye ọrụ Windows a.",
@@ -658,6 +658,8 @@
     "action.chooseSeparator": "Họrọ ihe nkewa",
     "recovery.quotaRotation": "Mgbe oke ohere juru, a na-ehichapụ ndabere emechara kacha ochie. A na-edobe ndabere na-eche.",
     "progress.backupWaiting": "Na-eche ohere ndabere… Ndụmọdụ: hapụ ohere ndabere ka ichere ghara ịdị ogologo.",
-    "error.backupQuotaTip": "Ndụmọdụ: hapụ ohere ndabere ka ichere ghara ịdị ogologo."
+    "error.backupQuotaTip": "Ndụmọdụ: hapụ ohere ndabere ka ichere ghara ịdị ogologo.",
+    "tagline.open_spreadsheets_automatically": "Mepee spreadsheet na Google Sheets na-akpaghị aka.",
+    "recovery.selectionHint": "Họrọ ọtụtụ: Ctrl + pịa · Shift + pịa · igodo akụ."
   }
 }

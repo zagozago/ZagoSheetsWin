@@ -3,7 +3,7 @@
   "locale": "nl-NL",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -510,7 +510,7 @@
     "recovery.deleted": "Back-ups verwijderd: {count}. Vrijgemaakte ruimte: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Automatische opschoning past deze regels ook toe op bestaande back-ups. Voltooide back-ups worden na de bewaartermijn verwijderd, of van oud naar nieuw om ruimte vrij te maken. Daarna kunt u het lokale origineel niet meer herstellen. Google-werkbladen en snelkoppelingen blijven behouden. Inschakelen?",
     "recovery.enableCleanupTitle": "Automatische opschoning inschakelen",
-    "recovery.instructions": "Om te herstellen: selecteer een rij en kies Herstellen naar…\nOpenstaande bewerkingen zijn beschermd. Google-werkbladen en snelkoppelingen blijven behouden.",
+    "recovery.instructions": "Om te herstellen: selecteer een rij en kies Herstellen naar…",
     "recovery.limits": "Limiet: 200 MB · maximum: 1 GB. Openstaande bewerkingen zijn beschermd.",
     "recovery.moreActions": "Meer acties ▾",
     "recovery.noBackups": "Geen back-ups geregistreerd voor deze Windows-gebruiker.",
@@ -661,6 +661,8 @@
     "action.chooseSeparator": "Scheidingsteken kiezen",
     "recovery.quotaRotation": "Als het quotum bereikt is, worden de oudste voltooide back-ups verwijderd. Wachtende back-ups blijven behouden.",
     "progress.backupWaiting": "Wachten op back-upruimte… Tip: maak ruimte vrij om lang wachten te voorkomen.",
-    "error.backupQuotaTip": "Tip: maak ruimte vrij om lang wachten te voorkomen."
+    "error.backupQuotaTip": "Tip: maak ruimte vrij om lang wachten te voorkomen.",
+    "tagline.open_spreadsheets_automatically": "Open spreadsheets automatisch in Google Sheets.",
+    "recovery.selectionHint": "Selecteer meerdere: Ctrl + klik · Shift + klik · pijltjestoetsen."
   }
 }

@@ -3,7 +3,7 @@
   "locale": "id",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -508,7 +508,7 @@
     "recovery.deleted": "Cadangan dihapus: {count}. Ruang dibebaskan: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Pembersihan otomatis juga menerapkan aturan ini pada cadangan yang sudah ada. Cadangan operasi selesai dihapus setelah masa simpan berakhir atau untuk membebaskan ruang, dari yang paling lama. Setelah itu, berkas asli lokal tidak dapat dipulihkan. Spreadsheet Google dan pintasan akan tetap ada. Aktifkan?",
     "recovery.enableCleanupTitle": "Aktifkan pembersihan otomatis",
-    "recovery.instructions": "Untuk memulihkan: pilih satu baris lalu pilih Pulihkan ke…\nOperasi tertunda dilindungi. Spreadsheet Google dan pintasan tetap disimpan.",
+    "recovery.instructions": "Untuk memulihkan: pilih satu baris lalu pilih Pulihkan ke…",
     "recovery.limits": "Batas: 200 MB · maksimum: 1 GB. Operasi tertunda dilindungi.",
     "recovery.moreActions": "Tindakan lainnya ▾",
     "recovery.noBackups": "Tidak ada cadangan yang tercatat untuk pengguna Windows ini.",
@@ -659,6 +659,8 @@
     "action.chooseSeparator": "Pilih pemisah",
     "recovery.quotaRotation": "Saat kuota tercapai, cadangan selesai yang paling lama dihapus. Cadangan tertunda tetap disimpan.",
     "progress.backupWaiting": "Menunggu ruang cadangan… Tips: kosongkan ruang cadangan agar tidak menunggu lama.",
-    "error.backupQuotaTip": "Tips: kosongkan ruang cadangan agar tidak menunggu lama."
+    "error.backupQuotaTip": "Tips: kosongkan ruang cadangan agar tidak menunggu lama.",
+    "tagline.open_spreadsheets_automatically": "Buka spreadsheet di Google Sheets secara otomatis.",
+    "recovery.selectionHint": "Pilih beberapa: Ctrl + klik · Shift + klik · tombol panah."
   }
 }

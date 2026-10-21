@@ -3,7 +3,7 @@
   "locale": "or-IN",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -507,7 +507,7 @@
     "recovery.deleted": "ଡିଲିଟ୍ ହୋଇଥିବା ବ୍ୟାକଅପ୍: {count}. ଖାଲି ହୋଇଥିବା ସ୍ଥାନ: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "ସ୍ୱୟଂଚାଳିତ ସଫା ଏହି ନିୟମଗୁଡ଼ିକୁ ଥିବା ବ୍ୟାକଅପ୍‌ରେ ମଧ୍ୟ ଲାଗୁ କରେ। ସଂରକ୍ଷଣ ଅବଧି ପରେ କିମ୍ବା ସ୍ଥାନ ଖାଲି କରିବାକୁ, ପୁରୁଣାରୁ ନୂତନ କ୍ରମରେ, ସମାପ୍ତ ବ୍ୟାକଅପ୍ ଡିଲିଟ୍ କରେ। ପରେ ଆପଣ ସ୍ଥାନୀୟ ମୂଳଟି ପୁନରୁଦ୍ଧାର କରିପାରିବେ ନାହିଁ। Google ସ୍ପ୍ରେଡ୍‌ଶିଟ୍ ଏବଂ ଶର୍ଟକଟ୍ ରହିବ। ସକ୍ରିୟ କରିବେ?",
     "recovery.enableCleanupTitle": "ସ୍ୱୟଂଚାଳିତ ସଫା ସକ୍ରିୟ କରନ୍ତୁ",
-    "recovery.instructions": "ପୁନରୁଦ୍ଧାର ପାଇଁ: ଗୋଟିଏ ଧାଡ଼ି ବାଛି ଏଠାକୁ ପୁନରୁଦ୍ଧାର… ବାଛନ୍ତୁ।\nବକେୟା ଅପରେସନ୍ ସୁରକ୍ଷିତ। Google ସ୍ପ୍ରେଡ୍‌ଶିଟ୍ ଏବଂ ଶର୍ଟକଟ୍ ରଖାଯାଏ।",
+    "recovery.instructions": "ପୁନରୁଦ୍ଧାର ପାଇଁ: ଗୋଟିଏ ଧାଡ଼ି ବାଛି ଏଠାକୁ ପୁନରୁଦ୍ଧାର… ବାଛନ୍ତୁ।",
     "recovery.limits": "ସୀମା: 200 MB · ସର୍ବାଧିକ: 1 GB. ବକେୟା ଅପରେସନ୍ ସୁରକ୍ଷିତ।",
     "recovery.moreActions": "ଅଧିକ କାର୍ଯ୍ୟ ▾",
     "recovery.noBackups": "ଏହି Windows ବ୍ୟବହାରକାରୀ ପାଇଁ କୌଣସି ବ୍ୟାକଅପ୍ ରେକର୍ଡ ହୋଇନାହିଁ।",
@@ -658,6 +658,8 @@
     "action.chooseSeparator": "ବିଭାଜକ ବାଛନ୍ତୁ",
     "recovery.quotaRotation": "କୋଟା ପୂର୍ଣ୍ଣ ହେଲେ ପୁରୁଣା ସମ୍ପୂର୍ଣ୍ଣ ବ୍ୟାକଅପ୍ ହଟାଯାଏ। ଅପେକ୍ଷାରତ ବ୍ୟାକଅପ୍ ରଖାଯାଏ।",
     "progress.backupWaiting": "ବ୍ୟାକଅପ୍ ସ୍ଥାନ ପାଇଁ ଅପେକ୍ଷା କରୁଛି… ପରାମର୍ଶ: ଦୀର୍ଘ ଅପେକ୍ଷା ଏଡ଼ାଇବାକୁ ବ୍ୟାକଅପ୍ ସ୍ଥାନ ଖାଲି କରନ୍ତୁ।",
-    "error.backupQuotaTip": "ପରାମର୍ଶ: ଦୀର୍ଘ ଅପେକ୍ଷା ଏଡ଼ାଇବାକୁ ବ୍ୟାକଅପ୍ ସ୍ଥାନ ଖାଲି କରନ୍ତୁ।"
+    "error.backupQuotaTip": "ପରାମର୍ଶ: ଦୀର୍ଘ ଅପେକ୍ଷା ଏଡ଼ାଇବାକୁ ବ୍ୟାକଅପ୍ ସ୍ଥାନ ଖାଲି କରନ୍ତୁ।",
+    "tagline.open_spreadsheets_automatically": "Google Sheetsରେ ସ୍ପ୍ରେଡ୍‌ସିଟ୍‌ଗୁଡ଼ିକୁ ସ୍ୱୟଂଚାଳିତ ଭାବେ ଖୋଲନ୍ତୁ।",
+    "recovery.selectionHint": "ଏକାଧିକ ବାଛନ୍ତୁ: Ctrl + କ୍ଲିକ୍ · Shift + କ୍ଲିକ୍ · ତୀର କୀଗୁଡ଼ିକ।"
   }
 }

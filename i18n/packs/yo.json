@@ -3,7 +3,7 @@
   "locale": "yo-NG",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -508,7 +508,7 @@
     "recovery.deleted": "A pa backups rẹ́: {count}. Àyè tí a tú sílẹ̀: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Automatic cleanup tún máa lo àwọn òfin wọ̀nyí fún backups tó ti wà. Ó máa pa completed backups rẹ́ lẹ́yìn retention period tàbí láti dá àyè sílẹ̀, láti èyí tó dàgbà jù sí tuntun. Lẹ́yìn náà, o kò ní lè mú local original padà. Google spreadsheets àti shortcuts yóò dúró. Enable?",
     "recovery.enableCleanupTitle": "Mu ìmọ́tótó aládàáṣiṣẹ́ ṣiṣẹ́",
-    "recovery.instructions": "Láti recover: yan row kan, kí o sì yan Restore to…\nÀwọn iṣẹ́ tó ń dúró de ìparí ni a dáàbò bo. A pa Google spreadsheets àti shortcuts mọ́.",
+    "recovery.instructions": "Láti recover: yan row kan, kí o sì yan Restore to…",
     "recovery.limits": "Ààlà: 200 MB · maximum: 1 GB. Àwọn iṣẹ́ tó ń dúró de ìparí ni a dáàbò bo.",
     "recovery.moreActions": "Àwọn ìṣe míì ▾",
     "recovery.noBackups": "Kò sí backups tí a forúkọ sílẹ̀ fún olumulo Windows yìí.",
@@ -659,6 +659,8 @@
     "action.chooseSeparator": "Yan àmì ìpín",
     "recovery.quotaRotation": "Nígbà tí ààlà àyè bá dé, a pa àfẹ́yìntì tó parí tó ti pẹ́ jù rẹ́. A pa àwọn tó ń dúró mọ́.",
     "progress.backupWaiting": "Ń dúró de àyè fún ẹ̀dà àfẹ́yìntì… Ìmọ̀ràn: ṣí àyè sílẹ̀ láti yẹra fún ìdúró pípẹ́.",
-    "error.backupQuotaTip": "Ìmọ̀ràn: ṣí àyè sílẹ̀ láti yẹra fún ìdúró pípẹ́."
+    "error.backupQuotaTip": "Ìmọ̀ràn: ṣí àyè sílẹ̀ láti yẹra fún ìdúró pípẹ́.",
+    "tagline.open_spreadsheets_automatically": "Ṣí àwọn spreadsheet sílẹ̀ ní àdáṣe nínú Google Sheets.",
+    "recovery.selectionHint": "Yan púpọ̀: Ctrl + tẹ · Shift + tẹ · àwọn bọ́tìnì ọfà."
   }
 }

@@ -3,7 +3,7 @@
   "locale": "yue-Hant-HK",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -506,7 +506,7 @@
     "recovery.deleted": "已刪除備份：{count}。已釋放空間：{freedMb:N2} MB。",
     "recovery.enableCleanupPrompt": "自動清理亦會將呢啲規則套用到現有備份。完成嘅備份會喺保留期過後，或者需要騰出空間時，由最舊開始刪除。之後你將無法還原本機原檔。Google 試算表同捷徑會保留。要啟用嗎？",
     "recovery.enableCleanupTitle": "啟用自動清理",
-    "recovery.instructions": "要還原：揀一列，再揀「還原到…」。\n待處理操作會受保護。Google 試算表同捷徑會保留。",
+    "recovery.instructions": "要還原：揀一列，再揀「還原到…」。",
     "recovery.limits": "限額：200 MB · 最高：1 GB。待處理操作會受保護。",
     "recovery.moreActions": "更多動作 ▾",
     "recovery.noBackups": "呢個 Windows 使用者冇任何已記錄嘅備份。",
@@ -657,6 +657,8 @@
     "action.chooseSeparator": "選擇分隔符",
     "recovery.quotaRotation": "達到配額時，會刪除最舊嘅已完成備份。待處理備份會保留。",
     "progress.backupWaiting": "等緊備份空間… 提示：清出備份空間就可以避免等太耐。",
-    "error.backupQuotaTip": "提示：清出備份空間就可以避免等太耐。"
+    "error.backupQuotaTip": "提示：清出備份空間就可以避免等太耐。",
+    "tagline.open_spreadsheets_automatically": "自動喺 Google Sheets 開啟試算表。",
+    "recovery.selectionHint": "多選：Ctrl + 按一下 · Shift + 按一下 · 鍵盤方向鍵。"
   }
 }

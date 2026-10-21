@@ -3,7 +3,7 @@
   "locale": "uz-Latn-UZ",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -511,7 +511,7 @@
     "recovery.deleted": "Zaxira nusxalar o‘chirildi: {count}. Bo‘shatilgan joy: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Avtomatik tozalash ushbu qoidalarni mavjud zaxira nusxalarga ham qo‘llaydi. Saqlash muddati o‘tgach yoki joy bo‘shatish uchun tugallangan zaxira nusxalarni eng eskisidan boshlab o‘chiradi. Shundan so‘ng mahalliy asl faylni tiklay olmaysiz. Google jadvallari va yorliqlar saqlanadi. Yoqilsinmi?",
     "recovery.enableCleanupTitle": "Avtomatik tozalashni yoqish",
-    "recovery.instructions": "Tiklash uchun: qatorni tanlang va Quyidagi joyga tiklash… ni tanlang.\nKutilayotgan amallar himoyalangan. Google jadvallari va yorliqlar saqlanadi.",
+    "recovery.instructions": "Tiklash uchun: qatorni tanlang va Quyidagi joyga tiklash… ni tanlang.",
     "recovery.limits": "Limit: 200 MB · maksimum: 1 GB. Kutilayotgan amallar himoyalangan.",
     "recovery.moreActions": "Ko‘proq amallar ▾",
     "recovery.noBackups": "Ushbu Windows foydalanuvchisi uchun zaxira nusxa qayd etilmagan.",
@@ -662,6 +662,8 @@
     "action.chooseSeparator": "Ajratgichni tanlang",
     "recovery.quotaRotation": "Kvota to‘lganda eng eski tugallangan nusxalar o‘chiriladi. Kutilayotgan nusxalar saqlanadi.",
     "progress.backupWaiting": "Zaxira nusxa uchun joy kutilmoqda… Maslahat: uzoq kutmaslik uchun joy boʻshating.",
-    "error.backupQuotaTip": "Maslahat: uzoq kutmaslik uchun joy boʻshating."
+    "error.backupQuotaTip": "Maslahat: uzoq kutmaslik uchun joy boʻshating.",
+    "tagline.open_spreadsheets_automatically": "Google Sheets’da elektron jadvallarni avtomatik oching.",
+    "recovery.selectionHint": "Bir nechtasini tanlang: Ctrl + bosish · Shift + bosish · yo‘nalish tugmalari."
   }
 }

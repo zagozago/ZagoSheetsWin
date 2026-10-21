@@ -3,7 +3,7 @@
   "locale": "vi-VN",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -507,7 +507,7 @@
     "recovery.deleted": "Đã xóa bản sao lưu: {count}. Dung lượng đã giải phóng: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Tự động dọn dẹp cũng áp dụng các quy tắc này cho bản sao lưu hiện có. Nó xóa các bản sao lưu đã hoàn tất sau thời gian lưu giữ hoặc để giải phóng dung lượng, từ cũ nhất đến mới nhất. Sau đó, bạn sẽ không thể khôi phục tệp gốc cục bộ. Bảng tính Google và lối tắt sẽ được giữ lại. Bật?",
     "recovery.enableCleanupTitle": "Bật tự động dọn dẹp",
-    "recovery.instructions": "Để khôi phục: chọn một hàng rồi chọn Khôi phục đến…\nCác thao tác đang chờ được bảo vệ. Bảng tính Google và lối tắt được giữ lại.",
+    "recovery.instructions": "Để khôi phục: chọn một hàng rồi chọn Khôi phục đến…",
     "recovery.limits": "Giới hạn: 200 MB · tối đa: 1 GB. Các thao tác đang chờ được bảo vệ.",
     "recovery.moreActions": "Thêm hành động ▾",
     "recovery.noBackups": "Không có bản sao lưu nào được ghi cho người dùng Windows này.",
@@ -658,6 +658,8 @@
     "action.chooseSeparator": "Chọn dấu phân cách",
     "recovery.quotaRotation": "Khi đạt hạn mức, các bản sao lưu hoàn tất cũ nhất bị xóa. Bản sao lưu đang chờ được giữ lại.",
     "progress.backupWaiting": "Đang chờ dung lượng sao lưu… Mẹo: giải phóng dung lượng sao lưu để tránh chờ lâu.",
-    "error.backupQuotaTip": "Mẹo: giải phóng dung lượng sao lưu để tránh chờ lâu."
+    "error.backupQuotaTip": "Mẹo: giải phóng dung lượng sao lưu để tránh chờ lâu.",
+    "tagline.open_spreadsheets_automatically": "Tự động mở bảng tính trong Google Sheets.",
+    "recovery.selectionHint": "Chọn nhiều: Ctrl + nhấp · Shift + nhấp · phím mũi tên."
   }
 }

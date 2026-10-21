@@ -291,8 +291,9 @@ internal static class InterfaceVerification
             {
                 UiText.Select(language.Code); Application.DoEvents();
                 var accountLabel = Descendants(accountSetup).OfType<Label>().Single(l => l.Text.Contains(longEmail, StringComparison.Ordinal));
-                Require(TextRenderer.MeasureText(accountLabel.Text, accountLabel.Font, Size.Empty, TextFormatFlags.SingleLine | TextFormatFlags.NoPadding).Width <= accountLabel.Width - 12,
-                    "The complete account email must fit without wrapping or clipping.");
+                Require(accountLabel.Font.SizeInPoints >= 9 && TextRenderer.MeasureText(accountLabel.Text, accountLabel.Font,
+                    new Size(Math.Max(30, accountLabel.Width - accountLabel.Padding.Horizontal), int.MaxValue), TextFormatFlags.WordBreak).Height <= accountLabel.Height - accountLabel.Padding.Vertical,
+                    "The complete account email must remain readable and fit its wrapped status card.");
                 var disconnect = Descendants(accountSetup).OfType<Button>().Single(b => b.Text == UiText.Get("setup.cancelConnection"));
                 Require(disconnect.Visible && disconnect.Parent is TableLayoutPanel { ColumnCount: 3 }, "Disconnect must remain in the three account actions.");
             }

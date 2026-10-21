@@ -85,7 +85,7 @@ jobs:
           if ($process.ExitCode -ne 0) { Get-Content $errorFile; throw 'Native interface verification failed' }
           Get-Content $output
       - name: Render native branding previews offline
-        if: runner.os == 'Windows'
+        if: always() && runner.os == 'Windows'
         shell: pwsh
         run: |
           $exe = Join-Path (Get-Location).Path 'artifacts/SheetsWindows-win-x64/SheetsWindows.exe'

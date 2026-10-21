@@ -29,7 +29,7 @@ internal static class Ui
             {
                 var needed = child.PreferredSize.Height;
                 if (child is CheckBox) { child.AutoSize = false; needed = Math.Max(32, TextRenderer.MeasureText(child.Text, child.Font, new Size(Math.Max(30, width - 54), int.MaxValue), TextFormatFlags.WordBreak).Height + 12); }
-                else if (child is Button) { child.AutoSize = false; needed = TextRenderer.MeasureText(child.Text, child.Font, new Size(Math.Max(30,width-child.Padding.Horizontal-12),int.MaxValue),TextFormatFlags.WordBreak).Height + child.Padding.Vertical + 10; }
+                else if (child is Button) { child.AutoSize = false; needed = TextRenderer.MeasureText(child.Text, child.Font, new Size(Math.Max(30,width-child.Padding.Horizontal-12-((child as Button)?.Image?.Width+6 ?? 0)),int.MaxValue),TextFormatFlags.WordBreak).Height + child.Padding.Vertical + 10; }
                 height = Math.Max(height, needed + child.Margin.Vertical);
             }
             row.Height = height + row.Padding.Vertical;

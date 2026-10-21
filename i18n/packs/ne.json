@@ -3,7 +3,7 @@
   "locale": "ne-NP",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -507,7 +507,7 @@
     "recovery.deleted": "मेटाइएका जगेडा: {count}. खाली भएको ठाउँ: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "स्वचालित सफाइले यी नियम विद्यमान जगेडामा पनि लागू गर्छ। राख्ने अवधि सकिएपछि वा ठाउँ खाली गर्न पूरा भएका जगेडालाई सबैभन्दा पुरानाबाट सुरु गरेर मेटाउँछ। त्यसपछि तपाईं स्थानीय मूल फाइल पुनर्स्थापना गर्न सक्नुहुने छैन। Google स्प्रेडसिट र सर्टकट रहनेछन्। सक्षम गर्ने?",
     "recovery.enableCleanupTitle": "स्वचालित सफाइ सक्षम गर्नुहोस्",
-    "recovery.instructions": "पुनर्स्थापना गर्न: एउटा पङ्क्ति छान्नुहोस् र यहाँ पुनर्स्थापना गर्नुहोस्… छान्नुहोस्।\nबाँकी अपरेसन सुरक्षित छन्। Google स्प्रेडसिट र सर्टकट राखिन्छन्।",
+    "recovery.instructions": "पुनर्स्थापना गर्न: एउटा पङ्क्ति छान्नुहोस् र यहाँ पुनर्स्थापना गर्नुहोस्… छान्नुहोस्।",
     "recovery.limits": "सीमा: 200 MB · अधिकतम: 1 GB. बाँकी अपरेसन सुरक्षित छन्।",
     "recovery.moreActions": "थप कार्यहरू ▾",
     "recovery.noBackups": "यस Windows प्रयोगकर्ताका लागि कुनै जगेडा रेकर्ड छैन।",
@@ -658,6 +658,8 @@
     "action.chooseSeparator": "विभाजक छान्नुहोस्",
     "recovery.quotaRotation": "कोटा भरिएपछि सबैभन्दा पुराना पूरा ब्याकअप हटाइन्छन्। विचाराधीन ब्याकअप सुरक्षित रहन्छन्।",
     "progress.backupWaiting": "ब्याकअपमा ठाउँको प्रतीक्षा गर्दै… सुझाव: लामो प्रतीक्षाबाट बच्न ब्याकअपमा ठाउँ खाली गर्नुहोस्।",
-    "error.backupQuotaTip": "सुझाव: लामो प्रतीक्षाबाट बच्न ब्याकअपमा ठाउँ खाली गर्नुहोस्।"
+    "error.backupQuotaTip": "सुझाव: लामो प्रतीक्षाबाट बच्न ब्याकअपमा ठाउँ खाली गर्नुहोस्।",
+    "tagline.open_spreadsheets_automatically": "Google Sheets मा स्प्रेडसिटहरू स्वतः खोल्नुहोस्।",
+    "recovery.selectionHint": "धेरै छान्नुहोस्: Ctrl + क्लिक · Shift + क्लिक · तीर कुञ्जीहरू।"
   }
 }

@@ -15,7 +15,7 @@ internal sealed class SetupForm : Form
     {
         var storage = LocalStorage.ForCurrentUser();
         Text = firstUse ? UiText.Get("setup.firstUseTitle") : UiText.Get("setup.title");
-        ClientSize = new Size(560, 570); MinimumSize = new Size(480, 480); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterScreen;
+        ClientSize = new Size(600, 670); MinimumSize = new Size(480, 480); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterScreen;
         var layout = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18, 4, 18, 8), FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = true };
         var shortcuts = new ToggleSwitch { Checked = ShortcutSettings.Load(storage), Text = UiText.Get("setup.createShortcuts") };
         var copy = new ToggleSwitch { Checked = CopyImportSettings.Load(storage), Text = UiText.Get("emphasis.importCopy") };
@@ -25,27 +25,29 @@ internal sealed class SetupForm : Form
             panel.Controls.Add(Ui.Separator()); panel.Controls.Add(Ui.Text(UiText.Get("setup.connectionExplanation"))); return panel;
         });
         var defaultsInfo = new InformationButton(() => InformationButton.TextPanel("setup.defaultsHelp"));
+        SurfaceCard section = null!;
         void Section(string key, InformationButton? info = null)
         {
+            section = VisualStyle.Card(); layout.Controls.Add(section);
             var heading = Ui.Text(UiText.Get(key), true); heading.Margin = new Padding(0, 2, 0, 2);
             var row = new FlowLayoutPanel { AutoSize = true, FlowDirection = FlowDirection.LeftToRight, WrapContents = true, Margin = new Padding(0, 0, 0, 2) };
             row.Controls.Add(heading); if (info is not null) { info.Margin = new Padding(4, 2, 0, 0); row.Controls.Add(info); }
             if (info is not null) info.AccessibleDescription = UiText.Get(key);
             row.SizeChanged += (_, _) => heading.MaximumSize = new Size(Math.Max(100, row.Width - (info is null ? 8 : info.Width + info.Margin.Horizontal + 12)), 0);
-            layout.Controls.Add(row);
+            section.Controls.Add(row);
         }
-        void Divider() { var line = Ui.Separator(); line.Margin = new Padding(0, 4, 0, 4); layout.Controls.Add(line); }
+        void Divider() { }
         Section("setup.googleHeading", googleInfo);
-        var googleExplanation = Ui.Text(UiText.Get("setup.googleExplanation")); googleExplanation.Margin = new Padding(0, 2, 0, 4); layout.Controls.Add(googleExplanation);
+        var googleExplanation = Ui.Text(UiText.Get("setup.googleExplanation")); googleExplanation.Margin = new Padding(0, 2, 0, 4); section.Controls.Add(googleExplanation);
         var confirmed = preview; var currentEmail = previewEmail;
         var connectionState = Ui.Hero(UiText.Get(preview ? "setup.authConfirmed" : FirstUseState.NeedsAuthorization(storage) ? "setup.authMissing" : "setup.authSavedChecking"));
-        connectionState.AccessibleName = UiText.Get("accessibility.authorizationStatus"); connectionState.Margin = new Padding(0, 4, 0, 4); layout.Controls.Add(connectionState);
+        connectionState.AccessibleName = UiText.Get("accessibility.authorizationStatus"); connectionState.Margin = new Padding(0, 4, 0, 4); section.Controls.Add(connectionState);
         var connectKey = !preview && FirstUseState.NeedsAuthorization(storage) ? "action.authorizeGoogle" : "action.switchGoogleAccount";
         string ShortCaption(string key) => System.Text.RegularExpressions.Regex.Replace(UiText.Get(key).Replace("Google", "", StringComparison.Ordinal), @"\s+", " ").Trim().Replace(" …", "…", StringComparison.Ordinal);
         var connect = new AdaptiveButton { Text = ShortCaption(connectKey) };
         var verify = new AdaptiveButton { Text = ShortCaption("setup.verifyGoogle"), Enabled = !FirstUseState.NeedsAuthorization(storage) };
         var cancel = new AdaptiveButton { Text = UiText.Get("setup.cancelConnection") };
-        layout.Controls.Add(Ui.Columns(connect, verify, cancel));
+        section.Controls.Add(Ui.Columns(connect, verify, cancel));
         void RefreshConnection()
         {
             connect.Text = ShortCaption(connectKey); verify.Text = ShortCaption("setup.verifyGoogle");
@@ -58,10 +60,11 @@ internal sealed class SetupForm : Form
         RefreshConnection();
         Divider(); Section("setup.defaultsHeading", defaultsInfo);
         var defaults = new AdaptiveButton { AutoSize = true, Text = UiText.Get("setup.openWindowsDefaults") };
-        defaults.Click += (_, _) => { try { new BrowserLauncher().Open(WindowsAssociationPlan.DefaultsUri); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = UiText.Get("setup.windowsDefaultsInstructions"); } }; layout.Controls.Add(defaults);
+        defaults.Click += (_, _) => { try { new BrowserLauncher().Open(WindowsAssociationPlan.DefaultsUri); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = UiText.Get("setup.windowsDefaultsInstructions"); } }; section.Controls.Add(defaults);
         Divider(); Section("setup.importHeading", new InformationButton(() => InformationButton.TextPanel("home.copyExplanation")));
-        layout.Controls.Add(Ui.Pair(shortcuts, copy));
+        section.Controls.Add(Ui.Pair(shortcuts, copy));
         var advanced = new AdaptiveButton { Text = UiText.Get("setup.advanced"), Dock = DockStyle.Bottom, Height = 42 };
+        VisualStyle.Icon(advanced, UiIcon.Settings); VisualStyle.Icon(defaults, UiIcon.External); Ui.Primary(connect);
         advanced.Click += (_, _) => { using var form = new AdvancedPreferencesForm(storage, preview); form.ShowDialog(this); };
         var preferences = new PreferenceAutosave(this, layout, status, preview);
         shortcuts.CheckedChanged += async (_, _) =>
@@ -162,31 +165,15 @@ internal sealed class SetupForm : Form
         Controls.Add(layout); Controls.Add(advanced); Controls.Add(finish);
         FormClosing += (_, e) => { if (busy) { e.Cancel = true; cancellation.Cancel(); } };
         Branding.Apply(this); Ui.Adapt(layout);
-        var fitting = false; Font? fittedFont = null;
         void FitCenter()
         {
-            if (fitting || connectionState.IsDisposed) return;
-            fitting = true;
-            try
-            {
-                connectionState.Tag = "accountSingleLine"; connectionState.AutoSize = false;
-                connectionState.Width = Math.Max(120, layout.ClientSize.Width - layout.Padding.Horizontal - 24);
-                var size = 16f; Font next;
-                while (true)
-                {
-                    next = new Font(LanguageVisuals.Family, size, FontStyle.Bold);
-                    if (size <= 0.5f || TextRenderer.MeasureText(connectionState.Text, next, Size.Empty, TextFormatFlags.SingleLine | TextFormatFlags.NoPadding).Width <= connectionState.Width - 12) break;
-                    next.Dispose(); size -= 0.25f;
-                }
-                var previous = fittedFont; fittedFont = next; connectionState.Font = next; previous?.Dispose();
-                connectionState.Height = (int)Math.Ceiling(16 * DeviceDpi / 72.0) + 16;
-            }
-            finally { fitting = false; }
+            connectionState.Tag = "status"; connectionState.AutoSize = true;
+            if (connectionState.Font.SizeInPoints != 10) connectionState.Font = new Font(LanguageVisuals.Family, 10, FontStyle.Bold);
+            connectionState.Padding = new Padding(10, 9, 10, 9); connectionState.TextAlign = ContentAlignment.MiddleLeft;
         }
-        connectionState.TextChanged += (_, _) => FitCenter(); layout.SizeChanged += (_, _) => FitCenter();
+        connectionState.TextChanged += (_, _) => FitCenter();
         void LanguageChanged() { RefreshConnection(); FitCenter(); }
-        UiText.Changed += LanguageChanged;
-        Disposed += (_, _) => { UiText.Changed -= LanguageChanged; fittedFont?.Dispose(); };
+        UiText.Changed += LanguageChanged; Disposed += (_, _) => UiText.Changed -= LanguageChanged;
         FitCenter();
         if (previewBusy) SetBusy(true);
     }

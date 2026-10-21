@@ -3,7 +3,7 @@
   "locale": "ha-NG",
   "direction": "ltr",
   "catalogRevision": 16,
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "status": "translated",
   "editorialQa": "passed",
   "layoutQa": "not_reviewed",
@@ -507,7 +507,7 @@
     "recovery.deleted": "Ajiyar baya da aka share: {count}. Sararin da aka 'yanta: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "Tsaftacewa ta atomatik tana amfani da waɗannan dokoki ga ajiyar baya da ake da su ma. Tana share ajiyar da aka kammala bayan lokacin riƙewa ko don 'yantar da sarari, daga mafi tsufa zuwa mafi sabo. Bayan haka, ba za ka iya maido da asalin na cikin gida ba. Maƙunsar Google da gajerun hanyoyi za su kasance. A kunna?",
     "recovery.enableCleanupTitle": "Kunna tsaftacewa ta atomatik",
-    "recovery.instructions": "Don maidowa: zaɓi layi sannan ka zaɓi Mayar zuwa…\nAyyukan da ke jira suna da kariya. Ana riƙe maƙunsar Google da gajerun hanyoyi.",
+    "recovery.instructions": "Don maidowa: zaɓi layi sannan ka zaɓi Mayar zuwa…",
     "recovery.limits": "Iyaka: 200 MB · mafi yawa: 1 GB. Ayyukan da ke jira suna da kariya.",
     "recovery.moreActions": "Ƙarin ayyuka ▾",
     "recovery.noBackups": "Babu ajiyar baya da aka rubuta wa wannan mai amfani da Windows.",
@@ -658,6 +658,8 @@
     "action.chooseSeparator": "Zaɓi mai raba bayanai",
     "recovery.quotaRotation": "Idan an kai iyakar sarari, ana goge tsofaffin madadin da aka kammala. Ana kiyaye waɗanda suke jira.",
     "progress.backupWaiting": "Ana jiran sararin ajiyar madadin… Shawara: a ba da sarari don kauce wa dogon jira.",
-    "error.backupQuotaTip": "Shawara: a ba da sarari don kauce wa dogon jira."
+    "error.backupQuotaTip": "Shawara: a ba da sarari don kauce wa dogon jira.",
+    "tagline.open_spreadsheets_automatically": "Buɗe maƙunsar bayanai ta atomatik a Google Sheets.",
+    "recovery.selectionHint": "Zaɓi da yawa: Ctrl + danna · Shift + danna · maɓallan kibiya."
   }
 }

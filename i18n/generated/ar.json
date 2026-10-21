@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.44",
+  "productVersion": "0.9.45",
   "sourceLocale": "pt-BR",
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "النسخ الاحتياطية المحذوفة: {count}. المساحة المحررة: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "يطبق التنظيف التلقائي هذه القواعد أيضًا على النسخ الاحتياطية الموجودة. يحذف النسخ المكتملة بعد مدة الاحتفاظ أو لتوفير مساحة، من الأقدم إلى الأحدث. بعد ذلك لن تتمكن من استعادة الأصل المحلي. ستظل جداول بيانات Google والاختصارات محفوظة. هل تريد التمكين؟",
     "recovery.enableCleanupTitle": "تمكين التنظيف التلقائي",
-    "recovery.instructions": "للاسترداد: حدد صفًا واختر «استعادة إلى…».\nالعمليات المعلّقة محمية. يتم الاحتفاظ بجداول بيانات Google والاختصارات.",
+    "recovery.instructions": "للاسترداد: حدد صفًا واختر «استعادة إلى…».",
     "recovery.limits": "الحد: 200 MB · الحد الأقصى: 1 GB. العمليات المعلّقة محمية.",
     "recovery.moreActions": "إجراءات إضافية ▾",
     "recovery.noBackups": "لا توجد نسخ احتياطية مسجلة لمستخدم Windows هذا.",
@@ -365,6 +365,8 @@
     "action.chooseSeparator": "اختيار الفاصل",
     "recovery.quotaRotation": "عند بلوغ الحصة، تُحذف أقدم النسخ المكتملة. تُحفظ النسخ المعلقة.",
     "progress.backupWaiting": "بانتظار مساحة للنسخ الاحتياطية… نصيحة: أفرغ مساحة لتجنب الانتظار الطويل.",
-    "error.backupQuotaTip": "نصيحة: أفرغ مساحة لتجنب الانتظار الطويل."
+    "error.backupQuotaTip": "نصيحة: أفرغ مساحة لتجنب الانتظار الطويل.",
+    "tagline.open_spreadsheets_automatically": "افتح جداول البيانات تلقائيًا في Google Sheets.",
+    "recovery.selectionHint": "تحديد متعدد: Ctrl + نقر · Shift + نقر · أسهم لوحة المفاتيح."
   }
 }

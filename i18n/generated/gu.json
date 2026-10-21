@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.44",
+  "productVersion": "0.9.45",
   "sourceLocale": "pt-BR",
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "બેકઅપ્સ કાઢી નાખ્યા: {count}. ખાલી કરેલી જગ્યા: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "આપમેળે સફાઈ આ નિયમો હાલના બેકઅપ્સ પર પણ લાગુ કરે છે. જાળવણી અવધિ પછી અથવા જગ્યા ખાલી કરવા માટે, સૌથી જૂના થી નવા ક્રમમાં, પૂર્ણ બેકઅપ્સ કાઢી નાખે છે. ત્યારબાદ તમે સ્થાનિક મૂળ પુનઃસ્થાપિત કરી શકશો નહીં. Google સ્પ્રેડશીટ્સ અને શૉર્ટકટ્સ રહેશે. સક્ષમ કરવું છે?",
     "recovery.enableCleanupTitle": "આપમેળે સફાઈ સક્ષમ કરો",
-    "recovery.instructions": "પુનઃપ્રાપ્ત કરવા: એક પંક્તિ પસંદ કરો અને આમાં પુનઃસ્થાપિત કરો… પસંદ કરો.\nબાકી કામગીરી સુરક્ષિત છે. Google સ્પ્રેડશીટ્સ અને શૉર્ટકટ્સ રાખવામાં આવે છે.",
+    "recovery.instructions": "પુનઃપ્રાપ્ત કરવા: એક પંક્તિ પસંદ કરો અને આમાં પુનઃસ્થાપિત કરો… પસંદ કરો.",
     "recovery.limits": "મર્યાદા: 200 MB · મહત્તમ: 1 GB. બાકી કામગીરી સુરક્ષિત છે.",
     "recovery.moreActions": "વધુ ક્રિયાઓ ▾",
     "recovery.noBackups": "આ Windows વપરાશકર્તા માટે કોઈ બેકઅપ નોંધાયેલ નથી.",
@@ -365,6 +365,8 @@
     "action.chooseSeparator": "વિભાજક પસંદ કરો",
     "recovery.quotaRotation": "ક્વોટા ભરાય ત્યારે સૌથી જૂના પૂર્ણ બેકઅપ કાઢી નાખવામાં આવે છે. બાકી બેકઅપ સાચવવામાં આવે છે.",
     "progress.backupWaiting": "બેકઅપમાં જગ્યાની રાહ જોઈ રહ્યું છે… સૂચન: લાંબી રાહ ટાળવા માટે બેકઅપમાં જગ્યા ખાલી કરો.",
-    "error.backupQuotaTip": "સૂચન: લાંબી રાહ ટાળવા માટે બેકઅપમાં જગ્યા ખાલી કરો."
+    "error.backupQuotaTip": "સૂચન: લાંબી રાહ ટાળવા માટે બેકઅપમાં જગ્યા ખાલી કરો.",
+    "tagline.open_spreadsheets_automatically": "Google Sheetsમાં સ્પ્રેડશીટ્સ આપમેળે ખોલો.",
+    "recovery.selectionHint": "અનેક પસંદ કરો: Ctrl + ક્લિક · Shift + ક્લિક · તીર કીઓ."
   }
 }

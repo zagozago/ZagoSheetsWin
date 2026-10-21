@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.44",
+  "productVersion": "0.9.45",
   "sourceLocale": "pt-BR",
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "پشتیبان‌های حذف‌شده: {count}. فضای آزادشده: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "پاک‌سازی خودکار این قواعد را روی پشتیبان‌های موجود نیز اعمال می‌کند. پشتیبان‌های تکمیل‌شده را پس از پایان دوره نگهداری یا برای آزاد کردن فضا، از قدیمی‌ترین به جدیدترین حذف می‌کند. پس از آن دیگر نمی‌توانید فایل اصلی محلی را بازیابی کنید. صفحه‌گسترده‌های Google و میانبرها باقی می‌مانند. فعال شود؟",
     "recovery.enableCleanupTitle": "فعال کردن پاک‌سازی خودکار",
-    "recovery.instructions": "برای بازیابی: یک ردیف را انتخاب کنید و «بازیابی در…» را بزنید.\nعملیات در انتظار محافظت می‌شوند. صفحه‌گسترده‌های Google و میانبرها نگه داشته می‌شوند.",
+    "recovery.instructions": "برای بازیابی: یک ردیف را انتخاب کنید و «بازیابی در…» را بزنید.",
     "recovery.limits": "محدودیت: 200 MB · حداکثر: 1 GB. عملیات در انتظار محافظت می‌شوند.",
     "recovery.moreActions": "اقدامات بیشتر ▾",
     "recovery.noBackups": "برای این کاربر Windows هیچ پشتیبانی ثبت نشده است.",
@@ -365,6 +365,8 @@
     "action.chooseSeparator": "انتخاب جداکننده",
     "recovery.quotaRotation": "با رسیدن به سقف فضا، قدیمی‌ترین پشتیبان‌های کامل حذف می‌شوند. پشتیبان‌های در انتظار حفظ می‌شوند.",
     "progress.backupWaiting": "در انتظار فضای پشتیبان… نکته: برای جلوگیری از انتظار طولانی، فضای پشتیبان را خالی کنید.",
-    "error.backupQuotaTip": "نکته: برای جلوگیری از انتظار طولانی، فضای پشتیبان را خالی کنید."
+    "error.backupQuotaTip": "نکته: برای جلوگیری از انتظار طولانی، فضای پشتیبان را خالی کنید.",
+    "tagline.open_spreadsheets_automatically": "صفحه‌گسترده‌ها را به‌طور خودکار در Google Sheets باز کنید.",
+    "recovery.selectionHint": "انتخاب چندگانه: Ctrl + کلیک · Shift + کلیک · کلیدهای جهت‌نما."
   }
 }

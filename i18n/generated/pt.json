@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.44",
+  "productVersion": "0.9.45",
   "sourceLocale": "pt-BR",
-  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
+  "sourceHash": "75d15371a0cfe9f6193b210abaac4d6ae8c42eec7fc9f8b489247a5d312bdb69",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -214,7 +214,7 @@
     "recovery.deleted": "Backups apagados: {count}. Espaço liberado: {freedMb:N2} MB.",
     "recovery.enableCleanupPrompt": "A limpeza automática aplica estas regras também aos backups já existentes. Apaga backups concluídos após o prazo ou para liberar espaço, dos mais antigos para os recentes. Depois não será possível restaurar o original local. Planilhas no Google e atalhos permanecem. Ativar?",
     "recovery.enableCleanupTitle": "Ativar limpeza automática",
-    "recovery.instructions": "Para recuperar: selecione uma linha e use Restaurar\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos.",
+    "recovery.instructions": "Para recuperar: selecione uma linha e use Restaurar",
     "recovery.limits": "Teto: 200 MB · máximo: 1 GB. Operações pendentes são protegidas.",
     "recovery.moreActions": "Mais ações ▾",
     "recovery.noBackups": "Nenhum backup registrado neste usuário do Windows.",
@@ -365,6 +365,8 @@
     "action.chooseSeparator": "Escolher separador",
     "recovery.quotaRotation": "Ao atingir a cota, os backups concluídos mais antigos são excluídos. Pendentes são preservados.",
     "progress.backupWaiting": "Aguardando espaço no backup… Dica: libere espaço no backup para evitar esperas demoradas.",
-    "error.backupQuotaTip": "Dica: libere espaço no backup para evitar esperas demoradas."
+    "error.backupQuotaTip": "Dica: libere espaço no backup para evitar esperas demoradas.",
+    "tagline.open_spreadsheets_automatically": "Abra planilhas no Google Sheets automaticamente.",
+    "recovery.selectionHint": "Selecione vários: Ctrl + clique · Shift + clique · setas do teclado."
   }
 }

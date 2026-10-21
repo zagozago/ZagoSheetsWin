@@ -5,6 +5,8 @@ namespace SheetsWindows.Windows;
 internal sealed class ProcessingForm : Form
 {
     private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Fill, Padding = new Padding(18), TextAlign = ContentAlignment.MiddleLeft, Text = UiText.Get("progress.preparing"), AccessibleName = UiText.Get("accessibility.processingStatus") };
+    private readonly Label failureHeading = new() { Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(18, 14, 18, 4), Visible = false, Font = new Font("Segoe UI", 12, FontStyle.Bold), Tag = "errorSurface" };
+    private readonly Panel closeRow = new() { Dock = DockStyle.Bottom, Height = 48, Padding = new Padding(12, 0, 12, 10), Visible = false };
     private readonly Button cancel = new AdaptiveButton() { AutoSize = true, Text = UiText.Get("action.cancel") };
     private readonly FlowLayoutPanel actions = new() { Dock = DockStyle.Bottom, AutoSize = true, Padding = new Padding(12), WrapContents = true };
     private readonly CancellationTokenSource cancellation = new();
@@ -37,6 +39,7 @@ internal sealed class ProcessingForm : Form
         renderingFailure = true;
         try
         {
+            failureHeading.Text = "⚠  " + UiText.Get("processing.failureTitle").Replace(" - ZagoSheetsWin", "", StringComparison.Ordinal);
             status.Text = (displayedFailure is OperationCanceledException && !cancellation.IsCancellationRequested
                 ? UiText.Get("error.connectionTimeout") : LauncherErrors.Message(displayedFailure))
                 + (needsInputChange ? "\n\n" + UiText.Get("retry.editInput") : "")
@@ -81,7 +84,7 @@ internal sealed class ProcessingForm : Form
         Text = UiText.Get("processing.title"); ClientSize = new Size(620, 240); MinimumSize = new Size(620, 240);
         StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
         cancel.Click += (_, _) => { if (busy) { cancellation.Cancel(); cancel.Enabled = false; status.Text = UiText.Get("progress.stopping"); } else Close(); };
-        actions.Controls.Add(cancel); Controls.Add(status); Controls.Add(actions);
+        actions.Controls.Add(cancel); Controls.Add(status); Controls.Add(failureHeading); Controls.Add(actions); Controls.Add(closeRow);
         FormClosing += (_, e) => { if (busy) { e.Cancel = true; cancellation.Cancel(); cancel.Enabled = false; status.Text = UiText.Get("progress.stopping"); } };
         Branding.Apply(this, aboutButton: false, compact: true);
         UiText.Changed += RenderFailure;
@@ -92,6 +95,8 @@ internal sealed class ProcessingForm : Form
     private void ShowFailure(Exception ex)
     {
         Text = UiText.Get("processing.failureTitle");
+        failureHeading.Visible = true; status.Tag = "errorSurface"; closeRow.Visible = true;
+        actions.Controls.Remove(cancel); closeRow.Controls.Add(cancel); cancel.Dock = DockStyle.Left;
         displayedFailure = ex; diagnosticFeedback = null; terminal = true; needsInputChange = ImportRetry.RequiresInputChange(ex); RenderFailure();
         var recovery = new AdaptiveButton { Text = UiText.Get("action.recovery"), AutoSize = true };
         recovery.Click += (_, _) => { using var form = new RecoveryForm(); form.ShowDialog(this); };
@@ -110,7 +115,7 @@ internal sealed class ProcessingForm : Form
         {
             var chooseSeparator = ex is InvalidDataException ambiguous && ambiguous.Message == "Ambiguous CSV delimiter; configure it explicitly.";
             var retry = new AdaptiveButton { Text = UiText.Get(chooseSeparator ? "action.chooseSeparator" : "action.retry"), AutoSize = true };
-            if (chooseSeparator) Ui.Primary(retry);
+            Ui.Primary(retry);
             if (needsInputChange)
             {
                 retry.Enabled = InputStamp() != inputStamp;
@@ -128,8 +133,9 @@ internal sealed class ProcessingForm : Form
                 }
                 await RunSafelyAsync();
             };
-            actions.Controls.Add(retry);
+            actions.Controls.Add(retry); actions.Controls.SetChildIndex(retry, 0);
         }
+        VisualStyle.Icon(recovery, UiIcon.Backup); VisualStyle.Icon(export, UiIcon.File); VisualStyle.Icon(setup, UiIcon.Settings);
         ClientSize = new Size((int)(620 * DeviceDpi / 96.0), (int)(330 * DeviceDpi / 96.0)); Branding.Refresh(this); RenderFailure();
     }
     private async Task RunSafelyAsync()
@@ -150,6 +156,9 @@ internal sealed class ProcessingForm : Form
         // below must return to this window's thread, including error-button creation.
         SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());
         retryWatcher.Stop(); updateRetry = null; inputStamp = InputStamp(); needsInputChange = false;
+        failureHeading.Visible = false; status.Tag = null; closeRow.Visible = false;
+        if (cancel.Parent == closeRow) { closeRow.Controls.Remove(cancel); cancel.Dock = DockStyle.None; actions.Controls.Add(cancel); }
+        Branding.Refresh(this);
         busy = true; terminal = false; displayedFailure = null; diagnosticFeedback = null; latestDiagnostic = null;
         var currentGeneration = ++generation;
         ExitCode = 0;
