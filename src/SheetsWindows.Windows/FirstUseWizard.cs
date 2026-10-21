@@ -28,6 +28,7 @@ internal sealed class FirstUseWizard : Form
     private string clientPath = "";
     private bool busy;
     private bool checking;
+    private bool fittingContent;
     internal int CurrentPage { get; private set; }
     internal bool AuthorizationConfirmed { get; private set; }
     internal bool Completed { get; private set; }
@@ -78,6 +79,7 @@ internal sealed class FirstUseWizard : Form
             if (busy) { e.Cancel = true; cancellation.Cancel(); }
         };
         Branding.Apply(this); Ui.Adapt(content); RefreshPage();
+        Shown += (_, _) => FitContent(); DpiChanged += (_, _) => BeginInvoke((Action)FitContent);
         if (!preview) Shown += async (_, _) => { if (CurrentPage == 1) await CheckExistingConnection(); };
     }
     private static string SectionTitle(string key) => System.Text.RegularExpressions.Regex.Replace(UiText.Get(key), @"^\s*\d+[.、．]?\s*", "");
@@ -102,7 +104,7 @@ internal sealed class FirstUseWizard : Form
             connection.Text = UiText.Get(AuthorizationConfirmed ? "setup.authConfirmed" : "setup.authMissing");
             ConnectButton.Text = UiText.Get(AuthorizationConfirmed ? "action.switchGoogleAccount" : "action.authorizeGoogle");
             content.Controls.Add(Ui.Center(connection)); content.Controls.Add(ConnectButton);
-            if (!File.Exists(LauncherConfiguration.ClientPath(storage)) &&
+            if (!preview && !File.Exists(LauncherConfiguration.ClientPath(storage)) &&
                 !typeof(LauncherConfiguration).Assembly.GetManifestResourceNames().Contains("OAuth.official.desktop.json"))
             {
                 var choose = new AdaptiveButton { AutoSize = true, Text = UiText.Get("setup.chooseClient") };
@@ -124,7 +126,22 @@ internal sealed class FirstUseWizard : Form
         NextButton.Text = UiText.Get(CurrentPage == PageCount - 1 ? "tutorial.start" : "action.next"); PreviousButton.Text = UiText.Get("action.back");
         count.Margin = new Padding(12, 10, 0, 0);
         count.Text = UiText.Format("tutorial.pageCount", ("number", CurrentPage + 1), ("total", PageCount));
-        Branding.Refresh(this); content.PerformLayout(); UpdateNavigation();
+        Branding.Refresh(this); content.PerformLayout(); UpdateNavigation(); FitContent();
+    }
+    private void FitContent()
+    {
+        if (fittingContent || !IsHandleCreated || WindowState != FormWindowState.Normal) return;
+        fittingContent = true;
+        try
+        {
+            content.PerformLayout();
+            var needed = content.Controls.Cast<Control>().Where(control => control.Visible).Sum(control => control.Height + control.Margin.Vertical) + content.Padding.Vertical + 8;
+            if (needed <= content.ClientSize.Height) return;
+            var maximum = Screen.FromControl(this).WorkingArea.Height - (Height - ClientSize.Height) - 24;
+            ClientSize = new Size(ClientSize.Width, Math.Min(maximum, ClientSize.Height + needed - content.ClientSize.Height));
+            content.PerformLayout();
+        }
+        finally { fittingContent = false; }
     }
     private async Task CheckExistingConnection()
     {
@@ -151,7 +168,7 @@ internal sealed class FirstUseWizard : Form
             if (authentication) connection.Text = UiText.Get("setup.authNotCompleted");
             status.Text = ex is ArgumentException ? UiText.Get("setup.consentRequired") : LauncherErrors.Message(ex);
         }
-        finally { status.Visible = !string.IsNullOrEmpty(status.Text); busy = false; content.Enabled = true; cancel.Visible = false; if (cancellation.IsCancellationRequested) { cancellation.Dispose(); cancellation = new CancellationTokenSource(); } UpdateNavigation(); }
+        finally { status.Visible = !string.IsNullOrEmpty(status.Text); busy = false; content.Enabled = true; cancel.Visible = false; if (cancellation.IsCancellationRequested) { cancellation.Dispose(); cancellation = new CancellationTokenSource(); } UpdateNavigation(); FitContent(); }
     }
     private async Task Authorize(CancellationToken ct)
     {
