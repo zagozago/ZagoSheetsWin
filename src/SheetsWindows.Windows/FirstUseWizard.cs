@@ -49,6 +49,7 @@ internal sealed class FirstUseWizard : Form
         StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
         layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 200));
         layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100)); layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        connection.Font = new Font(LanguageVisuals.Family, 11, FontStyle.Bold); connection.Margin = new Padding(0, 2, 0, 6);
         heading.Dock = DockStyle.Fill; heading.Margin = new Padding(0, 0, 0, 8);
         layout.Controls.Add(heading, 0, 0); layout.Controls.Add(picture, 0, 1); layout.Controls.Add(content, 0, 2); layout.Controls.Add(actions, 0, 3);
         actions.Controls.Add(PreviousButton); actions.Controls.Add(NextButton); actions.Controls.Add(count); actions.Controls.Add(cancel);
@@ -96,7 +97,8 @@ internal sealed class FirstUseWizard : Form
         layout.RowStyles[1].Height = 200 * DeviceDpi / 96f;
         if (CurrentPage == 1)
         {
-            content.Controls.Add(Ui.Center(Ui.Text(UiText.Get("firstUse.googleExplanation"))));
+            var accountExplanation = Ui.Center(Ui.Text(UiText.Get("firstUse.googleExplanation")));
+            accountExplanation.Margin = new Padding(0, 0, 0, 6); content.Controls.Add(accountExplanation);
             connection.Text = UiText.Get(AuthorizationConfirmed ? "setup.authConfirmed" : "setup.authMissing");
             ConnectButton.Text = UiText.Get(AuthorizationConfirmed ? "action.switchGoogleAccount" : "action.authorizeGoogle");
             content.Controls.Add(Ui.Center(connection)); content.Controls.Add(ConnectButton);
@@ -110,7 +112,9 @@ internal sealed class FirstUseWizard : Form
         }
         else if (CurrentPage == 2)
         {
-            content.Controls.Add(Ui.Hero(SectionTitle("setup.defaultsHeading"))); content.Controls.Add(Ui.Center(Ui.Text(UiText.Get("firstUse.defaultsExplanation"))));
+            var defaultsHeading = Ui.Center(Ui.Text(SectionTitle("setup.defaultsHeading"), true)); defaultsHeading.Margin = new Padding(0, 2, 0, 6);
+            var defaultsExplanation = Ui.Center(Ui.Text(UiText.Get("firstUse.defaultsExplanation"))); defaultsExplanation.Margin = new Padding(0, 0, 0, 6);
+            content.Controls.Add(defaultsHeading); content.Controls.Add(defaultsExplanation);
             var defaults = new AdaptiveButton { AutoSize = true, Text = UiText.Get("tutorial.defineDefaults") }; Ui.Primary(defaults);
             defaults.Click += (_, _) => { try { new BrowserLauncher().Open(WindowsAssociationPlan.DefaultsUri); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = UiText.Get("setup.windowsDefaultsInstructions"); } };
             content.Controls.Add(defaults);
