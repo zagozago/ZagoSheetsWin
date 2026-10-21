@@ -73,15 +73,15 @@ internal static class Branding
             }
             control.Invalidate();
         }
-        var header = new Panel { Dock = DockStyle.Top, Height = compact ? 68 : 74, Padding = new Padding(12, 8, 12, 8) };
+        var header = new Panel { Dock = DockStyle.Top, Height = 64, Padding = new Padding(18, 8, 18, 8) };
         using var source = typeof(Branding).Assembly.GetManifestResourceStream("Brand.z.png")!;
         using var original = Image.FromStream(source); var logo = new Bitmap(original);
         var picture = new PictureBox { Image = logo, SizeMode = PictureBoxSizeMode.Zoom, Dock = DockStyle.Left, Width = 32 };
         form.Disposed += (_, _) => logo.Dispose();
         var title = new Label { Text = Name, AutoSize = true, TextAlign = ContentAlignment.MiddleLeft, Padding = new Padding(10, 0, 0, 0) };
         title.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-        var right = new FlowLayoutPanel { Dock = DockStyle.Right, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, FlowDirection = FlowDirection.LeftToRight, WrapContents = false, Padding = new Padding(0, 5, 0, 0) };
-        var toggle = new ThemeToggle { Width = 36, Height = 34, Margin = new Padding(3,0,3,0) };
+        var right = new FlowLayoutPanel { Dock = DockStyle.Right, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, FlowDirection = FlowDirection.LeftToRight, WrapContents = false, Padding = new Padding(0, 8, 0, 0) };
+        var toggle = new ThemeToggle { Width = 32, Height = 28, Margin = new Padding(3,0,3,0) };
         var tooltip = new ToolTip();
         void UpdateToggle() { toggle.Dark = Current == ApplicationTheme.Dark; toggle.AccessibleName = toggle.Dark ? UiText.Get("theme.activateLight") : UiText.Get("theme.activateDark"); tooltip.SetToolTip(toggle, toggle.AccessibleName); toggle.Invalidate(); }
         toggle.Click += async (_, _) =>
@@ -93,12 +93,12 @@ internal static class Branding
         };
         if (aboutButton)
         {
-            var about = new LinkLabel { Text = UiText.Get("about.open"), AutoSize = true, Height = 32, Margin = new Padding(4, 9, 8, 0), TextAlign = ContentAlignment.MiddleCenter, TabStop = true, AccessibleName = UiText.Get("accessibility.about") };
+            var about = new LinkLabel { Text = UiText.Get("about.open"), AutoSize = true, Height = 32, Margin = new Padding(4, 5, 8, 0), TextAlign = ContentAlignment.MiddleCenter, TabStop = true, AccessibleName = UiText.Get("accessibility.about") };
             about.LinkClicked += (_, _) => { using var info = new AboutForm(); info.ShowDialog(form); }; right.Controls.Add(about);
         }
         if (languageButton)
         {
-            var language = new AdaptiveButton { Text = LanguageSettings.Details(UiText.Language).DisplayCode, AutoSize = true, Padding = new Padding(8,1,8,1), AccessibleName = UiText.Get("language.button"), Margin = new Padding(3,0,3,0) };
+            var language = new AdaptiveButton { Text = LanguageSettings.Details(UiText.Language).DisplayCode, AutoSize = false, Width = 48, Height = 28, Padding = new Padding(6,1,6,1), AccessibleName = UiText.Get("language.button"), Margin = new Padding(3,0,3,0) };
             language.Click += (_,_) => { using var picker = new LanguagePicker(); if (picker.ShowDialog(form) == DialogResult.OK && !form.IsDisposed)
                 { LanguageVisuals.RestoreAfterSelection(form); } };
             void UpdateLanguage() { language.Text = LanguageSettings.Details(UiText.Language).DisplayCode; tooltip.SetToolTip(language, UiText.Get("language.button")); UpdateToggle(); }
@@ -106,9 +106,9 @@ internal static class Branding
             tooltip.SetToolTip(language, UiText.Get("language.button"));
             right.Controls.Add(language);
         }
-        var brand = new FlowLayoutPanel { Dock = DockStyle.Fill, FlowDirection = FlowDirection.LeftToRight, WrapContents = false, Padding = new Padding(0, 5, 0, 0) };
+        var brand = new FlowLayoutPanel { Dock = DockStyle.Fill, FlowDirection = FlowDirection.LeftToRight, WrapContents = false, Padding = new Padding(0, 8, 0, 0) };
         title.Margin = new Padding(0, 2, 0, 0);
-        brand.Controls.Add(title); brand.Controls.Add(new InformationButton(() => InformationButton.TextPanel("home.description"), hover: false) { Margin = new Padding(5, 3, 0, 0), Size = new Size(20, 20) });
+        brand.Controls.Add(title); brand.Controls.Add(new InformationButton(() => InformationButton.TextPanel("home.description"), hover: false) { Margin = new Padding(5, 4, 0, 0), Size = new Size(20, 20) });
         right.Controls.Add(toggle); header.Controls.Add(brand); header.Controls.Add(picture); header.Controls.Add(right);
         form.Controls.Add(header); header.SendToBack();
         void FitHeader()

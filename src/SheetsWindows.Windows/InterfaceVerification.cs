@@ -232,8 +232,8 @@ internal static class InterfaceVerification
             Require(!Descendants(recovery).OfType<Button>().Any(b => b.Text == UiText.Get("recovery.savePolicy")), "Backup policy must auto-save without a save button.");
             Require(!Descendants(recovery).OfType<CheckBox>().Any(), "Automatic backup cleanup must not expose a switch.");
             var statistics = Descendants(recovery).OfType<Label>().Single(l => l.Name == "backupStatistics");
-            Require(Math.Abs(statistics.Font.SizeInPoints - 8f) < 0.01f, "Backup statistics must use the compact 8-point font.");
-            Require(statistics.Font.Bold && statistics.Parent is SurfaceCard { Padding.Top: >= 8, Margin.Bottom: >= 8 }, "Backup statistics must have bold text inside the shared bordered card, with padding and separation.");
+            Require(statistics.Font.SizeInPoints >= 10f, "Backup statistics must remain as readable as the surrounding body text.");
+            Require(statistics.Parent is SurfaceCard { Padding.Top: >= 8, Margin.Bottom: >= 8 }, "Backup statistics must use the shared bordered card, with padding and separation.");
             for (var column = 0; column < 4; column++)
             {
                 recovery.SortByColumn(column);

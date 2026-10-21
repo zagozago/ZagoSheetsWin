@@ -46,7 +46,7 @@ internal sealed class FirstUseWizard : Form
         noSync = new ToggleSwitch { AutoSize = true, Text = UiText.Get("setup.noSync"), Checked = !opening.RestrictToFolder };
         folder.Text = opening.Folder ?? "";
         CurrentPage = Math.Clamp(initialPage, 0, PageCount - 1);
-        Text = UiText.Get("setup.firstUseTitle"); ClientSize = new Size(760, 540); MinimumSize = new Size(620, 520);
+        Text = UiText.Get("setup.firstUseTitle"); ClientSize = new Size(760, 440); MinimumSize = new Size(620, 420);
         StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
         layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 200));
         layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100)); layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
@@ -57,7 +57,7 @@ internal sealed class FirstUseWizard : Form
         var legal = new FlowLayoutPanel { AutoSize = true, Dock = DockStyle.Fill, WrapContents = true };
         foreach (var (key, url) in new[] { ("legal.privacy", "https://zagotools.top/legal.html#privacidade"), ("legal.terms", "https://zagotools.top/legal.html#termos") })
         {
-            var link = new LinkLabel { AutoSize = true, Text = UiText.Get(key), Margin = new Padding(4, 6, 18, 4) };
+            var link = new LinkLabel { AutoSize = true, Text = UiText.Get(key), Margin = new Padding(0, 6, 18, 4) };
             link.LinkClicked += (_, _) => { try { new BrowserLauncher().Open(new Uri(url)); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = url; } };
             legal.Controls.Add(link);
         }

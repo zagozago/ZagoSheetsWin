@@ -10,7 +10,7 @@ internal sealed class LauncherForm : Form
         if (request.Action != LauncherAction.Home) throw new ArgumentException("Home request required.");
         Text = "ZagoSheetsWin"; ClientSize = new Size(540, 200); FormBorderStyle = FormBorderStyle.FixedSingle; MaximizeBox = false; MinimizeBox = true; StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
         var layout = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18, 2, 18, 14), FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = false };
-        Button Action(string text, EventHandler action) { var b = new AdaptiveButton { Text = text, Width = 382, Height = 38, AccessibleName = text.Replace("&", "") }; b.Click += action; return b; }
+        Button Action(string text, EventHandler action) { var b = new AdaptiveButton { Text = text, Width = 382, Height = 38, Margin = Padding.Empty, AccessibleName = text.Replace("&", "") }; b.Click += action; return b; }
         void Pick(LauncherAction action)
         {
             using var dialog = new OpenFileDialog { Filter = UiText.Get("dialog.spreadsheetFilter"), CheckFileExists = true, Multiselect = false, Title = action == LauncherAction.Copy ? UiText.Get("dialog.importCopyTitle") : UiText.Get("dialog.openSpreadsheetTitle") };
@@ -36,7 +36,7 @@ internal sealed class LauncherForm : Form
             }
         });
         VisualStyle.Icon(settings, UiIcon.Settings); VisualStyle.Icon(backups, UiIcon.Backup); VisualStyle.Icon(help, UiIcon.Help);
-        foreach (var button in new[] { settings, backups, help }) { button.Dock = DockStyle.Fill; navigation.Controls.Add(button); }
+        foreach (var button in new[] { settings, backups, help }) { button.Dock = DockStyle.Fill; button.Margin = new Padding(0, 0, button == help ? 0 : 6, 0); navigation.Controls.Add(button); }
         layout.Controls.Add(navigation);
         Controls.Add(layout); Branding.Apply(this, compact: true); Ui.Adapt(layout);
         var fittingHome = false;

@@ -19,7 +19,7 @@ internal static class Ui
     {
         var row = new TableLayoutPanel { AutoSize = false, ColumnCount = children.Length, RowCount = 1, Margin = new Padding(0, 2, 0, 6) };
         foreach (var child in children) row.ColumnStyles.Add(new(SizeType.Percent, 100f / children.Length)); row.RowStyles.Add(new(SizeType.Percent, 100));
-        foreach (var child in children) { child.Dock = DockStyle.Fill; child.Margin = new Padding(0, 2, 8, 2); }
+        for (var i = 0; i < children.Length; i++) { children[i].Dock = DockStyle.Fill; children[i].Margin = new Padding(0, 2, i == children.Length - 1 ? 0 : 8, 2); }
         for (var i = 0; i < children.Length; i++) row.Controls.Add(children[i], i, 0);
         void Fit()
         {

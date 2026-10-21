@@ -8,7 +8,7 @@ internal sealed class AdvancedPreferencesForm : Form
     internal Task ApplyClientAsync(string path) => applyClient(path);
     internal AdvancedPreferencesForm(LocalStorage storage, bool preview = false)
     {
-        Text = UiText.Get("setup.advanced"); ClientSize = new Size(580, 650); MinimumSize = new Size(480, 480);
+        Text = UiText.Get("setup.advanced"); ClientSize = new Size(580, 550); MinimumSize = new Size(480, 480);
         AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterParent;
         var layout = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18, 4, 18, 8), FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = true };
         var status = Ui.Text(""); status.Visible = false;
@@ -36,6 +36,7 @@ internal sealed class AdvancedPreferencesForm : Form
             connectionHeading.Text = parts[0]; connectionExplanation.Text = parts.Length > 1 ? parts[1] : "";
         }
         RefreshConnectionCopy(); UiText.Changed += RefreshConnectionCopy; Disposed += (_, _) => UiText.Changed -= RefreshConnectionCopy;
+        connectionHeading.Margin = new Padding(0, 2, 0, 4); connectionExplanation.Margin = new Padding(0, 2, 0, 6);
         section.Controls.Add(connectionHeading); section.Controls.Add(connectionExplanation);
         var clientState = new TextBox { ReadOnly = true, BorderStyle = BorderStyle.None, Tag = "status", Margin = new Padding(0, 8, 0, 2) };
         var chooseClient = new AdaptiveButton { Text = UiText.Get("setup.chooseClient") };
