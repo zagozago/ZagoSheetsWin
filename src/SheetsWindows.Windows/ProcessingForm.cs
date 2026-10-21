@@ -141,7 +141,7 @@ internal sealed class ProcessingForm : Form
             actions.Controls.Add(retry); actions.Controls.SetChildIndex(retry, 0);
         }
         VisualStyle.Icon(recovery, UiIcon.Backup); VisualStyle.Icon(export, UiIcon.File); VisualStyle.Icon(setup, UiIcon.Settings);
-        ClientSize = new Size((int)(760 * DeviceDpi / 96.0), (int)(360 * DeviceDpi / 96.0)); Branding.Refresh(this); RenderFailure();
+        ClientSize = new Size((int)(760 * DeviceDpi / 96.0), (int)(320 * DeviceDpi / 96.0)); Branding.Refresh(this); RenderFailure();
     }
     private async Task RunSafelyAsync()
     {

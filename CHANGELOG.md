@@ -1,5 +1,13 @@
 # Histórico de alterações
 
+## 0.9.46 — harmonia e alinhamento da interface
+
+- Cabeçalhos com margens, alturas e alinhamento vertical coerentes entre marca, links, idioma e tema.
+- Ações principais e linhas de botões alinhadas às mesmas bordas, com espaçamento uniforme.
+- Primeiro uso e configurações avançadas mais compactos; tipografia das estatísticas de backup com a mesma legibilidade do texto principal.
+- Rodapé legal do primeiro uso alinhado à navegação; painel de erro com menor espaço vazio, mantendo crescimento para mensagens longas.
+- Preservados os 51 idiomas, temas claro/escuro e os fluxos funcionais da 0.9.45. Homologação prática do comportamento dos pendentes da 0.9.44 continua em aberto.
+
 ## 0.9.45 — refinamento visual
 
 - Cabeçalho, ícones vetoriais próprios, cartões e hierarquia visual compartilhados entre as nove telas de referência.
