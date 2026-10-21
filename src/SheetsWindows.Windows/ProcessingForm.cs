@@ -5,7 +5,8 @@ namespace SheetsWindows.Windows;
 internal sealed class ProcessingForm : Form
 {
     private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Fill, Padding = new Padding(18), TextAlign = ContentAlignment.MiddleLeft, Text = UiText.Get("progress.preparing"), AccessibleName = UiText.Get("accessibility.processingStatus") };
-    private readonly Label failureHeading = new() { Dock = DockStyle.Top, AutoSize = false, Height = 46, Padding = new Padding(18, 10, 18, 4), Visible = false, Font = new Font("Segoe UI", 12, FontStyle.Bold), Tag = "errorSurface" };
+    private readonly Panel messageBody = new() { Dock = DockStyle.Fill };
+    private readonly Label failureHeading = new() { Dock = DockStyle.Top, AutoSize = false, Height = 46, Padding = new Padding(12, 10, 12, 4), Visible = false, Font = new Font("Segoe UI", 12, FontStyle.Bold), Tag = "errorSurface" };
     private readonly Panel closeRow = new() { Dock = DockStyle.Bottom, Height = 58, Padding = new Padding(18, 0, 18, 10), Visible = false };
     private readonly Button cancel = new AdaptiveButton() { AutoSize = true, Text = UiText.Get("action.cancel") };
     private readonly FlowLayoutPanel actions = new() { Dock = DockStyle.Bottom, AutoSize = true, Padding = new Padding(12), WrapContents = true };
@@ -49,7 +50,9 @@ internal sealed class ProcessingForm : Form
                 PerformLayout();
                 var needed = TextRenderer.MeasureText(status.Text, status.Font,
                     new Size(Math.Max(100, status.ClientSize.Width - status.Padding.Horizontal), int.MaxValue), TextFormatFlags.WordBreak).Height + status.Padding.Vertical + 8;
-                if (status.ClientSize.Height < needed) ClientSize = new Size(ClientSize.Width, ClientSize.Height + needed - status.ClientSize.Height);
+                status.Height = needed;
+                var bodyNeeded = failureHeading.Height + needed + messageBody.Padding.Vertical;
+                if (messageBody.ClientSize.Height < bodyNeeded) ClientSize = new Size(ClientSize.Width, ClientSize.Height + bodyNeeded - messageBody.ClientSize.Height);
                 // Windows may restore to the old minimum after minimizing a modal.
                 // Keep enough room for the complete message, header and wrapped actions.
                 MinimumSize = new Size(Math.Max(MinimumSize.Width, Width), Math.Max(MinimumSize.Height, Height));
@@ -84,7 +87,8 @@ internal sealed class ProcessingForm : Form
         Text = UiText.Get("processing.title"); ClientSize = new Size(620, 240); MinimumSize = new Size(620, 240);
         StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
         cancel.Click += (_, _) => { if (busy) { cancellation.Cancel(); cancel.Enabled = false; status.Text = UiText.Get("progress.stopping"); } else Close(); };
-        actions.Controls.Add(cancel); Controls.Add(status); Controls.Add(failureHeading); Controls.Add(actions); Controls.Add(closeRow);
+        actions.Controls.Add(cancel); messageBody.Controls.Add(status); messageBody.Controls.Add(failureHeading);
+        Controls.Add(messageBody); Controls.Add(actions); Controls.Add(closeRow);
         FormClosing += (_, e) => { if (busy) { e.Cancel = true; cancellation.Cancel(); cancel.Enabled = false; status.Text = UiText.Get("progress.stopping"); } };
         Branding.Apply(this, aboutButton: false, compact: true);
         UiText.Changed += RenderFailure; Shown += (_, _) => RenderFailure();
@@ -95,8 +99,9 @@ internal sealed class ProcessingForm : Form
     private void ShowFailure(Exception ex)
     {
         Text = UiText.Get("processing.failureTitle");
-        failureHeading.Visible = true; status.Tag = "errorSurface"; closeRow.Visible = true;
-        actions.Controls.Remove(cancel); closeRow.Controls.Add(cancel); cancel.Dock = DockStyle.None; cancel.AutoSize = false; cancel.Size = new Size(110, 40);
+        failureHeading.Visible = true; status.Tag = "errorSurface"; status.Dock = DockStyle.Top; status.TextAlign = ContentAlignment.TopLeft;
+        status.Padding = new Padding(12, 8, 12, 12); messageBody.Padding = new Padding(18, 8, 18, 6); closeRow.Visible = true;
+        actions.Controls.Remove(cancel); closeRow.Controls.Add(cancel); cancel.Dock = DockStyle.None; cancel.AutoSize = false; cancel.Size = new Size(110, 40); cancel.Location = new Point(closeRow.Padding.Left, 0);
         displayedFailure = ex; diagnosticFeedback = null; terminal = true; needsInputChange = ImportRetry.RequiresInputChange(ex); RenderFailure();
         var recovery = new AdaptiveButton { Text = UiText.Get("action.recovery"), AutoSize = true };
         recovery.Click += (_, _) => { using var form = new RecoveryForm(); form.ShowDialog(this); };
@@ -156,7 +161,8 @@ internal sealed class ProcessingForm : Form
         // below must return to this window's thread, including error-button creation.
         SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());
         retryWatcher.Stop(); updateRetry = null; inputStamp = InputStamp(); needsInputChange = false;
-        failureHeading.Visible = false; status.Tag = null; closeRow.Visible = false;
+        failureHeading.Visible = false; status.Tag = null; status.Dock = DockStyle.Fill; status.TextAlign = ContentAlignment.MiddleLeft;
+        status.Padding = new Padding(18); messageBody.Padding = Padding.Empty; closeRow.Visible = false;
         if (cancel.Parent == closeRow) { closeRow.Controls.Remove(cancel); cancel.Dock = DockStyle.None; actions.Controls.Add(cancel); }
         Branding.Refresh(this);
         busy = true; terminal = false; displayedFailure = null; diagnosticFeedback = null; latestDiagnostic = null;
