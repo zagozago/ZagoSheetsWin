@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.44: pending reopening validated on Windows/Linux in Local core run 39521291696.
+# Distribution candidate 0.9.45: native visual polish validated by Local core 39539594577 on Windows/Linux, all locales and installer lifecycle.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
