@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.43: home-height-only visual adjustment; import and backup code unchanged.
+# Distribution candidate 0.9.44: pending reopening validated on Windows/Linux in Local core run 39521291696.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
