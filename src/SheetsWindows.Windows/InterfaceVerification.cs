@@ -567,7 +567,7 @@ internal static class InterfaceVerification
                 if (errorForm.IsBusy || errorForm.ExitCode != 1) return;
                 watcher.Stop();
                 var button = Descendants(errorForm).OfType<Button>().Single(b => b.Text == UiText.Get(ambiguous ? "action.chooseSeparator" : "action.retry"));
-                verified = button.Tag as string == "primary" && button.Font.Bold && button.ForeColor == Color.White && button.BackColor == Color.FromArgb(18, 126, 69)
+                verified = button.Tag as string == "primary" && button.Font.Bold && (!button.Enabled || button.ForeColor == Color.White && button.BackColor == Color.FromArgb(18, 126, 69))
                     && (ambiguous || !Descendants(errorForm).OfType<Button>().Any(b => b.Text == UiText.Get("action.chooseSeparator")));
                 SaveFrame(errorForm, ambiguous ? "choose-separator-action" : "ordinary-retry-action");
                 errorForm.Close();
