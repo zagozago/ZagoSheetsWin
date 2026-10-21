@@ -53,13 +53,15 @@ internal sealed class RecoveryForm : Form
         Shown += (_, _) => FitStatus();
         entries.Columns.Add(UiText.Get("recovery.column.file"), 230); entries.Columns.Add(UiText.Get("recovery.column.date"), 140); entries.Columns.Add(UiText.Get("recovery.column.size"), 80); entries.Columns.Add(UiText.Get("recovery.column.state"), 180); entries.ShowItemToolTips = true;
         var rowImages = new ImageList { ImageSize = new Size(20, 26), ColorDepth = ColorDepth.Depth32Bit };
-        using (var bitmap = new Bitmap(20, 26))
+        var rowBitmap = new Bitmap(20, 26);
+        using (var graphics = Graphics.FromImage(rowBitmap))
         {
-            using var graphics = Graphics.FromImage(bitmap); using var pen = new Pen(Color.FromArgb(24, 128, 75), 1.4f);
+            using var pen = new Pen(Color.FromArgb(24, 128, 75), 1.4f);
             graphics.DrawRectangle(pen, 4, 4, 12, 17); graphics.DrawLine(pen, 7, 10, 13, 10); graphics.DrawLine(pen, 7, 14, 13, 14); graphics.DrawLine(pen, 10, 8, 10, 18);
-            rowImages.Images.Add(bitmap);
+
         }
-        entries.SmallImageList = rowImages; Disposed += (_, _) => rowImages.Dispose();
+        rowImages.Images.Add(rowBitmap);
+        entries.SmallImageList = rowImages; Disposed += (_, _) => { rowImages.Dispose(); rowBitmap.Dispose(); };
         entries.ColumnClick += (_, e) => SortByColumn(e.Column);
         var storage = policyStorage ?? LocalStorage.ForCurrentUser();
         var manager = new BackupManagement(storage);

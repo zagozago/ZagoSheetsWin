@@ -8,7 +8,7 @@ internal sealed class LauncherForm : Form
     public LauncherForm(LauncherRequest request)
     {
         if (request.Action != LauncherAction.Home) throw new ArgumentException("Home request required.");
-        Text = "ZagoSheetsWin"; ClientSize = new Size(540, 240); FormBorderStyle = FormBorderStyle.FixedSingle; MaximizeBox = false; MinimizeBox = true; StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
+        Text = "ZagoSheetsWin"; ClientSize = new Size(540, 200); FormBorderStyle = FormBorderStyle.FixedSingle; MaximizeBox = false; MinimizeBox = true; StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
         var layout = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18, 2, 18, 14), FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = false };
         Button Action(string text, EventHandler action) { var b = new AdaptiveButton { Text = text, Width = 382, Height = 38, AccessibleName = text.Replace("&", "") }; b.Click += action; return b; }
         void Pick(LauncherAction action)
@@ -39,5 +39,18 @@ internal sealed class LauncherForm : Form
         foreach (var button in new[] { settings, backups, help }) { button.Dock = DockStyle.Fill; navigation.Controls.Add(button); }
         layout.Controls.Add(navigation);
         Controls.Add(layout); Branding.Apply(this, compact: true); Ui.Adapt(layout);
+        var fittingHome = false;
+        void FitHome()
+        {
+            if (fittingHome || WindowState != FormWindowState.Normal || !IsHandleCreated) return;
+            fittingHome = true;
+            try
+            {
+                var needed = layout.Controls.Cast<Control>().Max(c => c.Bottom + c.Margin.Bottom) + layout.Padding.Bottom;
+                if (needed > layout.ClientSize.Height) ClientSize = new Size(ClientSize.Width, ClientSize.Height + needed - layout.ClientSize.Height);
+            }
+            finally { fittingHome = false; }
+        }
+        layout.Layout += (_, _) => FitHome(); Shown += (_, _) => FitHome();
     }
 }

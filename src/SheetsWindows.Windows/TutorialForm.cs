@@ -129,7 +129,7 @@ internal sealed class TutorialPicture : Control
         using var centered = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
         void Round(float x, float y, float width, float height, Brush brush)
         {
-            using var shape = new GraphicsPath(); const float radius = 20;
+            using var shape = new GraphicsPath(); var radius = Math.Min(20, Math.Min(width, height));
             shape.AddArc(x, y, radius, radius, 180, 90); shape.AddArc(x + width - radius, y, radius, radius, 270, 90);
             shape.AddArc(x + width - radius, y + height - radius, radius, radius, 0, 90); shape.AddArc(x, y + height - radius, radius, radius, 90, 90); shape.CloseFigure();
             g.FillPath(brush, shape);

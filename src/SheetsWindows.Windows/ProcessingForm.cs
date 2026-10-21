@@ -6,7 +6,7 @@ internal sealed class ProcessingForm : Form
 {
     private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Fill, Padding = new Padding(18), TextAlign = ContentAlignment.MiddleLeft, Text = UiText.Get("progress.preparing"), AccessibleName = UiText.Get("accessibility.processingStatus") };
     private readonly Label failureHeading = new() { Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(18, 14, 18, 4), Visible = false, Font = new Font("Segoe UI", 12, FontStyle.Bold), Tag = "errorSurface" };
-    private readonly Panel closeRow = new() { Dock = DockStyle.Bottom, Height = 48, Padding = new Padding(12, 0, 12, 10), Visible = false };
+    private readonly Panel closeRow = new() { Dock = DockStyle.Bottom, Height = 58, Padding = new Padding(18, 0, 18, 10), Visible = false };
     private readonly Button cancel = new AdaptiveButton() { AutoSize = true, Text = UiText.Get("action.cancel") };
     private readonly FlowLayoutPanel actions = new() { Dock = DockStyle.Bottom, AutoSize = true, Padding = new Padding(12), WrapContents = true };
     private readonly CancellationTokenSource cancellation = new();

@@ -15,7 +15,7 @@ internal sealed class SetupForm : Form
     {
         var storage = LocalStorage.ForCurrentUser();
         Text = firstUse ? UiText.Get("setup.firstUseTitle") : UiText.Get("setup.title");
-        ClientSize = new Size(600, 670); MinimumSize = new Size(480, 480); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterScreen;
+        ClientSize = new Size(600, 580); MinimumSize = new Size(480, 480); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterScreen;
         var layout = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18, 4, 18, 8), FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = true };
         var shortcuts = new ToggleSwitch { Checked = ShortcutSettings.Load(storage), Text = UiText.Get("setup.createShortcuts") };
         var copy = new ToggleSwitch { Checked = CopyImportSettings.Load(storage), Text = UiText.Get("emphasis.importCopy") };
@@ -162,7 +162,10 @@ internal sealed class SetupForm : Form
         }
         verify.Click += async (_, _) => await CheckConnection(); if (!preview) Shown += async (_, _) => await CheckConnection();
         finish.Click += (_, _) => { if (!busy) Close(); };
-        Controls.Add(layout); Controls.Add(advanced); Controls.Add(finish);
+        var footer = new Panel { Dock = DockStyle.Bottom, Height = 100, Padding = new Padding(18, 0, 18, 14) };
+        advanced.Dock = DockStyle.Top; finish.Dock = DockStyle.Bottom; advanced.Height = finish.Height = 38;
+        footer.Controls.Add(advanced); footer.Controls.Add(finish);
+        Controls.Add(layout); Controls.Add(footer);
         FormClosing += (_, e) => { if (busy) { e.Cancel = true; cancellation.Cancel(); } };
         Branding.Apply(this); Ui.Adapt(layout);
         void FitCenter()

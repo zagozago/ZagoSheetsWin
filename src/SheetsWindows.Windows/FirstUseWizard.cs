@@ -14,7 +14,7 @@ internal sealed class FirstUseWizard : Form
     private readonly Func<CancellationToken, Task> verify;
     private readonly Func<CancellationToken, Task> save;
     private CancellationTokenSource cancellation = new();
-    private readonly TableLayoutPanel layout = new() { Dock = DockStyle.Fill, Padding = new Padding(20), ColumnCount = 1, RowCount = 5 };
+    private readonly TableLayoutPanel layout = new() { Dock = DockStyle.Fill, Padding = new Padding(20, 8, 20, 14), ColumnCount = 1, RowCount = 5 };
     private readonly Label heading = Ui.Text("", true);
     private readonly TutorialPicture picture = new() { Dock = DockStyle.Fill, FirstUse = true };
     private readonly FlowLayoutPanel content = new() { Dock = DockStyle.Fill, AutoScroll = true, FlowDirection = FlowDirection.TopDown, WrapContents = false };
@@ -45,11 +45,11 @@ internal sealed class FirstUseWizard : Form
         noSync = new ToggleSwitch { AutoSize = true, Text = UiText.Get("setup.noSync"), Checked = !opening.RestrictToFolder };
         folder.Text = opening.Folder ?? "";
         CurrentPage = Math.Clamp(initialPage, 0, PageCount - 1);
-        Text = UiText.Get("setup.firstUseTitle"); ClientSize = new Size(760, 600); MinimumSize = new Size(620, 560);
+        Text = UiText.Get("setup.firstUseTitle"); ClientSize = new Size(760, 540); MinimumSize = new Size(620, 520);
         StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
-        layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 220));
+        layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 200));
         layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100)); layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-        heading.Dock = DockStyle.Fill;
+        heading.Dock = DockStyle.Fill; heading.Margin = new Padding(0, 0, 0, 8);
         layout.Controls.Add(heading, 0, 0); layout.Controls.Add(picture, 0, 1); layout.Controls.Add(content, 0, 2); layout.Controls.Add(actions, 0, 3);
         actions.Controls.Add(PreviousButton); actions.Controls.Add(NextButton); actions.Controls.Add(count); actions.Controls.Add(cancel);
         var legal = new FlowLayoutPanel { AutoSize = true, Dock = DockStyle.Fill, WrapContents = true };
@@ -93,7 +93,7 @@ internal sealed class FirstUseWizard : Form
         var old = content.Controls.Cast<Control>().ToArray(); content.Controls.Clear(); foreach (var control in old) control.Dispose();
         heading.Text = UiText.Format("tutorial.numberedTitle", ("number", CurrentPage + 1), ("title", TutorialForm.Pages[CurrentPage].Title));
         picture.Page = CurrentPage; picture.AccessibleName = TutorialForm.Pages[CurrentPage].Title; picture.Invalidate();
-        layout.RowStyles[1].Height = 220 * DeviceDpi / 96f;
+        layout.RowStyles[1].Height = 200 * DeviceDpi / 96f;
         if (CurrentPage == 1)
         {
             content.Controls.Add(Ui.Center(Ui.Text(UiText.Get("firstUse.googleExplanation"))));

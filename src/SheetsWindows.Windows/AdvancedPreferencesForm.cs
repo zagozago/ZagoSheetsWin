@@ -95,6 +95,8 @@ internal sealed class AdvancedPreferencesForm : Form
         layout.Controls.Add(status);
         var close = new AdaptiveButton { Text = UiText.Get("action.close"), Dock = DockStyle.Bottom, Height = 44 };
         close.Click += (_, _) => Close(); CancelButton = close;
-        Controls.Add(layout); Controls.Add(close); Branding.Apply(this); Ui.Adapt(layout); Ui.Adapt(folderOptions);
+        var footer = new Panel { Dock = DockStyle.Bottom, Height = 58, Padding = new Padding(18, 0, 18, 14) };
+        close.Dock = DockStyle.Fill; footer.Controls.Add(close);
+        Controls.Add(layout); Controls.Add(footer); Branding.Apply(this); Ui.Adapt(layout); Ui.Adapt(folderOptions);
     }
 }
