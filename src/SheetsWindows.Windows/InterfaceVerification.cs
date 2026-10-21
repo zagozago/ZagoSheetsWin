@@ -177,6 +177,16 @@ internal static class InterfaceVerification
             firstNotice.Dispose();
             Require(nextNotice.AcquireNotice(), "Closing a notice must allow a later import notice.");
         }
+        Console.Error.WriteLine("VERIFY: compact first-use content");
+        for (var page = 0; page < FirstUseWizard.PageCount; page++)
+        {
+            using var screen = new FirstUseWizard(preview: true, initialPage: page);
+            screen.Show(); Application.DoEvents();
+            var content = Descendants(screen).OfType<FlowLayoutPanel>().Single(panel => panel.Dock == DockStyle.Fill && panel.FlowDirection == FlowDirection.TopDown && panel.AutoScroll);
+            Require(!content.VerticalScroll.Visible && content.Controls.Cast<Control>().Where(control => control.Visible).All(control => control.Bottom <= content.ClientSize.Height),
+                $"First-use page {page + 1} must display its explanation and actions without scrolling: viewport {content.ClientSize}, content {content.DisplayRectangle}.");
+            screen.Close();
+        }
         Console.Error.WriteLine("VERIFY: backup selection");
         var policyRoot = Path.Combine(Path.GetTempPath(), "zsw-policy-ui-" + Guid.NewGuid().ToString("N"));
         try
@@ -223,7 +233,7 @@ internal static class InterfaceVerification
             Require(!Descendants(recovery).OfType<CheckBox>().Any(), "Automatic backup cleanup must not expose a switch.");
             var statistics = Descendants(recovery).OfType<Label>().Single(l => l.Name == "backupStatistics");
             Require(Math.Abs(statistics.Font.SizeInPoints - 8f) < 0.01f, "Backup statistics must use the compact 8-point font.");
-            Require(statistics.Font.Bold && statistics.Parent is FlowLayoutPanel { BorderStyle: BorderStyle.FixedSingle, Margin.Top: >= 16 }, "Backup statistics must have bold text, a border and vertical separation.");
+            Require(statistics.Font.Bold && statistics.Parent is SurfaceCard { Padding.Top: >= 8, Margin.Bottom: >= 8 }, "Backup statistics must have bold text inside the shared bordered card, with padding and separation.");
             for (var column = 0; column < 4; column++)
             {
                 recovery.SortByColumn(column);
