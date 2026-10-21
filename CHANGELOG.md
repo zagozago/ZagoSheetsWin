@@ -1,5 +1,12 @@
 # Histórico de alterações
 
+## 0.9.44
+
+- Backups incompletos aparecem como pendentes nos 51 idiomas.
+- Uma nova abertura pode iniciar outra importação após tentar retomar e reconciliar uma operação anterior sem encontrar sua planilha no Google. O backup, a associação remota e o histórico antigos permanecem disponíveis.
+- A exceção não se aplica a operações criadas na mesma abertura, operações simultâneas, resultados ambíguos, falhas de rede ou de validação remota. Retentativas automáticas compartilham a mesma abertura.
+- Limpeza de backups continua manual; limites, conversão e substituição do original permanecem iguais à 0.9.43.
+
 ## 0.9.36 — correções do escopo B
 
 - Detecção de CSV/TSV por conteúdo: vírgula, ponto e vírgula, tabulação e barra vertical, com escolha por importação quando houver ambiguidade.

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "پاک‌شده",
     "recovery.state.cleaning": "پاک‌سازی در انتظار",
     "recovery.state.completed": "تکمیل‌شده",
-    "recovery.state.protected": "محافظت‌شده / در انتظار",
+    "recovery.state.protected": "در انتظار",
     "recovery.state.unavailable": "در دسترس نیست",
     "recovery.title": "بازیابی فایل‌ها و مدیریت پشتیبان‌ها - ZagoSheetsWin",
-    "recovery.usage": "فضای استفاده‌شده: {usedMb:N2} MB · محدودیت: {limitMb} MB · پشتیبان‌ها: {backupCount} · محافظت‌شده: {protectedCount}",
+    "recovery.usage": "فضای استفاده‌شده: {usedMb:N2} MB · محدودیت: {limitMb} MB · پشتیبان‌ها: {backupCount} · در انتظار: {protectedCount}",
     "setup.advanced": "گزینه‌های پیشرفته…",
     "setup.advancedTitle": "گزینه‌های پیشرفته - ZagoSheetsWin",
     "setup.authChecking": "◉ در حال بررسی اتصال Google…",

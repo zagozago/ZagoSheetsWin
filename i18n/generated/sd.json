@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "صاف ٿيل",
     "recovery.state.cleaning": "صفائي زير انتظار",
     "recovery.state.completed": "مڪمل",
-    "recovery.state.protected": "محفوظ / زير انتظار",
+    "recovery.state.protected": "زير انتظار",
     "recovery.state.unavailable": "دستياب ناهي",
     "recovery.title": "فائلون بحال ڪريو ۽ بيڪ اپ سنڀاليو - ZagoSheetsWin",
-    "recovery.usage": "استعمال ٿيل جاءِ: {usedMb:N2} MB · حد: {limitMb} MB · بيڪ اپ: {backupCount} · محفوظ: {protectedCount}",
+    "recovery.usage": "استعمال ٿيل جاءِ: {usedMb:N2} MB · حد: {limitMb} MB · بيڪ اپ: {backupCount} · زير انتظار: {protectedCount}",
     "setup.advanced": "اعليٰ آپشن…",
     "setup.advancedTitle": "اعليٰ آپشن - ZagoSheetsWin",
     "setup.authChecking": "◉ Google ڪنيڪشن چيڪ ٿي رهيو آهي…",

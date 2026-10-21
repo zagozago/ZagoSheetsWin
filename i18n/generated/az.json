@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "Təmizlənmiş",
     "recovery.state.cleaning": "Təmizləmə gözləyir",
     "recovery.state.completed": "Tamamlanmış",
-    "recovery.state.protected": "Qorunan / gözləyən",
+    "recovery.state.protected": "Gözləyən",
     "recovery.state.unavailable": "Əlçatan deyil",
     "recovery.title": "Faylları bərpa et və ehtiyat nüsxələri idarə et - ZagoSheetsWin",
-    "recovery.usage": "İstifadə Olunan Yer: {usedMb:N2} MB · Limit: {limitMb} MB · Ehtiyat Nüsxələr: {backupCount} · Qorunan: {protectedCount}",
+    "recovery.usage": "İstifadə Olunan Yer: {usedMb:N2} MB · Limit: {limitMb} MB · Ehtiyat Nüsxələr: {backupCount} · Gözləyən: {protectedCount}",
     "setup.advanced": "Qabaqcıl seçimlər…",
     "setup.advancedTitle": "Qabaqcıl seçimlər - ZagoSheetsWin",
     "setup.authChecking": "◉ Google bağlantısı yoxlanılır…",

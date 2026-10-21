@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "ਸਾਫ਼ ਕੀਤਾ",
     "recovery.state.cleaning": "ਸਫਾਈ ਬਕਾਇਆ",
     "recovery.state.completed": "ਪੂਰਾ",
-    "recovery.state.protected": "ਸੁਰੱਖਿਅਤ / ਬਕਾਇਆ",
+    "recovery.state.protected": "ਬਕਾਇਆ",
     "recovery.state.unavailable": "ਉਪਲਬਧ ਨਹੀਂ",
     "recovery.title": "ਫਾਈਲਾਂ ਰੀਸਟੋਰ ਕਰੋ ਅਤੇ ਬੈਕਅੱਪ ਸੰਭਾਲੋ - ZagoSheetsWin",
-    "recovery.usage": "ਵਰਤੀ ਜਗ੍ਹਾ: {usedMb:N2} MB · ਸੀਮਾ: {limitMb} MB · ਬੈਕਅੱਪ: {backupCount} · ਸੁਰੱਖਿਅਤ: {protectedCount}",
+    "recovery.usage": "ਵਰਤੀ ਜਗ੍ਹਾ: {usedMb:N2} MB · ਸੀਮਾ: {limitMb} MB · ਬੈਕਅੱਪ: {backupCount} · ਬਕਾਇਆ: {protectedCount}",
     "setup.advanced": "ਉੱਨਤ ਵਿਕਲਪ…",
     "setup.advancedTitle": "ਉੱਨਤ ਵਿਕਲਪ - ZagoSheetsWin",
     "setup.authChecking": "◉ Google ਕਨੈਕਸ਼ਨ ਚੈੱਕ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…",

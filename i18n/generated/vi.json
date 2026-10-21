@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "Đã dọn",
     "recovery.state.cleaning": "Đang chờ dọn dẹp",
     "recovery.state.completed": "Đã hoàn tất",
-    "recovery.state.protected": "Được bảo vệ / đang chờ",
+    "recovery.state.protected": "Đang chờ",
     "recovery.state.unavailable": "Không khả dụng",
     "recovery.title": "Khôi phục tệp và quản lý bản sao lưu - ZagoSheetsWin",
-    "recovery.usage": "Đã Dùng: {usedMb:N2} MB · Giới Hạn: {limitMb} MB · Bản Sao Lưu: {backupCount} · Được Bảo Vệ: {protectedCount}",
+    "recovery.usage": "Đã Dùng: {usedMb:N2} MB · Giới Hạn: {limitMb} MB · Bản Sao Lưu: {backupCount} · Đang chờ: {protectedCount}",
     "setup.advanced": "Tùy chọn nâng cao…",
     "setup.advancedTitle": "Tùy chọn nâng cao - ZagoSheetsWin",
     "setup.authChecking": "◉ Đang kiểm tra kết nối Google…",

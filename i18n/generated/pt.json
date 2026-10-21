@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "Limpo",
     "recovery.state.cleaning": "Limpeza pendente",
     "recovery.state.completed": "Concluído",
-    "recovery.state.protected": "Protegido / pendente",
+    "recovery.state.protected": "Pendente",
     "recovery.state.unavailable": "Indisponível",
     "recovery.title": "Recuperar arquivos e gerenciar backups - ZagoSheetsWin",
-    "recovery.usage": "Espaço Usado: {usedMb:N2} MB · Limite: {limitMb} MB · Backups: {backupCount} · Protegido: {protectedCount}",
+    "recovery.usage": "Espaço Usado: {usedMb:N2} MB · Limite: {limitMb} MB · Backups: {backupCount} · Pendentes: {protectedCount}",
     "setup.advanced": "Opções avançadas…",
     "setup.advancedTitle": "Opções avançadas - ZagoSheetsWin",
     "setup.authChecking": "◉ Verificando conexão Google…",

@@ -17,7 +17,11 @@ public interface IRemoteRegistry
     void Verify(string key, string id);
     void RetireTrashedAssociation(string key, string expectedFileId) => throw new NotSupportedException("Association retirement is unavailable.");
 }
-public sealed class ReconciliationRequiredException() : IOException("Remote creation outcome is uncertain; reconciliation required. No new upload was attempted.");
+public sealed class ReconciliationRequiredException(string? missingKey = null) : IOException("Remote creation outcome is uncertain; reconciliation required. No new upload was attempted.")
+{
+    // Set only after a successful, empty marker lookup; network and validation failures never qualify.
+    public string? MissingKey { get; } = missingKey;
+}
 public sealed class GoogleApiException(int status, string? reason = null, string? endpoint = null, bool retryDeferred = false) : IOException($"Google request failed (HTTP {status}).")
 {
     public int Status { get; } = status;

@@ -15,6 +15,7 @@ internal sealed class ProcessingForm : Form
     private readonly long? startedAt;
     private readonly Func<TimeSpan, CancellationToken, Task>? retryDelay;
     private bool busy;
+    private bool openingStarted;
     private int generation;
     private readonly System.Windows.Forms.Timer retryWatcher = new() { Interval = 500 };
     private (long Length, long Written)? inputStamp;
@@ -169,12 +170,15 @@ internal sealed class ProcessingForm : Form
         try
         {
             status.Text = request.Action == LauncherAction.Login ? UiText.Get("progress.authorizing") : UiText.Get("progress.fileAndBackup");
+            var freshOpening = !openingStarted; openingStarted = true;
+            await using var opening = execute is null && request.Action is LauncherAction.Open or LauncherAction.Copy
+                ? await SpreadsheetOpening.AcquireAsync(LocalStorage.ForCurrentUser(), request.Path!, freshOpening, cancellation.Token) : null;
             async Task ExecuteOnce(CancellationToken ct)
             {
                 if (execute is not null) { await execute(progress, ct); return; }
                 using var handler = new HttpClientHandler { AllowAutoRedirect = false };
                 using var http = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(90) };
-                var launcher = new WindowsLauncher(LocalStorage.ForCurrentUser(), http, new BrowserLauncher(), telemetry);
+                var launcher = new WindowsLauncher(LocalStorage.ForCurrentUser(), http, new BrowserLauncher(), telemetry, opening?.Candidates);
                 await Task.Run(async () =>
                 {
                     if (request.Action == LauncherAction.Login) await launcher.LoginAsync(ct);

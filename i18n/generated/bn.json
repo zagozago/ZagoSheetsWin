@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "পরিষ্কার করা হয়েছে",
     "recovery.state.cleaning": "পরিষ্কারের অপেক্ষায়",
     "recovery.state.completed": "সম্পূর্ণ",
-    "recovery.state.protected": "সুরক্ষিত / অপেক্ষমাণ",
+    "recovery.state.protected": "অপেক্ষমাণ",
     "recovery.state.unavailable": "অনুপলব্ধ",
     "recovery.title": "ফাইল পুনরুদ্ধার ও ব্যাকআপ পরিচালনা - ZagoSheetsWin",
-    "recovery.usage": "ব্যবহৃত জায়গা: {usedMb:N2} MB · সীমা: {limitMb} MB · ব্যাকআপ: {backupCount} · সুরক্ষিত: {protectedCount}",
+    "recovery.usage": "ব্যবহৃত জায়গা: {usedMb:N2} MB · সীমা: {limitMb} MB · ব্যাকআপ: {backupCount} · অপেক্ষমাণ: {protectedCount}",
     "setup.advanced": "উন্নত বিকল্প…",
     "setup.advancedTitle": "উন্নত বিকল্প - ZagoSheetsWin",
     "setup.authChecking": "◉ Google সংযোগ পরীক্ষা করা হচ্ছে…",

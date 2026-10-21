@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "ล้างแล้ว",
     "recovery.state.cleaning": "รอการล้าง",
     "recovery.state.completed": "เสร็จสมบูรณ์",
-    "recovery.state.protected": "ได้รับการปกป้อง / รอดำเนินการ",
+    "recovery.state.protected": "รอดำเนินการ",
     "recovery.state.unavailable": "ไม่พร้อมใช้งาน",
     "recovery.title": "กู้คืนไฟล์และจัดการข้อมูลสำรอง - ZagoSheetsWin",
-    "recovery.usage": "พื้นที่ที่ใช้: {usedMb:N2} MB · ขีดจำกัด: {limitMb} MB · ข้อมูลสำรอง: {backupCount} · ได้รับการปกป้อง: {protectedCount}",
+    "recovery.usage": "พื้นที่ที่ใช้: {usedMb:N2} MB · ขีดจำกัด: {limitMb} MB · ข้อมูลสำรอง: {backupCount} · รอดำเนินการ: {protectedCount}",
     "setup.advanced": "ตัวเลือกขั้นสูง…",
     "setup.advancedTitle": "ตัวเลือกขั้นสูง - ZagoSheetsWin",
     "setup.authChecking": "◉ กำลังตรวจสอบการเชื่อมต่อ Google…",

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "Очищено",
     "recovery.state.cleaning": "Очищення очікує",
     "recovery.state.completed": "Завершено",
-    "recovery.state.protected": "Захищено / очікує",
+    "recovery.state.protected": "Очікує",
     "recovery.state.unavailable": "Недоступно",
     "recovery.title": "Відновлення файлів і керування резервними копіями - ZagoSheetsWin",
-    "recovery.usage": "Використано: {usedMb:N2} MB · Ліміт: {limitMb} MB · Копії: {backupCount} · Захищено: {protectedCount}",
+    "recovery.usage": "Використано: {usedMb:N2} MB · Ліміт: {limitMb} MB · Копії: {backupCount} · Очікує: {protectedCount}",
     "setup.advanced": "Додаткові параметри…",
     "setup.advancedTitle": "Додаткові параметри - ZagoSheetsWin",
     "setup.authChecking": "◉ Перевірка підключення Google…",

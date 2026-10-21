@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "정리됨",
     "recovery.state.cleaning": "정리 대기 중",
     "recovery.state.completed": "완료됨",
-    "recovery.state.protected": "보호됨 / 대기 중",
+    "recovery.state.protected": "대기 중",
     "recovery.state.unavailable": "사용 불가",
     "recovery.title": "파일 복구 및 백업 관리 - ZagoSheetsWin",
-    "recovery.usage": "사용 공간: {usedMb:N2} MB · 한도: {limitMb} MB · 백업: {backupCount} · 보호됨: {protectedCount}",
+    "recovery.usage": "사용 공간: {usedMb:N2} MB · 한도: {limitMb} MB · 백업: {backupCount} · 대기 중: {protectedCount}",
     "setup.advanced": "고급 옵션…",
     "setup.advancedTitle": "고급 옵션 - ZagoSheetsWin",
     "setup.authChecking": "◉ Google 연결 확인 중…",

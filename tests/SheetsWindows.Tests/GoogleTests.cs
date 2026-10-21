@@ -8,7 +8,7 @@ using SheetsWindows.Infrastructure;
 using Xunit;
 namespace SheetsWindows.Tests;
 
-public sealed class GoogleTests
+public sealed partial class GoogleTests
 {
     private static byte[] Workbook(bool macro = false)
     {

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "An tsaftace",
     "recovery.state.cleaning": "Tsaftacewa na jira",
     "recovery.state.completed": "An kammala",
-    "recovery.state.protected": "Mai kariya / na jira",
+    "recovery.state.protected": "Na jira",
     "recovery.state.unavailable": "Ba ya samuwa",
     "recovery.title": "Maido da fayiloli da sarrafa ajiyar baya - ZagoSheetsWin",
-    "recovery.usage": "Sararin Da Aka Yi Amfani Da Shi: {usedMb:N2} MB · Iyaka: {limitMb} MB · Ajiyar Baya: {backupCount} · Masu Kariya: {protectedCount}",
+    "recovery.usage": "Sararin Da Aka Yi Amfani Da Shi: {usedMb:N2} MB · Iyaka: {limitMb} MB · Ajiyar Baya: {backupCount} · Na jira: {protectedCount}",
     "setup.advanced": "Zaɓuɓɓukan ci gaba…",
     "setup.advancedTitle": "Zaɓuɓɓukan ci gaba - ZagoSheetsWin",
     "setup.authChecking": "◉ Ana duba haɗin Google…",

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "ಸ್ವಚ್ಛಗೊಳಿಸಲಾಗಿದೆ",
     "recovery.state.cleaning": "ಸ್ವಚ್ಛತೆ ಬಾಕಿಯಿದೆ",
     "recovery.state.completed": "ಪೂರ್ಣಗೊಂಡಿದೆ",
-    "recovery.state.protected": "ರಕ್ಷಿತ / ಬಾಕಿ",
+    "recovery.state.protected": "ಬಾಕಿ",
     "recovery.state.unavailable": "ಲಭ್ಯವಿಲ್ಲ",
     "recovery.title": "ಫೈಲ್‌ಗಳನ್ನು ಮರುಪಡೆಯಿರಿ ಮತ್ತು ಬ್ಯಾಕಪ್‌ಗಳನ್ನು ನಿರ್ವಹಿಸಿ - ZagoSheetsWin",
-    "recovery.usage": "ಬಳಸಿದ ಜಾಗ: {usedMb:N2} MB · ಮಿತಿ: {limitMb} MB · ಬ್ಯಾಕಪ್‌ಗಳು: {backupCount} · ರಕ್ಷಿತ: {protectedCount}",
+    "recovery.usage": "ಬಳಸಿದ ಜಾಗ: {usedMb:N2} MB · ಮಿತಿ: {limitMb} MB · ಬ್ಯಾಕಪ್‌ಗಳು: {backupCount} · ಬಾಕಿ: {protectedCount}",
     "setup.advanced": "ಸುಧಾರಿತ ಆಯ್ಕೆಗಳು…",
     "setup.advancedTitle": "ಸುಧಾರಿತ ಆಯ್ಕೆಗಳು - ZagoSheetsWin",
     "setup.authChecking": "◉ Google ಸಂಪರ್ಕ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ…",

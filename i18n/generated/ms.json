@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "Dibersihkan",
     "recovery.state.cleaning": "Pembersihan tertunda",
     "recovery.state.completed": "Selesai",
-    "recovery.state.protected": "Dilindungi / tertunda",
+    "recovery.state.protected": "Tertunda",
     "recovery.state.unavailable": "Tidak tersedia",
     "recovery.title": "Pulihkan fail dan urus sandaran - ZagoSheetsWin",
-    "recovery.usage": "Ruang Digunakan: {usedMb:N2} MB · Had: {limitMb} MB · Sandaran: {backupCount} · Dilindungi: {protectedCount}",
+    "recovery.usage": "Ruang Digunakan: {usedMb:N2} MB · Had: {limitMb} MB · Sandaran: {backupCount} · Tertunda: {protectedCount}",
     "setup.advanced": "Pilihan lanjutan…",
     "setup.advancedTitle": "Pilihan lanjutan - ZagoSheetsWin",
     "setup.authChecking": "◉ Memeriksa sambungan Google…",

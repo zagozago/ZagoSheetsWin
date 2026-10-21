@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "ရှင်းပြီး",
     "recovery.state.cleaning": "ရှင်းလင်းခြင်း စောင့်ဆိုင်းနေ",
     "recovery.state.completed": "ပြီးစီး",
-    "recovery.state.protected": "ကာကွယ်ထား / စောင့်ဆိုင်းနေ",
+    "recovery.state.protected": "စောင့်ဆိုင်းနေ",
     "recovery.state.unavailable": "မရရှိနိုင်",
     "recovery.title": "ဖိုင် များ ပြန်လည်ရယူပြီး အရန်သိမ်းဆည်းမှု များ စီမံရန် - ZagoSheetsWin",
-    "recovery.usage": "အသုံးပြုနေသောနေရာ: {usedMb:N2} MB · ကန့်သတ်ချက်: {limitMb} MB · အရန်သိမ်းဆည်းမှု များ: {backupCount} · ကာကွယ်ထားသော: {protectedCount}",
+    "recovery.usage": "အသုံးပြုနေသောနေရာ: {usedMb:N2} MB · ကန့်သတ်ချက်: {limitMb} MB · အရန်သိမ်းဆည်းမှု များ: {backupCount} · စောင့်ဆိုင်းနေ: {protectedCount}",
     "setup.advanced": "အဆင့်မြင့်ရွေးချယ်စရာများ…",
     "setup.advancedTitle": "အဆင့်မြင့်ရွေးချယ်စရာများ - ZagoSheetsWin",
     "setup.authChecking": "◉ Google ချိတ်ဆက်မှု စစ်ဆေးနေသည်…",

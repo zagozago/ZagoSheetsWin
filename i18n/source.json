@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
@@ -6164,7 +6164,7 @@
       "notes": []
     },
     "recovery.state.protected": {
-      "text": "Protegido / pendente",
+      "text": "Pendente",
       "context": "src/SheetsWindows.Windows/RecoveryForm.cs - private void AddEntry(RecoveryEntry entry)",
       "scope": "app",
       "placeholders": [],
@@ -6193,7 +6193,7 @@
       "notes": []
     },
     "recovery.usage": {
-      "text": "Espaço Usado: {usedMb:N2} MB · Limite: {limitMb} MB · Backups: {backupCount} · Protegido: {protectedCount}",
+      "text": "Espaço Usado: {usedMb:N2} MB · Limite: {limitMb} MB · Backups: {backupCount} · Pendentes: {protectedCount}",
       "context": "src/SheetsWindows.Windows/RecoveryForm.cs - public RecoveryForm(bool preview = false, bool previewBusy = false)",
       "scope": "app",
       "placeholders": [

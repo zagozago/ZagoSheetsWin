@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "クリーンアップ済み",
     "recovery.state.cleaning": "クリーンアップ待ち",
     "recovery.state.completed": "完了",
-    "recovery.state.protected": "保護 / 保留中",
+    "recovery.state.protected": "保留中",
     "recovery.state.unavailable": "利用不可",
     "recovery.title": "ファイルを復元してバックアップを管理 - ZagoSheetsWin",
-    "recovery.usage": "使用量: {usedMb:N2} MB · 上限: {limitMb} MB · バックアップ: {backupCount} · 保護: {protectedCount}",
+    "recovery.usage": "使用量: {usedMb:N2} MB · 上限: {limitMb} MB · バックアップ: {backupCount} · 保留中: {protectedCount}",
     "setup.advanced": "詳細オプション…",
     "setup.advancedTitle": "詳細オプション - ZagoSheetsWin",
     "setup.authChecking": "◉ Google 接続を確認しています…",

@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "Oñemopotĩma",
     "recovery.state.cleaning": "Ñemopotĩ oha'arõ",
     "recovery.state.completed": "Oñemohu'ãma",
-    "recovery.state.protected": "Ñemo'ãpyre / oha'arõva",
+    "recovery.state.protected": "Oha'arõva",
     "recovery.state.unavailable": "Ndojepurukuaái",
     "recovery.title": "Marandurenda mbojevy ha ñongatupyre joapy ñangareko - ZagoSheetsWin",
-    "recovery.usage": "Pa'Ũ Ojeporúva: {usedMb:N2} MB · Jeporu Paha: {limitMb} MB · Ñongatupyre Joapy: {backupCount} · Ñemo'Ãpyre: {protectedCount}",
+    "recovery.usage": "Pa'Ũ Ojeporúva: {usedMb:N2} MB · Jeporu Paha: {limitMb} MB · Ñongatupyre Joapy: {backupCount} · Oha'arõva: {protectedCount}",
     "setup.advanced": "Jeporavorã ipypukuvéva…",
     "setup.advancedTitle": "Jeporavorã ipypukuvéva - ZagoSheetsWin",
     "setup.authChecking": "◉ Google jeikekatu ojehechajey…",

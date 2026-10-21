@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "Nettoyée",
     "recovery.state.cleaning": "Nettoyage en attente",
     "recovery.state.completed": "Terminée",
-    "recovery.state.protected": "Protégée / en attente",
+    "recovery.state.protected": "En attente",
     "recovery.state.unavailable": "Indisponible",
     "recovery.title": "Récupérer des fichiers et gérer les sauvegardes - ZagoSheetsWin",
-    "recovery.usage": "Espace Utilisé : {usedMb:N2} MB · Limite : {limitMb} MB · Sauvegardes : {backupCount} · Protégées : {protectedCount}",
+    "recovery.usage": "Espace Utilisé : {usedMb:N2} MB · Limite : {limitMb} MB · Sauvegardes : {backupCount} · En attente: {protectedCount}",
     "setup.advanced": "Options avancées…",
     "setup.advancedTitle": "Options avancées - ZagoSheetsWin",
     "setup.authChecking": "◉ Vérification de la connexion Google…",

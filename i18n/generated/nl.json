@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "Opgeschoond",
     "recovery.state.cleaning": "Opschoning in behandeling",
     "recovery.state.completed": "Voltooid",
-    "recovery.state.protected": "Beschermd / openstaand",
+    "recovery.state.protected": "Openstaand",
     "recovery.state.unavailable": "Niet beschikbaar",
     "recovery.title": "Bestanden herstellen en back-ups beheren - ZagoSheetsWin",
-    "recovery.usage": "Gebruikte Ruimte: {usedMb:N2} MB · Limiet: {limitMb} MB · Back-Ups: {backupCount} · Beschermd: {protectedCount}",
+    "recovery.usage": "Gebruikte Ruimte: {usedMb:N2} MB · Limiet: {limitMb} MB · Back-Ups: {backupCount} · Openstaand: {protectedCount}",
     "setup.advanced": "Geavanceerde opties…",
     "setup.advancedTitle": "Geavanceerde opties - ZagoSheetsWin",
     "setup.authChecking": "◉ Google-verbinding controleren…",

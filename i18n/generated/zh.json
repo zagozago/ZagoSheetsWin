@@ -1,7 +1,7 @@
 {
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.44",
   "sourceLocale": "pt-BR",
-  "sourceHash": "bfb342c6084e58be9e500402e9c71bfd9e545fb37feb1037be6692aee25f50c0",
+  "sourceHash": "8e6e0a3cccfbc2a83d60877e743279bac2340ef39990ed8ecc9bd84dd3439961",
   "emphasisKeys": [
     "emphasis.product",
     "emphasis.brand",
@@ -234,10 +234,10 @@
     "recovery.state.cleaned": "已清理",
     "recovery.state.cleaning": "等待清理",
     "recovery.state.completed": "已完成",
-    "recovery.state.protected": "受保护 / 待处理",
+    "recovery.state.protected": "待处理",
     "recovery.state.unavailable": "不可用",
     "recovery.title": "恢复文件和管理备份 - ZagoSheetsWin",
-    "recovery.usage": "已用空间：{usedMb:N2} MB · 上限：{limitMb} MB · 备份：{backupCount} · 受保护：{protectedCount}",
+    "recovery.usage": "已用空间：{usedMb:N2} MB · 上限：{limitMb} MB · 备份：{backupCount} · 待处理：{protectedCount}",
     "setup.advanced": "高级选项…",
     "setup.advancedTitle": "高级选项 - ZagoSheetsWin",
     "setup.authChecking": "◉ 正在检查 Google 连接…",
