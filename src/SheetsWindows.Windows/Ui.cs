@@ -30,7 +30,7 @@ internal static class Ui
                 var width = Math.Max(20, columnWidth - child.Margin.Horizontal);
                 var needed = child.PreferredSize.Height;
                 if (child is CheckBox) { child.AutoSize = false; needed = Math.Max(32, TextRenderer.MeasureText(child.Text, child.Font, new Size(Math.Max(30, width - 54), int.MaxValue), TextFormatFlags.WordBreak).Height + 12); }
-                else if (child is Button) { child.AutoSize = false; needed = TextRenderer.MeasureText(child.Text, child.Font, new Size(Math.Max(20,width-child.Padding.Horizontal-12-((child as Button)?.Image?.Width+8 ?? 0)),int.MaxValue),TextFormatFlags.WordBreak).Height + child.Padding.Vertical + 10; }
+                else if (child is Button) { child.AutoSize = false; needed = TextRenderer.MeasureText(child.Text, child.Font, new Size(Math.Max(20,width-child.Padding.Horizontal-12-((child as Button)?.Image is {} icon ? icon.Width + 8 * child.DeviceDpi / 96 : 0)),int.MaxValue),TextFormatFlags.WordBreak).Height + child.Padding.Vertical + 10; }
                 height = Math.Max(height, needed + child.Margin.Vertical);
             }
             row.Height = height + row.Padding.Vertical;

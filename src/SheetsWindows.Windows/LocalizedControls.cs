@@ -92,9 +92,9 @@ internal class AdaptiveButton : Button
         var max=Parent is FlowLayoutPanel flow ? Math.Max(80,flow.ClientSize.Width-flow.Padding.Horizontal-Margin.Horizontal) : proposedSize.Width;
         if(max<=0)max=int.MaxValue;
         var natural=TextRenderer.MeasureText(Text,Font,Size.Empty,TextFormatFlags.SingleLine);
-        var width=Math.Min(max,natural.Width+Padding.Horizontal+12+(Image?.Width+8 ?? 0));
+        var width=Math.Min(max,natural.Width+Padding.Horizontal+12+(Image is null ? 0 : Image.Width + 8 * DeviceDpi / 96));
         if(Parent is FlowLayoutPanel { FlowDirection: FlowDirection.TopDown, WrapContents: false }) width=Math.Min(max,Math.Max(Width,width));
-        var text=TextRenderer.MeasureText(Text,Font,new Size(Math.Max(20,width-Padding.Horizontal-12-(Image?.Width+8 ?? 0)),int.MaxValue),TextFormatFlags.WordBreak);
+        var text=TextRenderer.MeasureText(Text,Font,new Size(Math.Max(20,width-Padding.Horizontal-12-(Image is null ? 0 : Image.Width + 8 * DeviceDpi / 96)),int.MaxValue),TextFormatFlags.WordBreak);
         return new Size(Math.Max(MinimumSize.Width,width),Math.Max(MinimumSize.Height,text.Height+Padding.Vertical+10));
     }
     private void Fit()
@@ -103,7 +103,7 @@ internal class AdaptiveButton : Button
         fitting=true;
         try
         {
-            var measured=TextRenderer.MeasureText(Text,Font,new Size(Math.Max(20,Width-Padding.Horizontal-12-(Image?.Width+8 ?? 0)),int.MaxValue),TextFormatFlags.WordBreak);
+            var measured=TextRenderer.MeasureText(Text,Font,new Size(Math.Max(20,Width-Padding.Horizontal-12-(Image is null ? 0 : Image.Width + 8 * DeviceDpi / 96)),int.MaxValue),TextFormatFlags.WordBreak);
             var height=measured.Height+Padding.Vertical+10;
             if(!AutoSize && Dock != DockStyle.Fill)Height=Math.Max(MinimumSize.Height,height);
             else if(!AutoSize && Height<height)Height=height;
