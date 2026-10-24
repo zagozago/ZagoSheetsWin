@@ -17,8 +17,7 @@ internal sealed class EmphasisLabel : Label
             if (!value || formatted is not null) return;
             formatted = new RichTextBox { BorderStyle = BorderStyle.None, ReadOnly = true,
                 DetectUrls = false, ScrollBars = RichTextBoxScrollBars.None,
-                WordWrap = true, TabStop = false, Dock = DockStyle.Fill };
-            formatted.FontChanged += (_, _) => UpdateFormatting();
+                WordWrap = true, TabStop = false, Dock = DockStyle.Fill, Tag = "prefixRenderer" };
             Controls.Add(formatted);
             UpdateFormatting();
         }
@@ -59,5 +58,4 @@ internal sealed class EmphasisLabel : Label
     protected override void OnBackColorChanged(EventArgs e) { base.OnBackColorChanged(e); UpdateFormatting(); }
     protected override void OnForeColorChanged(EventArgs e) { base.OnForeColorChanged(e); UpdateFormatting(); }
     protected override void OnRightToLeftChanged(EventArgs e) { base.OnRightToLeftChanged(e); UpdateFormatting(); }
-    protected override void OnSizeChanged(EventArgs e) { base.OnSizeChanged(e); UpdateFormatting(); }
 }

@@ -287,7 +287,7 @@ internal sealed class RecoveryForm : Form
         static IEnumerable<Control> BodyControls(Control parent) { yield return parent; foreach(Control child in parent.Controls) foreach(var nested in BodyControls(child)) yield return nested; }
         foreach(var panel in new[] { configuration, usagePanel, tip })
         {
-            var originalFonts = BodyControls(panel.Body).Select(c => (Control: c, Font: c.Font)).ToArray();
+            var originalFonts = BodyControls(panel.Body).Where(c => c.Tag as string != "prefixRenderer").Select(c => (Control: c, Font: c.Font)).ToArray();
             foreach(var item in originalFonts) item.Control.Font = new Font(item.Font.FontFamily, Math.Max(6, item.Font.SizeInPoints - 2), item.Font.Style);
         }
         usage.Font = new Font(usage.Font, FontStyle.Bold);

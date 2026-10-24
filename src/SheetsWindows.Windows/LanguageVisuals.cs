@@ -35,7 +35,7 @@ internal static class LanguageVisuals
                 {
                     var key = (family, control is AdaptiveButton action ? action.FontSizeOverride ?? Ui.ButtonFontSize : control.Font.Size, control.Font.Style);
                     if (!fonts.TryGetValue(key, out var font)) fonts[key] = font = new Font(key.Item1, key.Item2, key.Item3);
-                    control.Font = font;
+                    if (control.Tag as string != "prefixRenderer") control.Font = font;
                     control.RightToLeft = rtl ? RightToLeft.Yes : RightToLeft.No;
                     // Local paths, filenames and legal originals retain their own reading order.
                     if (control is TextBoxBase && control is not RichTextBox) control.RightToLeft = RightToLeft.No;
