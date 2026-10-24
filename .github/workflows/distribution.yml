@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.48 final: home folder icon -1px, arrow word wrapping, backup text alignment and scoped emphasis.
+# Distribution candidate 0.9.48: RTL horizontal action insets restored on home and settings; native checks in Local core 40126683024.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
