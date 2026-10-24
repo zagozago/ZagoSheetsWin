@@ -100,6 +100,7 @@ jobs:
       - name: Verify native interface offline
         shell: pwsh
         run: |
+          ./branding/Build-WizardArt.ps1
           $exe = Join-Path (Get-Location).Path 'artifacts/SheetsWindows-win-x64/SheetsWindows.exe'
           $output = Join-Path (Get-Location).Path 'artifacts/branding-preview/native-verification.json'
           New-Item -ItemType Directory -Force (Split-Path $output) | Out-Null
@@ -136,6 +137,7 @@ jobs:
           if (!(Test-Path $compiler)) { throw 'Inno Setup 6 compiler missing from Windows runner' }
           [xml]$project = Get-Content 'src/SheetsWindows.Windows/SheetsWindows.Windows.csproj' -Raw
           $version = [string]$project.Project.PropertyGroup.Version
+          ./branding/Build-WizardArt.ps1
           & $compiler "/DPilotVersion=$version" installer/SheetsWindows.iss
           if ($LASTEXITCODE -ne 0) { throw 'Installer compilation failed' }
           $oldOutput = Join-Path (Get-Location).Path "artifacts/installer-old"
