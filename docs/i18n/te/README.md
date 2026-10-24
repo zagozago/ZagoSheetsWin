@@ -1,0 +1,165 @@
+# ZagoSheetsWin
+
+> ⚠️ **Alpha 0.9.48 — current safety notice in English; full editorial translation pending.**
+>
+> స్ప్రెడ్‌షీట్ Google Sheets లో తెరవబడింది. అసలు ఫైల్ స్థానంలో సత్వరమార్గం సృష్టించబడింది. అసలు ఫైల్‌ను తిరిగి పొందడానికి బ్యాకప్‌లు తెరవండి.
+>
+> **CSV/TSV v4:** up to **2,000,000 cells**, 100,000 logical rows, 1,000 columns and 20 MiB input/payload, subject to other limits. A mismatch in Google-exported cell values **blocks source replacement**. For XLS/ODS, complex content may change even when a verified import replaces the local original with a shortcut.
+>
+> **Backups in 0.9.48:** **cleanup is MANUAL ONLY** — not automatic by age or quota. When there is not enough backup capacity, import fails promptly and **preserves the original file and existing backups**. Use **Backups → Clean expired** or explicitly remove eligible completed backups to free space. No quota wait, automatic rotation, or global import queue. Different files may be processed in parallel.
+>
+> **Recovery 0.9.44:** a later **independent** opening may start a fresh import only if earlier pending Google document absence is verified; the old backup/history remain protected. Network errors, uncertain responses and concurrent retries do not authorize duplicates. **UI 0.9.45–0.9.48:** refined settings/first use, local 51-language texts, three collapsible backup panels, checkboxes reflecting selection, bulk actions in 32-item batches, visual/installer updates and RTL action insets on Home/Settings. These UI changes do not change the manual backup policy.
+>
+> **Reliability:** lower-memory upload buffering, bounded remote-marker rechecks without duplicate creation, minimal **Close** screen on low-memory failures, and a shorter fixed-size home window. [native UI CI](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40121298442) and [protected alpha distribution](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40120263404) passed on earlier 0.9.48 commits; the final RTL hotfix `08dbced` has a [separate CI run](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40126683024), so consult the [current status](../../RELEASE_STATUS.md). Real Google acceptance remains pending. This is **not** a 1.0.0 release. Some content below may describe older behavior. Read the [current English README](../../../README.md) and [Portuguese user guide](../../USER_GUIDE.md) for current instructions.
+
+<details>
+<summary>🌐 డాక్యుమెంటేషన్ భాష · భాషను ఎంచుకోండి</summary>
+
+- [EN - English](../../../README.md)
+- [ZH - 中文 / Chinese (Simplified) (zh)](../zh/README.md)
+- [HI - हिन्दी / Hindi (hi)](../hi/README.md)
+- [ES - Español / Spanish (es)](../es/README.md)
+- [AR - العربية / Arabic (ar)](../ar/README.md)
+- [FR - Français / French (fr)](../fr/README.md)
+- [BN - বাংলা / Bengali (bn)](../bn/README.md)
+- [PT - Português / Portuguese (pt)](../pt/README.md)
+- [ID - Bahasa Indonesia / Indonesian (id)](../id/README.md)
+- [UR - اردو / Urdu (ur)](../ur/README.md)
+- [RU - Русский / Russian (ru)](../ru/README.md)
+- [DE - Deutsch / German (de)](../de/README.md)
+- [JA - 日本語 / Japanese (ja)](../ja/README.md)
+- [VI - Tiếng Việt / Vietnamese (vi)](../vi/README.md)
+- [TR - Türkçe / Turkish (tr)](../tr/README.md)
+- [KO - 한국어 / Korean (ko)](../ko/README.md)
+- [IT - Italiano / Italian (it)](../it/README.md)
+- [TH - ไทย / Thai (th)](../th/README.md)
+- [TL - Filipino](../fil/README.md)
+- [MS - Bahasa Melayu / Malay (ms)](../ms/README.md)
+- [SW - Kiswahili / Swahili (sw)](../sw/README.md)
+- [PCM - Nigerian Pidgin](../pcm/README.md)
+- [MR - मराठी / Marathi (mr)](../mr/README.md)
+- **TE - తెలుగు / Telugu (te)** — ప్రస్తుత పేజీ
+- [HA - Hausa](../ha/README.md)
+- [PA - ਪੰਜਾਬੀ / Punjabi (pa)](../pa/README.md)
+- [TA - தமிழ் / Tamil (ta)](../ta/README.md)
+- [YUE - 粵語 / Cantonese (yue)](../yue/README.md)
+- [FA - فارسی / Persian (fa)](../fa/README.md)
+- [AM - አማርኛ / Amharic (am)](../am/README.md)
+- [JV - Basa Jawa / Javanese (jv)](../jv/README.md)
+- [GU - ગુજરાતી / Gujarati (gu)](../gu/README.md)
+- [KN - ಕನ್ನಡ / Kannada (kn)](../kn/README.md)
+- [YO - Yorùbá / Yoruba (yo)](../yo/README.md)
+- [BHO - भोजपुरी / Bhojpuri (bho)](../bho/README.md)
+- [PS - پښتو / Pashto (ps)](../ps/README.md)
+- [OR - ଓଡ଼ିଆ / Odia (or)](../or/README.md)
+- [MY - မြန်မာဘာသာ / Burmese (my)](../my/README.md)
+- [ML - മലയാളം / Malayalam (ml)](../ml/README.md)
+- [PL - Polski / Polish (pl)](../pl/README.md)
+- [SU - Basa Sunda / Sundanese (su)](../su/README.md)
+- [MAI - मैथिली / Maithili (mai)](../mai/README.md)
+- [UK - Українська / Ukrainian (uk)](../uk/README.md)
+- [OM - Afaan Oromoo / Oromo (om)](../om/README.md)
+- [UZ - Oʻzbekcha / Uzbek (uz)](../uz/README.md)
+- [SD - سنڌي / Sindhi (sd)](../sd/README.md)
+- [NE - नेपाली / Nepali (ne)](../ne/README.md)
+- [IG - Igbo](../ig/README.md)
+- [AZ - Azərbaycanca / Azerbaijani (az)](../az/README.md)
+- [NL - Nederlands / Dutch (nl)](../nl/README.md)
+- [GN - Avañe’ẽ / Guarani (gn)](../gn/README.md)
+
+</details>
+
+**Windows నుండి మీ కంప్యూటర్‌లోని స్ప్రెడ్‌షీట్ ఫైళ్లను నేరుగా Google Sheetsలో తెరవండి.**
+
+ZagoSheetsWin అనేది Windows కోసం రూపొందించిన తేలికైన యాప్. ఇది స్థానిక స్ప్రెడ్‌షీట్‌ను తెరవడాన్ని సులభతరం చేస్తుంది:
+
+**ఫైల్‌పై రెండుసార్లు క్లిక్ చేయండి → అప్‌లోడ్ చేసి మార్చండి → Google Sheetsలో తెరవండి**
+
+దిగుమతి విజయవంతమైన తర్వాత, ZagoSheetsWin అసలు స్థానిక ఫైల్ స్థానంలో Google Sheets పత్రానికి దారి చూపే ఇంటర్నెట్ షార్ట్‌కట్ (`.url`) ఉంచగలదు. అసలు ఫైల్‌ను తిరిగి పొందగలిగే స్థానిక బ్యాకప్‌గా కూడా భద్రపరుస్తుంది.
+
+లక్ష్యం సులభం: స్థానిక స్ప్రెడ్‌షీట్ ఫైళ్లను తెరవడంలో Google Sheetsను సాధారణ Windows యాప్‌లా ఉపయోగించగలగడం.
+
+## ఇది ఏమి చేస్తుంది
+
+ZagoSheetsWin Windows స్ప్రెడ్‌షీట్ ఫైళ్లను Google Sheetsతో అనుసంధానిస్తుంది. మద్దతున్న స్థానిక ఫైల్‌ను తెరిచినప్పుడు యాప్:
+
+- స్ప్రెడ్‌షీట్‌ను గుర్తించి ధృవీకరించగలదు;
+- తిరిగి పొందగలిగే బ్యాకప్ తయారు చేయగలదు;
+- Google అధికారిక APIల ద్వారా Google Driveకు నేరుగా అప్‌లోడ్ చేయగలదు;
+- Google Sheets సొంత పత్ర ఆకృతికి మార్చగలదు;
+- ఫలితాన్ని డిఫాల్ట్ బ్రౌజర్‌లో తెరవగలదు;
+- Google పత్రానికి స్థానిక `.url` షార్ట్‌కట్ సృష్టించగలదు;
+- తర్వాత అదే ఫైల్‌ను తెరిచినప్పుడు మళ్లీ అప్‌లోడ్ చేయకుండా ఉండగలదు.
+
+Driveలో మాన్యువల్ అప్‌లోడ్, బ్రౌజర్‌లో ఫైల్ వెతకడం, పదేపదే మార్చడం అవసరం లేదు.
+
+## మద్దతున్న ఫార్మాట్‌లు
+
+ప్రస్తుతం అభివృద్ధి లక్ష్యంగా ఉన్న ఫార్మాట్‌లు: `.xlsx`, `.xls`, `.ods`, `.csv`, `.tsv`.
+
+కొన్ని ఫార్మాట్‌లకు అదనపు అనుకూలత పరిమితులు ఉండవచ్చు. సురక్షితంగా అలాగే ఉంచలేని ఫీచర్లు ఉన్న ఫైళ్లను డేటా నష్టం జరగకుండా జాగ్రత్తగా నిర్వహిస్తుంది.
+
+## Windows కోసం రూపొందించబడింది
+
+ZagoSheetsWin ప్రత్యేకంగా Windows కోసం రూపొందించబడింది. ఇందులో **Open with**, ఫైల్ రకం నమోదు, రెండుసార్లు క్లిక్ చేసి తెరవడం, అవసరమైతే File Explorer అనుసంధానం, Windows స్థానిక ఇన్‌స్టాలర్ ఉన్నాయి.
+
+ఇది మీకు తెలియకుండా Windows డిఫాల్ట్ యాప్‌లను మార్చదు. ఫైల్ అనుసంధానాల నియంత్రణ వినియోగదారుడిదే.
+
+## భద్రతకు ప్రాధాన్యం
+
+స్థానిక ఫైల్ స్థానంలో మరొకటి ఉంచే ప్రక్రియను తిరిగి పొందగలిగే ఆపరేషన్‌గా పరిగణిస్తుంది. అసలు ఫైల్‌ను ఫోల్డర్ నుంచి తీసివేసే ముందు:
+
+1. తిరిగి పొందగల బ్యాకప్ ఉందని;
+2. Google Sheets పత్రం విజయవంతంగా తయారైందని;
+3. స్థానిక ఫైల్ అనుసంధానం శాశ్వతంగా సేవ్ అయిందని;
+4. ఇంటర్నెట్ షార్ట్‌కట్ రాసి ధృవీకరించబడిందని నిర్ధారిస్తుంది.
+
+ప్రక్రియ విఫలమైతే అసలు ఫైల్ భద్రంగా ఉంటుంది.
+
+> వినియోగదారుడికి తెలియకుండా అతని డేటాను ఎప్పుడూ నాశనం చేయకూడదు.
+
+## బ్యాకప్‌లు
+
+అసలు ఫైళ్లను షార్ట్‌కట్‌లతో మార్చడానికి ముందు ప్రైవేట్ స్థానిక బ్యాకప్ స్థలంలో ఉంచవచ్చు. నిల్వ పరిమితి, నిల్వ కాలం, శుభ్రపరిచే ఎంపికలను సర్దుబాటు చేయవచ్చు.
+
+బ్యాకప్ దిగుమతి చేసినప్పటి అసలు ఫైల్‌ను రక్షిస్తుంది. ఇది **రెండు వైపుల సమకాలీకరణ కాదు**: Google Sheetsలో తర్వాత చేసిన మార్పులు అసలు స్ప్రెడ్‌షీట్ ఫైల్‌కు తిరిగి రాయబడవు.
+
+## గోప్యత మరియు Google యాక్సెస్
+
+ZagoSheetsWin మీ కంప్యూటర్ నుంచి నేరుగా Google APIలతో కమ్యూనికేట్ చేస్తుంది.
+
+- స్ప్రెడ్‌షీట్ కంటెంట్ Zagotools సర్వర్‌లకు పంపబడదు.
+- OAuth టోకెన్‌లు Windows భద్రతా పద్ధతులతో రక్షించబడి స్థానికంగా నిల్వ ఉంటాయి.
+- `drive.file` అనుమతి పరిధి యాప్ ద్వారా సృష్టించిన లేదా తెరిచిన ఫైళ్లకు యాక్సెస్‌ను పరిమితం చేస్తుంది.
+- దిగుమతి ప్రక్రియకు అనలిటిక్స్ ట్రాకింగ్ అవసరం లేదు.
+
+గోప్యతా విధానం మరియు వినియోగ నిబంధనలు: https://zagotools.top/legal.html
+
+## ప్రాజెక్ట్ స్థితి
+
+ZagoSheetsWin చురుకుగా అభివృద్ధి చెందుతోంది; ప్రస్తుతం ఇది **ఆల్ఫా సాఫ్ట్‌వేర్**. Windows → Google Sheets ప్రధాన ప్రక్రియ పనిచేస్తోంది. ఇన్‌స్టాలేషన్, రికవరీ, ఫార్మాట్ అనుకూలత, అంతర్జాతీయీకరణ, వినియోగదారు అనుభవాన్ని మెరుగుపరుస్తున్నారు. మొదటి స్థిర విడుదలకు ముందు మార్పులు జరగవచ్చు.
+
+## Open in Googleతో సంబంధం
+
+ZagoSheetsWin, [SwatiK425](https://github.com/SwatiK425) రూపొందించిన [Open in Google](https://github.com/SwatiK425/open-in-google) ప్రాజెక్ట్ ఆధారంగా అభివృద్ధి చేయబడింది. అది అసలు పునాది, ప్రేరణ అందించింది.
+
+ఇప్పుడు ZagoSheetsWinకు సొంత నిర్మాణం, ఇన్‌స్టాలర్, ఇంటర్‌ఫేస్, బ్యాకప్ మరియు రికవరీ వ్యవస్థ, ఫైల్ అనుసంధానాలు, ఫార్మాట్ నిర్వహణ, స్థానిక ఫైళ్లను Google Sheetsలో తెరవే అనుభవం ఉన్నాయి. అసలు ప్రాజెక్ట్ స్వతంత్రంగానే కొనసాగుతుంది; సాధారణ మెరుగుదలలను upstreamకు ప్రతిపాదించవచ్చు.
+
+## ఓపెన్ సోర్స్
+
+ZagoSheetsWin ఉచిత ఓపెన్ సోర్స్ సాఫ్ట్‌వేర్. అసలు Open in Google కోడ్ యొక్క క్రెడిట్ మరియు లైసెన్స్ నిబంధనలను అలాగే ఉంచి, ZagoSheetsWin / Zagotools తదుపరి అభివృద్ధిని స్పష్టంగా గుర్తిస్తుంది.
+
+- [LICENSE](../../../LICENSE)
+- [ATTRIBUTION.md](../../../ATTRIBUTION.md)
+- [NOTICE.md](../../../NOTICE.md)
+- [third-party/NOTICE.md](../../../third-party/NOTICE.md)
+
+## లైసెన్స్
+
+MIT లైసెన్స్. వివరాలకు [LICENSE](../../../LICENSE) చూడండి.
+
+---
+
+**ZagoSheetsWin — Zagotools ప్రాజెక్ట్**
+
+నిజమైన సమస్యల కోసం చిన్న సాఫ్ట్‌వేర్.

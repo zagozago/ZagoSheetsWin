@@ -1,3 +1,7 @@
+> **LEGACY / UPSTREAM ONLY — NOT THE ZagoSheetsWin installer.** This document describes the original PowerShell-based Open in Google setup and includes Word/PowerPoint integration that the current C# ZagoSheetsWin application does not provide. For the current Windows installer and supported spreadsheet formats, see [ZagoSheetsWin README](README.md) and [User Guide](docs/USER_GUIDE.md). The content below is retained for historical attribution.
+
+---
+
 # Open in Google: Setup Guide
 
 Right-click any `.xlsx` / `.xls` / `.csv` / `.docx` / `.doc` / `.pptx` / `.ppt`
