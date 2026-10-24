@@ -7,7 +7,7 @@
 | Documento | Uso |
 |---|---|
 | [README internacional](../README.md) | Visão do produto, seletor das 51 línguas de documentação, instalação e avisos legais |
-| [Estado da versão](RELEASE_STATUS.md) | **Referência central 0.9.48**; testes de UI e distribuição anterior aprovados, hotfix RTL final com CI próprio pendente; sem tag/Release nem aceite Google real |
+| [Estado da versão](RELEASE_STATUS.md) | **Referência central 0.9.48**; testes de UI e distribuição anterior aprovados, hotfix RTL com **Local core aprovado** no código `08dbced`; distribuição protegida ainda aguardando aprovação; sem tag/Release nem aceite Google real |
 | [Manual do usuário](USER_GUIDE.md) | Instalação, primeiro uso, abertura, preferências, backups e restauração |
 | [Arquitetura atual](ARCHITECTURE_CURRENT.md) | Componentes reais, dados locais e ciclo de importação |
 | [Formatos e limites](FORMATS_AND_LIMITS.md) | Matriz atual com **substituição mesmo após conversão parcial**, regras de cópia, atributos somente leitura e limites |
@@ -49,3 +49,5 @@ Antes de publicar 1.0.0: revisar atualidade dos 50 READMEs traduzidos e decidir 
 4. Registro de alterações e materiais históricos, com data explícita.
 
 Se duas fontes conflitarem, registrar a divergência e corrigir o documento. **Para a futura 1.0, atualizar prioritariamente o arquivo central [RELEASE_STATUS.md](RELEASE_STATUS.md), o README e o CHANGELOG; as descrições de comportamento dos demais guias foram escritas de modo a não exigir troca de número em cada parágrafo.** Não classificar “testado em CI” como “aprovado com Google real”.
+
+- [Aceite RTL 0.9.48 — recuos físicos de Home e Configurações](implementation/rtl-insets-20261024.md), com CI `08dbced` aprovado e registro de que Core/Infrastructure não mudaram.

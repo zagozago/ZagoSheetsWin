@@ -80,3 +80,6 @@ O release só estará pronto quando os responsáveis registrarem evidência para
 - [ ] Homologar com Google real o caso de backup pendente recuperado em uma nova abertura; CI nativo não substitui esse aceite.
 
 - [ ] Depois do hotfix RTL de `08dbced`, verificar **Local core #40127989036** e obter aprovação para **Protected distribution #40127989020** no SHA `df01b85`. O último commit altera apenas comentário no workflow, mas requer sua própria evidência de distribuição.
+
+- [x] **Hotfix RTL `08dbced` com Local core #40126683024 aprovado** para 5 línguas RTL no conjunto de 51 e quatro escalas DPI; ver [registro](implementation/rtl-insets-20261024.md).
+- [ ] Aguardar/concluir o **Protected alpha distribution #40127989020** e o CI do commit documental `ee09a90`; manter aceite no Windows real separado.

@@ -2,7 +2,7 @@
 
 **Versão declarada do aplicativo: `0.9.48` (alfa).** Nenhuma tag/Release 1.0.0 foi publicada. A última atualização disponível na branch inclui **o hotfix RTL mencionado pelo usuário**.  
 **Branch de produto:** `feature/zagosheetswin`.  
-**Commit mais recente da branch:** [df01b85856a9](https://github.com/zagozago/ZagoSheetsWin/commit/df01b85856a904cafddcaa7f4bab51fb483c5cef), em **24/10/2026**. Contém **somente comentário de preparação do workflow** depois do hotfix de layout RTL implementado em [08dbced](https://github.com/zagozago/ZagoSheetsWin/commit/08dbced61ed6395534ed6daeff6cf23342c5a4a9), sem mais alterações de aplicativo.  
+**Commit mais recente conferido:** [ee09a90](https://github.com/zagozago/ZagoSheetsWin/commit/ee09a9065047a5840a404c55f3fd4b717ec897c3), em **24/10/2026**. Acrescenta **somente a documentação de validação do hotfix RTL**, cujo código está em [08dbced](https://github.com/zagozago/ZagoSheetsWin/commit/08dbced61ed6395534ed6daeff6cf23342c5a4a9). O commit intermediário `df01b85` altera apenas comentário de workflow; **não há outras alterações funcionais**.  
 **Documentação:** PR #13 em branch separada, sem merge/lançamento.
 
 ## Coerência de projeto e internacionalização
@@ -19,11 +19,12 @@
 | [Local core #40110813671](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40110813671) | `1738188` | **Sucesso** Windows 407 aprovados/1 ignorado; Linux 364 aprovados/44 ignorados; matriz nativa 51 locais e quatro escalas |
 | [Local core #40121298442](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40121298442) | `cacba045` | **Sucesso** na versão 0.9.48 antes do último hotfix |
 | [Protected alpha distribution #40120263404](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40120263404) | `df6f4d6` | **Sucesso**, commit anterior ao hotfix RTL |
-| [Local core #40126683024](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40126683024) | `08dbced` | **Em execução** na consulta — testes do hotfix RTL |
+| [Local core #40126683024](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40126683024) | `08dbced` | **Sucesso Windows e Linux**; matriz nativa de RTL e teste do instalador concluídos |
 | [Local core #40127989036](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40127989036) | `df01b85` | **Em execução** — código idêntico ao hotfix, commit adicional somente de comentário CI |
 | [Protected alpha distribution #40127989020](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40127989020) | `df01b85` | **Aguardando aprovação** do ambiente protegido; não é execução concluída |
+| [Local core #40128293029](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40128293029) | `ee09a90` | **Em execução**; diferença para `df01b85` é somente a documentação de verificação RTL |
 
-**Não existe confirmação de distribuição protegida aprovada no SHA `df01b85`** nesta revisão; a execução respectiva está aguardando aprovação. Compilação e captura de tela offline, mesmo nos 51 idiomas, não substituem testes no Windows do usuário/Google real nem aprovação formal de 1.0.0.
+**O hotfix RTL foi aprovado no Local core `08dbced`, mas a distribuição protegida no `df01b85` ainda aguarda aprovação.** O último commit `ee09a90` é somente documentação e seu CI próprio ainda estava em execução na consulta. Compilação e captura de tela offline, mesmo nos 51 idiomas, não substituem testes no Windows do usuário/Google real nem aprovação formal de 1.0.0.
 
 ## Comportamento atual 0.9.48
 
@@ -40,9 +41,11 @@
 - [Refinamento 0.9.47](implementation/refinement-20261024.md) — plano aprovado, CSV e testes nativos.
 - [Acabamento 0.9.48](implementation/final-ui-20261024.md) — 10 requisitos localizados, screenshots e ajustes finais.
 - [Regressão funcional 0.9.43](REGRESSION_0943.md) e [casos pendentes 0.9.44](../tests/SheetsWindows.Tests/Regression0944Tests.cs): riscos de importação não foram homologados em conta Google real nesta etapa.
-- **Gates:** concluir CI RTL em `08dbced` e `df01b85`, obter aprovação e concluir a distribuição protegida no SHA congelado `df01b85` (se for o candidato final), testes reais de backup/pendências, vários arquivos e Google, suporte de ODS, revisão editorial de 50 páginas traduzidas, assinatura/SmartScreen, OAuth público, central de ajuda.
+- **Gates:** verificar CI do commit documental final `ee09a90` e do `df01b85`, obter aprovação da distribuição protegida `df01b85` ou de um SHA final posterior escolhido, testes reais de backup/pendências, vários arquivos e Google, suporte de ODS, revisão editorial de 50 páginas traduzidas, assinatura/SmartScreen, OAuth público, central de ajuda.
 - **Sem** inventar uma Release publicada ou inferir aprovação da 1.0.0.
 
 Veja [checklist estável](PRE_RELEASE_CHECKLIST.md) e [CHANGELOG histórico](../CHANGELOG.md).
 
 **Nota de atualização:** o commit `df01b85` modificou **somente o comentário da etapa de distribuição**; toda alteração de interface RTL permanece concentrada em `08dbced`.
+
+**Relatório técnico do hotfix:** [recuos dos botões em RTL](implementation/rtl-insets-20261024.md), com verificação da matriz dos **5 idiomas RTL** (árabe, urdu, persa, pashto e sindi), todos 51 idiomas na suíte, DPI e revisão de capturas. Os handlers, strings e Core/Infrastructure ficaram inalterados.

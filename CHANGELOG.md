@@ -322,3 +322,10 @@ O commit [df01b85](https://github.com/zagozago/ZagoSheetsWin/commit/df01b85856a9
 - [Local core #40127989036](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40127989036) no SHA `df01b85`: **em execução** na última consulta.
 - [Protected alpha distribution #40127989020](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40127989020) no mesmo SHA: **aguardando aprovação do ambiente protegido**.
 - O sucesso de workflows em commits anteriores à mudança RTL **não aprova automaticamente** o SHA final. Os testes Google reais continuam pendentes.
+
+
+### Hotfix RTL aprovado no CI e registro de aceitação (24/10/2026)
+
+- [**Local core #40126683024**](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40126683024) do hotfix `08dbced`: **sucesso em Windows e Linux**, incluindo verificação de margens de botões, cartões e linhas em **5 idiomas RTL** (árabe, urdu, persa, pashto, sindi). A matriz dos 51 idiomas permaneceu coberta. Ver [relatório de recuos RTL](docs/implementation/rtl-insets-20261024.md).
+- [**ee09a90**](https://github.com/zagozago/ZagoSheetsWin/commit/ee09a9065047a5840a404c55f3fd4b717ec897c3): commit **somente documental** com a validação; [CI #40128293029](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40128293029) iniciado. Não altera o comportamento do aplicativo.
+- A [distribuição protegida #40127989020](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40127989020) continua **aguardando aprovação** na consulta. CI aprovado do hotfix não equivale à liberação protegida do instalador.

@@ -91,3 +91,8 @@ A versão manteve importações paralelas entre arquivos diferentes e os limites
 **0.9.48:** dez requisitos de UI implementados, incluindo instalador, alinhamentos, lote de 32 com spinner, checkbox redundante removido, barra e sidebar, corpo -2 pt, erro de quebra automática, prefixos e seta de Mais ações. Hotfix posterior `08dbced` conserva recuos físicos de botões em RTL apenas na Home/Configurações via `InsetFlowLayoutPanel`, sem alteração no backend. Fonte: [revisão](implementation/final-ui-20261024.md).
 
 **Evidências no momento da revisão:** [distribuição protegida #40120263404](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40120263404) passou em `df6f4d6`; [Local core #40121298442](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40121298442) passou em `cacba045`. Hotfix [#40126683024](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40126683024) estava em execução; nenhuma evidência de Google real ou Release estável foi inferida.
+
+
+### Hotfix RTL — evidência concluída e seguimento
+
+A [validação técnica específica](implementation/rtl-insets-20261024.md) foi adicionada à branch de produto pelo commit documental `ee09a90`. O [Local core #40126683024](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40126683024) do código `08dbced` passou em Windows e Linux com checagens físicas de botões, painéis e linhas de ação em cinco locales RTL, preservando todos os 51 idiomas. O commit `df01b85` só alterou comentário do workflow. A distribuição protegida correspondente ainda aguarda aprovação; não inferir entrega final por esta aprovação de CI.
