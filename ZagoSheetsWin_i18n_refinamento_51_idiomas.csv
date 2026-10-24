@@ -4283,3 +4283,156 @@ firstuse.picture.authorizeAccess,TEL-07;TEL-08,REUSE,Autorize o acesso,ig-NG,Nye
 firstuse.picture.authorizeAccess,TEL-07;TEL-08,REUSE,Autorize o acesso,az-Latn-AZ,Girişə icazə ver,tutorial.picture.authorizeAccess
 firstuse.picture.authorizeAccess,TEL-07;TEL-08,REUSE,Autorize o acesso,nl-NL,Toegang autoriseren,tutorial.picture.authorizeAccess
 firstuse.picture.authorizeAccess,TEL-07;TEL-08,REUSE,Autorize o acesso,gn-PY,Jeike moneĩ,tutorial.picture.authorizeAccess
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",en,"Google connection
+The app includes the connection configuration. Each person signs in with their own account. A custom JSON is optional. Existing settings are kept.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",zh-CN,"Google 连接
+应用已包含连接配置。每个人使用自己的账号登录。您可以选择使用自己的 JSON。现有设置会被保留。",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",hi,"Google कनेक्शन
+ऐप में कनेक्शन कॉन्फ़िगरेशन शामिल है। हर व्यक्ति अपने खाते से साइन इन करता है। कस्टम JSON वैकल्पिक है। मौजूदा सेटिंग्स रखी जाती हैं।",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",es,"Conexión con Google
+La aplicación incluye la configuración de conexión. Cada persona inicia sesión con su propia cuenta. Un JSON personalizado es opcional. Se conservan los ajustes existentes.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",ar,"اتصال Google
+يتضمن التطبيق إعداد الاتصال. يسجل كل شخص الدخول بحسابه الخاص. استخدام JSON مخصص اختياري. يتم الاحتفاظ بالإعدادات الحالية.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",fr,"Connexion Google
+L’application inclut la configuration de connexion. Chaque personne se connecte avec son propre compte. Un JSON personnalisé est facultatif. Les paramètres existants sont conservés.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",bn,"Google সংযোগ
+অ্যাপে সংযোগ কনফিগারেশন অন্তর্ভুক্ত আছে। প্রত্যেকে নিজের অ্যাকাউন্ট দিয়ে সাইন ইন করেন। কাস্টম JSON ঐচ্ছিক। বিদ্যমান সেটিংস রাখা হয়।",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",pt-BR,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",id,"Koneksi Google
+Aplikasi sudah menyertakan konfigurasi koneksi. Setiap orang masuk dengan akunnya sendiri. JSON khusus bersifat opsional. Pengaturan yang ada dipertahankan.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",ur,"Google کنکشن
+ایپ میں کنکشن کی ترتیب شامل ہے۔ ہر شخص اپنے اکاؤنٹ سے سائن اِن کرتا ہے۔ ذاتی JSON اختیاری ہے۔ موجودہ ترتیبات برقرار رہتی ہیں۔",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",ru,"Подключение Google
+В приложение уже включена конфигурация подключения. Каждый пользователь входит в свой аккаунт. Собственный JSON необязателен. Существующие настройки сохраняются.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",de,"Google-Verbindung
+Die App enthält die Verbindungskonfiguration. Jede Person meldet sich mit ihrem eigenen Konto an. Eine benutzerdefinierte JSON-Datei ist optional. Vorhandene Einstellungen werden beibehalten.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",ja,"Google 接続
+アプリには接続設定が含まれています。各ユーザーは自分のアカウントでログインします。カスタム JSON は任意です。既存の設定は保持されます。",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",vi-VN,"Kết nối Google
+Ứng dụng đã bao gồm cấu hình kết nối. Mỗi người đăng nhập bằng tài khoản riêng. JSON tùy chỉnh là không bắt buộc. Các cài đặt hiện có được giữ lại.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",tr-TR,"Google bağlantısı
+Uygulama bağlantı yapılandırmasını içerir. Her kişi kendi hesabıyla oturum açar. Özel bir JSON isteğe bağlıdır. Var olan ayarlar korunur.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",ko-KR,"Google 연결
+앱에 연결 구성이 포함되어 있습니다. 각 사용자는 자신의 계정으로 로그인합니다. 사용자 지정 JSON은 선택 사항입니다. 기존 설정은 유지됩니다.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",it-IT,"Connessione Google
+L'app include la configurazione della connessione. Ogni persona accede con il proprio account. Un JSON personalizzato è facoltativo. Le impostazioni esistenti vengono mantenute.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",th-TH,"การเชื่อมต่อ Google
+แอปมีการกำหนดค่าการเชื่อมต่อมาให้ แต่ละคนเข้าสู่ระบบด้วยบัญชีของตนเอง JSON แบบกำหนดเองเป็นตัวเลือก การตั้งค่าที่มีอยู่จะถูกเก็บไว้",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",fil-PH,"Google connection
+Kasama sa app ang connection configuration. Bawat tao ay nag-sign in gamit ang sarili nilang account. Optional ang custom JSON. Pinananatili ang kasalukuyang settings.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",ms-MY,"Sambungan Google
+Aplikasi menyertakan konfigurasi sambungan. Setiap orang log masuk dengan akaun mereka sendiri. JSON tersuai adalah pilihan. Tetapan sedia ada dikekalkan.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",sw-KE,"Muunganisho wa Google
+Programu inajumuisha usanidi wa muunganisho. Kila mtu huingia kwa akaunti yake mwenyewe. JSON maalum ni hiari. Mipangilio iliyopo inahifadhiwa.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",pcm-NG,"Google connection
+Di app come with di connection configuration. Everybody dey sign in with dia own account. Custom JSON na optional. Dem keep existing settings.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",mr-IN,"Google कनेक्शन
+अॅपमध्ये कनेक्शन कॉन्फिगरेशन समाविष्ट आहे. प्रत्येक व्यक्ती स्वतःच्या खात्याने साइन इन करते. सानुकूल JSON ऐच्छिक आहे. विद्यमान सेटिंग्ज जतन केल्या जातात.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",te-IN,"Google కనెక్షన్
+యాప్‌లో కనెక్షన్ కాన్ఫిగరేషన్ ఉంటుంది. ప్రతి వ్యక్తి తన స్వంత ఖాతాతో సైన్ ఇన్ చేస్తారు. కస్టమ్ JSON ఐచ్చికం. ఇప్పటికే ఉన్న సెట్టింగ్‌లు అలాగే ఉంచబడతాయి.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",ha-NG,"Haɗin Google
+Manhajar tana ɗauke da saitin haɗi. Kowane mutum yana shiga da nasa asusun. JSON na musamman na zaɓi ne. Ana riƙe saitunan da ake da su.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",pa-Guru-IN,"Google ਕਨੈਕਸ਼ਨ
+ਐਪ ਵਿੱਚ ਕਨੈਕਸ਼ਨ ਕਨਫਿਗਰੇਸ਼ਨ ਸ਼ਾਮਲ ਹੈ। ਹਰ ਵਿਅਕਤੀ ਆਪਣੇ ਖਾਤੇ ਨਾਲ ਸਾਈਨ-ਇਨ ਕਰਦਾ ਹੈ। ਕਸਟਮ JSON ਵਿਕਲਪਿਕ ਹੈ। ਮੌਜੂਦਾ ਸੈਟਿੰਗਾਂ ਰੱਖੀਆਂ ਜਾਂਦੀਆਂ ਹਨ।",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",ta-IN,"Google இணைப்பு
+செயலி-ல் இணைப்பு கட்டமைப்பு சேர்க்கப்பட்டுள்ளது. ஒவ்வொருவரும் தங்களது சொந்த கணக்கில் உள்நுழைகிறார்கள். தனிப்பயன் JSON விருப்பமானது. ஏற்கனவே உள்ள அமைப்புகள் வைத்திருக்கப்படும்.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",yue-Hant-HK,"Google 連線
+應用程式已包括連線設定。每個人都用自己嘅帳戶登入。自訂 JSON 係可選嘅。現有設定會保留。",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",fa-IR,"اتصال Google
+برنامه شامل پیکربندی اتصال است. هر شخص با حساب خودش وارد می‌شود. JSON سفارشی اختیاری است. تنظیمات موجود حفظ می‌شوند.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",am-ET,"የGoogle ግንኙነት
+መተግበሪያው የግንኙነት ውቅሩን ያካትታል። እያንዳንዱ ሰው በራሱ መለያ ይገባል። ብጁ JSON አማራጭ ነው። ያሉ ቅንብሮች ይጠበቃሉ።",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",jv-ID,"Sambungan Google
+Aplikasi wis kalebu konfigurasi sambungan. Saben wong mlebu nganggo akun dhewe. JSON khusus iku opsional. Setelan sing ana tetep disimpen.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",gu-IN,"Google કનેક્શન
+એપમાં કનેક્શન રૂપરેખાંકન સામેલ છે. દરેક વ્યક્તિ પોતાના એકાઉન્ટથી સાઇન ઇન કરે છે. કસ્ટમ JSON વૈકલ્પિક છે. હાલની સેટિંગ્સ રાખવામાં આવે છે.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",kn-IN,"Google ಸಂಪರ್ಕ
+ಆ್ಯಪ್ ನಲ್ಲಿ ಸಂಪರ್ಕ ಕಾನ್ಫಿಗರೇಶನ್ ಸೇರಿದೆ. ಪ್ರತಿಯೊಬ್ಬರೂ ತಮ್ಮದೇ ಖಾತೆ ನಿಂದ ಸೈನ್ ಇನ್ ಮಾಡುತ್ತಾರೆ. ಕಸ್ಟಮ್ JSON ಐಚ್ಛಿಕ. ಇರುವ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಉಳಿಸಲಾಗುತ್ತದೆ.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",yo-NG,"Google connection
+App náà ní connection configuration. Olúkúlùkù máa sign in pẹ̀lú account tirẹ̀. Custom JSON jẹ́ aṣayan. A pa settings tó wà mọ́.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",bho-IN,"Google कनेक्शन
+ऐप में कनेक्शन कॉन्फिगरेशन शामिल बा. हर आदमी आपन खाता से साइन इन करेला. कस्टम JSON वैकल्पिक बा. मौजूद सेटिंग बचा के रखल जाला.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",ps-AF,"د Google اړیکه
+اپ کې د اړیکې تنظیم شامل دی. هر کس په خپل حساب ننوځي. ځانګړی JSON اختیاري دی. شته امستنې ساتل کېږي.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",or-IN,"Google ସଂଯୋଗ
+ଆପ୍‌ରେ ସଂଯୋଗ କନଫିଗରେସନ୍ ଅନ୍ତର୍ଭୁକ୍ତ। ପ୍ରତ୍ୟେକ ବ୍ୟକ୍ତି ନିଜ ଆକାଉଣ୍ଟରେ ସାଇନ୍ ଇନ୍ କରନ୍ତି। କଷ୍ଟମ୍ JSON ବୈକଳ୍ପିକ। ଥିବା ସେଟିଂସ୍ ରଖାଯାଏ।",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",my-MM,"Google ချိတ်ဆက်မှု
+အက်ပ် တွင် ချိတ်ဆက်မှု ဆက်တင် ပါပြီးသားဖြစ်သည်။ လူတိုင်း မိမိ အကောင့် ဖြင့် အကောင့်ဝင် လုပ်သည်။ စိတ်ကြိုက် JSON သည် ရွေးချယ်နိုင် ဖြစ်သည်။ ရှိပြီးသား ဆက်တင်များ ကို ထိန်းသိမ်းထားသည်။",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",ml-IN,"Google കണക്ഷൻ
+ആപ്പ്-ൽ കണക്ഷൻ ക്രമീകരണം ഉൾപ്പെടുത്തിയിട്ടുണ്ട്. ഓരോ വ്യക്തിയും സ്വന്തം അക്കൗണ്ട് ഉപയോഗിച്ച് സൈൻ ഇൻ ചെയ്യും. ഇഷ്ടാനുസൃത JSON ഐച്ഛിക ആണ്. നിലവിലുള്ള ക്രമീകരണങ്ങൾ നിലനിർത്തും.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",pl-PL,"Połączenie z Google
+Aplikacja zawiera konfigurację połączenia. Każda osoba loguje się na własne konto. Własny JSON jest opcjonalny. Istniejące ustawienia są zachowywane.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",su-ID,"Sambungan Google
+Aplikasi geus ngawengku konfigurasi sambungan. Unggal jalma login ku akun sorangan. JSON husus sifatna opsional. Setélan nu geus aya tetep disimpen.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",mai-IN,"Google कनेक्शन
+ऐप मेँ कनेक्शन कॉन्फिगरेशन शामिल अछि। प्रत्येक व्यक्ति अपन अकाउंट सँ साइन इन करैत अछि। कस्टम JSON वैकल्पिक अछि। मौजूदा सेटिंग सुरक्षित रहैत अछि।",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",uk-UA,"Підключення Google
+Програма містить конфігурацію підключення. Кожна людина входить у власний обліковий запис. Власний JSON необов’язковий. Наявні параметри зберігаються.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",om-ET,"Walqunnamtii Google
+Appichi qindaa'ina walqunnamtii of keessaa qaba. Namni hundi akkaawuntii ofiitiin seena. JSON dhuunfaa filannoo dha. Qindaa'inni jiru ni eegama.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",uz-Latn-UZ,"Google ulanishi
+Ilova ulanish konfiguratsiyasini o‘z ichiga oladi. Har bir kishi o‘z hisobiga kiradi. Maxsus JSON ixtiyoriy. Mavjud sozlamalar saqlanadi.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",sd-Arab-PK,"Google ڪنيڪشن
+ايپ ۾ ڪنيڪشن ترتيب شامل آهي. هر ماڻهو پنهنجي اڪائونٽ سان سائن اِن ڪري ٿو. حسب ضرورت JSON اختياري آهي. موجود سيٽنگون محفوظ رهن ٿيون.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",ne-NP,"Google जडान
+एपमा जडान कन्फिगरेसन समावेश छ। प्रत्येक व्यक्तिले आफ्नै खाताबाट साइन इन गर्छ। अनुकूल JSON वैकल्पिक हो। विद्यमान सेटिङ सुरक्षित राखिन्छ।",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",ig-NG,"Njikọ Google
+Ngwa ahụ nwere nhazi njikọ. Onye ọ bụla na-eji akaụntụ nke ya abanye. JSON nke gị bụ nhọrọ. A na-edobe ntọala dị ugbu a.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",az-Latn-AZ,"Google bağlantısı
+Tətbiq bağlantı konfiqurasiyasını özündə saxlayır. Hər kəs öz hesabı ilə daxil olur. Xüsusi JSON istəyə bağlıdır. Mövcud parametrlər saxlanılır.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",nl-NL,"Google-verbinding
+De app bevat de verbindingsconfiguratie. Iedereen meldt zich aan met een eigen account. Een aangepaste JSON is optioneel. Bestaande instellingen blijven behouden.",setup.connectionExplanation
+google.connection.full_explanation,TEL-06,REUSE,"Conexão Google
+O aplicativo já inclui a configuração de conexão. Cada pessoa entra com sua própria conta. Um JSON próprio é opcional. A configuração existente é mantida.",gn-PY,"Google jeikekatu
+Tembipuru'i oguereko jeikekatu ñemboheko. Tapicha peteĩteĩ oike imba'ete rupive. JSON tee ikatu ojeporu. Ñemboheko oĩmava oñeñongatu.",setup.connectionExplanation
