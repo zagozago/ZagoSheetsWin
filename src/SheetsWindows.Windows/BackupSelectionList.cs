@@ -56,6 +56,14 @@ internal sealed class BackupSelectionList : ListView
         }
         finally { synchronizing = false; }
     }
+    protected override void OnClientSizeChanged(EventArgs e) { base.OnClientSizeChanged(e); FillLastColumn(); }
+    protected override void OnHandleCreated(EventArgs e) { base.OnHandleCreated(e); FillLastColumn(); }
+    private void FillLastColumn()
+    {
+        if (Columns.Count != 5) return;
+        var used = Columns.Cast<ColumnHeader>().Take(4).Sum(c => c.Width);
+        Columns[4].Width = Math.Max(180 * DeviceDpi / 96, ClientSize.Width - used);
+    }
     protected override void OnLayout(LayoutEventArgs e) { base.OnLayout(e); PositionHeader(); }
     private void PositionHeader()
     {
