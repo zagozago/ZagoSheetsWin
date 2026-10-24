@@ -68,6 +68,7 @@ internal static class VisualStyle
 
 internal class SurfaceCard : FlowLayoutPanel
 {
+    internal bool DrawBorder = true;
     internal SurfaceCard()
     {
         DoubleBuffered = true; AutoSize = true; AutoSizeMode = AutoSizeMode.GrowAndShrink;
@@ -76,7 +77,7 @@ internal class SurfaceCard : FlowLayoutPanel
     }
     protected override void OnPaint(PaintEventArgs e)
     {
-        base.OnPaint(e); e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+        base.OnPaint(e); if (!DrawBorder) return; e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
         using var pen = new Pen(VisualStyle.Border);
         e.Graphics.DrawRoundedRectangle(pen, new RectangleF(.5f, .5f, Math.Max(1, Width - 1.5f), Math.Max(1, Height - 1.5f)), new SizeF(6, 6));
     }
@@ -102,7 +103,7 @@ internal sealed class DisclosureCard : SurfaceCard
     internal bool Expanded { get; private set; }
     internal DisclosureCard(string key, UiIcon icon, params Control[] content)
     {
-        Padding = new Padding(8); Body = VisualStyle.Card(content); Body.Padding = new Padding(6, 8, 6, 6); Body.Margin = Padding.Empty; Body.Visible = false;
+        Padding = new Padding(8); Body = VisualStyle.Card(content); Body.Padding = new Padding(6, 8, 6, 6); Body.Margin = Padding.Empty; Body.DrawBorder = false; Body.Visible = false;
         Header = new DisclosureButton { Text = UiText.Get(key), AutoSize = true, Padding = new Padding(4, 4, 20, 4), Font = new Font(LanguageVisuals.Family, 10, FontStyle.Bold), AccessibleName = UiText.Get(key) };
         VisualStyle.Icon(Header, icon); Header.Click += (_, _) => SetExpanded(!Expanded);
         Controls.Add(Header); Controls.Add(Body); Ui.Adapt(this);

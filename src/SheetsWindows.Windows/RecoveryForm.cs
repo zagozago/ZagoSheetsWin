@@ -61,7 +61,7 @@ internal sealed class RecoveryForm : Form
         var days = new NumericUpDown { Minimum = 1, Maximum = 365, Value = 30, Width = 70, AccessibleName = UiText.Get("accessibility.retentionDays") };
         var quota = new NumericUpDown { Minimum = 1, Maximum = 1000, Value = 200, Width = 80, AccessibleName = UiText.Get("accessibility.quotaMb") };
         var usage = new EmphasisLabel { AutoSize = true, Text = UiText.Get("recovery.limits"), Font = new Font(LanguageVisuals.Family, 10), Margin = new Padding(0, 8, 0, 0), Name = "backupStatistics", AccessibleName = UiText.Get("accessibility.availableBackups") };
-        var statistics = VisualStyle.Card(); statistics.Padding = Padding.Empty; statistics.Margin = Padding.Empty;
+        var statistics = VisualStyle.Card(); statistics.DrawBorder = false; statistics.Padding = Padding.Empty; statistics.Margin = Padding.Empty;
         var meter = new ProgressBar { Height = 14, Maximum = 1000, Width = 150, AccessibleName = UiText.Get("recovery.quotaLabel") }; statistics.Controls.Add(meter);
         statistics.Controls.Add(usage);
         var countLabel = Ui.Center(Ui.Text("")); var availableLabel = Ui.Text(""); statistics.Controls.Add(countLabel); statistics.Controls.Add(availableLabel);
@@ -117,7 +117,7 @@ internal sealed class RecoveryForm : Form
         Disposed += (_, _) => menu.Dispose(); Ui.Primary(restore);
         VisualStyle.Icon(restore, UiIcon.Restore); VisualStyle.Icon(selectAll, UiIcon.SelectAll); VisualStyle.Icon(clearSelection, UiIcon.ClearSelection); VisualStyle.Icon(delete, UiIcon.Trash); VisualStyle.Icon(more, UiIcon.More);
         var main = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 1, Padding = new Padding(14, 0, 14, 14) };
-        main.ColumnStyles.Add(new(SizeType.Percent, 75)); main.ColumnStyles.Add(new(SizeType.Percent, 25)); main.RowStyles.Add(new(SizeType.Percent, 100));
+        main.ColumnStyles.Add(new(SizeType.Percent, 100)); main.ColumnStyles.Add(new(SizeType.Absolute, 240)); main.RowStyles.Add(new(SizeType.Percent, 100));
         var files = new Panel { Dock = DockStyle.Fill }; files.Controls.Add(entries); files.Controls.Add(actions); files.Controls.Add(status);
         files.SizeChanged += (_, _) => FitStatus(); main.Controls.Add(files, 0, 0); main.Controls.Add(policyPanel, 1, 0);
         Controls.Add(main); Controls.Add(cancel); cancel.Dock = DockStyle.Bottom;

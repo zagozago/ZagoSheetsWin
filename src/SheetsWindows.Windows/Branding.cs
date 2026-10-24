@@ -124,8 +124,8 @@ internal static class Branding
         {
             if (form.WindowState != FormWindowState.Normal) return;
             picture.Dock = UiText.RightToLeft ? DockStyle.Right : DockStyle.Left; right.Dock = UiText.RightToLeft ? DockStyle.Left : DockStyle.Right;
-            brand.FlowDirection = UiText.RightToLeft ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-            subtitle.TextAlign = UiText.RightToLeft ? ContentAlignment.TopRight : ContentAlignment.TopLeft;
+            brand.FlowDirection = FlowDirection.LeftToRight;
+            subtitle.TextAlign = ContentAlignment.TopLeft;
             subtitle.Text = UiText.Get("tagline.open_spreadsheets_automatically");
             if (contextualKey is not null) context.Text = "|  " + UiText.Get(contextualKey).Replace("&", "").TrimEnd('…', '.');
             var required = header.Padding.Horizontal + picture.Width + identity.Padding.Horizontal + title.PreferredSize.Width + info.Width + 14 + (contextualKey is null ? 0 : context.PreferredSize.Width + 8) + right.PreferredSize.Width;
