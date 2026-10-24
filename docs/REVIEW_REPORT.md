@@ -1,6 +1,6 @@
 # Auditoria e consolidação documental — preparação 1.0.0
 
-**Revisão inicial:** 15/10/2026; **atualização:** 17/10/2026. **Base de código inicial:** `feature/zagosheetswin` commit `6a019318f64c1068ebd5ece4932320535b24f629`. **Base da atualização 0.9.35:** `9929524e67fea42c8940ae27b41f80963479c490`. **Base verificada 0.9.37 (18/10/2026):** `f58b630263cdee07e473a54ee40ff6d3beafe4f6`. **Base 0.9.42 (19/10 UTC):** `c1dc8a501209ce37d1f65c141ad30498146296af` (CI Windows vermelho naquela execução). **Base atual 0.9.43:** `9fbec2add18c012012405b56a333f6e49248a6e5`, **Local core e distribuição protegida aprovados**. **README internacional:** `main` commit `057ef77e0e79af197bb2c6c3f7b28fee1b8c0b02`. **Forma de entrega:** branch isolada e PR para a branch de desenvolvimento; **sem publicar tag/Release 1.0.0**.
+**Revisão inicial:** 15/10/2026; **atualização:** 17/10/2026. **Base de código inicial:** `feature/zagosheetswin` commit `6a019318f64c1068ebd5ece4932320535b24f629`. **Base da atualização 0.9.35:** `9929524e67fea42c8940ae27b41f80963479c490`. **Base verificada 0.9.37 (18/10/2026):** `f58b630263cdee07e473a54ee40ff6d3beafe4f6`. **Base 0.9.42 (19/10 UTC):** `c1dc8a501209ce37d1f65c141ad30498146296af` (CI Windows vermelho naquela execução). **Base 0.9.43:** `9fbec2add18c012012405b56a333f6e49248a6e5`, CI/distribuição aprovados. **Base atual 0.9.48:** `08dbced61ed6395534ed6daeff6cf23342c5a4a9`, hotfix RTL com CI próprio iniciado; distribuição anterior validada em outro SHA. **README internacional:** `main` commit `057ef77e0e79af197bb2c6c3f7b28fee1b8c0b02`. **Forma de entrega:** branch isolada e PR para a branch de desenvolvimento; **sem publicar tag/Release 1.0.0**.
 
 ## Constatações e decisões
 
@@ -62,7 +62,7 @@
 - [PR #12](https://github.com/zagozago/ZagoSheetsWin/pull/12): propõe botão Ajuda abrindo URL futura. Este PR não modifica essa ação; o domínio/caminho deve ser confirmado primeiro.
 
 
-## Mudanças auditadas até 0.9.43
+## Mudanças auditadas até 0.9.48
 
 - **0.9.38:** interpretação v3 até 1M células, escolha de separador com prévia e gramática ampliada; **CSV/TSV passam a exigir conferência de valores para retirar o original**, diferente de XLS/ODS.
 - **0.9.39:** leitor v4 corrige coluna única/campos citados/CRLF, ação `Escolher separador` e restauração segura de atalho perdido; rotação da cota por backups concluídos.
@@ -79,3 +79,15 @@ O [relatório `REGRESSION_0943.md`](REGRESSION_0943.md) registra **rollback expl
 A versão manteve importações paralelas entre arquivos diferentes e os limites de 2 milhões de células CSV/TSV. Resposta de sessão remota ambígua admite até duas consultas somente-leitura ao marcador, sem duplicação de criação; byte buffer de upload foi simplificado, leitura de pasta existente não duplica GET e erros por falta de RAM usam UI mínima com **Fechar**. Janela principal sem redimensionamento ganhou ajuste de `ClientSize` de 500×240 para **500×192**, restrito à Home.
 
 **Evidência verificável:** [Local core #39346495162](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495162) e [Protected alpha distribution #39346495298](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298) aprovaram o mesmo commit `9fbec2a`, com pacotes de instalador/launcher e testes de idioma. Não se infere sucesso de testes Google reais, assinatura pública, compatibilidade universal de ODS nem conclusão de revisão editorial.
+
+### Constatações 0.9.44–0.9.48
+
+**0.9.44:** operações pendentes são recuperáveis. Nova abertura posterior/independente pode reimportar só com remoto comprovadamente ausente após reconciliação, preservando backup/associação/histórico antigos. A mesma abertura/retry, concorrência, rede indisponível ou resposta ambígua **não** autorizam nova criação. Ver `SpreadsheetOpening` e `Regression0944Tests`.
+
+**0.9.45–0.9.46:** refinamentos de UI, temas, cabeçalhos, rodapés legais, cartões, primeiro uso e botões sem alterar a política de backup/importação.
+
+**0.9.47:** CSV aprovado com **4.335 linhas = 85 mensagens × 51 idiomas**, mapeado (65 IDs reaproveitados, 18 criados, dois não aplicáveis); nova seleção/checkbox, três cartões de recuperação recolhidos e métricas reais. `Ctrl+A` não foi acrescentado. Fonte: [implementação](implementation/refinement-20261024.md).
+
+**0.9.48:** dez requisitos de UI implementados, incluindo instalador, alinhamentos, lote de 32 com spinner, checkbox redundante removido, barra e sidebar, corpo -2 pt, erro de quebra automática, prefixos e seta de Mais ações. Hotfix posterior `08dbced` conserva recuos físicos de botões em RTL apenas na Home/Configurações via `InsetFlowLayoutPanel`, sem alteração no backend. Fonte: [revisão](implementation/final-ui-20261024.md).
+
+**Evidências no momento da revisão:** [distribuição protegida #40120263404](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40120263404) passou em `df6f4d6`; [Local core #40121298442](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40121298442) passou em `cacba045`. Hotfix [#40126683024](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40126683024) estava em execução; nenhuma evidência de Google real ou Release estável foi inferida.

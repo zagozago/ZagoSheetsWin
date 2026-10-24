@@ -4,7 +4,7 @@ ZagoSheetsWin is free and open-source software under the MIT license. It is deve
 
 ## Which branch?
 
-As of 19 October 2026, **`feature/zagosheetswin`** contains the current C#/.NET application (alpha 0.9.43; Windows/Linux CI and protected distribution successful at 9fbec2a); the default `main` historically carries the international README and 50 translations, not this application. **Choose your PR base deliberately.** Do not assume `main` contains a stable release. Version 1.0.0 has not been published.
+As of 24 October 2026, **`feature/zagosheetswin`** contains the current C#/.NET application (alpha 0.9.48; RTL hotfix 08dbced has a dedicated CI run, while preceding UI distribution passed on another SHA); the default `main` historically carries the international README and 50 translations, not this application. **Choose your PR base deliberately.** Do not assume `main` contains a stable release. Version 1.0.0 has not been published.
 
 For software changes, branch from the current application branch; for documentation changes, prefer the current documentation consolidation branch while it is under review. Avoid mixing source refactors and documentation cleanup in the same commit.
 
@@ -80,7 +80,7 @@ A passing dependency audit, a SHA-256 checksum, and a signed binary are differen
 Historical engineering notes may remain in Portuguese; translating them is not a prerequisite for external contributors. Report security vulnerabilities responsibly rather than publishing secrets in a PR or issue.
 
 
-## Current 0.9.43 change-control expectations
+## Current 0.9.48 change-control expectations
 
 - **CSV/TSV v4:** 100,000 rows / 2,000,000 cells, with 1,000 columns and 20 MiB source/payload; v1–v3 unchanged. Test exported XML budget 128 MiB/160 MiB text-only, empty cells and literal values.
 - **Backup management:** cleanup is **manual only**. Do not reintroduce automatic retention cleanup, quota rotation, capacity polling or maintenance after import without an explicit product decision. Retain atomic snapshot quota admission; quota failures preserve source and all earlier backup data.
@@ -90,3 +90,8 @@ Historical engineering notes may remain in Portuguese; translating them is not a
 
 - **Low-memory UI:** simulate `OutOfMemoryException` and verify minimal **Close** path without attempts to serialize logs or construct more controls; test home window fixed-size/minimize/restore and 500×192 client dimensions.
 - **Remote uncertainty:** marker reconciliation may perform two bounded read-only rechecks, never an extra POST/upload session. Avoid sensitive details in HTTP acknowledgment logs.
+
+- **Pending operations (0.9.44):** new independent openings may start a fresh operation only after safe reconciliation confirms earlier document missing; keep old backups/associations/history; never equate failed network/ambiguous responses or same-opening retry with absence.
+- **UI (0.9.45–0.9.48):** verify approved 85×51 localized strings, both themes and DPI 100/125/150/200, including RTL. Batch operations use `SelectedItems` and keep `CleanupState` eligibility.
+- **RTL hotfix:** `InsetFlowLayoutPanel` must maintain **physical left/right insets** only on Home/Settings as specified. Do not inadvertently alter Core/Infrastructure or backup policy while changing RTL.
+- **Release gate:** pass Local core and protected distribution on the **exact selected SHA**; CI for the hotfix and Google acceptance are distinct checks.

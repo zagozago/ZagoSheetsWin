@@ -39,7 +39,9 @@
 - [REGRESSION_0940](REGRESSION_0940.md) — fila de importação histórica, limpeza automática e retries Google.
 - [REGRESSION_0941](REGRESSION_0941.md) — 2M células CSV/TSV, correção do teste de reinstalação.
 - [REGRESSION_0942](REGRESSION_0942.md) — paralelismo restaurado, espera por quota e correção da contenção SQLite (**comportamento de quota/limpeza substituído na 0.9.43**).
-- [REGRESSION_0943](REGRESSION_0943.md) — limpeza apenas manual, falha imediata por quota, redução de memória, tratamento seguro de OOM, reconciliação e altura da janela principal; distribuição protegida [#39346495298](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298).
+- [REGRESSION_0943](REGRESSION_0943.md) — limpeza manual, falha rápida de quota, memória/OOM e reconciliação (dimensões da Home evoluíram posteriormente); distribuição protegida [#39346495298](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298).
+- [Refinamento da UI 0.9.47](implementation/refinement-20261024.md) — CSV aprovado de 85 mensagens × 51 idiomas, seleção de backups, primeira instalação e acessibilidade.
+- [Acabamento 0.9.48](implementation/final-ui-20261024.md) — margens do instalador, seleção em lote, métricas, erros, alinhamentos e arte; hotfix RTL em `08dbced` no histórico Git.
 
 ## Interface, traduções e dependências — registros de trabalho
 

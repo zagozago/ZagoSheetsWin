@@ -1,6 +1,6 @@
 # Endereços da futura central de ajuda Zagotools
 
-**Estado conferido na 0.9.43:** o aplicativo já contém código para abrir a URL de ajuda no navegador, porém **a publicação e disponibilidade da página não foram comprovadas**. Este arquivo não apresenta a URL como central de ajuda já disponível. [Base do produto e CI](RELEASE_STATUS.md).
+**Estado conferido na 0.9.48:** o aplicativo já contém código para abrir a URL de ajuda no navegador, porém **a publicação e disponibilidade da página não foram comprovadas**. Este arquivo não apresenta a URL como central de ajuda já disponível. [Base do produto e CI](RELEASE_STATUS.md).
 
 ## Links existentes usados pelo aplicativo
 

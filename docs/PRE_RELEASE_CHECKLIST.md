@@ -1,10 +1,10 @@
 # Critérios de preparação da versão estável 1.0.0
 
-**Estado:** checklist aberto, não autorização de lançamento. Revisado em 18/10/2026 com referência ao código **0.9.43** ([estado e CI](RELEASE_STATUS.md)). Itens sem evidência comprovada ficam **pendentes**. Uma execução aprovada do GitHub Actions não equivale a homologação end-to-end no Windows e no Google real.
+**Estado:** checklist aberto, não autorização de lançamento. Revisado em 24/10/2026 com referência ao código **0.9.48** ([estado e CI](RELEASE_STATUS.md)). Itens sem evidência comprovada ficam **pendentes**. Uma execução aprovada do GitHub Actions não equivale a homologação end-to-end no Windows e no Google real.
 
 | Área | Critério necessário | Estado nesta revisão |
 |---|---|---|
-| Versões | Aplicativo, catálogos, instalador e avisos com versão coerente | **0.9.43** no projeto, instalador e catálogo; **Local core e distribuição protegida no mesmo SHA 9fbec2a aprovados** |
+| Versões | Aplicativo, catálogos, instalador e avisos com versão coerente | **0.9.48** no projeto/instalador/catálogo 17; distribuição anterior aprovada, CI do hotfix RTL `08dbced` ainda precisa de conclusão |
 | GitHub | Tag `v1.0.0`, Release, notas e ativos correspondentes a commit aprovado | **Pendente — não existem tags/Releases hoje** |
 | OAuth | Revisão Google Cloud: Branding, Audience, Data Access e client desktop | **Pendente — depende do administrador Google** |
 | Conta Google | Autorizar, renovar, revogar, desconectar, reconectar, segunda conta e permissões reais | **Pendente — teste manual necessário** |
@@ -12,7 +12,7 @@
 | ODS | ODS real simples/complexo/inválido, caudas repetidas, fórmulas/mesclagens, preservação de bytes e riscos de conversão parcial | Parser esparso corrigido em 0.9.36; **ODS real no Google e outros nove ODS não fornecidos permanecem pendentes** |
 | Proteção | Upload/retomada, arquivo modificado, readonly, cópia, snapshot, associação antiga, reparo sem alterar remoto | Regressões 0.9.36 com Google simulado e snapshots; **aceite completo Windows/Google real pendente** |
 | Armazenamento | 30 dias/200 MB, **limpeza somente manual** por seleção ou Limpar expirados, salvamento numérico, quota fail-fast sem apagar originais, lote de 20 | **Regressões e distribuição protegida 0.9.43 aprovadas**; uso real e integridade/restauração em campo ainda pendentes |
-| Multilíngue | Conferir 51 opções, mensagens de importação/reparo/erros, RTL e DPI, revisão editorial completa | Verificações automatizadas e mensagens 0.9.36 existem; **50 READMEs traduzidos ainda requerem atualização editorial completa** |
+| Multilíngue | Conferir 51 opções, mensagens de importação/reparo/erros, RTL e DPI, revisão editorial completa | CSV aprovado de **85×51 mensagens** validado, testes nativos 51 idiomas/4 DPI e 2 temas; hotfix RTL `08dbced` requer validação própria, e **50 READMEs traduzidos ainda precisam de revisão editorial** |
 | Dependências | Auditoria lockfile/runtime, licenças e elegibilidade de ImageSharp | Gate CI adicionado; **licença e pacote final a conferir** |
 | Segurança | Verificação externa, OAuth e auditoria aplicável; nenhuma exposição de segredos | Revisão estática 0.9.30 e alterações posteriores verificadas no código; **não certificada** |
 | Distribuição | Local core/Protected alpha distribution verdes no mesmo SHA, hashes, Authenticode e Windows SmartScreen | **Local core #39346495162 e Protected alpha distribution #39346495298 verdes em `9fbec2a`**; ainda conferir artefato/hashes, assinatura e aceite real |
@@ -58,7 +58,7 @@ O release só estará pronto quando os responsáveis registrarem evidência para
 - [ ] Rever 51 interfaces e traduzir editorialmente 50 READMEs; garantir informações de limite v4, **backup exclusivamente manual**, falha rápida por quota, memória e paralelismo, sem publicar conteúdo obsoleto.
 - [ ] Retestar ODS complexos/caudas/repetições com amostras reais e validar licenças, OAuth, assinatura e URL de ajuda no site.
 
-## Verificações específicas do candidato 0.9.43
+## Verificações específicas dos candidatos 0.9.43–0.9.48
 
 - [x] [Local core 39346495162](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495162) — Windows e Ubuntu verdes no commit `9fbec2a`.
 - [x] [Protected alpha distribution 39346495298](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298) — instalador e distribuição protegida verdes no **mesmo SHA**.
@@ -67,3 +67,14 @@ O release só estará pronto quando os responsáveis registrarem evidência para
 - [ ] Testar a recuperação de upload com resposta ambígua, verificando que duas reconsultas não criam segundo Google Sheets.
 - [ ] Conferir a altura reduzida **somente da janela Home** (500×192 de client size), minimizar/restaurar em 51 idiomas e DPI 100/125/150/200%, sem botões cortados.
 - [ ] Confirmar no arquivo oficial os hashes/checksum e o estado de assinatura de publicador, além da efetiva distribuição fora do Actions quando planejada.
+
+## Aceite final da interface 0.9.44–0.9.48
+
+- [ ] Confirmar que abertura **independente** de operação pendente permite nova importação somente com remoto **comprovadamente ausente** após reconciliação; preservar backup, associação e histórico, e negar nova importação por erro de rede, resultado ambíguo, concorrência ou retry da mesma abertura.
+- [ ] Comparar Home, Configurações, Opções avançadas, três etapas de primeiro uso, Recuperação e Sobre/Licenças com [0.9.47](implementation/refinement-20261024.md) e [0.9.48](implementation/final-ui-20261024.md).
+- [ ] Validar catálogo de **85 textos × 51 idiomas** com placeholders, créditos MIT/upstream e títulos legais preservados.
+- [ ] Testar lista com **313+ backups**: checkboxes espelham seleção real, seleção/limpeza em lotes de 32 com spinner, nenhuma perda de estado, sem checkbox extra no cabeçalho e sem exclusão indevida de pendentes.
+- [ ] Inspecionar painéis inicialmente recolhidos (Configurações/Espaço utilizado/Dica), métricas reais, barra dentro do cartão, lateral 285 unidades, fonte do corpo -2 pt, prefixos em negrito e ícone da pasta.
+- [ ] Confirmar seta de **Mais ações** alinhada à última palavra, mensagens de erro longas com quebra automática e telas 51 idiomas × 2 temas × DPI 100/125/150/200.
+- [ ] **Hotfix RTL** `08dbced`: verificar recuos físicos esquerdo/direito em Home e Configurações, completar CI do commit e repetir distribuição protegida no mesmo SHA congelado caso seja promovido.
+- [ ] Homologar com Google real o caso de backup pendente recuperado em uma nova abertura; CI nativo não substitui esse aceite.

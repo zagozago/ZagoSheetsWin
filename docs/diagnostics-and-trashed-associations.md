@@ -1,4 +1,4 @@
-# Diagnostics, trashed associations and safe repair (current through 0.9.43)
+# Diagnostics, trashed associations and safe repair (current through 0.9.48)
 
 **Updated 18 October 2026.** For the alpha 0.9.36 implementation evidence see [IMPORT_REVIEW_0936.md](IMPORT_REVIEW_0936.md). The older trashed-association behavior described below remains relevant; new interpretation/revalidation rules must also be considered.
 
@@ -44,3 +44,9 @@ Quando a sessão de upload recebe confirmação ambígua, o programa faz **até 
 Em `OutOfMemoryException`, o `ProcessingForm` usa a mensagem terminal pré-calculada com botão **Fechar**, **sem** serializar rastros JSONL ou reconstruir controles de repetição. O diagnóstico pode ficar incompleto durante memória insuficiente; sua ausência não comprova ausência de erro. Essa proteção também não implica que lotes simultâneos ilimitados caibam na RAM.
 
 **Backups:** não há limpeza automática no fluxo da 0.9.43. Uma falha de cota não remove snapshots concluídos nem arquivos originais; limpar espaço é ação expressa do usuário em Backups.
+
+## Operações pendentes e invocação protegida (0.9.44)
+
+`SpreadsheetOpening.AcquireAsync` adquire lock de invocação por origem, incluindo retentativas de rede; candidatos pendentes pré-existentes só são reconhecidos quando a abertura foi realmente independente e não concorreu com outra. O sistema primeiro tenta reconciliar/retomar a intenção remota anterior. Só a comprovação segura de documento antigo ausente admite nova importação, mantendo backup, associação e histórico anteriores. Uma resposta ambígua, falha de permissão, rede, outra abertura concorrente ou retry no mesmo clique não autoriza duplicidade.
+
+O acabamento 0.9.45–0.9.48 é de interface; não modifica a política de sanitização de logs. A seleção de backups espelha `SelectedItems` com checkboxes; o spinner de seleção não confere direito de remover pendentes ou modificar `CleanupState`.
