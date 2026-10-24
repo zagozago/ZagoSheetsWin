@@ -49,9 +49,16 @@ internal static class LocaleVerification
                     }
                     form.Hide();
                 }
-                using (var home = new LauncherForm(new(LauncherAction.Home))) Check(home,"home",true);
-                using (var advanced = new AdvancedPreferencesForm(LocalStorage.ForCurrentUser(), preview:true)) { Check(advanced,"advanced",true); foreach (var info in Descendants(advanced).OfType<InformationButton>()) { info.OpenInformation(); Application.DoEvents(); } }
-                using (var settings = new SetupForm(preview:true)) { Check(settings,"setup",true); foreach (var info in Descendants(settings).OfType<InformationButton>()) { info.OpenInformation(); Application.DoEvents(); } }
+                void CheckBoth(Form form, string name)
+                {
+                    Branding.PreviewTheme(ApplicationTheme.Light); Check(form,name,true);
+                    Branding.PreviewTheme(ApplicationTheme.Dark); Check(form,name+"-dark",true);
+                    Branding.PreviewTheme(ApplicationTheme.Light);
+                }
+                using (var home = new LauncherForm(new(LauncherAction.Home))) CheckBoth(home,"home");
+                using (var about = new AboutForm()) CheckBoth(about,"about");
+                using (var advanced = new AdvancedPreferencesForm(LocalStorage.ForCurrentUser(), preview:true)) { CheckBoth(advanced,"advanced"); foreach (var info in Descendants(advanced).OfType<InformationButton>()) { info.OpenInformation(); Application.DoEvents(); } }
+                using (var settings = new SetupForm(preview:true)) { CheckBoth(settings,"setup"); foreach (var info in Descendants(settings).OfType<InformationButton>()) { info.OpenInformation(); Application.DoEvents(); } }
                 using (var recovery = new RecoveryForm(preview:true))
                 {
                     Check(recovery,"backups",true);
@@ -84,7 +91,7 @@ internal static class LocaleVerification
                 {
                     using var tutorial = new TutorialForm(page); Check(tutorial,$"help-{page+1}",true);
                     if (page < FirstUseWizard.PageCount)
-                    { using var wizard = new FirstUseWizard(preview:true, initialPage:page); Check(wizard,$"first-use-{page+1}",true); }
+                    { using var wizard = new FirstUseWizard(preview:true, initialPage:page); CheckBoth(wizard,$"first-use-{page+1}"); }
                 }
                 using (var error = new ProcessingForm(new(LauncherAction.Open,"preview.xlsx"),preview:true,previewError:true))
                 {

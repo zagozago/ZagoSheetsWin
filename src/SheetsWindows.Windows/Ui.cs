@@ -23,13 +23,14 @@ internal static class Ui
         for (var i = 0; i < children.Length; i++) row.Controls.Add(children[i], i, 0);
         void Fit()
         {
-            var width = Math.Max(50, (row.ClientSize.Width - row.Padding.Horizontal) / children.Length - 8);
+            var columnWidth = Math.Max(20, (row.ClientSize.Width - row.Padding.Horizontal) / children.Length);
             var height = 32;
             foreach (Control child in row.Controls)
             {
+                var width = Math.Max(20, columnWidth - child.Margin.Horizontal);
                 var needed = child.PreferredSize.Height;
                 if (child is CheckBox) { child.AutoSize = false; needed = Math.Max(32, TextRenderer.MeasureText(child.Text, child.Font, new Size(Math.Max(30, width - 54), int.MaxValue), TextFormatFlags.WordBreak).Height + 12); }
-                else if (child is Button) { child.AutoSize = false; needed = TextRenderer.MeasureText(child.Text, child.Font, new Size(Math.Max(30,width-child.Padding.Horizontal-12-((child as Button)?.Image?.Width+6 ?? 0)),int.MaxValue),TextFormatFlags.WordBreak).Height + child.Padding.Vertical + 10; }
+                else if (child is Button) { child.AutoSize = false; needed = TextRenderer.MeasureText(child.Text, child.Font, new Size(Math.Max(20,width-child.Padding.Horizontal-12-((child as Button)?.Image?.Width+8 ?? 0)),int.MaxValue),TextFormatFlags.WordBreak).Height + child.Padding.Vertical + 10; }
                 height = Math.Max(height, needed + child.Margin.Vertical);
             }
             row.Height = height + row.Padding.Vertical;
