@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.48: focused installer, bulk-selection, backup layout and error text refinements validated by Local core 40110813671 on Windows/Linux and all 51 installer languages.
+# Distribution candidate 0.9.48 final: home folder icon -1px, arrow word wrapping, backup text alignment and scoped emphasis.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
