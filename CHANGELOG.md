@@ -313,3 +313,12 @@ Evidências: [auditoria](docs/AUDIT.md), [decisões](docs/adr/DECISIONS.md), [fa
 3. Não antecipar `[1.0.0]` como lançamento antes de publicar a tag e a Release reais.
 4. Não registrar sucesso de CI como equivalência a teste de ponta a ponta com conta Google real.
 5. Preservar crédito ao Open in Google e avisos de terceiros.
+
+
+### Atualização de preparação CI da 0.9.48 (24/10/2026)
+
+O commit [df01b85](https://github.com/zagozago/ZagoSheetsWin/commit/df01b85856a904cafddcaa7f4bab51fb483c5cef) altera **apenas comentário de identificação do workflow** para o candidato RTL; **nenhum código funcional ou visual adicional** foi modificado depois do hotfix `08dbced`.
+
+- [Local core #40127989036](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40127989036) no SHA `df01b85`: **em execução** na última consulta.
+- [Protected alpha distribution #40127989020](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40127989020) no mesmo SHA: **aguardando aprovação do ambiente protegido**.
+- O sucesso de workflows em commits anteriores à mudança RTL **não aprova automaticamente** o SHA final. Os testes Google reais continuam pendentes.

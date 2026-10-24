@@ -78,3 +78,5 @@ O release só estará pronto quando os responsáveis registrarem evidência para
 - [ ] Confirmar seta de **Mais ações** alinhada à última palavra, mensagens de erro longas com quebra automática e telas 51 idiomas × 2 temas × DPI 100/125/150/200.
 - [ ] **Hotfix RTL** `08dbced`: verificar recuos físicos esquerdo/direito em Home e Configurações, completar CI do commit e repetir distribuição protegida no mesmo SHA congelado caso seja promovido.
 - [ ] Homologar com Google real o caso de backup pendente recuperado em uma nova abertura; CI nativo não substitui esse aceite.
+
+- [ ] Depois do hotfix RTL de `08dbced`, verificar **Local core #40127989036** e obter aprovação para **Protected distribution #40127989020** no SHA `df01b85`. O último commit altera apenas comentário no workflow, mas requer sua própria evidência de distribuição.
