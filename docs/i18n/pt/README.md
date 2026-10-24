@@ -1,14 +1,16 @@
 # ZagoSheetsWin
 
-> ⚠️ **Alfa 0.9.43 — atualização de segurança.**
+> ⚠️ **Alfa 0.9.48 — atualização de segurança.**
 >
 > Planilha aberta no Google Sheets. O original foi substituído por um atalho. Para recuperá-lo, abra Backups.
 >
 > **CSV/TSV v4:** até **2.000.000 de células**, 100.000 registros lógicos, 1.000 colunas e 20 MiB, sujeitos aos demais limites. Divergência de valores na conferência do Google **impede substituir o original**. Para XLS/ODS, recursos complexos ainda podem sofrer alterações em importação confirmada; confira o resultado.
 >
-> **Backups na 0.9.43:** a limpeza é **EXCLUSIVAMENTE MANUAL**, não automática por prazo ou cota. Se não houver espaço de backup, a importação falha rapidamente e **preserva o arquivo original e os backups existentes**. Use **Backups → Limpar expirados** ou exclua explicitamente backups concluídos elegíveis. Não há espera por capacidade, rotação automática nem fila global; arquivos diferentes podem importar em paralelo.
+> **Backups na 0.9.48:** a limpeza é **EXCLUSIVAMENTE MANUAL**, não automática por prazo ou cota. Se não houver espaço de backup, a importação falha rapidamente e **preserva o arquivo original e os backups existentes**. Use **Backups → Limpar expirados** ou exclua explicitamente backups concluídos elegíveis. Não há espera por capacidade, rotação automática nem fila global; arquivos diferentes podem importar em paralelo.
 >
-> **Confiabilidade:** uso de memória reduzido no envio do snapshot, reconciliação remota sem criação duplicada, botão **Fechar** para falhas por falta de memória e janela principal fixa com altura menor. O [CI local](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495162) e a [distribuição protegida](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298) passaram no commit `9fbec2a`. A homologação no Google real ainda é necessária. **Não é um lançamento estável 1.0.0**. Algumas explicações abaixo são históricas; consulte o [README vigente](../../../README.md) e o [manual do usuário](../../USER_GUIDE.md).
+> **Recuperação 0.9.44:** nova abertura independente só pode iniciar outra importação após reconciliar a operação pendente anterior e comprovar ausência do documento remoto. O backup e o histórico anteriores são preservados. Falhas de rede, respostas incertas, concorrência e retentativas da mesma abertura não permitem criar outro documento. **Interface 0.9.45–0.9.48:** Configurações, primeiro uso, Sobre/Licenças e Backups refinados; três painéis recolhíveis, checkboxes individuais ligados à seleção efetiva, comandos em lotes de 32 itens, melhorias no instalador e proteção das margens RTL em Home/Configurações. A limpeza dos backups continua manual.
+>
+> **Confiabilidade:** uso de memória reduzido no envio do snapshot, reconciliação remota sem criação duplicada, botão **Fechar** para falhas por falta de memória e janela principal fixa com altura menor. O [CI da interface](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40121298442) e a [distribuição protegida](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40120263404) passaram em commits anteriores da 0.9.48; o hotfix RTL `08dbced` tem [CI próprio](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40126683024), cujo resultado deve ser conferido no [estado atual](../../RELEASE_STATUS.md). A homologação no Google real ainda é necessária. **Não é um lançamento estável 1.0.0**. Algumas explicações abaixo são históricas; consulte o [README vigente](../../../README.md) e o [manual do usuário](../../USER_GUIDE.md).
 
 <details>
 <summary>🌐 Idiomas da documentação · Escolha seu idioma</summary>
