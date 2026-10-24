@@ -59,7 +59,7 @@
 
 **Open local spreadsheet files in Google Sheets from Windows.** ZagoSheetsWin is a free, open-source Windows application developed by **Zagotools** and derived from [Open in Google](https://github.com/SwatiK425/open-in-google).
 
-**Status: alpha — current development candidate 0.9.43. Version 1.0.0 has not been released.** The active application code is on `feature/zagosheetswin`; `main` has historically hosted multilingual documentation and is not the authoritative code branch for alpha builds.
+**Status: alpha — current development candidate 0.9.48. Version 1.0.0 has not been released.** The active application code is on `feature/zagosheetswin`; `main` has historically hosted multilingual documentation and is not the authoritative code branch for alpha builds.
 
 > Documentation translations are retained as snapshots. For up-to-date behavior, limits and safety restrictions, use this English README and the [current documentation index](docs/README.md). Availability of 51 interfaces does not imply that every translation has completed native editorial review.
 
@@ -98,9 +98,19 @@ The file input limit remains **20 MiB** (and the normalized upload must also fit
 
 **Backup policy (0.9.43):** **Cleanup is manual.** Neither expired nor quota-eligible completed backups are automatically removed, and the application no longer waits for other imports to free backup capacity. If a snapshot would exceed the quota, it fails promptly, preserves the original file, and directs the user to **Backups** to free eligible space. The **Clean expired** action uses the configured retention period; selection/deletion of completed backups is an explicit user action. Pending/unverified backups remain protected. Retention/quota values autosave; there is **no automatic cleanup toggle**. Multiple distinct source files can still import concurrently (no global import queue or file-count cap).
 
-**Reliability and memory (0.9.43):** Snapshot uploads use a single exact-size buffer rather than two full in-memory copies. Remote acknowledgments record a safe numeric HTTP status; uncertain creation is checked up to twice by the existing operation marker **without creating another document/session**. An existing Google account folder is fetched/validated once, avoiding a redundant GET. Low-memory exceptions bypass costly diagnostic serialization and display a minimal **Close** action. A responsive fixed-size home window keeps minimize enabled and disables manual resizing/maximization; the latest visual adjustment reduces only the **home window's client height to 192 px** (from 240 px) to remove excessive bottom whitespace.
+**Reliability and memory (0.9.43):** Snapshot uploads use a single exact-size buffer rather than two full in-memory copies. Remote acknowledgments record numeric HTTP status only; uncertain creation is rechecked via the existing operation marker **without creating another document/session**. Existing Google account folders are validated without redundant GETs. Low-memory exceptions avoid costly diagnostics and offer **Close**. The home window remains fixed-size, keeps minimize enabled and cannot be maximized/resized. Its current 0.9.48 client dimensions are **540 × 190 px**, rather than the historical 500 × 192 px of 0.9.43.
 
 **Consistent icon (0.9.37):** The app, installer, native windows, file associations and `.url` shortcuts share the supplied spreadsheet icon. Existing Zagotools logos and upstream MIT credits remain unchanged.
+
+## Improvements in alpha 0.9.44–0.9.48
+
+**Pending operations (0.9.44):** Incomplete backups remain visible as **pending**. On a **later independent opening**, when an earlier operation has been safely resumed/reconciled and its Google document is confirmed absent, a fresh import may start while retaining the previous backup, remote association and history. This is not triggered for a simultaneous opening, ambiguous/failed remote checks, or a retry within the same user opening. A pending item is not proof that its original bytes may be discarded.
+
+**Redesigned Windows interface (0.9.45–0.9.47):** Consistent visual headers, control alignment, settings, advanced options, first-use wizard, About/Licenses and backup cards. The recovery sidebar includes independent initially collapsed **Settings**, **Space used** and **Tip** sections. Selection checkboxes mirror actual selected rows; storage metrics reflect real data, never alter the quota policy. The 0.9.47 text refinements use **85 strings across the existing 51 languages** from an approved CSV; no language was added or removed. The first-use wizard remains three steps.
+
+**Final UI adjustments (0.9.48):** Installer language selector dimensions and branded side panel, backup sidebar width and meter bounds, smaller *body* text (headings unchanged), vertically aligned buttons and local-language error wrapping. **Select all / Clear selection** use 32-item native UI batches with a temporary spinner and no change to what may be deleted. A redundant header selection control was removed while row checkboxes remain. Latest visual polish aligns the home folder icon, arrow wrapping in **More actions**, bold prefixes in recovery summaries and shortcut tips. The current RTL hotfix keeps physical insets on Home/Settings in mirrored layouts; it does not change file processing.
+
+**Scope and validation:** [0.9.47 implementation notes](docs/implementation/refinement-20261024.md) and [0.9.48 visual acceptance notes](docs/implementation/final-ui-20261024.md) document reference designs and offline native checks. [Protected distribution 40120263404](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40120263404) succeeded for an earlier 0.9.48 UI commit, and [Local core 40121298442](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40121298442) succeeded for its documentation follow-up; **the RTL hotfix at 08dbced has a separate CI run and should not inherit either result**. Native preview and CI coverage do not establish end-to-end Google acceptance.
 
 ## Installation and first use
 
@@ -116,7 +126,7 @@ For current procedures use the [user guide](docs/USER_GUIDE.md) and [troubleshoo
 
 ## Backups and recovery
 
-A snapshot of the original bytes is kept before replacement, including after conversions with uncertain fidelity. The default policy is **30 days of retention** with a **200 MB storage quota**, configurable up to **1,000 MB (1 GB)**. **No automatic cleanup is performed in 0.9.43**: the user must explicitly select backups to delete or run **Clean expired**. The age threshold determines eligibility for that manual action, not scheduled deletion. No background service or quota-rotation toggle exists. Backup retention and quota settings **save automatically**. A full quota **blocks a new snapshot without deleting completed backups or changing the original** and offers manual cleanup guidance. The list has **File, Date, Size, Status** headers that sort ascending/descending when clicked; multiple rows are selected directly, without checkboxes. Deleting selected backups requires confirmation, with stronger safeguards for pending operations. After a successful replacement, the app shows a local confirmation with a **Backups** button and a persistent **Don't show again** option (only one confirmation is shown at a time).
+A snapshot of the original bytes is kept before replacement, including after conversions with uncertain fidelity. The default policy is **30 days of retention** with a **200 MB storage quota**, configurable up to **1,000 MB (1 GB)**. **No automatic cleanup is performed in 0.9.43**: the user must explicitly select backups to delete or run **Clean expired**. The age threshold determines eligibility for that manual action, not scheduled deletion. No background service or quota-rotation toggle exists. Backup retention and quota settings **save automatically**. A full quota **blocks a new snapshot without deleting completed backups or changing the original** and offers manual cleanup guidance. The list has **File, Date, Size, Status** sortable columns and a narrow selection-checkbox column. **Each row's checkbox mirrors native selection** (including Ctrl/Shift); bulk actions use the actually selected rows. **Select all** and **Clear selection** operate in short UI-thread batches, showing a transient spinner, and do not change backup eligibility. Deleting selected backups requires confirmation, with stronger safeguards for pending operations. After a successful replacement, the app shows a local confirmation with a **Backups** button and a persistent **Don't show again** option (only one confirmation is shown at a time).
 
 From **Backups/Recovery**, users can restore to a new local destination, continue an existing operation as a copy, conclude an eligible replacement, and export privacy-filtered diagnostics. Do not delete `%LOCALAPPDATA%\SheetsWindows` as a troubleshooting step: it contains recovery state. The uninstaller intentionally preserves local state and Google documents.
 
@@ -126,7 +136,7 @@ The app uses a desktop OAuth flow with PKCE and the Google Drive scope `https://
 
 The source is available under the **MIT license**, preserving copyright and attribution for Swati K / [Open in Google](https://github.com/SwatiK425/open-in-google). Third-party libraries may have separate license terms; review [LICENSE](LICENSE), [ATTRIBUTION.md](ATTRIBUTION.md), [NOTICE.md](NOTICE.md) and [third-party notices](third-party/NOTICE.md).
 
-Privacy and terms: [Privacy](https://zagotools.top/legal.html#privacidade), [Terms](https://zagotools.top/legal.html#termos), [Licenses](https://zagotools.top/legal.html#licencas). A future web help center is **planned, not currently declared live**; for now use the versioned [documentation index](docs/README.md).
+Privacy and terms: [Privacy](https://zagotools.top/legal.html#privacidade), [Terms](https://zagotools.top/legal.html#termos), [Licenses](https://zagotools.top/legal.html#licencas). A web help URL is integrated into the app but its public availability is **not verified here**; for now use the versioned [documentation index](docs/README.md).
 
 ## Current interface preferences
 
@@ -143,7 +153,7 @@ The Windows application and installer provide **51 language selections**, follow
 - [Current architecture](docs/ARCHITECTURE_CURRENT.md)
 - [Current alpha baseline and CI evidence](docs/RELEASE_STATUS.md)
 - [Alpha 0.9.36 import review and verified test scope](docs/IMPORT_REVIEW_0936.md)
-- [Regression reports 0.9.38–0.9.43](docs/REGRESSION_0943.md) and [stable-release readiness](docs/PRE_RELEASE_CHECKLIST.md)
+- [0.9.44–0.9.48 implementation and UI acceptance record](docs/implementation/final-ui-20261024.md), [0.9.47 translation mapping](docs/implementation/refinement-20261024.md), [0.9.43 backend regression](docs/REGRESSION_0943.md), and [stable-release readiness](docs/PRE_RELEASE_CHECKLIST.md)
 - [Formats and limits](docs/FORMATS_AND_LIMITS.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
 - [Stable-release readiness checklist](docs/PRE_RELEASE_CHECKLIST.md)

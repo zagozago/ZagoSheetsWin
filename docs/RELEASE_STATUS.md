@@ -1,46 +1,44 @@
 # Estado da versão — referência vigente
 
-**Versão do código: `0.9.43` (alfa).** Esta é uma build distribuída pelo fluxo protegido, **não** uma Release estável 1.0.0 nem certificação.  
+**Versão declarada do aplicativo: `0.9.48` (alfa).** Nenhuma tag/Release 1.0.0 foi publicada. A última atualização disponível na branch inclui **o hotfix RTL mencionado pelo usuário**.  
 **Branch de produto:** `feature/zagosheetswin`.  
-**Commit conferido:** [9fbec2add18c](https://github.com/zagozago/ZagoSheetsWin/commit/9fbec2add18c012012405b56a333f6e49248a6e5) em **20/10/2026 UTC** (19/10/2026 no fuso brasileiro).  
-**Tags e GitHub Releases:** nenhuma encontrada na consulta desta revisão.
+**Commit conferido:** [08dbced61ed6](https://github.com/zagozago/ZagoSheetsWin/commit/08dbced61ed6395534ed6daeff6cf23342c5a4a9), em **24/10/2026**; na data da revisão, ainda aguardava o resultado do CI do próprio hotfix.  
+**Documentação:** PR #13 em branch separada, sem merge/lançamento.
 
-## Versão e artefatos
+## Coerência de projeto e internacionalização
 
-- [Projeto C#](../src/SheetsWindows.Windows/SheetsWindows.Windows.csproj): `<Version>0.9.43</Version>`.
-- [Inno Setup](../installer/SheetsWindows.iss): fallback `0.9.43`; distribuição protegida injeta versão do projeto.
-- [Fonte internacional](../i18n/source.json): `productVersion = 0.9.43`, revisão 16; 51 idiomas.
-- Preservados branding Zagotools, ícone de planilha, licença MIT, créditos Open in Google/Swati K e avisos de terceiros.
+- [Projeto Windows](../src/SheetsWindows.Windows/SheetsWindows.Windows.csproj): `<Version>0.9.48</Version>`.
+- Instalador: versão/fallback `0.9.48`; marca lateral oficial refeita e seletor com margens e escala DPI ajustadas.
+- [Fonte de tradução](../i18n/source.json): `productVersion = 0.9.48`, catálogo revisão 17 e 51 idiomas. O [CSV dirigido](../i18n/refinement-20261024.csv) de 85 mensagens × 51 locales foi importado e verificado, sem gerar traduções novas; consultar [mapeamento de 85 IDs](implementation/refinement-20261024-mapping.json).
+- MIT, atribuição à base Open in Google/Swati K e logos Zagotools mantidos.
 
-## Estado de validação no commit exato
+## CI e distribuição
 
-| Evidência | Commit | Estado |
+| Execução / evidência | SHA | Resultado confirmado na consulta |
 |---|---|---|
-| [Local core #39346495162](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495162) | `9fbec2a` | **Sucesso Windows e Ubuntu** |
-| [Protected alpha distribution #39346495298](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298) | `9fbec2a` | **Sucesso**, execução completa, com empacotamento e checagens de instalador |
-| [Relatório de regressão 0.9.43](REGRESSION_0943.md) | `788b4c7` (anterior) | Windows **398 aprovados / 1 ignorado**, Linux **355 aprovados / 44 ignorados**; os números são do SHA citado, não do HEAD |
+| [Local core #40110813671](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40110813671) | `1738188` | **Sucesso** Windows 407 aprovados/1 ignorado; Linux 364 aprovados/44 ignorados; matriz nativa 51 locais e quatro escalas |
+| [Local core #40121298442](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40121298442) | `cacba045` | **Sucesso** na versão 0.9.48 antes do último hotfix |
+| [Protected alpha distribution #40120263404](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40120263404) | `df6f4d6` | **Sucesso**, commit anterior ao hotfix RTL |
+| [Local core #40126683024](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40126683024) | `08dbced` | **Em execução** no momento da consulta. Não confundir com o sucesso no commit anterior |
 
-A execução protegida disponibilizou artefatos **ZagoSheetsWin-Setup-win-x64**, **ZagoSheetsWin-win-x64**, resultados de testes/linguagem e prévia de branding. A presença desses artefatos **não** equivale a GitHub Release publicada, assinatura de publicador comprovada ou homologação com uma conta Google real. A própria documentação de regressão distingue testes offline/simulados de campo.
+**Não existe confirmação de nova distribuição protegida no SHA `08dbced`** nesta revisão. Compilação e captura de tela offline, mesmo nos 51 idiomas, não substituem testes no Windows do usuário/Google real nem aprovação formal de 1.0.0.
 
-## Comportamento vigente da 0.9.43
+## Comportamento atual 0.9.48
 
-1. **Backup manual e cota:** política padrão de **30 dias de retenção e 200 MB**, configurável até 365 dias e 1.000 MB. **A limpeza automática foi retirada**, inclusive por idade ou espaço. O usuário usa **Limpar expirados** ou seleciona backups concluídos para apagar. O campo `AutomaticCleanup` carregado de configurações anteriores é normalizado para **false**. Backups pendentes/não verificados continuam protegidos; números das regras salvam automaticamente.
-2. **Sem espera por capacidade:** capturas de snapshot mantêm checagem atômica da quota sob lock curto, mas **não fazem polling, rotação ou espera**. Falta de espaço gera erro prontamente e orienta limpeza manual, **preservando arquivo original e os backups anteriores**. Arquivos maiores que a quota também são recusados.
-3. **Concorrência:** arquivos de origem **diferentes** podem importar em paralelo; sem fila de perfil nem limite arbitrário de quantidade, com locks de fonte/associação/backup nos pontos necessários. A memória disponível e o serviço Google continuam impondo limites reais.
-4. **CSV/TSV v4:** até **2.000.000 células** (vazias contam), **100.000 registros lógicos**, **1.000 colunas**, **32.767 caracteres por célula**, com **20 MiB** para origem/payload. Parser `,`, `;`, TAB e `|`, `sep=` exato, aspas/linhas internas, prévia de ambiguidade. Versões antigas mantêm seus limites.
-5. **Fidelidade:** diferenças de valores CSV/TSV exportados do Google **impedem substituição e publicação de atalho novo**; XLS/ODS de recursos complexos continuam sob política distinta de conversão parcial e backup.
-6. **Resiliência:** snapshot enviado com um **buffer de tamanho exato**, sem segunda cópia integral; pastas Google existentes têm verificação única; confirmação remota incerta realiza até **duas reconsultas read-only** pelo marcador sem duplicar criação/sessão. ACKs registram apenas status numérico.
-7. **Baixa memória e interface:** exceções de memória insuficiente têm encerramento simples com **Fechar**, sem custo extra de serialização de logs ou construção de retry. A janela Home mantém minimizar, bloqueia maximizar/redimensionar e agora tem **ClientSize 500 × 192 px**, corrigindo margem inferior excessiva; testes nativos cobrem minimizar/restaurar e DPI/51 idiomas.
-8. **Diagnóstico e recuperação:** conserva journal/reconciliação remota, restauração em novo local, reparo CSV/TSV em novo documento, atributos somente leitura e fluxos protegidos de atalho.
+1. **Importação/conversão preservadas:** cinco formatos `.xlsx/.xls/.ods/.csv/.tsv`. CSV/TSV v4 até 2.000.000 células (incluindo vazias), 100.000 registros, 1.000 colunas e 20 MiB/payload. Divergência de valores **CSV/TSV** impede substituição; XLS/ODS podem conservar risco de fidelidade parcial após Google confirmado.
+2. **Backup manual:** 30 dias/200 MB por padrão, cota até 1.000 MB, autosave numérico; limpeza **somente manual**. Falta de quota gera erro direto com preservação do original, sem limpeza automática ou espera por capacidade. Backups pendentes/não verificados continuam protegidos.
+3. **Pendências — exceção controlada 0.9.44:** operação antiga reconciliada, com remoto confirmado ausente, pode permitir nova importação numa **nova abertura independente** sem remover associação, backup e histórico anteriores. O fluxo **não** age em falha de rede/validação, resultado ambíguo, mesmo clique/retry ou operação concorrente.
+4. **Interface 0.9.45–0.9.47:** cabeçalhos, ícones, rodapés, cartões Sobre/Licenças, preferências, informações contextuais, assistente de três telas e miniaturas padronizadas. Backups mostra métricas reais de uso e capacidade em painéis separados inicialmente recolhidos.
+5. **Interface 0.9.48:** seleção de backups por checkboxes por linha espelhando `SelectedItems` (sem checkbox extra no cabeçalho); selecionar/limpar todos em lotes curtos de 32 com spinner e proteção de reentrada. Fonte do corpo de painéis reduzida 2 pt, sem alterar títulos; barra de ocupação limitada ao cartão, lateral de 285 unidades, textos de erro com quebra automática.
+6. **Ajustes finais:** ícone da pasta da Home alinhado em um pixel; seta de Mais ações associada à última palavra para quebras de linha; prefixos de Backups/Disponível e dicas em negrito. `InsetFlowLayoutPanel` no hotfix `08dbced` mantém **recuos físicos horizontais de botões/painéis na Home e Configurações em RTL**; não toca backend. A Home usa agora `ClientSize 540×190` no código atual, mantém minimizar e não pode ser maximizada/redimensionada.
+7. **Segurança/reliability 0.9.43:** buffer exato para bytes de snapshot, tratamento simplificado de baixa memória, reconciliador remoto sem segundo POST, locks por origem e importações independentes em paralelo; tudo preservado na série visual conforme registros e código.
 
-## Preparação da futura 1.0.0
+## Evidências e itens para 1.0
 
-O antigo bloqueador **CI Windows vermelho na 0.9.42** foi superado por **Local core e Protected alpha distribution verdes no mesmo SHA 0.9.43**. Ainda restam validações que **não são provadas por CI offline**:
+- [Refinamento 0.9.47](implementation/refinement-20261024.md) — plano aprovado, CSV e testes nativos.
+- [Acabamento 0.9.48](implementation/final-ui-20261024.md) — 10 requisitos localizados, screenshots e ajustes finais.
+- [Regressão funcional 0.9.43](REGRESSION_0943.md) e [casos pendentes 0.9.44](../tests/SheetsWindows.Tests/Regression0944Tests.cs): riscos de importação não foram homologados em conta Google real nesta etapa.
+- **Gates:** concluir CI do hotfix RTL, gerar/validar distribuição protegida no SHA congelado (se a versão final for esse hotfix), testes reais de backup/pendências, vários arquivos e Google, suporte de ODS, revisão editorial de 50 páginas traduzidas, assinatura/SmartScreen, OAuth público, central de ajuda.
+- **Sem** inventar uma Release publicada ou inferir aprovação da 1.0.0.
 
-- Instalar o pacote protegido exato no Windows do usuário e testar lotes de 12/20 arquivos simultâneos, memória limitada, quota cheia e **limpeza manual**, sem remoções inesperadas.
-- Homologar importação Google real, inclusive CSV/TSV de milhões de células e ODS complexo, vinculação e reconciliação remota.
-- Testar o retorno após falha por memória insuficiente e verificar dimensões da janela Home, temas, fontes e escalonamento.
-- Revisar integralmente as 50 páginas de README traduzidas, URL de ajuda, OAuth público, licenças e estado de assinatura/SmartScreen.
-- Depois de aceite formal, congelar commit, validar artefatos/hashes e então planejar tag/Release 1.0.0. **Não publicar automaticamente.**
-
-Referências históricas: [0.9.38](REGRESSION_0938.md), [0.9.39](REGRESSION_0939.md), [0.9.40](REGRESSION_0940.md), [0.9.41](REGRESSION_0941.md), [0.9.42](REGRESSION_0942.md) e [0.9.43](REGRESSION_0943.md). Relatórios antigos permanecem datados; não representam política vigente quando alterada por versão posterior.
+Veja [checklist estável](PRE_RELEASE_CHECKLIST.md) e [CHANGELOG histórico](../CHANGELOG.md).

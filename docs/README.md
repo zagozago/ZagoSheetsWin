@@ -1,13 +1,13 @@
 # Documentação do ZagoSheetsWin
 
-**Referência vigente:** código da branch `feature/zagosheetswin`, candidato alfa **0.9.43** em 19/10/2026 (20/10 UTC). Não existe Release 1.0.0 publicada. O README internacional e as traduções mantidas na `main` são incorporados à branch de documentação para preservar a navegação sem rebaixar a documentação do software.
+**Referência vigente:** código da branch `feature/zagosheetswin`, candidato alfa **0.9.48** em 24/10/2026. Não existe Release 1.0.0 publicada. O README internacional e as traduções mantidas na `main` são incorporados à branch de documentação para preservar a navegação sem rebaixar a documentação do software.
 
 ## Guias vigentes (não são documentos de planejamento)
 
 | Documento | Uso |
 |---|---|
 | [README internacional](../README.md) | Visão do produto, seletor das 51 línguas de documentação, instalação e avisos legais |
-| [Estado da versão](RELEASE_STATUS.md) | **Referência central 0.9.43**, Local core e distribuição protegida aprovados no mesmo SHA; ainda sem tag/Release ou aceite Google real |
+| [Estado da versão](RELEASE_STATUS.md) | **Referência central 0.9.48**; testes de UI e distribuição anterior aprovados, hotfix RTL final com CI próprio pendente; sem tag/Release nem aceite Google real |
 | [Manual do usuário](USER_GUIDE.md) | Instalação, primeiro uso, abertura, preferências, backups e restauração |
 | [Arquitetura atual](ARCHITECTURE_CURRENT.md) | Componentes reais, dados locais e ciclo de importação |
 | [Formatos e limites](FORMATS_AND_LIMITS.md) | Matriz atual com **substituição mesmo após conversão parcial**, regras de cópia, atributos somente leitura e limites |
@@ -23,6 +23,7 @@
 - [Integração dos 51 idiomas](I18N_INTEGRATION.md).
 - [Conversão XLS e relatórios HTML com extensão XLS](XLS_CONVERSION.md).
 - [Revisão do Escopo B (0.9.36), testes reais de entrada sem Google e pendências](IMPORT_REVIEW_0936.md): relatório datado, referência de evidências, não certificado.
+- [Refinamento 0.9.47 — 51 idiomas, UI e 85 mensagens](implementation/refinement-20261024.md), [mapeamento](implementation/refinement-20261024-mapping.json) e [acabamento 0.9.48 — aceite visual](implementation/final-ui-20261024.md).
 - [Regressões 0.9.38–0.9.43](REGRESSION_0943.md): acompanhe também [0.9.38](REGRESSION_0938.md), [0.9.39](REGRESSION_0939.md), [0.9.40](REGRESSION_0940.md), [0.9.41](REGRESSION_0941.md) , [0.9.42](REGRESSION_0942.md) e a [matriz 26+78](REGRESSION_MATRIX_0938.md), documentos técnicos históricos que não substituem o comportamento atual nem o aceite Google real.
 - [Associações na lixeira e JSONL de diagnóstico](diagnostics-and-trashed-associations.md).
 - [Decisões arquiteturais](adr/DECISIONS.md): justificam escolhas **no momento em que foram feitas**; quando houver divergência, o código e o guia atual prevalecem.
@@ -38,7 +39,7 @@ Consulte [HISTORY.md](HISTORY.md) para fases `STAGE_*`, `ALPHA_*`, `ALPHA_NEXT.m
 
 O [README raiz](../README.md) apresenta o seletor de documentação: inglês + 50 arquivos em `docs/i18n/<código>/README.md`. Esses arquivos foram preservados a partir da `main` como **traduções históricas existentes**. A interface e o instalador usam 51 idiomas a partir de catálogos próprios; a existência de traduções não certifica revisão editorial, funcionalidade idêntica ou atualização sincronizada em cada idioma.
 
-Antes de publicar 1.0.0: revisar atualidade dos 50 READMEs traduzidos e decidir processo de sincronização. **A política de conversão parcial foi alterada na 0.9.33:** as páginas localizadas contêm aviso de segurança introduzido na 0.9.35, atualizado para a referência 0.9.43, mas ainda precisam de tradução editorial integral para não induzir o usuário ao comportamento de cópia antigo. O guia atual pode ser usado como fonte de conteúdo revisado, sem substituir traduções por cópias automáticas sem validação.
+Antes de publicar 1.0.0: revisar atualidade dos 50 READMEs traduzidos e decidir processo de sincronização. **A política de conversão parcial foi alterada na 0.9.33:** as páginas localizadas contêm aviso de segurança introduzido na 0.9.35, atualizado para a referência 0.9.48, mas ainda precisam de tradução editorial integral para não induzir o usuário ao comportamento de cópia antigo. O guia atual pode ser usado como fonte de conteúdo revisado, sem substituir traduções por cópias automáticas sem validação.
 
 ## Fontes de verdade
 

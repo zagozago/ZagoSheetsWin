@@ -1,8 +1,8 @@
 # Changelog — ZagoSheetsWin
 
-As alterações significativas são registradas aqui em ordem cronológica inversa, seguindo as categorias **Added**, **Changed**, **Fixed**, **Security** e **Known limitations** do [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). As versões anteriores a 1.0.0 são **marcos do desenvolvimento alfa**, não GitHub Releases. Este histórico foi revisado em **19/10/2026 (20/10 UTC)** usando commits, código, documentos de fase e metadados do repositório.
+As alterações significativas são registradas aqui em ordem cronológica inversa, seguindo as categorias **Added**, **Changed**, **Fixed**, **Security** e **Known limitations** do [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). As versões anteriores a 1.0.0 são **marcos do desenvolvimento alfa**, não GitHub Releases. Este histórico foi revisado em **24/10/2026** usando commits, código, documentos de fase e metadados do repositório.
 
-**Não há tags de versão nem Releases publicadas no GitHub na consulta de 19/10/2026 (20/10 UTC).** GitHub Actions produz candidatos e artefatos temporários, mas uma execução bem-sucedida não constitui lançamento público nem aceite com Google real. Não confundir versão declarada no código com Release publicada.
+**Não há tags de versão nem Releases publicadas no GitHub na consulta de 24/10/2026.** GitHub Actions produz candidatos e artefatos temporários, mas uma execução bem-sucedida não constitui lançamento público nem aceite com Google real. Não confundir versão declarada no código com Release publicada.
 
 ## [Unreleased] — preparação para 1.0.0
 
@@ -10,6 +10,50 @@ As alterações significativas são registradas aqui em ordem cronológica inver
 - **Pending:** homologar fluxos reais de OAuth/Drive no Windows, compatibilidade de ODS complexos e importações com conversão parcial, validar reparo e seleção de interpretador com conta Google real, revisão editorial dos READMEs internacionais, elegibilidade de licenças e eventual assinatura do instalador.
 - **Not done:** publicar 1.0.0, criar tag ou Release, certificar segurança, afirmar suporte universal a ODS.
 - Alterações de documentação **não** aumentam a versão do aplicativo.
+
+## [0.9.48] — candidato alfa, 24/10/2026
+
+Fontes: [implementação detalhada e aceite visual](docs/implementation/final-ui-20261024.md), [CHANGELOG da branch do produto](https://github.com/zagozago/ZagoSheetsWin/blob/08dbced61ed6395534ed6daeff6cf23342c5a4a9/CHANGELOG.md), commits [d6f6f15](https://github.com/zagozago/ZagoSheetsWin/commit/d6f6f150b7), [1738188](https://github.com/zagozago/ZagoSheetsWin/commit/173818851e), [74e2846](https://github.com/zagozago/ZagoSheetsWin/commit/74e28469e8), [a932a13](https://github.com/zagozago/ZagoSheetsWin/commit/a932a1389e), [08dbced](https://github.com/zagozago/ZagoSheetsWin/commit/08dbced61ed6395534ed6daeff6cf23342c5a4a9).
+
+### Interface, localização e instalação
+- Seletor do instalador com área cliente dimensionada para DPI, margens equilibradas e arte lateral oficial reproduzível. Logos/créditos MIT e Open in Google preservados.
+- Home: ícone da pasta alinhado, labels e ícones centrados; botão Mais ações tem seta junto à última palavra quando a linha quebra, inclusive em idiomas longos. Prefixos de Backups/Disponível e dicas receberam destaque tipográfico sem modificar as traduções.
+- Backups: **seleção real com checkboxes por linha**, coluna auxiliar estreita e nenhum checkbox redundante no cabeçalho. **Selecionar todos / Limpar seleção** agem em lotes nativos de 32, com spinner transitório e trava de reentrada, preservando os estados permitidos. Barra ocupa a largura interna do cartão, bordas fechadas; lateral passou de 240 para 285 unidades. Fonte do corpo dos painéis reduzida em 2 pt sem alterar títulos.
+- Mensagens de erro mantêm o mesmo conteúdo/ordem e têm quebras naturais calculadas pela largura e fonte disponíveis; comandos/retry não mudaram.
+- Ajuste específico RTL no HEAD `08dbced`: `InsetFlowLayoutPanel` mantém espaçamento horizontal físico das ações em **Home** e **Configurações** apesar da espelhagem WinForms; verificação nativa checa ambos os recuos. Não altera código de importação/backup.
+- Limites, OAuth, importação, recuperação, seleção elegível e armazenamento continuam com a política da 0.9.43/0.9.44.
+
+### Evidência
+- [Local core #40110813671](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40110813671): sucesso (Windows 407 aprovados/1 ignorado; Linux 364 aprovados/44 ignorados) num commit anterior `1738188`, com matriz nativa de 51 idiomas e quatro escalas DPI.
+- [Protected alpha distribution #40120263404](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40120263404): sucesso em `df6f4d6`, **antes** do hotfix RTL final.
+- [Local core #40121298442](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40121298442): sucesso em `cacba045`, **antes** do hotfix RTL final.
+- O hotfix **`08dbced`** iniciou [Local core #40126683024](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40126683024); resultado **pendente no momento da revisão**. Não afirmar Protected distribution verde nesse SHA até verificar.
+- Nenhuma validação completa com Google real foi declarada; screenshots e smoke tests nativos são evidências de UI, não homologação da conversão.
+
+## [0.9.47] — candidato alfa, 24/10/2026
+
+Referência: [refinamento e mapeamento dos 85 textos × 51 idiomas](docs/implementation/refinement-20261024.md) e commit [f3c931b](https://github.com/zagozago/ZagoSheetsWin/commit/f3c931b3ed).
+
+- Ajustes G-01–06/TEL-01–09: cabeçalhos, marca/títulos, rodapé legal, ícones centralizados, botões, fonte contextual, sobre/licenças em cartões, estados reais da conta, descrição e toggles de configurações/avançadas, miniatura do tutorial e primeira instalação em três passos.
+- Backups: seleção nativa espelhada em checkboxes individuais, cabeçalho com estado parcial nesta fase, três painéis independentes inicialmente fechados, métricas reais e largura adequada para temas e RTL/DPI. O cabeçalho redundante foi **retirado na 0.9.48**.
+- CSV autorizado com **4.335 linhas: 85 mensagens × 51 locais**, validado sem retradução. Foram 65 IDs reutilizados, 18 criados e dois não aplicáveis.
+- Matriz de UI offline em temas claro/escuro, 51 idiomas e DPI 100%, 125%, 150% e 200%, incluindo RTL e teclado/Shift. [Local core #40099207181](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40099207181) passou.
+
+## [0.9.46] — candidato alfa, 21/10/2026
+
+- Padronização de alinhamento entre marca, seletor de idioma, tema, títulos e rodapé; linhas de botões e altura de ações ajustadas; primeiro uso e configurações avançadas mais compactos.
+- Erros exibem conteúdo completo em painel menor, permitindo expansão para mensagens longas. Funcionalidade do backend e 51 idiomas preservados.
+
+## [0.9.45] — candidato alfa, 21/10/2026
+
+- Estilo visual compartilhado nos principais formulários, ícones vetoriais, cartões suaves, hierarquia tipográfica, configurações agrupadas e Sobre/Licenças reorganizado sem reduzir conteúdo legal. Erros dão ênfase à ação correta, preservando lógica/condições.
+- Primeiro uso com imagem unificada nos três passos e cinco formatos disponíveis. Versão 0.9.44 permanece com pendentes operacionais aguardando aceite.
+
+## [0.9.44] — candidato alfa, 20–21/10/2026
+
+- Backups incompletos passam a exibir estado **pendente**, sem pressupor que podem ser eliminados; não modificar política manual de limpeza.
+- Uma **nova abertura independente**, depois de tentar retomar/reconciliar uma operação antiga sem conseguir localizar seu Google Sheets, pode iniciar uma **nova operação**, mantendo backup/associação remota/histórico anteriores. **Não** se aplica a upload ou resposta ambígua, falha de rede/permissão, operações concorrentes, mesma abertura ou retry automático. Fonte no código: `SpreadsheetOpening` e estados registrados.
+- Testes [Regression0944Tests](tests/SheetsWindows.Tests/Regression0944Tests.cs) cobrem elegibilidade/identidade; homologação em máquina com Google real permanece pendente.
 
 ## [0.9.43] — candidato alfa, 19/10/2026 (20/10 UTC)
 
