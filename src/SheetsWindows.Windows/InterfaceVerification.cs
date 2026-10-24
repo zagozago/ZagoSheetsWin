@@ -245,6 +245,14 @@ internal static class InterfaceVerification
             Require(list.Items[1].Selected, "Checkbox selection must update the effective batch selection.");
             list.Items[1].Checked = false; Application.DoEvents();
             Require(!list.Items[1].Selected, "Unchecking a row must remove it from batch selection.");
+            selector.ToggleAll(); Application.DoEvents();
+            Require(list.SelectedItems.Count == 3 && list.CheckedItems.Count == 3 && selector.SelectAllHeader.CheckState == CheckState.Checked, "Partial header activation must select every relevant backup.");
+            selector.ToggleAll(); Application.DoEvents();
+            Require(list.SelectedItems.Count == 0 && list.CheckedItems.Count == 0 && selector.SelectAllHeader.CheckState == CheckState.Unchecked, "Checked header activation must clear every selected backup.");
+            recovery.Activate(); list.Focus(); SendKeys.SendWait("^a"); Application.DoEvents();
+            Require(list.SelectedItems.Count == 3 && list.CheckedItems.Count == 3, "Native Ctrl+A selection must synchronize all checkboxes.");
+            SendKeys.SendWait("{HOME}"); SendKeys.SendWait("+{END}"); Application.DoEvents();
+            Require(list.SelectedItems.Count == 3 && list.CheckedItems.Count == 3, "Native Shift keyboard range selection must remain available.");
             foreach(ListViewItem row in list.Items) row.Selected = false;
             var statistics = Descendants(recovery).OfType<Label>().Single(l => l.Name == "backupStatistics");
             Require(statistics.Font.SizeInPoints >= 10f, "Backup statistics must remain as readable as the surrounding body text.");

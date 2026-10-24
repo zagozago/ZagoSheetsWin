@@ -60,9 +60,10 @@ internal sealed class BackupSelectionList : ListView
     private void PositionHeader()
     {
         if (!IsHandleCreated) return;
-        var offset = GetScrollPos(Handle, 0);
-        SelectAllHeader.Location = new Point(RightToLeftLayout ? ClientSize.Width - 26 + offset : 4 - offset, 1);
-        SelectAllHeader.Visible = offset < 22; 
+        var offset = GetScrollPos(Handle, 0); var scale = DeviceDpi / 96f;
+        SelectAllHeader.Size = new Size((int)(22 * scale), (int)(20 * scale));
+        SelectAllHeader.Location = new Point(RightToLeftLayout ? ClientSize.Width - (int)(26 * scale) + offset : (int)(4 * scale) - offset, 1);
+        SelectAllHeader.Visible = offset < 22 * scale; 
     }
     protected override void WndProc(ref Message m) { base.WndProc(ref m); if(m.Msg is 0x114 or 0x5) PositionHeader(); }
     [DllImport("user32.dll")] private static extern IntPtr SendMessage(IntPtr handle, int message, IntPtr wParam, IntPtr lParam);
