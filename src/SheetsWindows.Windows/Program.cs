@@ -47,7 +47,10 @@ internal static class Program
                     {
                         expandedBackups.Show(); foreach(var panel in All(expandedBackups).OfType<DisclosureCard>()) panel.SetExpanded(true); Application.DoEvents();
                         using var bitmap = new Bitmap(expandedBackups.Width, expandedBackups.Height); expandedBackups.DrawToBitmap(bitmap, new Rectangle(Point.Empty, bitmap.Size));
-                        bitmap.Save(Path.Combine(folder, $"recovery-expanded-{theme}.png"), System.Drawing.Imaging.ImageFormat.Png); expandedBackups.Hide();
+                        bitmap.Save(Path.Combine(folder, $"recovery-expanded-{theme}.png"), System.Drawing.Imaging.ImageFormat.Png);
+                        All(expandedBackups).OfType<DisclosureCard>().First().SetExpanded(false); Application.DoEvents();
+                        using var compactBitmap = new Bitmap(expandedBackups.Width, expandedBackups.Height); expandedBackups.DrawToBitmap(compactBitmap, new Rectangle(Point.Empty, compactBitmap.Size));
+                        compactBitmap.Save(Path.Combine(folder, $"recovery-two-panels-{theme}.png"), System.Drawing.Imaging.ImageFormat.Png); expandedBackups.Hide();
                     }
                     using (var advanced = new AdvancedPreferencesForm(LocalStorage.ForCurrentUser(), preview: true))
                     {

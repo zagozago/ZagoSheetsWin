@@ -113,6 +113,7 @@ internal sealed class RecoveryForm : Form
         async Task SelectBatch(bool select, AdaptiveButton source)
         {
             if (busy) return;
+            SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());
             busy = true; actions.Enabled = false; entries.Enabled = false; source.SetSpinning(true); source.Refresh();
             try { await entries.ApplySelectionAsync(select); }
             finally { source.SetSpinning(false); busy = false; actions.Enabled = true; entries.Enabled = true; UpdateSelection(); }

@@ -290,6 +290,7 @@ internal static class InterfaceVerification
             {
                 var timer = System.Diagnostics.Stopwatch.StartNew();
                 Descendants(manyBackups).OfType<Button>().Single(b => b.Text == UiText.Get(select ? "recovery.selectAll" : "recovery.clearSelection")).PerformClick();
+                if (rows.ApplyingSelection) SaveFrame(manyBackups, select ? "bulk-select-progress" : "bulk-clear-progress");
                 while(rows.ApplyingSelection && timer.Elapsed < TimeSpan.FromSeconds(10)) { Application.DoEvents(); Thread.Sleep(1); }
                 Require(!rows.ApplyingSelection && rows.SelectedItems.Count == (select ? 313 : 0) && rows.CheckedItems.Count == (select ? 313 : 0), "Bulk selection must preserve all 313 checkbox and selection states.");
                 Console.Error.WriteLine($"VERIFY: 313 rows {(select ? "select" : "clear")}: {timer.ElapsedMilliseconds} ms");
