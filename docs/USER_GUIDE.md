@@ -1,6 +1,6 @@
 # Manual do usuário — ZagoSheetsWin
 
-**Status:** documentação do comportamento implementado na 0.9.43, ainda em fase alfa. Veja a [referência central de versão e evidências](RELEASE_STATUS.md). Os procedimentos usam português técnico claro; nomes de botões podem variar conforme o idioma.
+**Status:** documentação do comportamento implementado na 0.9.48, ainda em fase alfa. Veja a [referência central de versão e evidências](RELEASE_STATUS.md). Os procedimentos usam português técnico claro; nomes de botões podem variar conforme o idioma.
 
 ## 1. O que o aplicativo faz
 
@@ -143,7 +143,7 @@ Links: [Privacidade](https://zagotools.top/legal.html#privacidade), [Termos](htt
 Licença MIT. Projeto derivado de [Open in Google](https://github.com/SwatiK425/open-in-google), de Swati K; atribuição preservada em `LICENSE` e `ATTRIBUTION.md`.
 
 
-## Evolução da importação desde 0.9.38 (comportamento atual 0.9.43)
+## Evolução da importação desde 0.9.38 (comportamento preservado na 0.9.48)
 
 **CSV/TSV:** o leitor v4 admite cabeçalho opcional, coluna única válida, aspas/multilinhas, dica `sep=` na primeira linha exata e quatro separadores. Ambiguidade genuína mostra **Escolher separador**, com prévia local de 3 linhas e 12 colunas. O teto chegou a **2 milhões de células**, até **100.000 registros lógicos**, mas respeita 20 MiB de origem/payload e 1.000 colunas. A versão da interpretação de operações antigas é preservada.
 
@@ -156,10 +156,32 @@ Licença MIT. Projeto derivado de [Open in Google](https://github.com/SwatiK425/
 **Segurança:** upload incerto deve ser conciliado pelo marcador original, sem outra criação cega. Na 0.9.43 são permitidas até **duas reconsultas limitadas da identidade remota**, sem iniciar outra criação/sessão. Atalho ausente em journal recuperável pode ser recriado com a URL vinculada e integridade confirmada, sem novo upload. **Local core e distribuição protegida 0.9.43 passaram** no mesmo commit.
 
 
-## Memória, erros e dimensões da janela na 0.9.43
+## Memória e recuperação desde a 0.9.43; janela da versão 0.9.48
 
 - A preparação de bytes do snapshot utiliza um buffer de tamanho exato, reduzindo duplicações de memória durante o envio. Isso **não** elimina limitações físicas de RAM nem garante sucesso com qualquer número de arquivos.
 - Se ocorrer falta de memória, a interface tenta apresentar a falha em modo simplificado, com botão **Fechar**, evitando gerar diagnósticos/controles de retry que poderiam exigir mais memória. Não exclua o arquivo original nem os backups para contornar esse erro.
-- A janela principal **não pode ser redimensionada ou maximizada**, mas ainda pode ser minimizada. A altura do conteúdo da janela inicial foi ajustada para **192 px** (largura 500 px), removendo a margem inferior excessiva; o processamento e as janelas de backup não foram redimensionados por essa alteração.
+- A janela principal **não pode ser redimensionada ou maximizada**, mas ainda pode ser minimizada. A janela inicial foi posteriormente refinada: no código **0.9.48**, a área cliente da Home é **540×190 px**, com tamanho fixo, minimização disponível e sem maximização/redimensionamento. Não confundir com a dimensão histórica 500×192 px da 0.9.43.
 - Uma pasta existente do Google é validada em uma única consulta quando possível; em resposta remota incerta o aplicativo reconsulta o marcador, sem subir o arquivo novamente às cegas.
 - A execução protegida [#39346495298](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298) e o CI [#39346495162](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495162) passaram no commit `9fbec2a`. **Testes locais e builds aprovados não substituem validação no Google real.**
+
+## Mudanças de interface e segurança de recuperação na 0.9.44–0.9.48
+
+### Pendentes e nova abertura (0.9.44)
+
+Backups incompletos aparecem como **pendentes**, preservando histórico e material de recuperação. Quando uma **abertura posterior e independente** encontra operação anterior, primeiro tenta retomar e reconciliar. Somente se a planilha remota antiga for **confirmada ausente**, em condições de identidade válidas, a nova abertura pode iniciar **outro documento**. A operação antiga, seus backups, associações remotas e histórico permanecem. Isso **não se aplica** a duas aberturas concorrentes, tentativa automática dentro da mesma abertura, resposta remota ambígua ou erro de rede/permissão. Não apague journals nem force outra criação como forma de recuperação.
+
+### Interface de backups (0.9.47–0.9.48)
+
+A interface de recuperação apresenta três áreas independentes que começam recolhidas: **Configurações**, **Espaço utilizado** e **Dica**. O espaço usado/limite, percentual, número de concluídos/pendentes e disponível são **métricas reais**, em MB decimais; o indicador gráfico é limitado visualmente à barra, mesmo quando o uso excede 100% da cota. Expansão/fechamento desses painéis **não modifica a política de quota nem exclui arquivos**.
+
+Na lista, cada item apresenta um **checkbox individual** sincronizado com a seleção nativa. Os comandos em lote atuam exclusivamente nos itens efetivamente selecionados (`SelectedItems`), inclusive com Ctrl e Shift. O cabeçalho tem **coluna estreita de seleção**, mas **nenhum checkbox redundante**. **Selecionar todos** e **Limpar seleção** atualizam a interface em pequenos lotes (32 itens), com indicador temporário de processamento; preservam a exclusão de estados inelegíveis. **Não prometa Ctrl+A**, que não foi implementado como atalho de seleção.
+
+A lateral está ligeiramente mais larga, os cartões exibem métricas sem sair da borda, e textos informativos usam fonte de corpo 2 pt menor que antes, preservando títulos. Mensagens de erro longas se ajustam automaticamente à largura disponível, sem alterar o texto original.
+
+### Configuração, instalador, ajuda e idiomas
+
+Cabeçalhos, rodapés legais, ícones, botões, Sobre/Licenças, Configurações e Opções avançadas receberam acabamento visual. O primeiro uso mantém **três passos**, com números circulares, hierarquia tipográfica e miniatura unificada. A tela Sobre conserva integralmente a licença MIT e os créditos; a seleção do instalador conserva seus **51 idiomas** e recebeu arte oficial e margens melhor ajustadas.
+
+A 0.9.47 incorporou **85 mensagens por idioma** de um CSV fornecido e validado (4.335 linhas, 51 locais), sem tradução inventada. A 0.9.48 aprimorou o agrupamento visual da palavra final com a seta em **Mais ações**, o alinhamento do ícone da pasta e os prefixos em negrito em Backups/Disponível/Dica. O hotfix `08dbced` protege os **recuos laterais físicos das ações em Home e Configurações quando o idioma usa RTL**; não altera importação nem exclusão.
+
+**Validação:** ver [registro 0.9.47](implementation/refinement-20261024.md), [aceite visual 0.9.48](implementation/final-ui-20261024.md) e [estado exato dos workflows](RELEASE_STATUS.md). Capturas e testes nativos não equivalem à homologação de importação no Google real.

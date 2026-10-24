@@ -1,6 +1,6 @@
 # Formatos, ambientes e limites — estado atual
 
-**Referência:** código de `SpreadsheetFormats`, `GoogleImport`, `ConversionVerifier`, `ReplacementCoordinator`, `WindowsLauncher` e políticas Windows no candidato alfa **0.9.43** ([estado e commit](RELEASE_STATUS.md)). Esta é a matriz vigente, não os limites históricos do piloto 0.7 ou a política de fidelidade da 0.9.30.
+**Referência:** código de `SpreadsheetFormats`, `GoogleImport`, `ConversionVerifier`, `ReplacementCoordinator`, `WindowsLauncher` e políticas Windows no candidato alfa **0.9.48** ([estado e commit](RELEASE_STATUS.md)). Esta é a matriz vigente, não os limites históricos do piloto 0.7 ou a política de fidelidade da 0.9.30.
 
 ## Entrada e destino
 
@@ -108,3 +108,10 @@ O tamanho máximo de entrada (20 MiB), o limite atual CSV/TSV v4 (2 milhões de 
 O usuário deve gerenciar o espaço em **Backups**, selecionando backups concluídos ou executando **Limpar expirados** quando aplicável. Backups pendentes ou não verificados não são apagados por esse fluxo. O controle `AutomaticCleanup` permanece apenas para ler configurações antigas; o código atual normaliza para **false**.
 
 A implementação usa um buffer exato para upload de bytes do snapshot, evitando uma cópia integral redundante, e tenta reduzir alocações adicionais ao lidar com `OutOfMemoryException`. **Não é uma garantia de baixa utilização de RAM** para conversões com dois milhões de células ou lotes paralelos. O aceite de desempenho/compatibilidade com Google real permanece necessário.
+## Compatibilidade com a 0.9.44–0.9.48
+
+**Não há elevação de limites de arquivo/células pela série de refinamentos visuais.** O fluxo CSV/TSV v4 permanece em até 2.000.000 células e 100.000 registros lógicos, sujeito ao limite de entrada/payload de 20 MiB e à política de conferência de valores para substituição. A limpeza de backups permanece **exclusivamente manual**, como na 0.9.43.
+
+A mudança funcional **0.9.44** diz respeito a operações pendentes: uma nova abertura independente só pode iniciar outra importação após tentar recuperar/reconciliar a operação antiga e **confirmar ausência de documento remoto**. Não converter falhas ambíguas, erros de rede, mesmo clique, concorrência ou retentativa automática em permissão para duplicar documento. Histórico/backup/associação antigos são preservados. Ver [código de proteção da abertura](../src/SheetsWindows.Infrastructure/SpreadsheetOpening.cs).
+
+A **0.9.45–0.9.48** altera apresentação, localização, acesso a controles e seleção de itens de backup, **não os limites, bytes convertidos nem as regras de importação**. A seleção por checkbox é representação visual de `SelectedItems`, não uma nova elegibilidade para descarte. Os comandos em lote continuam sujeitos à proteção de backups pendentes/não verificados.

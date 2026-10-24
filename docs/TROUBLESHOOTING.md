@@ -1,6 +1,6 @@
 # Solução de problemas e recuperação
 
-**Escopo:** ZagoSheetsWin alpha **0.9.43** ([evidências](RELEASE_STATUS.md)) em Windows. Antes de repetir operações, confirme a presença do arquivo original, atalho e backup. **Não exclua `%LOCALAPPDATA%\SheetsWindows` para tentar resolver problemas.** Isso pode eliminar associações ou material necessário à recuperação.
+**Escopo:** ZagoSheetsWin alpha **0.9.48** ([evidências](RELEASE_STATUS.md)) em Windows. Antes de repetir operações, confirme a presença do arquivo original, atalho e backup. **Não exclua `%LOCALAPPDATA%\SheetsWindows` para tentar resolver problemas.** Isso pode eliminar associações ou material necessário à recuperação.
 
 ## 1. A planilha não abre por duplo clique
 
@@ -144,4 +144,12 @@ Abra um [issue no GitHub](https://github.com/zagozago/ZagoSheetsWin/issues) com 
 
 **Upload com resposta incompleta:** podem ocorrer até duas reconsultas ao marcador remoto existente. Não renomeie nem apague o arquivo para criar uma importação diferente; preserve o estado e retome a mesma operação quando for apropriado.
 
-**Margem inferior da janela principal:** na 0.9.43, a área cliente da Home foi reduzida de 240 para **192 px** de altura, sem desbloquear maximização/redimensionamento e mantendo minimizar disponível. Se houver corte de botões em DPI/idioma específico, documente captura e idioma; não altere manualmente arquivos de configuração para tentar corrigir a janela.
+**Margem da Home e botões RTL:** a dimensão atual da janela é **540×190 px** de área cliente, mantendo borda fixa e minimizar. O hotfix `08dbced` protege os **recuos laterais** de ações nos idiomas RTL em Home e Configurações. Se botões ficarem cortados em DPI/idioma específico, informe idioma, DPI, tema e captura; não altere manualmente configurações internas.
+
+## Seleção de backups e mensagens multilíngues (0.9.47–0.9.48)
+
+- **Checkboxes e seleção não coincidem?** O checkbox individual espelha a seleção efetiva `SelectedItems`. Use clique, Ctrl ou Shift para selecionar e depois as ações em lote. Não há mais checkbox no cabeçalho. `Selecionar todos` e `Limpar seleção` percorrem os itens em lotes de 32; o ícone de processamento é transitório e a interface final deve refletir exatamente os itens selecionados. **Ctrl+A não é garantido**.
+- **Painel Backups com excesso de informação?** Configurações, Espaço utilizado e Dica começam recolhidos de forma independente. O painel mais largo e a barra de ocupação não alteram a cota real nem a política de limpeza **manual**.
+- **Botões com texto longo/RTL?** Testes automáticos abrangem 51 idiomas e escalas 100/125/150/200%; o último hotfix protege os dois recuos físicos da Home/Configurações para línguas RTL. Se ocorrer sobreposição, registre uma captura com idioma e escala exatos.
+- **Texto de erro cortado?** A 0.9.48 recalcula quebra/altura do texto do corpo; a mensagem e as ações permanecem inalteradas. Informe mensagem e DPI, mas não exclua o journal e os backups como tentativa de conserto.
+- **Pendência antiga que não encontra a planilha?** Em uma **nova abertura independente**, o programa pode iniciar importação nova somente se a operação anterior foi reconciliada e o remoto confirmado ausente. Falha de rede ou confirmação incerta **não** permitem duplicar. Preserve os arquivos e verifique [estado da versão](RELEASE_STATUS.md) se tiver dúvida.

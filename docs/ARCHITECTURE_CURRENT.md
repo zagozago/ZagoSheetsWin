@@ -1,6 +1,6 @@
 # Arquitetura atual do ZagoSheetsWin
 
-**Base:** `feature/zagosheetswin`, candidato **0.9.43** em 19/10/2026 (20/10 UTC) ([commit e evidências](RELEASE_STATUS.md)). Descrição da **implementação**, não do arquivo histórico [ARCHITECTURE.md](ARCHITECTURE.md), que nasceu como arquitetura-alvo. Não representa auditoria formal de segurança.
+**Base:** `feature/zagosheetswin`, candidato **0.9.48** em 24/10/2026 ([commit e evidências](RELEASE_STATUS.md)). Descrição da **implementação**, não do arquivo histórico [ARCHITECTURE.md](ARCHITECTURE.md), que nasceu como arquitetura-alvo. Não representa auditoria formal de segurança.
 
 ## Organização do código
 
@@ -124,10 +124,24 @@ Alterações em identidade, OAuth, schema SQLite, backup, substituição ou pol�
 **Evidência atual:** [Local core #39346495162](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495162) e [Protected alpha distribution #39346495298](https://github.com/zagozago/ZagoSheetsWin/actions/runs/39346495298) concluíram com **sucesso no mesmo SHA `9fbec2a`**. Isso não comprova importações no Google real.
 
 
-## Otimizações e interface da 0.9.43
+## Otimizações e interface implementadas desde a 0.9.43
 
 - `SqliteSchema` introduziu leitura de versão do esquema sem transação imediata de escrita para bancos já migrados; diminui `database is locked` na abertura concorrente de registries, preservando transações quando migração realmente é necessária.
 - Bytes do snapshot passaram a um buffer **único e de tamanho exato** no upload; verificações de pasta Google existente foram deduplicadas, sem segundo GET da mesma pasta.
 - Upload com confirmação incerta faz até **duas reconsultas limitadas e read-only** ao marcador de operação existente. **Não** gera novo POST de criação ou nova sessão. ACKs registram apenas o status HTTP numérico.
 - `ProcessingForm` trata `OutOfMemoryException` por caminho simplificado de finalização com **Fechar**, sem serializar diagnóstico ou construir controles adicionais. A memória disponível ainda limita operações paralelas.
-- `LauncherForm` usa `FormBorderStyle.FixedSingle`, mantém minimizar, bloqueia maximização/redimensionamento e usa `ClientSize = (500,192)` no commit final `9fbec2a`. A mudança de altura **aplica-se somente à janela Home**, não ao modal de progresso.
+- `LauncherForm` mantém borda fixa e minimizar, bloqueia maximização/redimensionamento; suas dimensões atuais são `ClientSize = (540,190)` na 0.9.48. A referência `(500,192)` pertence apenas ao histórico da 0.9.43 e não ao último layout.
+
+## Pendências independentes e interface WinForms 0.9.44–0.9.48
+
+**0.9.44 — abertura de operações antigas:** `SpreadsheetOpening` adquire um lock de invocação por identidade de origem, compartilhado pelas retentativas automáticas da mesma abertura. Identifica candidatos pendentes **antes da abertura** apenas quando não há concorrência/lock preexistente. Depois de tentativa de retomada/reconciliação e comprovação de remoto ausente, pode permitir nova operação **sem destruir as associações, snapshot e histórico antigos**. Não usa resposta incerta/erro 404 isolado como autorização para criar outra planilha. O comportamento deve ser testado com Google real.
+
+**0.9.45–0.9.47 — UI:** `VisualStyle`, `LocalizedControls`, `RecoveryForm`, `AboutForm`, `SetupForm` e primeiro uso recebem cartões, espaçamentos e tipografia padronizados. Os três `DisclosureCard` da recuperação começam recolhidos por instância; métricas de quota, espaço e contagens são projetadas de dados reais. O CSV aprovado da 0.9.47 fornece 85 mensagens × 51 locales e seu [mapeamento](implementation/refinement-20261024-mapping.json), sem modificar códigos da infraestrutura para esses estilos.
+
+**0.9.48 — seleção, RTL e ergonomia:** `BackupSelectionList` (ListView derivada) mantém `SelectedItems` como fonte exclusiva das ações em lote e espelha `Checked` em cada linha. `ApplySelectionAsync` percorre itens em blocos de 32 na **thread da UI**, com `BeginUpdate/EndUpdate` equilibrados e indicador temporário; não muda a elegibilidade de backups e não cria Ctrl+A. O checkbox redundante do cabeçalho foi removido, sem perder a coluna de checkboxes individuais.
+
+`RecoveryForm` ajusta largura lateral, barra dentro do cartão, tipografia do corpo, prefixos enfatizados e seta de **Mais ações** ligada visualmente à palavra final. O parser/idiomas das mensagens não foi alterado nessa formatação. O instalador usa arte oficial recriada em `branding/Build-WizardArt.ps1`, mantendo créditos/licenças externos. Mensagens de erro ajustam altura segundo o contexto gráfico sem mudar controles.
+
+**Hotfix RTL no commit `08dbced`:** `InsetFlowLayoutPanel` preserva os recuos físicos de ações em `LauncherForm` e `SetupForm` mesmo quando o fluxo é espelhado. A verificação nativa exige ambos os insets; painéis de outros formulários não são alterados por essa lógica. **Nenhuma mudança de importação ou backup decorre desse hotfix.** Confirmar o resultado do CI do commit antes de classificá-lo como validado.
+
+Fontes primárias: [0.9.47](implementation/refinement-20261024.md), [0.9.48](implementation/final-ui-20261024.md), [estado de CI](RELEASE_STATUS.md) e [CHANGELOG](../CHANGELOG.md).
