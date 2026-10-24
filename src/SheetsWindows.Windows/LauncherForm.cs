@@ -10,16 +10,14 @@ internal sealed class LauncherForm : Form
         if (request.Action != LauncherAction.Home) throw new ArgumentException("Home request required.");
         Text = "ZagoSheetsWin"; ClientSize = new Size(540, 190); FormBorderStyle = FormBorderStyle.FixedSingle; MaximizeBox = false; MinimizeBox = true; StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
         var layout = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18, 2, 18, 14), FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = false };
-        Button Action(string text, EventHandler action) { var b = new AdaptiveButton { Text = text, Width = 382, Height = 38, Margin = Padding.Empty, AccessibleName = text.Replace("&", "") }; b.Click += action; return b; }
+        AdaptiveButton Action(string text, EventHandler action) { var b = new AdaptiveButton { Text = text, Width = 382, Height = 38, Margin = Padding.Empty, AccessibleName = text.Replace("&", "") }; b.Click += action; return b; }
         void Pick(LauncherAction action)
         {
             using var dialog = new OpenFileDialog { Filter = UiText.Get("dialog.spreadsheetFilter"), CheckFileExists = true, Multiselect = false, Title = action == LauncherAction.Copy ? UiText.Get("dialog.importCopyTitle") : UiText.Get("dialog.openSpreadsheetTitle") };
             if (dialog.ShowDialog(this) != DialogResult.OK) return;
             using var processing = new ProcessingForm(new LauncherRequest(action, dialog.FileName)); processing.ShowDialog(this); ExitCode = processing.ExitCode;
         }
-        var tagline = Ui.Text(UiText.Get("tagline.open_spreadsheets_automatically"));
-        tagline.Font = new Font(LanguageVisuals.Family, 9); tagline.Margin = new Padding(0, 0, 0, 10); layout.Controls.Add(tagline);
-        var open = Action(UiText.Get("home.open"), (_, _) => Pick(LauncherAction.Open)); Ui.Primary(open); VisualStyle.Icon(open, UiIcon.Folder); layout.Controls.Add(open);
+        var open = Action(UiText.Get("home.open"), (_, _) => Pick(LauncherAction.Open)); Ui.Primary(open); VisualStyle.Icon(open, UiIcon.Folder); open.ContentOffsetY = -3; layout.Controls.Add(open);
         var navigation = new TableLayoutPanel { ColumnCount = 3, RowCount = 1, Height = 38, Width = 440, Margin = new Padding(0, 4, 0, 4) };
         for (var i = 0; i < 3; i++) navigation.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 3));
         var settings = Action(UiText.Get("home.settings"), (_, _) => { using var setup = new SetupForm(); setup.ShowDialog(this); });

@@ -177,7 +177,7 @@ internal sealed class TutorialPicture : Control
             AppIcon(540, 30, false);
             g.DrawLine(pen, 487, 83, 521, 83); g.DrawLines(pen, [new PointF(511, 73), new PointF(521, 83), new PointF(511, 93)]);
             g.DrawString(UiText.Get("tutorial.picture.chooseSpreadsheet"), font, ink, new RectangleF(5, 185, 465, 45), centered);
-            g.DrawString(UiText.Get("tutorial.picture.openWithZago"), font, ink, new RectangleF(485, 178, 210, 60), centered);
+            g.DrawString(UiText.Get("tutorial.picture.openWithZago"), font, ink, new RectangleF(507, 178, 210, 60), centered);
             return;
         }
         string[] labels = Page switch

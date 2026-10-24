@@ -24,7 +24,7 @@ internal static class LocaleVerification
                     if (form.RightToLeftLayout != UiText.RightToLeft) throw new InvalidOperationException($"{language.Code}/{name}: RTL not applied.");
                     foreach (var button in Descendants(form).OfType<Button>().Where(b => b.Visible && b is not ThemeToggle))
                     {
-                        if (button is AdaptiveButton && Math.Abs(button.Font.SizeInPoints - Ui.ButtonFontSize) > 0.01f)
+                        if (button is AdaptiveButton adaptive && Math.Abs(button.Font.SizeInPoints - (adaptive.FontSizeOverride ?? Ui.ButtonFontSize)) > 0.01f)
                             throw new InvalidOperationException($"{language.Code}/{name}: action button must use the standard 9-point font.");
                         var flags = TextFormatFlags.WordBreak;
                         var text = TextRenderer.MeasureText(button.Text, button.Font, new Size(Math.Max(20,button.Width-button.Padding.Horizontal-8),int.MaxValue),flags);
@@ -52,7 +52,27 @@ internal static class LocaleVerification
                 using (var home = new LauncherForm(new(LauncherAction.Home))) Check(home,"home",true);
                 using (var advanced = new AdvancedPreferencesForm(LocalStorage.ForCurrentUser(), preview:true)) { Check(advanced,"advanced",true); foreach (var info in Descendants(advanced).OfType<InformationButton>()) { info.OpenInformation(); Application.DoEvents(); } }
                 using (var settings = new SetupForm(preview:true)) { Check(settings,"setup",true); foreach (var info in Descendants(settings).OfType<InformationButton>()) { info.OpenInformation(); Application.DoEvents(); } }
-                using (var recovery = new RecoveryForm(preview:true)) Check(recovery,"backups");
+                using (var recovery = new RecoveryForm(preview:true))
+                {
+                    Check(recovery,"backups",true);
+                    var panels = Descendants(recovery).OfType<DisclosureCard>().ToArray();
+                    if (panels.Length != 3 || panels.Any(p => p.Expanded)) throw new InvalidOperationException("Backup panels must start collapsed in every locale.");
+                    foreach(var panel in panels) panel.SetExpanded(true);
+                    Check(recovery,"backups-expanded",true);
+                    var rows = Descendants(recovery).OfType<BackupSelectionList>().Single();
+                    rows.Items[0].Selected = true; Application.DoEvents();
+                    if(!rows.Items[0].Checked || rows.SelectAllHeader.CheckState != CheckState.Indeterminate) throw new InvalidOperationException("Selection and checkbox state diverged.");
+                    foreach(var theme in new[] { ApplicationTheme.Light, ApplicationTheme.Dark })
+                    {
+                        Branding.PreviewTheme(theme);
+                        foreach(var scale in new[] { 1f, 1.25f, 1.5f, 2f })
+                        {
+                            var before = recovery.Size; recovery.Scale(new SizeF(scale,scale)); Check(recovery,$"backups-expanded-{theme}-{scale}");
+                            recovery.Scale(new SizeF(1/scale,1/scale)); recovery.Size = before;
+                        }
+                    }
+                    Branding.PreviewTheme(ApplicationTheme.Light);
+                }
                 using (var repair = new TextInterpretationForm(repair:true)) Check(repair,"repair",true);
                 using (var picker = new LanguagePicker())
                 {

@@ -1,5 +1,14 @@
 # Histórico de alterações
 
+## 0.9.47 — refinamento dirigido AS IS → TO BE
+
+- G-01–06: marca maior, linha fina global, títulos contextuais e Sobre/Licenças no rodapé, respeitando as exceções do primeiro uso.
+- TEL-01/02: ícones e conjuntos centralizados; seleção por checkbox sincronizada com a seleção efetiva, incluindo cabeçalho com estado parcial.
+- B-03: três painéis independentes inicialmente recolhidos; ocupação, contagem total e espaço disponível derivados dos dados reais.
+- TEL-04–09: títulos, fundos legais, numeração circular, status real, ajuda contextual avançada e hierarquia do primeiro uso.
+- CSV autorizado de 85 mensagens em 51 idiomas validado e integrado sem retradução; mapeamento completo em docs/implementation/refinement-20261024-mapping.json.
+- Regras de importação, autenticação, recuperação, descarte e persistência preservadas; erros recebem somente o cabeçalho global.
+
 ## 0.9.46 — harmonia e alinhamento da interface
 
 - Cabeçalhos com margens, alturas e alinhamento vertical coerentes entre marca, links, idioma e tema.

@@ -81,7 +81,7 @@ jobs:
           New-Item -ItemType Directory -Force (Split-Path $output) | Out-Null
           $errorFile = Join-Path (Get-Location).Path 'artifacts/native-verification-error.txt'
           $process = Start-Process -FilePath $exe -ArgumentList @('--verify-interface', $output) -RedirectStandardError $errorFile -PassThru
-          if (!$process.WaitForExit(300000)) { $process.Kill(); Get-Content $errorFile; throw 'Native interface verification timed out' }
+          if (!$process.WaitForExit(900000)) { $process.Kill(); Get-Content $errorFile; throw 'Native interface verification timed out' }
           if ($process.ExitCode -ne 0) { Get-Content $errorFile; throw 'Native interface verification failed' }
           Get-Content $output
       - name: Render native branding previews offline

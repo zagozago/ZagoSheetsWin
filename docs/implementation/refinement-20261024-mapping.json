@@ -1,0 +1,517 @@
+{
+  "csv": "i18n/refinement-20261024.csv",
+  "rows": 4335,
+  "locales": 51,
+  "mappings": [
+    {
+      "translation_id": "global.tagline",
+      "key": "tagline.open_spreadsheets_automatically",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "navigation.backups",
+      "key": "home.backups",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "navigation.about_licenses",
+      "key": "about.open",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "navigation.settings",
+      "key": "action.settings",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "navigation.advanced",
+      "key": "setup.advanced",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "navigation.first_use",
+      "key": "header.firstUse",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.settings.title",
+      "key": "backup.settings.title",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.retention.days",
+      "key": "recovery.retentionLabel",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.quota.mb",
+      "key": "recovery.quotaLabel",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.space.used",
+      "key": "recovery.usedHeading",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.space.ratio",
+      "key": "backup.space.ratio",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.count",
+      "key": "recovery.count",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.available",
+      "key": "backup.available",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.tip.title",
+      "key": "backup.tip.title",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.tip.multi",
+      "key": "backup.tip.multi",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.tip.ctrl",
+      "key": "backup.tip.ctrl",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.tip.shift",
+      "key": "backup.tip.shift",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.tip.arrows",
+      "key": "backup.tip.arrows",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "about.heading",
+      "key": "about.heading",
+      "mode": "create",
+      "reason": "Existing aggregate/title has different semantics; contextual key."
+    },
+    {
+      "translation_id": "about.links.heading",
+      "key": "about.links.heading",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "about.license.heading",
+      "key": "about.license.heading",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "about.dependencies.heading",
+      "key": "about.dependencies.heading",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "settings.doubleclick.description",
+      "key": "settings.doubleclick.description",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "google.status.connected",
+      "key": "emphasis.connected",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "google.status.not_authorized",
+      "key": "setup.authMissing",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "google.status.confirmed",
+      "key": "setup.authConfirmed",
+      "mode": "not_applicable",
+      "reason": "Fragment only; retain the existing complete authorization-state message, without concatenating translations."
+    },
+    {
+      "translation_id": "google.switch_account",
+      "key": "action.switchGoogleAccount",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "google.connection.heading",
+      "key": "setup.connectionHeading",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "google.connection.choose_json",
+      "key": "setup.chooseClient",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "google.connection.existing",
+      "key": "setup.clientPreserved",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "firstuse.openwith",
+      "key": "tutorial.picture.openWithZago",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "settings.doubleclick.heading",
+      "key": "setup.defaultsHeading",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "firstuse.defaults",
+      "key": "tutorial.defineDefaults",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "home.open_spreadsheet",
+      "key": "home.open",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "navigation.help",
+      "key": "home.help",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.action.restore",
+      "key": "action.restore",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.action.select_all",
+      "key": "recovery.selectAll",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.action.clear_selection",
+      "key": "recovery.clearSelection",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.action.delete",
+      "key": "recovery.deleteSelected",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.action.more",
+      "key": "recovery.moreActions",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.column.file",
+      "key": "recovery.column.file",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.column.date",
+      "key": "recovery.column.date",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.column.size",
+      "key": "recovery.column.size",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.column.state",
+      "key": "recovery.column.state",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.state.cleaned",
+      "key": "recovery.state.cleaned",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.state.cleaning",
+      "key": "recovery.state.cleaning",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.state.completed",
+      "key": "recovery.state.completed",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.state.protected",
+      "key": "recovery.state.protected",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "backup.state.unavailable",
+      "key": "recovery.state.unavailable",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "link.about.website",
+      "key": "about.website",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "link.about.licensesWebsite",
+      "key": "about.licensesWebsite",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "link.about.upstream",
+      "key": "about.upstream",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "link.about.upstreamAuthor",
+      "key": "about.upstreamAuthor",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "link.about.sourceCode",
+      "key": "about.sourceCode",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "link.legal.privacy",
+      "key": "legal.privacy",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "link.legal.terms",
+      "key": "legal.terms",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "settings.account_heading",
+      "key": "setup.googleHeading",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "google.switch_account_short",
+      "key": "setup.switchAccountShort",
+      "mode": "create",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "google.verify",
+      "key": "setup.verifyGoogle",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "google.cancel",
+      "key": "setup.cancelConnection",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "settings.windows_defaults",
+      "key": "setup.openWindowsDefaults",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "settings.shortcuts.import_heading",
+      "key": "setup.importHeading",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "settings.shortcuts.create",
+      "key": "setup.createShortcuts",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "settings.import_copy",
+      "key": "emphasis.importCopy",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "navigation.close",
+      "key": "action.close",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "advanced.sync.heading",
+      "key": "setup.syncHeading",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "advanced.sync.description",
+      "key": "setup.syncExplanation",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "advanced.sync.no",
+      "key": "setup.noSync",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "advanced.xls.heading",
+      "key": "setup.xlsHeading",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "advanced.xls.description",
+      "key": "setup.xlsExplanation",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "advanced.xls.replace",
+      "key": "setup.replaceXls",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "advanced.xls.save_preference",
+      "key": "setup.saveXls",
+      "mode": "not_applicable",
+      "reason": "Catalog retained; autosave has no Save button. No button added."
+    },
+    {
+      "translation_id": "firstuse.step.googleTitle",
+      "key": "tutorial.googleTitle",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "firstuse.step.googleExplanation",
+      "key": "tutorial.googleExplanation",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "firstuse.step.importTitle",
+      "key": "tutorial.importTitle",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "firstuse.step.importExplanation",
+      "key": "tutorial.importExplanation",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "firstuse.step.defaultsTitle",
+      "key": "tutorial.defaultsTitle",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "firstuse.step.defaultsExplanation",
+      "key": "tutorial.defaultsExplanation",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "firstuse.nav.back",
+      "key": "action.back",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "firstuse.nav.next",
+      "key": "action.next",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "firstuse.nav.start",
+      "key": "tutorial.start",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "firstuse.steps.count",
+      "key": "tutorial.pageCount",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "firstuse.picture.chooseAccount",
+      "key": "tutorial.picture.chooseAccount",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "firstuse.picture.authorizeAccess",
+      "key": "tutorial.picture.authorizeAccess",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    },
+    {
+      "translation_id": "google.connection.full_explanation",
+      "key": "setup.connectionExplanation",
+      "mode": "reuse",
+      "reason": "CSV translation; native UI decorations preserved."
+    }
+  ]
+}

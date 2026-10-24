@@ -46,11 +46,11 @@ internal sealed class FirstUseWizard : Form
         noSync = new ToggleSwitch { AutoSize = true, Text = UiText.Get("setup.noSync"), Checked = !opening.RestrictToFolder };
         folder.Text = opening.Folder ?? "";
         CurrentPage = Math.Clamp(initialPage, 0, PageCount - 1);
-        Text = UiText.Get("setup.firstUseTitle"); ClientSize = new Size(760, 440); MinimumSize = new Size(620, 420);
+        Text = UiText.Get("setup.firstUseTitle"); ClientSize = new Size(760, 440); MinimumSize = new Size(620, 400);
         StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
         layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 200));
         layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100)); layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-        connection.Font = new Font(LanguageVisuals.Family, 11, FontStyle.Bold); connection.Margin = new Padding(0, 2, 0, 6);
+        connection.Font = new Font(LanguageVisuals.Family, 13, FontStyle.Bold); connection.Margin = new Padding(0, 2, 0, 6);
         heading.Dock = DockStyle.Fill; heading.Margin = new Padding(0, 0, 0, 8);
         layout.Controls.Add(heading, 0, 0); layout.Controls.Add(picture, 0, 1); layout.Controls.Add(content, 0, 2); layout.Controls.Add(actions, 0, 3);
         actions.Controls.Add(PreviousButton); actions.Controls.Add(NextButton); actions.Controls.Add(count); actions.Controls.Add(cancel);
@@ -115,9 +115,10 @@ internal sealed class FirstUseWizard : Form
         else if (CurrentPage == 2)
         {
             var defaultsHeading = Ui.Center(Ui.Text(SectionTitle("setup.defaultsHeading"), true)); defaultsHeading.Margin = new Padding(0, 2, 0, 6);
+            defaultsHeading.Font = new Font(LanguageVisuals.Family, 15, FontStyle.Bold);
             var defaultsExplanation = Ui.Center(Ui.Text(UiText.Get("firstUse.defaultsExplanation"))); defaultsExplanation.Margin = new Padding(0, 0, 0, 6);
             content.Controls.Add(defaultsHeading); content.Controls.Add(defaultsExplanation);
-            var defaults = new AdaptiveButton { AutoSize = true, Text = UiText.Get("tutorial.defineDefaults") }; Ui.Primary(defaults);
+            var defaults = new AdaptiveButton { AutoSize = true, Text = UiText.Get("tutorial.defineDefaults"), FontSizeOverride = 11 }; Ui.Primary(defaults);
             defaults.Click += (_, _) => { try { new BrowserLauncher().Open(WindowsAssociationPlan.DefaultsUri); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = UiText.Get("setup.windowsDefaultsInstructions"); } };
             content.Controls.Add(defaults);
         }
@@ -136,9 +137,11 @@ internal sealed class FirstUseWizard : Form
         {
             content.PerformLayout();
             var needed = content.Controls.Cast<Control>().Where(control => control.Visible).Sum(control => control.Height + control.Margin.Vertical) + content.Padding.Vertical + 8;
-            if (needed <= content.ClientSize.Height) return;
+            // Fit each step independently, including navigating back from a longer page.
+            var target = Math.Max(400 * DeviceDpi / 96, ClientSize.Height + needed - content.ClientSize.Height);
+            if (Math.Abs(target - ClientSize.Height) <= 2) return;
             var maximum = Screen.FromControl(this).WorkingArea.Height - (Height - ClientSize.Height) - 24;
-            ClientSize = new Size(ClientSize.Width, Math.Min(maximum, ClientSize.Height + needed - content.ClientSize.Height));
+            ClientSize = new Size(ClientSize.Width, Math.Min(maximum, target));
             content.PerformLayout();
         }
         finally { fittingContent = false; }

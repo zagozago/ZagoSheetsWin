@@ -5,6 +5,8 @@ namespace SheetsWindows.Windows;
 // Retains native checkbox keyboard/UIA state while drawing a switch in both themes.
 internal sealed class ToggleSwitch : CheckBox
 {
+    [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+    internal bool CenterGroup { get; init; }
     public ToggleSwitch()
     {
         SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
@@ -32,8 +34,10 @@ internal sealed class ToggleSwitch : CheckBox
         e.Graphics.Clear(BackColor); var scale = DeviceDpi / 96f;
         var trackWidth = (int)(38 * scale); var trackHeight = (int)(20 * scale); var gap = (int)(10 * scale);
         var rtl = RightToLeft == RightToLeft.Yes;
-        Draw(e.Graphics, new Rectangle(rtl ? Width - trackWidth - 2 : 2, (Height - trackHeight) / 2, trackWidth, trackHeight), Checked, BackColor, ForeColor, Enabled);
-        var text = new Rectangle(rtl ? 0 : trackWidth + gap, 2, Math.Max(1, Width - trackWidth - gap - 2), Height - 4);
+        var textWidth = Math.Min(Math.Max(1, Width - trackWidth - gap - 4), TextRenderer.MeasureText(Text, Font, new Size(Math.Max(1, Width - trackWidth - gap - 4), int.MaxValue), TextFormatFlags.WordBreak).Width);
+        var inset = CenterGroup ? Math.Max(2, (Width - textWidth - trackWidth - gap) / 2) : 2;
+        Draw(e.Graphics, new Rectangle(rtl ? Width - trackWidth - inset : inset, (Height - trackHeight) / 2, trackWidth, trackHeight), Checked, BackColor, ForeColor, Enabled);
+        var text = new Rectangle(rtl ? inset : inset + trackWidth + gap, 2, CenterGroup ? textWidth : Math.Max(1, Width - trackWidth - gap - 2), Height - 4);
         TextRenderer.DrawText(e.Graphics, Text, Font, text, Enabled ? ForeColor : SystemColors.GrayText,
             TextFormatFlags.WordBreak | TextFormatFlags.VerticalCenter | (rtl ? TextFormatFlags.RightToLeft | TextFormatFlags.Right : 0));
         if (Focused && ShowFocusCues) ControlPaint.DrawFocusRectangle(e.Graphics, ClientRectangle, ForeColor, BackColor);

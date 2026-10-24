@@ -57,37 +57,44 @@ internal static class LocalizedControls
 // focus space. Flow rows wrap; constrained full-width buttons grow in height.
 internal class AdaptiveButton : Button
 {
+    [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+    internal float? FontSizeOverride { get; init; }
+    [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+    internal int ContentOffsetY { get; set; }
     private bool fitting;
     public AdaptiveButton(){Padding=new Padding(12,6,12,6);AutoEllipsis=false;}
     protected override void OnPaint(PaintEventArgs e)
     {
-        if (Enabled || SystemInformation.HighContrast) { base.OnPaint(e); return; }
-        // WinForms draws disabled text with a system grey regardless of ForeColor.
-        // Paint the disabled surface explicitly so both themes retain readable text.
-        e.Graphics.Clear(BackColor);
+        if (Image is null && Enabled || SystemInformation.HighContrast) { base.OnPaint(e); return; }
+        var hovered = Enabled && ClientRectangle.Contains(PointToClient(MousePosition));
+        e.Graphics.Clear(hovered ? FlatAppearance.MouseOverBackColor : BackColor);
         using var border = new Pen(FlatAppearance.BorderColor);
         e.Graphics.DrawRectangle(border, 0, 0, Math.Max(0, Width - 1), Math.Max(0, Height - 1));
-        var bounds = Rectangle.FromLTRB(Padding.Left + 3, Padding.Top, Width - Padding.Right - 3, Height - Padding.Bottom);
+        var gap = Image is null ? 0 : 8 * DeviceDpi / 96;
+        var room = Math.Max(20, Width - Padding.Horizontal - 12 - (Image?.Width ?? 0) - gap);
+        var textSize = TextRenderer.MeasureText(Text, Font, new Size(room, int.MaxValue), TextFormatFlags.WordBreak);
+        var groupWidth = textSize.Width + (Image?.Width ?? 0) + gap;
+        var x = (Width - groupWidth) / 2; var y = (Height - textSize.Height) / 2 + ContentOffsetY * DeviceDpi / 96;
+        var rtl = RightToLeft == RightToLeft.Yes;
         if (Image is not null)
         {
-            var iconX = RightToLeft == RightToLeft.Yes ? bounds.Right - Image.Width : bounds.Left;
-            e.Graphics.DrawImage(Image, iconX, (Height - Image.Height) / 2, Image.Width, Image.Height);
-            if (RightToLeft == RightToLeft.Yes) bounds.Width -= Image.Width + 6;
-            else { bounds.X += Image.Width + 6; bounds.Width -= Image.Width + 6; }
+            e.Graphics.DrawImage(Image, rtl ? x + textSize.Width + gap : x, (Height - Image.Height) / 2 + ContentOffsetY * DeviceDpi / 96, Image.Width, Image.Height);
+            if (!rtl) x += Image.Width + gap;
         }
         var flags = TextFormatFlags.WordBreak | TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter;
-        if (RightToLeft == RightToLeft.Yes) flags |= TextFormatFlags.RightToLeft;
+        if (rtl) flags |= TextFormatFlags.RightToLeft;
         if (!ShowKeyboardCues) flags |= TextFormatFlags.HidePrefix;
-        TextRenderer.DrawText(e.Graphics, Text, Font, bounds, ForeColor, flags);
+        TextRenderer.DrawText(e.Graphics, Text, Font, new Rectangle(x, y, textSize.Width, textSize.Height), ForeColor, flags);
+        if (Focused && ShowFocusCues) ControlPaint.DrawFocusRectangle(e.Graphics, Rectangle.Inflate(ClientRectangle, -4, -4), ForeColor, BackColor);
     }
     public override Size GetPreferredSize(Size proposedSize)
     {
         var max=Parent is FlowLayoutPanel flow ? Math.Max(80,flow.ClientSize.Width-flow.Padding.Horizontal-Margin.Horizontal) : proposedSize.Width;
         if(max<=0)max=int.MaxValue;
         var natural=TextRenderer.MeasureText(Text,Font,Size.Empty,TextFormatFlags.SingleLine);
-        var width=Math.Min(max,natural.Width+Padding.Horizontal+12+(Image?.Width+6 ?? 0));
+        var width=Math.Min(max,natural.Width+Padding.Horizontal+12+(Image?.Width+8 ?? 0));
         if(Parent is FlowLayoutPanel { FlowDirection: FlowDirection.TopDown, WrapContents: false }) width=Math.Min(max,Math.Max(Width,width));
-        var text=TextRenderer.MeasureText(Text,Font,new Size(Math.Max(20,width-Padding.Horizontal-12-(Image?.Width+6 ?? 0)),int.MaxValue),TextFormatFlags.WordBreak);
+        var text=TextRenderer.MeasureText(Text,Font,new Size(Math.Max(20,width-Padding.Horizontal-12-(Image?.Width+8 ?? 0)),int.MaxValue),TextFormatFlags.WordBreak);
         return new Size(Math.Max(MinimumSize.Width,width),Math.Max(MinimumSize.Height,text.Height+Padding.Vertical+10));
     }
     private void Fit()
@@ -96,7 +103,7 @@ internal class AdaptiveButton : Button
         fitting=true;
         try
         {
-            var measured=TextRenderer.MeasureText(Text,Font,new Size(Math.Max(20,Width-Padding.Horizontal-12-(Image?.Width+6 ?? 0)),int.MaxValue),TextFormatFlags.WordBreak);
+            var measured=TextRenderer.MeasureText(Text,Font,new Size(Math.Max(20,Width-Padding.Horizontal-12-(Image?.Width+8 ?? 0)),int.MaxValue),TextFormatFlags.WordBreak);
             var height=measured.Height+Padding.Vertical+10;
             if(!AutoSize && Dock != DockStyle.Fill)Height=Math.Max(MinimumSize.Height,height);
             else if(!AutoSize && Height<height)Height=height;

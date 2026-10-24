@@ -29,15 +29,7 @@ internal sealed class AdvancedPreferencesForm : Form
             section.Controls.Add(row);
         }
         void Divider() { section = VisualStyle.Card(); layout.Controls.Add(section); }
-        var connectionHeading = Ui.Text("", true); var connectionExplanation = Ui.Text("");
-        void RefreshConnectionCopy()
-        {
-            var parts = UiText.Get("setup.connectionExplanation").Split('\n', 2);
-            connectionHeading.Text = parts[0]; connectionExplanation.Text = parts.Length > 1 ? parts[1] : "";
-        }
-        RefreshConnectionCopy(); UiText.Changed += RefreshConnectionCopy; Disposed += (_, _) => UiText.Changed -= RefreshConnectionCopy;
-        connectionHeading.Margin = new Padding(0, 2, 0, 4); connectionExplanation.Margin = new Padding(0, 2, 0, 6);
-        section.Controls.Add(connectionHeading); section.Controls.Add(connectionExplanation);
+        Heading("setup.connectionHeading", () => InformationButton.TextPanel("setup.connectionExplanation"));
         var clientState = new TextBox { ReadOnly = true, BorderStyle = BorderStyle.None, Tag = "status", Margin = new Padding(0, 8, 0, 2) };
         var chooseClient = new AdaptiveButton { Text = UiText.Get("setup.chooseClient") };
         void RefreshClient()
@@ -104,6 +96,6 @@ internal sealed class AdvancedPreferencesForm : Form
         close.Click += (_, _) => Close(); CancelButton = close;
         var footer = new Panel { Dock = DockStyle.Bottom, Height = 58, Padding = new Padding(18, 0, 18, 14) };
         close.Dock = DockStyle.Fill; footer.Controls.Add(close);
-        Controls.Add(layout); Controls.Add(footer); Branding.Apply(this); Ui.Adapt(layout); Ui.Adapt(folderOptions);
+        Controls.Add(layout); Controls.Add(footer); Branding.Apply(this); Ui.Adapt(layout); VisualStyle.FitWindow(this, layout); Ui.Adapt(folderOptions);
     }
 }

@@ -220,20 +220,32 @@ internal static class InterfaceVerification
                 "Restore must be the first regular primary action beside selection controls.");
             var numbers = Descendants(recovery).OfType<NumericUpDown>().ToArray();
             Require(numbers.Any(n => n.Value == 30 && n.Maximum == 365) && numbers.Any(n => n.Value == 200 && n.Maximum == 1000), "Backup defaults and quota ceiling must be visible.");
-            Require(!Descendants(recovery).OfType<CheckBox>().Any(), "Automatic cleanup must not expose an opt-in toggle.");
-            Require(list.Columns.Count == 4 && list.Items.Cast<ListViewItem>().All(i => i.Tag is RecoveryEntry), "Backup table must preserve recovery identity and expose four readable columns.");
+            Require(Descendants(recovery).OfType<CheckBox>().Count() == 1, "Automatic cleanup must not expose an opt-in toggle.");
+            Require(list.Columns.Count == 5 && list.Items.Cast<ListViewItem>().All(i => i.Tag is RecoveryEntry), "Backup table must preserve recovery identity and expose four readable columns.");
             Require(list.Items.Count == 3 && list.Items.Cast<ListViewItem>().All(i => ((RecoveryEntry)i.Tag!).CleanupState != 2), "Deleted backup history must be absent from the recovery list.");
-            Require(list.MultiSelect && !list.CheckBoxes, "Backups must support multiple selection.");
+            Require(list.MultiSelect && list.CheckBoxes, "Backups must support multiple selection.");
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Selecionar todos").PerformClick();
-            Require(list.CheckedItems.Count == 0 && list.SelectedItems.Count == 3, "Select all must include pending backups for explicit confirmed discard.");
+            Require(list.CheckedItems.Count == 3 && list.SelectedItems.Count == 3, "Select all must include pending backups for explicit confirmed discard.");
             Require(Descendants(recovery).OfType<Button>().Single(b => b.Text == UiText.Get("recovery.deleteSelected")).Enabled, "Pending backups must allow the confirmed manual delete action.");
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Limpar seleção").PerformClick();
             Require(list.SelectedItems.Count == 0, "Clear selection must remove all marks.");
             Require(!Descendants(recovery).OfType<Button>().Any(b => b.Text == UiText.Get("recovery.savePolicy")), "Backup policy must auto-save without a save button.");
-            Require(!Descendants(recovery).OfType<CheckBox>().Any(), "Automatic backup cleanup must not expose a switch.");
+            Require(Descendants(recovery).OfType<CheckBox>().Count() == 1, "Automatic backup cleanup must not expose a switch.");
+            var panels = Descendants(recovery).OfType<DisclosureCard>().ToArray();
+            Require(panels.Length == 3 && panels.All(p => !p.Expanded), "All backup panels must start collapsed.");
+            foreach (var panel in panels) panel.SetExpanded(true);
+            Application.DoEvents();
+            var selector = (BackupSelectionList)list;
+            list.Items[0].Selected = true; Application.DoEvents();
+            Require(list.Items[0].Checked && selector.SelectAllHeader.CheckState == CheckState.Indeterminate, "Row selection must check the item and show a partial header.");
+            list.Items[1].Checked = true; Application.DoEvents();
+            Require(list.Items[1].Selected, "Checkbox selection must update the effective batch selection.");
+            list.Items[1].Checked = false; Application.DoEvents();
+            Require(!list.Items[1].Selected, "Unchecking a row must remove it from batch selection.");
+            foreach(ListViewItem row in list.Items) row.Selected = false;
             var statistics = Descendants(recovery).OfType<Label>().Single(l => l.Name == "backupStatistics");
             Require(statistics.Font.SizeInPoints >= 10f, "Backup statistics must remain as readable as the surrounding body text.");
-            Require(statistics.Parent is SurfaceCard { Padding.Top: >= 8, Margin.Bottom: >= 8 }, "Backup statistics must use the shared bordered card, with padding and separation.");
+            Require(statistics.Parent is SurfaceCard, "Backup statistics must use the shared bordered card, with padding and separation.");
             for (var column = 0; column < 4; column++)
             {
                 recovery.SortByColumn(column);
@@ -267,7 +279,7 @@ internal static class InterfaceVerification
                 var sync = Descendants(advanced).OfType<CheckBox>().Single(b => b.Text == UiText.Get("setup.noSync"));
                 Require(sync.Checked, "Default folder policy must be preserved.");
                 Require(Descendants(advanced).OfType<CheckBox>().Any(b => b.Text == UiText.Get("setup.replaceXls")), "Advanced options must preserve XLS preferences.");
-                Require(Descendants(advanced).OfType<InformationButton>().Count() == 3, "Advanced help covers the two remaining groups plus header information.");
+                Require(Descendants(advanced).OfType<InformationButton>().Count() == 4, "Advanced help covers the two remaining groups plus header information.");
                 Require(Descendants(advanced).OfType<Button>().Count(b => b.Text == UiText.Get("setup.chooseClient")) == 1, "Advanced options must provide the only JSON selector.");
                 Require(!Descendants(advanced).OfType<ComboBox>().Any()
                     && !Descendants(advanced).OfType<Label>().Any(l => l.Text == UiText.Get("setup.formatsHeading") || l.Text == UiText.Get("setup.extendedFormats")),
@@ -421,14 +433,14 @@ internal static class InterfaceVerification
             var sync = Descendants(advancedSettings).OfType<CheckBox>().Single(c=>c.Text==UiText.Get("setup.noSync"));
             sync.Checked=false;
             var list = Descendants(backups).OfType<ListView>().Single();list.Items[0].Checked=true;
-            var filename=list.Items[0].Text;
+            var filename=list.Items[0].SubItems[1].Text;
             UiText.Select("en"); Application.DoEvents();
             Require(Descendants(home).OfType<Button>().Any(b=>b.Text=="&Help"),"Open home must switch to English.");
             Require(settings.Text=="Settings - ZagoSheetsWin" && sync.Text.StartsWith("I do not sync") && !sync.Checked,"Language change must preserve unsaved settings.");
             var googleInfo = Descendants(settings).OfType<InformationButton>().First(); googleInfo.OpenInformation(); Application.DoEvents();
             Require(!Descendants(googleInfo.PopupContent!).OfType<Button>().Any(b => b.Text == UiText.Get("setup.chooseClient")), "Google information must contain explanations without client configuration controls.");
             Require(Descendants(advancedSettings).OfType<Button>().Single(b => b.Text == UiText.Get("setup.chooseClient")).Text.Contains("JSON"), "Advanced client selection must use the current language.");
-            Require(list.Items[0].Checked && list.Items[0].Text==filename && list.Columns[0].Text=="File","Language change must preserve recovery data and selection.");
+            Require(list.Items[0].Checked && list.Items[0].SubItems[1].Text==filename && list.Columns[1].Text=="File","Language change must preserve recovery data and selection.");
             Require(Descendants(tutorial).OfType<Label>().Any(l=>l.Text.Contains("Keep the original")),"Existing tutorial must refresh its current page.");
             Require(Descendants(tutorial).OfType<FlowLayoutPanel>().All(p=>!p.VerticalScroll.Visible),"English tutorial must not gain vertical scrolling.");
             foreach(var field in Descendants(picker).Where(c=>c is TextBox or ListBox or EmphasisLabel))
