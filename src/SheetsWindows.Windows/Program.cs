@@ -39,9 +39,31 @@ internal static class Program
                     entry.Item2.Show(); Application.DoEvents(); using var bitmap = new Bitmap(entry.Item2.Width, entry.Item2.Height);
                     entry.Item2.DrawToBitmap(bitmap, new Rectangle(Point.Empty, bitmap.Size)); bitmap.Save(Path.Combine(folder, entry.Item1 + ".png"), System.Drawing.Imaging.ImageFormat.Png); entry.Item2.Hide();
                 }
+                static IEnumerable<Control> All(Control root) { foreach(Control child in root.Controls) { yield return child; foreach(var nested in All(child)) yield return nested; } }
                 foreach (var theme in new[] { ApplicationTheme.Light, ApplicationTheme.Dark })
                 {
                     Branding.PreviewTheme(theme);
+                    using (var expandedBackups = new RecoveryForm(preview: true))
+                    {
+                        expandedBackups.Show(); foreach(var panel in All(expandedBackups).OfType<DisclosureCard>()) panel.SetExpanded(true); Application.DoEvents();
+                        using var bitmap = new Bitmap(expandedBackups.Width, expandedBackups.Height); expandedBackups.DrawToBitmap(bitmap, new Rectangle(Point.Empty, bitmap.Size));
+                        bitmap.Save(Path.Combine(folder, $"recovery-expanded-{theme}.png"), System.Drawing.Imaging.ImageFormat.Png);
+                        All(expandedBackups).OfType<DisclosureCard>().First().SetExpanded(false); Application.DoEvents();
+                        using var compactBitmap = new Bitmap(expandedBackups.Width, expandedBackups.Height); expandedBackups.DrawToBitmap(compactBitmap, new Rectangle(Point.Empty, compactBitmap.Size));
+                        compactBitmap.Save(Path.Combine(folder, $"recovery-two-panels-{theme}.png"), System.Drawing.Imaging.ImageFormat.Png); expandedBackups.Hide();
+                    }
+                    using (var advanced = new AdvancedPreferencesForm(LocalStorage.ForCurrentUser(), preview: true))
+                    {
+                        advanced.Show(); Application.DoEvents();
+                        using var bitmap = new Bitmap(advanced.Width, advanced.Height); advanced.DrawToBitmap(bitmap, new Rectangle(Point.Empty, bitmap.Size));
+                        bitmap.Save(Path.Combine(folder, $"advanced-{theme}.png"), System.Drawing.Imaging.ImageFormat.Png); advanced.Hide();
+                    }
+                    for (var page = 0; page < FirstUseWizard.PageCount; page++)
+                    {
+                        using var wizard = new FirstUseWizard(preview: true, initialPage: page); wizard.Show(); Application.DoEvents();
+                        using var bitmap = new Bitmap(wizard.Width, wizard.Height); wizard.DrawToBitmap(bitmap, new Rectangle(Point.Empty, bitmap.Size));
+                        bitmap.Save(Path.Combine(folder, $"first-use-{page+1}-{theme}.png"), System.Drawing.Imaging.ImageFormat.Png); wizard.Hide();
+                    }
                     for (var page = 0; page < 4; page++)
                     {
                         using var tutorial = new TutorialForm(page); tutorial.Show(); Application.DoEvents();

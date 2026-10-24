@@ -14,6 +14,8 @@ INNO = re.compile(r'%[1-9]')
 LOCALIZED_UNITS = {'fr': {'MB': 'Mo', 'GB': 'Go'}, 'ru': {'MB': 'МБ', 'GB': 'ГБ'},
                    'ar': {'MB': 'ميغابايت'}}
 TECHNICAL_LABELS = {
+    # Approved CSV uses a symbolic ratio without words in Chinese.
+    'backup.space.ratio': {'{used} / {limit}（{percent}）', '{used}／{limit}（{percent}）'},
     'dialog.oauthFileFilter': {'OAuth JSON|*.json'},
     'installer.standard.Messages.ButtonOK': {'OK'},
     'installer.standard.Messages.UninstallDisplayNameMark32Bit': {'32-bit'},

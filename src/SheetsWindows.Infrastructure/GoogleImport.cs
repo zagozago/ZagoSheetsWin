@@ -7,11 +7,35 @@ using SheetsWindows.Core;
 namespace SheetsWindows.Infrastructure;
 
 public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistry local, IRemoteRegistry remote,
-    ISourceReader sources, IOperationLock locks, IGoogleAuth auth, GoogleDriveClient drive, TextImportOptions? textOptions = null, ProcessingTelemetry? telemetry = null, ImportInterpretations? interpretations = null)
+    ISourceReader sources, IOperationLock locks, IGoogleAuth auth, GoogleDriveClient drive, TextImportOptions? textOptions = null, ProcessingTelemetry? telemetry = null, ImportInterpretations? interpretations = null, IReadOnlySet<Guid>? reopenCandidates = null)
 {
     public const int MaxBytes = 20 * 1024 * 1024;
     public async Task<Uri> ImportAsync(string path, CancellationToken ct = default) => (await ImportReceiptAsync(path, ct)).Url;
     public async Task<ImportReceipt> ImportReceiptAsync(string path, CancellationToken ct = default, bool renewTrashed = true)
+    {
+        try { return await ImportCoreAsync(path, ct, renewTrashed); }
+        catch (ReconciliationRequiredException ex) when (renewTrashed && ex.MissingKey is not null && reopenCandidates is not null)
+        {
+            var access = await auth.AccessAsync(cancellationToken: ct);
+            await using (var source = sources.Open(path))
+            await using (var held = await locks.AcquireAsync(source.Source.IdentityKey, ct))
+            {
+                var old = local.Pending().SingleOrDefault(op => op.AccountId == access.AccountId && op.SourceKey == source.Source.IdentityKey);
+                if (old?.Snapshot is not { } snapshot || !reopenCandidates.Contains(old.Id)
+                    || ex.MissingKey != "sheet:" + old.Id.ToString("N")) throw;
+                var mapping = remote.Get(ex.MissingKey);
+                if (mapping is null || mapping.FileId is not null || mapping.Verified || mapping.AccountId != access.AccountId
+                    || mapping.Kind != "sheet" || mapping.Hash != snapshot.Sha256) throw;
+                // Check once more while holding the source lock. No remote mapping/history is discarded.
+                if ((await drive.FindAsync(mapping, ct)).Count != 0) throw;
+                ct.ThrowIfCancellationRequested();
+                local.RetirePendingAssociation(old.Id, old.Version);
+            }
+            // Only the explicitly captured previous operation qualifies; a failure here cannot loop.
+            return await ImportCoreAsync(path, ct, renewTrashed);
+        }
+    }
+    private async Task<ImportReceipt> ImportCoreAsync(string path, CancellationToken ct, bool renewTrashed)
     {
         telemetry?.Mark(ProcessingStep.Preflight, CheckpointOutcome.Started);
         await using (var preflight = sources.Open(path))
@@ -171,7 +195,7 @@ public sealed class GoogleImport(LocalPreparation preparation, IOperationRegistr
                 await Task.Delay(TimeSpan.FromMilliseconds(500 * (lookup + 1)), ct);
                 found = await drive.FindAsync(attempt, ct);
             }
-            if (found.Count != 1) { telemetry?.Mark(found.Count == 0 ? ProcessingStep.RemoteLookupNone : ProcessingStep.RemoteLookupMultiple); throw new ReconciliationRequiredException(); }
+            if (found.Count != 1) { telemetry?.Mark(found.Count == 0 ? ProcessingStep.RemoteLookupNone : ProcessingStep.RemoteLookupMultiple); throw new ReconciliationRequiredException(found.Count == 0 && kind == "sheet" ? key : null); }
             file = found[0]; remote.Candidate(key, file.Id);
         }
         telemetry?.Mark(ProcessingStep.RemoteLookup);

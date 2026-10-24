@@ -14,7 +14,7 @@ internal sealed class FirstUseWizard : Form
     private readonly Func<CancellationToken, Task> verify;
     private readonly Func<CancellationToken, Task> save;
     private CancellationTokenSource cancellation = new();
-    private readonly TableLayoutPanel layout = new() { Dock = DockStyle.Fill, Padding = new Padding(20), ColumnCount = 1, RowCount = 5 };
+    private readonly TableLayoutPanel layout = new() { Dock = DockStyle.Fill, Padding = new Padding(20, 8, 20, 14), ColumnCount = 1, RowCount = 5 };
     private readonly Label heading = Ui.Text("", true);
     private readonly TutorialPicture picture = new() { Dock = DockStyle.Fill, FirstUse = true };
     private readonly FlowLayoutPanel content = new() { Dock = DockStyle.Fill, AutoScroll = true, FlowDirection = FlowDirection.TopDown, WrapContents = false };
@@ -28,6 +28,7 @@ internal sealed class FirstUseWizard : Form
     private string clientPath = "";
     private bool busy;
     private bool checking;
+    private bool fittingContent;
     internal int CurrentPage { get; private set; }
     internal bool AuthorizationConfirmed { get; private set; }
     internal bool Completed { get; private set; }
@@ -45,17 +46,18 @@ internal sealed class FirstUseWizard : Form
         noSync = new ToggleSwitch { AutoSize = true, Text = UiText.Get("setup.noSync"), Checked = !opening.RestrictToFolder };
         folder.Text = opening.Folder ?? "";
         CurrentPage = Math.Clamp(initialPage, 0, PageCount - 1);
-        Text = UiText.Get("setup.firstUseTitle"); ClientSize = new Size(760, 740); MinimumSize = new Size(620, 620);
+        Text = UiText.Get("setup.firstUseTitle"); ClientSize = new Size(760, 440); MinimumSize = new Size(620, 400);
         StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
-        layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 220));
+        layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 200));
         layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100)); layout.RowStyles.Add(new RowStyle(SizeType.AutoSize)); layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-        heading.Dock = DockStyle.Fill;
+        connection.Font = new Font(LanguageVisuals.Family, 13, FontStyle.Bold); connection.Margin = new Padding(0, 2, 0, 6);
+        heading.Dock = DockStyle.Fill; heading.Margin = new Padding(0, 0, 0, 8);
         layout.Controls.Add(heading, 0, 0); layout.Controls.Add(picture, 0, 1); layout.Controls.Add(content, 0, 2); layout.Controls.Add(actions, 0, 3);
         actions.Controls.Add(PreviousButton); actions.Controls.Add(NextButton); actions.Controls.Add(count); actions.Controls.Add(cancel);
         var legal = new FlowLayoutPanel { AutoSize = true, Dock = DockStyle.Fill, WrapContents = true };
         foreach (var (key, url) in new[] { ("legal.privacy", "https://zagotools.top/legal.html#privacidade"), ("legal.terms", "https://zagotools.top/legal.html#termos") })
         {
-            var link = new LinkLabel { AutoSize = true, Text = UiText.Get(key), Margin = new Padding(4, 6, 18, 4) };
+            var link = new LinkLabel { AutoSize = true, Text = UiText.Get(key), Margin = new Padding(0, 6, 18, 4) };
             link.LinkClicked += (_, _) => { try { new BrowserLauncher().Open(new Uri(url)); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = url; } };
             legal.Controls.Add(link);
         }
@@ -77,6 +79,7 @@ internal sealed class FirstUseWizard : Form
             if (busy) { e.Cancel = true; cancellation.Cancel(); }
         };
         Branding.Apply(this); Ui.Adapt(content); RefreshPage();
+        Shown += (_, _) => FitContent(); DpiChanged += (_, _) => BeginInvoke((Action)FitContent);
         if (!preview) Shown += async (_, _) => { if (CurrentPage == 1) await CheckExistingConnection(); };
     }
     private static string SectionTitle(string key) => System.Text.RegularExpressions.Regex.Replace(UiText.Get(key), @"^\s*\d+[.、．]?\s*", "");
@@ -93,14 +96,15 @@ internal sealed class FirstUseWizard : Form
         var old = content.Controls.Cast<Control>().ToArray(); content.Controls.Clear(); foreach (var control in old) control.Dispose();
         heading.Text = UiText.Format("tutorial.numberedTitle", ("number", CurrentPage + 1), ("title", TutorialForm.Pages[CurrentPage].Title));
         picture.Page = CurrentPage; picture.AccessibleName = TutorialForm.Pages[CurrentPage].Title; picture.Invalidate();
-        layout.RowStyles[1].Height = 220 * DeviceDpi / 96f;
+        layout.RowStyles[1].Height = 200 * DeviceDpi / 96f;
         if (CurrentPage == 1)
         {
-            content.Controls.Add(Ui.Center(Ui.Text(UiText.Get("firstUse.googleExplanation"))));
+            var accountExplanation = Ui.Center(Ui.Text(UiText.Get("firstUse.googleExplanation")));
+            accountExplanation.Margin = new Padding(0, 0, 0, 6); content.Controls.Add(accountExplanation);
             connection.Text = UiText.Get(AuthorizationConfirmed ? "setup.authConfirmed" : "setup.authMissing");
             ConnectButton.Text = UiText.Get(AuthorizationConfirmed ? "action.switchGoogleAccount" : "action.authorizeGoogle");
             content.Controls.Add(Ui.Center(connection)); content.Controls.Add(ConnectButton);
-            if (!File.Exists(LauncherConfiguration.ClientPath(storage)) &&
+            if (!preview && !File.Exists(LauncherConfiguration.ClientPath(storage)) &&
                 !typeof(LauncherConfiguration).Assembly.GetManifestResourceNames().Contains("OAuth.official.desktop.json"))
             {
                 var choose = new AdaptiveButton { AutoSize = true, Text = UiText.Get("setup.chooseClient") };
@@ -110,16 +114,37 @@ internal sealed class FirstUseWizard : Form
         }
         else if (CurrentPage == 2)
         {
-            content.Controls.Add(Ui.Hero(SectionTitle("setup.defaultsHeading"))); content.Controls.Add(Ui.Center(Ui.Text(UiText.Get("firstUse.defaultsExplanation"))));
-            var defaults = new AdaptiveButton { AutoSize = true, Text = UiText.Get("tutorial.defineDefaults") }; Ui.Primary(defaults);
+            var defaultsHeading = Ui.Center(Ui.Text(SectionTitle("setup.defaultsHeading"), true)); defaultsHeading.Margin = new Padding(0, 2, 0, 6);
+            defaultsHeading.Font = new Font(LanguageVisuals.Family, 15, FontStyle.Bold);
+            var defaultsExplanation = Ui.Center(Ui.Text(UiText.Get("firstUse.defaultsExplanation"))); defaultsExplanation.Margin = new Padding(0, 0, 0, 6);
+            content.Controls.Add(defaultsHeading); content.Controls.Add(defaultsExplanation);
+            var defaults = new AdaptiveButton { AutoSize = true, Text = UiText.Get("tutorial.defineDefaults"), FontSizeOverride = 11 }; Ui.Primary(defaults);
             defaults.Click += (_, _) => { try { new BrowserLauncher().Open(WindowsAssociationPlan.DefaultsUri); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { status.Text = UiText.Get("setup.windowsDefaultsInstructions"); } };
             content.Controls.Add(defaults);
         }
         status.Visible = !string.IsNullOrEmpty(status.Text);
         content.Controls.Add(status);
         NextButton.Text = UiText.Get(CurrentPage == PageCount - 1 ? "tutorial.start" : "action.next"); PreviousButton.Text = UiText.Get("action.back");
+        count.Margin = new Padding(12, 10, 0, 0);
         count.Text = UiText.Format("tutorial.pageCount", ("number", CurrentPage + 1), ("total", PageCount));
-        Branding.Refresh(this); content.PerformLayout(); UpdateNavigation();
+        Branding.Refresh(this); content.PerformLayout(); UpdateNavigation(); FitContent();
+    }
+    private void FitContent()
+    {
+        if (fittingContent || !IsHandleCreated || WindowState != FormWindowState.Normal) return;
+        fittingContent = true;
+        try
+        {
+            content.PerformLayout();
+            var needed = content.Controls.Cast<Control>().Where(control => control.Visible).Sum(control => control.Height + control.Margin.Vertical) + content.Padding.Vertical + 8;
+            // Fit each step independently, including navigating back from a longer page.
+            var target = Math.Max(400 * DeviceDpi / 96, ClientSize.Height + needed - content.ClientSize.Height);
+            if (Math.Abs(target - ClientSize.Height) <= 2) return;
+            var maximum = Screen.FromControl(this).WorkingArea.Height - (Height - ClientSize.Height) - 24;
+            ClientSize = new Size(ClientSize.Width, Math.Min(maximum, target));
+            content.PerformLayout();
+        }
+        finally { fittingContent = false; }
     }
     private async Task CheckExistingConnection()
     {
@@ -146,7 +171,7 @@ internal sealed class FirstUseWizard : Form
             if (authentication) connection.Text = UiText.Get("setup.authNotCompleted");
             status.Text = ex is ArgumentException ? UiText.Get("setup.consentRequired") : LauncherErrors.Message(ex);
         }
-        finally { status.Visible = !string.IsNullOrEmpty(status.Text); busy = false; content.Enabled = true; cancel.Visible = false; if (cancellation.IsCancellationRequested) { cancellation.Dispose(); cancellation = new CancellationTokenSource(); } UpdateNavigation(); }
+        finally { status.Visible = !string.IsNullOrEmpty(status.Text); busy = false; content.Enabled = true; cancel.Visible = false; if (cancellation.IsCancellationRequested) { cancellation.Dispose(); cancellation = new CancellationTokenSource(); } UpdateNavigation(); FitContent(); }
     }
     private async Task Authorize(CancellationToken ct)
     {

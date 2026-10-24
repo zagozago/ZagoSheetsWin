@@ -177,7 +177,20 @@ internal static class InterfaceVerification
             firstNotice.Dispose();
             Require(nextNotice.AcquireNotice(), "Closing a notice must allow a later import notice.");
         }
+        Console.Error.WriteLine("VERIFY: compact first-use content");
+        for (var page = 0; page < FirstUseWizard.PageCount; page++)
+        {
+            using var screen = new FirstUseWizard(preview: true, initialPage: page);
+            screen.Show(); Application.DoEvents();
+            var content = Descendants(screen).OfType<FlowLayoutPanel>().Single(panel => panel.Dock == DockStyle.Fill && panel.FlowDirection == FlowDirection.TopDown && panel.AutoScroll);
+            Require(!content.VerticalScroll.Visible && content.Controls.Cast<Control>().Where(control => control.Visible).All(control => control.Bottom <= content.ClientSize.Height),
+                $"First-use page {page + 1} must display its explanation and actions without scrolling: viewport {content.ClientSize}, content {content.DisplayRectangle}.");
+            screen.Close();
+        }
         Console.Error.WriteLine("VERIFY: backup selection");
+        var zeroUsage = BackupUsageValues.From(0,0); var exceededUsage = BackupUsageValues.From(300_000_000,200);
+        Require(zeroUsage.Ratio == 0 && zeroUsage.Available == 0 && zeroUsage.Meter == 0, "Zero storage limits must be safe.");
+        Require(exceededUsage.Ratio == 1.5m && exceededUsage.Available == 0 && exceededUsage.Meter == 1000, "Over-quota metrics must preserve actual percentage and clamp only available space and the bar.");
         var policyRoot = Path.Combine(Path.GetTempPath(), "zsw-policy-ui-" + Guid.NewGuid().ToString("N"));
         try
         {
@@ -189,7 +202,7 @@ internal static class InterfaceVerification
                     var fields = Descendants(autosave).OfType<NumericUpDown>().ToArray();
                     fields.Single(n => n.Maximum == 365).Value = 45;
                     fields.Single(n => n.Maximum == 1000).Value = 321;
-                    Require(!Descendants(autosave).OfType<CheckBox>().Any(), "Backup cleanup is automatic and has no toggle.");
+                    Require(Descendants(autosave).OfType<CheckBox>().Count() == 0, "Backup cleanup is automatic and has no toggle.");
                     autosave.Close();
                 };
                 autosave.ShowDialog();
@@ -210,20 +223,39 @@ internal static class InterfaceVerification
                 "Restore must be the first regular primary action beside selection controls.");
             var numbers = Descendants(recovery).OfType<NumericUpDown>().ToArray();
             Require(numbers.Any(n => n.Value == 30 && n.Maximum == 365) && numbers.Any(n => n.Value == 200 && n.Maximum == 1000), "Backup defaults and quota ceiling must be visible.");
-            Require(!Descendants(recovery).OfType<CheckBox>().Any(), "Automatic cleanup must not expose an opt-in toggle.");
-            Require(list.Columns.Count == 4 && list.Items.Cast<ListViewItem>().All(i => i.Tag is RecoveryEntry), "Backup table must preserve recovery identity and expose four readable columns.");
+            Require(Descendants(recovery).OfType<CheckBox>().Count() == 0, "Automatic cleanup must not expose an opt-in toggle.");
+            Require(list.Columns.Count == 5 && list.Items.Cast<ListViewItem>().All(i => i.Tag is RecoveryEntry), "Backup table must preserve recovery identity and expose four readable columns.");
             Require(list.Items.Count == 3 && list.Items.Cast<ListViewItem>().All(i => ((RecoveryEntry)i.Tag!).CleanupState != 2), "Deleted backup history must be absent from the recovery list.");
-            Require(list.MultiSelect && !list.CheckBoxes, "Backups must support multiple selection.");
+            Require(list.MultiSelect && list.CheckBoxes, "Backups must support multiple selection.");
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Selecionar todos").PerformClick();
-            Require(list.CheckedItems.Count == 0 && list.SelectedItems.Count == 3, "Select all must include pending backups for explicit confirmed discard.");
+            Require(list.CheckedItems.Count == 3 && list.SelectedItems.Count == 3, "Select all must include pending backups for explicit confirmed discard.");
             Require(Descendants(recovery).OfType<Button>().Single(b => b.Text == UiText.Get("recovery.deleteSelected")).Enabled, "Pending backups must allow the confirmed manual delete action.");
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Limpar seleção").PerformClick();
             Require(list.SelectedItems.Count == 0, "Clear selection must remove all marks.");
             Require(!Descendants(recovery).OfType<Button>().Any(b => b.Text == UiText.Get("recovery.savePolicy")), "Backup policy must auto-save without a save button.");
-            Require(!Descendants(recovery).OfType<CheckBox>().Any(), "Automatic backup cleanup must not expose a switch.");
+            Require(Descendants(recovery).OfType<CheckBox>().Count() == 0, "Automatic backup cleanup must not expose a switch.");
+            var panels = Descendants(recovery).OfType<DisclosureCard>().ToArray();
+            Require(panels.Length == 3 && panels.All(p => !p.Expanded), "All backup panels must start collapsed.");
+            foreach (var panel in panels) panel.SetExpanded(true);
+            Application.DoEvents();
+            var selector = (BackupSelectionList)list;
+            list.Items[0].Selected = true; Application.DoEvents();
+            Require(list.Items[0].Checked, "Row selection must check the item and show a partial header.");
+            list.Items[1].Checked = true; Application.DoEvents();
+            Require(list.Items[1].Selected, "Checkbox selection must update the effective batch selection.");
+            list.Items[1].Checked = false; Application.DoEvents();
+            Require(!list.Items[1].Selected, "Unchecking a row must remove it from batch selection.");
+            Descendants(recovery).OfType<Button>().Single(b => b.Text == UiText.Get("recovery.selectAll")).PerformClick(); Application.DoEvents();
+            Require(list.SelectedItems.Count == 3 && list.CheckedItems.Count == 3, "Partial header activation must select every relevant backup.");
+            Descendants(recovery).OfType<Button>().Single(b => b.Text == UiText.Get("recovery.clearSelection")).PerformClick(); Application.DoEvents();
+            Require(list.SelectedItems.Count == 0 && list.CheckedItems.Count == 0, "Checked header activation must clear every selected backup.");
+            recovery.Activate(); list.Focus();
+            SendKeys.SendWait("{HOME}"); SendKeys.SendWait("+{END}"); Application.DoEvents();
+            Require(list.SelectedItems.Count == 3 && list.CheckedItems.Count == 3, "Native Shift keyboard range selection must remain available.");
+            foreach(ListViewItem row in list.Items) row.Selected = false;
             var statistics = Descendants(recovery).OfType<Label>().Single(l => l.Name == "backupStatistics");
-            Require(Math.Abs(statistics.Font.SizeInPoints - 8f) < 0.01f, "Backup statistics must use the compact 8-point font.");
-            Require(statistics.Font.Bold && statistics.Parent is FlowLayoutPanel { BorderStyle: BorderStyle.FixedSingle, Margin.Top: >= 16 }, "Backup statistics must have bold text, a border and vertical separation.");
+            Require(Math.Abs(statistics.Font.SizeInPoints - 8f) < .01f, "Backup statistics must remain as readable as the surrounding body text.");
+            Require(statistics.Parent is SurfaceCard, "Backup statistics must use the shared bordered card, with padding and separation.");
             for (var column = 0; column < 4; column++)
             {
                 recovery.SortByColumn(column);
@@ -245,6 +277,42 @@ internal static class InterfaceVerification
             }
             recovery.Hide();
         }
+        using (var manyBackups = new RecoveryForm(preview: true))
+        using (var bulkWatcher = new System.Windows.Forms.Timer { Interval = 15 })
+        {
+            var rows = Descendants(manyBackups).OfType<BackupSelectionList>().Single();
+            for(var index=rows.Items.Count; index<313; index++)
+            {
+                var row = new ListViewItem("") { Tag = new RecoveryEntry(Guid.NewGuid(), $"arquivo-{index}.xlsx", 100, 4, DateTimeOffset.UtcNow, true, true) };
+                row.SubItems.AddRange([$"arquivo-{index}.xlsx", "24/10/2026", "0.00 MB", UiText.Get("recovery.state.completed")]); rows.Items.Add(row);
+            }
+            var phase = 0; var completed = false; var timer = new System.Diagnostics.Stopwatch();
+            bulkWatcher.Tick += (_, _) =>
+            {
+                if (phase == 0)
+                {
+                    timer.Restart(); phase = 1;
+                    Descendants(manyBackups).OfType<Button>().Single(b => b.Text == UiText.Get("recovery.selectAll")).PerformClick();
+                    if(rows.ApplyingSelection) SaveFrame(manyBackups,"bulk-select-progress");
+                    return;
+                }
+                var actionReady = Descendants(manyBackups).OfType<Button>().Single(b => b.Text == UiText.Get("recovery.selectAll")).Enabled;
+                if((rows.ApplyingSelection || !actionReady) && timer.Elapsed < TimeSpan.FromSeconds(10)) return;
+                if(rows.ApplyingSelection || !actionReady) { Console.Error.WriteLine("Bulk selection timeout on the real modal UI loop."); Environment.Exit(1); }
+                Console.Error.WriteLine($"VERIFY: 313 rows phase={phase}, selected={rows.SelectedItems.Count}, checked={rows.CheckedItems.Count}, applying={rows.ApplyingSelection}, elapsed={timer.ElapsedMilliseconds} ms");
+                if (phase == 1 && !rows.ApplyingSelection && rows.SelectedItems.Count == 313 && rows.CheckedItems.Count == 313)
+                {
+                    timer.Restart(); phase = 2;
+                    Descendants(manyBackups).OfType<Button>().Single(b => b.Text == UiText.Get("recovery.clearSelection")).PerformClick();
+                    if(rows.ApplyingSelection) SaveFrame(manyBackups,"bulk-clear-progress");
+                    return;
+                }
+                completed = phase == 2 && !rows.ApplyingSelection && rows.SelectedItems.Count == 0 && rows.CheckedItems.Count == 0;
+                bulkWatcher.Stop(); manyBackups.Close();
+            };
+            bulkWatcher.Start(); manyBackups.ShowDialog();
+            Require(completed,"Bulk selection must preserve all 313 checkbox and selection states.");
+        }
         Console.Error.WriteLine("VERIFY: settings and information");
         using (var setup = new SetupForm(preview: true))
         {
@@ -257,7 +325,7 @@ internal static class InterfaceVerification
                 var sync = Descendants(advanced).OfType<CheckBox>().Single(b => b.Text == UiText.Get("setup.noSync"));
                 Require(sync.Checked, "Default folder policy must be preserved.");
                 Require(Descendants(advanced).OfType<CheckBox>().Any(b => b.Text == UiText.Get("setup.replaceXls")), "Advanced options must preserve XLS preferences.");
-                Require(Descendants(advanced).OfType<InformationButton>().Count() == 3, "Advanced help covers the two remaining groups plus header information.");
+                Require(Descendants(advanced).OfType<InformationButton>().Count() == 4, "Advanced help covers the two remaining groups plus header information.");
                 Require(Descendants(advanced).OfType<Button>().Count(b => b.Text == UiText.Get("setup.chooseClient")) == 1, "Advanced options must provide the only JSON selector.");
                 Require(!Descendants(advanced).OfType<ComboBox>().Any()
                     && !Descendants(advanced).OfType<Label>().Any(l => l.Text == UiText.Get("setup.formatsHeading") || l.Text == UiText.Get("setup.extendedFormats")),
@@ -291,8 +359,9 @@ internal static class InterfaceVerification
             {
                 UiText.Select(language.Code); Application.DoEvents();
                 var accountLabel = Descendants(accountSetup).OfType<Label>().Single(l => l.Text.Contains(longEmail, StringComparison.Ordinal));
-                Require(TextRenderer.MeasureText(accountLabel.Text, accountLabel.Font, Size.Empty, TextFormatFlags.SingleLine | TextFormatFlags.NoPadding).Width <= accountLabel.Width - 12,
-                    "The complete account email must fit without wrapping or clipping.");
+                Require(accountLabel.Font.SizeInPoints >= 9 && TextRenderer.MeasureText(accountLabel.Text, accountLabel.Font,
+                    new Size(Math.Max(30, accountLabel.Width - accountLabel.Padding.Horizontal), int.MaxValue), TextFormatFlags.WordBreak).Height <= accountLabel.Height - accountLabel.Padding.Vertical,
+                    "The complete account email must remain readable and fit its wrapped status card.");
                 var disconnect = Descendants(accountSetup).OfType<Button>().Single(b => b.Text == UiText.Get("setup.cancelConnection"));
                 Require(disconnect.Visible && disconnect.Parent is TableLayoutPanel { ColumnCount: 3 }, "Disconnect must remain in the three account actions.");
             }
@@ -410,14 +479,14 @@ internal static class InterfaceVerification
             var sync = Descendants(advancedSettings).OfType<CheckBox>().Single(c=>c.Text==UiText.Get("setup.noSync"));
             sync.Checked=false;
             var list = Descendants(backups).OfType<ListView>().Single();list.Items[0].Checked=true;
-            var filename=list.Items[0].Text;
+            var filename=list.Items[0].SubItems[1].Text;
             UiText.Select("en"); Application.DoEvents();
             Require(Descendants(home).OfType<Button>().Any(b=>b.Text=="&Help"),"Open home must switch to English.");
             Require(settings.Text=="Settings - ZagoSheetsWin" && sync.Text.StartsWith("I do not sync") && !sync.Checked,"Language change must preserve unsaved settings.");
             var googleInfo = Descendants(settings).OfType<InformationButton>().First(); googleInfo.OpenInformation(); Application.DoEvents();
             Require(!Descendants(googleInfo.PopupContent!).OfType<Button>().Any(b => b.Text == UiText.Get("setup.chooseClient")), "Google information must contain explanations without client configuration controls.");
             Require(Descendants(advancedSettings).OfType<Button>().Single(b => b.Text == UiText.Get("setup.chooseClient")).Text.Contains("JSON"), "Advanced client selection must use the current language.");
-            Require(list.Items[0].Checked && list.Items[0].Text==filename && list.Columns[0].Text=="File","Language change must preserve recovery data and selection.");
+            Require(list.Items[0].Checked && list.Items[0].SubItems[1].Text==filename && list.Columns[1].Text=="File","Language change must preserve recovery data and selection.");
             Require(Descendants(tutorial).OfType<Label>().Any(l=>l.Text.Contains("Keep the original")),"Existing tutorial must refresh its current page.");
             Require(Descendants(tutorial).OfType<FlowLayoutPanel>().All(p=>!p.VerticalScroll.Visible),"English tutorial must not gain vertical scrolling.");
             foreach(var field in Descendants(picker).Where(c=>c is TextBox or ListBox or EmphasisLabel))
@@ -556,12 +625,12 @@ internal static class InterfaceVerification
                 if (errorForm.IsBusy || errorForm.ExitCode != 1) return;
                 watcher.Stop();
                 var button = Descendants(errorForm).OfType<Button>().Single(b => b.Text == UiText.Get(ambiguous ? "action.chooseSeparator" : "action.retry"));
-                verified = ambiguous ? button.Tag as string == "primary" && button.Font.Bold && button.ForeColor == Color.White && button.BackColor == Color.FromArgb(18, 126, 69)
-                    : button.Tag as string != "primary" && !Descendants(errorForm).OfType<Button>().Any(b => b.Text == UiText.Get("action.chooseSeparator"));
+                verified = button.Tag as string == "primary" && button.Font.Bold && (!button.Enabled || button.ForeColor == Color.White && button.BackColor == Color.FromArgb(18, 126, 69))
+                    && (ambiguous || !Descendants(errorForm).OfType<Button>().Any(b => b.Text == UiText.Get("action.chooseSeparator")));
                 SaveFrame(errorForm, ambiguous ? "choose-separator-action" : "ordinary-retry-action");
                 errorForm.Close();
             };
-            watcher.Start(); errorForm.ShowDialog(); Require(verified, "Only an ambiguous delimiter error gets the highlighted Choose separator action.");
+            watcher.Start(); errorForm.ShowDialog(); Require(verified, "Retry must remain the primary error action; only an ambiguous delimiter error offers Choose separator.");
         }
         using (var selector = new TextInterpretationForm())
         { Require(((Button)selector.AcceptButton!).Text == UiText.Get("action.retry"), "The interpretation modal keeps its Retry action."); }

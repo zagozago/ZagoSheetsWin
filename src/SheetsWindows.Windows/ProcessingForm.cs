@@ -5,6 +5,9 @@ namespace SheetsWindows.Windows;
 internal sealed class ProcessingForm : Form
 {
     private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Fill, Padding = new Padding(18), TextAlign = ContentAlignment.MiddleLeft, Text = UiText.Get("progress.preparing"), AccessibleName = UiText.Get("accessibility.processingStatus") };
+    private readonly Panel messageBody = new() { Dock = DockStyle.Fill };
+    private readonly Label failureHeading = new() { Dock = DockStyle.Top, AutoSize = false, Height = 46, Padding = new Padding(12, 10, 12, 4), Visible = false, Font = new Font("Segoe UI", 12, FontStyle.Bold), Tag = "errorSurface" };
+    private readonly Panel closeRow = new() { Dock = DockStyle.Bottom, Height = 58, Padding = new Padding(18, 0, 18, 10), Visible = false };
     private readonly Button cancel = new AdaptiveButton() { AutoSize = true, Text = UiText.Get("action.cancel") };
     private readonly FlowLayoutPanel actions = new() { Dock = DockStyle.Bottom, AutoSize = true, Padding = new Padding(12), WrapContents = true };
     private readonly CancellationTokenSource cancellation = new();
@@ -15,6 +18,7 @@ internal sealed class ProcessingForm : Form
     private readonly long? startedAt;
     private readonly Func<TimeSpan, CancellationToken, Task>? retryDelay;
     private bool busy;
+    private bool openingStarted;
     private int generation;
     private readonly System.Windows.Forms.Timer retryWatcher = new() { Interval = 500 };
     private (long Length, long Written)? inputStamp;
@@ -36,16 +40,21 @@ internal sealed class ProcessingForm : Form
         renderingFailure = true;
         try
         {
-            status.Text = (displayedFailure is OperationCanceledException && !cancellation.IsCancellationRequested
+            failureHeading.Text = "⚠  " + UiText.Get("processing.failureTitle").Replace(" - ZagoSheetsWin", "", StringComparison.Ordinal);
+            var message = (displayedFailure is OperationCanceledException && !cancellation.IsCancellationRequested
                 ? UiText.Get("error.connectionTimeout") : LauncherErrors.Message(displayedFailure))
                 + (needsInputChange ? "\n\n" + UiText.Get("retry.editInput") : "")
                 + (diagnosticFeedback is null ? "" : "\n\n" + UiText.Get(diagnosticFeedback));
+            status.Text = System.Text.RegularExpressions.Regex.Replace(message, @"[ \t]*[\r\n]+[ \t]*", " ");
             if (IsHandleCreated && WindowState == FormWindowState.Normal && ClientSize.Width > 0 && ClientSize.Height > 0)
             {
                 PerformLayout();
-                var needed = TextRenderer.MeasureText(status.Text, status.Font,
-                    new Size(Math.Max(100, status.ClientSize.Width - status.Padding.Horizontal), int.MaxValue), TextFormatFlags.WordBreak).Height + status.Padding.Vertical + 8;
-                if (status.ClientSize.Height < needed) ClientSize = new Size(ClientSize.Width, ClientSize.Height + needed - status.ClientSize.Height);
+                using var graphics = status.CreateGraphics();
+                var needed = TextRenderer.MeasureText(graphics, status.Text, status.Font,
+                    new Size(Math.Max(100, status.ClientSize.Width - status.Padding.Horizontal), int.MaxValue), TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl).Height + status.Padding.Vertical + 8 * DeviceDpi / 96;
+                status.Height = needed;
+                var bodyNeeded = failureHeading.Height + needed + messageBody.Padding.Vertical;
+                if (messageBody.ClientSize.Height < bodyNeeded) ClientSize = new Size(ClientSize.Width, ClientSize.Height + bodyNeeded - messageBody.ClientSize.Height);
                 // Windows may restore to the old minimum after minimizing a modal.
                 // Keep enough room for the complete message, header and wrapped actions.
                 MinimumSize = new Size(Math.Max(MinimumSize.Width, Width), Math.Max(MinimumSize.Height, Height));
@@ -71,7 +80,7 @@ internal sealed class ProcessingForm : Form
     private DiagnosticEntry? latestDiagnostic;
     public ProcessingForm(LauncherRequest request, long? startedAt = null, bool preview = false, bool previewError = false,
         Func<IProgress<string>, CancellationToken, Task>? execute = null, bool recordDiagnostics = true,
-        Func<TimeSpan, CancellationToken, Task>? retryDelay = null)
+        Func<TimeSpan, CancellationToken, Task>? retryDelay = null, Exception? previewFailure = null)
     {
         if (request.Action is not (LauncherAction.Open or LauncherAction.Copy or LauncherAction.Login)) throw new ArgumentException("Processing request required.");
         this.request = request; this.execute = execute; this.recordDiagnostics = recordDiagnostics; this.startedAt = startedAt ?? System.Diagnostics.Stopwatch.GetTimestamp();
@@ -80,17 +89,22 @@ internal sealed class ProcessingForm : Form
         Text = UiText.Get("processing.title"); ClientSize = new Size(620, 240); MinimumSize = new Size(620, 240);
         StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
         cancel.Click += (_, _) => { if (busy) { cancellation.Cancel(); cancel.Enabled = false; status.Text = UiText.Get("progress.stopping"); } else Close(); };
-        actions.Controls.Add(cancel); Controls.Add(status); Controls.Add(actions);
+        actions.Controls.Add(cancel); messageBody.Controls.Add(status); messageBody.Controls.Add(failureHeading);
+        Controls.Add(messageBody); Controls.Add(actions); Controls.Add(closeRow);
         FormClosing += (_, e) => { if (busy) { e.Cancel = true; cancellation.Cancel(); cancel.Enabled = false; status.Text = UiText.Get("progress.stopping"); } };
         Branding.Apply(this, aboutButton: false, compact: true);
-        UiText.Changed += RenderFailure;
-        if (preview) { status.Text = UiText.Get("progress.verification"); if (previewError) ShowFailure(new ConversionMismatchException()); }
+        UiText.Changed += RenderFailure; Shown += (_, _) => RenderFailure();
+        messageBody.SizeChanged += (_, _) => RenderFailure(); status.FontChanged += (_, _) => RenderFailure();
+        if (preview) { status.Text = UiText.Get("progress.verification"); if (previewError || previewFailure is not null) ShowFailure(previewFailure ?? new ConversionMismatchException()); }
         // Start after the modal/native message loop installs its UI synchronization context.
         else Shown += (_, _) => BeginInvoke((Action)(async () => await RunSafelyAsync()));
     }
     private void ShowFailure(Exception ex)
     {
         Text = UiText.Get("processing.failureTitle");
+        failureHeading.Visible = true; status.Tag = "errorSurface"; status.Dock = DockStyle.Top; status.TextAlign = ContentAlignment.TopLeft;
+        status.Padding = new Padding(12, 8, 12, 12); messageBody.Padding = new Padding(18, 8, 18, 6); closeRow.Visible = true;
+        actions.Controls.Remove(cancel); closeRow.Controls.Add(cancel); cancel.Dock = DockStyle.None; cancel.AutoSize = false; cancel.Size = new Size(110, 40); cancel.Location = new Point(closeRow.Padding.Left, 0);
         displayedFailure = ex; diagnosticFeedback = null; terminal = true; needsInputChange = ImportRetry.RequiresInputChange(ex); RenderFailure();
         var recovery = new AdaptiveButton { Text = UiText.Get("action.recovery"), AutoSize = true };
         recovery.Click += (_, _) => { using var form = new RecoveryForm(); form.ShowDialog(this); };
@@ -109,7 +123,7 @@ internal sealed class ProcessingForm : Form
         {
             var chooseSeparator = ex is InvalidDataException ambiguous && ambiguous.Message == "Ambiguous CSV delimiter; configure it explicitly.";
             var retry = new AdaptiveButton { Text = UiText.Get(chooseSeparator ? "action.chooseSeparator" : "action.retry"), AutoSize = true };
-            if (chooseSeparator) Ui.Primary(retry);
+            Ui.Primary(retry);
             if (needsInputChange)
             {
                 retry.Enabled = InputStamp() != inputStamp;
@@ -127,9 +141,10 @@ internal sealed class ProcessingForm : Form
                 }
                 await RunSafelyAsync();
             };
-            actions.Controls.Add(retry);
+            actions.Controls.Add(retry); actions.Controls.SetChildIndex(retry, 0);
         }
-        ClientSize = new Size((int)(620 * DeviceDpi / 96.0), (int)(330 * DeviceDpi / 96.0)); Branding.Refresh(this); RenderFailure();
+        VisualStyle.Icon(recovery, UiIcon.Backup); VisualStyle.Icon(export, UiIcon.File); VisualStyle.Icon(setup, UiIcon.Settings);
+        ClientSize = new Size((int)(760 * DeviceDpi / 96.0), (int)(320 * DeviceDpi / 96.0)); Branding.Refresh(this); RenderFailure();
     }
     private async Task RunSafelyAsync()
     {
@@ -149,6 +164,10 @@ internal sealed class ProcessingForm : Form
         // below must return to this window's thread, including error-button creation.
         SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());
         retryWatcher.Stop(); updateRetry = null; inputStamp = InputStamp(); needsInputChange = false;
+        failureHeading.Visible = false; status.Tag = null; status.Dock = DockStyle.Fill; status.TextAlign = ContentAlignment.MiddleLeft;
+        status.Padding = new Padding(18); messageBody.Padding = Padding.Empty; closeRow.Visible = false;
+        if (cancel.Parent == closeRow) { closeRow.Controls.Remove(cancel); cancel.Dock = DockStyle.None; actions.Controls.Add(cancel); }
+        Branding.Refresh(this);
         busy = true; terminal = false; displayedFailure = null; diagnosticFeedback = null; latestDiagnostic = null;
         var currentGeneration = ++generation;
         ExitCode = 0;
@@ -169,12 +188,15 @@ internal sealed class ProcessingForm : Form
         try
         {
             status.Text = request.Action == LauncherAction.Login ? UiText.Get("progress.authorizing") : UiText.Get("progress.fileAndBackup");
+            var freshOpening = !openingStarted; openingStarted = true;
+            await using var opening = execute is null && request.Action is LauncherAction.Open or LauncherAction.Copy
+                ? await SpreadsheetOpening.AcquireAsync(LocalStorage.ForCurrentUser(), request.Path!, freshOpening, cancellation.Token) : null;
             async Task ExecuteOnce(CancellationToken ct)
             {
                 if (execute is not null) { await execute(progress, ct); return; }
                 using var handler = new HttpClientHandler { AllowAutoRedirect = false };
                 using var http = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(90) };
-                var launcher = new WindowsLauncher(LocalStorage.ForCurrentUser(), http, new BrowserLauncher(), telemetry);
+                var launcher = new WindowsLauncher(LocalStorage.ForCurrentUser(), http, new BrowserLauncher(), telemetry, opening?.Candidates);
                 await Task.Run(async () =>
                 {
                     if (request.Action == LauncherAction.Login) await launcher.LoginAsync(ct);

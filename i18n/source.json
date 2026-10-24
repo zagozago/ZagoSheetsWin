@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "product": "ZagoSheetsWin",
-  "productVersion": "0.9.43",
+  "productVersion": "0.9.48",
   "sourceLanguage": "pt",
   "sourceLocale": "pt-BR",
   "fallbackLanguage": "en",
   "fallbackReady": true,
-  "catalogRevision": 16,
+  "catalogRevision": 17,
   "translationReady": true,
   "multilingualReady": true,
   "emphasisKeys": [
@@ -1315,7 +1315,7 @@
       "notes": []
     },
     "about.sourceCode": {
-      "text": "Código da evolução - Zagotools",
+      "text": "Código da evolução — Zagotools",
       "context": "src/SheetsWindows.Windows/Branding.cs - public AboutForm()",
       "scope": "app",
       "placeholders": [],
@@ -1338,7 +1338,7 @@
       "notes": []
     },
     "about.upstream": {
-      "text": "Projeto original - Open in Google",
+      "text": "Projeto original — Open in Google",
       "context": "src/SheetsWindows.Windows/Branding.cs - public AboutForm()",
       "scope": "app",
       "placeholders": [],
@@ -1350,7 +1350,7 @@
       "notes": []
     },
     "about.upstreamAuthor": {
-      "text": "Autora original - SwatiK425",
+      "text": "Autora original — SwatiK425",
       "context": "src/SheetsWindows.Windows/Branding.cs - public AboutForm()",
       "scope": "app",
       "placeholders": [],
@@ -5969,7 +5969,7 @@
       "notes": []
     },
     "recovery.instructions": {
-      "text": "Para recuperar: selecione uma linha e use Restaurar\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos.",
+      "text": "Para recuperar: selecione uma linha e use Restaurar",
       "context": "src/SheetsWindows.Windows/RecoveryForm.cs - private readonly Label status = new EmphasisLabel() { Dock = DockStyle.Top, Height = 85, Padding = new Padding(12), Text = \"Para recuperar: selecione uma linha e use Restaurar em…\\nPara apagar vários backups: marque as caixas ou use Selecionar todos.\\nOperações pendentes são protegidas. Planilhas no Google e atalhos são mantidos.\" };",
       "scope": "app",
       "placeholders": [],
@@ -6041,7 +6041,7 @@
       "notes": []
     },
     "recovery.quotaLabel": {
-      "text": "Espaço (MB):",
+      "text": "Espaço (MB)",
       "context": "src/SheetsWindows.Windows/RecoveryForm.cs - public RecoveryForm(bool preview = false, bool previewBusy = false)",
       "scope": "app",
       "placeholders": [],
@@ -6088,7 +6088,7 @@
       "notes": []
     },
     "recovery.retentionLabel": {
-      "text": "Prazo (dias):",
+      "text": "Prazo (dias)",
       "context": "src/SheetsWindows.Windows/RecoveryForm.cs - public RecoveryForm(bool preview = false, bool previewBusy = false)",
       "scope": "app",
       "placeholders": [],
@@ -6164,7 +6164,7 @@
       "notes": []
     },
     "recovery.state.protected": {
-      "text": "Protegido / pendente",
+      "text": "Pendente",
       "context": "src/SheetsWindows.Windows/RecoveryForm.cs - private void AddEntry(RecoveryEntry entry)",
       "scope": "app",
       "placeholders": [],
@@ -6193,7 +6193,7 @@
       "notes": []
     },
     "recovery.usage": {
-      "text": "Espaço Usado: {usedMb:N2} MB · Limite: {limitMb} MB · Backups: {backupCount} · Protegido: {protectedCount}",
+      "text": "Espaço Usado: {usedMb:N2} MB · Limite: {limitMb} MB · Backups: {backupCount} · Pendentes: {protectedCount}",
       "context": "src/SheetsWindows.Windows/RecoveryForm.cs - public RecoveryForm(bool preview = false, bool previewBusy = false)",
       "scope": "app",
       "placeholders": [
@@ -6420,7 +6420,7 @@
       "notes": []
     },
     "setup.defaultsHeading": {
-      "text": "2. Quer abrir com dois cliques?",
+      "text": "Quer abrir com dois cliques?",
       "context": "src/SheetsWindows.Windows/SetupForm.cs - public SetupForm(bool firstUse = false, bool preview = false)",
       "scope": "app",
       "placeholders": [],
@@ -6560,7 +6560,7 @@
       "notes": []
     },
     "setup.googleHeading": {
-      "text": "1. Conta Google",
+      "text": "Conta Google",
       "context": "src/SheetsWindows.Windows/SetupForm.cs - public SetupForm(bool firstUse = false, bool preview = false)",
       "scope": "app",
       "placeholders": [],
@@ -6703,7 +6703,7 @@
       "notes": []
     },
     "setup.syncHeading": {
-      "text": "3. Pastas sincronizadas (opcional)",
+      "text": "Pastas sincronizadas (opcional)",
       "context": "src/SheetsWindows.Windows/SetupForm.cs - public SetupForm(bool firstUse = false, bool preview = false)",
       "scope": "app",
       "placeholders": [],
@@ -6723,13 +6723,11 @@
       "notes": []
     },
     "setup.verifyGoogle": {
-      "text": "Verificar conexão Google",
+      "text": "Verificar conexão",
       "context": "src/SheetsWindows.Windows/SetupForm.cs - public SetupForm(bool firstUse = false, bool preview = false)",
       "scope": "app",
       "placeholders": [],
-      "invariants": [
-        "Google"
-      ],
+      "invariants": [],
       "markup": [],
       "notes": []
     },
@@ -7340,7 +7338,7 @@
       "notes": []
     },
     "setup.importHeading": {
-      "text": "3. Atalhos e importação do arquivo como cópia",
+      "text": "Atalhos e importação do arquivo como cópia",
       "context": "Compact first-use and settings interface",
       "scope": "app",
       "placeholders": [],
@@ -7526,6 +7524,199 @@
       "invariants": [],
       "markup": [],
       "notes": []
+    },
+    "tagline.open_spreadsheets_automatically": {
+      "text": "Abra planilhas no Google Sheets automaticamente.",
+      "context": "Native visual polish: home subtitle and backup selection guidance.",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [
+        "Google Sheets"
+      ],
+      "markup": [],
+      "notes": []
+    },
+    "recovery.selectionHint": {
+      "text": "Selecione vários: Ctrl + clique · Shift + clique · setas do teclado.",
+      "context": "Native visual polish: home subtitle and backup selection guidance.",
+      "scope": "app",
+      "placeholders": [],
+      "invariants": [
+        "Ctrl",
+        "Shift"
+      ],
+      "markup": [],
+      "notes": []
+    },
+    "header.firstUse": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: navigation.first_use",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Primeiro uso",
+      "placeholders": [],
+      "invariants": []
+    },
+    "backup.settings.title": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: backup.settings.title",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Configurações do Backup",
+      "placeholders": [],
+      "invariants": []
+    },
+    "recovery.usedHeading": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: backup.space.used",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Espaço utilizado",
+      "placeholders": [],
+      "invariants": []
+    },
+    "backup.space.ratio": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: backup.space.ratio",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "{used} de {limit} ({percent})",
+      "placeholders": [
+        "used",
+        "limit",
+        "percent"
+      ],
+      "invariants": []
+    },
+    "recovery.count": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: backup.count",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Backups: {count}",
+      "placeholders": [
+        "count"
+      ],
+      "invariants": []
+    },
+    "backup.available": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: backup.available",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Disponível: {available}",
+      "placeholders": [
+        "available"
+      ],
+      "invariants": []
+    },
+    "backup.tip.title": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: backup.tip.title",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Dica",
+      "placeholders": [],
+      "invariants": []
+    },
+    "backup.tip.multi": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: backup.tip.multi",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Você pode selecionar vários arquivos de uma vez.",
+      "placeholders": [],
+      "invariants": []
+    },
+    "backup.tip.ctrl": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: backup.tip.ctrl",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Ctrl + clique: adiciona ou remove arquivos individuais da seleção.",
+      "placeholders": [],
+      "invariants": []
+    },
+    "backup.tip.shift": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: backup.tip.shift",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Shift + clique: seleciona um intervalo de arquivos.",
+      "placeholders": [],
+      "invariants": []
+    },
+    "backup.tip.arrows": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: backup.tip.arrows",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Setas ↑/↓: navegam entre os arquivos. Para ampliar a seleção pelo teclado, use as combinações compatíveis com a lista.",
+      "placeholders": [],
+      "invariants": []
+    },
+    "about.heading": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: about.heading",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Sobre",
+      "placeholders": [],
+      "invariants": []
+    },
+    "about.links.heading": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: about.links.heading",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Links e informações",
+      "placeholders": [],
+      "invariants": []
+    },
+    "about.license.heading": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: about.license.heading",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Licença do projeto",
+      "placeholders": [],
+      "invariants": []
+    },
+    "about.dependencies.heading": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: about.dependencies.heading",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Dependências e outras licenças",
+      "placeholders": [],
+      "invariants": []
+    },
+    "settings.doubleclick.description": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: settings.doubleclick.description",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Configure o comportamento para abrir as planilhas com dois cliques.",
+      "placeholders": [],
+      "invariants": []
+    },
+    "setup.connectionHeading": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: google.connection.heading",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Conexão Google",
+      "placeholders": [],
+      "invariants": []
+    },
+    "setup.switchAccountShort": {
+      "context": "AS IS → TO BE 2026-10-24 supplied CSV: google.switch_account_short",
+      "scope": "app",
+      "markup": [],
+      "notes": [],
+      "text": "Trocar conta...",
+      "placeholders": [],
+      "invariants": []
     }
   },
   "pluralPolicy": "Mensagens de contagem usam rótulos completos sem flexão dependente do número. Traduções que exigirem variantes devem declarar formas CLDR completas; nunca concatenar substantivo e sufixo. Uma alteração de contrato exige nova revisão de catálogo.",

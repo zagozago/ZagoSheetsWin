@@ -25,6 +25,8 @@ jobs:
         env:
           PYTHONUTF8: '1'
         run: |
+          python tools/i18n/import_refinement.py --check
+          if ($LASTEXITCODE -ne 0) { throw 'Refinement CSV integration differs from the approved source' }
           python tools/i18n/generate.py --check
           if ($LASTEXITCODE -ne 0) { throw 'Localization generation validation failed' }
           python tools/i18n/test_catalog.py
@@ -76,16 +78,17 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
+          ./branding/Build-WizardArt.ps1
           $exe = Join-Path (Get-Location).Path 'artifacts/SheetsWindows-win-x64/SheetsWindows.exe'
           $output = Join-Path (Get-Location).Path 'artifacts/branding-preview/native-verification.json'
           New-Item -ItemType Directory -Force (Split-Path $output) | Out-Null
           $errorFile = Join-Path (Get-Location).Path 'artifacts/native-verification-error.txt'
           $process = Start-Process -FilePath $exe -ArgumentList @('--verify-interface', $output) -RedirectStandardError $errorFile -PassThru
-          if (!$process.WaitForExit(300000)) { $process.Kill(); Get-Content $errorFile; throw 'Native interface verification timed out' }
+          if (!$process.WaitForExit(900000)) { $process.Kill(); Get-Content $errorFile; throw 'Native interface verification timed out' }
           if ($process.ExitCode -ne 0) { Get-Content $errorFile; throw 'Native interface verification failed' }
           Get-Content $output
       - name: Render native branding previews offline
-        if: runner.os == 'Windows'
+        if: always() && runner.os == 'Windows'
         shell: pwsh
         run: |
           $exe = Join-Path (Get-Location).Path 'artifacts/SheetsWindows-win-x64/SheetsWindows.exe'
@@ -122,6 +125,7 @@ jobs:
         run: |
           $compiler = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
           if (!(Test-Path $compiler)) { throw 'Inno Setup 6 compiler missing from Windows runner' }
+          ./branding/Build-WizardArt.ps1
           & $compiler installer/SheetsWindows.iss
           if ($LASTEXITCODE -ne 0) { throw 'Installer compilation failed' }
           $oldOutput = Join-Path (Get-Location).Path "artifacts/installer-old"

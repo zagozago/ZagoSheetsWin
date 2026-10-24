@@ -7,3 +7,5 @@ Marca da evolução: Zagotools. Código-base: Open in Google, de Swati K (SwatiK
 0.9.15: o ícone do aplicativo/instalador utiliza fundo transparente e Z ampliado, com frames ICO de 16 a 256 px. app-icon-source.png é a fonte raster editada; zonly.png continua como logo do cabeçalho. O ícone de planilha dos atalhos permanece separado.
 
 0.9.37: aplicativo, janelas e instalador usam o ICO de planilha fornecido pelo usuário (16, 24, 32, 48, 64, 128 e 256 px). app-icon-source.png preserva o PNG correspondente. O ICO recebido é idêntico ao sheet-shortcut.ico já usado pelos arquivos associados e atalhos; estes mantêm o mesmo ícone. Logos do cabeçalho preservadas.
+
+0.9.48: a arte lateral contém somente a logo oficial e os nomes ZagoSheetsWin/Zagotools. Build-WizardArt.ps1 reproduz wizard.bmp no Windows; os créditos e a licença permanecem nos arquivos legais e fora da arte, inclusive no rodapé do instalador.

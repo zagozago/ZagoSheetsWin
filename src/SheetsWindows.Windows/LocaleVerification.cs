@@ -24,7 +24,7 @@ internal static class LocaleVerification
                     if (form.RightToLeftLayout != UiText.RightToLeft) throw new InvalidOperationException($"{language.Code}/{name}: RTL not applied.");
                     foreach (var button in Descendants(form).OfType<Button>().Where(b => b.Visible && b is not ThemeToggle))
                     {
-                        if (button is AdaptiveButton && Math.Abs(button.Font.SizeInPoints - Ui.ButtonFontSize) > 0.01f)
+                        if (button is AdaptiveButton adaptive && Math.Abs(button.Font.SizeInPoints - (adaptive.FontSizeOverride ?? Ui.ButtonFontSize)) > 0.01f)
                             throw new InvalidOperationException($"{language.Code}/{name}: action button must use the standard 9-point font.");
                         var flags = TextFormatFlags.WordBreak;
                         var text = TextRenderer.MeasureText(button.Text, button.Font, new Size(Math.Max(20,button.Width-button.Padding.Horizontal-8),int.MaxValue),flags);
@@ -34,6 +34,16 @@ internal static class LocaleVerification
                         if (!scroll && (button.Bottom > button.Parent!.ClientSize.Height+2 || button.Right > button.Parent.ClientSize.Width+2 || button.Left < -2))
                             throw new InvalidOperationException($"{language.Code}/{name}: button outside parent: {button.Text}; {button.Bounds}, parent {button.Parent.ClientSize}.");
                         buttons++;
+                    }
+                    if (UiText.RightToLeft && form is (LauncherForm or SetupForm))
+                    {
+                        foreach (var host in Descendants(form).OfType<InsetFlowLayoutPanel>())
+                        foreach (Control child in host.Controls)
+                        {
+                            if (!child.Visible || child is not (Button or FlowLayoutPanel or TableLayoutPanel)) continue;
+                            if (child.Left < host.Padding.Left - 1 || child.Right > host.ClientSize.Width - host.Padding.Right + 1)
+                                throw new InvalidOperationException($"{language.Code}/{name}: RTL content must retain both horizontal insets: {child.Text}; {child.Bounds}, padding {host.Padding}.");
+                        }
                     }
                     if (form is TutorialForm)
                     {
@@ -49,10 +59,37 @@ internal static class LocaleVerification
                     }
                     form.Hide();
                 }
-                using (var home = new LauncherForm(new(LauncherAction.Home))) Check(home,"home",true);
-                using (var advanced = new AdvancedPreferencesForm(LocalStorage.ForCurrentUser(), preview:true)) { Check(advanced,"advanced",true); foreach (var info in Descendants(advanced).OfType<InformationButton>()) { info.OpenInformation(); Application.DoEvents(); } }
-                using (var settings = new SetupForm(preview:true)) { Check(settings,"setup",true); foreach (var info in Descendants(settings).OfType<InformationButton>()) { info.OpenInformation(); Application.DoEvents(); } }
-                using (var recovery = new RecoveryForm(preview:true)) Check(recovery,"backups");
+                void CheckBoth(Form form, string name)
+                {
+                    Branding.PreviewTheme(ApplicationTheme.Light); Check(form,name,true);
+                    Branding.PreviewTheme(ApplicationTheme.Dark); Check(form,name+"-dark",true);
+                    Branding.PreviewTheme(ApplicationTheme.Light);
+                }
+                using (var home = new LauncherForm(new(LauncherAction.Home))) CheckBoth(home,"home");
+                using (var about = new AboutForm()) CheckBoth(about,"about");
+                using (var advanced = new AdvancedPreferencesForm(LocalStorage.ForCurrentUser(), preview:true)) { CheckBoth(advanced,"advanced"); foreach (var info in Descendants(advanced).OfType<InformationButton>()) { info.OpenInformation(); Application.DoEvents(); } }
+                using (var settings = new SetupForm(preview:true)) { CheckBoth(settings,"setup"); foreach (var info in Descendants(settings).OfType<InformationButton>()) { info.OpenInformation(); Application.DoEvents(); } }
+                using (var recovery = new RecoveryForm(preview:true))
+                {
+                    Check(recovery,"backups",true);
+                    var panels = Descendants(recovery).OfType<DisclosureCard>().ToArray();
+                    if (panels.Length != 3 || panels.Any(p => p.Expanded)) throw new InvalidOperationException("Backup panels must start collapsed in every locale.");
+                    foreach(var panel in panels) panel.SetExpanded(true);
+                    Check(recovery,"backups-expanded",true);
+                    var rows = Descendants(recovery).OfType<BackupSelectionList>().Single();
+                    rows.Items[0].Selected = true; Application.DoEvents();
+                    if(!rows.Items[0].Checked) throw new InvalidOperationException("Selection and checkbox state diverged.");
+                    foreach(var theme in new[] { ApplicationTheme.Light, ApplicationTheme.Dark })
+                    {
+                        Branding.PreviewTheme(theme);
+                        foreach(var scale in new[] { 1f, 1.25f, 1.5f, 2f })
+                        {
+                            var before = recovery.Size; recovery.Scale(new SizeF(scale,scale)); Check(recovery,$"backups-expanded-{theme}-{scale}");
+                            recovery.Scale(new SizeF(1/scale,1/scale)); recovery.Size = before;
+                        }
+                    }
+                    Branding.PreviewTheme(ApplicationTheme.Light);
+                }
                 using (var repair = new TextInterpretationForm(repair:true)) Check(repair,"repair",true);
                 using (var picker = new LanguagePicker())
                 {
@@ -64,7 +101,7 @@ internal static class LocaleVerification
                 {
                     using var tutorial = new TutorialForm(page); Check(tutorial,$"help-{page+1}",true);
                     if (page < FirstUseWizard.PageCount)
-                    { using var wizard = new FirstUseWizard(preview:true, initialPage:page); Check(wizard,$"first-use-{page+1}",true); }
+                    { using var wizard = new FirstUseWizard(preview:true, initialPage:page); CheckBoth(wizard,$"first-use-{page+1}"); }
                 }
                 using (var error = new ProcessingForm(new(LauncherAction.Open,"preview.xlsx"),preview:true,previewError:true))
                 {
@@ -73,6 +110,14 @@ internal static class LocaleVerification
                     Check(error,"error",true);
                     var text = TextRenderer.MeasureText(status.Text,status.Font,new Size(Math.Max(100,status.ClientSize.Width-status.Padding.Horizontal),int.MaxValue),TextFormatFlags.WordBreak);
                     if(text.Height+status.Padding.Vertical>status.ClientSize.Height+2)throw new InvalidOperationException($"{language.Code}: generic failure message is clipped.");
+                }
+                using (var editError = new ProcessingForm(new(LauncherAction.Open,"preview.csv"), preview:true, previewFailure:new InvalidDataException("Irregular delimited table.")))
+                {
+                    CheckBoth(editError,"error-edit-input");
+                    editError.SetDiagnosticFeedback("error.generic"); CheckBoth(editError,"error-edit-input-long");
+                    var message = Descendants(editError).OfType<Label>().Single(l => l.AccessibleName == UiText.Get("accessibility.processingStatus"));
+                    if (!message.Text.Contains(UiText.Get("retry.editInput"),StringComparison.Ordinal) || message.Text.Contains('\n') || message.Bottom > message.Parent!.ClientSize.Height)
+                        throw new InvalidOperationException($"{language.Code}: full continuous edit-input guidance must remain visible.");
                 }
                 using (var partial = new ProcessingForm(new(LauncherAction.Open,"preview.ods"),preview:true))
                 {

@@ -1,5 +1,5 @@
 #ifndef PilotVersion
-  #define PilotVersion "0.9.43"
+  #define PilotVersion "0.9.48"
 #endif
 [Setup]
 AppId={{D970FA65-0364-4F10-A6AA-D4302F31B607}
@@ -154,10 +154,11 @@ begin
   // /LANG is also the handoff from the selector; it prevents a second dialog.
   for I := 1 to ParamCount do
     if Pos('/LANG=', Uppercase(ParamStr(I))) = 1 then Exit;
-  Dialog := CreateCustomForm(ScaleX(660), ScaleY(180), False, False);
+  Dialog := CreateCustomForm(ScaleX(660), ScaleY(172), False, False);
   Codes := TStringList.Create; Names := TStringList.Create;
   try
     Dialog.Caption := SetupMessage(msgSelectLanguageTitle);
+    Dialog.ClientWidth := ScaleX(660); Dialog.ClientHeight := ScaleY(172);
     Dialog.Position := poScreenCenter;
     LabelText := TNewStaticText.Create(Dialog); LabelText.Parent := Dialog;
     LabelText.SetBounds(ScaleX(20), ScaleY(20), ScaleX(620), ScaleY(36));

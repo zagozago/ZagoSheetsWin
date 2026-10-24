@@ -8,12 +8,13 @@ internal sealed class AdvancedPreferencesForm : Form
     internal Task ApplyClientAsync(string path) => applyClient(path);
     internal AdvancedPreferencesForm(LocalStorage storage, bool preview = false)
     {
-        Text = UiText.Get("setup.advanced"); ClientSize = new Size(560, 520); MinimumSize = new Size(480, 480);
+        Text = UiText.Get("setup.advanced"); ClientSize = new Size(580, 550); MinimumSize = new Size(480, 480);
         AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterParent;
         var layout = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18, 4, 18, 8), FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = true };
         var status = Ui.Text(""); status.Visible = false;
         status.TextChanged += (_, _) => status.Visible = status.Text.Length > 0;
         var preferences = new PreferenceAutosave(this, layout, status, preview);
+        var section = VisualStyle.Card(); layout.Controls.Add(section);
         void Heading(string key, Func<FlowLayoutPanel> help)
         {
             var row = new FlowLayoutPanel { AutoSize = true, WrapContents = false, Margin = new Padding(0, 2, 0, 2) };
@@ -25,21 +26,20 @@ internal sealed class AdvancedPreferencesForm : Form
             var info = new InformationButton(help) { AccessibleDescription = UiText.Get(key) };
             row.Controls.Add(label); row.Controls.Add(info);
             row.SizeChanged += (_, _) => label.MaximumSize = new Size(Math.Max(100, row.Width - info.Width - info.Margin.Horizontal - 12), 0);
-            layout.Controls.Add(row);
+            section.Controls.Add(row);
         }
-        void Divider()
-        {
-            var line = Ui.Separator(); line.Margin = new Padding(0, 4, 0, 4); layout.Controls.Add(line);
-        }
-        layout.Controls.Add(Ui.Text(UiText.Get("setup.connectionExplanation")));
-        var clientState = new TextBox { ReadOnly = true };
+        void Divider() { section = VisualStyle.Card(); layout.Controls.Add(section); }
+        Heading("setup.connectionHeading", () => InformationButton.TextPanel("setup.connectionExplanation"));
+        var clientState = new TextBox { ReadOnly = true, BorderStyle = BorderStyle.None, Tag = "status", Margin = new Padding(0, 8, 0, 2) };
         var chooseClient = new AdaptiveButton { Text = UiText.Get("setup.chooseClient") };
         void RefreshClient()
         {
             var configured = File.Exists(LauncherConfiguration.ClientPath(storage));
+            clientState.Visible = configured;
             clientState.Text = configured ? UiText.Get("setup.clientPreserved") : "";
             chooseClient.Enabled = !configured;
         }
+        VisualStyle.Icon(chooseClient, UiIcon.File);
         RefreshClient(); UiText.Changed += RefreshClient; Disposed += (_, _) => UiText.Changed -= RefreshClient;
         applyClient = path => preferences.SaveAsync(async () =>
         {
@@ -53,7 +53,7 @@ internal sealed class AdvancedPreferencesForm : Form
             using var dialog = new OpenFileDialog { Filter = UiText.Get("dialog.oauthFileFilter"), CheckFileExists = true };
             if (dialog.ShowDialog(this) == DialogResult.OK) await ApplyClientAsync(dialog.FileName);
         };
-        layout.Controls.Add(chooseClient); layout.Controls.Add(clientState); Divider();
+        section.Controls.Add(chooseClient); section.Controls.Add(clientState); Divider();
         var opening = OpeningPolicy.Load(storage);
         var sync = new ToggleSwitch { Checked = !opening.RestrictToFolder, Text = UiText.Get("setup.noSync") };
         var consent = new ToggleSwitch { Checked = OpeningPolicy.IsConfigured(storage), Text = UiText.Get("setup.replacementConsent") };
@@ -61,8 +61,8 @@ internal sealed class AdvancedPreferencesForm : Form
         var folderOptions = new FlowLayoutPanel { AutoSize = true, FlowDirection = FlowDirection.TopDown, WrapContents = false, Visible = !sync.Checked };
         var choose = new AdaptiveButton { Text = UiText.Get("setup.chooseFolder") };
         Heading("setup.syncHeading", () => InformationButton.TextPanel("setup.replacementExplanation"));
-        layout.Controls.Add(Ui.Pair(sync, consent));
-        folderOptions.Controls.Add(Ui.Text(UiText.Get("setup.syncExplanation"))); folderOptions.Controls.Add(Ui.Pair(choose, folder)); layout.Controls.Add(folderOptions);
+        section.Controls.Add(Ui.Pair(sync, consent));
+        folderOptions.Controls.Add(Ui.Text(UiText.Get("setup.syncExplanation"))); folderOptions.Controls.Add(Ui.Pair(choose, folder)); section.Controls.Add(folderOptions);
         void RestoreOpening() { var saved = OpeningPolicy.Load(storage); sync.Checked = !saved.RestrictToFolder; folder.Text = saved.Folder ?? ""; consent.Checked = OpeningPolicy.IsConfigured(storage); folderOptions.Visible = !sync.Checked; }
         Task SaveOpening()
         {
@@ -85,7 +85,7 @@ internal sealed class AdvancedPreferencesForm : Form
         consent.CheckedChanged += async (_, _) => await SaveOpening();
         Divider();
         Heading("setup.xlsHeading", () => InformationButton.TextPanel("setup.xlsExplanation"));
-        var xls = new ToggleSwitch { Checked = XlsReplacementSettings.Load(storage), Text = UiText.Get("setup.replaceXls") }; layout.Controls.Add(xls);
+        var xls = new ToggleSwitch { Checked = XlsReplacementSettings.Load(storage), Text = UiText.Get("setup.replaceXls") }; section.Controls.Add(xls);
         xls.CheckedChanged += async (_, _) =>
         {
             var value = xls.Checked;
@@ -94,6 +94,8 @@ internal sealed class AdvancedPreferencesForm : Form
         layout.Controls.Add(status);
         var close = new AdaptiveButton { Text = UiText.Get("action.close"), Dock = DockStyle.Bottom, Height = 44 };
         close.Click += (_, _) => Close(); CancelButton = close;
-        Controls.Add(layout); Controls.Add(close); Branding.Apply(this); Ui.Adapt(layout); Ui.Adapt(folderOptions);
+        var footer = new Panel { Dock = DockStyle.Bottom, Height = 58, Padding = new Padding(18, 0, 18, 14) };
+        close.Dock = DockStyle.Fill; footer.Controls.Add(close);
+        Controls.Add(layout); Controls.Add(footer); Branding.Apply(this); Ui.Adapt(layout); VisualStyle.FitWindow(this, layout); Ui.Adapt(folderOptions);
     }
 }

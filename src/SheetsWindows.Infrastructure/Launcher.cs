@@ -125,7 +125,7 @@ public static class LauncherErrors
     };
 }
 
-public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrowserLauncher browser, ProcessingTelemetry? telemetry = null)
+public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrowserLauncher browser, ProcessingTelemetry? telemetry = null, IReadOnlySet<Guid>? reopenCandidates = null)
 {
     public string? ImportNotice { get; private set; }
     private GoogleOAuth Auth(OAuthClient client, FileOperationLock locks) => new(http, client,
@@ -195,7 +195,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         var preparation = storage.CreatePreparation(); var local = new SqliteOperationRegistry(storage.DatabasePath);
         var remote = new GoogleRemoteRegistry(System.IO.Path.Combine(storage.Root, "google.db")); var locks = new FileOperationLock(storage.LocksPath);
         var auth = Auth(client, locks);
-        var importer = new GoogleImport(preparation, local, remote, new SourceReader(), locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads")), telemetry: telemetry), textOptions, telemetry, new ImportInterpretations(storage));
+        var importer = new GoogleImport(preparation, local, remote, new SourceReader(), locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads")), telemetry: telemetry), textOptions, telemetry, new ImportInterpretations(storage), reopenCandidates);
         progress?.Report(UiText.Get("progress.openingSheets"));
         var receipt = await importer.ImportReceiptAsync(request.Path!, ct);
         progress?.Report(UiText.Get("progress.publishingShortcut"));
@@ -227,7 +227,7 @@ public sealed class WindowsLauncher(LocalStorage storage, HttpClient http, IBrow
         telemetry?.Mark(ProcessingStep.SourceOpening);
         var locks = new FileOperationLock(storage.LocksPath); var auth = Auth(client, locks);
         var importer = new GoogleImport(storage.CreatePreparation(sources), new SqliteOperationRegistry(storage.DatabasePath),
-            new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")), sources, locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads")), telemetry: telemetry), options, telemetry, new ImportInterpretations(storage));
+            new GoogleRemoteRegistry(Path.Combine(storage.Root, "google.db")), sources, locks, auth, new GoogleDriveClient(http, auth, new UploadSessionStore(Path.Combine(storage.Root, "uploads")), telemetry: telemetry), options, telemetry, new ImportInterpretations(storage), reopenCandidates);
         progress?.Report(UiText.Get("progress.importingCopy"));
         return await PublishCopyAsync(await importer.ImportReceiptAsync(path, ct), progress, ct);
     }

@@ -163,6 +163,16 @@ public sealed class SqliteOperationRegistry : IOperationRegistry
         if (update.ExecuteNonQuery() != 1) throw new LocalConflictException("Local association changed.");
         Event(db, tx, id, "RemoteTrashed"); tx.Commit(); // Retain the old snapshot, remote mapping and replacement journal.
     }
+    public void RetirePendingAssociation(Guid id, long expectedVersion)
+    {
+        // Caller holds the source lock and has reconciled the previous remote marker with zero matches.
+        using var db = Open(); using var tx = db.BeginTransaction(deferred: false);
+        using var update = Command(db, tx,
+            "UPDATE operations SET source_key=$key,version=version+1 WHERE id=$id AND version=$v AND state='SnapshotReady' AND source_key NOT LIKE 'pending:%'",
+            ("$key", "pending:" + id.ToString("N")), ("$id", id.ToString("N")), ("$v", expectedVersion));
+        if (update.ExecuteNonQuery() != 1) throw new LocalConflictException("Local association changed.");
+        Event(db, tx, id, "PendingReopened"); tx.Commit();
+    }
     public ImportOperation CommitSnapshot(Guid id, long expectedVersion, Snapshot snapshot)
     {
         if (snapshot.Length < 0 || snapshot.Sha256.Length != 64 || !snapshot.Sha256.All(Uri.IsHexDigit))
