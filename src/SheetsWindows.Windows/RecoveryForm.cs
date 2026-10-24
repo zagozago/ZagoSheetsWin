@@ -129,7 +129,7 @@ internal sealed class RecoveryForm : Form
             System.Globalization.CultureInfo culture;
             try { culture = System.Globalization.CultureInfo.GetCultureInfo(LanguageSettings.Details(UiText.Language).Locale); }
             catch (System.Globalization.CultureNotFoundException) { culture = System.Globalization.CultureInfo.InvariantCulture; }
-            string Size(decimal bytes) => (bytes / 1_000_000m).ToString("N2", culture) + " MB";
+            string Size(decimal bytes) => UiText.Format("recovery.sizeMb", ("sizeMb", (bytes / 1_000_000m).ToString("N2", culture)));
             usage.Text = UiText.Format("backup.space.ratio", ("used", Size(used)), ("limit", Size(limit)), ("percent", ratio.ToString("P0", culture)));
             countLabel.Text = UiText.Format("recovery.count", ("count", shownCount.ToString("N0", culture)));
             availableLabel.Text = UiText.Format("backup.available", ("available", Size(Math.Max(0, limit - used))));

@@ -49,6 +49,7 @@ internal sealed class LauncherForm : Form
             }
             finally { fittingHome = false; }
         }
-        Shown += (_, _) => FitHome(); UiText.Changed += FitHome; Disposed += (_, _) => UiText.Changed -= FitHome;
+        void LanguageHome() { FitHome(); if (IsHandleCreated && !IsDisposed) BeginInvoke((Action)FitHome); }
+        Shown += (_, _) => FitHome(); UiText.Changed += LanguageHome; Disposed += (_, _) => UiText.Changed -= LanguageHome;
     }
 }

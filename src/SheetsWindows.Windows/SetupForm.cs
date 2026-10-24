@@ -180,7 +180,7 @@ internal sealed class SetupForm : Form
                 connectionState.Padding = new Padding(10, 9, 10, 9); connectionState.TextAlign = ContentAlignment.MiddleCenter;
                 connectionState.Width = Math.Max(120, host.ClientSize.Width - host.Padding.Horizontal - connectionState.Margin.Horizontal);
                 connectionState.Height = TextRenderer.MeasureText(connectionState.Text, connectionState.Font,
-                    new Size(Math.Max(80, connectionState.Width - connectionState.Padding.Horizontal), int.MaxValue), TextFormatFlags.WordBreak).Height + connectionState.Padding.Vertical + 4;
+                    new Size(Math.Max(80, connectionState.Width - connectionState.Padding.Horizontal - (connectionState.Text.StartsWith("✓", StringComparison.Ordinal) ? 28 : 0)), int.MaxValue), TextFormatFlags.WordBreak).Height + connectionState.Padding.Vertical + 4;
             }
             finally { fittingStatus = false; }
         }

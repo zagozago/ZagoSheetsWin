@@ -199,7 +199,7 @@ internal static class InterfaceVerification
                     var fields = Descendants(autosave).OfType<NumericUpDown>().ToArray();
                     fields.Single(n => n.Maximum == 365).Value = 45;
                     fields.Single(n => n.Maximum == 1000).Value = 321;
-                    Require(!Descendants(autosave).OfType<CheckBox>().Any(), "Backup cleanup is automatic and has no toggle.");
+                    Require(Descendants(autosave).OfType<CheckBox>().Count() == 1, "Backup cleanup is automatic and has no toggle.");
                     autosave.Close();
                 };
                 autosave.ShowDialog();

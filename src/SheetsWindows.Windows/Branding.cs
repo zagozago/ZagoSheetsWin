@@ -133,7 +133,8 @@ internal static class Branding
             var subtitleHeight = TextRenderer.MeasureText(subtitle.Text, subtitle.Font, new Size(Math.Max(100, identity.Width), int.MaxValue), TextFormatFlags.WordBreak).Height + 8;
             header.Height = Math.Max(82 * form.DeviceDpi / 96, header.Padding.Vertical + brand.Height + subtitleHeight);
         }
-        form.Shown += (_, _) => FitHeader(); UiText.Changed += FitHeader; form.Disposed += (_, _) => UiText.Changed -= FitHeader;
+        void LanguageHeader() { FitHeader(); if (form.IsHandleCreated && !form.IsDisposed) form.BeginInvoke((Action)FitHeader); }
+        form.Shown += (_, _) => FitHeader(); UiText.Changed += LanguageHeader; form.Disposed += (_, _) => UiText.Changed -= LanguageHeader;
         void RefreshTheme() { if (!form.IsDisposed) { Theme(form); UpdateToggle(); } }
         Action changed = RefreshTheme; ThemeChanged += changed;
         Microsoft.Win32.UserPreferenceChangedEventHandler preference = (_, _) => { if (form.IsHandleCreated && !form.IsDisposed) { try { form.BeginInvoke((Action)RefreshTheme); } catch (InvalidOperationException) { } } };
@@ -158,7 +159,7 @@ internal sealed class AboutForm : Form
         Text = UiText.Get("about.title"); ClientSize = new Size(880, 560); MinimumSize = new Size(740, 540); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterParent;
         var body = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 2, Padding = new Padding(18, 2, 18, 18) };
         body.ColumnStyles.Add(new(SizeType.Percent, 42)); body.ColumnStyles.Add(new(SizeType.Percent, 58));
-        body.RowStyles.Add(new(SizeType.Percent, 57)); body.RowStyles.Add(new(SizeType.Percent, 43));
+        body.RowStyles.Add(new(SizeType.Percent, 55)); body.RowStyles.Add(new(SizeType.Percent, 45));
         var version = Ui.Text("", true); version.Font = new Font(LanguageVisuals.Family, 12, FontStyle.Bold);
         var description = Ui.Text("");
         void RefreshAbout() { var parts = UiText.Format("about.description", ("version", UiText.ProductVersion)).Split('\n', 2); version.Text = parts[0]; description.Text = parts.Length > 1 ? parts[1].TrimStart('\n') : ""; }
@@ -171,10 +172,11 @@ internal sealed class AboutForm : Form
         body.Controls.Add(about, 0, 0); body.Controls.Add(links, 0, 1); body.Controls.Add(licenseCard, 1, 0); body.Controls.Add(dependencies, 1, 1);
         foreach (var item in new[] { (UiText.Get("about.website"), "https://zagotools.top/"), (UiText.Get("about.licensesWebsite"), "https://zagotools.top/legal.html#licencas"), (UiText.Get("about.upstream"), "https://github.com/SwatiK425/open-in-google/"), (UiText.Get("about.upstreamAuthor"), "https://github.com/SwatiK425"), (UiText.Get("about.sourceCode"), "https://github.com/zagozago/ZagoSheetsWin"), (UiText.Get("legal.privacy"), "https://zagotools.top/legal.html#privacidade"), (UiText.Get("legal.terms"), "https://zagotools.top/legal.html#termos") })
         {
-            var link = new ExternalLinkLabel { Text = item.Item1, AutoSize = true, Padding = new Padding(20, 0, 0, 0), Margin = new Padding(0, 4, 0, 4) };
+            var link = new ExternalLinkLabel { Text = item.Item1, AutoSize = true, Padding = new Padding(20, 0, 0, 0), Margin = new Padding(0, 2, 0, 2) };
             link.LinkClicked += (_, _) => { try { new BrowserLauncher().Open(new Uri(item.Item2)); } catch (Exception ex) when (LauncherErrors.Expected(ex)) { MessageBox.Show(item.Item2, UiText.Get("about.linkDialog")); } };
             links.Controls.Add(link);
         }
+        foreach (var card in new[] { about, links, licenseCard, dependencies }) card.Controls[0].Margin = new Padding(0, 2, 0, 8);
         var license = Path.Combine(AppContext.BaseDirectory, "LICENSE");
         var licenseText = new TextBox { Multiline = true, ReadOnly = true, ScrollBars = ScrollBars.Vertical, BorderStyle = BorderStyle.None, Text = File.ReadAllText(license), Width = 400 };
         licenseCard.Controls.Add(licenseText);
