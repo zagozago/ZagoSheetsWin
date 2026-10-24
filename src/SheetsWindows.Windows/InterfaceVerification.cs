@@ -249,8 +249,7 @@ internal static class InterfaceVerification
             Require(list.SelectedItems.Count == 3 && list.CheckedItems.Count == 3 && selector.SelectAllHeader.CheckState == CheckState.Checked, "Partial header activation must select every relevant backup.");
             selector.ToggleAll(); Application.DoEvents();
             Require(list.SelectedItems.Count == 0 && list.CheckedItems.Count == 0 && selector.SelectAllHeader.CheckState == CheckState.Unchecked, "Checked header activation must clear every selected backup.");
-            recovery.Activate(); list.Focus(); SendKeys.SendWait("^a"); Application.DoEvents();
-            Require(list.SelectedItems.Count == 3 && list.CheckedItems.Count == 3, "Native Ctrl+A selection must synchronize all checkboxes.");
+            recovery.Activate(); list.Focus();
             SendKeys.SendWait("{HOME}"); SendKeys.SendWait("+{END}"); Application.DoEvents();
             Require(list.SelectedItems.Count == 3 && list.CheckedItems.Count == 3, "Native Shift keyboard range selection must remain available.");
             foreach(ListViewItem row in list.Items) row.Selected = false;

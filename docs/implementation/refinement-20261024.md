@@ -27,7 +27,7 @@ As novas interações aprovadas são a sincronização de checkbox/seleção e o
 - `about.open` continua identificando Sobre/Licenças; o título curto Sobre possui recurso próprio. Título nativo Primeiro uso mantém seu texto original; contexto usa chave própria.
 - `google.status.confirmed` é somente o fragmento “autorização confirmada”. Não é concatenado a outros fragmentos: a mensagem completa existente de estado permanece intacta. Essa linha está explicitamente não aplicável no mapeamento.
 - `advanced.xls.save_preference` permanece no catálogo, sem criar botão Salvar: preferências já possuem autosave.
-- A dica explica setas como navegação. O controle continua sendo um ListView nativo multisseleção, com Ctrl/Shift e teclado; não se promete seleção múltipla por setas isoladas.
+- A dica explica setas como navegação. O controle continua sendo um ListView nativo multisseleção, com Ctrl/Shift e teclado; não se promete seleção múltipla por setas isoladas. Ctrl+A não é oferecido pelo controle atual e não foi acrescentado como novo atalho.
 
 ## Validação
 
