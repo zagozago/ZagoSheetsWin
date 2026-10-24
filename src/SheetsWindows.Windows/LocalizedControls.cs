@@ -61,8 +61,12 @@ internal class AdaptiveButton : Button
     internal float? FontSizeOverride { get; init; }
     [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
     internal int ContentOffsetY { get; set; }
+    private readonly System.Windows.Forms.Timer spinner = new() { Interval = 50 };
+    private int spinnerAngle;
+    private bool spinning;
+    internal void SetSpinning(bool value) { spinning = value; if(value) spinner.Start(); else spinner.Stop(); Invalidate(); }
     private bool fitting;
-    public AdaptiveButton(){Padding=new Padding(12,6,12,6);AutoEllipsis=false;}
+    public AdaptiveButton(){Padding=new Padding(12,6,12,6);AutoEllipsis=false; spinner.Tick += (_,_) => { spinnerAngle = (spinnerAngle + 30) % 360; Invalidate(); };}
     protected override void OnPaint(PaintEventArgs e)
     {
         if (Image is null && Enabled || SystemInformation.HighContrast) { base.OnPaint(e); return; }
@@ -78,7 +82,9 @@ internal class AdaptiveButton : Button
         var rtl = RightToLeft == RightToLeft.Yes;
         if (Image is not null)
         {
-            e.Graphics.DrawImage(Image, rtl ? x + textSize.Width + gap : x, (Height - Image.Height) / 2 + ContentOffsetY * DeviceDpi / 96, Image.Width, Image.Height);
+            var iconX = rtl ? x + textSize.Width + gap : x; var iconY = (Height - Image.Height) / 2 + ContentOffsetY * DeviceDpi / 96;
+            if (spinning) { e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias; using var pen = new Pen(ForeColor, 2 * DeviceDpi / 96f); e.Graphics.DrawArc(pen, iconX + 1, iconY + 1, Image.Width - 3, Image.Height - 3, spinnerAngle, 270); }
+            else e.Graphics.DrawImage(Image, iconX, iconY, Image.Width, Image.Height);
             if (!rtl) x += Image.Width + gap;
         }
         var flags = TextFormatFlags.WordBreak | TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter;
@@ -114,6 +120,7 @@ internal class AdaptiveButton : Button
             }
         }finally{fitting=false;}
     }
+    protected override void Dispose(bool disposing) { if (disposing) spinner.Dispose(); base.Dispose(disposing); }
     protected override void OnTextChanged(EventArgs e){base.OnTextChanged(e);Fit();Parent?.PerformLayout();}
     protected override void OnFontChanged(EventArgs e){base.OnFontChanged(e);Fit();}
     protected override void OnResize(EventArgs e){base.OnResize(e);Fit();}

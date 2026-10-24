@@ -68,7 +68,7 @@ internal static class LocaleVerification
                     Check(recovery,"backups-expanded",true);
                     var rows = Descendants(recovery).OfType<BackupSelectionList>().Single();
                     rows.Items[0].Selected = true; Application.DoEvents();
-                    if(!rows.Items[0].Checked || rows.SelectAllHeader.CheckState != CheckState.Indeterminate) throw new InvalidOperationException("Selection and checkbox state diverged.");
+                    if(!rows.Items[0].Checked) throw new InvalidOperationException("Selection and checkbox state diverged.");
                     foreach(var theme in new[] { ApplicationTheme.Light, ApplicationTheme.Dark })
                     {
                         Branding.PreviewTheme(theme);
@@ -100,6 +100,14 @@ internal static class LocaleVerification
                     Check(error,"error",true);
                     var text = TextRenderer.MeasureText(status.Text,status.Font,new Size(Math.Max(100,status.ClientSize.Width-status.Padding.Horizontal),int.MaxValue),TextFormatFlags.WordBreak);
                     if(text.Height+status.Padding.Vertical>status.ClientSize.Height+2)throw new InvalidOperationException($"{language.Code}: generic failure message is clipped.");
+                }
+                using (var editError = new ProcessingForm(new(LauncherAction.Open,"preview.csv"), preview:true, previewFailure:new InvalidDataException("Irregular delimited table.")))
+                {
+                    CheckBoth(editError,"error-edit-input");
+                    editError.SetDiagnosticFeedback("error.generic"); CheckBoth(editError,"error-edit-input-long");
+                    var message = Descendants(editError).OfType<Label>().Single(l => l.AccessibleName == UiText.Get("accessibility.processingStatus"));
+                    if (!message.Text.Contains(UiText.Get("retry.editInput"),StringComparison.Ordinal) || message.Text.Contains('\n') || message.Bottom > message.Parent!.ClientSize.Height)
+                        throw new InvalidOperationException($"{language.Code}: full continuous edit-input guidance must remain visible.");
                 }
                 using (var partial = new ProcessingForm(new(LauncherAction.Open,"preview.ods"),preview:true))
                 {

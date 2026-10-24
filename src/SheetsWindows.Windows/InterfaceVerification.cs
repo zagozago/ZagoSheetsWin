@@ -202,7 +202,7 @@ internal static class InterfaceVerification
                     var fields = Descendants(autosave).OfType<NumericUpDown>().ToArray();
                     fields.Single(n => n.Maximum == 365).Value = 45;
                     fields.Single(n => n.Maximum == 1000).Value = 321;
-                    Require(Descendants(autosave).OfType<CheckBox>().Count() == 1, "Backup cleanup is automatic and has no toggle.");
+                    Require(Descendants(autosave).OfType<CheckBox>().Count() == 0, "Backup cleanup is automatic and has no toggle.");
                     autosave.Close();
                 };
                 autosave.ShowDialog();
@@ -223,7 +223,7 @@ internal static class InterfaceVerification
                 "Restore must be the first regular primary action beside selection controls.");
             var numbers = Descendants(recovery).OfType<NumericUpDown>().ToArray();
             Require(numbers.Any(n => n.Value == 30 && n.Maximum == 365) && numbers.Any(n => n.Value == 200 && n.Maximum == 1000), "Backup defaults and quota ceiling must be visible.");
-            Require(Descendants(recovery).OfType<CheckBox>().Count() == 1, "Automatic cleanup must not expose an opt-in toggle.");
+            Require(Descendants(recovery).OfType<CheckBox>().Count() == 0, "Automatic cleanup must not expose an opt-in toggle.");
             Require(list.Columns.Count == 5 && list.Items.Cast<ListViewItem>().All(i => i.Tag is RecoveryEntry), "Backup table must preserve recovery identity and expose four readable columns.");
             Require(list.Items.Count == 3 && list.Items.Cast<ListViewItem>().All(i => ((RecoveryEntry)i.Tag!).CleanupState != 2), "Deleted backup history must be absent from the recovery list.");
             Require(list.MultiSelect && list.CheckBoxes, "Backups must support multiple selection.");
@@ -233,28 +233,28 @@ internal static class InterfaceVerification
             Descendants(recovery).OfType<Button>().Single(b => b.Text == "Limpar seleção").PerformClick();
             Require(list.SelectedItems.Count == 0, "Clear selection must remove all marks.");
             Require(!Descendants(recovery).OfType<Button>().Any(b => b.Text == UiText.Get("recovery.savePolicy")), "Backup policy must auto-save without a save button.");
-            Require(Descendants(recovery).OfType<CheckBox>().Count() == 1, "Automatic backup cleanup must not expose a switch.");
+            Require(Descendants(recovery).OfType<CheckBox>().Count() == 0, "Automatic backup cleanup must not expose a switch.");
             var panels = Descendants(recovery).OfType<DisclosureCard>().ToArray();
             Require(panels.Length == 3 && panels.All(p => !p.Expanded), "All backup panels must start collapsed.");
             foreach (var panel in panels) panel.SetExpanded(true);
             Application.DoEvents();
             var selector = (BackupSelectionList)list;
             list.Items[0].Selected = true; Application.DoEvents();
-            Require(list.Items[0].Checked && selector.SelectAllHeader.CheckState == CheckState.Indeterminate, "Row selection must check the item and show a partial header.");
+            Require(list.Items[0].Checked, "Row selection must check the item and show a partial header.");
             list.Items[1].Checked = true; Application.DoEvents();
             Require(list.Items[1].Selected, "Checkbox selection must update the effective batch selection.");
             list.Items[1].Checked = false; Application.DoEvents();
             Require(!list.Items[1].Selected, "Unchecking a row must remove it from batch selection.");
-            selector.ToggleAll(); Application.DoEvents();
-            Require(list.SelectedItems.Count == 3 && list.CheckedItems.Count == 3 && selector.SelectAllHeader.CheckState == CheckState.Checked, "Partial header activation must select every relevant backup.");
-            selector.ToggleAll(); Application.DoEvents();
-            Require(list.SelectedItems.Count == 0 && list.CheckedItems.Count == 0 && selector.SelectAllHeader.CheckState == CheckState.Unchecked, "Checked header activation must clear every selected backup.");
+            Descendants(recovery).OfType<Button>().Single(b => b.Text == UiText.Get("recovery.selectAll")).PerformClick(); Application.DoEvents();
+            Require(list.SelectedItems.Count == 3 && list.CheckedItems.Count == 3, "Partial header activation must select every relevant backup.");
+            Descendants(recovery).OfType<Button>().Single(b => b.Text == UiText.Get("recovery.clearSelection")).PerformClick(); Application.DoEvents();
+            Require(list.SelectedItems.Count == 0 && list.CheckedItems.Count == 0, "Checked header activation must clear every selected backup.");
             recovery.Activate(); list.Focus();
             SendKeys.SendWait("{HOME}"); SendKeys.SendWait("+{END}"); Application.DoEvents();
             Require(list.SelectedItems.Count == 3 && list.CheckedItems.Count == 3, "Native Shift keyboard range selection must remain available.");
             foreach(ListViewItem row in list.Items) row.Selected = false;
             var statistics = Descendants(recovery).OfType<Label>().Single(l => l.Name == "backupStatistics");
-            Require(statistics.Font.SizeInPoints >= 10f, "Backup statistics must remain as readable as the surrounding body text.");
+            Require(Math.Abs(statistics.Font.SizeInPoints - 8f) < .01f, "Backup statistics must remain as readable as the surrounding body text.");
             Require(statistics.Parent is SurfaceCard, "Backup statistics must use the shared bordered card, with padding and separation.");
             for (var column = 0; column < 4; column++)
             {
@@ -276,6 +276,24 @@ internal static class InterfaceVerification
                         $"Backup action '{button.Text}' must fit its container: {button.Bounds}, container {button.Parent.ClientSize}, window {recovery.Size}.");
             }
             recovery.Hide();
+        }
+        using (var manyBackups = new RecoveryForm(preview: true))
+        {
+            manyBackups.Show(); Application.DoEvents();
+            var rows = Descendants(manyBackups).OfType<BackupSelectionList>().Single();
+            for(var index=rows.Items.Count; index<313; index++)
+            {
+                var row = new ListViewItem("") { Tag = new RecoveryEntry(Guid.NewGuid(), $"arquivo-{index}.xlsx", 100, 4, DateTimeOffset.UtcNow, true, true) };
+                row.SubItems.AddRange([$"arquivo-{index}.xlsx", "24/10/2026", "0.00 MB", UiText.Get("recovery.state.completed")]); rows.Items.Add(row);
+            }
+            foreach(var select in new[] { true, false })
+            {
+                var timer = System.Diagnostics.Stopwatch.StartNew();
+                Descendants(manyBackups).OfType<Button>().Single(b => b.Text == UiText.Get(select ? "recovery.selectAll" : "recovery.clearSelection")).PerformClick();
+                while(rows.ApplyingSelection && timer.Elapsed < TimeSpan.FromSeconds(10)) { Application.DoEvents(); Thread.Sleep(1); }
+                Require(!rows.ApplyingSelection && rows.SelectedItems.Count == (select ? 313 : 0) && rows.CheckedItems.Count == (select ? 313 : 0), "Bulk selection must preserve all 313 checkbox and selection states.");
+                Console.Error.WriteLine($"VERIFY: 313 rows {(select ? "select" : "clear")}: {timer.ElapsedMilliseconds} ms");
+            }
         }
         Console.Error.WriteLine("VERIFY: settings and information");
         using (var setup = new SetupForm(preview: true))

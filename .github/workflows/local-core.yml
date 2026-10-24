@@ -124,6 +124,7 @@ jobs:
         run: |
           $compiler = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
           if (!(Test-Path $compiler)) { throw 'Inno Setup 6 compiler missing from Windows runner' }
+          ./branding/Build-WizardArt.ps1
           & $compiler installer/SheetsWindows.iss
           if ($LASTEXITCODE -ne 0) { throw 'Installer compilation failed' }
           $oldOutput = Join-Path (Get-Location).Path "artifacts/installer-old"

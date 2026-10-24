@@ -1,4 +1,5 @@
 $ErrorActionPreference = 'Stop'
+Add-Type -AssemblyName System.Drawing
 # Drive the real shipped installer: choose each language and enter its welcome page.
 Add-Type -TypeDefinition @'
 using System;
@@ -6,6 +7,10 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 public static class InstallerSelectorNative {
+  [StructLayout(LayoutKind.Sequential)] public struct Rect { public int Left, Top, Right, Bottom; }
+  [DllImport("user32.dll")] public static extern bool GetWindowRect(IntPtr hwnd, out Rect rect);
+  [DllImport("user32.dll")] public static extern bool GetClientRect(IntPtr hwnd, out Rect rect);
+  [DllImport("user32.dll")] public static extern bool PrintWindow(IntPtr hwnd, IntPtr dc, uint flags);
   public delegate bool Callback(IntPtr hwnd, IntPtr data);
   [DllImport("user32.dll")] public static extern bool EnumWindows(Callback callback, IntPtr data);
   [DllImport("user32.dll")] public static extern bool EnumChildWindows(IntPtr hwnd, Callback callback, IntPtr data);
@@ -59,6 +64,17 @@ function Wait-Selector($baseline) {
     } while ([DateTime]::UtcNow -lt $deadline)
     throw 'Custom installer selector with all 51 entries did not appear'
 }
+function Save-InstallerFrame([IntPtr]$window, [string]$name) {
+    $bounds = New-Object InstallerSelectorNative+Rect
+    [void][InstallerSelectorNative]::GetWindowRect($window,[ref]$bounds)
+    $bitmap = New-Object Drawing.Bitmap ($bounds.Right-$bounds.Left),($bounds.Bottom-$bounds.Top)
+    $graphics = [Drawing.Graphics]::FromImage($bitmap)
+    $dc = $graphics.GetHdc()
+    try { [void][InstallerSelectorNative]::PrintWindow($window,$dc,2) }
+    finally { $graphics.ReleaseHdc($dc) }
+    try { $bitmap.Save((Join-Path (Get-Location).Path "$output/$name.png"),[Drawing.Imaging.ImageFormat]::Png) }
+    finally { $graphics.Dispose(); $bitmap.Dispose() }
+}
 for ($index=0; $index -lt $languages.Count; $index++) {
     $language = $languages[$index]
     $code = $language.code
@@ -67,6 +83,16 @@ for ($index=0; $index -lt $languages.Count; $index++) {
     $process = Start-Process $setup -ArgumentList @('/SP-', "/LOG=`"$log`"") -PassThru
     try {
         $found = Wait-Selector $baseline
+        if ($index -eq 0) {
+            Save-InstallerFrame $found[0] 'language-selector-closed'
+            [void][InstallerSelectorNative]::SendValue($found[1],0x014F,[IntPtr]1,[IntPtr]::Zero)
+            Start-Sleep -Milliseconds 100
+            if ([InstallerSelectorNative]::SendValue($found[1],0x0157,[IntPtr]::Zero,[IntPtr]::Zero).ToInt32() -ne 1) { throw 'Installer language list must open' }
+            foreach($popup in [InstallerSelectorNative]::Windows([uint[]]@(New-InstallerIds $baseline))) {
+                if ([InstallerSelectorNative]::Class($popup) -eq 'ComboLBox') { Save-InstallerFrame $popup 'language-selector-expanded-list' }
+            }
+            [void][InstallerSelectorNative]::SendValue($found[1],0x014F,[IntPtr]::Zero,[IntPtr]::Zero)
+        }
         # The list must retain exact application captions and canonical order on every launch.
         for ($i=0; $i -lt $languages.Count; $i++) {
             $item = $languages[$i]
@@ -99,6 +125,7 @@ for ($index=0; $index -lt $languages.Count; $index++) {
             $details = @($windows | ForEach-Object { [InstallerSelectorNative]::Class($_) + ': ' + [InstallerSelectorNative]::Text($_); [InstallerSelectorNative]::Children($_) | ForEach-Object { [InstallerSelectorNative]::Text($_) } }) -join ' | '
             throw "Language $code did not reach its translated welcome page. Windows: $details"
         }
+        if ($code -in @('en','pt','ru','ar')) { Save-InstallerFrame $wizard "welcome-$code" }
         if (!(Test-Path $log) -or !(Select-String -Path $log -SimpleMatch "Zago installer language: $code" -Quiet)) { throw "Installer did not activate requested language $code" }
         if (Test-Path (Join-Path $env:LOCALAPPDATA 'Programs/SheetsWindows/SheetsWindows.exe')) { throw "Installer started installing before welcome confirmation for $code" }
         $results += [PSCustomObject]@{ language=$code; caption=$welcome; selectorAccepted=$true; wizardVisible=$true; activeLanguageVerified=$true }

@@ -41,15 +41,17 @@ internal sealed class ProcessingForm : Form
         try
         {
             failureHeading.Text = "⚠  " + UiText.Get("processing.failureTitle").Replace(" - ZagoSheetsWin", "", StringComparison.Ordinal);
-            status.Text = (displayedFailure is OperationCanceledException && !cancellation.IsCancellationRequested
+            var message = (displayedFailure is OperationCanceledException && !cancellation.IsCancellationRequested
                 ? UiText.Get("error.connectionTimeout") : LauncherErrors.Message(displayedFailure))
                 + (needsInputChange ? "\n\n" + UiText.Get("retry.editInput") : "")
                 + (diagnosticFeedback is null ? "" : "\n\n" + UiText.Get(diagnosticFeedback));
+            status.Text = System.Text.RegularExpressions.Regex.Replace(message, @"[ \t]*[\r\n]+[ \t]*", " ");
             if (IsHandleCreated && WindowState == FormWindowState.Normal && ClientSize.Width > 0 && ClientSize.Height > 0)
             {
                 PerformLayout();
-                var needed = TextRenderer.MeasureText(status.Text, status.Font,
-                    new Size(Math.Max(100, status.ClientSize.Width - status.Padding.Horizontal), int.MaxValue), TextFormatFlags.WordBreak).Height + status.Padding.Vertical + 8;
+                using var graphics = status.CreateGraphics();
+                var needed = TextRenderer.MeasureText(graphics, status.Text, status.Font,
+                    new Size(Math.Max(100, status.ClientSize.Width - status.Padding.Horizontal), int.MaxValue), TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl).Height + status.Padding.Vertical + 8 * DeviceDpi / 96;
                 status.Height = needed;
                 var bodyNeeded = failureHeading.Height + needed + messageBody.Padding.Vertical;
                 if (messageBody.ClientSize.Height < bodyNeeded) ClientSize = new Size(ClientSize.Width, ClientSize.Height + bodyNeeded - messageBody.ClientSize.Height);
@@ -78,7 +80,7 @@ internal sealed class ProcessingForm : Form
     private DiagnosticEntry? latestDiagnostic;
     public ProcessingForm(LauncherRequest request, long? startedAt = null, bool preview = false, bool previewError = false,
         Func<IProgress<string>, CancellationToken, Task>? execute = null, bool recordDiagnostics = true,
-        Func<TimeSpan, CancellationToken, Task>? retryDelay = null)
+        Func<TimeSpan, CancellationToken, Task>? retryDelay = null, Exception? previewFailure = null)
     {
         if (request.Action is not (LauncherAction.Open or LauncherAction.Copy or LauncherAction.Login)) throw new ArgumentException("Processing request required.");
         this.request = request; this.execute = execute; this.recordDiagnostics = recordDiagnostics; this.startedAt = startedAt ?? System.Diagnostics.Stopwatch.GetTimestamp();
@@ -92,7 +94,8 @@ internal sealed class ProcessingForm : Form
         FormClosing += (_, e) => { if (busy) { e.Cancel = true; cancellation.Cancel(); cancel.Enabled = false; status.Text = UiText.Get("progress.stopping"); } };
         Branding.Apply(this, aboutButton: false, compact: true);
         UiText.Changed += RenderFailure; Shown += (_, _) => RenderFailure();
-        if (preview) { status.Text = UiText.Get("progress.verification"); if (previewError) ShowFailure(new ConversionMismatchException()); }
+        messageBody.SizeChanged += (_, _) => RenderFailure(); status.FontChanged += (_, _) => RenderFailure();
+        if (preview) { status.Text = UiText.Get("progress.verification"); if (previewError || previewFailure is not null) ShowFailure(previewFailure ?? new ConversionMismatchException()); }
         // Start after the modal/native message loop installs its UI synchronization context.
         else Shown += (_, _) => BeginInvoke((Action)(async () => await RunSafelyAsync()));
     }

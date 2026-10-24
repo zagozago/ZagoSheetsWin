@@ -1,5 +1,13 @@
 # Histórico de alterações
 
+## 0.9.48 — ajustes finais localizados
+
+- Seletor do instalador com área cliente proporcional; arte lateral recomposta apenas com logo e nomes ZagoSheetsWin/Zagotools, preservando os créditos externos.
+- Conteúdo do botão Abrir planilha centralizado verticalmente; seleção múltipla com pictograma de três checkboxes.
+- Seleção e limpeza em lotes com indicador giratório transitório e sincronização única; removido somente o checkbox redundante do cabeçalho.
+- Corpo dos painéis de backup reduzido em 2 pt, títulos mantidos; lateral ampliada moderadamente e barra de ocupação com contorno fechado.
+- Corpo dos erros contínuo, com quebra automática e dimensionamento pelo contexto gráfico real; título, mensagens, comandos e backend preservados.
+
 ## 0.9.47 — refinamento dirigido AS IS → TO BE
 
 - G-01–06: marca maior, linha fina global, títulos contextuais e Sobre/Licenças no rodapé, respeitando as exceções do primeiro uso.

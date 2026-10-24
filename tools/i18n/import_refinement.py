@@ -40,7 +40,7 @@ for tid,rs in groups.items():
  entry.update(text=text,placeholders=re.findall(r'\{(\w+)(?::[^}]+)?\}',text),invariants=[x for x in (existing or {}).get('invariants',[]) if x in text])
  source['entries'][key]=entry;imports[key]=values
  mapping.append(dict(translation_id=tid,key=key,mode='reuse' if rs[0]['existing_key']==key else 'create',reason='Existing aggregate/title has different semantics; contextual key.' if key in custom and key!=rs[0]['existing_key'] else 'CSV translation; native UI decorations preserved.'))
-source['catalogRevision']=17;source['productVersion']='0.9.47';write(ROOT/'i18n/source.json',source)
+source['catalogRevision']=17;write(ROOT/'i18n/source.json',source)
 hash_=hashlib.sha256(json.dumps(source['entries'],ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
 for lang in languages:
  code=lang['code']

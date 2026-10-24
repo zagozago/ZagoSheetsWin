@@ -23,7 +23,8 @@ internal static class VisualStyle
                 switch (icon)
                 {
                     case UiIcon.Folder: using (var fill = new SolidBrush(button.ForeColor)) g.FillPolygon(fill, [new(2, 6), new(8, 6), new(10, 8), new(18, 8), new(16, 17), new(2, 17)]); g.DrawPolygon(p, [new(2, 6), new(8, 6), new(10, 8), new(18, 8), new(16, 17), new(2, 17)]); g.DrawLines(p, [new(2, 14), new(2, 4), new(7, 4), new(9, 6), new(17, 6)]); break;
-                    case UiIcon.SelectAll: g.DrawRectangle(p, 2, 2, 12, 12); g.DrawRectangle(p, 6, 6, 12, 12); g.DrawLines(p, [new(8, 11), new(11, 14), new(16, 8)]); break;
+                    case UiIcon.SelectAll:
+                        for(var row = 0; row < 3; row++) { var y = 2 + row * 6; g.DrawRectangle(p, 1, y, 5, 4); g.DrawLines(p, [new(2,y+2),new(3,y+3),new(5,y+1)]); g.DrawLine(p, 9, y+2, 18, y+2); } break;
                     case UiIcon.ClearSelection: g.DrawRectangle(p, 3, 3, 14, 14); break;
                     case UiIcon.Trash: g.DrawLine(p, 3, 5, 17, 5); g.DrawLines(p, [new(7, 5), new(7, 2), new(13, 2), new(13, 5)]); g.DrawPolygon(p, [new(5,5),new(6,18),new(14,18),new(15,5)]); g.DrawLine(p, 8, 8, 8, 15); g.DrawLine(p, 12, 8, 12, 15); break;
                     case UiIcon.More: for(var y=4;y<=16;y+=6) { using var fill = new SolidBrush(button.ForeColor); g.FillEllipse(fill, 9, y-1, 2.5f, 2.5f); } break;
@@ -153,5 +154,24 @@ internal sealed class DisclosureButton : AdaptiveButton
         base.OnPaint(e); var x = RightToLeft == RightToLeft.Yes ? 7 : Width - 13; var y = Height / 2;
         using var p = new Pen(ForeColor, 1.5f);
         e.Graphics.DrawLines(p, (Point[])(Expanded ? [new Point(x-3,y-2),new Point(x,y+1),new Point(x+3,y-2)] : [new Point(x-2,y-3),new Point(x+1,y),new Point(x-2,y+3)]));
+    }
+}
+
+internal sealed class StorageMeter : Control
+{
+    internal int Maximum = 1000;
+    private int value;
+    [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+    internal int Value { get => value; set { this.value = Math.Clamp(value, 0, Maximum); Invalidate(); } }
+    protected override void OnPaint(PaintEventArgs e)
+    {
+        var bounds = new Rectangle(0,0,Math.Max(0,Width-1),Math.Max(0,Height-1));
+        using var track = new SolidBrush(SystemInformation.HighContrast ? SystemColors.Window : Branding.Current == ApplicationTheme.Dark ? Color.FromArgb(32,49,39) : Color.FromArgb(230,232,230));
+        using var fill = new SolidBrush(SystemInformation.HighContrast ? SystemColors.Highlight : Color.FromArgb(24,128,75));
+        using var pen = new Pen(SystemInformation.HighContrast ? SystemColors.WindowText : Branding.Current == ApplicationTheme.Dark ? VisualStyle.Border : SystemColors.ControlDark);
+        e.Graphics.FillRectangle(track, bounds);
+        var width = (int)(Math.Max(0, Width-2) * (value / (double)Math.Max(1,Maximum)));
+        if(width > 0) e.Graphics.FillRectangle(fill, RightToLeft == RightToLeft.Yes ? Width-1-width : 1, 1, width, Math.Max(0,Height-2));
+        e.Graphics.DrawRectangle(pen, bounds);
     }
 }

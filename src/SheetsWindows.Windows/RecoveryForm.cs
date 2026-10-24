@@ -62,7 +62,7 @@ internal sealed class RecoveryForm : Form
         var quota = new NumericUpDown { Minimum = 1, Maximum = 1000, Value = 200, Width = 80, AccessibleName = UiText.Get("accessibility.quotaMb") };
         var usage = new EmphasisLabel { AutoSize = true, Text = UiText.Get("recovery.limits"), Font = new Font(LanguageVisuals.Family, 10), Margin = new Padding(0, 8, 0, 0), Name = "backupStatistics", AccessibleName = UiText.Get("accessibility.availableBackups") };
         var statistics = VisualStyle.Card(); statistics.DrawBorder = false; statistics.Padding = Padding.Empty; statistics.Margin = Padding.Empty;
-        var meter = new ProgressBar { Height = 14, Maximum = 1000, Width = 150, AccessibleName = UiText.Get("recovery.quotaLabel") }; statistics.Controls.Add(meter);
+        var meter = new StorageMeter { Height = 14, Maximum = 1000, Width = 150, AccessibleName = UiText.Get("recovery.quotaLabel") }; statistics.Controls.Add(meter);
         statistics.Controls.Add(usage);
         var countLabel = Ui.Center(Ui.Text("")); var availableLabel = Ui.Text(""); statistics.Controls.Add(countLabel); statistics.Controls.Add(availableLabel);
         var limits = new TableLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, ColumnCount = 2, RowCount = 2, Margin = new Padding(0, 0, 0, 8) };
@@ -74,7 +74,7 @@ internal sealed class RecoveryForm : Form
         void FitPolicy()
         {
             var width = Math.Max(120, policyPanel.ClientSize.Width - policyPanel.Padding.Horizontal - 16);
-            meter.Width = Math.Max(80, width - statistics.Padding.Horizontal);
+            meter.Width = Math.Max(40, width - 28);
             usage.MaximumSize = new Size(Math.Max(80, width - 28), 0);
             statistics.MinimumSize = new Size(Math.Max(100, width - 28), 0); statistics.MaximumSize = new Size(Math.Max(100, width - 28), 0);
             foreach (var label in policyPanel.Controls.OfType<Label>()) label.MaximumSize = new Size(width, 0);
@@ -108,16 +108,24 @@ internal sealed class RecoveryForm : Form
         more.Click += (_, _) => { var buttons = new[] { copy, resume, repair, export, clean }; for (var i = 0; i < buttons.Length; i++) { menu.Items[i].Enabled = buttons[i].Enabled && !busy; menu.Items[i].Text = buttons[i].Text; } menu.Show(more, new Point(0, more.Height)); };
         var selectAll = new AdaptiveButton { Text = UiText.Get("recovery.selectAll"), AutoSize = true };
         var clearSelection = new AdaptiveButton { Text = UiText.Get("recovery.clearSelection"), AutoSize = true };
-        selectAll.Click += (_, _) => { foreach (ListViewItem item in entries.Items) item.Selected = (item.Tag as RecoveryEntry)?.CleanupState != 2; };
-        clearSelection.Click += (_, _) => { foreach (ListViewItem item in entries.Items) { item.Checked = false; item.Selected = false; } };
+
         var actions = Ui.Columns(restore, selectAll, clearSelection, delete, more);
+        async Task SelectBatch(bool select, AdaptiveButton source)
+        {
+            if (busy) return;
+            busy = true; actions.Enabled = false; entries.Enabled = false; source.SetSpinning(true); source.Refresh();
+            try { await entries.ApplySelectionAsync(select); }
+            finally { source.SetSpinning(false); busy = false; actions.Enabled = true; entries.Enabled = true; UpdateSelection(); }
+        }
+        selectAll.Click += async (_, _) => await SelectBatch(true, selectAll);
+        clearSelection.Click += async (_, _) => await SelectBatch(false, clearSelection);
         actions.Dock = DockStyle.Top; actions.Padding = new Padding(8);
         // Keep action buttons parented so native PerformClick executes their existing handlers.
         var hiddenActions = new Panel { Visible = false }; hiddenActions.Controls.AddRange([copy, resume, repair, export, clean]); Controls.Add(hiddenActions);
         Disposed += (_, _) => menu.Dispose(); Ui.Primary(restore);
         VisualStyle.Icon(restore, UiIcon.Restore); VisualStyle.Icon(selectAll, UiIcon.SelectAll); VisualStyle.Icon(clearSelection, UiIcon.ClearSelection); VisualStyle.Icon(delete, UiIcon.Trash); VisualStyle.Icon(more, UiIcon.More);
         var main = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 1, Padding = new Padding(14, 0, 14, 14) };
-        main.ColumnStyles.Add(new(SizeType.Percent, 100)); main.ColumnStyles.Add(new(SizeType.Absolute, 240)); main.RowStyles.Add(new(SizeType.Percent, 100));
+        main.ColumnStyles.Add(new(SizeType.Percent, 100)); main.ColumnStyles.Add(new(SizeType.Absolute, 285)); main.RowStyles.Add(new(SizeType.Percent, 100));
         var files = new Panel { Dock = DockStyle.Fill }; files.Controls.Add(entries); files.Controls.Add(actions); files.Controls.Add(status);
         files.SizeChanged += (_, _) => FitStatus(); main.Controls.Add(files, 0, 0); main.Controls.Add(policyPanel, 1, 0);
         Controls.Add(main); Controls.Add(cancel); cancel.Dock = DockStyle.Bottom;
@@ -238,6 +246,7 @@ internal sealed class RecoveryForm : Form
         clean.Click += async (_, _) => await DeleteBackups(false);
         void UpdateSelection()
         {
+            if (entries.ApplyingSelection) return;
             var row = Selected;
             repair.Enabled = restore.Enabled = copy.Enabled = resume.Enabled = !busy && row?.Available == true;
             delete.Enabled = !busy && Marked().Any(entry => entry.CleanupState != 2);
@@ -264,6 +273,13 @@ internal sealed class RecoveryForm : Form
         }
         UpdateSelection();
         Branding.Apply(this);
+        static IEnumerable<Control> BodyControls(Control parent) { yield return parent; foreach(Control child in parent.Controls) foreach(var nested in BodyControls(child)) yield return nested; }
+        foreach(var panel in new[] { configuration, usagePanel, tip })
+        {
+            var originalFonts = BodyControls(panel.Body).Select(c => (Control: c, Font: c.Font)).ToArray();
+            foreach(var item in originalFonts) item.Control.Font = new Font(item.Font.FontFamily, Math.Max(6, item.Font.SizeInPoints - 2), item.Font.Style);
+        }
+        FitPolicy();
     }
 }
 
