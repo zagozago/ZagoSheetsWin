@@ -9,7 +9,7 @@ internal sealed class LauncherForm : Form
     {
         if (request.Action != LauncherAction.Home) throw new ArgumentException("Home request required.");
         Text = "ZagoSheetsWin"; ClientSize = new Size(540, 190); FormBorderStyle = FormBorderStyle.FixedSingle; MaximizeBox = false; MinimizeBox = true; StartPosition = FormStartPosition.CenterScreen; AutoScaleMode = AutoScaleMode.Dpi;
-        var layout = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18, 2, 18, 14), FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = false };
+        var layout = new InsetFlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18, 2, 18, 14), FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = false };
         AdaptiveButton Action(string text, EventHandler action) { var b = new AdaptiveButton { Text = text, Width = 382, Height = 38, Margin = Padding.Empty, AccessibleName = text.Replace("&", "") }; b.Click += action; return b; }
         void Pick(LauncherAction action)
         {

@@ -67,7 +67,7 @@ internal static class VisualStyle
     }
 }
 
-internal class SurfaceCard : FlowLayoutPanel
+internal class SurfaceCard : InsetFlowLayoutPanel
 {
     internal bool DrawBorder = true;
     internal SurfaceCard()

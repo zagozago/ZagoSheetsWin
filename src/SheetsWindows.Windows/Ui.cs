@@ -72,3 +72,29 @@ internal static class Ui
 }
 
 
+
+// Keep physical card/window insets when WinForms mirrors a vertical flow.
+// Child controls retain RTL text and table/button ordering. Other forms use
+// their existing layout unchanged.
+internal class InsetFlowLayoutPanel : FlowLayoutPanel
+{
+    private bool aligning;
+    protected override void OnLayout(LayoutEventArgs e)
+    {
+        base.OnLayout(e);
+        if (aligning || RightToLeft != RightToLeft.Yes || WrapContents ||
+            FlowDirection != FlowDirection.TopDown || FindForm() is not (LauncherForm or SetupForm)) return;
+        aligning = true;
+        SuspendLayout();
+        try
+        {
+            foreach (Control child in Controls)
+            {
+                if (child is not (Button or FlowLayoutPanel or TableLayoutPanel)) continue;
+                var left = Padding.Left + child.Margin.Right + AutoScrollPosition.X;
+                if (child.Left != left) child.Left = left;
+            }
+        }
+        finally { ResumeLayout(false); aligning = false; }
+    }
+}

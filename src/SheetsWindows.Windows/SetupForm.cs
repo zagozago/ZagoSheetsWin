@@ -16,7 +16,7 @@ internal sealed class SetupForm : Form
         var storage = LocalStorage.ForCurrentUser();
         Text = firstUse ? UiText.Get("setup.firstUseTitle") : UiText.Get("setup.title");
         ClientSize = new Size(600, 580); MinimumSize = new Size(480, 480); AutoScaleMode = AutoScaleMode.Dpi; StartPosition = FormStartPosition.CenterScreen;
-        var layout = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18, 4, 18, 8), FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = true };
+        var layout = new InsetFlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18, 4, 18, 8), FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = true };
         var shortcuts = new ToggleSwitch { CenterGroup = true, Checked = ShortcutSettings.Load(storage), Text = UiText.Get("setup.createShortcuts") };
         var copy = new ToggleSwitch { CenterGroup = true, Checked = CopyImportSettings.Load(storage), Text = UiText.Get("emphasis.importCopy") };
         var googleInfo = new InformationButton(() =>

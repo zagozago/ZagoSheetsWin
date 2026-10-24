@@ -35,6 +35,16 @@ internal static class LocaleVerification
                             throw new InvalidOperationException($"{language.Code}/{name}: button outside parent: {button.Text}; {button.Bounds}, parent {button.Parent.ClientSize}.");
                         buttons++;
                     }
+                    if (UiText.RightToLeft && form is (LauncherForm or SetupForm))
+                    {
+                        foreach (var host in Descendants(form).OfType<InsetFlowLayoutPanel>())
+                        foreach (Control child in host.Controls)
+                        {
+                            if (!child.Visible || child is not (Button or FlowLayoutPanel or TableLayoutPanel)) continue;
+                            if (child.Left < host.Padding.Left - 1 || child.Right > host.ClientSize.Width - host.Padding.Right + 1)
+                                throw new InvalidOperationException($"{language.Code}/{name}: RTL content must retain both horizontal insets: {child.Text}; {child.Bounds}, padding {host.Padding}.");
+                        }
+                    }
                     if (form is TutorialForm)
                     {
                         var content = Descendants(form).OfType<FlowLayoutPanel>().Single(p => p.FlowDirection == FlowDirection.TopDown);
