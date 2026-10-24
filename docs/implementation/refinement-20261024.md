@@ -16,7 +16,7 @@ Referências: PROMPT_02 e ASISTOBEZAGOTOOLs2 fornecidos pelo usuário. CSV autor
 | TEL-07/08/09 | FirstUseWizard, TutorialPicture | Janela se ajusta por etapa; status 11→13 pt; título de dois cliques 11→15 pt; botão padrão 9→11 pt; legenda centralizada sob a miniatura. Três etapas e validações preservadas. |
 | TEL-03 | Branding | Apenas cabeçalho compartilhado. Mensagens, orientação, retry e ações não foram redesenhados. |
 
-As novas interações aprovadas são a sincronização de checkbox/seleção e o recolhimento independente dos painéis. As métricas são apenas apresentações derivadas: não alteram quota, retenção, limpeza ou descarte. Espaço disponível é limitado a zero quando o uso ultrapassa a quota; o percentual continua mostrando o uso real, enquanto a barra satura em 100%. Valores monetários não existem; tamanhos usam MB decimais, como a política atual, com formatação numérica do locale selecionado.
+As novas interações aprovadas são a sincronização de checkbox/seleção e o recolhimento independente dos painéis. As métricas são apenas apresentações derivadas: não alteram quota, retenção, limpeza ou descarte. Espaço disponível é limitado a zero quando o uso ultrapassa a quota; o percentual continua mostrando o uso real, enquanto a barra satura em 100%. Tamanhos usam MB decimais, como a política atual, com a unidade do recurso já localizado e formatação numérica do locale selecionado. Se o Windows não reconhecer um identificador de cultura, somente a formatação numérica usa a cultura invariável; o texto continua vindo do pacote do idioma escolhido.
 
 ## CSV e decisões de integração
 
@@ -31,4 +31,12 @@ As novas interações aprovadas são a sincronização de checkbox/seleção e o
 
 ## Validação
 
-Compilação local sem erros/avisos; 364 testes aprovados e 44 específicos de Windows não executados no Linux. Os 14 contratos de catálogo e auditoria de fonte passaram. Validação nativa e comparação das capturas: em execução no GitHub Actions, antes de preparar a distribuição oficial.
+- Compilação local sem erros/avisos; 364 testes aprovados e 44 específicos de Windows não executados no Linux.
+- Validação do CSV em modo `--check`, geração de recursos, 14 contratos de catálogo e auditoria de fonte aprovados.
+- [Local core 40099207181](https://github.com/zagozago/ZagoSheetsWin/actions/runs/40099207181): Windows e Linux aprovados no código `f1f4bcd4ec79ac5b319ceb7ea0ea11f7f5f1221e`.
+- Matriz nativa aprovada nos 51 idiomas: telas e textos novos nos dois temas; painéis recolhidos/expandidos; sincronização de seleção, cabeçalho parcial/total, intervalo com Shift; geometria de layouts e medição tipográfica em 100%, 125%, 150% e 200%. O JSON de verificação registra os 51 locales e essas quatro escalas.
+- Verificação das 51 transições de idioma do instalador e ciclo de instalação/atualização/desinstalação aprovados.
+- Capturas reais da compilação final comparadas com a montagem; amostras adicionais em árabe/RTL, alemão e tâmil, incluindo temas claro/escuro e os painéis abertos. Artefato de capturas: `ZagoSheetsWin-branding-preview`, ID 12562351601.
+- Não foi executado um novo login real no Google nesta rodada. As verificações nativas são offline; os testes de regressão de importação/autenticação e de armazenamento permanecem no fluxo automatizado.
+
+Resultado: 65 IDs com reuso de chave, 18 com criação e 2 não aplicáveis, conforme o mapeamento completo. Nenhum arquivo de produção em Core ou Infrastructure foi alterado; somente os recursos gerados de localização consumidos pela aplicação.

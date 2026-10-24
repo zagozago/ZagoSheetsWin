@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.46: alignment, readable statistics and compact layouts validated by Local core 39682949120 on Windows/Linux, all locales and installer lifecycle.
+# Distribution candidate 0.9.47: directed AS IS to TO BE refinement and approved CSV validated by Local core 40099207181 on Windows/Linux, 51 locales, both themes, scales and installer lifecycle.
 name: Protected alpha distribution
 on:
   workflow_dispatch:
@@ -37,6 +37,8 @@ jobs:
         env:
           PYTHONUTF8: '1'
         run: |
+          python tools/i18n/import_refinement.py --check
+          if ($LASTEXITCODE -ne 0) { throw 'Refinement CSV integration differs from the approved source' }
           python tools/i18n/generate.py --check
           if ($LASTEXITCODE -ne 0) { throw 'Localization generation validation failed' }
           python tools/i18n/test_catalog.py
@@ -103,7 +105,7 @@ jobs:
           New-Item -ItemType Directory -Force (Split-Path $output) | Out-Null
           $errorFile = Join-Path (Get-Location).Path 'artifacts/native-verification-error.txt'
           $process = Start-Process -FilePath $exe -ArgumentList @('--verify-interface', $output) -RedirectStandardError $errorFile -PassThru
-          if (!$process.WaitForExit(300000)) { $process.Kill(); Get-Content $errorFile; throw 'Native interface verification timed out' }
+          if (!$process.WaitForExit(900000)) { $process.Kill(); Get-Content $errorFile; throw 'Native interface verification timed out' }
           if ($process.ExitCode -ne 0) { Get-Content $errorFile; throw 'Native interface verification failed' }
           Get-Content $output
       - name: Render native branding previews offline
