@@ -64,7 +64,8 @@ internal sealed class RecoveryForm : Form
         var statistics = VisualStyle.Card(); statistics.DrawBorder = false; statistics.Padding = Padding.Empty; statistics.Margin = Padding.Empty;
         var meter = new StorageMeter { Height = 14, Maximum = 1000, Width = 150, AccessibleName = UiText.Get("recovery.quotaLabel") }; statistics.Controls.Add(meter);
         statistics.Controls.Add(usage);
-        var countLabel = Ui.Center(Ui.Text("")); var availableLabel = Ui.Text(""); statistics.Controls.Add(countLabel); statistics.Controls.Add(availableLabel);
+        var countLabel = Ui.Text(""); var availableLabel = Ui.Text("");
+        ((EmphasisLabel)countLabel).BoldPrefix = true; ((EmphasisLabel)availableLabel).BoldPrefix = true; statistics.Controls.Add(countLabel); statistics.Controls.Add(availableLabel);
         var limits = new TableLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, ColumnCount = 2, RowCount = 2, Margin = new Padding(0, 0, 0, 8) };
         limits.ColumnStyles.Add(new(SizeType.Percent, 50)); limits.ColumnStyles.Add(new(SizeType.Percent, 50));
         limits.RowStyles.Add(new(SizeType.AutoSize)); limits.RowStyles.Add(new(SizeType.AutoSize));
@@ -95,6 +96,7 @@ internal sealed class RecoveryForm : Form
         var usagePanel = new DisclosureCard("recovery.usedHeading", UiIcon.Backup, statistics);
         var tip = new DisclosureCard("backup.tip.title", UiIcon.Bulb, Ui.Text(UiText.Get("backup.tip.multi")), Ui.Text(UiText.Get("backup.tip.ctrl")), Ui.Text(UiText.Get("backup.tip.shift")), Ui.Text(UiText.Get("backup.tip.arrows"))) { Tag = "tipCard" };
         tip.Body.Tag = "tipCard";
+        foreach (var label in tip.Body.Controls.OfType<EmphasisLabel>().Skip(1)) label.BoldPrefix = true;
         policyPanel.Controls.AddRange([configuration, usagePanel, tip]); Ui.Adapt(policyPanel);
         var restore = new AdaptiveButton { Text = UiText.Get("action.restore"), AutoSize = true, FontSizeOverride = 11 };
         var repair = new MenuActionButton { Text = UiText.Get("recovery.repairNew"), AutoSize = true };
@@ -105,7 +107,7 @@ internal sealed class RecoveryForm : Form
         cancel.Click += (_, _) => activeCancellation?.Cancel();
         var delete = new MenuActionButton { Text = UiText.Get("recovery.deleteSelected"), AutoSize = true };
         var clean = new MenuActionButton { Text = UiText.Get("recovery.cleanExpired"), AutoSize = true };
-        var more = new AdaptiveButton { Text = UiText.Get("recovery.moreActions"), AutoSize = true, Height = 34 };
+        var more = new AdaptiveButton { Text = UiText.Get("recovery.moreActions"), KeepArrowWithWord = true, AutoSize = true, Height = 34 };
         var menu = new ContextMenuStrip();
         foreach (var action in new[] { copy, resume, repair, export, clean })
         {
@@ -288,6 +290,7 @@ internal sealed class RecoveryForm : Form
             var originalFonts = BodyControls(panel.Body).Select(c => (Control: c, Font: c.Font)).ToArray();
             foreach(var item in originalFonts) item.Control.Font = new Font(item.Font.FontFamily, Math.Max(6, item.Font.SizeInPoints - 2), item.Font.Style);
         }
+        usage.Font = new Font(usage.Font, FontStyle.Bold);
         FitPolicy();
     }
 }

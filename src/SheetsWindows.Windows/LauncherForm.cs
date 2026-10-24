@@ -17,7 +17,7 @@ internal sealed class LauncherForm : Form
             if (dialog.ShowDialog(this) != DialogResult.OK) return;
             using var processing = new ProcessingForm(new LauncherRequest(action, dialog.FileName)); processing.ShowDialog(this); ExitCode = processing.ExitCode;
         }
-        var open = Action(UiText.Get("home.open"), (_, _) => Pick(LauncherAction.Open)); Ui.Primary(open); VisualStyle.Icon(open, UiIcon.Folder); layout.Controls.Add(open);
+        var open = Action(UiText.Get("home.open"), (_, _) => Pick(LauncherAction.Open)); Ui.Primary(open); open.IconOffsetY = -1; VisualStyle.Icon(open, UiIcon.Folder); layout.Controls.Add(open);
         var navigation = new TableLayoutPanel { ColumnCount = 3, RowCount = 1, Height = 38, Width = 440, Margin = new Padding(0, 4, 0, 4) };
         for (var i = 0; i < 3; i++) navigation.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 3));
         var settings = Action(UiText.Get("home.settings"), (_, _) => { using var setup = new SetupForm(); setup.ShowDialog(this); });

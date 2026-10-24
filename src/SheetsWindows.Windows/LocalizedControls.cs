@@ -61,6 +61,11 @@ internal class AdaptiveButton : Button
     internal float? FontSizeOverride { get; init; }
     [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
     internal int ContentOffsetY { get; set; }
+    [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+    internal int IconOffsetY { get; set; }
+    [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+    internal bool KeepArrowWithWord { get; init; }
+    private string DisplayText => KeepArrowWithWord ? System.Text.RegularExpressions.Regex.Replace(Text, @"\s+([▾▼])$", "\u00a0$1") : Text;
     private readonly System.Windows.Forms.Timer spinner = new() { Interval = 50 };
     private int spinnerAngle;
     private bool spinning;
@@ -76,13 +81,13 @@ internal class AdaptiveButton : Button
         e.Graphics.DrawRectangle(border, 0, 0, Math.Max(0, Width - 1), Math.Max(0, Height - 1));
         var gap = Image is null ? 0 : 8 * DeviceDpi / 96;
         var room = Math.Max(20, Width - Padding.Horizontal - 12 - (Image?.Width ?? 0) - gap);
-        var textSize = TextRenderer.MeasureText(Text, Font, new Size(room, int.MaxValue), TextFormatFlags.WordBreak);
+        var textSize = TextRenderer.MeasureText(DisplayText, Font, new Size(room, int.MaxValue), TextFormatFlags.WordBreak);
         var groupWidth = textSize.Width + (Image?.Width ?? 0) + gap;
         var x = (Width - groupWidth) / 2; var y = (Height - textSize.Height) / 2 + ContentOffsetY * DeviceDpi / 96;
         var rtl = RightToLeft == RightToLeft.Yes;
         if (Image is not null)
         {
-            var iconX = rtl ? x + textSize.Width + gap : x; var iconY = (Height - Image.Height) / 2 + ContentOffsetY * DeviceDpi / 96;
+            var iconX = rtl ? x + textSize.Width + gap : x; var iconY = (Height - Image.Height) / 2 + (ContentOffsetY + IconOffsetY) * DeviceDpi / 96;
             if (spinning) { e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias; using var pen = new Pen(ForeColor, 2 * DeviceDpi / 96f); e.Graphics.DrawArc(pen, iconX + 1, iconY + 1, Image.Width - 3, Image.Height - 3, spinnerAngle, 270); }
             else e.Graphics.DrawImage(Image, iconX, iconY, Image.Width, Image.Height);
             if (!rtl) x += Image.Width + gap;
@@ -90,17 +95,17 @@ internal class AdaptiveButton : Button
         var flags = TextFormatFlags.WordBreak | TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter;
         if (rtl) flags |= TextFormatFlags.RightToLeft;
         if (!ShowKeyboardCues) flags |= TextFormatFlags.HidePrefix;
-        TextRenderer.DrawText(e.Graphics, Text, Font, new Rectangle(x, y, textSize.Width, textSize.Height), ForeColor, flags);
+        TextRenderer.DrawText(e.Graphics, DisplayText, Font, new Rectangle(x, y, textSize.Width, textSize.Height), ForeColor, flags);
         if (Focused && ShowFocusCues) ControlPaint.DrawFocusRectangle(e.Graphics, Rectangle.Inflate(ClientRectangle, -4, -4), ForeColor, BackColor);
     }
     public override Size GetPreferredSize(Size proposedSize)
     {
         var max=Parent is FlowLayoutPanel flow ? Math.Max(80,flow.ClientSize.Width-flow.Padding.Horizontal-Margin.Horizontal) : proposedSize.Width;
         if(max<=0)max=int.MaxValue;
-        var natural=TextRenderer.MeasureText(Text,Font,Size.Empty,TextFormatFlags.SingleLine);
+        var natural=TextRenderer.MeasureText(DisplayText,Font,Size.Empty,TextFormatFlags.SingleLine);
         var width=Math.Min(max,natural.Width+Padding.Horizontal+12+(Image is null ? 0 : Image.Width + 8 * DeviceDpi / 96));
         if(Parent is FlowLayoutPanel { FlowDirection: FlowDirection.TopDown, WrapContents: false }) width=Math.Min(max,Math.Max(Width,width));
-        var text=TextRenderer.MeasureText(Text,Font,new Size(Math.Max(20,width-Padding.Horizontal-12-(Image is null ? 0 : Image.Width + 8 * DeviceDpi / 96)),int.MaxValue),TextFormatFlags.WordBreak);
+        var text=TextRenderer.MeasureText(DisplayText,Font,new Size(Math.Max(20,width-Padding.Horizontal-12-(Image is null ? 0 : Image.Width + 8 * DeviceDpi / 96)),int.MaxValue),TextFormatFlags.WordBreak);
         return new Size(Math.Max(MinimumSize.Width,width),Math.Max(MinimumSize.Height,text.Height+Padding.Vertical+10));
     }
     private void Fit()
@@ -109,7 +114,7 @@ internal class AdaptiveButton : Button
         fitting=true;
         try
         {
-            var measured=TextRenderer.MeasureText(Text,Font,new Size(Math.Max(20,Width-Padding.Horizontal-12-(Image is null ? 0 : Image.Width + 8 * DeviceDpi / 96)),int.MaxValue),TextFormatFlags.WordBreak);
+            var measured=TextRenderer.MeasureText(DisplayText,Font,new Size(Math.Max(20,Width-Padding.Horizontal-12-(Image is null ? 0 : Image.Width + 8 * DeviceDpi / 96)),int.MaxValue),TextFormatFlags.WordBreak);
             var height=measured.Height+Padding.Vertical+10;
             if(!AutoSize && Dock != DockStyle.Fill)Height=Math.Max(MinimumSize.Height,height);
             else if(!AutoSize && Height<height)Height=height;
