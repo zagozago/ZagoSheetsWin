@@ -296,7 +296,9 @@ internal static class InterfaceVerification
                     if(rows.ApplyingSelection) SaveFrame(manyBackups,"bulk-select-progress");
                     return;
                 }
-                if(rows.ApplyingSelection && timer.Elapsed < TimeSpan.FromSeconds(10)) return;
+                var actionReady = Descendants(manyBackups).OfType<Button>().Single(b => b.Text == UiText.Get("recovery.selectAll")).Enabled;
+                if((rows.ApplyingSelection || !actionReady) && timer.Elapsed < TimeSpan.FromSeconds(10)) return;
+                if(rows.ApplyingSelection || !actionReady) { Console.Error.WriteLine("Bulk selection timeout on the real modal UI loop."); Environment.Exit(1); }
                 Console.Error.WriteLine($"VERIFY: 313 rows phase={phase}, selected={rows.SelectedItems.Count}, checked={rows.CheckedItems.Count}, applying={rows.ApplyingSelection}, elapsed={timer.ElapsedMilliseconds} ms");
                 if (phase == 1 && !rows.ApplyingSelection && rows.SelectedItems.Count == 313 && rows.CheckedItems.Count == 313)
                 {

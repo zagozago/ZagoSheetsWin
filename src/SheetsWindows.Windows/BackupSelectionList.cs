@@ -24,17 +24,25 @@ internal sealed class BackupSelectionList : ListView
     internal async Task ApplySelectionAsync(bool select)
     {
         if (ApplyingSelection) return;
-        ApplyingSelection = true; synchronizing = true; BeginUpdate();
+        ApplyingSelection = true; synchronizing = true;
         try
         {
-            for (var index = 0; index < Items.Count; index++)
+            for (var start = 0; start < Items.Count; start += 32)
             {
-                var item = Items[index]; var selected = select && (item.Tag as RecoveryEntry)?.CleanupState != 2;
-                item.Selected = selected; item.Checked = selected;
-                if ((index + 1) % 32 == 0 && index + 1 < Items.Count) await Task.Delay(1);
+                BeginUpdate();
+                try
+                {
+                    for (var index = start; index < Math.Min(start + 32, Items.Count); index++)
+                    {
+                        var item = Items[index]; var selected = select && (item.Tag as RecoveryEntry)?.CleanupState != 2;
+                        item.Selected = selected; item.Checked = selected;
+                    }
+                }
+                finally { EndUpdate(); }
+                if (start + 32 < Items.Count) await Task.Delay(1);
             }
         }
-        finally { synchronizing = false; ApplyingSelection = false; Synchronize(); EndUpdate(); Invalidate(); }
+        finally { synchronizing = false; ApplyingSelection = false; Synchronize(); Invalidate(); }
     }
     protected override void OnDrawColumnHeader(DrawListViewColumnHeaderEventArgs e)
     {
