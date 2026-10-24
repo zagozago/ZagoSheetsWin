@@ -124,15 +124,15 @@ internal sealed class RecoveryForm : Form
         long shownBytes = 0; int shownCount = 0;
         void RefreshUsage()
         {
-            var limit = Math.Max(0m, quota.Value * 1_000_000m); var used = Math.Max(0m, shownBytes);
-            var ratio = limit > 0 ? used / limit : 0m; meter.Value = (int)Math.Clamp(ratio * 1000m, 0m, 1000m);
+            var values = BackupUsageValues.From(shownBytes, quota.Value); var limit = values.Limit; var used = values.Used;
+            var ratio = values.Ratio; meter.Value = values.Meter;
             System.Globalization.CultureInfo culture;
             try { culture = System.Globalization.CultureInfo.GetCultureInfo(LanguageSettings.Details(UiText.Language).Locale); }
             catch (System.Globalization.CultureNotFoundException) { culture = System.Globalization.CultureInfo.InvariantCulture; }
             string Size(decimal bytes) => UiText.Format("recovery.sizeMb", ("sizeMb", (bytes / 1_000_000m).ToString("N2", culture)));
             usage.Text = UiText.Format("backup.space.ratio", ("used", Size(used)), ("limit", Size(limit)), ("percent", ratio.ToString("P0", culture)));
             countLabel.Text = UiText.Format("recovery.count", ("count", shownCount.ToString("N0", culture)));
-            availableLabel.Text = UiText.Format("backup.available", ("available", Size(Math.Max(0, limit - used))));
+            availableLabel.Text = UiText.Format("backup.available", ("available", Size(values.Available)));
             FitPolicy();
         }
         UiText.Changed += RefreshUsage; Disposed += (_, _) => UiText.Changed -= RefreshUsage;
@@ -270,4 +270,13 @@ internal sealed class RecoveryForm : Form
 internal sealed class MenuActionButton : AdaptiveButton
 {
     internal void InvokeAction() { if (Enabled) OnClick(EventArgs.Empty); }
+}
+
+internal readonly record struct BackupUsageValues(decimal Used, decimal Limit, decimal Ratio, decimal Available, int Meter)
+{
+    internal static BackupUsageValues From(long usedBytes, decimal quotaMb)
+    {
+        var used = Math.Max(0m, usedBytes); var limit = Math.Max(0m, quotaMb * 1_000_000m); var ratio = limit > 0 ? used / limit : 0;
+        return new(used, limit, ratio, Math.Max(0, limit-used), (int)Math.Clamp(ratio*1000m,0,1000));
+    }
 }

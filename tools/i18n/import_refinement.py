@@ -1,8 +1,10 @@
 """Import the supplied CSV verbatim; structural UI decorations remain code/catalog data."""
-import csv,json,re,collections,pathlib,hashlib
+import csv,json,re,collections,pathlib,hashlib,sys
 ROOT=pathlib.Path(__file__).resolve().parents[2]
 def read(p):return json.loads(p.read_text(encoding='utf-8-sig'))
-def write(p,v):p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+def write(p,v):
+ if '--check' in sys.argv:assert read(p)==v, str(p)+' differs from the authorized CSV import'
+ else:p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 source=read(ROOT/'i18n/source.json');languages=read(ROOT/'i18n/locales.json')['languages']; locales={x['locale']:x['code'] for x in languages}
 rows=list(csv.DictReader((ROOT/'i18n/refinement-20261024.csv').open(encoding='utf-8-sig',newline='')))
 assert set(rows[0])==set('translation_id screen_ids change_type source_pt_br locale translation existing_key'.split())

@@ -39,9 +39,16 @@ internal static class Program
                     entry.Item2.Show(); Application.DoEvents(); using var bitmap = new Bitmap(entry.Item2.Width, entry.Item2.Height);
                     entry.Item2.DrawToBitmap(bitmap, new Rectangle(Point.Empty, bitmap.Size)); bitmap.Save(Path.Combine(folder, entry.Item1 + ".png"), System.Drawing.Imaging.ImageFormat.Png); entry.Item2.Hide();
                 }
+                static IEnumerable<Control> All(Control root) { foreach(Control child in root.Controls) { yield return child; foreach(var nested in All(child)) yield return nested; } }
                 foreach (var theme in new[] { ApplicationTheme.Light, ApplicationTheme.Dark })
                 {
                     Branding.PreviewTheme(theme);
+                    using (var expandedBackups = new RecoveryForm(preview: true))
+                    {
+                        expandedBackups.Show(); foreach(var panel in All(expandedBackups).OfType<DisclosureCard>()) panel.SetExpanded(true); Application.DoEvents();
+                        using var bitmap = new Bitmap(expandedBackups.Width, expandedBackups.Height); expandedBackups.DrawToBitmap(bitmap, new Rectangle(Point.Empty, bitmap.Size));
+                        bitmap.Save(Path.Combine(folder, $"recovery-expanded-{theme}.png"), System.Drawing.Imaging.ImageFormat.Png); expandedBackups.Hide();
+                    }
                     using (var advanced = new AdvancedPreferencesForm(LocalStorage.ForCurrentUser(), preview: true))
                     {
                         advanced.Show(); Application.DoEvents();

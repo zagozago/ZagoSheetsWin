@@ -25,6 +25,8 @@ jobs:
         env:
           PYTHONUTF8: '1'
         run: |
+          python tools/i18n/import_refinement.py --check
+          if ($LASTEXITCODE -ne 0) { throw 'Refinement CSV integration differs from the approved source' }
           python tools/i18n/generate.py --check
           if ($LASTEXITCODE -ne 0) { throw 'Localization generation validation failed' }
           python tools/i18n/test_catalog.py

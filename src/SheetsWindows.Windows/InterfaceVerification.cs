@@ -188,6 +188,9 @@ internal static class InterfaceVerification
             screen.Close();
         }
         Console.Error.WriteLine("VERIFY: backup selection");
+        var zeroUsage = BackupUsageValues.From(0,0); var exceededUsage = BackupUsageValues.From(300_000_000,200);
+        Require(zeroUsage.Ratio == 0 && zeroUsage.Available == 0 && zeroUsage.Meter == 0, "Zero storage limits must be safe.");
+        Require(exceededUsage.Ratio == 1.5m && exceededUsage.Available == 0 && exceededUsage.Meter == 1000, "Over-quota metrics must preserve actual percentage and clamp only available space and the bar.");
         var policyRoot = Path.Combine(Path.GetTempPath(), "zsw-policy-ui-" + Guid.NewGuid().ToString("N"));
         try
         {
