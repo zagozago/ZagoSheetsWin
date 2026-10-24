@@ -64,8 +64,8 @@ internal class AdaptiveButton : Button
     [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
     internal int IconOffsetY { get; set; }
     [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-    internal bool KeepArrowWithWord { get; init; }
-    private string DisplayText => KeepArrowWithWord ? System.Text.RegularExpressions.Regex.Replace(Text, @"\s+([▾▼])$", "\u00a0$1") : Text;
+    internal bool KeepArrowWithWord { get; init; } = true;
+    private string DisplayText => KeepArrowWithWord && System.Text.RegularExpressions.Regex.IsMatch(Text, @"\S+\s+\S+\s+[▾▼]$") ? System.Text.RegularExpressions.Regex.Replace(Text, @"\s+([▾▼])$", "\u00a0$1") : Text;
     private readonly System.Windows.Forms.Timer spinner = new() { Interval = 50 };
     private int spinnerAngle;
     private bool spinning;
@@ -74,7 +74,7 @@ internal class AdaptiveButton : Button
     public AdaptiveButton(){Padding=new Padding(12,6,12,6);AutoEllipsis=false; spinner.Tick += (_,_) => { spinnerAngle = (spinnerAngle + 30) % 360; Invalidate(); };}
     protected override void OnPaint(PaintEventArgs e)
     {
-        if (Image is null && Enabled || SystemInformation.HighContrast) { base.OnPaint(e); return; }
+        if (Image is null && Enabled && DisplayText == Text || SystemInformation.HighContrast) { base.OnPaint(e); return; }
         var hovered = Enabled && ClientRectangle.Contains(PointToClient(MousePosition));
         e.Graphics.Clear(hovered ? FlatAppearance.MouseOverBackColor : BackColor);
         using var border = new Pen(FlatAppearance.BorderColor);
