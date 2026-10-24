@@ -8,6 +8,7 @@ internal sealed class EmphasisLabel : Label
     private bool updating;
     public EmphasisLabel() { UseMnemonic = false; AutoEllipsis = false; }
     internal bool HasEmphasis => Font.Bold || BoldPrefix;
+    [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
     internal bool BoldPrefix
     {
         get => formatted is not null;
