@@ -278,23 +278,38 @@ internal static class InterfaceVerification
             recovery.Hide();
         }
         using (var manyBackups = new RecoveryForm(preview: true))
+        using (var bulkWatcher = new System.Windows.Forms.Timer { Interval = 15 })
         {
-            manyBackups.Show(); Application.DoEvents();
             var rows = Descendants(manyBackups).OfType<BackupSelectionList>().Single();
             for(var index=rows.Items.Count; index<313; index++)
             {
                 var row = new ListViewItem("") { Tag = new RecoveryEntry(Guid.NewGuid(), $"arquivo-{index}.xlsx", 100, 4, DateTimeOffset.UtcNow, true, true) };
                 row.SubItems.AddRange([$"arquivo-{index}.xlsx", "24/10/2026", "0.00 MB", UiText.Get("recovery.state.completed")]); rows.Items.Add(row);
             }
-            foreach(var select in new[] { true, false })
+            var phase = 0; var completed = false; var timer = new System.Diagnostics.Stopwatch();
+            bulkWatcher.Tick += (_, _) =>
             {
-                var timer = System.Diagnostics.Stopwatch.StartNew();
-                Descendants(manyBackups).OfType<Button>().Single(b => b.Text == UiText.Get(select ? "recovery.selectAll" : "recovery.clearSelection")).PerformClick();
-                if (rows.ApplyingSelection) SaveFrame(manyBackups, select ? "bulk-select-progress" : "bulk-clear-progress");
-                while(rows.ApplyingSelection && timer.Elapsed < TimeSpan.FromSeconds(10)) { Application.DoEvents(); Thread.Sleep(1); }
-                Require(!rows.ApplyingSelection && rows.SelectedItems.Count == (select ? 313 : 0) && rows.CheckedItems.Count == (select ? 313 : 0), "Bulk selection must preserve all 313 checkbox and selection states.");
-                Console.Error.WriteLine($"VERIFY: 313 rows {(select ? "select" : "clear")}: {timer.ElapsedMilliseconds} ms");
-            }
+                if (phase == 0)
+                {
+                    timer.Restart(); phase = 1;
+                    Descendants(manyBackups).OfType<Button>().Single(b => b.Text == UiText.Get("recovery.selectAll")).PerformClick();
+                    if(rows.ApplyingSelection) SaveFrame(manyBackups,"bulk-select-progress");
+                    return;
+                }
+                if(rows.ApplyingSelection && timer.Elapsed < TimeSpan.FromSeconds(10)) return;
+                Console.Error.WriteLine($"VERIFY: 313 rows phase={phase}, selected={rows.SelectedItems.Count}, checked={rows.CheckedItems.Count}, applying={rows.ApplyingSelection}, elapsed={timer.ElapsedMilliseconds} ms");
+                if (phase == 1 && !rows.ApplyingSelection && rows.SelectedItems.Count == 313 && rows.CheckedItems.Count == 313)
+                {
+                    timer.Restart(); phase = 2;
+                    Descendants(manyBackups).OfType<Button>().Single(b => b.Text == UiText.Get("recovery.clearSelection")).PerformClick();
+                    if(rows.ApplyingSelection) SaveFrame(manyBackups,"bulk-clear-progress");
+                    return;
+                }
+                completed = phase == 2 && !rows.ApplyingSelection && rows.SelectedItems.Count == 0 && rows.CheckedItems.Count == 0;
+                bulkWatcher.Stop(); manyBackups.Close();
+            };
+            bulkWatcher.Start(); manyBackups.ShowDialog();
+            Require(completed,"Bulk selection must preserve all 313 checkbox and selection states.");
         }
         Console.Error.WriteLine("VERIFY: settings and information");
         using (var setup = new SetupForm(preview: true))

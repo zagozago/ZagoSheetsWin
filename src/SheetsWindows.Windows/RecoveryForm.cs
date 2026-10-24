@@ -71,19 +71,27 @@ internal sealed class RecoveryForm : Form
         var daysLabel = new Label { Text = UiText.Get("recovery.retentionLabel"), AutoSize = true };
         var quotaLabel = new Label { Text = UiText.Get("recovery.quotaLabel"), AutoSize = true };
         limits.Controls.Add(daysLabel, 0, 0); limits.Controls.Add(quotaLabel, 1, 0); limits.Controls.Add(days, 0, 1); limits.Controls.Add(quota, 1, 1);
+        var fittingPolicy = false;
         void FitPolicy()
         {
-            var width = Math.Max(120, policyPanel.ClientSize.Width - policyPanel.Padding.Horizontal - 16);
-            meter.Width = Math.Max(40, width - 28);
-            usage.MaximumSize = new Size(Math.Max(80, width - 28), 0);
-            statistics.MinimumSize = new Size(Math.Max(100, width - 28), 0); statistics.MaximumSize = new Size(Math.Max(100, width - 28), 0);
-            foreach (var label in policyPanel.Controls.OfType<Label>()) label.MaximumSize = new Size(width, 0);
-            limits.MinimumSize = new Size(Math.Max(100, width - 28), 0); limits.MaximumSize = new Size(Math.Max(100, width - 28), 0); limits.Width = Math.Max(100, width - 28);
-            daysLabel.MaximumSize = quotaLabel.MaximumSize = new Size(Math.Max(45, (width-28)/2-6), 0);
-            days.Width = quota.Width = Math.Max(45, (width-28)/2-6);
+            if (fittingPolicy) return; fittingPolicy = true;
+            try
+            {
+                var contentWidth = Math.Max(20, statistics.ClientSize.Width - statistics.Padding.Horizontal);
+                meter.Width = Math.Max(20, contentWidth - meter.Margin.Horizontal);
+                usage.MaximumSize = new Size(Math.Max(20, contentWidth - usage.Margin.Horizontal), 0);
+                var width = Math.Max(80, limits.Parent is Control host ? host.ClientSize.Width - host.Padding.Horizontal - limits.Margin.Horizontal : limits.Width);
+                limits.MinimumSize = new Size(width, 0); limits.MaximumSize = new Size(width, 0); limits.Width = width;
+                var cellWidth = Math.Max(30, width / 2 - 6 * DeviceDpi / 96);
+                daysLabel.MaximumSize = quotaLabel.MaximumSize = new Size(cellWidth, 0);
+                days.Width = quota.Width = cellWidth;
+            }
+            finally { fittingPolicy = false; }
         }
+        statistics.SizeChanged += (_, _) => FitPolicy();
         policyPanel.SizeChanged += (_, _) => FitPolicy();
         var configuration = new DisclosureCard("backup.settings.title", UiIcon.Settings, limits);
+        configuration.Body.SizeChanged += (_, _) => FitPolicy();
         var usagePanel = new DisclosureCard("recovery.usedHeading", UiIcon.Backup, statistics);
         var tip = new DisclosureCard("backup.tip.title", UiIcon.Bulb, Ui.Text(UiText.Get("backup.tip.multi")), Ui.Text(UiText.Get("backup.tip.ctrl")), Ui.Text(UiText.Get("backup.tip.shift")), Ui.Text(UiText.Get("backup.tip.arrows"))) { Tag = "tipCard" };
         tip.Body.Tag = "tipCard";

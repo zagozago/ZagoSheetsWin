@@ -159,6 +159,7 @@ internal sealed class DisclosureButton : AdaptiveButton
 
 internal sealed class StorageMeter : Control
 {
+    internal StorageMeter() { DoubleBuffered = true; TabStop = false; AccessibleRole = AccessibleRole.ProgressBar; }
     internal int Maximum = 1000;
     private int value;
     [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
