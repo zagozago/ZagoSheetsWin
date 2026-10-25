@@ -1,4 +1,4 @@
-# Distribution candidate 0.9.48: RTL horizontal action insets restored on home and settings; native checks in Local core 40126683024.
+# Distribution candidate 1.0.0: release metadata and preserved main documentation; functional baseline 0.9.48 unchanged.
 name: Protected alpha distribution
 on:
   workflow_dispatch:

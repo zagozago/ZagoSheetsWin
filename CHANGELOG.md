@@ -1,5 +1,13 @@
 # Histórico de alterações
 
+## 1.0.0 — preparação do primeiro lançamento público
+
+- Promove o comportamento da 0.9.48 aceito nos testes manuais do mantenedor, sem novas funcionalidades ou mudanças no núcleo de importação, OAuth, backups ou recuperação.
+- Inclui os ajustes finais de alinhamento RTL nas janelas principal e de configurações, ênfase dos painéis de backup e quebra conjunta da última palavra com a seta dos botões.
+- Concilia o histórico de desenvolvimento com a documentação da main, preservando os READMEs em 51 idiomas.
+- Atualiza versão do aplicativo, instalador, catálogo e avisos legais para 1.0.0.
+- Distribuição escolhida: EXE por usuário no GitHub Releases, sem assinatura Authenticode, com SHA-256 e manifesto do build protegido. Publicação e verificações finais ainda pendentes; ver docs/RELEASE_1_0.md.
+
 ## 0.9.48 — ajustes finais localizados
 
 - Seletor do instalador com área cliente proporcional; arte lateral recomposta apenas com logo e nomes ZagoSheetsWin/Zagotools, preservando os créditos externos.
